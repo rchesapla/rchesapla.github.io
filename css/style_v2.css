@@ -1,10 +1,11 @@
 body {
-  font-family: system-ui;
-  background: #f06d06;
-  color: white;
-  text-align: center;
+	background: #f06d06;
+	color: white;
+	text-align: center;
+	font-family: "Protest Guerrilla", sans-serif;
+	font-weight: 400;
+	font-style: normal;
 }
-
 
 /* TABLO YAZI TİPİ DEĞİŞTİRME */
 .body {
@@ -12,17 +13,15 @@ body {
 	background-image: url('https://www.mmsrn.com/wp-content/uploads/2016/04/sol-%C3%BCst-k%C3%B6%C5%9Fe-1.png'); /* Add a search icon to input */
 	background-position: top left;
 	background-repeat : no-repeat;
-	font-family: "Orbitron", sans-serif;
 }
 
 .başlık {
-	  color:black;
+	color:black;
 	font-weight:bold;
 	font-size: 50px;
-	font-family: "Sarpanch", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-  
+	font-family: "Protest Guerrilla", sans-serif;
+	font-weight: 400;
+	font-style: normal;
 }
 
 ::-webkit-scrollbar {
@@ -49,7 +48,9 @@ body {
 }
 
 .drawer-menu {
-  font-family: 'Germania One', cursive;
+  font-family: "Nerko One", cursive;
+  font-weight: 400;
+  font-style: normal;
   font-size: 13px;
   text-decoration:none;
   color: black
@@ -97,7 +98,7 @@ text-shadow: 0px 0px 10px #00ff0f, -1px -1px #000;
 .asit{
 font: 80px;
 color:#00ff0f;
-text-shadow: 0px 0px 10px #00ff0f, -1px -1px #000;
+text-shadow: 0px 0px 4px #00ff0f, -1px -1px #000;
 }
 
 .uc-boyut{
