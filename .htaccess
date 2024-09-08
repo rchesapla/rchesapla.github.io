@@ -1,4 +1,4 @@
-ErrorDocument 404 https://turkcraft01.com/rchesapla
+ErrorDocument 404 https://rchesapla.github.io/404
 Options -Indexes
 # php -- BEGIN cPanel-generated handler, do not edit
 # “ea-php81” paketini varsayılan “PHP” programlama dili olarak ayarlayın.
