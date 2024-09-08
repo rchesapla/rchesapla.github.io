@@ -1,0 +1,30 @@
+﻿    .navbar {
+      background-color: rgba(0,0,0,.03);
+	  border-radius: 14px 14px 0px 0px;
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+	  color: Blue;
+    }
+
+    .navbar-nav .nav-item .nav-link {
+      position: relative; 
+      transition: 0.3s;
+      font-weight: 400;
+    }
+
+    .navbar-nav .nav-item .nav-link::before {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: #f8b739;
+      transition: 0.3s;
+    }
+
+    .navbar-nav .nav-item .nav-link:hover::before {
+      width: 100%;
+    }
