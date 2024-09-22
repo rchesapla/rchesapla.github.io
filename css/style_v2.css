@@ -44,25 +44,21 @@ body {
   text-decoration:none;
 }
 
-.ozel2 {
+.tablofont {
   /*font-family: 'Russo One', sans-serif; */
   text-decoration:none;
   font-family: "Tiny5", sans-serif;
-  font-size: 20px;
+  font-size: 15px;
 }
 
-.table-responsive {
-    display: flex;
-    align-items: stretch;
-    flex-direction: column;
-	text-align: center;
+.tablobaslikrenk {
+  /*font-family: 'Russo One', sans-serif; */
+  color: rgba(255, 255, 255, .5);
 }
 
-.roller-table thead th {
-    border: none;
-    border-radius: 4px;
-    background-color: var(--black-russian);
-    padding: 8px 16px;
+.tablobaslikrenk2 {
+  /*font-family: 'Russo One', sans-serif; */
+	color: #00ff0f !important;
 }
 
 .asit{
@@ -73,7 +69,8 @@ text-shadow: 0px 0px 4px #00ff0f, -1px -1px #000;
 
 .card-body {
 	background: #0E1119; /* background: #151414; */
-	font-size: 13px;
+	font-family: "Bungee Inline", sans-serif;
+	font-size: 12px;
 	color: #00ff0f;
 }
 
@@ -85,7 +82,7 @@ text-shadow: 0px 0px 4px #00ff0f, -1px -1px #000;
 }
 
 .card-header {
-	font-size: 14px;
+	font-size: 15px;
 	color: rgba(255, 255, 255, .5);
 }
 
@@ -397,6 +394,10 @@ ul {
     margin-top: 24px;
     margin-bottom: 5%;
     text-align: center;
+  }
+  
+  .fctablo {
+	  padding: 0.25rem 0.5rem;
   }
 
   .titulo img {
