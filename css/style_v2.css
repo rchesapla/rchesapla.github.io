@@ -3,6 +3,8 @@ body {
 	color: white;
 	text-align: center;
 	font-family: "Protest Guerrilla", sans-serif;
+	font-weight: 400;
+	font-style: normal;
 }
 
 /* TABLO YAZI TİPİ DEĞİŞTİRME */
@@ -34,8 +36,9 @@ body {
 .head {
   /*font-family: 'Russo One', sans-serif; */
   text-decoration:none;
-  font-family: "Tiny5", sans-serif;
-  font-size: 20px;
+  font-family: "Sarpanch", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .head2 {
@@ -44,21 +47,52 @@ body {
   text-decoration:none;
 }
 
-.tablofont {
-  /*font-family: 'Russo One', sans-serif; */
+.drawer-menu {
+  font-family: "Nerko One", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 13px;
   text-decoration:none;
-  font-family: "Tiny5", sans-serif;
-  font-size: 15px;
+  color: black
 }
 
-.tablobaslikrenk {
-  /*font-family: 'Russo One', sans-serif; */
-  color: rgba(255, 255, 255, .5);
+.fcinput {
+	text-align: center;
 }
 
-.tablobaslikrenk2 {
-  /*font-family: 'Russo One', sans-serif; */
-	color: #00ff0f !important;
+.table-responsive {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+	text-align: center;
+}
+
+.roller-table thead th {
+    border: none;
+    border-radius: 4px;
+    background-color: var(--black-russian);
+    padding: 8px 16px;
+}
+
+.fatihceliktr-3d{
+font-family: 'Germania One', cursive;
+color: #2f3045;
+font-weight:bold;
+font-size: 25px;
+padding: 10px 20px;
+text-shadow:0px 0px 0 rgb(223,223,223),1px 1px 0 rgb(202,202,202),2px 2px 0 
+rgb(180,180,180),3px 3px 0 rgb(158,158,158), 4px 4px 0 rgb(136,136,136),5px 
+5px 4px rgba(0,0,0,0.6),5px 5px 1px rgba(0,0,0,0.5),0px 0px 4px rgba(0,0,0,.2);
+}
+
+.sosyalmedyahesaplarımız{
+font: 80px;
+font-family: 'Russo One', sans-serif;
+color:#2f3045;
+
+	width: 100%;
+	background: #2f3045; /* background: #151414; */
+text-shadow: 0px 0px 10px #00ff0f, -1px -1px #000;
 }
 
 .asit{
@@ -67,22 +101,41 @@ color:#00ff0f;
 text-shadow: 0px 0px 4px #00ff0f, -1px -1px #000;
 }
 
+.uc-boyut{
+font: 80px;
+font-family: 'Russo One', sans-serif;
+color: #fff;
+text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135;
+}
+
+.alfa{
+font: 100px;
+font-family: 'Russo One', sans-serif;
+color: black;
+text-shadow: 0px 0px 0 rgb(223,223,223),1px 1px 0 rgb(202,202,202),2px 2px 0 
+rgb(180,180,180),3px 3px 0 rgb(158,158,158), 4px 4px 0 rgb(136,136,136),5px 
+5px 4px rgba(0,0,0,0.6),5px 5px 1px rgba(0,0,0,0.5),0px 0px 4px rgba(0,0,0,.2);
+}
+
 .card-body {
 	background: #0E1119; /* background: #151414; */
-	font-family: "Bungee Inline", sans-serif;
-	font-size: 12px;
+	font-size: 13px;
 	color: #00ff0f;
+	border-radius: 0px 0px 0px 0px;
 }
 
 .card-fc {
 	width: auto;
 	color: white;
 	background: #2f3045; /* background: #151414; */
-	border-radius: 5px 5px 5px 5px;
+	border: 1px dashed #ff6550;
+	border-radius: 10px 10px 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+	-webkit-border-radius: 10px 10px 10px 10px;z
 }
 
 .card-header {
-	font-size: 15px;
+	font-size: 14px;
 	color: rgba(255, 255, 255, .5);
 }
 
@@ -394,10 +447,6 @@ ul {
     margin-top: 24px;
     margin-bottom: 5%;
     text-align: center;
-  }
-  
-  .fctablo {
-	  padding: 0.25rem 0.5rem;
   }
 
   .titulo img {
