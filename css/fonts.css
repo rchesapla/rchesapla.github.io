@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Offside&display=swap'); /* BAŞLIKLAR */
-@import url('https://fonts.googleapis.com/css2?family=Nosifer&display=swap'); /* KAZIMGÜCÜ */
+@import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@200..800&display=swap'); /* KAZIMGÜCÜ */
 @import url('https://fonts.googleapis.com/css2?family=Stalinist+One&display=swap'); /* BAŞLIK2 */
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap'); /* AÇIKLAMA */
 
@@ -9,7 +9,7 @@
   --başlıklar: Offside, sans-serif;
   --başlık2: Stalinist One, sans-serif;
   --açıklama: Rubik Wet Paint, sans-serif;
-  --kazımgücü: Nosifer, sans-serif;
+  --kazımgücü: Gemunu Libre, sans-serif;
 }
 
 .özelfont {
@@ -27,5 +27,5 @@
 	font:20px var(--açıklama);
 	}
 .kazımgücü {
-	font:12px var(--kazımgücü);
+	font:16px var(--kazımgücü);
 	}
