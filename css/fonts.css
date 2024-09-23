@@ -1,13 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Offside&display=swap');
 
 
 :root {
   --yazılar: Montserrat, sans-serif;
-  --başlıklar: Rubik, sans-serif;
+  --başlıklar: Offside, sans-serif;
 }
 
-.özelfont {font:700 15px var(--yazılar);}
-.özelfont2 {font:700 15px var(--başlıklar);}
+.özelfont {
+	font-size:15px var(--yazılar);
+	}
+.özelfont2 {
+	font:15px var(--başlıklar);
+	}
