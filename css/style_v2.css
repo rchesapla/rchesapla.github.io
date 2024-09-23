@@ -124,10 +124,7 @@ rgb(180,180,180),3px 3px 0 rgb(158,158,158), 4px 4px 0 rgb(136,136,136),5px
 	width: auto;
 	color: white;
 	background: #2f3045; /* background: #151414; */
-	border: 1px dashed #ff6550;
 	border-radius: 10px 10px 10px 10px;
-	-moz-border-radius: 10px 10px 10px 10px;
-	-webkit-border-radius: 10px 10px 10px 10px;z
 }
 
 .card-header {
