@@ -1,9 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Offside&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Offside&display=swap'); /* BAŞLIKLAR */
+@import url('https://fonts.googleapis.com/css2?family=Nosifer&display=swap'); /* KAZIMGÜCÜ */
+@import url('https://fonts.googleapis.com/css2?family=Stalinist+One&display=swap'); /* BAŞLIK2 */
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap'); /* AÇIKLAMA */
 
 
 :root {
   --yazılar: Montserrat, sans-serif;
   --başlıklar: Offside, sans-serif;
+  --başlık2: Stalinist One, sans-serif;
+  --açıklama: Rubik Wet Paint, sans-serif;
+  --kazımgücü: Nosifer, sans-serif;
 }
 
 .özelfont {
@@ -11,4 +17,15 @@
 	}
 .özelfont2 {
 	font:15px var(--başlıklar);
+	}
+.başlık2 {
+	font:50px var(--başlıklar);
+	font-weight: 1000;
+	font-style: normal;
+	}
+.açıklama {
+	font:20px var(--açıklama);
+	}
+.kazımgücü {
+	font:12px var(--kazımgücü);
 	}
