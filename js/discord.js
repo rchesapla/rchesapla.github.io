@@ -23,9 +23,3 @@ function joinDiscord() {
 
 // Fetch Discord data on page load
 fetchDiscordData();
-
-
-//TELGRAM İÇİN AYARLAR
-  document.querySelector('.my-float').addEventListener('click', function() {
-
-    window.open('https://t.me/bilgilendiriyor', '_blank');
