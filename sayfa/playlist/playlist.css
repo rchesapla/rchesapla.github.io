@@ -1,0 +1,462 @@
+/* ---------------------------------------------- */
+/* -- PAGE */
+/* ---------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  -webkit-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+body {
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap:8px;
+  padding:8px;
+  width: 100vw;
+  height: 100vh;
+  font-family: "Roboto", Arial, "Segoe UI", sans-serif;
+  font-size: 16px;
+  overflow: hidden;
+}
+/* ---------------------------------------------- */
+.column {
+  position: relative;
+  padding: 8px;
+  width: 296px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.08);
+  overflow:hidden;
+  border-radius:8px;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+.column.big {
+  flex:1;
+  padding:20px;
+  line-height:26px;
+  font-size:15px;
+  letter-spacing:0.5px;
+  color:rgba(255,255,255,.24);
+}
+.column.big b {
+  position:relative;
+  font-weight:600;
+  padding-bottom:20px;
+  font-size:19px;
+  color: #ff007f;
+}
+.column.big h2 {
+  position:relative;
+  font-weight: 600;
+  padding-bottom: 20px;
+  border-bottom: 2px dotted rgba(255,255,255,.15);
+  margin-bottom: 30px;
+  font-size: 28px;
+  color: rgba(255,255,255,.50);
+}
+.column.big a {
+  text-decoration:none;
+  border-bottom: 1px dotted rgba(255,255,255,.5);
+  color: rgba(255,255,255,.5);
+}
+
+/* ---------------------------------------------- */
+/* -- TREEVIEW */
+/* ---------------------------------------------- */
+.libfilter {
+  position:relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-content: flex-start;
+  align-items: flex-start;
+  gap: 0px;
+  left:1px;
+  background: rgba(255, 255, 255, 0.04);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  border-left: 1px solid rgba(255, 255, 255, 0.04);
+  border-right: 1px solid rgba(0, 0, 0, 0.48);
+  border-bottom: .5px solid rgba(0, 0, 0, 0.48);
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  border-bottom-left-radius:0px;
+  border-bottom-right-radius:0px;
+  width: calc(100% - 0px);
+  height: 39px;
+  overflow: hidden;
+  -webkit-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
+}
+.libfilter div {
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 0px;
+  overflow: hidden;
+  height: 37px;
+}
+.libfilter div:first-of-type {
+  flex-direction: column;
+  height: 39px;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
+.libfilter div .fhead {
+  position: absolute;
+  font-size: 21px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, .24);
+  letter-spacing: 0.5px;
+  left: 6px;
+  top: 7.5px;
+  opacity: 1;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+.libfilter div .fhead.hide {
+  opacity: 0;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+.libfilter .fsearch {
+  position: relative;
+  border: none;
+  color: white;
+  background: rgba(255, 255, 255, 0.08);
+  height: 26px;
+  margin: 4px;
+  top: 1px;
+  width: 0px;
+  opacity: 0;
+  margin-bottom: 0px;
+  padding-right: 5px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  padding-left: 8px;
+  -webkit-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
+}
+.libfilter .fsearch.active {
+  width: auto;
+  opacity: 1;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+.libfilter .fbutton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 36px;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 3px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.16);
+}
+.libfilter .fbutton:hover,
+.libfilter .fbutton:active,
+.libfilter .fbutton:focus {
+  color: #ff007f;
+}
+.libfilter .ftype {
+  position: relative;
+  top: -7px;
+  left: 0px;
+  display: flex;
+  overflow: hidden;
+  padding: 4px;
+  gap: 8px;
+  margin-top: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 39px;
+  overflow: hidden;
+}
+.libfilter .ftype li {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  height: 26px;
+  width: auto;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.42);
+  padding-left: 8px;
+  padding-right: 8px;
+  cursor: pointer;
+}
+.libfilter .ftype li:hover,
+.libfilter .ftype li:focus,
+.libfilter .ftype li:active {
+  color: black;
+  background: rgba(255, 255, 255, 0.48);
+}
+.libfilter .ftype li.active {
+  color: white;
+  background: #ff007f;
+}
+/* ---------------------------------------------- */
+.addmenu {
+  position: absolute;
+  right:45px;
+  top:46px;
+  display:flex;
+  flex-direction:column;
+  border-radius:4px;
+  height: auto;
+  width: auto;
+  padding:2px;
+  background:rgba(0,0,0,1);
+  overflow:hidden;
+  display:none;
+  opacity:0;
+  box-shadow: 0 0 5px rgba(0,0,0,1);
+  z-index:2;
+}
+.addmenu.show {
+  display:flex;
+  opacity:1;
+}
+.addmenu .spacer {
+  height:1px;
+  padding:0;
+  margin-top:2px;
+  margin-bottom:2px;
+  border-top:1px solid rgba(255,255,255,.16);
+}
+.addmenu li i {
+  width: 40px;
+  font-size: 18px;
+  padding-left:8px;
+  padding-right: 8px;
+}
+.addmenu li {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding-right: 6px;
+  color: rgba(255,255,255,.5);
+  cursor: pointer;
+  font-size: 14px;
+}
+.addmenu li:hover,
+.addmenu li:focus,
+.addmenu li:active {
+  background:rgba(255,255,255,.04);
+  color:rgba(255,255,255,1);
+}
+
+/* ---------------------------------------------- */
+/* -- TREEVIEW */
+/* ---------------------------------------------- */
+#treeview {
+  position:relative;
+  top:-1px;
+  color: #fff;
+  padding: 1px;
+  padding-right: 1px;
+  width: calc(100% + 2px);
+  border-radius: 0px;
+  border-top-left-radius:0px;
+  border-top-right-radius:0px;
+  height: calc(100% - 41px);
+  overflow: hidden;
+  overflow-y:auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ff007f rgba(0, 0, 0, 0);
+}
+#treeview::-webkit-scrollbar {
+  width: 4px;
+  height:4px;
+}
+#treeview::-webkit-scrollbar-thumb {
+  background-color: #ff007f;
+}
+#treeview ul {
+  list-style-type: none;
+  padding-left: 0;
+  padding: 0;
+}
+#treeview #playlist {
+  border-radius: 0px;
+  border-top-left-radius:0px;
+  border-top-right-radius:0px;
+  background: rgba(255, 255, 255, 0.04);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  border-left: 1px solid rgba(255, 255, 255, 0.04);
+  border-right: 1px solid rgba(0, 0, 0, 0.48);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.48);
+  overflow: hidden;
+}
+#treeview .folder {
+  cursor: pointer;
+  margin: 0;
+  padding: 4px;
+  font-weight: 600;
+  font-size: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.68);
+  background: rgba(0, 0, 0, 0.24);
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="rgba(255,255,255,0.08)" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 12L8 4V20L16 12Z" /></svg>');
+  background-repeat: no-repeat;
+  background-position: right 16px;
+  padding-right: 0px;
+  overflow: hidden;
+}
+#treeview .folder.open {
+  padding-bottom: 0;
+  -webkit-transition: all .001s ease-in-out;
+  transition: all .001s ease-in-out;
+}
+#treeview .folder:first-of-type {
+  border-top: 1px solid rgba(255, 255, 255, 0);
+}
+#treeview .folder::before {
+  display: inline-block;
+  margin-right: 20px;
+}
+#treeview .folder ul {
+  position: relative;
+  height: 0;
+  padding: 0;
+  left: -4px;
+  width: calc(100% + 4px);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+#treeview .folder ul.open li:first-of-type {
+  padding-top: 4px;
+}
+#treeview .folder ul.open {
+  height: auto;
+  margin-top: 4px;
+  overflow: hidden;
+  -webkit-transition: height 0.15s ease-in-out;
+  transition: height 0.15s ease-in-out;
+}
+#treeview .placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  width: 100%;
+  height: 40px;
+}
+#treeview .folder-info {
+  position: relative;
+  display: flex;
+  z-index: -1;
+}
+#treeview .playlist {
+  cursor: pointer;
+  padding: 4px 4px;
+  margin-bottom: 0px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.16);
+  display: flex;
+}
+#treeview .playlist:last-of-type {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+}
+#treeview .playlist:hover,
+#treeview .playlist:active,
+#treeview .playlist:focus {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+  background: #170209;
+}
+#treeview .playlist.active {
+  color: #fff;
+}
+#treeview .album-cover {
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+#treeview .playlist-info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  gap: 5px;
+  overflow: hidden;
+}
+#treeview .playlist-title {
+  margin: 0;
+  margin-top: 2.5px;
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#treeview .playlist-description {
+  margin: 0;
+  font-size: 12px;
+  color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#treeview .playlist:hover .playlist-description,
+#treeview .playlist-description:active,
+#treeview .playlist-description:focus {
+  animation: slideLeft 7s linear infinite;
+  text-overflow: clip;
+  overflow: visible;
+}
+/* ---------------------------------------------- */
+#treeview .placeholder {
+  border: 2px dashed rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  padding: 20px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.5);
+}
+#treeview .dragover {
+  background: rgba(255, 255, 255, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
+#treeview .drag-over {
+  background-color: #333;
+}
+#treeview .playlist.dragging,
+#treeview .folder.dragging {
+  cursor: move;
+}
+
+/* ---------------------------------------------- */
+/* -- ANIMATIONS */
+/* ---------------------------------------------- */
+@keyframes slideLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-150%);
+  }
+}

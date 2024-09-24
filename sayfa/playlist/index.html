@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>PlayList | RCHesapla - Kişisel Kazım Gücünü Hesapla!</title>
+	<link rel="shortcut icon" href="../../favicon.png" type="image/x-icon">
+<!--===============================================================================================-->
+	<link rel="stylesheet" href="playlist.css">
+<!--===============================================================================================-->
+	<meta name="keywords" content="rchesapla,turkcraft01,pb01adana,rollercoin,rollercoin hesapla,rollercoin calculator,rollercoin güç hesaplama">
+<!--===============================================================================================-->
+    <meta property="og:title" content="RCHesapla - Kişisel Kazım Gücünü Hesapla!">
+    <meta property="og:description" content="Kişisel kazım gücünü hesapla! | Anlık, günlük, haftalık, aylık aynı zamanda yıllık olarak hesaplama yapabilirsin.">
+	<meta property="og:image" content="https://fatihcelikofficialtr.github.io/img/gif/rchesapla.gif">
+    <meta property="og:url" content="https://fatihcelikofficialtr.github.io/">
+<!--===============================================================================================-->
+	<meta name="twitter:title" content="RCHesapla - Kişisel Kazım Gücünü Hesapla!">
+	<meta name="twitter:description" content="Kişisel kazım gücünü hesapla! | Anlık, günlük, haftalık, aylık aynı zamanda yıllık olarak hesaplama yapabilirsin.">
+	<meta name="twitter:image" content="https://fatihcelikofficialtr.github.io/img/gif/rchesapla.gif">
+	<meta name="twitter:card" content="summary_large_image">
+<!--===============================================================================================-->
+</head>
+<body>
+<!--===============================================================================================-->
+
+<!--===============================================================================================-->
+<!-- Column 1 -->
+<div id="col1" class="column">
+  <div class="libfilter">
+    <div>
+      <div class="fhead">Library</div>
+      <input id="fsearch" class="fsearch" type="search" title="Search for folder/playlist"></input>
+    </div>
+    <div class="fbutton" id="fsearchicon">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+    <div class="fbutton" onclick="addMenu()">
+      <i class="fa-solid fa-plus"></i>
+    </div>
+    <div class="fbutton" id="togglewidth">
+      <i class="fa-solid fa-arrows-left-right"></i>
+    </div>
+    
+    <ul class="ftype">
+      <li>private</li>
+      <li>shared</li>
+      <li>public</li>
+    </ul>
+  </div>
+  <div id="treeview">
+    <ul id="playlist">
+    </ul>
+  </div>
+  <ul class="addmenu">
+    <li><i class="fa-solid fa-square-plus"></i> Create Playlist</li>
+    <li><i class="fa-solid fa-folder-plus"></i> Create Folder</li>
+    <li class="spacer"></li>
+    <li><i class="fa-solid fa-file-export"></i> Export library</li>
+    <li><i class="fa-solid fa-file-import"></i> Import library</li>
+  </ul>
+</div>
+
+<!-- Column 2 -->
+<div class="column big">
+  <h2>Playlist UI</h2>
+  
+</div>
+<!--===============================================================================================-->
+	<script src="playlist.js"></script>
+<!--===============================================================================================-->
+</body>
+</html>
