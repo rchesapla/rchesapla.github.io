@@ -79,3 +79,15 @@
 .discord-widget button:hover {
     background-color: #5b6eae;
 }
+/* TELEGRAM İÇİN AYARLAR */
+  .my-float {
+
+    transition: transform 0.3s ease-in-out;
+
+  }
+
+  .my-float:hover {
+
+    transform: scale(1.2);
+
+  }
