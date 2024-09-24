@@ -55,7 +55,7 @@ a.channel:hover {
 #video-dis iframe {
   width: 100%;
   height: 100%;
-  border: 3px dashed #ff6550;
+  border: 1px dashed #ff6550;
 }
 .video-li {
   flex: 3.5;
@@ -64,7 +64,7 @@ a.channel:hover {
   border-radius: 3px;
   flex-direction: column;
   background: var(--primary);
-  border: 3px dashed #ff6550;
+  border: 1px dashed #ff6550;
 }
 .li-collapsed {
   overflow: hidden;
