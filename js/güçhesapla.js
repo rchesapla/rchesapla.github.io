@@ -23,8 +23,8 @@ function blockAmount() {
             break;
         case 1:
             //Doge - 60
-            var blockreward = 145;
-            document.getElementById("block-reward").value = 145;
+            var blockreward = 148;
+            document.getElementById("block-reward").value = 148;
 			document.getElementById("exp_reward").innerHTML = "【Önce Hesapla】";
 			document.getElementById("daily").innerHTML = "【Önce Hesapla】";
 			document.getElementById("weekly").innerHTML = "【Önce Hesapla】";
@@ -53,8 +53,8 @@ function blockAmount() {
             break;
         case 4:
             //Matic - 4
-            var blockreward = 11;
-            document.getElementById("block-reward").value = 11;
+            var blockreward = 9;
+            document.getElementById("block-reward").value = 9;
 			document.getElementById("exp_reward").innerHTML = "【Önce Hesapla】";
 			document.getElementById("daily").innerHTML = "【Önce Hesapla】";
 			document.getElementById("weekly").innerHTML = "【Önce Hesapla】";
