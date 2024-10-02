@@ -1,27 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Offside&display=swap'); /* BAŞLIKLAR */
 @import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@200..800&display=swap'); /* KAZIMGÜCÜ */
 @import url('https://fonts.googleapis.com/css2?family=Stalinist+One&display=swap'); /* BAŞLIK2 */
+@import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap'); /* BAŞLIK2 */
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap'); /* AÇIKLAMA */
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 
 
 :root {
-  --yazılar: Montserrat, sans-serif;
-  --başlıklar: Offside, sans-serif;
-  --başlık2: Stalinist One, sans-serif;
+  --özelfont: Montserrat, sans-serif;
+  --özelfont2: Audiowide, sans-serif;
+  --siteadı: Audiowide, sans-serif;
   --açıklama: Gemunu Libre, sans-serif;
   --kazımgücü: Gemunu Libre, sans-serif;
 }
 
 .özelfont {
-	font-size:15px var(--yazılar);
+	font-size:15px var(--özelfont);
 	}
 .özelfont2 {
-	font:15px var(--başlıklar);
+	font:15px var(--özelfont2);
 	}
-.başlık2 {
-	font:50px var(--başlıklar);
-	font-weight: 1000;
-	font-style: normal;
+.siteadı {
+	font-family: var(--siteadı);
+	font-size: 50px
 	}
 .açıklama {
 	font:20px var(--açıklama);
@@ -29,3 +30,13 @@
 .kazımgücü {
 	font:16px var(--kazımgücü);
 	}
+
+.discord-widget {
+    background-color: #0E1119;
+	font-family: var(--siteadı);
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    max-height: 80vh; /* Limit height for scrolling */
+}
