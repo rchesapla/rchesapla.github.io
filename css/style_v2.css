@@ -121,6 +121,7 @@ rgb(180,180,180),3px 3px 0 rgb(158,158,158), 4px 4px 0 rgb(136,136,136),5px
 	background-position: top left;
 	background-repeat : no-repeat;
 	font-family: 'Russo One', sans-serif;
+	filter: drop-shadow(0 0 1px red);
 }
 
 /* font-family: 'Russo One', sans-serif; */
