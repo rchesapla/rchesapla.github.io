@@ -1,24 +1,7 @@
-body {
-	background: #f06d06;
-	color: white;
-	text-align: center;
-	font-family: "Protest Guerrilla", sans-serif;
-}
-
+@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap');
 /* TABLO YAZI TİPİ DEĞİŞTİRME */
-.body {
-	background: #181928; /* background: #151414; */
-	background-image: url('https://www.mmsrn.com/wp-content/uploads/2016/04/sol-%C3%BCst-k%C3%B6%C5%9Fe-1.png'); /* Add a search icon to input */
-	background-position: top left;
-	background-repeat : no-repeat;
-}
-
-.başlık {
-	color:black;
-	font-weight:bold;
-	font-size: 50px;
-	font-family: "Protest Guerrilla", sans-serif;
-}
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 
 ::-webkit-scrollbar {
     background: #2f3045;
@@ -32,21 +15,16 @@ body {
 .head {
   /*font-family: 'Russo One', sans-serif; */
   text-decoration:none;
-  font-family: "Sarpanch", sans-serif;
-  font-weight: 700;
-  font-style: normal;
 }
 
 .head2 {
   font-family: 'Caveat Brush', cursive;
-  font-size: 1px;
+  font-size: 16px;
   text-decoration:none;
 }
 
 .drawer-menu {
-  font-family: "Nerko One", cursive;
-  font-weight: 400;
-  font-style: normal;
+  font-family: 'Germania One', cursive;
   font-size: 13px;
   text-decoration:none;
   color: black
@@ -93,8 +71,9 @@ text-shadow: 0px 0px 10px #00ff0f, -1px -1px #000;
 
 .asit{
 font: 80px;
+font-family: 'Russo One', sans-serif;
 color:#00ff0f;
-text-shadow: 0px 0px 40px #00ff0f, -1px -1px #000;
+text-shadow: 0px 0px 10px #00ff0f, -1px -1px #000;
 }
 
 .uc-boyut{
@@ -121,15 +100,33 @@ rgb(180,180,180),3px 3px 0 rgb(158,158,158), 4px 4px 0 rgb(136,136,136),5px
 }
 
 .card-fc {
-	width: auto;
+	width: 100%;
 	color: white;
 	background: #2f3045; /* background: #151414; */
 	border-radius: 10px 10px 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+	-webkit-border-radius: 10px 10px 10px 10px;
 }
 
 .card-header {
 	font-size: 14px;
-	color: rgba(255, 255, 255, .5);
+	color: #00ff0f;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Germania+One&display=swap');
+
+.body {
+	background: #181928; /* background: #151414; */
+	background-image: url('https://www.mmsrn.com/wp-content/uploads/2016/04/sol-%C3%BCst-k%C3%B6%C5%9Fe-1.png'); /* Add a search icon to input */
+	background-position: top left;
+	background-repeat : no-repeat;
+	font-family: 'Russo One', sans-serif;
+}
+
+/* font-family: 'Russo One', sans-serif; */
+.container{
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 
@@ -153,7 +150,6 @@ input[type="number"]::-webkit-outer-spin-button {
 	color: #c3b0d0 !important;
 	background-color: #181928 !important;
 	margin: center;
-	font-size: 15px !important;
 }
 
 /* Botones mostrar modal */
@@ -204,10 +200,17 @@ input[type="number"]::-webkit-outer-spin-button {
 /*Tabla de conversión*/
 .container-convert{
   width: 100%;
+  padding-right: var(--bs-gutter-x,.75rem);
+  padding-left: var(--bs-gutter-x,.75rem);
   margin-right: auto;
   margin-left: auto;
 }
 
+.başlık {
+	color: #161d2c;
+	font-weight:bold;
+	font-size: 50px;
+}
 .bakımmodu {
 	background: #ffffff !important;
 	color: #161d2c;
