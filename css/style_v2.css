@@ -117,7 +117,7 @@ rgb(180,180,180),3px 3px 0 rgb(158,158,158), 4px 4px 0 rgb(136,136,136),5px
 
 .body {
 	background: #181928; /* background: #151414; */
-	background-image: url('https://www.mmsrn.com/wp-content/uploads/2016/04/sol-%C3%BCst-k%C3%B6%C5%9Fe-1.png'); /* Add a search icon to input */
+	background-image: url("/img/bayrak.png"); /* Add a search icon to input */
 	background-position: top left;
 	background-repeat : no-repeat;
 	font-family: 'Russo One', sans-serif;
@@ -603,3 +603,8 @@ make it thinner, then set it to again wrap around the entire parent element.
 }
 
 /* - - - */
+
+/* DARK MODE CSS */
+
+
+/* DARK MODE CSS */
