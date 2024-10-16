@@ -1,24 +1,19 @@
- // Replace this with the YouTube video ID
-        var videoId = 'OeunFYXLcVc'; // For example, 'kJQP7kiw5Fk' is the video ID for the "Despacito" music video
+let videoList = document.querySelectorAll(".video-list-container .list");
 
-        var player;
+videoList.forEach((vid) => {
+  vid.onclick = () => {
+    videoList.forEach((remove) => {
+      remove.classList.remove("active");
+    });
+    vid.classList.add("active");
 
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '360',
-                width: '640',
-                videoId: videoId,
-                events: {
-                    'onReady': onPlayerReady
-                }
-            });
-        }
+    let src = vid.querySelector(".list__video").src;
+    let title = vid.querySelector(".list__title").innerHTML;
 
-        function onPlayerReady(event) {
-            event.target.playVideo();
-        }
-
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    document.querySelector(".main-video-container .main-video").src = src;
+    document.querySelector(".main-video-container .main-video").play();
+    document.querySelector(
+      ".main-video-container .main-video__title"
+    ).innerHTML = title;
+  };
+});
