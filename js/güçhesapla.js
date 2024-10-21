@@ -13,8 +13,8 @@ function blockAmount() {
     switch (document.getElementById("block-type").selectedIndex) {
         case 0:
             //Bitcoin - 28000
-            var blockreward = 33000;
-            document.getElementById("block-reward").value = 33000;
+            var blockreward = 28000;
+            document.getElementById("block-reward").value = 28000;
 			document.getElementById("exp_reward").innerHTML = "【Önce Hesapla】";
 			document.getElementById("daily").innerHTML = "【Önce Hesapla】";
 			document.getElementById("weekly").innerHTML = "【Önce Hesapla】";
@@ -23,8 +23,8 @@ function blockAmount() {
             break;
         case 1:
             //Doge - 60
-            var blockreward = 148;
-            document.getElementById("block-reward").value = 148;
+            var blockreward = 154;
+            document.getElementById("block-reward").value = 154;
 			document.getElementById("exp_reward").innerHTML = "【Önce Hesapla】";
 			document.getElementById("daily").innerHTML = "【Önce Hesapla】";
 			document.getElementById("weekly").innerHTML = "【Önce Hesapla】";
@@ -43,8 +43,8 @@ function blockAmount() {
             break;
         case 3:
             //Bnb - 0.025
-            var blockreward = 0.024;
-            document.getElementById("block-reward").value = 0.024;
+            var blockreward = 0.022;
+            document.getElementById("block-reward").value = 0.022;
 			document.getElementById("exp_reward").innerHTML = "【Önce Hesapla】";
 			document.getElementById("daily").innerHTML = "【Önce Hesapla】";
 			document.getElementById("weekly").innerHTML = "【Önce Hesapla】";
