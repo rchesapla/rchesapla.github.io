@@ -199,76 +199,76 @@ function calculateGoalPower() {
 			document.getElementById("yearly").innerHTML = (btcResult * 365).toFixed(4) + " SAT ⛏";
             break;
         case 1:
-            document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(4) + " <img src='img/svg_rc/doge.svg'  width='15' height='15'>";
+            document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(4) + " <img src='img/svg_rc/doge.svg'  width='20' height='20'>";
             var dogeResult = (exp_reward * dailyBlocks).toFixed(6);
-            document.getElementById("daily").innerHTML = dogeResult + " <img src='img/svg_rc/doge.svg'  width='15' height='15'>";
-            document.getElementById("weekly").innerHTML = (dogeResult * 7).toFixed(4) + " <img src='img/svg_rc/doge.svg'  width='15' height='15'>";
-            document.getElementById("monthly").innerHTML = (dogeResult * 30).toFixed(4) + " <img src='img/svg_rc/doge.svg'  width='15' height='15'>";
-			document.getElementById("yearly").innerHTML = (dogeResult * 365).toFixed(4) + " <img src='img/svg_rc/doge.svg'  width='15' height='15'>";
+            document.getElementById("daily").innerHTML = dogeResult + " <img src='img/svg_rc/doge.svg'  width='20' height='20'>";
+            document.getElementById("weekly").innerHTML = (dogeResult * 7).toFixed(4) + " <img src='img/svg_rc/doge.svg'  width='20' height='20'>";
+            document.getElementById("monthly").innerHTML = (dogeResult * 30).toFixed(4) + " <img src='img/svg_rc/doge.svg'  width='20' height='20'>";
+			document.getElementById("yearly").innerHTML = (dogeResult * 365).toFixed(4) + " <img src='img/svg_rc/doge.svg'  width='20' height='20'>";
             break;
         case 2:
-            document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(8) + " <img src='img/svg_rc/eth.svg'  width='15' height='15'>";
+            document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(8) + " <img src='img/svg_rc/eth.svg'  width='20' height='20'>";
             var ethResult = (exp_reward * dailyBlocks).toFixed(8);
-            document.getElementById("daily").innerHTML = ethResult + " <img src='img/svg_rc/eth.svg'  width='15' height='15'>";
-            document.getElementById("weekly").innerHTML = (ethResult * 7).toFixed(8) + " <img src='img/svg_rc/eth.svg'  width='15' height='15'>";
-            document.getElementById("monthly").innerHTML = (ethResult * 30).toFixed(8) + " <img src='img/svg_rc/eth.svg'  width='15' height='15'>";
-			document.getElementById("yearly").innerHTML = (ethResult * 365).toFixed(8) + " <img src='img/svg_rc/eth.svg'  width='15' height='15'>";
+            document.getElementById("daily").innerHTML = ethResult + " <img src='img/svg_rc/eth.svg'  width='20' height='20'>";
+            document.getElementById("weekly").innerHTML = (ethResult * 7).toFixed(8) + " <img src='img/svg_rc/eth.svg'  width='20' height='20'>";
+            document.getElementById("monthly").innerHTML = (ethResult * 30).toFixed(8) + " <img src='img/svg_rc/eth.svg'  width='20' height='20'>";
+			document.getElementById("yearly").innerHTML = (ethResult * 365).toFixed(8) + " <img src='img/svg_rc/eth.svg'  width='20' height='20'>";
             break;
         case 3:
-            document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(8) + " <img src='img/svg_rc/bnb.svg'  width='15' height='15'>";
+            document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(8) + " <img src='img/svg_rc/bnb.svg'  width='20' height='20'>";
             var bnbResult = (exp_reward * dailyBlocks).toFixed(8);
-            document.getElementById("daily").innerHTML = bnbResult + " <img src='img/svg_rc/bnb.svg'  width='15' height='15'>";
-            document.getElementById("weekly").innerHTML = (bnbResult * 7).toFixed(8) + " <img src='img/svg_rc/bnb.svg'  width='15' height='15'>";
-            document.getElementById("monthly").innerHTML = (bnbResult * 30).toFixed(8) + " <img src='img/svg_rc/bnb.svg'  width='15' height='15'>";
-			document.getElementById("yearly").innerHTML = (bnbResult * 365).toFixed(8) + " <img src='img/svg_rc/bnb.svg'  width='15' height='15'>";
+            document.getElementById("daily").innerHTML = bnbResult + " <img src='img/svg_rc/bnb.svg'  width='20' height='20'>";
+            document.getElementById("weekly").innerHTML = (bnbResult * 7).toFixed(8) + " <img src='img/svg_rc/bnb.svg'  width='20' height='20'>";
+            document.getElementById("monthly").innerHTML = (bnbResult * 30).toFixed(8) + " <img src='img/svg_rc/bnb.svg'  width='20' height='20'>";
+			document.getElementById("yearly").innerHTML = (bnbResult * 365).toFixed(8) + " <img src='img/svg_rc/bnb.svg'  width='20' height='20'>";
             break;
         case 4:
-            document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(8) + " <img src='img/svg_rc/matic.svg'  width='15' height='15'>";
+            document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(8) + " <img src='img/svg_rc/matic.svg'  width='20' height='20'>";
             var maticResult = (exp_reward * dailyBlocks).toFixed(8);
-            document.getElementById("daily").innerHTML = maticResult + " <img src='img/svg_rc/matic.svg'  width='15' height='15'>";
-            document.getElementById("weekly").innerHTML = (maticResult * 7).toFixed(8) + " <img src='img/svg_rc/matic.svg'  width='15' height='15'>";
-            document.getElementById("monthly").innerHTML = (maticResult * 30).toFixed(8) + " <img src='img/svg_rc/matic.svg'  width='15' height='15'>";
-			document.getElementById("yearly").innerHTML = (maticResult * 365).toFixed(8) + " <img src='img/svg_rc/matic.svg'  width='15' height='15'>";
+            document.getElementById("daily").innerHTML = maticResult + " <img src='img/svg_rc/matic.svg'  width='20' height='20'>";
+            document.getElementById("weekly").innerHTML = (maticResult * 7).toFixed(8) + " <img src='img/svg_rc/matic.svg'  width='20' height='20'>";
+            document.getElementById("monthly").innerHTML = (maticResult * 30).toFixed(8) + " <img src='img/svg_rc/matic.svg'  width='20' height='20'>";
+			document.getElementById("yearly").innerHTML = (maticResult * 365).toFixed(8) + " <img src='img/svg_rc/matic.svg'  width='20' height='20'>";
             break;
         case 5:
-            document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(8) + " <img src='img/svg_rc/sol.svg'  width='15' height='15'>";
+            document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(8) + " <img src='img/svg_rc/sol.svg'  width='20' height='20'>";
             var solResult = (exp_reward * dailyBlocks).toFixed(8);
-            document.getElementById("daily").innerHTML = solResult + " <img src='img/svg_rc/sol.svg'  width='15' height='15'>";
-            document.getElementById("weekly").innerHTML = (solResult * 7).toFixed(8) + " <img src='img/svg_rc/sol.svg'  width='15' height='15'>";
-            document.getElementById("monthly").innerHTML = (solResult * 30).toFixed(8) + " <img src='img/svg_rc/sol.svg'  width='15' height='15'>";
-			document.getElementById("yearly").innerHTML = (solResult * 365).toFixed(8) + " <img src='img/svg_rc/sol.svg'  width='15' height='15'>";
+            document.getElementById("daily").innerHTML = solResult + " <img src='img/svg_rc/sol.svg'  width='20' height='20'>";
+            document.getElementById("weekly").innerHTML = (solResult * 7).toFixed(8) + " <img src='img/svg_rc/sol.svg'  width='20' height='20'>";
+            document.getElementById("monthly").innerHTML = (solResult * 30).toFixed(8) + " <img src='img/svg_rc/sol.svg'  width='20' height='20'>";
+			document.getElementById("yearly").innerHTML = (solResult * 365).toFixed(8) + " <img src='img/svg_rc/sol.svg'  width='20' height='20'>";
             break;
 		case 6:
-            document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(8) + " <img src='img/svg_rc/trx.svg'  width='15' height='15'>";
+            document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(8) + " <img src='img/svg_rc/trx.svg'  width='20' height='20'>";
             var trxResult = (exp_reward * dailyBlocks).toFixed(8);
-            document.getElementById("daily").innerHTML = trxResult + " <img src='img/svg_rc/trx.svg'  width='15' height='15'>";
-            document.getElementById("weekly").innerHTML = (trxResult * 7).toFixed(8) + " <img src='img/svg_rc/trx.svg'  width='15' height='15'>";
-            document.getElementById("monthly").innerHTML = (trxResult * 30).toFixed(8) + " <img src='img/svg_rc/trx.svg'  width='15' height='15'>";
-			document.getElementById("yearly").innerHTML = (trxResult * 365).toFixed(8) + " <img src='img/svg_rc/trx.svg'  width='15' height='15'>";
+            document.getElementById("daily").innerHTML = trxResult + " <img src='img/svg_rc/trx.svg'  width='20' height='20'>";
+            document.getElementById("weekly").innerHTML = (trxResult * 7).toFixed(8) + " <img src='img/svg_rc/trx.svg'  width='20' height='20'>";
+            document.getElementById("monthly").innerHTML = (trxResult * 30).toFixed(8) + " <img src='img/svg_rc/trx.svg'  width='20' height='20'>";
+			document.getElementById("yearly").innerHTML = (trxResult * 365).toFixed(8) + " <img src='img/svg_rc/trx.svg'  width='20' height='20'>";
             break;
 		case 7:
-           document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(8) + " <img src='img/svg_rc/ltc.svg'  width='15' height='15'>";
+           document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(8) + " <img src='img/svg_rc/ltc.svg'  width='20' height='20'>";
             var ltcResult = (exp_reward * dailyBlocks).toFixed(4);
-            document.getElementById("daily").innerHTML = ltcResult + " <img src='img/svg_rc/ltc.svg'  width='15' height='15'>";
-            document.getElementById("weekly").innerHTML = (ltcResult * 7).toFixed(4) + " <img src='img/svg_rc/ltc.svg'  width='15' height='15'>";
-            document.getElementById("monthly").innerHTML = (ltcResult * 30).toFixed(4) + " <img src='img/svg_rc/ltc.svg'  width='15' height='15'>";
-			document.getElementById("yearly").innerHTML = (ltcResult * 365).toFixed(4) + " <img src='img/svg_rc/ltc.svg'  width='15' height='15'>";
+            document.getElementById("daily").innerHTML = ltcResult + " <img src='img/svg_rc/ltc.svg'  width='20' height='20'>";
+            document.getElementById("weekly").innerHTML = (ltcResult * 7).toFixed(4) + " <img src='img/svg_rc/ltc.svg'  width='20' height='20'>";
+            document.getElementById("monthly").innerHTML = (ltcResult * 30).toFixed(4) + " <img src='img/svg_rc/ltc.svg'  width='20' height='20'>";
+			document.getElementById("yearly").innerHTML = (ltcResult * 365).toFixed(4) + " <img src='img/svg_rc/ltc.svg'  width='20' height='20'>";
             break;
 		case 8:
-           document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(8) + " <img src='img/svg_rc/rst.svg'  width='15' height='15'>";
+           document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(8) + " <img src='img/svg_rc/rst.svg'  width='20' height='20'>";
             var rstResult = (exp_reward * dailyBlocks).toFixed(4);
-            document.getElementById("daily").innerHTML = rstResult + " <img src='img/svg_rc/rst.svg'  width='15' height='15'>";
-            document.getElementById("weekly").innerHTML = (rstResult * 7).toFixed(4) + " <img src='img/svg_rc/rst.svg'  width='15' height='15'>" ;
-            document.getElementById("monthly").innerHTML = (rstResult * 30).toFixed(4) + " <img src='img/svg_rc/rst.svg'  width='15' height='15'>";
-			document.getElementById("yearly").innerHTML = (rstResult * 365).toFixed(4) + " <img src='img/svg_rc/rst.svg'  width='15' height='15'>";
+            document.getElementById("daily").innerHTML = rstResult + " <img src='img/svg_rc/rst.svg'  width='20' height='20'>";
+            document.getElementById("weekly").innerHTML = (rstResult * 7).toFixed(4) + " <img src='img/svg_rc/rst.svg'  width='20' height='20'>" ;
+            document.getElementById("monthly").innerHTML = (rstResult * 30).toFixed(4) + " <img src='img/svg_rc/rst.svg'  width='20' height='20'>";
+			document.getElementById("yearly").innerHTML = (rstResult * 365).toFixed(4) + " <img src='img/svg_rc/rst.svg'  width='20' height='20'>";
             break;
         default:
-            document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(8) + " <img src='img/svg_rc/rlt.svg'  width='15' height='15'>";
+            document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(8) + " <img src='img/svg_rc/rlt.svg'  width='20' height='20'>";
             var rltResult = (exp_reward * dailyBlocks).toFixed(4);
-            document.getElementById("daily").innerHTML = rltResult + " <img src='img/svg_rc/rlt.svg'  width='15' height='15'>";
-            document.getElementById("weekly").innerHTML = (rltResult * 7).toFixed(4) + " <img src='img/svg_rc/rlt.svg'  width='15' height='15'>";
-            document.getElementById("monthly").innerHTML = (rltResult * 30).toFixed(4) + " <img src='img/svg_rc/rlt.svg'  width='15' height='15'>";
-			document.getElementById("yearly").innerHTML = (rltResult * 365).toFixed(4) + " <img src='img/svg_rc/rlt.svg'  width='15' height='15'>";
+            document.getElementById("daily").innerHTML = rltResult + " <img src='img/svg_rc/rlt.svg'  width='20' height='20'>";
+            document.getElementById("weekly").innerHTML = (rltResult * 7).toFixed(4) + " <img src='img/svg_rc/rlt.svg'  width='20' height='20'>";
+            document.getElementById("monthly").innerHTML = (rltResult * 30).toFixed(4) + " <img src='img/svg_rc/rlt.svg'  width='20' height='20'>";
+			document.getElementById("yearly").innerHTML = (rltResult * 365).toFixed(4) + " <img src='img/svg_rc/rlt.svg'  width='20' height='20'>";
             break;
     }
 }
