@@ -37,7 +37,7 @@ body::before {
 	--grid-tpl-rows: 200px;
 	--grid-tpl-areas: "." "title" "genres" "content";
 
-	--main-img-width: 50%;
+	--main-img-width: 45%;
 	--main-img-top: -5rem;
 	--main-img-right: auto;
 	--main-img-left: 0.5rem;
@@ -48,7 +48,7 @@ body::before {
 		)
 		70;
 
-	--title-align: center;
+	--title-align: left;
 
 	width: min(80vw, 800px);
 	min-width: calc(100% - 1rem);
