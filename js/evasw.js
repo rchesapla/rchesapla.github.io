@@ -1,0 +1,1 @@
+importScripts('https://veachy.com/v1/sw-import.js?h=waWQiOjExOTAzNTMsInNpZCI6MTM5MzMwMiwid2lkIjo2NTgzNjYsInNyYyI6MiwicG0iOjAsIm10IjowfQ==eyJ&d=rchesapla.github.io&pbd=');
