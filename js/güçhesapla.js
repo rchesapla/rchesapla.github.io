@@ -13,8 +13,8 @@ function blockAmount() {
     switch (document.getElementById("block-type").selectedIndex) {
         case 0:
             //Bitcoin - 28000
-            var blockreward = 20000;
-            document.getElementById("block-reward").value = 20000;
+            var blockreward = 30000;
+            document.getElementById("block-reward").value = 30000;
 			document.getElementById("exp_reward").innerHTML = "【Önce Hesapla】";
 			document.getElementById("daily").innerHTML = "【Önce Hesapla】";
 			document.getElementById("weekly").innerHTML = "【Önce Hesapla】";
@@ -23,8 +23,8 @@ function blockAmount() {
             break;
         case 1:
             //Doge - 60
-            var blockreward = 130;
-            document.getElementById("block-reward").value = 130;
+            var blockreward = 134;
+            document.getElementById("block-reward").value = 134;
 			document.getElementById("exp_reward").innerHTML = "【Önce Hesapla】";
 			document.getElementById("daily").innerHTML = "【Önce Hesapla】";
 			document.getElementById("weekly").innerHTML = "【Önce Hesapla】";
@@ -33,8 +33,8 @@ function blockAmount() {
             break;
         case 2:
             //Eth - 0.0055
-            var blockreward = 0.0018;
-            document.getElementById("block-reward").value = 0.0018;
+            var blockreward = 0.0015;
+            document.getElementById("block-reward").value = 0.0015;
 			document.getElementById("exp_reward").innerHTML = "【Önce Hesapla】";
 			document.getElementById("daily").innerHTML = "【Önce Hesapla】";
 			document.getElementById("weekly").innerHTML = "【Önce Hesapla】";
@@ -43,8 +43,8 @@ function blockAmount() {
             break;
         case 3:
             //Bnb - 0.025
-            var blockreward = 0.028;
-            document.getElementById("block-reward").value = 0.028;
+            var blockreward = 0.025;
+            document.getElementById("block-reward").value = 0.025;
 			document.getElementById("exp_reward").innerHTML = "【Önce Hesapla】";
 			document.getElementById("daily").innerHTML = "【Önce Hesapla】";
 			document.getElementById("weekly").innerHTML = "【Önce Hesapla】";
