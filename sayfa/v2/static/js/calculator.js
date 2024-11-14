@@ -24,9 +24,10 @@ calc = function(){
 		netsol = document.getElementById("netsol").value,
 		nettrx = document.getElementById("nettrx").value,
         netRlt = document.getElementById("netRlt").value,
-		netrst = document.getElementById("netrst").value;
+		netRlt = document.getElementById("netrst").value,
+		netxrp = document.getElementById("netxrp").value;
         // Calc Total Net Power
-        totalNet = Number(netBtc) + Number(netDoge) + Number(netEth) + Number(netbnb) + Number(netmatic) + Number(netltc) + Number(netsol) + Number(nettrx) + Number(netRlt) + Number(netrst);
+        totalNet = Number(netBtc) + Number(netDoge) + Number(netEth) + Number(netbnb) + Number(netmatic) + Number(netltc) + Number(netsol) + Number(nettrx) + Number(netRlt) + Number(netrst) + Number(netxrp);
     document.getElementById("totalNet").innerText = totalNet.toFixed(3);
 
     var blockBtc = document.getElementById("blockBtc").innerText/100000000,
@@ -38,7 +39,8 @@ calc = function(){
 		blockltc = document.getElementById("blockltc").innerText,
 		blocktrx = document.getElementById("blocktrx").innerText,
         blockRlt = document.getElementById("blockRlt").innerText,
-		blockrst = document.getElementById("blockrst").innerText;
+		blockrst = document.getElementById("blockrst").innerText,
+		blockxrp = document.getElementById("blockxrp").innerText;
     
 //BITCOIN HESAPLAMA ARACI//
     var btcPower = ((Number(totalRate)/1000))
@@ -803,6 +805,83 @@ calc = function(){
         document.getElementById("yearRltD").innerText = "【Önce Hesapla】"}
         else {
             document.getElementById("yearRltD").innerText = "$" + yearRltD.toFixed(5);
+        }
+//PROTON HESAPLAMA ARACI//
+    var xrpPower = ((Number(totalRate)/1000))
+        xrpPrice1 = document.getElementById('xrp-price-api').innerHTML
+        xrpPrice = Number(xrpPrice1.substring(1))
+        minxrp = (Number(xrpPower)*blockxrp)/(Number(netxrp)*1000)
+        minxrpD = Number(minxrp) * xrpPrice
+        hourxrp = Number(minxrp) * 6
+        hourxrpD = Number(hourxrp) * xrpPrice
+        dayxrp = Number(hourxrp) * 24 
+        dayxrpD = Number(dayxrp) * xrpPrice
+        weekxrp = Number(dayxrp) * 7
+        weekxrpD = Number(weekxrp) * xrpPrice
+        monthxrp = Number(dayxrp) * 30
+        monthxrpD = Number(monthxrp) * xrpPrice
+        yearxrp = Number(dayxrp) * 365
+        yearxrpD = Number(yearxrp) * xrpPrice
+
+    if ((isNaN(minxrp))||!(isFinite(minxrp))) {
+        document.getElementById("minxrp").innerText = "【⛏】"}
+        else {
+            document.getElementById("minxrp").innerText = minxrp.toFixed(10);
+        }
+    if ((isNaN(hourxrp))||!(isFinite(hourxrp))) {
+        document.getElementById("hourxrp").innerText = "【⛏】"}
+        else {
+            document.getElementById("hourxrp").innerText = hourxrp.toFixed(10);
+        }
+    if ((isNaN(dayxrp))||!(isFinite(dayxrp))) {
+        document.getElementById("dayxrp").innerText = "【⛏】"}
+        else {
+            document.getElementById("dayxrp").innerText = dayxrp.toFixed(10);
+        }
+    if ((isNaN(weekxrp))||!(isFinite(weekxrp))) {
+        document.getElementById("weekxrp").innerText = "【⛏】"}
+        else {
+            document.getElementById("weekxrp").innerText = weekxrp.toFixed(10);
+        }
+    if ((isNaN(monthxrp))||!(isFinite(monthxrp))) {
+        document.getElementById("monthxrp").innerText = "【⛏】"}
+        else {
+            document.getElementById("monthxrp").innerText = monthxrp.toFixed(10);
+        }
+    if ((isNaN(yearxrp))||!(isFinite(yearxrp))) {
+        document.getElementById("yearxrp").innerText = "【⛏】"}
+        else {
+            document.getElementById("yearxrp").innerText = yearxrp.toFixed(10);
+        }
+    if ((isNaN(minxrpD))||!(isFinite(minxrpD))) {
+        document.getElementById("minxrpD").innerText = "【⛏】"}
+        else {
+            document.getElementById("minxrpD").innerText = "$" + minxrpD.toFixed(5);
+        }
+    if ((isNaN(hourxrpD))||!(isFinite(hourxrpD))) {
+        document.getElementById("hourxrpD").innerText = "【⛏】"}
+        else {
+            document.getElementById("hourxrpD").innerText = "$" + hourxrpD.toFixed(5);
+        }
+    if ((isNaN(dayxrpD))||!(isFinite(dayxrpD))) {
+        document.getElementById("dayxrpD").innerText = "【⛏】"}
+        else {
+            document.getElementById("dayxrpD").innerText = "$" + dayxrpD.toFixed(5);
+        }
+    if ((isNaN(weekxrpD))||!(isFinite(weekxrpD))) {
+        document.getElementById("weekxrpD").innerText = "【⛏】"}
+        else {
+            document.getElementById("weekxrpD").innerText = "$" + weekxrpD.toFixed(5);
+        }
+    if ((isNaN(monthxrpD))||!(isFinite(monthxrpD))) {
+        document.getElementById("monthxrpD").innerText = "【⛏】"}
+        else {
+            document.getElementById("monthxrpD").innerText = "$" + monthxrpD.toFixed(5);
+        }
+    if ((isNaN(yearxrpD))||!(isFinite(yearxrpD))) {
+        document.getElementById("yearxrpD").innerText = "【⛏】"}
+        else {
+            document.getElementById("yearxrpD").innerText = "$" + yearxrpD.toFixed(5);
         }
     }
     

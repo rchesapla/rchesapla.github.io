@@ -323,6 +323,17 @@
 							</td>
 							<td>EH/s</td>
 						</tr>
+						<tr>
+							<td class="td-xrp">XRP:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="netxrp" class="input-box" type="number" onchange="calc(), getData('netxrp')">
+									
+								</form>
+							</td>
+							<td>EH/s</td>
+						</tr>
 					</table>
 					<div class="box-title2" style="text-align:center">Toplam: <a id="totalNet"></a> EH/s</div>
 				</div>
@@ -381,6 +392,11 @@
 							<td class="no-input" id="blockltc">0.24</td>
 							<td><img src="../../img/svg_rc/ltc.svg" width="13" height="13"/></td>
 						</tr>
+						<tr>
+							<td class="td-xrp">XRP:</td><!-- 10 -->
+							<td class="no-input" id="blockxrp">10</td>
+							<td><img src="../../img/svg_rc/xrp.svg" width="13" height="13"/></td>
+						</tr>
 					</table>
 					<div class="box-title2" style="text-align:center"></div>
 				</div>
@@ -424,6 +440,10 @@
 						<tr>
 							<td class="td-lite">LTC:</td><!-- 4 -->
 							<td class="no-input " id="ltc-price-api">⌛</td>
+						</tr>
+						<tr>
+							<td class="td-xrp">XRP:</td><!-- 10 -->
+							<td class="no-input " id="xrp-price-api">⌛</td>
 						</tr>
 					</table>
 					<div class="box-title2" style="text-align:center"></div>
@@ -726,6 +746,43 @@
 							<td class="hesaplistefont" id="weektrxD">-</td>
 							<td class="hesaplistefont" id="monthtrxD">-</td>
 							<td class="hesaplistefont" id="yeartrxD">-</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="coin-box box_shadow bs_test xrp-box">
+				<div class="box-title baslik">PROTON (XRP)</div>
+				<div class="tab-content">
+					<table>
+						<tr>
+							<td class="table-headers">BEKLENEN</td>
+							<td class="table-headers">SAATLİK</td>
+							<td class="table-headers">GÜNLÜK</td>
+						</tr>
+						<tr>
+							<td class="hesaplistefont" id="minxrp">-</td>
+							<td class="hesaplistefont" id="hourxrp">-</td>
+							<td class="hesaplistefont" id="dayxrp">-</td>
+						</tr>
+						<tr>
+							<td class="hesaplistefont" id="minxrpD">-</td>
+							<td class="hesaplistefont" id="hourxrpD">-</td>
+							<td class="hesaplistefont" id="dayxrpD">-</td>
+						</tr>
+						<tr>
+							<td class="table-headers">HAFTALIK</td>
+							<td class="table-headers">AYLIK</td>
+							<td class="table-headers">YILLIK</td>
+						</tr>
+						<tr>
+							<td class="hesaplistefont" id="weekxrp">-</td>
+							<td class="hesaplistefont" id="monthxrp">-</td>
+							<td class="hesaplistefont" id="yearxrp">-</td>
+						</tr>
+						<tr>
+							<td class="hesaplistefont" id="weekxrpD">-</td>
+							<td class="hesaplistefont" id="monthxrpD">-</td>
+							<td class="hesaplistefont" id="yearxrpD">-</td>
 						</tr>
 					</table>
 				</div>

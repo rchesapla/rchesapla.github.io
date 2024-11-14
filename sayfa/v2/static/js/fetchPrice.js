@@ -1,6 +1,6 @@
 ﻿fetchData = function(){
 
-    fetch('https://api.coingecko.com/api/v3/simple/price?ids=matic-network%2Cwormhole%2Clitecoin%2Ctron%2Cbitcoin%2Cethereum%2Cdogecoin%2Cbinancecoin%2Ctether%2Cflow%2Csolana&vs_currencies=usd', {
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=matic-network%2Cproton%2Cwormhole%2Clitecoin%2Ctron%2Cbitcoin%2Cethereum%2Cdogecoin%2Cbinancecoin%2Ctether%2Cflow%2Csolana&vs_currencies=usd', {
       method: 'GET', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +37,8 @@ getResults = function(fetch_data){
 	ltcPrice = fetch_data.litecoin.usd
 	solPrice = fetch_data.solana.usd
 	trxPrice = fetch_data.tron.usd
-    return [btcPrice, dogePrice, ethPrice, bnbPrice, maticPrice, ltcPrice, solPrice, trxPrice]
+	xrpPrice = fetch_data.proton.usd
+    return [btcPrice, dogePrice, ethPrice, bnbPrice, maticPrice, ltcPrice, solPrice, trxPrice, xrpPrice]
 }
 
 postResults = function(prices){
@@ -49,6 +50,7 @@ postResults = function(prices){
 	document.getElementById("ltc-price-api").innerHTML = "$" + prices[5];
 	document.getElementById("sol-price-api").innerHTML = "$" + prices[6];
 	document.getElementById("trx-price-api").innerHTML = "$" + prices[7];
+	document.getElementById("xrp-price-api").innerHTML = "$" + prices[8];
 }
 
 //////////////////////////////
@@ -61,6 +63,7 @@ calculate = function(prices){
 		ltcPrice = prices[5]
 		solPrice = prices[6]
 		trxPrice = prices[7]
+		xrpPrice = prices[8]
 		
     /////////////////////////////////////////////////
     // BTC CALC 10 MIN
@@ -454,6 +457,55 @@ calculate = function(prices){
         document.getElementById("yeartrxD").innerText = "【Önce Hesapla】"}
         else {
             document.getElementById("yeartrxD").innerText = "$" + yeartrxD.toFixed(5);
+        }
+    /////////////////////////////////////////////////
+    // xrp CALC 10 MIN
+    minxrp = document.getElementById("minxrp").innerHTML;
+    minxrpD = Number(minxrp) * xrpPrice
+    if (isNaN(minxrpD)) {
+        document.getElementById("minxrpD").innerText = "【Önce Hesapla】"}
+        else {
+            document.getElementById("minxrpD").innerText = "$" + minxrpD.toFixed(5);
+        }
+    // xrp CALC HOUR
+    hourxrp = document.getElementById("hourxrp").innerHTML;
+    hourxrpD = Number(hourxrp) * xrpPrice
+    if (isNaN(hourxrpD)) {
+        document.getElementById("hourxrpD").innerText = "【Önce Hesapla】"}
+        else {
+            document.getElementById("hourxrpD").innerText = "$" + hourxrpD.toFixed(5);
+        }
+    // xrp CALC DAY
+    dayxrp = document.getElementById("dayxrp").innerHTML;
+    dayxrpD = Number(dayxrp) * xrpPrice
+    if (isNaN(dayxrpD)) {
+        document.getElementById("dayxrpD").innerText = "【Önce Hesapla】"}
+        else {
+            document.getElementById("dayxrpD").innerText = "$" + dayxrpD.toFixed(5);
+        }
+    // xrp CALC WEEK
+    weekxrp = document.getElementById("weekxrp").innerHTML;
+    weekxrpD = Number(weekxrp) * xrpPrice
+    if (isNaN(weekxrpD)) {
+        document.getElementById("weekxrpD").innerText = "【Önce Hesapla】"}
+        else {
+            document.getElementById("weekxrpD").innerText = "$" + weekxrpD.toFixed(5);
+        }    
+    // xrp CALC MONTH
+    monthxrp = document.getElementById("monthxrp").innerHTML;
+    monthxrpD = Number(monthxrp) * xrpPrice
+    if (isNaN(minxrpD)) {
+        document.getElementById("monthxrpD").innerText = "【Önce Hesapla】"}
+        else {
+            document.getElementById("monthxrpD").innerText = "$" + monthxrpD.toFixed(5);
+        }    
+    // xrp CALC YEAR
+    yearxrp = document.getElementById("yearxrp").innerHTML;
+    yearxrpD = Number(yearxrp) * xrpPrice
+    if (isNaN(yearxrpD)) {
+        document.getElementById("yearxrpD").innerText = "【Önce Hesapla】"}
+        else {
+            document.getElementById("yearxrpD").innerText = "$" + yearxrpD.toFixed(5);
         }
     }
 
