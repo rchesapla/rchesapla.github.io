@@ -419,8 +419,7 @@ display: block;
 }
 
 .hero .tabs-layout .tab2-content .btc-box .table-headers {
-  font-weight: bold;
-  color: #fb9135;
+  color: #00e2e3;
 }
 
 .hero .tabs-layout .tab2-content .doge-box {
@@ -428,8 +427,7 @@ display: block;
 }
 
 .hero .tabs-layout .tab2-content .doge-box .table-headers {
-  font-weight: bold;
-  color: #c4a443;
+  color: #00e2e3;
 }
 
 .hero .tabs-layout .tab2-content .eth-box {
@@ -437,8 +435,7 @@ display: block;
 }
 
 .hero .tabs-layout .tab2-content .eth-box .table-headers {
-  font-weight: bold;
-  color: #9782fa;
+  color: #00e2e3;
 }
 
 .hero .tabs-layout .tab2-content .bnb-box {
@@ -446,8 +443,7 @@ display: block;
 }
 
 .hero .tabs-layout .tab2-content .bnb-box .table-headers {
-  font-weight: bold;
-  color: #CCFF00;
+  color: #00e2e3;
 }
 
 .hero .tabs-layout .tab2-content .matic-box {
@@ -455,8 +451,7 @@ display: block;
 }
 
 .hero .tabs-layout .tab2-content .matic-box .table-headers {
-  font-weight: bold;
-  color: #2a1eee;
+  color: #00e2e3;
 }
 
 .hero .tabs-layout .tab2-content .sol-box {
@@ -464,8 +459,7 @@ display: block;
 }
 
 .hero .tabs-layout .tab2-content .sol-box .table-headers {
-  font-weight: bold;
-  color: #805bef;
+  color: #00e2e3;
 }
 
 .hero .tabs-layout .tab2-content .trx-box {
@@ -473,8 +467,7 @@ display: block;
 }
 
 .hero .tabs-layout .tab2-content .trx-box .table-headers {
-  font-weight: bold;
-  color: #f0e7e7;
+  color: #00e2e3;
 }
 
 .hero .tabs-layout .tab2-content .lite-box {
@@ -482,8 +475,7 @@ display: block;
 }
 
 .hero .tabs-layout .tab2-content .lite-box .table-headers {
-  font-weight: bold;
-  color: #718ebd;
+  color: #00e2e3;
 }
 
 .hero .tabs-layout .tab2-content .rlt-box {
@@ -491,7 +483,6 @@ display: block;
 }
 
 .hero .tabs-layout .tab2-content .rlt-box .table-headers {
-  font-weight: bold;
   color: #00e2e3;
 }
 
@@ -500,7 +491,6 @@ display: block;
 }
 
 .hero .tabs-layout .tab2-content .rst-box .table-headers {
-  font-weight: bold;
   color: #00e2e3;
 }
 
@@ -509,7 +499,6 @@ display: block;
 }
 
 .hero .tabs-layout .tab2-content .xrp-box .table-headers {
-  font-weight: bold;
   color: #00e2e3;
 }
 
