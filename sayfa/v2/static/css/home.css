@@ -362,6 +362,10 @@ display: block;
   color: #00e2e3;
 }
 
+.hero .tabs-layout .tab1-content table .td-xrp {
+  color: red;
+}
+
 
 .hero .tabs-layout .tab1-content .no-input {
   text-align: right;
@@ -496,6 +500,15 @@ display: block;
 }
 
 .hero .tabs-layout .tab2-content .rst-box .table-headers {
+  font-weight: bold;
+  color: #00e2e3;
+}
+
+.hero .tabs-layout .tab2-content .xrp-box {
+  background: #173333;
+}
+
+.hero .tabs-layout .tab2-content .xrp-box .table-headers {
   font-weight: bold;
   color: #00e2e3;
 }
