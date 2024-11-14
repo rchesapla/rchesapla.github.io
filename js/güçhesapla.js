@@ -96,6 +96,17 @@ function blockAmount() {
             console.log("ltc end");
             break;
 		case 8:
+            //PROTON - 150
+            var blockreward = 10;
+            document.getElementById("block-reward").value = 10;
+			document.getElementById("exp_reward").innerHTML = "【Önce Hesapla】";
+			document.getElementById("daily").innerHTML = "【Önce Hesapla】";
+			document.getElementById("weekly").innerHTML = "【Önce Hesapla】";
+			document.getElementById("monthly").innerHTML = "【Önce Hesapla】";
+			document.getElementById("yearly").innerHTML = "【Önce Hesapla】";
+            console.log("xpr end");
+            break;
+		case 9:
             //RST - 150
             var blockreward = 250;
             document.getElementById("block-reward").value = 250;
@@ -255,6 +266,14 @@ function calculateGoalPower() {
 			document.getElementById("yearly").innerHTML = (ltcResult * 365).toFixed(4) + " <img src='img/svg_rc/ltc.svg'  width='20' height='20'>";
             break;
 		case 8:
+           document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(8) + " <img src='img/svg_rc/xrp.svg'  width='20' height='20'>";
+            var xrpResult = (exp_reward * dailyBlocks).toFixed(4);
+            document.getElementById("daily").innerHTML = xrpResult + " <img src='img/svg_rc/xrp.svg'  width='20' height='20'>";
+            document.getElementById("weekly").innerHTML = (xrpResult * 7).toFixed(4) + " <img src='img/svg_rc/xrp.svg'  width='20' height='20'>" ;
+            document.getElementById("monthly").innerHTML = (xrpResult * 30).toFixed(4) + " <img src='img/svg_rc/xrp.svg'  width='20' height='20'>";
+			document.getElementById("yearly").innerHTML = (xrpResult * 365).toFixed(4) + " <img src='img/svg_rc/xrp.svg'  width='20' height='20'>";
+            break;
+		case 9:
            document.getElementById("exp_reward").innerHTML = exp_reward.toFixed(8) + " <img src='img/svg_rc/rst.svg'  width='20' height='20'>";
             var rstResult = (exp_reward * dailyBlocks).toFixed(4);
             document.getElementById("daily").innerHTML = rstResult + " <img src='img/svg_rc/rst.svg'  width='20' height='20'>";
