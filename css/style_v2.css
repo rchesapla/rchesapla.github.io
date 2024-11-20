@@ -606,5 +606,44 @@ make it thinner, then set it to again wrap around the entire parent element.
 
 /* DARK MODE CSS */
 
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+
+.visitors {
+
+  border-radius: 5px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.light {
+  background-color: #c60505;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 10px;
+  animation: glow 1s infinite ease-in-out;
+}
+
+@keyframes glow {
+  0% {
+    background-color: #c60505;
+  }
+  50% {
+    background-color: #f50000;
+    box-shadow: 5px 5px 15px #e30000, -5px -5px 15px #e30000;
+    transform: rotateZ(45deg);
+  }
+  0% {
+    background-color: #c60505;
+    transform: rotateZ(80deg);
+  }
+}
+
+.visitors-text {
+  color: white;
+  font-size: 1em;
+  margin: 10px;
+}
 
 /* DARK MODE CSS */

@@ -1,4 +1,2 @@
-RewriteEngine on
-
 ErrorDocument 404 http://rchesapla.github.io/404
 Options -Indexes
