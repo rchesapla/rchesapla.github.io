@@ -23,8 +23,8 @@ function blockAmount() {
             break;
         case 1:
             //Doge - 60
-            var blockreward = 105;
-            document.getElementById("block-reward").value = 105;
+            var blockreward = 60;
+            document.getElementById("block-reward").value = 60;
 			document.getElementById("exp_reward").innerHTML = "【Önce Hesapla】";
 			document.getElementById("daily").innerHTML = "【Önce Hesapla】";
 			document.getElementById("weekly").innerHTML = "【Önce Hesapla】";
@@ -33,8 +33,8 @@ function blockAmount() {
             break;
         case 2:
             //Eth - 0.0055
-            var blockreward = 0.0040;
-            document.getElementById("block-reward").value = 0.0040;
+            var blockreward = 0.006;
+            document.getElementById("block-reward").value = 0.006;
 			document.getElementById("exp_reward").innerHTML = "【Önce Hesapla】";
 			document.getElementById("daily").innerHTML = "【Önce Hesapla】";
 			document.getElementById("weekly").innerHTML = "【Önce Hesapla】";
@@ -53,8 +53,8 @@ function blockAmount() {
             break;
         case 4:
             //Matic - 4
-            var blockreward = 25;
-            document.getElementById("block-reward").value = 25;
+            var blockreward = 35;
+            document.getElementById("block-reward").value = 35;
 			document.getElementById("exp_reward").innerHTML = "【Önce Hesapla】";
 			document.getElementById("daily").innerHTML = "【Önce Hesapla】";
 			document.getElementById("weekly").innerHTML = "【Önce Hesapla】";
@@ -86,8 +86,8 @@ function blockAmount() {
             break;
 		case 7:
             //LTC - 0.015
-            var blockreward = 0.24;
-            document.getElementById("block-reward").value = 0.24;
+            var blockreward = 0.3;
+            document.getElementById("block-reward").value = 0.3;
 			document.getElementById("exp_reward").innerHTML = "【Önce Hesapla】";
 			document.getElementById("daily").innerHTML = "【Önce Hesapla】";
 			document.getElementById("weekly").innerHTML = "【Önce Hesapla】";
