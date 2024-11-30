@@ -1,6 +1,6 @@
 ﻿fetchData = function(){
 
-    fetch('https://api.coingecko.com/api/v3/simple/price?ids=matic-network%2Cripple%2Cwormhole%2Clitecoin%2Ctron%2Cbitcoin%2Cethereum%2Cdogecoin%2Cbinancecoin%2Ctether%2Cflow%2Csolana&vs_currencies=usd', {
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=matic-network%2Cstellar%2Cripple%2Cwormhole%2Clitecoin%2Ctron%2Cbitcoin%2Cethereum%2Cdogecoin%2Cbinancecoin%2Ctether%2Cflow%2Csolana&vs_currencies=usd', {
       method: 'GET', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ getResults = function(fetch_data){
     dogePrice = fetch_data.dogecoin.usd
     ethPrice = fetch_data.ethereum.usd
 	bnbPrice = fetch_data.binancecoin.usd
-	maticPrice = fetch_data.wormhole.usd
+	maticPrice = fetch_data.stellar.usd
 	ltcPrice = fetch_data.litecoin.usd
 	solPrice = fetch_data.solana.usd
 	trxPrice = fetch_data.tron.usd
