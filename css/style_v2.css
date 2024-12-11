@@ -2,6 +2,7 @@
 /* TABLO YAZI TİPİ DEĞİŞTİRME */
 @import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nosifer&family=Nova+Square&display=swap'); /*BODY FONT ALANI*/
 
 ::-webkit-scrollbar {
     background: #2f3045;
@@ -95,7 +96,7 @@ rgb(180,180,180),3px 3px 0 rgb(158,158,158), 4px 4px 0 rgb(136,136,136),5px
 .card-body {
 	background: #0E1119; /* background: #151414; */
 	font-size: 13px;
-	color: #03e1e4;
+	color: #ffdc00;
 	border-radius: 0px 0px 0px 0px;
 }
 
@@ -113,15 +114,16 @@ rgb(180,180,180),3px 3px 0 rgb(158,158,158), 4px 4px 0 rgb(136,136,136),5px
 	color: #00ff0f;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Germania+One&display=swap');
-
 .body {
 	background: #181928; /* background: #151414; */
 	background-image: url("/img/bayrak.png"); /* Add a search icon to input */
 	background-position: top left;
 	background-repeat : no-repeat;
-	font-family: 'Russo One', sans-serif;
 	filter: drop-shadow(0 0 1px red);
+	color: #ffdc00;
+	font-family: "Nova Square", sans-serif;
+	font-weight: 400;
+	font-style: normal;
 }
 
 /* font-family: 'Russo One', sans-serif; */
