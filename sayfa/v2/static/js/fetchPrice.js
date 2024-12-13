@@ -1,6 +1,6 @@
 ﻿fetchData = function(){
 
-    fetch('https://api.coingecko.com/api/v3/simple/price?ids=matic-network%2Cstellar%2Cripple%2Cwormhole%2Clitecoin%2Ctron%2Cbitcoin%2Cethereum%2Cdogecoin%2Cbinancecoin%2Ctether%2Cflow%2Csolana&vs_currencies=usd', {
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=matic-network%2Cpolygon-ecosystem-token%2Cstellar%2Cripple%2Cwormhole%2Clitecoin%2Ctron%2Cbitcoin%2Cethereum%2Cdogecoin%2Cbinancecoin%2Ctether%2Cflow%2Csolana&vs_currencies=usd', {
       method: 'GET', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
