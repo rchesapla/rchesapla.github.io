@@ -43,8 +43,8 @@ function blockAmount() {
             break;
         case 3:
             //Bnb - 0.025
-            var blockreward = 0.026;
-            document.getElementById("block-reward").value = 0.026;
+            var blockreward = 0.035;
+            document.getElementById("block-reward").value = 0.035;
 			document.getElementById("exp_reward").innerHTML = "【Önce Hesapla】";
 			document.getElementById("daily").innerHTML = "【Önce Hesapla】";
 			document.getElementById("weekly").innerHTML = "【Önce Hesapla】";
