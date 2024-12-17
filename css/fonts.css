@@ -5,13 +5,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap'); /* AÇIKLAMA */
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nosifer&family=Nova+Square&display=swap'); /*BODY FONT ALANI*/
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
 
 :root {
   --özelfont: Montserrat, sans-serif;
   --özelfont2: Audiowide, sans-serif;
   --siteadı: Audiowide, sans-serif;
-  --siteadı2: Nosifer, sans-serif;
-  --açıklama: Gemunu Libre, sans-serif;
+  --siteadı2: Pixelify Sans, sans-serif;
+  --açıklama: Pixelify Sans, sans-serif;
   --kazımgücü: Gemunu Libre, sans-serif;
 }
 
@@ -27,7 +28,6 @@
 	}
 .siteadı2 {
 	font-family: var(--siteadı2);
- 
   font-weight: 400;
   font-style: normal;
 	}
