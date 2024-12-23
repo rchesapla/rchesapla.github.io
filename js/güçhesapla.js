@@ -53,8 +53,8 @@ function blockAmount() {
             break;
         case 4:
             //Matic - 4
-            var blockreward = 30;
-            document.getElementById("block-reward").value = 30;
+            var blockreward = 35;
+            document.getElementById("block-reward").value = 35;
 			document.getElementById("exp_reward").innerHTML = "【Önce Hesapla】";
 			document.getElementById("daily").innerHTML = "【Önce Hesapla】";
 			document.getElementById("weekly").innerHTML = "【Önce Hesapla】";
