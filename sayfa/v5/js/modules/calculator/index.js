@@ -88,12 +88,12 @@ export class Calculator {
     }
 
     handleCoinIcon () {
-        const reservedNames = ['', 'rollercoin-calculator', 'index.html']
+        const reservedNames = ['', 'v5', 'index.html']
         let prefix = window.location.pathname.split('/').filter(s => !reservedNames.includes(s)).pop()? '..' : '.'
 
         let coin  = blockReward[this.DOMElements.selectBlockReward.value]
 
-        this.DOMElements.coinIcon.src = prefix + "../img/" + coin.icon
+        this.DOMElements.coinIcon.src = prefix + "/img/" + coin.icon
         this.DOMElements.coinIcon.alt = coin.name + " icon"
         this.DOMElements.coinName.innerHTML = coin.name
         this.DOMElements.coinTicker.innerHTML = coin.ticker
