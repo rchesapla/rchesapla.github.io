@@ -1,5 +1,5 @@
-import { unit } from './constants.js'
-import { blockReward } from '../rollercoin.js'
+import { unit } from 'https://rchesapla.github.io/sayfa/v5/js/modules/calculator/constants.js'
+import { blockReward } from 'https://rchesapla.github.io/sayfa/v5/js/modules/rollercoin.js'
 import { calculateRewardPerBlock, calculateReward, calculateBestCoinsToMine } from './ALU.js'
 
 export class Calculator {
@@ -88,7 +88,7 @@ export class Calculator {
     }
 
     handleCoinIcon () {
-        const reservedNames = ['', 'v5', 'index.html']
+        const reservedNames = ['v5', 'index.html']
         let prefix = window.location.pathname.split('/').filter(s => !reservedNames.includes(s)).pop()? '..' : '.'
 
         let coin  = blockReward[this.DOMElements.selectBlockReward.value]

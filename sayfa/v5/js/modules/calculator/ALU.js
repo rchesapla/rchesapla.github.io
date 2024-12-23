@@ -1,5 +1,5 @@
-import { blockReward } from '../rollercoin.js'
-import { LONG_FIXED, SHORT_FIXED, secondsInADay, secondsInAMonth, secondsInAWeek, TIME_UNIT } from './constants.js'
+import { blockReward } from 'https://rchesapla.github.io/sayfa/v5/js/modules/rollercoin.js'
+import { LONG_FIXED, SHORT_FIXED, secondsInADay, secondsInAMonth, secondsInAWeek, TIME_UNIT } from 'https://rchesapla.github.io/sayfa/v5/js/modules/calculator/constants.js'
 
 const getTimePerBlock = (inputTimePerBlock, selectTimePerBlock) => inputTimePerBlock * TIME_UNIT[selectTimePerBlock]
 
