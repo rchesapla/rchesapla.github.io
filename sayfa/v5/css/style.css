@@ -113,26 +113,6 @@ nav {
     font-size: 1.3rem;
     margin-bottom: 1.2rem;
 }
-
-nav ul, .lang ul {
-    display: flex;
-    justify-content: center;
-}
-
-nav ul li {
-    list-style: none;
-}
-
-nav ul li a:hover, .lang ul li a:hover{
-    text-decoration: underline;
-}
-
-nav ul li:not(:first-child), .lang ul li:not(:first-child)  {
-    padding-left: .5rem;
-    margin-left: .5rem;
-    border-left: 1px solid var(--white);
-}
-
 main {
     margin: 0 1rem;
     margin-bottom: 1rem;
