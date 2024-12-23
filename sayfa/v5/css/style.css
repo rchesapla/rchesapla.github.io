@@ -389,7 +389,7 @@ aside.apps-promotion img {
     }
 }
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 12000px) {
     main {
         flex-direction: row;
         justify-content: center;
