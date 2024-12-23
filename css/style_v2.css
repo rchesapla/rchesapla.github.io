@@ -13,6 +13,42 @@
     background: red;
 }
 
+.roller-select {
+    /*-webkit-appearance: none;*/
+    outline: none;
+    font-size: 15px;
+    border: 2px solid var(--rum);
+    color: var(--white);
+    background-color: var(--black-russian);
+    border-radius: 4px;
+    padding: .9rem;
+    
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+}
+
+.desired-coin{
+    margin-top: .5rem;
+}
+
+.desired-coin-container{
+    display: flex;
+    justify-content: center;
+}
+
+.desired-coin-container img {
+    width: 2.4rem;
+}
+
+.desired-coin-container .title-text{
+    margin-left: .7rem;
+}
+
+.desired-coin-container .title-text p:first-child {
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
 .head {
   /*font-family: 'Russo One', sans-serif; */
   text-decoration:none;

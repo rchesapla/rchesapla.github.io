@@ -51,7 +51,10 @@
 <!--===============================================================================================-->
 </head>
 <!--===============================================================================================-->
-<body id="index" class="body">
+<body class="body" onload="calculateGoalPower(), blockAmount()">
+<!--===============================================================================================-->
+
+<!--===============================================================================================-->
                         <div class="container-convert col-12 col-md-10">
 						<div class="card-fc my-2 özelfont" >
 <!--===============================================================================================-->
@@ -106,7 +109,6 @@
 								</h6>
                         </div>
                             </div>
-<!--===============================================================================================-->
     <section class="container">
         <div class="row">
 <!--===============================================================================================-->
@@ -123,92 +125,86 @@
 
 	</center>
 <!--===============================================================================================-->
-<div class="row">
-<article class="col-md-5 head">
-    <div>
-		<div class="card-fc my-2 özelfont">
-			<h6 class="card-header head özelfont2">📝 ROLLERCOIN KAZIM BİLGİLERİNİZ</h6>
-        <div class="card-body  kazımgücü">
-			<div class="form-group row my-1">
-				<label for="inputNetworkPower"><img src="./img/svg/ag_gucu.svg" width="15" height="15"/> <span class="important">Ağ Gücü (ZH/s Eklendi!)</span></label>
-					<div class="col-7">
-						<input id="inputNetworkPower" type="number" name="inputNetworkPower" class="form-control sayılar">
-					</div>
-					<div class="col-5">
-						<select id="selectNetworkPower" name="" class="form-select seçenekler">
-							<option value="GH/s">GH/s</option>
-							<option value="TH/s">TH/s</option>
-							<option value="PH/s">PH/s</option>
-							<option value="EH/s">EH/s</option>
-							<option value="ZH/s" selected="">ZH/s</option>
-					</select>
-                </div>
-            </div>
+                <div class="row">
+					<article class="col-md-5 head">
+                        <div>
+						<div class="card-fc my-2 özelfont">
+                                <h6 class="card-header head özelfont2">📝 ROLLERCOIN KAZIM BİLGİLERİNİZ</h6>
+                                <div class="card-body  kazımgücü">
+							<div class="form-group row my-1">
+                                <label><img src="./img/svg/ag_gucu.svg" width="15" height="15"/> Ağ Gücü (ZH/s Eklendi!)</label>
+                                <div class="col-7">
+                                    <input type="number" class="form-control" step="any" id="network-power" oninput="calculateGoalPower()">
+                                </div>
+                                <div class="col-5">
+                                    <select class="form-select" name="network-power-prefix" id="network-power-selector" onchange="calculateGoalPower()">
+                                        <option value="ghs">GH/s</option>
+                                        <option value="ths">TH/s</option>
+                                        <option value="phs">PH/s</option>
+                                        <option selected value="ehs">EH/s</option>
+										<option value="zhs">ZH/s (Yeni)</option>
+                                    </select>
+                                </div>
+                            </div>
 <!--===============================================================================================-->
-            <div class="form-group">
-                <div class="form-group row my-1">
-				<label for="inputUserPower"><img src="./img/svg/kazım_gucu.svg" width="15" height="15"/> <span class="important">Kazım Gücü</span></label>
-					<div class="col-7">
-						<input type="number" id="inputUserPower" name="inputUserPower" class="form-control sayılar">
-					</div>
-					<div class="col-5">
-						<select name="" id="selectUserPower" class="form-select seçenekler">
-							<option value="GH/s">GH/s</option>
-							<option value="TH/s" selected="">TH/s</option>
-							<option value="PH/s">PH/s</option>
-							<option value="EH/s">EH/s</option>
-							<option value="ZH/s">ZH/s</option>
-						</select>
-					</div>
-                </div>
-            </div>
+                            <div class="form-group row my-1">
+                                <label><img src="./img/svg/kazım_gucu.svg" width="15" height="15"> Kazım Gücü</label>
+                                <div class="col-7">
+                                    <input type="number" class="form-control" name="goal-power-hash" id="goal-power" oninput="calculateGoalPower()">
+                                </div>
+                                <div class="col-5">
+                                    <select class="form-select" name="goal-power-prefix" id="goal-power-selector" onchange="calculateGoalPower()">
+                                        <option value="ghs">GH/s</option>
+                                        <option selected value="ths">TH/s</option>
+                                        <option value="phs">PH/s</option>
+                                        <option value="ehs">EH/s</option>
+										<option value="zhs">ZH/s (Yeni)</option>
+                                    </select>
+                                </div>
+                            </div>
 <!--===============================================================================================-->
-			<div class="form-group">
-                <div class="form-group row my-1">
-				<label for="inputBlockReward"><img src="./img/svg/blok_odulu.svg" width="15" height="15"/> <span class="important">Blok Ödülü</span></label>
-					<div class="col-7">
-						<input type="number" id="inputBlockReward" name="inputBlockReward" class="form-control sayılar">
-					</div>
-					<div class="col-5">
-						<select id="selectBlockReward" name="selectBlockReward" class="form-select seçenekler">
-							<option value="BTC">BITCOIN</option>
-							<option value="DOGE">DOGECOIN</option>
-							<option value="ETH">ETHERIUM</option>
-							<option value="BNB">BINANCECOIN</option>
-							<option value="MATIC">POLYGON</option>
-							<option value="SOL">SOLANA</option>
-							<option value="TRX">TRON</option>
-							<option value="LTC">LITECOIN</option>
-							<option value="XRP">RIPPLE</option>
-							<option value="RST">ROLLERSEZON</option>
-							<option value="RLT">ROLLERTOKEN</option>
-						</select>
-					</div>
-				</div>
-            </div>
+                            <div class="form-group row my-1">
+                                <label><img src="./img/svg/blok_odulu.svg" width="15" height="15"> Blok Ödülü</label>
+                                <div class="col-7">
+                                    <input type="number" class="form-control" name="block-reward" id="block-reward"
+                                        step="any" oninput="calculateGoalPower()">
+                                </div>
+                                <div class="col-5">
+                                    <select class="form-select" name="block-type" id="block-type"
+                                        onchange="blockAmount(), calculateGoalPower()">
+                                        <option value="btc">BITCOIN (BTC)</option>
+                                        <option value="doge">DOGECOIN (DOGE)</option>
+                                        <option value="eth">ETHERIUM (ETH)</option>
+                                        <option value="bnb">BINANCECOIN (BNB)</option>
+                                        <option value="matic">POLYGON (POL)</option>
+										<option value="sol">SOLANA (SOL)</option>
+										<option value="trx">TRON (TRX)</option>
+										<option value="ltc">LITECOIN (LTC)</option>
+										<option value="xrp">RIPPLE (XRP)</option>
+										<option value="rst">ROLLERSEZON (RST)</option>
+                                        <option value="rlt">ROLLERTOKEN (RLT)</option>
+                                    </select>
+                                </div>
+                            </div>
+							<div class="form-group row my-1">
+                                <label><img src="./img/svg/blok_suresi.svg" width="15" height="15"> Blok Süresi</label>
+                                <div class="col-7">
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" value="10" name="block-timer" id="block-timer" step="any" oninput="calculateGoalPower()">
+                                                <div class="input-group-text">DK</div>
+                                            </div>
+                                </div>
+                            </div>
 <!--===============================================================================================-->
-			<div class="form-group">
-                <div class="form-group row my-1">
-				<label for="inputTimePerBlock"><img src="./img/svg/blok_suresi.svg" width="15" height="15"/> <span class="important">Blok Süresi</span></label>
-					<div class="col-7">
-						<input type="number" id="inputTimePerBlock" name="inputTimePerBlock" class="form-control sayılar">
-					</div>
-					<div class="col-5">
-						<select id="selectTimePerBlock" name="selectTimePerBlock" class="form-select seçenekler">
-							<option value="SECONDS" selected="">Saniye</option>
-							<option value="MINUTES">Dakika</option>
-						</select>
-					</div>
-                </div>
-            </div>
-<!--===============================================================================================-->
+							<!--div class="form-group row my-1">
+                                <label><img src="https://rollercoin.com/static/images/scheduler.7575e0e815bd39edc1ab..svg" width="15" height="15"> Haftalık Ödül</label>
+                                <div class="col-13">
+                                    <input class="form-control fcinput"  id="haftalıködüller" step="any" disabled />
+                                </div>
+                            </div-->
 <label><img src="./img/svg/bilgi.svg" width="15" height="15"> Kazım bilgilerini doğru girdiğiniz durumda hesaplama işlemini yapabilirsiniz.</label>
 <!--===============================================================================================-->
-			<div class="btn-submit-container">
-                <div class="tree-dimensional-button btn-default">
-                    <input id="calculateButton" type="button" class="btn-show mt-2 head özelfont2" value="Hesapla">
-                </div>
-            </div>
+	<button class="btn-show mt-2 head özelfont2" id="btn-calcular"  onclick="calculateGoalPower(), success()" >Hesapla</button>
 <!--===============================================================================================-->
                         </div>
 						<h6 class="card-header head text-center"></h6>
@@ -226,81 +222,36 @@
 						<div class="card-fc my-2 özelfont">
                                 <h6 class="card-header head özelfont2">🧮 KAZANÇ İSTATİSTİKLERİN</h6>
 								<div class="card-body kazımgücü">
-        <div class="table-responsive">
-          <table class="roller-table">
-            <thead>
-              <tr>
-                <th>
-                  <p>GÜN</p>
-                </th>
-                <th>
-                  <p>KAZANÇ</p>
-                </th>
-                <th>
-                  <p>DOLAR</p>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <p>Beklenen</p>
-                </td>
-                <td>
-                  <p id="resultExpectedReward"></p>
-                </td>
-                <td>
-                  <p id="resultExpectedUsdReward"></p>
-                </td>
-              </tr>
-                <tr>
-                  <td>
-                    <p>Günlük</p>
-                  </td>
-                  <td>
-                    <p id="resultDailyReward"></p>
-                  </td>
-                  <td>
-                    <p id="resultDailyUsdReward"></p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p>Haftalık</p>
-                  </td>
-                  <td>
-                    <p id="resultWeeklyReward"></p>
-                  </td>
-                  <td>
-                    <p id="resultWeeklyUsdReward"></p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p>Aylık</p>
-                  </td>
-                  <td>
-                    <p id="resultMonthlyReward"></p>
-                  </td>
-                  <td>
-                    <p id="resultMonthlyUsdReward"></p>
-                  </td>
-                </tr>
-            </tbody>
-            <tfoot></tfoot>
-          </table>
-        </div>
-	        <div class="desired-coin">
-          <div class="desired-coin-container">
-            <div class="icon">
-              <img id="coinIcon" src="./img/btc.svg" alt="Bitcoin">
-            </div>
-            <div class="title-text">
-              <p id="coinName">BITCOIN</p>
-              <p id="coinTicker">BTC</p>
-            </div>
-          </div>
-        </div>
+<table class="container" style="text-align:center">
+  <thead>
+    <tr>
+      <th class="özelfont2">GÜNE GÖRE</th>
+      <th class="özelfont2">KAZANÇ DURUMU</th>
+    </tr>
+  </thead>
+  <tbody class="kazımgücü">
+    <tr>
+	<td>BEKLENEN</td>
+      <td><span id="exp_reward"></span></td>
+    </tr>
+	<tr>
+	<td>GÜNLÜK</td>
+      <td><span id="daily"></span></td>
+    </tr>
+	<tr>
+	<td>HAFTALIK</td>
+      <td><span id="weekly"></span></td>
+    </tr>
+	<tr>
+	<td>AYLIK</td>
+      <td><span id="monthly"></span></td>
+    </tr>
+	<tr>
+	<td>YILLIK</td>
+	  <td><span id="yearly"></span></td>
+    </tr>
+  </tbody>
+</table>
                         </div>
 						<h6 class="card-header head text-center"></h6>
 						</div>
@@ -319,6 +270,41 @@
 <!--===============================================================================================-->
             </div>
     </section>
+                        <!--div class="container-convert col-12 col-md-10">
+						<div class="card-fc my-2 özelfont">
+                                <h6 class="card-header head özelfont2">🔗 DISCORD SUNUCUMUZA DAVETLİSİN</h6>
+                                <div class="bg-light ">
+	<div class="discord-widget" data-simplebar>
+        <img src="https://rchesapla.github.io/favicon.png" alt="Server Icon" id="server-icon">
+        <h1 id="server-name">Sunucu İsmi Yükleniyor...</h1>
+        <p>RollerCoin hakkında detaylı bilgi edinmek için seni discord sunucumuza davet ediyorum.</p>
+        <div class="status">Yükleniyor...</div>
+        <button onclick="joinDiscord()">SUNUCUYA KATIL</button>
+    </div>
+								</div>
+								<h6 class="card-header head text-center özelfont2"></h6>
+                        </div>
+						
+                            </div-->
+<!--===============================================================================================-->
+                        <!--div class="container-convert col-12 col-md-10">
+							<div class="card-fc my-3 özelfont">
+                                <h6 class="card-header head özelfont2">💗 NASIL KULLANILIR TANITIM VİDEOMUZ</h6>
+									<div class="card-body">
+<!--===============================================================================================--
+<div class="containerv">
+
+  <div class="main-video-container">
+    <video class="main-video" src="video/tanıtım.mp4" loop controls></video>
+    <h3 class="main-video__title text-center">ROLLERCOIN | KİŞİSEL KAZIM GÜCÜNÜ HESAPLA! | 2024</h3>
+  </div>
+
+</div>
+<!--===============================================================================================--
+									</div>
+								<h6 class="card-header head text-center özelfont2"></h6>
+							</div>
+                        </div-->
 <!--===============================================================================================-->
 						<div class="container-convert col-12 col-md-10">
 							<div class="card-fc my-3 özelfont">
@@ -339,10 +325,24 @@
 							</div>
                         </div>
 <!--===============================================================================================-->
+    <script src="js/güçhesapla.js"></script>
 <!--===============================================================================================-->
-	<script type="module" src="https://rchesapla.github.io/sayfa/v5/js/index.js"></script>
+	<script src="js/menüşablonu.js"></script>
+	<script src="js/gün-tarih-saat.js"></script>
+	<script src="js/tablo.js"></script>
+	<script src="js/selectbox.js"></script>
+	<script src="js/fctest.js"></script>
 <!--===============================================================================================-->
-	<script src="https://rchesapla.github.io/js/g%C3%BCn-tarih-saat.js"></script>
+    <script src="https://kit.fontawesome.com/1e0b62f15f.js" crossorigin="anonymous"></script>
+	<!-- Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="https://analiz.turkcraft01.com/stat/pws.php?mode=js"></script>
+	<script>(function(d){let s=d.createElement('script');s.async=true;s.src='https://puabvo.com/code/native.js?h=waWQiOjExOTAzNTMsInNpZCI6MTM5MzMwMiwid2lkIjo2NTgzNjYsInNyYyI6Mn0=eyJ';d.head.appendChild(s);})(document);</script>
 <!--===============================================================================================-->
 </body>
 </html>
