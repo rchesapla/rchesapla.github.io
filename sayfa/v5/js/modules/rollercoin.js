@@ -80,8 +80,8 @@ export const blockReward = {
     dailyReward: 12,
     timePerBlock: 600,
     name: "RIPPLE",
-    ticker: "ripple",
+    ticker: "xrp",
     icon: "xrp.svg",
-    coinGeckoId: "xrp",
+    coinGeckoId: "ripple",
   },
 }
