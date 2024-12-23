@@ -88,7 +88,7 @@ export class Calculator {
     }
 
     handleCoinIcon () {
-        const reservedNames = ['/', 'sayfa', 'v5', 'index.html']
+        const reservedNames = ['/', 'sayfa', 'v5']
         let prefix = window.location.pathname.split('../').filter(s => !reservedNames.includes(s)).pop()? '..' : '.'
 
         let coin  = blockReward[this.DOMElements.selectBlockReward.value]
