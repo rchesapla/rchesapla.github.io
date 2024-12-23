@@ -97,9 +97,13 @@ h1 {
     text-align: center;
 }
 
-/*h1::before {
+h1::before {
     content: "🐹 ";
-}*/
+}
+
+h1::after {
+    content: " 🐹";
+}
 
 h2, h3{
     display: none
