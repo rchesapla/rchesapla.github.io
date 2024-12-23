@@ -51,6 +51,11 @@ border-radius:5px;
 }
 /* Scrollbar (Site Kaydırma Çubuğu) */
 
+.asad {
+    margin: 0px 42px 0px 42px;
+	color: #cdc5bf;
+}
+
 body {
     background-color: var(--black-russian);
     color: var(--white);
@@ -92,13 +97,9 @@ h1 {
     text-align: center;
 }
 
-h1::before {
+/*h1::before {
     content: "🐹 ";
-}
-
-h1::after {
-    content: " 🐹";
-}
+}*/
 
 h2, h3{
     display: none
