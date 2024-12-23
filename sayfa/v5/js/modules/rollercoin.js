@@ -82,6 +82,6 @@ export const blockReward = {
     name: "RIPPLE",
     ticker: "xrp",
     icon: "xrp.svg",
-    coinGeckoId: "ripple",
+    coinGeckoId: "xrp",
   },
 }
