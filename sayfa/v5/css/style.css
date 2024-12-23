@@ -91,7 +91,7 @@ header {
     margin-bottom: .5rem;
     
 }
-
+/*
 h1 {
     margin: 0 1rem;
     text-align: center;
@@ -103,7 +103,7 @@ h1::before {
 
 h1::after {
     content: " 🐹";
-}
+}*/
 
 h2, h3{
     display: none
