@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="./css/tablo.css">
 	<link rel="stylesheet" href="./css/fonts.css">
 	<link rel="stylesheet" href="./css/menüşablonu.css">
+	<link rel="stylesheet" href="./css/fctest.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" href="./sayfa/v5/css/tik.css">
 	<link rel="stylesheet" href="./sayfa/v5/css/youtube.css">
@@ -79,9 +80,6 @@
 		<li class="nav-item">
           <a class="nav-link kazımgücü" href="./sayfa/v2"><i class="fa-solid fa-code-compare"></i> V2 Sürüm</a>
         </li>
-		<li class="nav-item">
-          <a class="nav-link kazımgücü" href="./sayfa/v5"><i class="fa-solid fa-code-compare"></i> V5 Sürüm</a>
-        </li>
       </ul>
     </div>
   </div>
@@ -131,9 +129,9 @@
 			<h6 class="card-header head özelfont2">📝 ROLLERCOIN KAZIM BİLGİLERİNİZ</h6>
         <div class="card-body  kazımgücü">
 			<div class="form-group row my-1">
-				<label for="inputNetworkPower"><img src="./img/svg/ag_gucu.svg" width="15" height="15"/> <span class="important">Ağ Gücü (ZH/s Eklendi!)</span></label>
+				<label for="inputNetworkPower"><img src="./img/svg/ag_gucu.svg" width="15" height="15"/> <span class="important">Ağ Gücü (ZH/s Eklendi!):</span></label>
 					<div class="col-7">
-						<input id="inputNetworkPower" type="number" name="inputNetworkPower" class="form-control sayılar">
+						<input id="inputNetworkPower" type="number" name="inputNetworkPower" class="form-control sayılar " placeholder="Ağ gücünü giriniz...">
 					</div>
 					<div class="col-5">
 						<select id="selectNetworkPower" name="" class="form-select seçenekler">
@@ -146,11 +144,11 @@
                 </div>
             </div>
 <!--===============================================================================================-->
-            <div class="form-group">
+            <div class="şiş">
                 <div class="form-group row my-1">
-				<label for="inputUserPower"><img src="./img/svg/kazım_gucu.svg" width="15" height="15"/> <span class="important">Kazım Gücü</span></label>
+				<label for="inputUserPower"><img src="./img/svg/kazım_gucu.svg" width="15" height="15"/> <span class="important">Kazım Gücü:</span></label>
 					<div class="col-7">
-						<input type="number" id="inputUserPower" name="inputUserPower" class="form-control sayılar">
+						<input type="number" id="inputUserPower" name="inputUserPower" class="form-control sayılar" placeholder="Kazım gücünü giriniz...">
 					</div>
 					<div class="col-5">
 						<select name="" id="selectUserPower" class="form-select seçenekler">
@@ -164,11 +162,11 @@
                 </div>
             </div>
 <!--===============================================================================================-->
-			<div class="form-group">
+			<div class="şiş">
                 <div class="form-group row my-1">
-				<label for="inputBlockReward"><img src="./img/svg/blok_odulu.svg" width="15" height="15"/> <span class="important">Blok Ödülü</span></label>
+				<label for="inputBlockReward"><img src="./img/svg/blok_odulu.svg" width="15" height="15"/> <span class="important">Blok Ödülü:</span></label>
 					<div class="col-7">
-						<input type="number" id="inputBlockReward" name="inputBlockReward" class="form-control sayılar">
+						<input type="number" id="inputBlockReward" name="inputBlockReward" class="form-control sayılar" placeholder="Blok ödülünü giriniz...">
 					</div>
 					<div class="col-5">
 						<select id="selectBlockReward" name="selectBlockReward" class="form-select seçenekler">
@@ -188,11 +186,11 @@
 				</div>
             </div>
 <!--===============================================================================================-->
-			<div class="form-group">
+			<div class="şiş">
                 <div class="form-group row my-1">
-				<label for="inputTimePerBlock"><img src="./img/svg/blok_suresi.svg" width="15" height="15"/> <span class="important">Blok Süresi</span></label>
+				<label for="inputTimePerBlock"><img src="./img/svg/blok_suresi.svg" width="15" height="15"/> <span class="important">Blok Süresi:</span></label>
 					<div class="col-7">
-						<input type="number" id="inputTimePerBlock" name="inputTimePerBlock" class="form-control sayılar">
+						<input type="number" id="inputTimePerBlock" name="inputTimePerBlock" class="form-control sayılar" placeholder="Blok süresini giriniz...">
 					</div>
 					<div class="col-5">
 						<select id="selectTimePerBlock" name="selectTimePerBlock" class="form-select seçenekler">
@@ -288,7 +286,7 @@
             <div class="icon">
               <img id="coinIcon" src="./img/btc.svg" alt="Bitcoin">
             </div>
-            <div class="title-text">
+            <div class="title-text2">
               <p id="coinName">BITCOIN</p>
               <p id="coinTicker">BTC</p>
             </div>
@@ -341,7 +339,7 @@
 </footer>
 <!--===============================================================================================-->
 									</div>
-								<h6 class="card-header head text-center özelfont2">TELİF HAKKI © 2024 RCHesapla TÜM HAKLARI SAKLIDIR! ☪</h6>
+								<h6 class="card-header head text-center özelfont2" id="snake">TELİF HAKKI © 2024 RCHesapla TÜM HAKLARI SAKLIDIR! ☪</h6>
 							</div>
                         </div>
 <!--===============================================================================================-->
