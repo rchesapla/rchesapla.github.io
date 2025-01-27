@@ -1,4 +1,4 @@
-var text="<font size=2><b>14.01.2025 / Güncellendi!</b></font>" // Yazı //
+var text="<font size=2><b>27.01.2025 / Güncellendi!</b></font>" // Yazı //
 var speed="80" // Hız //
 
 if (document.all||document.getElementById){
