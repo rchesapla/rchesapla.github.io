@@ -28,11 +28,12 @@
 }
 
 .desired-coin{
-    margin-top: .5rem;
+    margin: 2px;
+	text-align: center;
 }
 
 .desired-coin-container{
-    display: flex;
+ 
     justify-content: center;
 }
 
@@ -46,7 +47,11 @@
 
 .desired-coin-container .title-text p:first-child {
     font-weight: bold;
-    font-size: 1.4rem;
+}
+
+.desired-coin p {
+    border-left: 1px solid red;
+    border-right: 1px solid blue;
 }
 
 .head {
