@@ -28,7 +28,7 @@
 }
 
 .desired-coin{
-    margin-top: 5px;
+    margin-top: .5rem;
 }
 
 .desired-coin-container{
@@ -40,8 +40,13 @@
     width: 2.4rem;
 }
 
-.desired-coin-container, .title-text2{
-    margin-left: .2rem;
+.desired-coin-container .title-text{
+    margin-left: .7rem;
+}
+
+.desired-coin-container .title-text p:first-child {
+    font-weight: bold;
+    font-size: 1.4rem;
 }
 
 .head {
