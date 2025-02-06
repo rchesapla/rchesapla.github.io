@@ -8,7 +8,7 @@ export const blockReward = {
     coinGeckoId: "bitcoin",
   },
   "DOGE": {
-    dailyReward: 51,
+    dailyReward: 75,
     timePerBlock: 600,
     name: "DOGECOIN",
     ticker: "DOGE",
@@ -16,7 +16,7 @@ export const blockReward = {
     coinGeckoId: "dogecoin",
   },
   "ETH": {
-    dailyReward: 0.005,
+    dailyReward: 0.006,
     timePerBlock: 600,
     name: "ETHEREUM",
     ticker: "ETH",
@@ -70,7 +70,7 @@ export const blockReward = {
     coinGeckoId: "tron",
   },
   "LTC": {
-    dailyReward: 0.25,
+    dailyReward: 0.15,
     timePerBlock: 600,
     name: "LITECOIN",
     ticker: "ltc",
