@@ -5,22 +5,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap'); /* AÇIKLAMA */
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nosifer&family=Nova+Square&display=swap'); /*BODY FONT ALANI*/
-@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&family=Rubik+Vinyl&family=VT323&display=swap'); /*BİLGİLER FONT*/
 
 :root {
-  --özelfont: Montserrat, sans-serif;
-  --özelfont2: Audiowide, sans-serif;
+  --ozelfont: Offside, sans-serif;
+  --cardbaslik: Audiowide, sans-serif;
   --siteadı: Audiowide, sans-serif;
   --siteadı2: Audiowide, sans-serif;
   --açıklama: Gemunu Libre, sans-serif;
   --kazımgücü: Gemunu Libre, sans-serif;
+  --bilgilerfont: VT323, sans-serif;
 }
 
-.özelfont {
-	font-size:15px var(--özelfont);
+.ozelfont {
+	font-size:15px var(--ozelfont);
 	}
-.özelfont2 {
-	font:15px var(--özelfont2);
+.cardbaslik {
+	font:15px var(--cardbaslik);
 	}
 .siteadı {
 	font-family: var(--siteadı);
@@ -28,14 +29,17 @@
 	}
 .siteadı2 {
 	font-family: var(--siteadı2);
-  font-weight: 400;
-  font-style: normal;
+	font-weight: 400;
+	font-style: normal;
 	}
 .açıklama {
 	font:20px var(--açıklama);
 	}
 .kazımgücü {
 	font:16px var(--kazımgücü);
+	}
+.bilgilerfont {
+	font:20px var(--bilgilerfont);
 	}
 
 .discord-widget {
