@@ -87,14 +87,13 @@ rgb(180,180,180),3px 3px 0 rgb(158,158,158), 4px 4px 0 rgb(136,136,136),5px
 5px 4px rgba(0,0,0,0.6),5px 5px 1px rgba(0,0,0,0.5),0px 0px 4px rgba(0,0,0,.2);
 }
 
-.sosyalmedyahesaplarımız{
-font: 80px;
-font-family: 'Russo One', sans-serif;
-color:#2f3045;
-
+.asdasda{
+	font: 80px;
+	font-family: 'Russo One', sans-serif;
+	color:black;
 	width: 100%;
 	background: #2f3045; /* background: #151414; */
-text-shadow: 0px 0px 10px #00ff0f, -1px -1px #000;
+	text-shadow: 0px 0px 10px #00ff0f, -1px -1px #000;
 }
 
 .asit{
@@ -115,9 +114,7 @@ text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #
 font: 100px;
 font-family: 'Russo One', sans-serif;
 color: black;
-text-shadow: 0px 0px 0 rgb(223,223,223),1px 1px 0 rgb(202,202,202),2px 2px 0 
-rgb(180,180,180),3px 3px 0 rgb(158,158,158), 4px 4px 0 rgb(136,136,136),5px 
-5px 4px rgba(0,0,0,0.6),5px 5px 1px rgba(0,0,0,0.5),0px 0px 4px rgba(0,0,0,.2);
+text-shadow: 0px 0px 0 blue
 }
 
 .card-body {
@@ -135,7 +132,8 @@ rgb(180,180,180),3px 3px 0 rgb(158,158,158), 4px 4px 0 rgb(136,136,136),5px
 
 .card-header {
 	font-size: 14px;
-	color: #00ff0f;
+	color: black;
+	text-shadow: 0px 0px 10px #00ff0f, -1px -1px #000;
 }
 
 .body {
