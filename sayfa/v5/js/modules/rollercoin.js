@@ -57,7 +57,7 @@ export const blockReward = {
   "RST": {
     dailyReward: 250,
     timePerBlock: 600,
-    name: "ROLLERSEASONTOKEN",
+    name: "ROLLERSEASON",
 	ticker: "RST",
     icon: "rst.svg",
   },
