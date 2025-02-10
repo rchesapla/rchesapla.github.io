@@ -23,3 +23,10 @@ button {
   width: 30vw;
   height: 16.5vw;
 }
+
+@media screen and (max-width: 600px) {
+.wrapper iframe {
+  width: 100%;
+  height: 50vw;
+}
+}
