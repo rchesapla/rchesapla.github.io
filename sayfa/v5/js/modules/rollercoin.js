@@ -35,7 +35,7 @@ export const blockReward = {
     dailyReward: 50,
     timePerBlock: 600,
     name: "POLYGON",
-    ticker: "matic-network",
+    ticker: "POL",
     icon: "matic.svg",
     coinGeckoId: "matic-network",
   },
@@ -57,7 +57,7 @@ export const blockReward = {
   "RST": {
     dailyReward: 250,
     timePerBlock: 600,
-    name: "ROLLERSEASON",
+    name: "ROLLERSEZON",
 	ticker: "RST",
     icon: "rst.svg",
   },
