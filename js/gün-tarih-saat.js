@@ -1,3 +1,16 @@
+
+var userLang = navigator.language || navigator.userLanguage;
+
+if ( userLang == "tr-TR" ){
+    // Sitenin ana dili Türkçe olacaksa yönlendirmeye gerek yok
+}else if ( userLang == "en-US" ){
+    location.href = "https://www.site.com/en";
+}else if ( userLang == "en-GB" ){
+    location.href = "https://www.site.com/en";
+}
+
+
+
 function dcountup(startingdate, baseunit){
     this.currentTime=new Date()
     this.startingdate=new Date(startingdate)
