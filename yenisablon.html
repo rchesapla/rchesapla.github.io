@@ -135,7 +135,97 @@
     </div>
 </main>
 
-      
+<header class="flex">
+    <section class="flex_content">
+        <article class="padding_1x">
+		<div class="card-fc">
+			<h6 class="card-header head asit text-center">📝 KAZIM BİLGİLERİNİZ 📝</h6>
+        <div class="card-body kazımgücü">
+			<div class="form-group row my-1">
+				<label for="inputNetworkPower"><img src="./img/svg/ag_gucu.svg" width="15" height="15"/> <span class="özelfont">Ağ Gücü:</span></label>
+					<div class="col-7">
+						<input id="inputNetworkPower" type="number" name="inputNetworkPower" class="form-control sayılar " placeholder="Ağ gücünü giriniz...">
+					</div>
+					<div class="col-5">
+						<select id="selectNetworkPower" name="" class="roller-select seçenekler">
+							<option value="GH/s">GH/s</option>
+							<option value="TH/s">TH/s</option>
+							<option value="PH/s">PH/s</option>
+							<option value="EH/s" selected="">EH/s</option>
+							<option value="ZH/s">ZH/s</option>
+					</select>
+                </div>
+            </div>
+<!--===============================================================================================-->
+            <div class="şiş">
+                <div class="form-group row my-1">
+				<label for="inputUserPower"><img src="./img/svg/kazım_gucu.svg" width="15" height="15"/> <span class="özelfont">Kazım Gücü:</span></label>
+					<div class="col-7">
+						<input type="number" id="inputUserPower" name="inputUserPower" class="form-control sayılar" placeholder="Kazım gücünü giriniz...">
+					</div>
+					<div class="col-5">
+						<select name="" id="selectUserPower" class="roller-select seçenekler">
+							<option value="GH/s">GH/s</option>
+							<option value="TH/s" selected="">TH/s</option>
+							<option value="PH/s">PH/s</option>
+							<option value="EH/s">EH/s</option>
+							<option value="ZH/s">ZH/s</option>
+						</select>
+					</div>
+                </div>
+            </div>
+<!--===============================================================================================-->
+			<div class="şiş">
+                <div class="form-group row my-1">
+				<label for="inputBlockReward"><img src="./img/svg/blok_odulu.svg" width="15" height="15"/> <span class="özelfont">Blok Ödülü:</span></label>
+					<div class="col-7">
+						<input type="number" id="inputBlockReward" name="inputBlockReward" class="form-control sayılar" placeholder="Blok ödülünü giriniz...">
+					</div>
+					<div class="col-5">
+						<select id="selectBlockReward" name="selectBlockReward" class="roller-select seçenekler">
+							<option value="BTC">BITCOIN (BTC)</option>
+							<option value="DOGE">DOGECOIN (DOGE)</option>
+							<option value="ETH">ETHERIUM (ETH)</option>
+							<option value="BNB">BINANCECOIN (BNB)</option>
+							<option value="MATIC">POLYGON (POL)</option>
+							<option value="SOL">SOLANA (SOL)</option>
+							<option value="TRX">TRON (TRX)</option>
+							<option value="LTC">LITECOIN (LTC)</option>
+							<option value="XRP">RIPPLE (XRP)</option>
+							<option value="RST">ROLLERSEZON (RST)</option>
+							<option value="RLT">ROLLERTOKEN (RLT)</option>
+						</select>
+					</div>
+				</div>
+            </div>
+<!--===============================================================================================-->
+			<div class="şiş">
+                <div class="form-group row my-1">
+				<label for="inputTimePerBlock"><img src="./img/svg/blok_suresi.svg" width="15" height="15"/> <span class="özelfont">Blok Süresi:</span></label>
+					<div class="col-7">
+						<input type="number" id="inputTimePerBlock" name="inputTimePerBlock" class="form-control sayılar" placeholder="Blok süresini giriniz...">
+					</div>
+					<div class="col-5">
+						<select id="selectTimePerBlock" name="selectTimePerBlock" class="roller-select seçenekler">
+							<option value="SECONDS" selected="">Saniye</option>
+							<option value="MINUTES">Dakika</option>
+						</select>
+					</div>
+                </div>
+            </div>
+<!--===============================================================================================-->
+			<div class="btn-submit-container">
+                <div class="tree-dimensional-button btn-default">
+                    <input id="calculateButton" type="button" class="btn btn_1" value="Hesapla">
+                </div>
+            </div>
+<!--===============================================================================================-->
+                        </div>
+						<h6 class="card-header head text-center"></h6>
+                                </div>
+        </article>
+    </section>
+</header>
       
 
 <!--ADDITIONAL-->
