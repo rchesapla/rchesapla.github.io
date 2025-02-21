@@ -9,7 +9,9 @@
 	<meta name="description" content="Rollercoin kişisel kazım gücünü hesapla!">
 	<meta name="author" content="Fatih ÇELİK">
 <!--===============================================================================================-->
-	<link rel="stylesheet" href="./css/ustmenu.css">
+	<link rel="stylesheet" href="./css/yenisablon.css">
+	<link rel="stylesheet" href="./css/tablo.css">
+	<link rel="stylesheet" href="./css/fonts.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" href="./css/ytvideo.css">
 	<link rel="stylesheet" href="./css/---.css">
@@ -135,16 +137,40 @@
     </div>
 </main>
 
-<header class="flex">
-    <section class="flex_content">
-        <article class="padding_1x">
-		<div class="card-fc">
+<body id="index" class="body">
+<!--===============================================================================================-->
+    <section class="container">
+        <div class="row">
+<!--===============================================================================================-->
+            <div class="col-0 col-md-1">
+		
+			</div>
+<!--===============================================================================================-->
+<!-- END PUBLICIDAD -->
+<!--===============================================================================================-->
+<!-- CONTENIDO -->
+            <div class="col-12 col-md-10">
+<!--===============================================================================================-->
+	<center>
+
+	</center>
+<!--===============================================================================================-->
+<div class="row">
+<article class="col-md-5 head">
+    <div>
+		<div class="card-fc my-2 özelfont">
 			<h6 class="card-header head asit text-center">📝 KAZIM BİLGİLERİNİZ 📝</h6>
-        <div class="card-body kazımgücü">
+        <div class="card-body  kazımgücü">
 			<div class="form-group row my-1">
+			
 				<label for="inputNetworkPower"><img src="./img/svg/ag_gucu.svg" width="15" height="15"/> <span class="özelfont">Ağ Gücü:</span></label>
 					<div class="col-7">
-						<input id="inputNetworkPower" type="number" name="inputNetworkPower" class="form-control sayılar " placeholder="Ağ gücünü giriniz...">
+						<div class="custom_input">
+						<svg xmlns="http://www.w3.org/2000/svg" class="svg_icon bi-hdd-network-fill" viewBox="0 0 16 16">
+						<path d="M2 2a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h5.5v3A1.5 1.5 0 0 0 6 11.5H.5a.5.5 0 0 0 0 1H6A1.5 1.5 0 0 0 7.5 14h1a1.5 1.5 0 0 0 1.5-1.5h5.5a.5.5 0 0 0 0-1H10A1.5 1.5 0 0 0 8.5 10V7H14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2zm.5 3a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm2 0a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1z"></path>
+						</svg>
+						<input class="input" id="inputNetworkPower" type="number" name="inputNetworkPower" placeholder="Ağ gücünü giriniz...">
+						</div>
 					</div>
 					<div class="col-5">
 						<select id="selectNetworkPower" name="" class="roller-select seçenekler">
@@ -161,7 +187,10 @@
                 <div class="form-group row my-1">
 				<label for="inputUserPower"><img src="./img/svg/kazım_gucu.svg" width="15" height="15"/> <span class="özelfont">Kazım Gücü:</span></label>
 					<div class="col-7">
-						<input type="number" id="inputUserPower" name="inputUserPower" class="form-control sayılar" placeholder="Kazım gücünü giriniz...">
+						<div class="custom_input">
+						<svg class="svg_icon bi-hdd-network-fill" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.001 512.001" xml:space="preserve" width="64px" height="64px" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path style="fill:#F9B233;" d="M463.926,31.967c-35.352,0-64.01,28.658-64.01,64.01s28.658,64.01,64.01,64.01h16.003V31.967 H463.926z"></path> <rect x="151.878" y="111.981" style="fill:#F9B233;" width="152.024" height="24.004"></rect> </g> <circle style="fill:#E30613;" cx="351.906" cy="95.976" r="16.003"></circle> <rect x="191.879" y="167.987" style="fill:#86CBED;" width="104.021" height="96.018"></rect> <polygon style="fill:#E30613;" points="295.9,135.982 191.883,135.982 159.879,135.982 159.879,167.987 159.879,231.997 7.856,231.997 7.856,264.001 215.887,264.001 199.885,231.997 198.742,231.997 194.17,167.987 295.9,167.987 "></polygon> <rect x="7.856" y="264.006" style="fill:#F9B233;" width="424.064" height="160.027"></rect> <circle style="fill:#E30613;" cx="287.897" cy="336.017" r="24.004"></circle> <rect x="407.912" y="264.006" style="fill:#FFFFFF;" width="24.004" height="128.017"></rect> <circle style="fill:#575756;" cx="383.916" cy="424.022" r="56.006"></circle> <circle style="fill:#FFFFFF;" cx="383.916" cy="424.022" r="16.003"></circle> <circle style="fill:#575756;" cx="151.878" cy="384.02" r="96.018"></circle> <circle style="fill:#E30613;" cx="151.878" cy="384.02" r="48.007"></circle> <circle style="fill:#FFFFFF;" cx="151.878" cy="384.02" r="24.004"></circle> <g> <path style="fill:#1D1D1B;" d="M151.878,439.883c-30.803,0-55.863-25.06-55.863-55.863s25.06-55.864,55.863-55.864 s55.863,25.061,55.863,55.864S182.681,439.883,151.878,439.883z M151.878,343.868c-22.14,0-40.151,18.012-40.151,40.152 c0,22.14,18.012,40.151,40.151,40.151s40.151-18.012,40.151-40.151C192.029,361.88,174.017,343.868,151.878,343.868z"></path> <path style="fill:#1D1D1B;" d="M151.878,415.879c-17.568,0-31.86-14.292-31.86-31.859c0-17.568,14.292-31.86,31.86-31.86 s31.86,14.292,31.86,31.86C183.738,401.587,169.445,415.879,151.878,415.879z M151.878,367.872 c-8.904,0-16.148,7.244-16.148,16.148c0,8.903,7.244,16.147,16.148,16.147s16.148-7.244,16.148-16.147 C168.026,375.116,160.782,367.872,151.878,367.872z"></path> <path style="fill:#1D1D1B;" d="M383.913,447.884c-13.156,0-23.857-10.703-23.857-23.857c0-13.155,10.703-23.858,23.857-23.858 s23.858,10.704,23.858,23.858C407.771,437.182,397.068,447.884,383.913,447.884z M383.913,415.879 c-4.491,0-8.146,3.655-8.146,8.147c0,4.491,3.655,8.146,8.146,8.146c4.492,0,8.147-3.655,8.147-8.146 C392.061,419.534,388.405,415.879,383.913,415.879z"></path> <rect x="431.92" y="88.121" style="fill:#1D1D1B;" width="16.002" height="15.711"></rect> </g> <g> <rect x="127.871" y="256.15" style="fill:#FFFFFF;" width="16.003" height="15.711"></rect> <rect x="95.872" y="256.15" style="fill:#FFFFFF;" width="16.003" height="15.711"></rect> <rect x="63.865" y="256.15" style="fill:#FFFFFF;" width="16.002" height="15.711"></rect> </g> <rect x="151.878" y="104.125" style="fill:#1D1D1B;" width="152.024" height="15.711"></rect> <g> <rect x="224.054" y="188.672" transform="matrix(-0.7072 -0.707 0.707 -0.7072 254.5252 505.3807)" style="fill:#FFFFFF;" width="15.711" height="22.631"></rect> <rect x="244.032" y="191.712" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 274.4343 553.6796)" style="fill:#FFFFFF;" width="15.711" height="56.582"></rect> </g> <g> <polygon style="fill:#1D1D1B;" points="63.719,180.736 45.416,162.432 34.306,173.543 48.007,187.243 48.007,200.137 39.861,200.137 39.861,215.849 71.865,215.849 71.865,200.137 63.719,200.137 "></polygon> <polygon style="fill:#1D1D1B;" points="119.728,200.137 119.728,180.736 101.423,162.432 90.315,173.543 104.016,187.243 104.016,200.137 95.868,200.137 95.868,215.849 127.874,215.849 127.874,200.137 "></polygon> <path style="fill:#1D1D1B;" d="M487.783,152.335V24.111h-23.857c-36.971,0-67.501,28.067-71.428,64.01h-18.066 c-3.255-9.306-12.119-16.003-22.523-16.003c-13.156,0-23.858,10.704-23.858,23.858c0,6.797,2.862,12.935,7.439,17.284 l-31.734,126.933V128.126H152.023v96.015H0v207.741h59.712c17.338,33.251,52.142,56.008,92.166,56.008s74.828-22.757,92.166-56.008 h76.507c3.886,31.519,30.81,56.008,63.363,56.008c35.215,0,63.865-28.649,63.865-63.864c0-11.658-3.155-22.587-8.634-32.005h0.633 V256.146h-24.004h-7.856h-91.954l34.097-136.39c0.611,0.047,1.225,0.079,1.849,0.079c10.403,0,19.268-6.695,22.523-16.002h18.066 c3.927,35.944,34.452,64.01,71.361,64.01l48.007,0.411l0.135-15.712L487.783,152.335z M295.521,337.918l3.415-13.66 c3.137,2.947,5.11,7.12,5.11,11.754c0,8.904-7.244,16.148-16.147,16.148c-8.904,0-16.148-7.244-16.148-16.148 c0-7.447,5.075-13.715,11.944-15.572l-3.417,13.667L295.521,337.918z M239.695,391.528l-15.537-2.739l-2.729,15.472l15.549,2.741 c-1.32,4.882-3.05,9.596-5.151,14.106l-13.659-7.886l-7.856,13.606l13.633,7.871c-2.892,4.1-6.108,7.955-9.638,11.501 l-10.126-12.067l-12.035,10.1l10.12,12.061c-4.09,2.861-8.429,5.386-12.984,7.53L183.888,449l-14.765,5.374l5.402,14.84 c-4.785,1.273-9.729,2.149-14.793,2.603v-16.456h-15.712v16.456c-5.063-0.454-10.007-1.329-14.793-2.603l5.402-14.84L119.865,449 l-5.395,14.824c-4.555-2.144-8.894-4.669-12.984-7.53l10.12-12.061l-12.035-10.1L89.446,446.2 c-3.531-3.546-6.747-7.401-9.638-11.501l13.633-7.871l-7.856-13.606l-13.659,7.886c-2.101-4.51-3.832-9.223-5.151-14.106 l15.549-2.741l-2.729-15.472l-15.537,2.739c-0.211-2.477-0.343-4.977-0.343-7.508s0.132-5.031,0.343-7.508l15.537,2.739 l2.729-15.472l-15.549-2.742c1.32-4.883,3.05-9.596,5.151-14.106l13.659,7.886l7.856-13.606l-13.634-7.871 c2.892-4.1,6.108-7.955,9.638-11.501l10.126,12.067l12.035-10.1l-10.121-12.061c4.09-2.861,8.429-5.387,12.984-7.53l5.395,14.824 l14.765-5.374l-5.402-14.84c4.785-1.273,9.728-2.145,14.793-2.594v15.78h15.712v-15.78c5.064,0.449,10.008,1.321,14.793,2.594 l-5.402,14.84l14.765,5.374l5.395-14.824c4.555,2.144,8.894,4.669,12.984,7.53l-10.121,12.061l12.035,10.1l10.126-12.067 c3.531,3.546,6.747,7.4,9.638,11.501l-13.634,7.871l7.856,13.606l13.659-7.886c2.101,4.51,3.832,9.224,5.151,14.106l-15.549,2.742 l2.729,15.472l15.537-2.739c0.211,2.477,0.342,4.977,0.342,7.508S239.905,389.051,239.695,391.528z M415.772,271.857h8.293v102.554 c-2.603-2.111-5.376-4.013-8.293-5.699V271.857z M408.42,382.599l-9.952,11.86l12.035,10.1l9.942-11.849 c3.843,4.477,6.88,9.66,8.881,15.332l-15.26,2.691l2.729,15.472l15.257-2.69c0.002,0.171,0.013,0.34,0.013,0.511 c0,5.963-1.098,11.673-3.088,16.947l-13.421-7.749l-7.856,13.606l13.406,7.741c-3.771,4.583-8.375,8.45-13.572,11.389 l-5.295-14.547l-14.765,5.374l5.299,14.558c-2.875,0.537-5.835,0.832-8.863,0.832c-3.028,0-5.988-0.294-8.862-0.832l5.299-14.558 l-14.765-5.374l-5.295,14.547c-5.196-2.939-9.802-6.806-13.572-11.39l13.405-7.741l-7.856-13.606l-13.42,7.749 c-1.99-5.275-3.088-10.984-3.088-16.947c0-0.172,0.012-0.34,0.013-0.511l15.257,2.69l2.729-15.472l-15.26-2.691 c2.003-5.672,5.038-10.856,8.881-15.332l9.943,11.85l12.035-10.1l-9.952-11.86c5.035-2.99,10.658-5.086,16.651-6.075v15.497h15.712 v-15.497C397.763,377.513,403.384,379.609,408.42,382.599z M400.061,271.857v16.294h-24.15v15.712h24.15v24.294h-24.15v15.711 h24.15v18.367c-5.161-1.349-10.571-2.073-16.148-2.073c-32.553,0-59.476,24.489-63.363,56.009h-69.9 c3.305-10.129,5.1-20.933,5.1-32.15c0-57.275-46.596-103.871-103.871-103.871S48.007,326.747,48.007,384.021 c0,11.217,1.794,22.022,5.1,32.15H15.711V271.857h32.15v-15.712h-32.15v-16.293h152.023v-96.015h120.309v16.294H184.028v49.473 l19.946,46.541h-44.096v15.712h135.961l-8.075,32.3c-17.507,0.073-31.726,14.333-31.726,31.856c0,17.568,14.292,31.86,31.86,31.86 c17.566,0,31.859-14.292,31.859-31.86c0-12.103-6.785-22.651-16.751-28.041l9.029-36.114L400.061,271.857L400.061,271.857z M288.044,175.843v80.303h-66.976l-21.328-49.765v-30.538H288.044z M351.909,104.122c-4.492,0-8.147-3.654-8.147-8.146 c0-4.492,3.655-8.147,8.147-8.147c4.491,0,8.146,3.654,8.146,8.147C360.055,100.468,356.401,104.122,351.909,104.122z M408.332,103.832h15.587V88.121h-15.587c3.834-27.256,27.296-48.298,55.594-48.298h8.146V152.2l-8.146-0.069 C435.63,152.13,412.166,131.088,408.332,103.832z"></path> </g> </g></svg>
+						<input class="input" type="number" id="inputUserPower" name="inputUserPower" placeholder="Kazım gücünü giriniz...">
+						</div>
 					</div>
 					<div class="col-5">
 						<select name="" id="selectUserPower" class="roller-select seçenekler">
@@ -179,7 +208,10 @@
                 <div class="form-group row my-1">
 				<label for="inputBlockReward"><img src="./img/svg/blok_odulu.svg" width="15" height="15"/> <span class="özelfont">Blok Ödülü:</span></label>
 					<div class="col-7">
-						<input type="number" id="inputBlockReward" name="inputBlockReward" class="form-control sayılar" placeholder="Blok ödülünü giriniz...">
+						<div class="custom_input">
+						<svg class="svg_icon bi-hdd-network-fill" width="64px" height="64px" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs> <style> .cls-3 { fill: #fcc402; } .cls-4 { fill: #fce202; } .cls-6 { fill: url(#linear-gradient-1); } .cls-8 { fill: #ffffff; } </style> <linearGradient id="linear-gradient-1" gradientUnits="userSpaceOnUse" x1="128" y1="172" x2="128" y2="32"> <stop offset="0" stop-color="#fc9502"></stop> <stop offset="1" stop-color="#fcbe02"></stop> </linearGradient> </defs> <g id="cup"> <path d="M63.000,224.000 C89.509,224.000 111.000,202.510 111.000,176.000 C111.000,176.000 111.000,154.000 111.000,154.000 C111.000,154.000 145.000,154.000 145.000,154.000 C145.000,154.000 145.000,176.000 145.000,176.000 C145.000,202.510 167.000,224.000 193.000,224.000 C219.000,224.000 29.420,224.000 63.000,224.000 Z" id="path-1" class="cls-3" fill-rule="evenodd"></path> <path d="M193.000,256.000 C193.000,256.000 63.000,256.000 63.000,256.000 C54.163,256.000 47.000,248.836 47.000,240.000 C47.000,231.163 54.163,224.000 63.000,224.000 C72.287,224.000 183.976,224.000 193.000,224.000 C201.836,224.000 209.000,231.163 209.000,240.000 C209.000,248.836 201.836,256.000 193.000,256.000 Z" id="path-2" class="cls-4" fill-rule="evenodd"></path> <path d="M248.000,62.000 C248.000,62.000 236.000,62.000 236.000,62.000 C217.222,62.000 201.000,77.222 201.000,96.000 C201.000,96.000 195.000,96.000 195.000,96.000 C195.000,96.000 195.000,62.000 195.000,62.000 C197.780,48.307 209.486,38.000 224.000,38.000 C224.000,38.000 248.000,38.000 248.000,38.000 C252.418,38.000 256.000,41.582 256.000,46.000 C256.000,46.000 256.000,54.000 256.000,54.000 C256.000,58.418 252.418,62.000 248.000,62.000 ZM20.000,62.000 C20.000,62.000 8.000,62.000 8.000,62.000 C3.582,62.000 -0.000,58.418 -0.000,54.000 C-0.000,54.000 -0.000,46.000 -0.000,46.000 C-0.000,41.582 3.582,38.000 8.000,38.000 C8.000,38.000 32.000,38.000 32.000,38.000 C46.513,38.000 58.220,48.307 61.000,62.000 C61.000,62.000 61.000,96.000 61.000,96.000 C61.000,96.000 55.000,96.000 55.000,96.000 C55.000,77.222 38.778,62.000 20.000,62.000 Z" id="path-3" class="cls-4" fill-rule="evenodd"></path> <path d="M54.000,32.000 C54.000,32.000 202.000,32.000 202.000,32.000 C202.000,32.000 202.000,98.000 202.000,98.000 C202.000,138.869 168.869,172.000 128.000,172.000 C87.131,172.000 54.000,138.869 54.000,98.000 C54.000,98.000 54.000,32.000 54.000,32.000 Z" id="path-4" class="cls-6" fill-rule="evenodd"></path> <path d="M52.000,-0.000 C52.000,-0.000 204.000,-0.000 204.000,-0.000 C208.418,-0.000 212.000,3.582 212.000,8.000 C212.000,8.000 212.000,16.000 212.000,16.000 C212.000,20.418 208.418,24.000 204.000,24.000 C204.000,24.000 52.000,24.000 52.000,24.000 C47.582,24.000 44.000,20.418 44.000,16.000 C44.000,16.000 44.000,8.000 44.000,8.000 C44.000,3.582 47.582,-0.000 52.000,-0.000 Z" id="path-5" class="cls-3" fill-rule="evenodd"></path> <path d="M162.856,90.349 C157.186,96.253 149.864,104.224 149.864,104.224 C149.864,104.224 151.121,114.155 152.104,122.143 C153.122,130.408 148.536,129.653 143.551,127.407 C136.369,124.171 128.000,120.112 128.000,120.112 C128.000,120.112 119.631,124.171 112.449,127.407 C107.464,129.653 102.877,130.408 103.895,122.143 C104.879,114.155 106.136,104.224 106.136,104.224 C106.136,104.224 98.814,96.253 93.144,90.349 C90.272,87.359 89.502,83.284 95.639,82.135 C103.704,80.624 114.487,78.513 114.487,78.513 C114.487,78.513 119.123,67.961 123.261,60.785 C125.386,57.099 130.614,57.099 132.739,60.785 C136.877,67.961 141.513,78.513 141.513,78.513 C141.513,78.513 152.296,80.624 160.361,82.135 C166.497,83.284 165.728,87.359 162.856,90.349 Z" id="path-6" class="cls-8" fill-rule="evenodd"></path> </g> </g></svg>
+						<input class="input" type="number" id="inputBlockReward" name="inputBlockReward" placeholder="Blok ödülünü giriniz...">
+						</div>
 					</div>
 					<div class="col-5">
 						<select id="selectBlockReward" name="selectBlockReward" class="roller-select seçenekler">
@@ -203,7 +235,7 @@
                 <div class="form-group row my-1">
 				<label for="inputTimePerBlock"><img src="./img/svg/blok_suresi.svg" width="15" height="15"/> <span class="özelfont">Blok Süresi:</span></label>
 					<div class="col-7">
-						<input type="number" id="inputTimePerBlock" name="inputTimePerBlock" class="form-control sayılar" placeholder="Blok süresini giriniz...">
+						<input type="number" id="inputTimePerBlock" name="inputTimePerBlock" class="roller-control sayılar" placeholder="Blok süresini giriniz...">
 					</div>
 					<div class="col-5">
 						<select id="selectTimePerBlock" name="selectTimePerBlock" class="roller-select seçenekler">
@@ -216,16 +248,87 @@
 <!--===============================================================================================-->
 			<div class="btn-submit-container">
                 <div class="tree-dimensional-button btn-default">
-                    <input id="calculateButton" type="button" class="btn btn_1" value="Hesapla">
+                    <input id="calculateButton" type="button" class="btn-show mt-2 head siteadı2" value="Hesapla">
                 </div>
             </div>
 <!--===============================================================================================-->
                         </div>
 						<h6 class="card-header head text-center"></h6>
                                 </div>
-        </article>
+								
+                            </div>
+<!--===============================================================================================-->
+<center>
+
+</center>
+<!--===============================================================================================-->
+                    </article>
+<!--===============================================================================================-->
+                    <aside class="col-md-7">
+						<div class="card-fc my-2 özelfont">
+                                <h6 class="card-header head özelfont2 text-center">🧮 KAZANÇ İSTATİSTİKLERİN 🧮</h6>
+								<div class="card-body kazımgücü">
+<table>
+  <thead>
+    <tr>
+      <th scope="col">BEKLENEN</th>
+      <th scope="col">GÜNLÜK</th>
+      <th scope="col">HAFTALIK</th>
+      <th scope="col">AYLIK</th>
+	  <th scope="col">KRİPTO</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td data-label="Beklenen">
+	  <span class="kazımgücü" id="resultExpectedReward">Beklenen</span>
+	  <img src="https://www.svgrepo.com/show/283989/pick-dig.svg" width="15" height="15"/><br>
+	  <span class="kazımgücü" id="resultExpectedUsdReward">Kazanç</span>
+	  <img src="https://www.svgrepo.com/show/444838/money.svg" width="15" height="15"/></td>
+	  <td data-label="Günlük">
+	  <span class="kazımgücü" id="resultDailyReward">Günlük</span>
+	  <img src="https://www.svgrepo.com/show/283989/pick-dig.svg" width="15" height="15"/><br>
+	  <span class="kazımgücü" id="resultDailyUsdReward">Kazanç</span>
+	  <img src="https://www.svgrepo.com/show/444838/money.svg" width="15" height="15"/></td>
+	  <td data-label="Haftalık">
+	  <span class="kazımgücü" id="resultWeeklyReward">Haftalık</span>
+	  <img src="https://www.svgrepo.com/show/283989/pick-dig.svg" width="15" height="15"/><br>
+	  <span class="kazımgücü" id="resultWeeklyUsdReward">Kazanç</span>
+	  <img src="https://www.svgrepo.com/show/444838/money.svg" width="15" height="15"/></td>
+	  <td data-label="Aylık">
+	  <span class="kazımgücü" id="resultMonthlyReward">Aylık</span>
+	  <img src="https://www.svgrepo.com/show/283989/pick-dig.svg" width="15" height="15"/><br>
+	  <span class="kazımgücü" id="resultMonthlyUsdReward">Kazanç</span>
+	  <img src="https://www.svgrepo.com/show/444838/money.svg" width="15" height="15"/></td>
+	  <td data-label="KRİPTO">
+	  <span id="coinIcon"></span>
+	  <span id="coinName"></span><br>
+	  <span id="coinTicker"></span>
+	  </td>
+    </tr>
+  </tbody>
+</table>
+                        </div>
+						<h6 class="card-header head text-center"></h6>
+						</div>
+<!--===============================================================================================-->
+<center>
+
+</center>
+<!--===============================================================================================-->
+                        </div>
+                    </aside>
+                </div>
+<!--===============================================================================================-->
+            <div class="col-md-1">
+
+			</div>
+<!--===============================================================================================-->
+            </div>
     </section>
-</header>
+<!--===============================================================================================-->
+	<script type="module" src="https://rchesapla.github.io/sayfa/v5/js/index.js"></script>
+</body>
       
 
 <!--ADDITIONAL-->
@@ -235,7 +338,7 @@
 	<script type="module" src="https://rchesapla.github.io/sayfa/v5/js/index.js"></script>
 <!--===============================================================================================-->
 	<script src="js/gün-tarih-saat.js"></script>
-	<script src="js/ustmenu.js"></script>
+	<script src="js/yenisablon.js"></script>
 	<script src="js/ytvideo.js"></script>
 <!--===============================================================================================-->
     <script src="https://kit.fontawesome.com/1e0b62f15f.js" crossorigin="anonymous"></script>
