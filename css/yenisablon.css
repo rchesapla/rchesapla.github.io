@@ -88,28 +88,6 @@ input[type="number"]::-webkit-outer-spin-button {
 	 appearance:none;
 }
 
- .form-select {
-	 display:block;
-	 width:100%;
-	 padding:.375rem 2.25rem .375rem .75rem;
-	 -moz-padding-start:calc(0.75rem - 3px);
-	 font-size:1rem;
-	 font-weight:400;
-	 line-height:1.5;
-	 color:#212529;
-	 background-color:#fff;
-	 background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-	 background-repeat:no-repeat;
-	 background-position:right .75rem center;
-	 background-size:16px 12px;
-	 border:1px solid #ced4da;
-	 border-radius:.25rem;
-	 transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-	 -webkit-appearance:none;
-	 -moz-appearance:none;
-	 appearance:none;
-	 }
-
 .col-5{
 	flex:0 0 auto;
 	width:41.66666667%
@@ -744,17 +722,17 @@ header article p{
 	width: 100%;
 	padding-left: 35px;
 	outline: none;
-	background: #FFFFFF;
-	color: #000000;
+	background: #191919;
+	color: white;
 	border: 1px solid #C4D1EB;
 	border-radius: 5px;
-	box-shadow: 3px 3px 2px 0px #E2E2E2;
+	box-shadow: 3px 3px 2px 0px red;
 	transition: .3s ease;
 }
 
 .input:focus {
-	background: #F2F2F2;
-	border: 1px solid #5A7EC7;
+	background: red;
+	border: 1px solid yellow;
 	border-radius: 10px;
 }
 
@@ -768,4 +746,30 @@ header article p{
 	fill: #4660DC;
 	width: 18px;
 	height: 18px;
+}
+
+/* Botones mostrar modal */
+.btn-show {
+  background-color: #2f3045;
+  border-style: none;
+  box-shadow: 1px 0px #181928, 0px 1px #181928, 2px 1px #181928, 1px 2px #181928,
+    3px 2px #181928, 2px 3px #181928, 4px 3px #181928, 3px 4px #181928,
+    5px 4px #181928, 4px 5px #181928, 6px 5px #181928, 5px 6px #181928;
+  color: #ffffff;
+  cursor: pointer;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+  font-size: 0.75em;
+  padding: 10px 20px;
+  transition: all 0.3s ease 0s;
+}
+
+.btn-show:hover {
+  box-shadow: 1px 0px #181928, 0px 1px #181928, 2px 1px #181928, 1px 2px #181928,
+    3px 2px #181928, 2px 3px #181928, 4px 3px #181928, 3px 4px #181928;
+  transform: translate(5px);
+}
+
+.btn-show:focus {
+  background-color: #2f3045;
 }
