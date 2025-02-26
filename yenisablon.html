@@ -6,6 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="./css/yenisablon.css">
 	<link rel="stylesheet" href="./css/tablo.css">
+	<link rel="stylesheet" href="./css/fonts.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <link rel="stylesheet" href="color-1.css" class="alternate-style" title="color-1" disabled>
@@ -261,14 +262,15 @@
 <article class="col-md-5 head">
     <div>
 		<div class="card-fc my-2 özelfont">
-			<h6 class="card-header head asit text-center">📝 KAZIM BİLGİLERİNİZ 📝</h6>
-        <div class="card-body  kazımgücü">
-			<div class="form-group row my-1">
-				<label for="inputNetworkPower"><img src="./img/svg/ag_gucu.svg" width="15" height="15"/> <span class="özelfont">Ağ Gücü:</span></label>
-					<div class="col-7">
-						<input id="inputNetworkPower" type="number" name="inputNetworkPower" class="roller-control sayılar " placeholder="Ağ gücünü giriniz...">
+        <div class="card-body kazımgücü">
+			<div class="form-group row2">
+					<div class="col-3">
+						<div class="custom_input">
+							<svg class="svg_icon bi-search" width="64px" height="64px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect width="48" height="48" fill="white" fill-opacity="0.01"></rect> <rect x="4" y="34" width="8" height="8" fill="#2F88FF" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></rect> <rect x="8" y="6" width="32" height="12" fill="#2F88FF" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></rect> <path d="M24 34V18" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8 34V26H40V34" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> <rect x="36" y="34" width="8" height="8" fill="#2F88FF" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></rect> <rect x="20" y="34" width="8" height="8" fill="#2F88FF" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></rect> <path d="M14 12H16" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+							<input class="input" id="inputNetworkPower" type="number" name="inputNetworkPower" placeholder="Ağ gücünü giriniz...">
+						</div>
 					</div>
-					<div class="col-5">
+					<div class="col-2">
 						<select id="selectNetworkPower" name="" class="roller-select seçenekler">
 							<option value="GH/s">GH/s</option>
 							<option value="TH/s">TH/s</option>
@@ -280,12 +282,14 @@
             </div>
 <!--===============================================================================================-->
             <div class="şiş">
-                <div class="form-group row my-1">
-				<label for="inputUserPower"><img src="./img/svg/kazım_gucu.svg" width="15" height="15"/> <span class="özelfont">Kazım Gücü:</span></label>
-					<div class="col-7">
-						<input type="number" id="inputUserPower" name="inputUserPower" class="roller-control sayılar" placeholder="Kazım gücünü giriniz...">
+                <div class="form-group row2">
+					<div class="col-3">
+						<div class="custom_input">
+							<svg class="svg_icon bi-search" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 511.999 511.999" xml:space="preserve" width="64px" height="64px" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path style="fill:#FFD311;" d="M297.409,167.318v296.186h-82.783V167.318C214.625,167.318,297.409,166.999,297.409,167.318z"></path> <g> <rect x="214.623" y="463.503" style="fill:#7E8488;" width="82.78" height="39.981"></rect> <path style="fill:#7E8488;" d="M297.409,127.657v39.662c0-0.32-82.783,0-82.783,0v-39.662H297.409z"></path> </g> <path style="fill:#C3C7C9;" d="M496.088,175.635l-99.34-47.978h-99.34h-82.783h-99.34l-99.34,47.978 c0-103.953,66.227-119.945,66.227-119.945h124.175V7.711h99.34v47.978h124.175C429.861,55.689,496.088,71.682,496.088,175.635z"></path> <rect x="214.623" y="167.636" style="fill:#FABB1B;" width="41.395" height="295.867"></rect> <rect x="206.348" y="7.711" style="fill:#9FA3A5;" width="99.34" height="47.982"></rect> <path d="M468.768,71.419c-17.983-18.455-36.251-23.03-37.02-23.215l-0.939-0.227H313.782V0H198.216v47.977H81.189l-0.939,0.227 c-0.769,0.185-19.037,4.759-37.02,23.215C27.073,88.001,7.816,119.611,7.816,176.036v12.927l109.308-52.794h89.371v375.83h99.009 V136.17h89.371l109.308,52.794v-12.927C504.183,119.611,484.924,88.001,468.768,71.419z M289.279,495.775H222.72v-23.758h66.559 V495.775z M289.279,455.793H222.72v-279.99c23.627-0.083,52.938-0.148,66.559-0.094V455.793z M289.279,159.487 c-1.494-0.006-58.66,0.065-66.559,0.092V136.17h66.559V159.487z M398.588,119.945H113.411L24.432,162.92 c2.062-33.787,12.234-61.078,29.726-79.458c12.839-13.492,25.886-18.236,29.135-19.26h131.148V16.225h83.116v47.977h131.169 c6.715,2.08,54.094,19.572,58.848,98.721L398.588,119.945z"></path> <rect x="231.161" y="47.972" width="49.67" height="16.225"></rect> <g> <rect x="247.722" y="23.991" style="fill:#FFFFFF;" width="16.558" height="16.225"></rect> <path style="fill:#FFFFFF;" d="M57.281,102.892c-8.532,10.302-14.865,20.457-15.13,20.886l13.783,8.56 c13.232-21.302,28.802-36.149,34.501-36.149h57.948V79.964H90.433C80.902,79.964,70.059,87.463,57.281,102.892z"></path> </g> <rect x="164.942" y="79.964" width="16.557" height="16.225"></rect> <g> <rect x="231.161" y="191.908" style="fill:#FFFFFF;" width="16.557" height="16.225"></rect> <rect x="264.282" y="191.908" style="fill:#FFFFFF;" width="16.556" height="16.225"></rect> </g> </g></svg>
+							<input class="input" type="number" id="inputUserPower" name="inputUserPower" placeholder="Kazım gücünü giriniz...">
+						</div>
 					</div>
-					<div class="col-5">
+					<div class="col-2">
 						<select name="" id="selectUserPower" class="roller-select seçenekler">
 							<option value="GH/s">GH/s</option>
 							<option value="TH/s" selected="">TH/s</option>
@@ -298,12 +302,14 @@
             </div>
 <!--===============================================================================================-->
 			<div class="şiş">
-                <div class="form-group row my-1">
-				<label for="inputBlockReward"><img src="./img/svg/blok_odulu.svg" width="15" height="15"/> <span class="özelfont">Blok Ödülü:</span></label>
-					<div class="col-7">
-						<input type="number" id="inputBlockReward" name="inputBlockReward" class="roller-control sayılar" placeholder="Blok ödülünü giriniz...">
+                <div class="form-group row2">
+					<div class="col-3">
+						<div class="custom_input">
+							<svg class="svg_icon bi-search"  width="64px" height="64px" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs> <style> .cls-3 { fill: #fcc402; } .cls-4 { fill: #fce202; } .cls-6 { fill: url(#linear-gradient-1); } .cls-8 { fill: #ffffff; } </style> <linearGradient id="linear-gradient-1" gradientUnits="userSpaceOnUse" x1="128" y1="172" x2="128" y2="32"> <stop offset="0" stop-color="#fc9502"></stop> <stop offset="1" stop-color="#fcbe02"></stop> </linearGradient> </defs> <g id="cup"> <path d="M63.000,224.000 C89.509,224.000 111.000,202.510 111.000,176.000 C111.000,176.000 111.000,154.000 111.000,154.000 C111.000,154.000 145.000,154.000 145.000,154.000 C145.000,154.000 145.000,176.000 145.000,176.000 C145.000,202.510 167.000,224.000 193.000,224.000 C219.000,224.000 29.420,224.000 63.000,224.000 Z" id="path-1" class="cls-3" fill-rule="evenodd"></path> <path d="M193.000,256.000 C193.000,256.000 63.000,256.000 63.000,256.000 C54.163,256.000 47.000,248.836 47.000,240.000 C47.000,231.163 54.163,224.000 63.000,224.000 C72.287,224.000 183.976,224.000 193.000,224.000 C201.836,224.000 209.000,231.163 209.000,240.000 C209.000,248.836 201.836,256.000 193.000,256.000 Z" id="path-2" class="cls-4" fill-rule="evenodd"></path> <path d="M248.000,62.000 C248.000,62.000 236.000,62.000 236.000,62.000 C217.222,62.000 201.000,77.222 201.000,96.000 C201.000,96.000 195.000,96.000 195.000,96.000 C195.000,96.000 195.000,62.000 195.000,62.000 C197.780,48.307 209.486,38.000 224.000,38.000 C224.000,38.000 248.000,38.000 248.000,38.000 C252.418,38.000 256.000,41.582 256.000,46.000 C256.000,46.000 256.000,54.000 256.000,54.000 C256.000,58.418 252.418,62.000 248.000,62.000 ZM20.000,62.000 C20.000,62.000 8.000,62.000 8.000,62.000 C3.582,62.000 -0.000,58.418 -0.000,54.000 C-0.000,54.000 -0.000,46.000 -0.000,46.000 C-0.000,41.582 3.582,38.000 8.000,38.000 C8.000,38.000 32.000,38.000 32.000,38.000 C46.513,38.000 58.220,48.307 61.000,62.000 C61.000,62.000 61.000,96.000 61.000,96.000 C61.000,96.000 55.000,96.000 55.000,96.000 C55.000,77.222 38.778,62.000 20.000,62.000 Z" id="path-3" class="cls-4" fill-rule="evenodd"></path> <path d="M54.000,32.000 C54.000,32.000 202.000,32.000 202.000,32.000 C202.000,32.000 202.000,98.000 202.000,98.000 C202.000,138.869 168.869,172.000 128.000,172.000 C87.131,172.000 54.000,138.869 54.000,98.000 C54.000,98.000 54.000,32.000 54.000,32.000 Z" id="path-4" class="cls-6" fill-rule="evenodd"></path> <path d="M52.000,-0.000 C52.000,-0.000 204.000,-0.000 204.000,-0.000 C208.418,-0.000 212.000,3.582 212.000,8.000 C212.000,8.000 212.000,16.000 212.000,16.000 C212.000,20.418 208.418,24.000 204.000,24.000 C204.000,24.000 52.000,24.000 52.000,24.000 C47.582,24.000 44.000,20.418 44.000,16.000 C44.000,16.000 44.000,8.000 44.000,8.000 C44.000,3.582 47.582,-0.000 52.000,-0.000 Z" id="path-5" class="cls-3" fill-rule="evenodd"></path> <path d="M162.856,90.349 C157.186,96.253 149.864,104.224 149.864,104.224 C149.864,104.224 151.121,114.155 152.104,122.143 C153.122,130.408 148.536,129.653 143.551,127.407 C136.369,124.171 128.000,120.112 128.000,120.112 C128.000,120.112 119.631,124.171 112.449,127.407 C107.464,129.653 102.877,130.408 103.895,122.143 C104.879,114.155 106.136,104.224 106.136,104.224 C106.136,104.224 98.814,96.253 93.144,90.349 C90.272,87.359 89.502,83.284 95.639,82.135 C103.704,80.624 114.487,78.513 114.487,78.513 C114.487,78.513 119.123,67.961 123.261,60.785 C125.386,57.099 130.614,57.099 132.739,60.785 C136.877,67.961 141.513,78.513 141.513,78.513 C141.513,78.513 152.296,80.624 160.361,82.135 C166.497,83.284 165.728,87.359 162.856,90.349 Z" id="path-6" class="cls-8" fill-rule="evenodd"></path> </g> </g></svg>
+							<input class="input" type="number" id="inputBlockReward" name="inputBlockReward" placeholder="Blok ödülünü giriniz...">
+						</div>
 					</div>
-					<div class="col-5">
+					<div class="col-2">
 						<select id="selectBlockReward" name="selectBlockReward" class="roller-select seçenekler">
 							<option value="BTC">BITCOIN (BTC)</option>
 							<option value="DOGE">DOGECOIN (DOGE)</option>
@@ -322,12 +328,25 @@
             </div>
 <!--===============================================================================================-->
 			<div class="şiş">
-                <div class="form-group row my-1">
-				<label for="inputTimePerBlock"><img src="./img/svg/blok_suresi.svg" width="15" height="15"/> <span class="özelfont">Blok Süresi:</span></label>
-					<div class="col-7">
-						<input type="number" id="inputTimePerBlock" name="inputTimePerBlock" class="roller-control sayılar" placeholder="Blok süresini giriniz...">
+								<table>
+  <thead>
+    <tr>
+      <th scope="col">BEKLENEN</th>
+      <th scope="col">GÜNLÜK</th>
+      <th scope="col">HAFTALIK</th>
+      <th scope="col">AYLIK</th>
+	  <th scope="col">KRİPTO</th>
+    </tr>
+  </thead>
+</table>
+                <div class="form-group row2">
+					<div class="col-3"  data-label="Blok süresi">
+						<div class="custom_input">
+							<svg class="svg_icon bi-search" width="64px" height="64px" viewBox="0 0 50 50" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><defs><style>.cls-1{fill:#231f20;}.cls-2{fill:#ffba50;}.cls-3{fill:#ffffff;}.cls-4{fill:#8d7f89;}.cls-5{fill:#ff8e5a;}</style></defs><title></title><path class="cls-1" d="M42.641,21.1l2.494-2.494a.5.5,0,0,0,.146-.353.5.5,0,0,0-.146-.354l-2.977-2.977a.5.5,0,0,0-.707,0l-2.494,2.494a15.382,15.382,0,0,0-4.652-2.244.489.489,0,0,0,.023-.115V9.71h1.523a.5.5,0,0,0,.5-.5V5a.5.5,0,0,0-.5-.5H24.207a.5.5,0,0,0-.5.5V9.21a.5.5,0,0,0,.5.5h1.522v5.347a.444.444,0,0,0,.024.115,15.346,15.346,0,0,0-2.583,1.009.493.493,0,0,0,.113-.312V11.915a.5.5,0,0,0-.43-.495l-2.234-.315,1.358-1.8a.5.5,0,0,0-.046-.654l-2.8-2.8a.5.5,0,0,0-.655-.046l-1.8,1.358L16.363,4.93a.5.5,0,0,0-.495-.43H11.915a.5.5,0,0,0-.495.43l-.315,2.235L9.3,5.807a.5.5,0,0,0-.655.046l-2.795,2.8a.5.5,0,0,0-.046.654l1.357,1.8-2.233.315a.5.5,0,0,0-.431.495v3.954a.5.5,0,0,0,.431.5l2.233.314-1.357,1.8a.5.5,0,0,0,.046.655l2.8,2.8a.5.5,0,0,0,.655.046l1.8-1.358.315,2.235a.5.5,0,0,0,.495.43h3.953a.5.5,0,0,0,.314-.114,15.345,15.345,0,0,0-1.624,6.858,15.615,15.615,0,0,0,.158,2.167l-.475.357-.22-1.571a.5.5,0,0,0-.5-.43h-3.1a.5.5,0,0,0-.495.43l-.222,1.571L8.44,31.6a.5.5,0,0,0-.654.046L5.593,33.837a.5.5,0,0,0-.046.654L6.5,35.759l-1.57.22a.5.5,0,0,0-.431.5v3.1a.5.5,0,0,0,.431.495l1.57.222L5.547,41.56a.5.5,0,0,0,.046.654l2.193,2.193a.5.5,0,0,0,.654.046L9.707,43.5l.222,1.57a.5.5,0,0,0,.495.431h3.1a.5.5,0,0,0,.5-.431l.22-1.57,1.268.954a.5.5,0,0,0,.654-.046l2.193-2.193a.5.5,0,0,0,.046-.654l-.954-1.267.905-.128A15.456,15.456,0,0,0,42.641,21.1ZM11.975,40.926a2.9,2.9,0,1,1,2.9-2.9A2.9,2.9,0,0,1,11.975,40.926Zm4.4-18.158.3-2.149.7.529A15.63,15.63,0,0,0,16.375,22.768Zm-2.483-5.041a3.835,3.835,0,1,1,3.835-3.835A3.84,3.84,0,0,1,13.892,17.727Zm7.256-.347-.529-.7,2.148-.3A15.336,15.336,0,0,0,21.148,17.38Z"></path><path class="cls-2" d="M30.028,44.5a14.433,14.433,0,0,1-10.642-4.7.481.481,0,0,0,.063-.228v-3.1a.5.5,0,0,0-.43-.5l-1.571-.22.954-1.268a.5.5,0,0,0-.046-.654l-2.193-2.193a.5.5,0,0,0-.519-.114,14.712,14.712,0,0,1-.086-1.5A14.471,14.471,0,1,1,30.028,44.5Z"></path><path class="cls-1" d="M30.005,18.226a11.8,11.8,0,1,0,11.8,11.8A11.816,11.816,0,0,0,30.005,18.226Z"></path><path class="cls-3" d="M30.005,40.831a10.8,10.8,0,1,1,10.8-10.8A10.815,10.815,0,0,1,30.005,40.831Z"></path><path class="cls-4" d="M19.64,15.806l2.643-.372V12.35l-2.643-.373a.5.5,0,0,1-.33-.8l1.606-2.132L18.735,6.867,16.6,8.474a.5.5,0,0,1-.8-.33L15.434,5.5H12.35l-.372,2.644a.5.5,0,0,1-.8.33L9.048,6.867,6.867,9.049l1.607,2.132a.5.5,0,0,1-.33.8L5.5,12.35v3.084l2.644.372a.5.5,0,0,1,.33.8L6.867,18.735l2.181,2.182,2.134-1.607a.5.5,0,0,1,.8.33l.372,2.644h3.084l.373-2.644a.5.5,0,0,1,.8-.33l1.376,1.037a15.64,15.64,0,0,1,2.368-2.368L19.31,16.6a.5.5,0,0,1,.33-.8Zm-5.748,1.921a3.835,3.835,0,1,1,3.835-3.835A3.84,3.84,0,0,1,13.892,17.727Z"></path><path class="cls-1" d="M13.892,9.057a4.835,4.835,0,1,0,4.835,4.835A4.841,4.841,0,0,0,13.892,9.057Zm0,8.67a3.835,3.835,0,1,1,3.835-3.835A3.84,3.84,0,0,1,13.892,17.727Z"></path><path class="cls-4" d="M16.469,39.421l1.98-.279V36.909l-1.98-.278a.5.5,0,0,1-.33-.8l1.2-1.6-1.578-1.578-1.6,1.2a.5.5,0,0,1-.8-.33l-.278-1.98H10.858l-.279,1.98a.5.5,0,0,1-.8.33l-1.6-1.2L6.607,34.236l1.2,1.6a.5.5,0,0,1-.331.8l-1.98.278v2.233l1.98.279a.5.5,0,0,1,.331.8l-1.2,1.6,1.579,1.579,1.6-1.2a.5.5,0,0,1,.8.331l.279,1.98h2.233l.278-1.98a.5.5,0,0,1,.8-.331l1.6,1.2,1.578-1.579-1.2-1.6a.5.5,0,0,1,.33-.8Zm-4.494,1.505a2.9,2.9,0,1,1,2.9-2.9A2.9,2.9,0,0,1,11.975,40.926Z"></path><path class="cls-1" d="M11.975,34.125a3.9,3.9,0,1,0,3.9,3.9A3.905,3.905,0,0,0,11.975,34.125Zm0,6.8a2.9,2.9,0,1,1,2.9-2.9A2.9,2.9,0,0,1,11.975,40.926Z"></path><path class="cls-1" d="M38.313,29.528h-6.1a2.255,2.255,0,0,0-1.712-1.7V21.439a.5.5,0,0,0-1,0v6.409a2.245,2.245,0,1,0,2.712,2.68h6.1a.5.5,0,0,0,0-1Zm-8.285,1.749a1.249,1.249,0,1,1,1.249-1.249A1.25,1.25,0,0,1,30.028,31.277Z"></path><path class="cls-1" d="M30.028,36.683a.5.5,0,0,0-.5.5v1.626a.5.5,0,0,0,1,0V37.183A.5.5,0,0,0,30.028,36.683Z"></path><path class="cls-1" d="M23.446,30.028a.5.5,0,0,0-.5-.5H21.32a.5.5,0,0,0,0,1h1.626A.5.5,0,0,0,23.446,30.028Z"></path><path class="cls-1" d="M34,35.984a.5.5,0,0,0-.865.5l.812,1.409a.5.5,0,0,0,.865-.5Z"></path><path class="cls-1" d="M26.107,22.309a.5.5,0,1,0-.865.5l.813,1.408a.5.5,0,0,0,.432.25.5.5,0,0,0,.25-.067.5.5,0,0,0,.183-.683Z"></path><path class="cls-1" d="M23.609,33.146,22.2,33.96a.5.5,0,1,0,.5.865l1.408-.813a.5.5,0,1,0-.5-.866Z"></path><path class="cls-1" d="M36.126,27a.494.494,0,0,0,.25-.067l1.409-.813a.5.5,0,1,0-.5-.866l-1.409.813a.5.5,0,0,0,.25.933Z"></path><path class="cls-1" d="M37.815,34l-1.408-.813a.5.5,0,0,0-.5.866l1.408.812a.5.5,0,1,0,.5-.865Z"></path><path class="cls-1" d="M24.141,26.108,22.732,25.3a.5.5,0,0,0-.5.866l1.409.813a.5.5,0,0,0,.5-.866Z"></path><path class="cls-1" d="M26.671,35.748a.5.5,0,0,0-.683.183l-.813,1.408a.5.5,0,1,0,.865.5l.814-1.408A.5.5,0,0,0,26.671,35.748Z"></path><path class="cls-1" d="M33.253,24.346a.5.5,0,0,0,.683-.183l.813-1.408a.5.5,0,1,0-.865-.5l-.814,1.408A.5.5,0,0,0,33.253,24.346Z"></path><path class="cls-5" d="M41.805,15.983l2.269,2.27-2.038,2.038a15.613,15.613,0,0,0-2.27-2.27Z"></path><rect class="cls-5" height="3.21" width="10.644" x="24.707" y="5.5"></rect><path class="cls-5" d="M26.729,9.71h6.6v5.21a15.177,15.177,0,0,0-6.6,0Z"></path></g></svg>
+							<input class="input" type="number" id="inputTimePerBlock" name="inputTimePerBlock" placeholder="Blok süresini giriniz...">
+						</div>
 					</div>
-					<div class="col-5">
+					<div class="col-2">
 						<select id="selectTimePerBlock" name="selectTimePerBlock" class="roller-select seçenekler">
 							<option value="SECONDS" selected="">Saniye</option>
 							<option value="MINUTES">Dakika</option>
@@ -343,7 +362,6 @@
             </div>
 <!--===============================================================================================-->
                         </div>
-						<h6 class="card-header head text-center"></h6>
                                 </div>
 								
                             </div>
@@ -399,7 +417,6 @@
   </tbody>
 </table>
                         </div>
-						<h6 class="card-header head text-center"></h6>
 						</div>
 <!--===============================================================================================-->
 <center>
