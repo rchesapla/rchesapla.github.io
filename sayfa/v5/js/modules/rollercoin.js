@@ -24,7 +24,7 @@ export const blockReward = {
     coinGeckoId: "ethereum",
   },
   "BNB": {
-    dailyReward: 0.024,
+    dailyReward: 0.029,
     timePerBlock: 600,
     name: "BINANCECOIN",
     ticker: "BNB",
@@ -32,7 +32,7 @@ export const blockReward = {
     coinGeckoId: "binancecoin",
   },
   "MATIC": {
-    dailyReward: 60,
+    dailyReward: 49,
     timePerBlock: 600,
     name: "POLYGON",
     ticker: "POL",
@@ -47,7 +47,7 @@ export const blockReward = {
     icon: "rlt.svg",
   },
   "SOL": {
-    dailyReward: 0.11,
+    dailyReward: 0.12,
     timePerBlock: 600,
     name: "SOLANA",
     ticker: "SOL",
@@ -78,7 +78,7 @@ export const blockReward = {
     coinGeckoId: "litecoin",
   },
   "XRP": {
-    dailyReward: 7,
+    dailyReward: 6,
     timePerBlock: 600,
     name: "RIPPLE",
     ticker: "XRP",
