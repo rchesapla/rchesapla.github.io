@@ -20,6 +20,11 @@
 }
 
 @media screen and (max-width: 1100px) {
+.form-group {
+	width: 1000px;
+	color: white;
+	border-radius: 5px 5px 5px 5px;
+	}
 
 }
 
@@ -34,35 +39,40 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-.roller-select,
-.roller-control,
-.input-group-text {
-	color: #c3b0d0 !important;
-	background-color:var(--red);
-	text-shadow: 0px 0px 10px #00ff0f, -1px -1px #000;
+/* Form control , form select */
+.form-select:focus,
+.form-control:focus {
+
 }
 
-.roller-select {
-    font-size: 15px;
-	display:block;
-    border: 2px solid yellow;
-    color: blue;
-	width:100%;
-    background-color: red;
-    padding:.375rem 2.25rem .375rem .75rem;
-	-moz-padding-start:calc(0.75rem - 3px);
-    border-radius: 0 4px 4px 0;
-	background-color:#fff;
-	 background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-	 background-repeat:no-repeat;
-	 background-position:right .75rem center;
-	 background-size:16px 12px;
-	 border:1px solid #ced4da;
-	 border-radius:.25rem;
-	 transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-	 -webkit-appearance:none;
-	 -moz-appearance:none;
-	 appearance:none;
+.form-select,
+.form-control,
+.input-group-text {
+	color: #c3b0d0 !important;
+	background-color: #181928 !important;
+}
+
+.seçenekler {
+	font-size: 15px;
+	padding: 5px 10px;
+	width: 100%;
+	outline: none;
+	background: #191919;
+	color: white;
+	border: 1px solid #C4D1EB;
+	border-radius: 5px;
+	box-shadow: 3px 3px 2px 0px red;
+	transition: .3s ease;
+}
+
+.seçenekler:focus {
+	background: red;
+	border: 1px solid yellow;
+	border-radius: 10px;
+}
+
+.seçenekler::placeholder {
+	color: #DDDDDD;
 }
 
 /*yeni input ayarları*/
