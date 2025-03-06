@@ -8,7 +8,7 @@ export const blockReward = {
     coinGeckoId: "bitcoin",
   },
   "DOGE": {
-    dailyReward: 90,
+    dailyReward: 85,
     timePerBlock: 600,
     name: "DOGECOIN",
     ticker: "DOGE",
@@ -32,7 +32,7 @@ export const blockReward = {
     coinGeckoId: "binancecoin",
   },
   "MATIC": {
-    dailyReward: 49,
+    dailyReward: 55,
     timePerBlock: 600,
     name: "POLYGON",
     ticker: "POL",
@@ -62,7 +62,7 @@ export const blockReward = {
     icon: "rst.svg",
   },
   "TRX": {
-    dailyReward: 75,
+    dailyReward: 70,
     timePerBlock: 600,
     name: "TRON",
     ticker: "TRX",
