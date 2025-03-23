@@ -3,598 +3,689 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Personal Portfolio</title>
     <link rel="stylesheet" href="./css/yenisablon.css">
-	<link rel="stylesheet" href="./css/tablo.css">
-	<link rel="stylesheet" href="./css/fonts.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="shortcut icon" href="https://i.postimg.cc/9fqYVvxh/logo.png" type="image/x-icon">
 
-    <link rel="stylesheet" href="color-1.css" class="alternate-style" title="color-1" disabled>
-    <link rel="stylesheet" href="color-2.css" class="alternate-style" title="color-2" disabled>
-    <link rel="stylesheet" href="color-3.css" class="alternate-style" title="color-3" disabled>
-    <link rel="stylesheet" href="color-4.css" class="alternate-style" title="color-4" >
-    <link rel="stylesheet" href="color-5.css" class="alternate-style" title="color-5" disabled>
 </head>
-<body class="dark"  id="index">
-    <div class="main-container">
-        <div class="aside">
-            <div class="logo">
-                <a href="#"><span>RCH</span></a>
+<body>
+    <main>
+        <aside class="sidebar " data-sidebar>
+            <div class="sidebar-info">
+                <figure class="avatar-box">
+                    <img src="https://fatihcelikofficialtr.github.io/img/logo.png" alt="avatar"> 
+                </figure>
+
+                <div class="info-content">
+                    <h1 class="name" title="Richard Hanrick">RCHesapla</h1>
+                    <p class="title">Web Developer</p>
+                </div>
+
+                <button class="info-more-btn" data-sidebar-btn>
+                    <span>Show Contacts</span>
+                    <ion-icon name="chevron-down"></ion-icon>
+                </button>
             </div>
 
-            <div class="nav-toggler">
-                <span></span>
-            </div>
+            <div class="sidebar-info-more">
+                <div class="separator"></div>
 
-            <ul class="nav">
-                <li><a href="#home" class="active"><i class="fa fa-home"></i>Ana Sayfa</a></li>
-                <li><a href="#about" ><i class="fa fa-user"></i>Hakkımızda</a></li>
-                <li><a href="#hesaplamaaracı" ><i class="fa fa-list"></i>Hesaplama Aracı</a></li>
-                <li><a href="#portfolio" ><i class="fa fa-briefcase"></i>Önemli Bilgiler</a></li>
-                <li><a href="#contact" ><i class="fa fa-comments"></i>İletişim</a></li>
-            </ul>
-        </div>
+                <ul class="contacts-list">
+
+                    <li class="contact-item">
+                        <div class="icon-box">
+                            <ion-icon name="calendar-outline"></ion-icon>
+                        </div>
+
+                        <div class="contact-info">
+                            <p class="contact-title">Birthday</p>
+
+                            <time datetime="1982-06-23">June 23, 1982</time>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="separator"></div>
+
+                <ul class="social-list">
+                    <li class="social-item"><a href="#" class="social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                    <li class="social-item"><a href="#" class="social-link"><ion-icon name="logo-youtube"></ion-icon></a></li>
+                    <li class="social-item"><a href="#" class="social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
+                </ul>
+            </div>
+        </aside>
 
         <div class="main-content">
-            <section class="home section active" id="home">
-                <div class="container">
-                    <div class="row">
-                        <div class="home-info padd-15">
-                            <h3 class="hello">Hoş geldiniz.! <span class="name">Misafirimiz</span></h3>
-                            <h3 class="profession">I'm a <span class="typing">Web Designer</span></h3>
-                            <p>I'm a web designer with extensive experience for over 10 years. My experience is to create website designs, graphic designs and much more...</p>
+            <nav class="navbar">
+                <ul class="navbar-list">
+                    <li class="navbar-item"><button class="navbar-link active" data-nav-link>Hakkımızda</button></li>
+                    <li class="navbar-item"><button class="navbar-link" data-nav-link>Portfolio</button></li>
+                    <li class="navbar-item"><button class="navbar-link" data-nav-link>Blog</button></li>
+                    <li class="navbar-item"><button class="navbar-link" data-nav-link>Contact</button></li>
+                </ul>
+            </nav>
+
+            <article class="about active" data-page="hakkımızda">
+                <header>
+                    <h2 class="h2 article-title">Hakkımızda</h2>
+                </header>
+
+                <section class="about-text">
+                    <p>I'm Creative Director and UI/UX Designer from Sydney, Australia, working in web development and print media. I enjoy turning complex problems into simple, beautiful and intuitive designs.</p>
+                    <p>My job is to build your website so that it is functional and user-friendly but at the same time attractive. Moreover, I add personal touch to your product and make sure that is eye-catching and easy to use. My aim is to bring across your message and identity in the most creative way. I created web design for many famous brand companies.</p>
+                </section>
+
+                <section class="service">
+                    <h3 class="h3 service-title">What I'm doing</h3>
+
+                    <ul class="service-list">
+                        <li class="service-item">
+                            <div class="service-icon-box">
+                                <img src="https://i.postimg.cc/4389jZkP/icon-design.png" alt="icon" width="40">
+                            </div>
+
+                            <div class="service-content-box">
+                                <h4 class="h4 service-item-title">Web Design</h4>
+                                <p class="service-item-text">The most modern and high-quality design made at a professional level.</p>
+                            </div>
+                        </li>
+
+                        <li class="service-item">
+                            <div class="service-icon-box">
+                                <img src="https://i.postimg.cc/ZqgqrqzG/icon-dev.png" alt="icon" width="40">
+                            </div>
+
+                            <div class="service-content-box">
+                                <h4 class="h4 service-item-title">Web development</h4>
+                                <p class="service-item-text">High-quality development of sites at the professional level.</p>
+                            </div>
+                        </li>
+
+                        <li class="service-item">
+                            <div class="service-icon-box">
+                                <img src="https://i.postimg.cc/xjLdzYxZ/icon-app.png" alt="icon" width="40">
+                            </div>
+
+                            <div class="service-content-box">
+                                <h4 class="h4 service-item-title">Mobile apps</h4>
+                                <p class="service-item-text">Professional development of applications for iOS and Android.</p>
+                            </div>
+                        </li>
+
+                        <li class="service-item">
+                            <div class="service-icon-box">
+                                <img src="https://i.postimg.cc/0NL8zHpx/icon-photo.png" alt="icon" width="40">
+                            </div>
+
+                            <div class="service-content-box">
+                                <h4 class="h4 service-item-title">Photography</h4>
+                                <p class="service-item-text">I make high-quality photos of any category at a professional level.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="testimonials">
+                    <h3 class="h3 testimonials-title">Testimonials</h3>
+
+                    <ul class="testimonials-list has-scrollbar">
+                        <li class="testimonials-item">
+                            <div class="content-card" data-testimonials-item>
+                                <figure class="testimonials-avatar-box">
+                                    <img src="https://i.postimg.cc/zGDHfn3G/avatar-1.png" alt="avatar" data-testimonials-avatar width="60">
+                                </figure>
+
+                                <h4 class="h4 testimonials-item-title" data-testimonials-title>Daniel Lewis</h4>
+
+                                <div class="testimonials-text" data-testimonials-text>
+                                    <p>Richard was hired to create a corporate identity. It's modern, clean and with a beautiful design that got a lot of praises from colleagues and visitors. We were very pleased with the work done. He has a lot of experience and is very concerned about the needs of client.</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="testimonials-item">
+                            <div class="content-card" data-testimonials-item>
+                                <figure class="testimonials-avatar-box">
+                                    <img src="https://i.postimg.cc/DwY0yHtx/avatar-2.png" alt="avatar" data-testimonials-avatar width="60">
+                                </figure>
+
+                                <h4 class="h4 testimonials-item-title" data-testimonials-title>Jessica Miller</h4>
+
+                                <div class="testimonials-text" data-testimonials-text>
+                                    <p>Working with Richard has been an absolute pleasure. I was impressed with his attention to detail, his web design skills and his professional approach to our timelines and processes.</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="testimonials-item">
+                            <div class="content-card" data-testimonials-item>
+                                <figure class="testimonials-avatar-box">
+                                    <img src="https://i.postimg.cc/fRFWhX9F/avatar-3.png" alt="avatar" data-testimonials-avatar width="60">
+                                </figure>
+
+                                <h4 class="h4 testimonials-item-title" data-testimonials-title>Emily Evans</h4>
+
+                                <div class="testimonials-text" data-testimonials-text>
+                                    <p>I couldn't be happier with the website that Richard created for us. His attention to detail and creativity is unmatched. Our clients frequently compliment the design, and it has significantly improved our brand image.</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="testimonials-item">
+                            <div class="content-card" data-testimonials-item>
+                                <figure class="testimonials-avatar-box">
+                                    <img src="https://i.postimg.cc/zXv1Xv81/avatar-4.png" alt="avatar" data-testimonials-avatar width="60">
+                                </figure>
+
+                                <h4 class="h4 testimonials-item-title" data-testimonials-title>Henry Williams</h4>
+
+                                <div class="testimonials-text" data-testimonials-text>
+                                    <p>I was overwhelmed with the thought of redesigning my online store, but Richard made the process seamless. The site is not only visually appealing but also optimized for conversions. I've seen a 50% increase in traffic since the launch!</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <div class="modal-container " data-modal-container>
+                    <div class="overlay " data-overlay></div>
+
+                    <section class="testimonials-modal">
+                        <button class="modal-close-btn" data-modal-close-btn><ion-icon name="close-outline"></ion-icon></button>
+
+                        <div class="modal-img-wrapper">
+                            <figure class="modal-avatar-box">
+                                <img src="https://i.postimg.cc/zGDHfn3G/avatar-1.png" alt="Daniel Lewis" width="80" data-modal-img>
+                            </figure>
+
+                            <img src="https://i.postimg.cc/mZ00RwX7/icon-quote.png" alt="quote icon">
                         </div>
 
-                        <div class="home-img padd-15">
-                            <img src="https://rchesapla.github.io/favicon.png" alt="hero image">
+                        <div class="modal-content">
+                            <h4 class="h3 modal-title" data-modal-title>Daniel Lewis</h4>
+                            <time datetime="2023-06-14">14 June, 2023</time>
+
+                            <div class="modal-text" data-modal-text>
+                                <p>Richard was hired to create a corporate identity. It's modern, clean and with a beautiful design that got a lot of praises from colleagues and visitors. We were very pleased with the work done. He has a lot of experience and is very concerned about the needs of client.</p>
+                            </div>
                         </div>
-                    </div>
+                    </section>
                 </div>
-            </section>
 
-            <section class="about section " id="about">
-                <div class="container">
-                    <div class="row">
-                        <div class="section-title padd-15">
-                            <h2>About me</h2>
-                        </div>
-                    </div>
+                <section class="clients">
+                    <h3 class="h3 clients-title">Clients</h3>
 
-                    <div class="row">
-                        <div class="about-content padd-15">
-                            <div class="row">
-                                <div class="about-text padd-15">
-                                    <h3>I'm Leo Souza and <span>Web Designer</span></h3>
-                                    <p>As a web designer, I'm specialized in creating visually appealing websites that not only captivate visitors but also provide seamless navigation and functionality.  I continuously seek inspiration from current design trends and am committed to honing my skills through ongoing learning and experimentation. My ultimate goal is to craft digital experiences that engage users and drive results for my clients</p>
-                                </div>
-                            </div>
+                    <ul class="clients-list has-scrollbar">
+                        <li class="clients-item">
+                            <a href="#"><img src="https://i.postimg.cc/YqfKyG66/logo-1-color.png" alt="logo"></a>
+                        </li>
 
-                            <div class="row">
-                                <div class="personal-info padd-15">
-                                    <div class="row">
-                                        <div class="info-item padd-15">
-                                            <p>Birthday: <span>02 Nov 2000</span></p>
-                                        </div>
+                        <li class="clients-item">
+                            <a href="#"><img src="https://i.postimg.cc/fWm6JtgG/logo-2-color.png" alt="logo"></a>
+                        </li>
 
-                                        <div class="info-item padd-15">
-                                            <p>Age: <span>24</span></p>
-                                        </div>
+                        <li class="clients-item">
+                            <a href="#"><img src="https://i.postimg.cc/Bb07xpwd/logo-3-color.png" alt="logo"></a>
+                        </li>
 
-                                        <div class="info-item padd-15">
-                                            <p>Website: <span>www.domain.com</span></p>
-                                        </div>
+                        <li class="clients-item">
+                            <a href="#"><img src="https://i.postimg.cc/hv1yMmkh/logo-4-color.png" alt="logo"></a>
+                        </li>
 
-                                        <div class="info-item padd-15">
-                                            <p>Email: <span>info@gmail.com</span></p>
-                                        </div>
+                        <li class="clients-item">
+                            <a href="#"><img src="https://i.postimg.cc/ry1P86Dc/logo-5-color.png" alt="logo"></a>
+                        </li>
 
-                                        <div class="info-item padd-15">
-                                            <p>Degree: <span>CS</span></p>
-                                        </div>
+                        <li class="clients-item">
+                            <a href="#"><img src="https://i.postimg.cc/SsWDN8NV/logo-6-color.png" alt="logo"></a>
+                        </li>
+                    </ul>
+                </section>
 
-                                        <div class="info-item padd-15">
-                                            <p>Phone: <span>+17 678 1999</span></p>
-                                        </div>
+            </article>
+            
+            <!--article class="resume " data-page="resume">
+                <header>
+                    <h2 class="h2 article-title">Resume</h2>
+                </header>
 
-                                        <div class="info-item padd-15">
-                                            <p>City: <span>São Paulo</span></p>
-                                        </div>
+                <section class="timeline">
+                    <div class="title-wrapper">
+                        <div class="icon-box"><ion-icon name="book-outline"></ion-icon></div>
 
-                                        <div class="info-item padd-15">
-                                            <p>Freelance: <span>Available</span></p>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="buttons padd-15">
-                                            <a href="#contact" class="btn hire-me" data-section-index="1">Hire me!</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="skills padd-15">
-                                    <div class="row">
-                                        <div class="skill-item padd-15">
-                                            <h5>CSS</h5>
-                                            <div class="progress">
-                                                <div class="progress-in" style="width: 76%;"></div>
-                                                <div class="skill-percent">76%</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="skill-item padd-15">
-                                            <h5>JS</h5>
-                                            <div class="progress">
-                                                <div class="progress-in" style="width: 86%;"></div>
-                                                <div class="skill-percent">86%</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="skill-item padd-15">
-                                            <h5>PHP</h5>
-                                            <div class="progress">
-                                                <div class="progress-in" style="width: 66%;"></div>
-                                                <div class="skill-percent">66%</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="skill-item padd-15">
-                                            <h5>HTML</h5>
-                                            <div class="progress">
-                                                <div class="progress-in" style="width: 96%;"></div>
-                                                <div class="skill-percent">96%</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="skill-item padd-15">
-                                            <h5>Bootstrap</h5>
-                                            <div class="progress">
-                                                <div class="progress-in" style="width: 76%;"></div>
-                                                <div class="skill-percent">76%</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="education padd-15">
-                                    <h3 class="title">Education</h3>
-                                    <div class="row">
-                                        <div class="timeline-box padd-15">
-                                            <div class="timeline shadow-dark">
-                                                <div class="timeline-item">
-                                                    <div class="circle-dot"></div>
-                                                    <h3 class="timeline-date">
-                                                        <i class="fa fa-calendar"></i> 2013 - 2015
-                                                    </h3>
-                                                    <h4 class="timeline-title">Master in Computer Science</h4>
-                                                    <p class="timeline-text">I learnt a wide range of topics that are essential to understanding both the theory and practical aspects of computing. This involves programming fundamentals, computer architecture, operating systems, databases, software engineering, problem solving, collaboration and communication soft skills.</p>
-                                                </div>
-
-                                                <div class="timeline-item">
-                                                    <div class="circle-dot"></div>
-                                                    <h3 class="timeline-date">
-                                                        <i class="fa fa-calendar"></i> 2011 - 2014
-                                                    </h3>
-                                                    <h4 class="timeline-title">Master Degree</h4>
-                                                    <p class="timeline-text">I chose my master degree in technology. There I deepened my knowledge, enhanced my skills in the area and learnt how to increase my career prospects in a competitive job market.</p>
-                                                </div>
-
-                                                <div class="timeline-item">
-                                                    <div class="circle-dot"></div>
-                                                    <h3 class="timeline-date">
-                                                        <i class="fa fa-calendar"></i> 2007 - 2010
-                                                    </h3>
-                                                    <h4 class="timeline-title">Bachelor Degree</h4>
-                                                    <p class="timeline-text">There I learnt foundational courses and computer sciences fundamentals. In the institution, I chose my specialization in web-development that involves front-end and back-end technologies, user interface designs and content management systems.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="experience padd-15">
-                                    <h3 class="title">Experience</h3>
-                                    <div class="row">
-                                        <div class="timeline-box padd-15">
-                                            <div class="timeline shadow-dark">
-                                                <div class="timeline-item">
-                                                    <div class="circle-dot"></div>
-                                                    <h3 class="timeline-date">
-                                                        <i class="fa fa-calendar"></i> 2020 - Today
-                                                    </h3>
-                                                    <h4 class="timeline-title">Senior Front-end Designer</h4>
-                                                    <p class="timeline-text">I can design complex software systems. My decisions impact scalability, maintainability, and overall system architecture. Also, I mentor less experienced team members, helping them grow and learn.</p>
-                                                </div>
-
-                                                <div class="timeline-item">
-                                                    <div class="circle-dot"></div>
-                                                    <h3 class="timeline-date">
-                                                        <i class="fa fa-calendar"></i> 2017 - 2019
-                                                    </h3>
-                                                    <h4 class="timeline-title">Junior Front-end Designer</h4>
-                                                    <p class="timeline-text">I learnt to code in an existing codebase, dive into the project and understanding its structure. Also I worked closely with senior software engineers that guided me, answered my questions and helped me grow.</p>
-                                                </div>
-
-                                                <div class="timeline-item">
-                                                    <div class="circle-dot"></div>
-                                                    <h3 class="timeline-date">
-                                                        <i class="fa fa-calendar"></i> 2014 - 2016
-                                                    </h3>
-                                                    <h4 class="timeline-title">Graphic Designer</h4>
-                                                    <p class="timeline-text">I can create logos, color schemes and typography for a brand's identity. Also I develop graphics for websites, social media and digital ads with applications that enhance user experience.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="service section " id="hesaplamaaracı">
-                <div class="container">
-                    <div class="row">
-                        <div class="section-title padd-15">
-                            <h2>RollerCoin Hesaplayıcı</h2>
-                        </div>
+                        <h3 class="h3">Education</h3>
                     </div>
 
-    <section class="container">
-        <div class="row">
-<!--===============================================================================================-->
-            <div class="col-0 col-md-1">
-		
-			</div>
-<!--===============================================================================================-->
-<!-- END PUBLICIDAD -->
-<!--===============================================================================================-->
-<!-- CONTENIDO -->
-            <div class="col-12 col-md-10">
-<!--===============================================================================================-->
-	<center>
+                    <ol class="timeline-list">
+                        <li class="timeline-item">
+                            <h4 class="h4 timeline-item-title">University school of the arts</h4>
+                            <span>2008 - 2010</span>
+                            <p class="timeline-text">There I learnt a wide range of topics that are essential to understanding both the theory and practical aspects of computing. This involves programming fundamentals, computer architecture, operating systems, databases, software engineering, problem solving, collaboration and communication soft skills.</p>
+                        </li>
 
-	</center>
-<!--===============================================================================================-->
-<div class="row2">
-<article class="col-md-5 head">
-    <div>
-		<div class="card-fc my-2 özelfont">
-        <div class="card-body kazımgücü">
-			<div class="form-group row2">
-					<div class="col-3">
-						<div class="custom_input">
-							<svg class="svg_icon bi-search" width="64px" height="64px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect width="48" height="48" fill="white" fill-opacity="0.01"></rect> <rect x="4" y="34" width="8" height="8" fill="#2F88FF" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></rect> <rect x="8" y="6" width="32" height="12" fill="#2F88FF" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></rect> <path d="M24 34V18" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8 34V26H40V34" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> <rect x="36" y="34" width="8" height="8" fill="#2F88FF" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></rect> <rect x="20" y="34" width="8" height="8" fill="#2F88FF" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></rect> <path d="M14 12H16" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-							<input class="input" id="inputNetworkPower" type="number" name="inputNetworkPower" placeholder="Ağ gücünü giriniz...">
-						</div>
-					</div>
-					<div class="col-2">
-						<select id="selectNetworkPower" name="" class="form-select seçenekler">
-							<option value="GH/s">GH/s</option>
-							<option value="TH/s">TH/s</option>
-							<option value="PH/s">PH/s</option>
-							<option value="EH/s" selected="">EH/s</option>
-							<option value="ZH/s">ZH/s</option>
-					</select>
-                </div>
-            </div>
-<!--===============================================================================================-->
-            <div class="şiş">
-                <div class="form-group row2">
-					<div class="col-3">
-						<div class="custom_input">
-							<svg class="svg_icon bi-search" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 511.999 511.999" xml:space="preserve" width="64px" height="64px" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path style="fill:#FFD311;" d="M297.409,167.318v296.186h-82.783V167.318C214.625,167.318,297.409,166.999,297.409,167.318z"></path> <g> <rect x="214.623" y="463.503" style="fill:#7E8488;" width="82.78" height="39.981"></rect> <path style="fill:#7E8488;" d="M297.409,127.657v39.662c0-0.32-82.783,0-82.783,0v-39.662H297.409z"></path> </g> <path style="fill:#C3C7C9;" d="M496.088,175.635l-99.34-47.978h-99.34h-82.783h-99.34l-99.34,47.978 c0-103.953,66.227-119.945,66.227-119.945h124.175V7.711h99.34v47.978h124.175C429.861,55.689,496.088,71.682,496.088,175.635z"></path> <rect x="214.623" y="167.636" style="fill:#FABB1B;" width="41.395" height="295.867"></rect> <rect x="206.348" y="7.711" style="fill:#9FA3A5;" width="99.34" height="47.982"></rect> <path d="M468.768,71.419c-17.983-18.455-36.251-23.03-37.02-23.215l-0.939-0.227H313.782V0H198.216v47.977H81.189l-0.939,0.227 c-0.769,0.185-19.037,4.759-37.02,23.215C27.073,88.001,7.816,119.611,7.816,176.036v12.927l109.308-52.794h89.371v375.83h99.009 V136.17h89.371l109.308,52.794v-12.927C504.183,119.611,484.924,88.001,468.768,71.419z M289.279,495.775H222.72v-23.758h66.559 V495.775z M289.279,455.793H222.72v-279.99c23.627-0.083,52.938-0.148,66.559-0.094V455.793z M289.279,159.487 c-1.494-0.006-58.66,0.065-66.559,0.092V136.17h66.559V159.487z M398.588,119.945H113.411L24.432,162.92 c2.062-33.787,12.234-61.078,29.726-79.458c12.839-13.492,25.886-18.236,29.135-19.26h131.148V16.225h83.116v47.977h131.169 c6.715,2.08,54.094,19.572,58.848,98.721L398.588,119.945z"></path> <rect x="231.161" y="47.972" width="49.67" height="16.225"></rect> <g> <rect x="247.722" y="23.991" style="fill:#FFFFFF;" width="16.558" height="16.225"></rect> <path style="fill:#FFFFFF;" d="M57.281,102.892c-8.532,10.302-14.865,20.457-15.13,20.886l13.783,8.56 c13.232-21.302,28.802-36.149,34.501-36.149h57.948V79.964H90.433C80.902,79.964,70.059,87.463,57.281,102.892z"></path> </g> <rect x="164.942" y="79.964" width="16.557" height="16.225"></rect> <g> <rect x="231.161" y="191.908" style="fill:#FFFFFF;" width="16.557" height="16.225"></rect> <rect x="264.282" y="191.908" style="fill:#FFFFFF;" width="16.556" height="16.225"></rect> </g> </g></svg>
-							<input class="input" type="number" id="inputUserPower" name="inputUserPower" placeholder="Kazım gücünü giriniz...">
-						</div>
-					</div>
-					<div class="col-2">
-						<select name="" id="selectUserPower" class="form-select seçenekler">
-							<option value="GH/s">GH/s</option>
-							<option value="TH/s" selected="">TH/s</option>
-							<option value="PH/s">PH/s</option>
-							<option value="EH/s">EH/s</option>
-							<option value="ZH/s">ZH/s</option>
-						</select>
-					</div>
-                </div>
-            </div>
-<!--===============================================================================================-->
-			<div class="şiş">
-                <div class="form-group row2">
-					<div class="col-3">
-						<div class="custom_input">
-							<svg class="svg_icon bi-search"  width="64px" height="64px" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs> <style> .cls-3 { fill: #fcc402; } .cls-4 { fill: #fce202; } .cls-6 { fill: url(#linear-gradient-1); } .cls-8 { fill: #ffffff; } </style> <linearGradient id="linear-gradient-1" gradientUnits="userSpaceOnUse" x1="128" y1="172" x2="128" y2="32"> <stop offset="0" stop-color="#fc9502"></stop> <stop offset="1" stop-color="#fcbe02"></stop> </linearGradient> </defs> <g id="cup"> <path d="M63.000,224.000 C89.509,224.000 111.000,202.510 111.000,176.000 C111.000,176.000 111.000,154.000 111.000,154.000 C111.000,154.000 145.000,154.000 145.000,154.000 C145.000,154.000 145.000,176.000 145.000,176.000 C145.000,202.510 167.000,224.000 193.000,224.000 C219.000,224.000 29.420,224.000 63.000,224.000 Z" id="path-1" class="cls-3" fill-rule="evenodd"></path> <path d="M193.000,256.000 C193.000,256.000 63.000,256.000 63.000,256.000 C54.163,256.000 47.000,248.836 47.000,240.000 C47.000,231.163 54.163,224.000 63.000,224.000 C72.287,224.000 183.976,224.000 193.000,224.000 C201.836,224.000 209.000,231.163 209.000,240.000 C209.000,248.836 201.836,256.000 193.000,256.000 Z" id="path-2" class="cls-4" fill-rule="evenodd"></path> <path d="M248.000,62.000 C248.000,62.000 236.000,62.000 236.000,62.000 C217.222,62.000 201.000,77.222 201.000,96.000 C201.000,96.000 195.000,96.000 195.000,96.000 C195.000,96.000 195.000,62.000 195.000,62.000 C197.780,48.307 209.486,38.000 224.000,38.000 C224.000,38.000 248.000,38.000 248.000,38.000 C252.418,38.000 256.000,41.582 256.000,46.000 C256.000,46.000 256.000,54.000 256.000,54.000 C256.000,58.418 252.418,62.000 248.000,62.000 ZM20.000,62.000 C20.000,62.000 8.000,62.000 8.000,62.000 C3.582,62.000 -0.000,58.418 -0.000,54.000 C-0.000,54.000 -0.000,46.000 -0.000,46.000 C-0.000,41.582 3.582,38.000 8.000,38.000 C8.000,38.000 32.000,38.000 32.000,38.000 C46.513,38.000 58.220,48.307 61.000,62.000 C61.000,62.000 61.000,96.000 61.000,96.000 C61.000,96.000 55.000,96.000 55.000,96.000 C55.000,77.222 38.778,62.000 20.000,62.000 Z" id="path-3" class="cls-4" fill-rule="evenodd"></path> <path d="M54.000,32.000 C54.000,32.000 202.000,32.000 202.000,32.000 C202.000,32.000 202.000,98.000 202.000,98.000 C202.000,138.869 168.869,172.000 128.000,172.000 C87.131,172.000 54.000,138.869 54.000,98.000 C54.000,98.000 54.000,32.000 54.000,32.000 Z" id="path-4" class="cls-6" fill-rule="evenodd"></path> <path d="M52.000,-0.000 C52.000,-0.000 204.000,-0.000 204.000,-0.000 C208.418,-0.000 212.000,3.582 212.000,8.000 C212.000,8.000 212.000,16.000 212.000,16.000 C212.000,20.418 208.418,24.000 204.000,24.000 C204.000,24.000 52.000,24.000 52.000,24.000 C47.582,24.000 44.000,20.418 44.000,16.000 C44.000,16.000 44.000,8.000 44.000,8.000 C44.000,3.582 47.582,-0.000 52.000,-0.000 Z" id="path-5" class="cls-3" fill-rule="evenodd"></path> <path d="M162.856,90.349 C157.186,96.253 149.864,104.224 149.864,104.224 C149.864,104.224 151.121,114.155 152.104,122.143 C153.122,130.408 148.536,129.653 143.551,127.407 C136.369,124.171 128.000,120.112 128.000,120.112 C128.000,120.112 119.631,124.171 112.449,127.407 C107.464,129.653 102.877,130.408 103.895,122.143 C104.879,114.155 106.136,104.224 106.136,104.224 C106.136,104.224 98.814,96.253 93.144,90.349 C90.272,87.359 89.502,83.284 95.639,82.135 C103.704,80.624 114.487,78.513 114.487,78.513 C114.487,78.513 119.123,67.961 123.261,60.785 C125.386,57.099 130.614,57.099 132.739,60.785 C136.877,67.961 141.513,78.513 141.513,78.513 C141.513,78.513 152.296,80.624 160.361,82.135 C166.497,83.284 165.728,87.359 162.856,90.349 Z" id="path-6" class="cls-8" fill-rule="evenodd"></path> </g> </g></svg>
-							<input class="input" type="number" id="inputBlockReward" name="inputBlockReward" placeholder="Blok ödülünü giriniz...">
-						</div>
-					</div>
-					<div class="col-2">
-						<select id="selectBlockReward" name="selectBlockReward" class="form-select seçenekler">
-							<option value="BTC">BITCOIN (BTC)</option>
-							<option value="DOGE">DOGECOIN (DOGE)</option>
-							<option value="ETH">ETHERIUM (ETH)</option>
-							<option value="BNB">BINANCECOIN (BNB)</option>
-							<option value="MATIC">POLYGON (POL)</option>
-							<option value="SOL">SOLANA (SOL)</option>
-							<option value="TRX">TRON (TRX)</option>
-							<option value="LTC">LITECOIN (LTC)</option>
-							<option value="XRP">RIPPLE (XRP)</option>
-							<option value="RST">ROLLERSEZON (RST)</option>
-							<option value="RLT">ROLLERTOKEN (RLT)</option>
-						</select>
-					</div>
-				</div>
-            </div>
-<!--===============================================================================================-->
-			<div class="şiş">
-                <div class="form-group row2">
-					<div class="col-3"  data-label="Blok süresi">
-						<div class="custom_input">
-							<svg class="svg_icon bi-search" width="64px" height="64px" viewBox="0 0 50 50" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><defs><style>.cls-1{fill:#231f20;}.cls-2{fill:#ffba50;}.cls-3{fill:#ffffff;}.cls-4{fill:#8d7f89;}.cls-5{fill:#ff8e5a;}</style></defs><title></title><path class="cls-1" d="M42.641,21.1l2.494-2.494a.5.5,0,0,0,.146-.353.5.5,0,0,0-.146-.354l-2.977-2.977a.5.5,0,0,0-.707,0l-2.494,2.494a15.382,15.382,0,0,0-4.652-2.244.489.489,0,0,0,.023-.115V9.71h1.523a.5.5,0,0,0,.5-.5V5a.5.5,0,0,0-.5-.5H24.207a.5.5,0,0,0-.5.5V9.21a.5.5,0,0,0,.5.5h1.522v5.347a.444.444,0,0,0,.024.115,15.346,15.346,0,0,0-2.583,1.009.493.493,0,0,0,.113-.312V11.915a.5.5,0,0,0-.43-.495l-2.234-.315,1.358-1.8a.5.5,0,0,0-.046-.654l-2.8-2.8a.5.5,0,0,0-.655-.046l-1.8,1.358L16.363,4.93a.5.5,0,0,0-.495-.43H11.915a.5.5,0,0,0-.495.43l-.315,2.235L9.3,5.807a.5.5,0,0,0-.655.046l-2.795,2.8a.5.5,0,0,0-.046.654l1.357,1.8-2.233.315a.5.5,0,0,0-.431.495v3.954a.5.5,0,0,0,.431.5l2.233.314-1.357,1.8a.5.5,0,0,0,.046.655l2.8,2.8a.5.5,0,0,0,.655.046l1.8-1.358.315,2.235a.5.5,0,0,0,.495.43h3.953a.5.5,0,0,0,.314-.114,15.345,15.345,0,0,0-1.624,6.858,15.615,15.615,0,0,0,.158,2.167l-.475.357-.22-1.571a.5.5,0,0,0-.5-.43h-3.1a.5.5,0,0,0-.495.43l-.222,1.571L8.44,31.6a.5.5,0,0,0-.654.046L5.593,33.837a.5.5,0,0,0-.046.654L6.5,35.759l-1.57.22a.5.5,0,0,0-.431.5v3.1a.5.5,0,0,0,.431.495l1.57.222L5.547,41.56a.5.5,0,0,0,.046.654l2.193,2.193a.5.5,0,0,0,.654.046L9.707,43.5l.222,1.57a.5.5,0,0,0,.495.431h3.1a.5.5,0,0,0,.5-.431l.22-1.57,1.268.954a.5.5,0,0,0,.654-.046l2.193-2.193a.5.5,0,0,0,.046-.654l-.954-1.267.905-.128A15.456,15.456,0,0,0,42.641,21.1ZM11.975,40.926a2.9,2.9,0,1,1,2.9-2.9A2.9,2.9,0,0,1,11.975,40.926Zm4.4-18.158.3-2.149.7.529A15.63,15.63,0,0,0,16.375,22.768Zm-2.483-5.041a3.835,3.835,0,1,1,3.835-3.835A3.84,3.84,0,0,1,13.892,17.727Zm7.256-.347-.529-.7,2.148-.3A15.336,15.336,0,0,0,21.148,17.38Z"></path><path class="cls-2" d="M30.028,44.5a14.433,14.433,0,0,1-10.642-4.7.481.481,0,0,0,.063-.228v-3.1a.5.5,0,0,0-.43-.5l-1.571-.22.954-1.268a.5.5,0,0,0-.046-.654l-2.193-2.193a.5.5,0,0,0-.519-.114,14.712,14.712,0,0,1-.086-1.5A14.471,14.471,0,1,1,30.028,44.5Z"></path><path class="cls-1" d="M30.005,18.226a11.8,11.8,0,1,0,11.8,11.8A11.816,11.816,0,0,0,30.005,18.226Z"></path><path class="cls-3" d="M30.005,40.831a10.8,10.8,0,1,1,10.8-10.8A10.815,10.815,0,0,1,30.005,40.831Z"></path><path class="cls-4" d="M19.64,15.806l2.643-.372V12.35l-2.643-.373a.5.5,0,0,1-.33-.8l1.606-2.132L18.735,6.867,16.6,8.474a.5.5,0,0,1-.8-.33L15.434,5.5H12.35l-.372,2.644a.5.5,0,0,1-.8.33L9.048,6.867,6.867,9.049l1.607,2.132a.5.5,0,0,1-.33.8L5.5,12.35v3.084l2.644.372a.5.5,0,0,1,.33.8L6.867,18.735l2.181,2.182,2.134-1.607a.5.5,0,0,1,.8.33l.372,2.644h3.084l.373-2.644a.5.5,0,0,1,.8-.33l1.376,1.037a15.64,15.64,0,0,1,2.368-2.368L19.31,16.6a.5.5,0,0,1,.33-.8Zm-5.748,1.921a3.835,3.835,0,1,1,3.835-3.835A3.84,3.84,0,0,1,13.892,17.727Z"></path><path class="cls-1" d="M13.892,9.057a4.835,4.835,0,1,0,4.835,4.835A4.841,4.841,0,0,0,13.892,9.057Zm0,8.67a3.835,3.835,0,1,1,3.835-3.835A3.84,3.84,0,0,1,13.892,17.727Z"></path><path class="cls-4" d="M16.469,39.421l1.98-.279V36.909l-1.98-.278a.5.5,0,0,1-.33-.8l1.2-1.6-1.578-1.578-1.6,1.2a.5.5,0,0,1-.8-.33l-.278-1.98H10.858l-.279,1.98a.5.5,0,0,1-.8.33l-1.6-1.2L6.607,34.236l1.2,1.6a.5.5,0,0,1-.331.8l-1.98.278v2.233l1.98.279a.5.5,0,0,1,.331.8l-1.2,1.6,1.579,1.579,1.6-1.2a.5.5,0,0,1,.8.331l.279,1.98h2.233l.278-1.98a.5.5,0,0,1,.8-.331l1.6,1.2,1.578-1.579-1.2-1.6a.5.5,0,0,1,.33-.8Zm-4.494,1.505a2.9,2.9,0,1,1,2.9-2.9A2.9,2.9,0,0,1,11.975,40.926Z"></path><path class="cls-1" d="M11.975,34.125a3.9,3.9,0,1,0,3.9,3.9A3.905,3.905,0,0,0,11.975,34.125Zm0,6.8a2.9,2.9,0,1,1,2.9-2.9A2.9,2.9,0,0,1,11.975,40.926Z"></path><path class="cls-1" d="M38.313,29.528h-6.1a2.255,2.255,0,0,0-1.712-1.7V21.439a.5.5,0,0,0-1,0v6.409a2.245,2.245,0,1,0,2.712,2.68h6.1a.5.5,0,0,0,0-1Zm-8.285,1.749a1.249,1.249,0,1,1,1.249-1.249A1.25,1.25,0,0,1,30.028,31.277Z"></path><path class="cls-1" d="M30.028,36.683a.5.5,0,0,0-.5.5v1.626a.5.5,0,0,0,1,0V37.183A.5.5,0,0,0,30.028,36.683Z"></path><path class="cls-1" d="M23.446,30.028a.5.5,0,0,0-.5-.5H21.32a.5.5,0,0,0,0,1h1.626A.5.5,0,0,0,23.446,30.028Z"></path><path class="cls-1" d="M34,35.984a.5.5,0,0,0-.865.5l.812,1.409a.5.5,0,0,0,.865-.5Z"></path><path class="cls-1" d="M26.107,22.309a.5.5,0,1,0-.865.5l.813,1.408a.5.5,0,0,0,.432.25.5.5,0,0,0,.25-.067.5.5,0,0,0,.183-.683Z"></path><path class="cls-1" d="M23.609,33.146,22.2,33.96a.5.5,0,1,0,.5.865l1.408-.813a.5.5,0,1,0-.5-.866Z"></path><path class="cls-1" d="M36.126,27a.494.494,0,0,0,.25-.067l1.409-.813a.5.5,0,1,0-.5-.866l-1.409.813a.5.5,0,0,0,.25.933Z"></path><path class="cls-1" d="M37.815,34l-1.408-.813a.5.5,0,0,0-.5.866l1.408.812a.5.5,0,1,0,.5-.865Z"></path><path class="cls-1" d="M24.141,26.108,22.732,25.3a.5.5,0,0,0-.5.866l1.409.813a.5.5,0,0,0,.5-.866Z"></path><path class="cls-1" d="M26.671,35.748a.5.5,0,0,0-.683.183l-.813,1.408a.5.5,0,1,0,.865.5l.814-1.408A.5.5,0,0,0,26.671,35.748Z"></path><path class="cls-1" d="M33.253,24.346a.5.5,0,0,0,.683-.183l.813-1.408a.5.5,0,1,0-.865-.5l-.814,1.408A.5.5,0,0,0,33.253,24.346Z"></path><path class="cls-5" d="M41.805,15.983l2.269,2.27-2.038,2.038a15.613,15.613,0,0,0-2.27-2.27Z"></path><rect class="cls-5" height="3.21" width="10.644" x="24.707" y="5.5"></rect><path class="cls-5" d="M26.729,9.71h6.6v5.21a15.177,15.177,0,0,0-6.6,0Z"></path></g></svg>
-							<input class="input" type="number" id="inputTimePerBlock" name="inputTimePerBlock" placeholder="Blok süresini giriniz...">
-						</div>
-					</div>
-					<div class="col-2">
-						<select id="selectTimePerBlock" name="selectTimePerBlock" class="form-select seçenekler">
-							<option value="SECONDS" selected="">Saniye</option>
-							<option value="MINUTES">Dakika</option>
-						</select>
-					</div>
-                </div>
-            </div>
-<!--===============================================================================================-->
-			<div class="btn-submit-container">
-                <div class="tree-dimensional-button btn-default">
-                    <input id="calculateButton" type="button" class="btn-show mt-2 head siteadı2" value="Hesapla">
-                </div>
-            </div>
-<!--===============================================================================================-->
-                        </div>
-                                </div>
-								
-                            </div>
-                    </article>
-<!--===============================================================================================-->
-                    <aside class="col-md-7">
-						<div class="card-fc my-2 özelfont">
-								<div class="card-body kazımgücü">
-<table>
-  <thead>
-    <tr>
-      <th scope="col">BEKLENEN</th>
-      <th scope="col">GÜNLÜK</th>
-      <th scope="col">HAFTALIK</th>
-      <th scope="col">AYLIK</th>
-	  <th scope="col">KRİPTO</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td data-label="Beklenen">
-	  <span class="kazımgücü" id="resultExpectedReward">Beklenen</span>
-	  <img src="https://www.svgrepo.com/show/283989/pick-dig.svg" width="15" height="15"/><br>
-	  <span class="kazımgücü" id="resultExpectedUsdReward">Kazanç</span>
-	  <img src="https://www.svgrepo.com/show/444838/money.svg" width="15" height="15"/></td>
-	  <td data-label="Günlük">
-	  <span class="kazımgücü" id="resultDailyReward">Günlük</span>
-	  <img src="https://www.svgrepo.com/show/283989/pick-dig.svg" width="15" height="15"/><br>
-	  <span class="kazımgücü" id="resultDailyUsdReward">Kazanç</span>
-	  <img src="https://www.svgrepo.com/show/444838/money.svg" width="15" height="15"/></td>
-	  <td data-label="Haftalık">
-	  <span class="kazımgücü" id="resultWeeklyReward">Haftalık</span>
-	  <img src="https://www.svgrepo.com/show/283989/pick-dig.svg" width="15" height="15"/><br>
-	  <span class="kazımgücü" id="resultWeeklyUsdReward">Kazanç</span>
-	  <img src="https://www.svgrepo.com/show/444838/money.svg" width="15" height="15"/></td>
-	  <td data-label="Aylık">
-	  <span class="kazımgücü" id="resultMonthlyReward">Aylık</span>
-	  <img src="https://www.svgrepo.com/show/283989/pick-dig.svg" width="15" height="15"/><br>
-	  <span class="kazımgücü" id="resultMonthlyUsdReward">Kazanç</span>
-	  <img src="https://www.svgrepo.com/show/444838/money.svg" width="15" height="15"/></td>
-	  <td data-label="KRİPTO">
-	  <span id="coinIcon"></span>
-	  <span id="coinName"></span><br>
-	  <span id="coinTicker"></span>
-	  </td>
-    </tr>
-  </tbody>
-</table>
-                        </div>
-						</div>
-<!--===============================================================================================-->
-<center>
+                        <li class="timeline-item">
+                            <h4 class="h4 timeline-item-title">New York Academy of Art</h4>
+                            <span>2006 - 2007</span>
+                            <p class="timeline-text">I chose my master degree in technology. There I deepened my knowledge, enhanced my skills in the area and learnt how to increase my career prospects in a competitive job market.</p>
+                        </li>
 
-</center>
-<!--===============================================================================================-->
-                        </div>
-                    </aside>
-                </div>
-<!--===============================================================================================-->
-            <div class="col-md-1">
+                        <li class="timeline-item">
+                            <h4 class="h4 timeline-item-title">High School of Art and Design</h4>
+                            <span>2003 - 2005</span>
+                            <p class="timeline-text">There I learnt foundational courses and computer sciences fundamentals. In the institution, I chose my specialization in web-development that involves front-end and back-end technologies, user interface designs and content management systems.</p>
+                        </li>
+                    </ol>
+                </section>
 
-			</div>
-<!--===============================================================================================-->
-            </div>
-    </section>
-                </div>
-            </section>
+                <section class="timeline">
+                    <div class="title-wrapper">
+                        <div class="icon-box"><ion-icon name="book-outline"></ion-icon></div>
 
-            <section class="portfolio section " id="portfolio">
-                <div class="container">
-                    <div class="row">
-                        <div class="section-title padd-15">
-                            <h2>Portfolio</h2>
-                        </div>
+                        <h3 class="h3">Experience</h3>
                     </div>
 
-                    <div class="row">
-                        <div class="portfolio-heading padd-15">
-                            <h2>My Last Projects: </h2>
-                        </div>
+                    <ol class="timeline-list">
+                        <li class="timeline-item">
+                            <h4 class="h4 timeline-item-title">Creative director</h4>
+                            <span>2015 - Present</span>
+                            <p class="timeline-text">I can develop and oversee creative concepts for projects and campaigns managing a team of designers, writers, and other creative professionals.</p>
+                        </li>
+
+                        <li class="timeline-item">
+                            <h4 class="h4 timeline-item-title">Art director</h4>
+                            <span>2013 - 2015</span>
+                            <p class="timeline-text">I create and develop visual concepts that align with the project's goals and objectives, supervising the design process and managing timelines and budgets for design projects.</p>
+                        </li>
+
+                        <li class="timeline-item">
+                            <h4 class="h4 timeline-item-title">Web designer</h4>
+                            <span>2010 - 2013</span>
+                            <p class="timeline-text">I create logos, color schemes and typography for a brand's identity. Also I develop graphics for websites, social media and digital ads with applications that enhance user experience.</p>
+                        </li>
+                    </ol>
+                </section>
+
+                <section class="skill">
+                    <h3 class="h3 skills-title">My Skills</h3>
+
+                    <ul class="skills-list content-card">
+                        <li class="skills-item">
+                            <div class="title-wrapper">
+                                <h5 class="h5">Web Design</h5>
+                                <data value="80">80%</data>
+                            </div>
+
+                            <div class="skills-progress-bg">
+                                <div class="skills-progress-fill" style="width: 80%;"></div>
+                            </div>
+                        </li>
+
+                        <li class="skills-item">
+                            <div class="title-wrapper">
+                                <h5 class="h5">Graphic Design</h5>
+                                <data value="70">70%</data>
+                            </div>
+
+                            <div class="skills-progress-bg">
+                                <div class="skills-progress-fill" style="width: 70%;"></div>
+                            </div>
+                        </li>
+
+                        <li class="skills-item">
+                            <div class="title-wrapper">
+                                <h5 class="h5">Branding</h5>
+                                <data value="90">90%</data>
+                            </div>
+
+                            <div class="skills-progress-bg">
+                                <div class="skills-progress-fill" style="width: 90%;"></div>
+                            </div>
+                        </li>
+
+                        <li class="skills-item">
+                            <div class="title-wrapper">
+                                <h5 class="h5">WordPress</h5>
+                                <data value="50">50%</data>
+                            </div>
+
+                            <div class="skills-progress-bg">
+                                <div class="skills-progress-fill" style="width: 50%;"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </article-->
+
+            <article class="portfolio " data-page="portfolio">
+                <header>
+                    <h2 class="h2 article-title">Portfolio</h2>
+                </header>
+
+                <section class="projects">
+                    <ul class="filter-list">
+                        <li class="filter-item"><button class="active" data-filter-btn>All</button></li>
+                        <li class="filter-item"><button data-filter-btn>Web Design</button></li>
+                        <li class="filter-item"><button data-filter-btn>Applications</button></li>
+                        <li class="filter-item"><button data-filter-btn>Web Development</button></li>
+                    </ul>
+
+                    <div class="filter-select-box">
+                        <button class="filter-select " data-select>
+                            <div class="select-value" data-select-value>Select Category</div>
+
+                            <div class="select-icon">
+                                <ion-icon name="chevron-down"></ion-icon>
+                            </div>
+                        </button>
+
+                        <ul class="select-list">
+                            <li class="select-item"><button data-select-item>All</button></li>
+                            <li class="select-item"><button data-select-item>Web Design</button></li>
+                            <li class="select-item"><button data-select-item>Applications</button></li>
+                            <li class="select-item"><button data-select-item>Web Development</button></li>
+                        </ul>
                     </div>
 
-                    <div class="row">
-                        <div class="portfolio-item padd-15">
-                            <div class="portfolio-item-inner shadow-dark">
-                                <div class="portfolio-img">
-                                    <img src="https://i.postimg.cc/NGkQB1Y0/portfolio-1.jpg" alt="portfolio image">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="portfolio-item padd-15">
-                            <div class="portfolio-item-inner shadow-dark">
-                                <div class="portfolio-img">
-                                    <img src="https://i.postimg.cc/ydg49Z3w/portfolio-2.jpg" alt="portfolio image">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="portfolio-item padd-15">
-                            <div class="portfolio-item-inner shadow-dark">
-                                <div class="portfolio-img">
-                                    <img src="https://i.postimg.cc/RVPdrbDL/portfolio-3.jpg" alt="portfolio image">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="portfolio-item padd-15">
-                            <div class="portfolio-item-inner shadow-dark">
-                                <div class="portfolio-img">
-                                    <img src="https://i.postimg.cc/25dBY15N/portfolio-4.jpg" alt="portfolio image">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="portfolio-item padd-15">
-                            <div class="portfolio-item-inner shadow-dark">
-                                <div class="portfolio-img">
-                                    <img src="https://i.postimg.cc/RZBHD1ML/portfolio-5.jpg" alt="portfolio image">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="portfolio-item padd-15">
-                            <div class="portfolio-item-inner shadow-dark">
-                                <div class="portfolio-img">
-                                    <img src="https://i.postimg.cc/3wP7t1hK/portfolio-6.jpg" alt="portfolio image">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="contact section" id="contact">
-                <div class="container">
-                    <div class="row">
-                        <div class="section-title padd-15">
-                            <h2>Contact</h2>
-                        </div>
-                    </div>
-
-                    <h3 class="contact-title padd-15">Any Question? Contact us!</h3>
-                    <h4 class="contact-subtitle padd-15">I'm at your service</h4>
-
-                    <div class="row">
-                        <div class="contact-info-item padd-15">
-                            <div class="icon"><i class="fa fa-phone"></i></div>
-                            <h4>Call us on</h4>
-                            <p>+92 333 054 5218</p>
-                        </div>
-
-
-                        <div class="contact-info-item padd-15">
-                            <div class="icon"><i class="fa fa-map-marker-alt"></i></div>
-                            <h4>Office</h4>
-                            <p>São Paulo</p>
-                        </div>
-
-                        <div class="contact-info-item padd-15">
-                            <div class="icon"><i class="fa fa-envelope"></i></div>
-                            <h4>Email</h4>
-                            <p>info@gmail.com</p>
-                        </div>
-
-                        <div class="contact-info-item padd-15">
-                            <div class="icon"><i class="fa fa-globe"></i></div>
-                            <h4>Website</h4>
-                            <p>www.domain.com</p>
-                        </div>
-                    </div>
-                    <h3 class="contact-title padd-15">Send me an email</h3>
-                    <h4 class="contact-subtitle padd-15">I'll contact you as soon as possible!</h4>
-
-                    <div class="row">
-                        <div class="contact-form padd-15">
-                            <div class="row">
-                                <div class="form-item col-6 padd-15">
-                                    <div class="form-group">
-                                        <input type="text" class="roller-control" placeholder="Name">
+                    <ul class="project-list">
+                        <li class="project-item active" data-filter-item data-category="web development">
+                            <a href="#">
+                                <figure class="project-img">
+                                    <div class="project-item-icon-box">
+                                        <ion-icon name="eye-outline"></ion-icon>
                                     </div>
-                                </div>
 
-                                <div class="form-item col-6 padd-15">
-                                    <div class="form-group">
-                                        <input type="email" class="roller-control" placeholder="Email">
-                                    </div>
-                                </div>
-                            </div>
+                                    <img src="https://i.postimg.cc/qRHpHMyd/project-1.jpg" alt="finance" loading="lazy">
+                                </figure>
 
-                            <div class="row">
-                                <div class="form-item col-12 padd-15">
-                                    <div class="form-group">
-                                        <input type="text" class="roller-control" placeholder="Subject">
-                                    </div>
-                                </div>
-                            </div>
+                                <h3 class="project-title">Finance</h3>
+                                <p class="project-category">Web Development</p>
+                            </a>
+                        </li>
 
-                            <div class="row">
-                                <div class="form-item col-12 padd-15">
-                                    <div class="form-group">
-                                        <textarea name="message" id="message" class="roller-control" placeholder="Message"></textarea>
+                        <li class="project-item active" data-filter-item data-category="web development">
+                            <a href="#">
+                                <figure class="project-img">
+                                    <div class="project-item-icon-box">
+                                        <ion-icon name="eye-outline"></ion-icon>
                                     </div>
-                                </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="form-item col-12 padd-15">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn">Send Message</button>
+                                    <img src="https://i.postimg.cc/bNrcM2Wt/project-2.png" alt="orizon" loading="lazy">
+                                </figure>
+
+                                <h3 class="project-title">Orizon</h3>
+                                <p class="project-category">Web Development</p>
+                            </a>
+                        </li>
+
+                        <li class="project-item active" data-filter-item data-category="web design">
+                            <a href="#">
+                                <figure class="project-img">
+                                    <div class="project-item-icon-box">
+                                        <ion-icon name="eye-outline"></ion-icon>
                                     </div>
+
+                                    <img src="https://i.postimg.cc/jSJVqYsq/project-3.jpg" alt="fundo" loading="lazy">
+                                </figure>
+
+                                <h3 class="project-title">Fundo</h3>
+                                <p class="project-category">Web Design</p>
+                            </a>
+                        </li>
+
+                        <li class="project-item active" data-filter-item data-category="applications">
+                            <a href="#">
+                                <figure class="project-img">
+                                    <div class="project-item-icon-box">
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                    </div>
+
+                                    <img src="https://i.postimg.cc/dtpXxNGb/project-4.png" alt="brawlhalla" loading="lazy">
+                                </figure>
+
+                                <h3 class="project-title">Brawlhalla</h3>
+                                <p class="project-category">Applications</p>
+                            </a>
+                        </li>
+
+                        <li class="project-item active" data-filter-item data-category="web design">
+                            <a href="#">
+                                <figure class="project-img">
+                                    <div class="project-item-icon-box">
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                    </div>
+
+                                    <img src="https://i.postimg.cc/43T0JKLw/project-5.png" alt="dsm." loading="lazy">
+                                </figure>
+
+                                <h3 class="project-title">DSM.</h3>
+                                <p class="project-category">Web Design</p>
+                            </a>
+                        </li>
+
+                        <li class="project-item active" data-filter-item data-category="web design">
+                            <a href="#">
+                                <figure class="project-img">
+                                    <div class="project-item-icon-box">
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                    </div>
+
+                                    <img src="https://i.postimg.cc/qR1DX1kZ/project-6.png" alt="metaspark" loading="lazy">
+                                </figure>
+
+                                <h3 class="project-title">Metaspark</h3>
+                                <p class="project-category">Web Design</p>
+                            </a>
+                        </li>
+
+                        <li class="project-item active" data-filter-item data-category="web development">
+                            <a href="#">
+                                <figure class="project-img">
+                                    <div class="project-item-icon-box">
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                    </div>
+
+                                    <img src="https://i.postimg.cc/Kj4q9tjc/project-7.png" alt="summary" loading="lazy">
+                                </figure>
+
+                                <h3 class="project-title">Summary</h3>
+                                <p class="project-category">Web Development</p>
+                            </a>
+                        </li>
+
+                        <li class="project-item active" data-filter-item data-category="applications">
+                            <a href="#">
+                                <figure class="project-img">
+                                    <div class="project-item-icon-box">
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                    </div>
+
+                                    <img src="https://i.postimg.cc/rw2j4B1w/project-8.jpg" alt="task manager" loading="lazy">
+                                </figure>
+
+                                <h3 class="project-title">Task Manager</h3>
+                                <p class="project-category">Applications</p>
+                            </a>
+                        </li>
+
+                        <li class="project-item active" data-filter-item data-category="web development">
+                            <a href="#">
+                                <figure class="project-img">
+                                    <div class="project-item-icon-box">
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                    </div>
+
+                                    <img src="https://i.postimg.cc/7LxNsSQv/project-9.png" alt="arrival" loading="lazy">
+                                </figure>
+
+                                <h3 class="project-title">Arrival</h3>
+                                <p class="project-category">Web Development</p>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </article>
+
+            <article class="blog " data-page="blog">
+                <header>
+                    <h2 class="h2 article-title">Blog</h2>
+                </header>
+
+                <section class="blog-posts">
+                    <ul class="blog-posts-list">
+                        <li class="blog-post-item">
+                            <a href="#">
+                                    <figure class="blog-banner-box">
+                                        <img src="https://i.postimg.cc/DysCZrWs/blog-1.jpg" alt="Design conferences in 2024" loading="lazy">
+                                    </figure>
+
+                                <div class="blog-content">
+                                    <div class="blog-meta">
+                                        <p class="blog-category">Design</p>
+                                        <span class="dot"></span>
+                                        <time datetime="2024-02-23">Feb 23, 2024</time>
+                                    </div>
+
+                                    <h3 class="h3 blog-item-title">Design conferences in 2024</h3>
+                                    <p class="blog-text">In 2024, several exciting design conferences are set to take place, offering opportunities for professionals and enthusiasts to connect, learn, and share innovative ideas.</p>
                                 </div>
-                            </div>
+                            </a>
+                        </li>
+
+                        <li class="blog-post-item">
+                            <a href="#">
+                                <figure class="blog-banner-box">
+                                    <img src="https://i.postimg.cc/QC7qFDMs/blog-2.jpg" alt="Best fonts every designer" loading="lazy">
+                                </figure>
+
+
+                                <div class="blog-content">
+                                    <div class="blog-meta">
+                                        <p class="blog-category">Design</p>
+                                        <span class="dot"></span>
+                                        <time datetime="2024-01-29">Jan 29, 2024</time>
+                                    </div>
+
+                                    <h3 class="h3 blog-item-title">Best fonts every designer</h3>
+                                    <p class="blog-text">When it comes to typography, choosing the right font is essential for effective design. In this article, I'll bring a brief overview of some of the best fonts that every designer should consider incorporating into their toolkit.</p>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="blog-post-item">
+                            <a href="#">
+                                <figure class="blog-banner-box">
+                                    <img src="https://i.postimg.cc/W1T71QcL/blog-3.jpg" alt="Design digest #80" loading="lazy">
+                                </figure>
+
+                                <div class="blog-content">
+                                    <div class="blog-meta">
+                                        <p class="blog-category">Design</p>
+                                        <span class="dot"></span>
+                                        <time datetime="2023-12-20">Dec 20, 2023</time>
+                                    </div>
+
+                                    <h3 class="h3 blog-item-title">Design digest #80</h3>
+                                    <p class="blog-text">Hello, my friends. In this Design Digest, I'll show you a curated collection of the latest trends, insights, and innovations in the design world. This edition highlights key themes and discussions that are shaping the future of design.</p>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="blog-post-item">
+                            <a href="#">
+                                <figure class="blog-banner-box">
+                                    <img src="https://i.postimg.cc/2S0n8yxh/blog-4.jpg" alt="2023 UI interactions" loading="lazy">
+                                </figure>
+
+                                <div class="blog-content">
+                                    <div class="blog-meta">
+                                        <p class="blog-category">Design</p>
+                                        <span class="dot"></span>
+                                        <time datetime="2023-11-29">Nov 29, 2023</time>
+                                    </div>
+
+                                    <h3 class="h3 blog-item-title">2023 UI interactions</h3>
+                                    <p class="blog-text">As we move into 2024, 2023 was marked by the rapidly evolution of the landscape of UI interactions, driven by advancements in technology and user expectations. Dive with me in this text to see the main areas changed in this year.</p>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="blog-post-item">
+                            <a href="#">
+                                <figure class="blog-banner-box">
+                                    <img src="https://i.postimg.cc/YCCmVkw9/blog-5.jpg" alt="The forgotten art of spacing" loading="lazy">
+                                </figure>
+
+                                <div class="blog-content">
+                                    <div class="blog-meta">
+                                        <p class="blog-category">Design</p>
+                                        <span class="dot"></span>
+                                        <time datetime="2023-11-12">Nov 12, 2023</time>
+                                    </div>
+
+                                    <h3 class="h3 blog-item-title">The forgotten art of spacing</h3>
+                                    <p class="blog-text">In the realm of design, spacing is often an overlooked yet crucial element that can significantly impact the overall aesthetic and functionality of a composition. This post will emphasize the importance of white space, margins, and padding in creating visually appealing and effective designs.</p>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="blog-post-item">
+                            <a href="#">
+                                <figure class="blog-banner-box">
+                                    <img src="https://i.postimg.cc/zBCBvP16/blog-6.jpg" alt="Design digest #79" loading="lazy">
+                                </figure>
+
+                                <div class="blog-content">
+                                    <div class="blog-meta">
+                                        <p class="blog-category">Design</p>
+                                        <span class="dot"></span>
+                                        <time datetime="2023-10-20">Oct 20, 2023</time>
+                                    </div>
+
+                                    <h3 class="h3 blog-item-title">Design digest #79</h3>
+                                    <p class="blog-text">Hi, my friends. In this Design Digest I'll focus in the tools and resources that we use daily in our projects. Also, I'll include examples of software recommendations, online courses, and design communities that foster collaboration and learning.</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </article>
+
+            <article class="contact " data-page="contact">
+                <header>
+                    <h2 class="h2 article-title">Contact</h2>
+                </header>
+
+                <section class="mapbox" data-mapbox>
+                    <figure>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d199666.5651251294!2d-121.58334177520186!3d38.56165006739519!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x809ac672b28397f9%3A0x921f6aaa74197fdb!2sSacramento%2C%20CA%2C%20USA!5e0!3m2!1sen!2sbd!4v1647608789441!5m2!1sen!2sbd"
+                         width="400" height="300" loading="lazy"></iframe>
+                    </figure>
+                </section>
+
+                <section class="contact-form">
+                    <h3 class="h3 form-title">Contact Form</h3>
+
+                    <form action="#" class="form" data-form>
+                        <div class="input-wrapper">
+                            <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
+                            <input type="email" name="email" class="form-input" placeholder="Email Address" required data-form-input>
                         </div>
-                    </div>
-                </div>
-            </section>
+
+                        <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input=""></textarea>
+
+                        <button class="form-btn" type="submit" disabled data-form-btn>
+                            <ion-icon name="paper-plane"></ion-icon>
+                            <span>Send Message</span>
+                        </button>
+                    </form>
+                </section>
+            </article>
         </div>
-    </div>
+    </main>
 
-    <div class="style-switcher">
-        <div class="style-switcher-toggler s-icon">
-            <i class="fas fa-cog fa-spin"></i>
-        </div>
-
-        <div class="day-night s-icon">
-            <i class="fas "></i>
-        </div>
-
-        <h4>Tema Renk Ayarı</h4>
-
-        <div class="colors">
-            <span class="color-1" onclick="setActiveStyle('color-1')"></span>
-            <span class="color-2" onclick="setActiveStyle('color-2')"></span>
-            <span class="color-3" onclick="setActiveStyle('color-3')"></span>
-            <span class="color-4" onclick="setActiveStyle('color-4')"></span>
-            <span class="color-5" onclick="setActiveStyle('color-5')"></span>
-        </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
     <script src="./js/yenisablon.js"></script>
-<!--===============================================================================================-->
-	<script type="module" src="https://rchesapla.github.io/sayfa/v5/js/index.js"></script>
-<!--===============================================================================================-->
+	<script src="https://cdn.jsdelivr.net/npm/vue@3.2.37/dist/vue.global.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
