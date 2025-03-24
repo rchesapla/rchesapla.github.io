@@ -159,7 +159,7 @@ service_app.service('CurrencyService', ['$http', '$q', 'FirebaseService', functi
                 }
             ];
 
-        return $http.get(`https://api.coingecko.com/api/v3/simple/price?ids=${currencies.map(c => c.coingecko_id).join()}&vs_currencies=usd,brl,try`).then(response => {
+        return $http.get(`https://api.coingecko.com/api/v3/simple/price?ids=${currencies.map(c => c.coingecko_id).join()}&vs_currencies=usd,try`).then(response => {
             if (response.status === 200) { 
                 var result = response.data;
                 currencies.forEach(c => {

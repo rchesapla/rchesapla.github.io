@@ -193,7 +193,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
     function calculateDonation() {
         if(!isNaN($scope.donationValue) && $scope.donationCurrency) {
-            const currency = $scope.donationCurrency === 'U$' ? 'usd' : 'brl';
+            const currency = $scope.donationCurrency === 'U$' ? 'usd' : 'try';
             $scope.donationInBnb = ($scope.donationValue / exchangeRates['BNB'][currency])
             $scope.donationInMatic = ($scope.donationValue / exchangeRates['MATIC'][currency])
             $scope.donationInEth = ($scope.donationValue / exchangeRates['ETH'][currency])
@@ -379,7 +379,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.$watch('formData.power', function(newvalue) {
         if(!$scope.formData.currency && typeof newvalue !== 'undefined') {
             $scope.currencies?.forEach(c => {
-                c.user_block_farm_brl =  calculateCoinFarm(newvalue, $scope.formData.unit, c, 'brl');
+                c.user_block_farm_brl =  calculateCoinFarm(newvalue, $scope.formData.unit, c, 'try');
                 c.user_block_farm_usd =  calculateCoinFarm(newvalue, $scope.formData.unit, c, 'usd');
                 c.user_block_farm_token =  calculateCoinFarm(newvalue, $scope.formData.unit, c, 'amount');
                 c.user_days_to_widthdraw = calculateDaysUntilWithdraw(convertHashrate(newvalue,  $scope.formData.unit, 'GH/s'),c);
@@ -877,7 +877,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
     $scope.currencies = await CurrencyService.getDetailedCurrencies();
     $scope.currencies?.forEach(c => {
-        c.block_value_in_brl = c.in_game_only ? 0 : exchangeCoin(c.blockSize, c.name, 'brl');
+        c.block_value_in_brl = c.in_game_only ? 0 : exchangeCoin(c.blockSize, c.name, 'try');
         c.block_value_in_usd = c.in_game_only ? 0 : exchangeCoin(c.blockSize, c.name, 'usd');
         c.user_block_farm_brl = 0;
         c.user_block_farm_usd = 0;
@@ -988,13 +988,13 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             const percentual_user_alocated_power = getPercentualPower(user_alocated_power);
             currency.user_alocated_power_value = percentual_user_alocated_power;
             currency.user_alocated_power_day_profit_in_usd = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'usd'));
-            currency.user_alocated_power_day_profit_in_brl = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'brl'));
+            currency.user_alocated_power_day_profit_in_brl = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'try'));
             currency.user_alocated_power_day_profit_in_cripto = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'amount'));
             currency.user_alocated_power_week_profit_in_usd = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'usd'));
-            currency.user_alocated_power_week_profit_in_brl = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'brl'));
+            currency.user_alocated_power_week_profit_in_brl = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'try'));
             currency.user_alocated_power_week_profit_in_cripto = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'amount'));
             currency.user_alocated_power_month_profit_in_usd = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'usd'));
-            currency.user_alocated_power_month_profit_in_brl = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'brl'));
+            currency.user_alocated_power_month_profit_in_brl = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'try'));
             currency.user_alocated_power_month_profit_in_cripto = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'amount'));
             setParamValue(currency.name.toLowerCase(), user_alocated_power);
         }else {
