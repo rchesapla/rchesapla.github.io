@@ -229,35 +229,35 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="networkPower">Poder da Rede</label>
+                        <label for="networkPower">Ağ Gücü:</label>
                         <div class="form-inline">
-                            <input type="number" id="networkPower" class="form-control" ng-model="formData.networkPower" disabled>
-                            <select id="networkUnit" class="form-control" ng-model="formData.networkUnit" disabled ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')">
+                            <input type="number" id="networkPower" class="roller-select" ng-model="formData.networkPower" disabled>
+                            <select id="networkUnit" class="roller-select" ng-model="formData.networkUnit" disabled ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')">
                                 <option ng-repeat="unit in networkUnits">{{unit}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="power">Seu Poder</label>
+                        <label for="power">Kazım Gücü:</label>
                         <div class="form-inline">
-                            <input type="text" id="power" ng-disabled="isLoadedUser" class="form-control" ng-model="formData.power">
-                            <select id="unit" class="form-control" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')"></select>
+                            <input type="text" id="power" ng-disabled="isLoadedUser" class="roller-select" ng-model="formData.power">
+                            <select id="unit" class="roller-select" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')"></select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="blockSize">Tamanho do Bloco</label>
+                        <label for="blockSize">Blok Ödülü:</label>
                         <div class="form-inline">
-                            <input type="text" id="blockSize" class="form-control" ng-model="formData.blockSize" disabled>
-                            <input type="text" id="blockSizeCurrency" class="form-control" value="{{formData.currency.name}} por bloco" disabled>
+                            <input type="text" id="blockSize" class="roller-select" ng-model="formData.blockSize" disabled>
+                            <input type="text" id="blockSizeCurrency" class="roller-select" value="{{formData.currency.name}} por bloco" disabled>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="blockTime">Tempo do Bloco</label>
+                        <label for="blockTime">Blok Süresi:</label>
                         <div class="form-inline">
-                            <input type="number" id="blockTime" class="form-control" ng-model="formData.blockTime" disabled>
+                            <input type="number" id="blockTime" class="roller-select" ng-model="formData.blockTime" disabled>
                             <select id="timeUnit" class="roller-select" ng-model="formData.timeUnit" disabled ng-change="updateTimeUnit('{{formData.timeUnit}}')">
-                                <option value="seconds">Segundos</option>
-                                <option value="minutes">Minutos</option>
+                                <option value="seconds">Saniye</option>
+                                <option value="minutes">Dakika</option>
                             </select>
                         </div>
                     </div>
@@ -1256,7 +1256,7 @@
                 <table ng-if="!formData.currency" class="table table-bordered">
                     <thead>
                         <tr>
-                            <th colspan="19">
+                            <th colspan="20">
                                 Informações gerais
                             </th>
                         </tr>
@@ -1283,7 +1283,7 @@
                             <th colspan="4">
                                 Valor por bloco
                             </th>
-                            <th colspan="9">
+                            <th colspan="10">
                                 Meu Farm por bloco 
                                 <span title="Preencha seu poder para calcular o Farm">
                                     <i style="color:rgb(83, 83, 243)" class="fa fa-info-circle"></i>
