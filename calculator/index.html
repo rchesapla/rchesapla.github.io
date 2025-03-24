@@ -77,7 +77,7 @@
             height: 50px;
             margin-bottom: 10px;
         }
-        .table-bordered {
+        . {
             background-color: rgba(255, 255, 255, 0.7);
         }
         .table-container {
@@ -217,6 +217,7 @@
                             <button class="btn-show" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"><i class="fa-solid fa-coins"></i> En İyi Kripto Hesapla</button>
                         </div>
                     </div>
+					<br/>
                     <div class="form-group">
                         <div class="form-inline">
                             <button class="btn-show" ng-disabled="!isLoadedUser" ng-click="bestBuys()"><i class="fas fa-shopping-cart"></i> En İyi Miner Hesapla</button>
@@ -264,32 +265,32 @@
                         <label for="show_inventory">Carregar inventário</label>
                     </div>
                 </fieldset-->
-                <table class="table table-bordered">
+                <table class="table ">
                     <thead>
                         <tr>
-                            <th scope="col">KULLANICI ADI</th>
-                            <th scope="col">AVATAR</th>
-                            <th scope="col">OYUN GÜCÜ</th>
-                            <th scope="col">MINER GÜCÜ</th>
-                            <th scope="col">RAF GÜCÜ</th>
-                            <th scope="col">GEÇİCİ GÜÇ</th>
-                            <th scope="col">TOPLAM GÜÇ</th>
-                            <th scope="col">BONUS</th>
-                            <th scope="col">ODA DURUMU</th>
+                            <th>KULLANICI ADI</th>
+                            <th>AVATAR</th>
+                            <th>OYUN GÜCÜ</th>
+                            <th>MINER GÜCÜ</th>
+                            <th>RAF GÜCÜ</th>
+                            <th>GEÇİCİ GÜÇ</th>
+                            <th>TOPLAM GÜÇ</th>
+                            <th>BONUS</th>
+                            <th>ODA DURUMU</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td data-label="Kullanıcı Adı">
+                            <td aria-label="Kullanıcı Adı">
                                 {{user_data.name}}
                             </td>
-                            <td data-label="Avatar">
+                            <td aria-label="Avatar">
                                 <img src="https://avatars.rollercoin.com/static/avatars/thumbnails/48/{{user_data.avatar_id}}.png?v=1652150400524" style="width: 30px; height: 30px; border-radius: 50%; vertical-align: middle; margin-right: 8px;">
                             </td>
-                            <td data-label="Oyun Gücü">
+                            <td aria-label="Oyun Gücü">
                                 {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').unit}}
                             </td>
-                            <td ng-if="user_data.newPowerData && user_data.newPowerData.new_power > 0">
+                            <td ng-if="user_data.newPowerData && user_data.newPowerData.new_power > 0" aria-label="Oyun Gücü">
                                 <s>{{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').unit}}</s></br>
                                 {{chooseBestHashRateUnit(user_data.newPowerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.miners, 'GH/s').unit}}<br>
                                 <i class="fa-solid fa-arrow-up"></i> {{chooseBestHashRateUnit(user_data.newPowerData.new_power, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.new_power, 'GH/s').unit}}<br>
@@ -302,10 +303,10 @@
                             <td ng-if="!user_data.newPowerData || !user_data.newPowerData.new_power">
                                 {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').unit}}
                             </td>
-                            <td data-label="Raf Gücü">
+                            <td aria-label="Raf Gücü">
                                 {{chooseBestHashRateUnit(user_data.powerData.racks, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.racks, 'GH/s').unit}}
                             </td>
-                            <td data-label="Geçici Gücü">
+                            <td aria-label="Geçici Gücü">
                                 {{chooseBestHashRateUnit(user_data.powerData.temp, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.temp, 'GH/s').unit}}
                             </td>
                             <td ng-if="!user_data.newPowerData || !user_data.newPowerData.new_total">
@@ -334,7 +335,7 @@
                                 {{(user_data.newPowerData.bonus_percent / 100)}}%<br>
                                 <i class="fa-solid fa-arrow-down"></i> {{(user_data.newPowerData.new_bonus_percent / 100)}}%
                             </td>
-                            <td data-label="Oda Durumu">Oda: 
+                            <td aria-label="Oda Durumu">Oda: 
                                 {{user_data.roomData.rooms.length}}/4<br/>
                                 <span ng-class="{'wrong-value': user_data.occupied_racks_cells  > user_data.all_racks_cells}">Hücre: {{user_data.occupied_racks_cells}}</span>/{{user_data.all_racks_cells}}<br/>
                                 Raf: {{user_data.all_racks}}/{{user_data.all_racks_space}}
@@ -346,7 +347,7 @@
 
             <div ng-if="formData.showRacks" class="col-md-8 table-container">
                 <h3>Racks de {{user_data.name}}</h3>
-                <table class="table table-bordered">
+                <table class="table ">
                     <thead>
                         <tr>
                             <th>
@@ -410,7 +411,7 @@
             </div>
 
             <div ng-if="customMiners.length > 0" class="col-md-8 table-container">
-                <table class="table table-bordered">
+                <table class="table ">
                     <thead>
                         <tr>
                             <th colspan="5">
@@ -551,7 +552,7 @@
                 </div> -->
                
                 <div ng-if="formData.showAllMiners">
-                    <table class="table table-bordered">
+                    <table class="table ">
                         <thead>
                             <tr>
                                 <th colspan="8">
@@ -778,7 +779,7 @@
                 </div>-->
                
                 <div ng-if="formData.showInventory">
-                    <table class="table table-bordered">
+                    <table class="table ">
                         <thead>
                             <tr>
                                 <th colspan="6">
@@ -962,7 +963,7 @@
                 </div>
                
                 <div ng-if="formData.showMiners">
-                    <table class="table table-bordered">
+                    <table class="table ">
                         <thead>
                             <tr>
                                 <th colspan="6">
@@ -1091,7 +1092,7 @@
                         typeahead-loading="loading">
                 </div>
                 <div ng-if="detailed_miners">
-                    <table class="table table-bordered">
+                    <table class="table ">
                         <thead>
                             <tr>
                                 <th colspan="5">
@@ -1153,8 +1154,8 @@
             </div>
 
             <div class="col-md-8 table-container">
-                <h3>Resultados</h3>
-                <table ng-if="formData.currency" class="table table-bordered">
+                <h3>KAZANÇ İSTATİSTİKLERİ</h3>
+                <table ng-if="formData.currency" class="table ">
                     <thead>
                         <tr>
                             <th colspan="3">
@@ -1175,29 +1176,29 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Ganho por Bloco</td>
+                            <td>Beklenen</td>
                             <td>{{calculateEarnings('block', 'amount')}} {{formData.currency.name}}</td>
                             <td ng-hide="formData.currency.in_game_only">${{calculateEarnings('block', 'usd')}}</td>
                         </tr>
                         <tr>
-                            <td>Ganho Diário</td>
+                            <td>Günlük</td>
                             <td>{{calculateEarnings('day', 'amount')}} {{formData.currency.name}}</td>
                             <td ng-hide="formData.currency.in_game_only">${{calculateEarnings('day', 'usd')}}</td>
                         </tr>
                         <tr>
-                            <td>Ganho Semanal</td>
+                            <td>Haftalık</td>
                             <td>{{calculateEarnings('week', 'amount')}} {{formData.currency.name}}</td>
                             <td ng-hide="formData.currency.in_game_only">${{calculateEarnings('week', 'usd')}}</td>
                         </tr>
                         <tr>
-                            <td>Ganho Mensal</td>
+                            <td>Aylık</td>
                             <td>{{calculateEarnings('month', 'amount')}} {{formData.currency.name}}</td>
                             <td ng-hide="formData.currency.in_game_only">${{calculateEarnings('month', 'usd')}}</td>
                         </tr>
                     </tbody>
                 </table>
                 <form name="myForm">
-                <table ng-if="!formData.currency" class="table table-bordered">
+                <table ng-if="!formData.currency" class="table  ozel2">
                     <thead>
                         <tr>
                             <th colspan="20">
@@ -1344,7 +1345,7 @@
                 </form>
             </div>
             <div class="col-md-8 table-container">
-                <table ng-if="!formData.currency && getCurrenciesSum('user_alocated_power')  > 0" class="table table-bordered">
+                <table ng-if="!formData.currency && getCurrenciesSum('user_alocated_power')  > 0" class="table ">
                     <thead>
                         <tr>
                             <th colspan="22">
@@ -1527,16 +1528,14 @@
             </div>
         </div>
     </div>
+	<br/>
     <div style="text-align: center;">
-        <button ng-click="resetValues()">↻ Resetar valores</button>
+        <button class="btn-show" ng-click="resetValues()">↻ İstatistikleri Güncelle</button>
     </div>
     <br/>
-    <br/>
-    <br/>
+    <div class="col-md-8 col-xs-offset-2 table-container ozel2">
 
-    <div class="col-md-8 col-xs-offset-2 table-container">
-
-        <table class="table table-bordered">
+        <table class="table ">
             <thead>
                 <tr>
                     <th colspan="3">

@@ -1,3 +1,9 @@
+body {
+	background-color: #2f3045;
+	text-transform: uppercase;
+}
+
+
 .form-group label {
 	font-family: var(--bilgilerfont);
 	font-size: 25px;
@@ -21,9 +27,18 @@
 	font-family: var(--siteadı);
     width: 100;
 	color: white;
-	padding: 10px;
+	padding: 5px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     max-height: 80vh; /* Limit height for scrolling */
+	border: 1px solid red;
+}
+
+.ozel2 {
+    background-color: #2f3045;
+	font-family: var(--siteadı);
+    width: 100;
+	color: white;
+	padding: 5px;
 }
 
 .ozel,
@@ -67,28 +82,18 @@ table {
   margin: 0;
   padding: 0;
   width: 100%;
-  table-layout: fixed;
-border: 10px solid transparent;
-  padding: 15px;
-  border-image: url(border.png) 30 stretch;
 }
 
 table tr {
-  background-color: red;
-  border: 1px solid black;
-  padding: 1px;
+  background-color: #2f3045;
 }
 
 table th,
 table td {
-  padding: .625em;
+  padding: 5px;
   text-align: center;
-}
-
-table th {
-  font-size: .85em;
-  letter-spacing: .1em;
-  text-transform: uppercase;
+  color: red;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 
@@ -128,17 +133,8 @@ table th {
   table td {
     border-bottom: 1px solid black;
     display: block;
-    text-align: right;
-  }
-  
-  table td::before {
-    /*
-    * aria-label has no advantage, it won't be read inside a table
-    content: attr(aria-label);
-    */
-    content: attr(data-label);
-    float: left;
-    text-transform: uppercase;
+    text-align: center;
+	color: red;
   }
   
   table td:last-child {
