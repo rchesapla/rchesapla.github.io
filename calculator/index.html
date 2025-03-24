@@ -1360,35 +1360,9 @@
                                 </a>
                             </th>
                             <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByField='block_value_in_try'; reverseSort = !reverseSort">
-                                    ₺ 
-                                    <span ng-show="orderByField == 'block_value_in_try'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" colspan="2">
                                 <a href="#" ng-click="orderByField='user_block_farm_token'; reverseSort = !reverseSort">
                                     KRİPTO 
                                     <span ng-show="orderByField == 'user_block_farm_token'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByField='user_block_farm_try'; reverseSort = !reverseSort">
-                                    ₺ 
-                                    <span ng-show="orderByField == 'user_block_farm_try'">
                                         <span ng-show="!reverseSort">
                                             <i class="fa fa-fw fa-sort-asc"></i>
                                         </span>
@@ -1443,9 +1417,7 @@
                                 <td colspan="2">{{chooseBestHashRateUnit(currency.networkPower, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').unit}}</td>
                                 <td colspan="2">Her {{currency.blockTime}} sn {{currency.blockSize}} {{currency.name}}</td>
                                 <td colspan="2">$ {{currency.block_value_in_usd}}</td>
-                                <td colspan="2">{{currency.block_value_in_try}}</td>
                                 <td colspan="2">{{currency.user_block_farm_token}} {{currency.name}}</td>
-                                <td colspan="2">{{currency.user_block_farm_try}}</td>
                                 <td colspan="2">$ {{currency.user_block_farm_usd}}</td>
                                 <td colspan="2">{{formatDays(currency.user_days_to_widthdraw)}}</td>
                                 <td colspan="2"><input type="text" ng-disabled="!formData.power" name="input{{$index}}" id="power" class="form-control" ng-model="currency.user_alocated_power" ng-change="updateAllocatedPower(currency)" style="width:45px"></td>
@@ -1494,19 +1466,6 @@
                                 </a>
                             </th>
                             <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_day_profit_in_try'; reverseSort = !reverseSort; $event.preventDefault();">
-                                    ₺
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_day_profit_in_try'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" colspan="2">
                                 <a href="#" ng-click="orderByFarmField='user_alocated_power_day_profit_in_cripto'; reverseSort = !reverseSort; $event.preventDefault();">
                                     CRIPTO
                                     <span ng-show="orderByFarmField == 'user_alocated_power_day_profit_in_cripto'">
@@ -1523,19 +1482,6 @@
                                 <a href="#" ng-click="orderByFarmField='user_alocated_power_week_profit_in_usd'; reverseSort = !reverseSort; $event.preventDefault();">
                                     USD
                                     <span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_usd'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_week_profit_in_try'; reverseSort = !reverseSort; $event.preventDefault();">
-                                    ₺
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_try'">
                                         <span ng-show="!reverseSort">
                                             <i class="fa fa-fw fa-sort-asc"></i>
                                         </span>
@@ -1572,19 +1518,6 @@
                                 </a>
                             </th>
                             <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_month_profit_in_try'; reverseSort = !reverseSort; $event.preventDefault();">
-                                    ₺
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_try'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" colspan="2">
                                 <a href="#" ng-click="orderByFarmField='user_alocated_power_month_profit_in_cripto'; reverseSort = !reverseSort; $event.preventDefault();">
                                     CRIPTO
                                     <span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_cripto'">
@@ -1609,13 +1542,10 @@
                                 </td>
                                 <td colspan="2">{{chooseBestHashRateUnit(currency.user_alocated_power_value, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.user_alocated_power_value, 'GH/s').unit}}</td>
                                 <td colspan="2">$ {{currency.user_alocated_power_day_profit_in_usd}}</td>
-                                <td colspan="2">{{currency.user_alocated_power_day_profit_in_try}}</td>
                                 <td colspan="2">{{currency.user_alocated_power_day_profit_in_cripto}} {{currency.name}}</td>
                                 <td colspan="2">$ {{currency.user_alocated_power_week_profit_in_usd}}</td>
-                                <td colspan="2">{{currency.user_alocated_power_week_profit_in_try}}</td>
                                 <td colspan="2">{{currency.user_alocated_power_week_profit_in_cripto}} {{currency.name}}</td>
                                 <td colspan="2">$ {{currency.user_alocated_power_month_profit_in_usd}}</td>
-                                <td colspan="2">{{currency.user_alocated_power_month_profit_in_try}}</td>
                                 <td colspan="2">{{currency.user_alocated_power_month_profit_in_cripto}} {{currency.name}}</td>
                             </tr>
                     </tbody>
@@ -1624,13 +1554,10 @@
                             <th scope="row" colspan="2">Total</th>
                             <td colspan="2">{{chooseBestHashRateUnit(getCurrenciesSum('user_alocated_power_value'), 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(getCurrenciesSum('user_alocated_power_value'), 'GH/s').unit}}</td>
                             <td colspan="2">U$ {{getCurrenciesSum('user_alocated_power_day_profit_in_usd').toFixed(2)}}</td>
-                            <td colspan="2">{{getCurrenciesSum('user_alocated_power_day_profit_in_try').toFixed(2)}}</td>
                             <td colspan="2">-</td>
                             <td colspan="2">U$ {{getCurrenciesSum('user_alocated_power_week_profit_in_usd').toFixed(2)}}</td>
-                            <td colspan="2">{{getCurrenciesSum('user_alocated_power_week_profit_in_try').toFixed(2)}}</td>
                             <td colspan="2">-</td>
                             <td colspan="2">U$ {{getCurrenciesSum('user_alocated_power_month_profit_in_usd').toFixed(2)}}</td>
-                            <td colspan="2">{{getCurrenciesSum('user_alocated_power_month_profit_in_try').toFixed(2)}}</td>
                             <td colspan="2">-</td>
                         </tr>
                     </tfoot>
