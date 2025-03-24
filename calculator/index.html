@@ -328,56 +328,56 @@
                     </div>
                     <div ng-if="isLoadedUser" class="form-group">
                         <input type="checkbox" ng-model="keepUser" ng-change="updateKeepUser(keepUser)" name="keep_user"/>
-                        <label for="keep_user">Manter carregado</label>
+                        <label for="keep_user">Gücümü Koru</label>
                     </div>
                 </form>
             </div>
             
             <div ng-if="user_data" class="col-md-8 table-container">
-                <h3>Calculando ganhos para {{user_data.name}}</h3>
+                <h3>{{user_data.name}} | Kullanıcı İstatistikleri</h3>
                 <fieldset>
                     <div>
                         <input type="checkbox" ng-model="formData.showMiners" name="show_miners"/>
-                        <label for="scales">Exibir miners</label>
+                        <label for="scales">Madenciler</label>
                         <input type="checkbox" ng-model="formData.showRacks" name="show_miners" />
-                        <label for="scales">Exibir racks</label>
+                        <label for="scales">Raflar</label>
                         <input type="checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners" />
-                        <label for="scales">Simular aquisições</label>
+                        <label for="scales">Bütün Madenciler</label>
                         <input type="checkbox" ng-model="formData.showUserStatistics" ng-change="showStatistics()" name="show_statistics" />
-                        <label for="scales">Mostrar estatísticas</label>
+                        <label for="scales">İstatistiklerim</label>
                         <input type="checkbox" ng-model="formData.showInventory" name="show_inventory" />
-                        <label for="show_inventory">Carregar inventário</label>
+                        <label for="show_inventory">Envanterimi Yükle</label>
                     </div>
                 </fieldset>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th style="text-align: center">
-                                Usuário
+                                Kullanıcı Adı
                             </th>
                             <th style="text-align: center">
                                 Avatar
                             </th>
                             <th style="text-align: center">
-                                Poder de jogos
+                                Oyun Gücü
                             </th>
                             <th style="text-align: center">
-                                Poder de miners
+                                Miner Gücü
                             </th>
                             <th style="text-align: center">
-                                Poder de racks
+                                Raf Gücü
                             </th>
                             <th style="text-align: center">
-                                Poder temporário
+                                Geçici Güç
                             </th>
                             <th style="text-align: center">
-                                Total de poder de mineração
+                                Toplam Güç
                             </th>
                             <th style="text-align: center">
-                                Bônus de coleção
+                                Toplam Bonus
                             </th>
                             <th style="text-align: center">
-                                Salas liberadas
+                                Satın Almalar
                             </th>
                         </tr>
                     </thead>
@@ -438,9 +438,9 @@
                                 <i class="fa-solid fa-arrow-down"></i> {{(user_data.newPowerData.new_bonus_percent / 100)}}%
                             </td>
                             <td style="text-align: center">
-                                {{user_data.roomData.rooms.length}}/4 salas<br/>
-                                <span ng-class="{'wrong-value': user_data.occupied_racks_cells  > user_data.all_racks_cells}">{{user_data.occupied_racks_cells}}</span>/{{user_data.all_racks_cells}} células ocupadas<br/>
-                                {{user_data.all_racks}}/{{user_data.all_racks_space}} racks alocados
+                                {{user_data.roomData.rooms.length}}/4 Odalar<br/>
+                                <span ng-class="{'wrong-value': user_data.occupied_racks_cells  > user_data.all_racks_cells}">{{user_data.occupied_racks_cells}}</span>/{{user_data.all_racks_cells}} Hücreler<br/>
+                                {{user_data.all_racks}}/{{user_data.all_racks_space}} Raflar
                             </td>
                         </tr>
                     </tbody>
@@ -448,13 +448,13 @@
             </div>
 
             <div ng-if="formData.showRacks" class="col-md-8 table-container">
-                <h3>Racks de {{user_data.name}}</h3>
+                <h3>{{user_data.name}} | Raf İstatistikleri</h3>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th style="text-align: center">
                                 <a href="#" ng-click="orderByRacksField='name'; reverseRacksSort = !reverseRacksSort">
-                                    Nome
+                                    Adı
                                     <span ng-show="orderByRacksField == 'name'">
                                         <span ng-show="!reverseRacksSort">
                                             <i class="fa fa-fw fa-sort-asc"></i>
@@ -466,11 +466,11 @@
                                 </a>
                             </th>
                             <th style="text-align: center">
-                                Imagem
+                                Resim
                             </th>
                             <th style="text-align: center">
                                 <a href="#" ng-click="orderByRacksField='bonus'; reverseRacksSort = !reverseRacksSort">
-                                    Bônus
+                                    Bonus
                                     <span ng-show="orderByRacksField == 'bonus'">
                                         <span ng-show="!reverseRacksSort">
                                             <i class="fa fa-fw fa-sort-asc"></i>
@@ -483,7 +483,7 @@
                             </th>
                             <th style="text-align: center">
                                 <a href="#" ng-click="orderByRacksField='cells'; reverseRacksSort = !reverseRacksSort">
-                                    Células
+                                    Hücre
                                     <span ng-show="orderByRacksField == 'cells'">
                                         <span ng-show="!reverseRacksSort">
                                             <i class="fa fa-fw fa-sort-asc"></i>
@@ -1256,7 +1256,7 @@
             </div>
 
             <div class="col-md-8 table-container">
-                <h3>Resultados</h3>
+                <h3>Sonuçlar</h3>
                 <table ng-if="formData.currency" class="table table-bordered">
                     <thead>
                         <tr>
