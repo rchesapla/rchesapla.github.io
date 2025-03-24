@@ -658,7 +658,7 @@
                         <thead>
                             <tr>
                                 <th colspan="8" style="text-align: center">
-                                    Miners encontradas: {{allMiners.length}}
+                                    Şuan {{allMiners.length}} Madenci Bulunmakta
                                 </th>
                             </tr>
                             <tr>
@@ -1069,13 +1069,13 @@
                         <thead>
                             <tr>
                                 <th colspan="6" style="text-align: center">
-                                    Miners encontradas: {{visible_user_miners.length}}
+                                    Şuan {{visible_user_miners.length}} Madenci Bulunmakta
                                 </th>
                             </tr>
                             <tr>
                                 <th style="text-align: center">
                                     <a href="#" ng-click="orderByuserMinersField='filename'; reverseuserMinersSort = !reverseuserMinersSort ; $event.preventDefault();">
-                                        Nome
+                                        Adı
                                         <span ng-show="orderByuserMinersField == 'filename'">
                                             <span ng-show="!reverseMinersSort">
                                                 <i class="fa fa-fw fa-sort-asc"></i>
@@ -1088,7 +1088,7 @@
                                 </th>
                                 <th style="text-align: center">
                                     <a href="#" ng-click="orderByuserMinersField='power'; reverseuserMinersSort = !reverseuserMinersSort ; $event.preventDefault();">
-                                        Poder
+                                        Güç
                                         <span ng-show="orderByuserMinersField == 'power'">
                                             <span ng-show="!reverseMinersSort">
                                                 <i class="fa fa-fw fa-sort-asc"></i>
@@ -1101,7 +1101,7 @@
                                 </th>
                                 <th style="text-align: center">
                                     <a href="#" ng-click="orderByuserMinersField='bonus_power'; reverseuserMinersSort = !reverseuserMinersSort ; $event.preventDefault();">
-                                        Bônus
+                                        Bonus
                                         <span ng-show="orderByuserMinersField == 'bonus_power'">
                                             <span ng-show="!reverseMinersSort">
                                                 <i class="fa fa-fw fa-sort-asc"></i>
@@ -1113,11 +1113,11 @@
                                     </a>
                                 </th>
                                 <th style="text-align: center">
-                                    Local
+                                    Konumu
                                 </th>
                                 <th style="text-align: center">
                                     <a href="#" ng-click="orderByuserMinersField='removeImpactPower'; reverseuserMinersSort = !reverseuserMinersSort ; $event.preventDefault();">
-                                        Impacto
+                                        Etkisi
                                         <span ng-show="orderByuserMinersField == 'removeImpactPower'">
                                             <span ng-show="!reverseMinersSort">
                                                 <i class="fa fa-fw fa-sort-asc"></i>
@@ -1129,7 +1129,7 @@
                                     </a>
                                 </th>
                                 <th style="text-align: center">
-                                    Ações
+                                    Eylemler
                                 </th>
                             </tr>
                         </thead>
@@ -1151,7 +1151,7 @@
                                         font-weight: bold;
                                         margin-left: 20%;
                                         color: white;
-                                    ">INEGOCIAVEL</div>
+                                    ">Pazarlık Edilmez</div>
                                 </td>
                                 <td style="text-align: center">
                                     {{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
@@ -1166,10 +1166,10 @@
                                     {{miner.removeImpactLegend.value.toFixed(2)}} {{miner.removeImpactLegend.unit}}
                                 </td>
                                 <td style="text-align: center">
-                                    <button style="min-width: 80px;margin: 4px;" ng-if="!miner.removed" ng-click="removeUserMinerSimulation(miner)">Remover!</button>
-                                    <button style="min-width: 80px;margin: 4px;" ng-if="miner.removed" ng-click="revertRemoveUserMinerSimulation(miner)">Desfazer remoção!</button><br/>
-                                    <button style="min-width: 80px;margin: 4px;" ng-click="openBuyLink(miner)">Comprar</button><br/>
-                                    <button style="min-width: 80px;margin: 4px;" ng-click="openSellLink(miner)">Vender</button>
+                                    <button style="min-width: 80px;margin: 4px;" ng-if="!miner.removed" ng-click="removeUserMinerSimulation(miner)">Kaldır!</button>
+                                    <button style="min-width: 80px;margin: 4px;" ng-if="miner.removed" ng-click="revertRemoveUserMinerSimulation(miner)">Geri Ekle!</button><br/>
+                                    <button style="min-width: 80px;margin: 4px;" ng-click="openBuyLink(miner)">Satın Al</button><br/>
+                                    <button style="min-width: 80px;margin: 4px;" ng-click="openSellLink(miner)">Sat</button>
                                 </td>
                             </tr>
                         </tbody>
