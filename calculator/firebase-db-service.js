@@ -16,15 +16,15 @@ servicex.service('FirebaseService', ['$http', '$q', function($http, $q) {
         try{
         let diferenca = (new Date() - (fromTime.toDate())) / 1000;
         let unidades = [
-            { limite: 60, singular: "saniye önce" },
-            { limite: 3600, singular: "dakika önce" },
-            { limite: 86400, singular: "saat önce" },
+            { limite: 60, singular: "saniye" },
+            { limite: 3600, singular: "dakika" },
+            { limite: 86400, singular: "saat" },
             { limite: Infinity, singular: "yıl" }
         ];
         for (let i = 0; i < unidades.length; i++) {
             let { limite, singular } = unidades[i];
             if (diferenca < limite) 
-                return `${Math.floor(diferenca / (limite / 60)) || 1} ${singular}`;
+                return `${Math.floor(diferenca / (limite / 60)) || 1} ${singular} önce`;
             diferenca /= limite / 60;
         }
         }catch(err) {
