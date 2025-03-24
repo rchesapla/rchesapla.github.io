@@ -196,7 +196,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="networkPower">Ağ Gücü:</label>
+                        <label for="networkPower"><img src="../img/svg/ag_gucu.svg" width="15" height="15"/> Ağ Gücü:</label>
                         <div class="form-inline">
                             <input type="number" id="networkPower" class="roller-select" ng-model="formData.networkPower" disabled>
                             <select id="networkUnit" class="roller-select" ng-model="formData.networkUnit" disabled ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')">
@@ -205,20 +205,20 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="power">Kazım Gücü:</label>
+                        <label for="power"><img src="../img/svg/kazım_gucu.svg" width="15" height="15"/> Kazım Gücü:</label>
                         <div class="form-inline">
                             <input type="text" id="power" ng-disabled="isLoadedUser" class="roller-select" ng-model="formData.power">
                             <select id="unit" class="roller-select" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')"></select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="blockSize">Blok Ödülü:</label>
+                        <label for="blockSize"><img src="../img/svg/blok_odulu.svg" width="15" height="15"/> Blok Ödülü:</label>
                         <div class="form-inline">
                             <input id="blockSize" class="roller-select" ng-model="formData.blockSize" disabled>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="blockTime">Blok Süresi:</label>
+                        <label for="blockTime"><img src="../img/svg/blok_suresi.svg" width="15" height="15"/> Blok Süresi:</label>
                         <div class="form-inline">
                             <input type="number" id="blockTime" class="roller-select" ng-model="formData.blockTime" disabled>
                             <select id="timeUnit" class="roller-select" ng-model="formData.timeUnit" disabled ng-change="updateTimeUnit('{{formData.timeUnit}}')">
@@ -238,7 +238,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="blockTime">Rollercoin Kullanıcı Adı</label>
+                        <label for="blockTime">RollerCoin Kul. Adı</label>
                         <div class="form-inline">
                             <input type="text" 
                                 class="roller-select" 
@@ -257,14 +257,14 @@
                         </div>
                     </div>
                     <div ng-if="isLoadedUser" class="form-group">
-                        <input type="checkbox" ng-model="keepUser" ng-change="updateKeepUser(keepUser)" name="keep_user"/>
+                        <input class="" type="checkbox" ng-model="keepUser" ng-change="updateKeepUser(keepUser)" name="keep_user"/>
                         <label for="keep_user">Otomatik Tanımla</label>
                     </div>
                 </form>
             </div>
             
             <div ng-if="user_data" class="col-md-8 table-container">
-                <h3>Calculando ganhos para {{user_data.name}}</h3>
+                <h3>{{user_data.name}} | Kullanıcı İstatistikleri</h3>
                 <fieldset>
                     <div>
                         <input type="checkbox" ng-model="formData.showMiners" name="show_miners"/>
