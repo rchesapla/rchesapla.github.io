@@ -5,17 +5,60 @@
 
 .roller-select {
     /*-webkit-appearance: none;*/
-    outline: none;
     font-size: 15px;
 	font-family: var(--siteadı2);
-    border: 2px solid var(--rum);
     color: red;
     background-color: #181928;
-    border-radius: 1px;
-    padding: 1px;
-    
+    border-radius: 10px;
+    padding: 5px;
     border-left: none;
     border-radius: 4px 4px 4px 4px;
+}
+
+.ozel {
+    background-color: #2f3045;
+	display: flex;
+	font-family: var(--siteadı);
+    width: 100;
+	color: white;
+	padding: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    max-height: 80vh; /* Limit height for scrolling */
+}
+
+.ozel div {
+	padding: 5px;
+}
+
+.btn-show {
+  background-color: #2f3045;
+  font-family: var(--bilgilerfont);
+  font-size: 20x;
+  border-style: none;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 10px;
+  transition: all 0.3s ease 0s;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 1px solid yellow;
+}
+
+.btn-show:hover {
+  background-color: #2f3045;
+  color: red;
+  border: 1px solid yellow;
+}
+
+.btn-show:focus {
+  background-color: #2f3045;
+  color: red;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 table {
@@ -27,7 +70,7 @@ table {
 
 table tr {
   background-color: red;
-  border: 1px solid red;
+  border: 1px solid black;
   padding: 1px;
 }
 
@@ -43,7 +86,18 @@ table th {
   text-transform: uppercase;
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1000px) {
+.ozel {
+	display: block;
+	font-family: var(--siteadı);
+    padding: 20px;
+    width: 100;
+	color: white;
+    text-align: center;
+	padding: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    max-height: 80vh; /* Limit height for scrolling */
+}
   table {
     border: 0;
   }
@@ -65,7 +119,7 @@ table th {
   }
   
   table td {
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid black;
     display: block;
     text-align: right;
   }
