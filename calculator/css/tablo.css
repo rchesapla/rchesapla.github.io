@@ -1,6 +1,6 @@
 body {
 	background-color: #2f3045;
-	text-transform: uppercase;
+	font-family: var(--açıklama);
 }
 
 
@@ -35,7 +35,7 @@ body {
 
 .ozel2 {
     background-color: #2f3045;
-	font-family: var(--siteadı);
+	font-family: var(--açıklama);
     width: 100;
 	color: white;
 	padding: 5px;
