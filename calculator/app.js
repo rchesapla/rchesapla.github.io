@@ -329,11 +329,11 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
     const formatDays = (dias) => {
         if(!dias) {
-            return "Önce Hesapla";
+            return "0 dia";
         }
 
         if(dias === Number.MAX_SAFE_INTEGER) {
-            return "Çekim Yok";
+            return "Sem Saque";
         }
 
         const diasPorAno = 365;
@@ -347,21 +347,21 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         let resultado = "";
     
         if (anos > 0) {
-            resultado += `${anos} ${anos > 1 ? 'yıl' : 'yıl'}`;
+            resultado += `${anos} ${anos > 1 ? 'anos' : 'ano'}`;
             if (meses > 0 || diasRestantes > 0) {
                 resultado += ", ";
             }
         }
     
         if (meses > 0) {
-            resultado += `${meses} ${meses > 1 ? 'ay' : 'ay'}`;
+            resultado += `${meses} ${meses > 1 ? 'meses' : 'mês'}`;
             if (diasRestantes > 0) {
-                resultado += ", ";
+                resultado += " e ";
             }
         }
     
         if (diasRestantes > 0) {
-            resultado += `${diasRestantes} ${diasRestantes > 1 ? 'gün' : 'gün'}`;
+            resultado += `${diasRestantes} ${diasRestantes > 1 ? 'dias' : 'dia'}`;
         }
         return resultado;
     }
