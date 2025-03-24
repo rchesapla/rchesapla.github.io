@@ -57,7 +57,7 @@ service.service('UserMinerService', ['$http', '$q', 'FirebaseService', function(
             if (response.status === 200) { 
                 return response.data.data;
             } else {
-                throw new Error(`Failed to fetch user power data: ${response.statusText}`);
+                throw new Error(`Kullanıcı güç verileri alınamadı: ${response.statusText}`);
             }
         } catch (error) {
             console.error('Error in getUserPowerDataById:', error);
@@ -72,7 +72,7 @@ service.service('UserMinerService', ['$http', '$q', 'FirebaseService', function(
             if (response.status === 200) { 
                 return response.data.data;
             } else {
-                throw new Error(`Failed to fetch user room data: ${response.statusText}`);
+                throw new Error(`Kullanıcı odası verileri alınamadı: ${response.statusText}`);
             }
         } catch (error) {
             console.error('Error in getUserRoomDataById:', error);
