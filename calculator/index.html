@@ -307,19 +307,19 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="blockTime">Carregar jogador</label>
+                        <label for="blockTime">Hesaplamamı Kayıt Et</label>
                         <div class="form-inline">
                             <input type="text" 
                                 class="form-control" 
                                 ng-model="userSearchText" 
-                                placeholder="Procurar por código..." 
+                                placeholder="Oda kullanıcı adı..." 
                                 typeahead-wait-ms="1500"
                                 uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
                                 typeahead-no-results="playerSearchNoResults"
                                 typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
                                 typeahead-loading="loading">
                             <div ng-show="playerSearchNoResults">
-                                <i class="glyphicon glyphicon-remove"></i> Jogador não encontrado! Lembre-se que deve ser digitado o código que vem após o /p/ no link do rollercoin
+                                <i class="glyphicon glyphicon-remove"></i> Oyuncu bulunamadı! Örnek: "/p/" den sonra olanı yazınız! "FthCLK"
                             </div>
                             <button ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa fa-trash"></i></button>
                         </div>
@@ -1649,18 +1649,18 @@
             <thead>
                 <tr>
                     <th colspan="3" style="text-align: center">
-                        Usuários consultados recentemente
+                        Son Hesaplama Yapan Kullanıcılar
                     </th>
                 </tr>
                 <tr>
                     <th style="text-align: center">
-                        Usuário
+                        Kullanıcı Adı
                     </th>
                     <th style="text-align: center">
-                        Consultado em
+                        Ne Zaman Hesapladı
                     </th>
                     <th style="text-align: center">
-                        Total de consultas
+                        Toplam Hesaplama
                     </th>
                 </tr>
             </thead>
@@ -1673,7 +1673,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="3">Ferramenta da comunidade para a comunidade ❤️</td>
+                    <td colspan="3">❤️ Hesaplama yapıtiginiz için tesekkür ederiz. ❤️</td>
                 </tr>
             </tfoot>
         </table>
