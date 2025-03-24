@@ -183,8 +183,8 @@
                     <div class="form-group">
                         <label for="networkPower"><img src="../img/svg/ag_gucu.svg" width="15" height="15"/> Ağ Gücü:</label>
                         <div class="form-inline">
-                            <input type="number" id="networkPower" class="roller-select" ng-model="formData.networkPower" disabled>
-                            <select id="networkUnit" class="roller-select" ng-model="formData.networkUnit" disabled ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')">
+                            <input type="number" id="networkPower" ng-disabled="isLoadedUser" class="roller-select" ng-model="formData.networkPower">
+                            <select id="networkUnit" class="roller-select" ng-disabled="isLoadedUser" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')">
                                 <option ng-repeat="unit in networkUnits">{{unit}}</option>
                             </select>
                         </div>
@@ -205,8 +205,8 @@
                     <div class="form-group">
                         <label for="blockTime"><img src="../img/svg/blok_suresi.svg" width="15" height="15"/> Blok Süresi:</label>
                         <div class="form-inline">
-                            <input type="number" id="blockTime" class="roller-select" ng-model="formData.blockTime" disabled>
-                            <select id="timeUnit" class="roller-select" ng-model="formData.timeUnit" disabled ng-change="updateTimeUnit('{{formData.timeUnit}}')">
+                            <input type="number" id="blockTime" ng-disabled="isLoadedUser" class="roller-select" ng-model="formData.blockTime">
+                            <select id="timeUnit" class="roller-select" ng-disabled="isLoadedUser" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')">
                                 <option value="seconds">Saniye</option>
                                 <option value="minutes">Dakika</option>
                             </select>
@@ -249,7 +249,7 @@
                 </form>
             </div>
             
-            <div ng-if="user_data" class="col-md-8 table-container">
+            <div ng-if="user_data" class="col-md-8 table-container ozel2">
                 <h3>{{user_data.name}} | Kullanıcı İstatistikleri</h3>
                 <!--fieldset>
                     <div>
@@ -1310,7 +1310,7 @@
                                 <td colspan="2">{{currency.user_block_farm_token}} {{currency.name}}</td>
                                 <td colspan="2">$ {{currency.user_block_farm_usd}}</td>
                                 <td colspan="2">{{formatDays(currency.user_days_to_widthdraw)}}</td>
-                                <td colspan="2"><input type="text" ng-disabled="!formData.power" name="input{{$index}}" id="power" class="form-control" ng-model="currency.user_alocated_power" ng-change="updateAllocatedPower(currency)" style="width:45px"></td>
+                                <td colspan="2"><input type="text" ng-disabled="!formData.power" name="input{{$index}}" id="power" class="roller-select" ng-model="currency.user_alocated_power" ng-change="updateAllocatedPower(currency)" style="width:45px"></td>
                             </tr>
                     </tbody>
                 </table>

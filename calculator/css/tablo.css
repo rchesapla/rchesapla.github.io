@@ -1,43 +1,39 @@
 body {
 	background-color: #2f3045;
 	font-family: var(--açıklama);
+	flex-direction: column;
 }
 
 
 .form-group label {
-	font-family: var(--bilgilerfont);
+	font-family: var(--açıklama);
 	font-size: 25px;
 }
 
 .roller-select {
-    /*-webkit-appearance: none;*/
+    -webkit-appearance: none;
     font-size: 15px;
 	font-family: var(--siteadı2);
     color: red;
     background-color: #181928;
-    border-radius: 10px;
     padding: 5px;
-    border-left: none;
     border-radius: 4px 4px 4px 4px;
 }
 
 .ozel {
     background-color: #2f3045;
 	display: flex;
-	font-family: var(--siteadı);
+	font-family: var(--açıklama);
     width: 100;
-	color: white;
+	color: #c3b0d0;
 	padding: 5px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    max-height: 80vh; /* Limit height for scrolling */
-	border: 1px solid red;
 }
 
 .ozel2 {
     background-color: #2f3045;
 	font-family: var(--açıklama);
     width: 100;
-	color: white;
+	color: #c3b0d0;
 	padding: 5px;
 }
 
@@ -62,14 +58,14 @@ body {
 
 .btn-show:hover {
   background-color: #2f3045;
-  color: red;
+  color: #c3b0d0;
   border: 1px solid yellow;
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 .btn-show:focus {
   background-color: #2f3045;
-  color: red;
+  color: #c3b0d0;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -92,7 +88,6 @@ table th,
 table td {
   padding: 5px;
   text-align: center;
-  color: red;
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
