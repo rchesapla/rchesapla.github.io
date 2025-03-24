@@ -329,11 +329,11 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
     const formatDays = (dias) => {
         if(!dias) {
-            return "0 dia";
+            return "Önce Hesapla";
         }
 
         if(dias === Number.MAX_SAFE_INTEGER) {
-            return "Sem Saque";
+            return "Çekim Yok";
         }
 
         const diasPorAno = 365;
@@ -347,21 +347,21 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         let resultado = "";
     
         if (anos > 0) {
-            resultado += `${anos} ${anos > 1 ? 'anos' : 'ano'}`;
+            resultado += `${anos} ${anos > 1 ? 'yıl' : 'yıl'}`;
             if (meses > 0 || diasRestantes > 0) {
                 resultado += ", ";
             }
         }
     
         if (meses > 0) {
-            resultado += `${meses} ${meses > 1 ? 'meses' : 'mês'}`;
+            resultado += `${meses} ${meses > 1 ? 'ay' : 'ay'}`;
             if (diasRestantes > 0) {
-                resultado += " e ";
+                resultado += ", ";
             }
         }
     
         if (diasRestantes > 0) {
-            resultado += `${diasRestantes} ${diasRestantes > 1 ? 'dias' : 'dia'}`;
+            resultado += `${diasRestantes} ${diasRestantes > 1 ? 'gün' : 'gün'}`;
         }
         return resultado;
     }
@@ -465,8 +465,8 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.loadWorstMinerImpact = function() {
        let lowestImpactMiner = $scope.user_miners.filter(m => !m.removed).reduce((lowestImpactMiner, miner) => miner.removeImpactPower < lowestImpactMiner.removeImpactPower ? miner : lowestImpactMiner);
        let lowestImpactOneCellMiner = $scope.user_miners.filter(m => !m.removed && m.width < 2).reduce((lowestImpactMiner, miner) => miner.removeImpactPower < lowestImpactMiner.removeImpactPower ? miner : lowestImpactMiner);
-       $scope.lowestMinerName = lowestImpactMiner ? `${lowestImpactMiner.name.en} (${lowestImpactMiner.width} células) - Impacto: ${lowestImpactMiner.removeImpactPower}` : '';
-       $scope.lowestImpactOneCellMiner = lowestImpactOneCellMiner ? `${lowestImpactOneCellMiner.name.en} (${lowestImpactOneCellMiner.width} células) - Impacto: ${lowestImpactOneCellMiner.removeImpactPower}` : '';
+       $scope.lowestMinerName = lowestImpactMiner ? `${lowestImpactMiner.name.en} (${lowestImpactMiner.width} Hücre) - Impacto: ${lowestImpactMiner.removeImpactPower}` : '';
+       $scope.lowestImpactOneCellMiner = lowestImpactOneCellMiner ? `${lowestImpactOneCellMiner.name.en} (${lowestImpactOneCellMiner.width} Hücre) - Impacto: ${lowestImpactOneCellMiner.removeImpactPower}` : '';
     }
 
     $scope.filterAllMiners = async function(search, rarity, bonus, negotiable, allMinerPosessionStatus, allMinerCollectionId, minMinerPower, maxMinerPower, width, allMinerMinImpact) {
@@ -732,7 +732,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.openBuyLink = async function(item) {
         if(!localStorage.getItem('alreadyDonatedMessage')) {
             localStorage.setItem('alreadyDonatedMessage', 'true');
-            if(confirm('Te ajudei a tomar essa decisão de compra? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
+            if(confirm('Satın alma kararını vermene yardım ettim mi? Lütfen bu projenin gelişimini sürdürmek için katkıda bulunmayı düşünün')) {
                 window.scrollTo(0, document.body.scrollHeight);
                 return;
             }
@@ -743,7 +743,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.openSellLink = async function(item) {
         if(!localStorage.getItem('alreadyDonatedMessage')) {
             localStorage.setItem('alreadyDonatedMessage', 'true');
-            if(confirm('Te ajudei a tomar essa decisão de venda? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
+            if(confirm('Satış kararını vermene yardım ettim mi? Lütfen bu projenin gelişimini sürdürmek için katkıda bulunmayı düşünün')) {
                 window.scrollTo(0, document.body.scrollHeight);
                 return;
             }
