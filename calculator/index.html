@@ -2,7 +2,6 @@
 <html lang="en" ng-app="miningApp">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RCHesapla • Kişisel Kazım Gücünü Hesapla!</title>
 	<link rel="stylesheet" href="./css/tablo.css">
 	<link rel="stylesheet" href="../css/fonts.css">
@@ -229,6 +228,9 @@
                             </div><br></br>
                             <button class="btn-show"ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa fa-trash"></i> Beni unut</button>
                         </div>
+    <div style="text-align: center;">
+        <button ng-click="resetValues()">↻ Resetar valores</button>
+    </div>
                     </div>
 <label class="checkboxItem"  ng-if="isLoadedUser">
   <input type="checkbox" name="checkbox" value="Option 1" class="checkbox" checked ng-change="updateKeepUser(keepUser)" name="keep_user"/>
@@ -1410,13 +1412,7 @@ Beni hatırla
             </div>
         </div>
     </div>
-    <div style="text-align: center;">
-        <button ng-click="resetValues()">↻ Resetar valores</button>
-    </div>
-    <br/>
-    <br/>
-    <br/>
-
+	
     <div class="col-md-8 col-xs-offset-2 ">
 
         <table class="table ">
