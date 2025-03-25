@@ -145,7 +145,7 @@ table.blueTable thead th:first-child {
 table.blueTable tfoot {
   font-size: 14px;
   font-weight: bold;
-  color: #FFFFFF;
+  color: red;
   background: #D0E4F5;
   background: -moz-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
   background: -webkit-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
