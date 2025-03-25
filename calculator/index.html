@@ -225,16 +225,15 @@
                                 typeahead-loading="loading">
                             <div ng-show="playerSearchNoResults">
                                 <i class="glyphicon glyphicon-remove"></i> Oyuncu bulunamadı! Rollercoin bağlantısına /p/'den sonra gelen kodu girmeyi unutmayın.
-                            </div><br></br>
-                            <button class="btn-show"ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa fa-trash"></i> Beni unut</button>
-                        </div>
+                            </div>
+                        </div></br>
     <div style="text-align: center;">
-        <button ng-click="resetValues()">↻ Resetar valores</button>
+		<button class="btn-show" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa fa-trash"></i> Beni unut</button><br></br>
+        <button class="btn-show" ng-click="resetValues()">↻ Verileri Güncelle</button>
     </div>
                     </div>
-<label class="checkboxItem"  ng-if="isLoadedUser">
-  <input type="checkbox" name="checkbox" value="Option 1" class="checkbox" checked ng-change="updateKeepUser(keepUser)" name="keep_user"/>
-Beni hatırla
+<label class="checkboxItem"  ng-if="isLoadedUser"><input type="checkbox" name="checkbox" value="Option 1" class="checkbox" checked ng-change="updateKeepUser(keepUser)" name="keep_user"/>
+Beni Güncel Tut
 </label>
 
                 </form>
@@ -1271,7 +1270,39 @@ Beni hatırla
                             </tr>
                     </tbody>
                 </table>
-                </form>
+                </form></br>
+        <table class="blueTable" style="text-align: center">
+            <thead>
+                <tr>
+                    <th colspan="3" style="text-align: center">
+                        Usuários consultados recentemente
+                    </th>
+                </tr>
+                <tr>
+                    <th style="text-align: center">
+                        Usuário
+                    </th>
+                    <th style="text-align: center">
+                        Consultado em
+                    </th>
+                    <th style="text-align: center">
+                        Total de consultas
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr ng-repeat="user in recentUsers">
+                        <td>{{user.name}}</td>
+                        <td>{{user.timeAgo}}</td>
+                        <td>{{user.searchCount}}</td>
+                    </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">Ferramenta da comunidade para a comunidade ❤️</td>
+                </tr>
+            </tfoot>
+        </table>
             </div>
             <div class="col-md-8 ">
                 <table ng-if="!formData.currency && getCurrenciesSum('user_alocated_power')  > 0" class="table ">
@@ -1411,41 +1442,6 @@ Beni hatırla
                 </table>
             </div>
         </div>
-    </div>
-	<br></br>
-    <div class="col-md-8 ">
-        <table class="blueTable" style="text-align: center">
-            <thead>
-                <tr>
-                    <th colspan="3" style="text-align: center">
-                        Usuários consultados recentemente
-                    </th>
-                </tr>
-                <tr>
-                    <th style="text-align: center">
-                        Usuário
-                    </th>
-                    <th style="text-align: center">
-                        Consultado em
-                    </th>
-                    <th style="text-align: center">
-                        Total de consultas
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                    <tr ng-repeat="user in recentUsers">
-                        <td>{{user.name}}</td>
-                        <td>{{user.timeAgo}}</td>
-                        <td>{{user.searchCount}}</td>
-                    </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3">Ferramenta da comunidade para a comunidade ❤️</td>
-                </tr>
-            </tfoot>
-        </table>
     </div>
 </body>
 </html>
