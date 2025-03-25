@@ -47,10 +47,6 @@
         .autocomplete-container {
             padding: 20px;
         }
-        .container {
-            flex: 1;
-            margin-top: 20px;
-        }
         header, footer {
             background-color: #2f3045;
             color: #c3b0d0;
@@ -238,9 +234,8 @@ Beni Güncel Tut
                 </form>
             </div>
             
-            <div ng-if="user_data" class="col-md-9 ozel2">
-                <h2>Kullanıcı: <b>{{user_data.name}}</b> | Bütün İstatistikleri!</h2>
-                <fieldset>
+            <div ng-if="user_data" class="col-md-7 ozel2">
+                <!--fieldset>
                     <div>
                         <input type="checkbox" ng-model="formData.showMiners" name="show_miners"/>
                         <label for="scales">Exibir miners</label>
@@ -253,36 +248,36 @@ Beni Güncel Tut
                         <input type="checkbox" ng-model="formData.showInventory" name="show_inventory" />
                         <label for="show_inventory">Carregar inventário</label>
                     </div>
-                </fieldset>
+                </fieldset-->
                 <table class="blueTable">
                     <thead>
                         <tr>
                             <th style="text-align: center">
-                                Kul. Adı
+                                K. ADI
                             </th>
                             <th style="text-align: center">
-                                Avatar
+                                AVATAR
                             </th>
                             <th style="text-align: center">
-                                Oyun Günü
+                                O. GÜCÜ
                             </th>
                             <th style="text-align: center">
-                                Miner Gücü
+                                M. GÜCÜ
                             </th>
                             <th style="text-align: center">
-                                Raf Gücü
+                                R. GÜCÜ
                             </th>
                             <th style="text-align: center">
-                                G. Gücü
+                                G. GÜCÜ
                             </th>
                             <th style="text-align: center">
-                                Top. Gücü
+                                TOP. GÜCÜ
                             </th>
                             <th style="text-align: center">
-                                B. Gücü
+                                B. GÜCÜ
                             </th>
                             <th style="text-align: center">
-                                Oda Durumu
+                                ODA DURUMU
                             </th>
                         </tr>
                     </thead>
@@ -1160,7 +1155,7 @@ Beni Güncel Tut
                 </div>
             </div>
 
-            <div class="col-md-9">
+            <div class="col-md-7">
                 <table ng-if="formData.currency" class="blueTable">
                     <thead>
                         <tr>
@@ -1303,7 +1298,7 @@ Beni Güncel Tut
             </tfoot>
         </table>
             </div>
-            <div class="col-md-8 ">
+            <div class="col-md-7">
                 <table ng-if="!formData.currency && getCurrenciesSum('user_alocated_power')  > 0" class="table ">
                     <thead>
                         <tr>
