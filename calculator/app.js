@@ -935,7 +935,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     };
 
     $scope.resetValues = function() {
-        if(confirm("Isso irá recarregar todos os valores de poder de rede e cotação e demorará algum tempo. Tem certeza?")) {
+        if(confirm("Bütün bilgiler güncellenecektir! | Ağ gücü, blok ödülleri, blok süreleri güncellenecektir onaylıyor musun? (Bir kaç saniye sürebilir)")) {
             localStorage.clear();
             location.reload();  
         }
