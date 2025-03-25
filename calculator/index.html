@@ -161,7 +161,7 @@
     
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3"  style="text-align: center">
                 <form name="miningForm"  class="ozel">
                     <div class="form-group">
                         <label for="currency">Kripto Seç:</label>
@@ -170,29 +170,29 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="power"><img src="../img/svg/ag_gucu.svg" width="15" height="15"/> Ağ Gücü:</label>
+                        <label for="power"><img src="../img/svg/ag_gucu.svg" width="15" height="15"/> Ağ Gücü</label>
                         <div class="form-inline">
-                            <input type="number" id="networkPower" class="roller-select" ng-model="formData.networkPower" disabled>
+                            <input type="number" id="networkPower" class="roller-select" ng-model="formData.networkPower" disabled width="4px">
                             <select id="networkUnit" class="roller-select" ng-model="formData.networkUnit" disabled ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')">
                                 <option ng-repeat="unit in networkUnits">{{unit}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="power"><img src="../img/svg/kazım_gucu.svg" width="15" height="15"/> Kazım Gücü:</label>
+                        <label for="power"><img src="../img/svg/kazım_gucu.svg" width="15" height="15"/> Kazım Gücü</label>
                         <div class="form-inline">
                             <input type="text" id="power" ng-disabled="isLoadedUser" class="roller-select" ng-model="formData.power">
                             <select id="unit" class="roller-select" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')"></select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="blockSize"><img src="../img/svg/blok_odulu.svg" width="15" height="15"/> Blok Ödülü:</label>
+                        <label for="blockSize"><img src="../img/svg/blok_odulu.svg" width="15" height="15"/> Blok Ödülü</label>
                         <div class="form-inline">
                             <input type="text" id="blockSize" class="roller-select" ng-model="formData.blockSize" disabled>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="blockTime"><img src="../img/svg/blok_suresi.svg" width="15" height="15"/> Blok Süresi:</label>
+                        <label for="blockTime"><img src="../img/svg/blok_suresi.svg" width="15" height="15"/> Blok Süresi</label>
                         <div class="form-inline">
                             <input type="number" id="blockTime" class="roller-select" ng-model="formData.blockTime" disabled>
                             <select id="timeUnit" class="roller-select" ng-model="formData.timeUnit" disabled ng-change="updateTimeUnit('{{formData.timeUnit}}')">
@@ -228,11 +228,11 @@
                             </div>
                         </div></br>
     <div style="text-align: center;">
-		<button class="btn-show" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa fa-trash"></i> Beni unut</button><br></br>
-        <button class="btn-show" ng-click="resetValues()">↻ Verileri Güncelle</button>
+		<button class="btn-show" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa fa-trash"></i> Beni Unut <i class="fa fa-trash"></i></button><br></br>
+        <button class="btn-show" ng-click="resetValues()">↻ Verileri Güncelle ↻</button>
     </div>
                     </div>
-<label class="checkboxItem"  ng-if="isLoadedUser"><input type="checkbox" name="checkbox" value="Option 1" class="checkbox" checked ng-change="updateKeepUser(keepUser)" name="keep_user"/>
+<label class="checkboxItem"  style="text-align: center"  ng-if="isLoadedUser"><input type="checkbox" name="checkbox" value="Option 1" class="checkbox" checked ng-change="updateKeepUser(keepUser)" name="keep_user"/>
 Beni Güncel Tut
 </label>
 

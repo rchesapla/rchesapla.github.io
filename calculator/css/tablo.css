@@ -3,19 +3,29 @@
 	color: #333;
 }
 
+.form-control2{
+	width:100%;
+	color:#212529;
+}
+
 .form-group label {
 	font-family: var(--açıklama);
 	font-size: 25px;
 }
 
+.form-inline2 .form-control{
+	padding: 50px;
+}
+
 .roller-select {
+	width:100%;
     font-size: 15px;
 	font-family: var(--siteadı2);
     color: red;
     background-color: #181928;
-    padding: 5px;
     border-radius: 4px 4px 4px 4px;
 	border: 1px solid yellow;
+	text-align: center;
 }
 
 .ozel {
