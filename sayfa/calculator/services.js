@@ -131,7 +131,7 @@ service_app.service('CurrencyService', ['$http', '$q', 'FirebaseService', functi
         const currencies =
             [
                 {
-                    name: 'POL', coingecko_id : 'matic-network'
+                    name: 'MATIC', coingecko_id : 'matic-network'
                 },
                 {
                     name: 'BNB', coingecko_id : 'binancecoin'
