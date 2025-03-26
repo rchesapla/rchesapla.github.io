@@ -2,16 +2,46 @@
 <html lang="en" ng-app="miningApp">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--===============================================================================================-->
     <title>RCHesapla • Kişisel Kazım Gücünü Hesapla!</title>
+	<meta name="description" content="Rollercoin kişisel kazım gücünü hesapla!">
+	<meta name="author" content="Fatih ÇELİK">
+<!--===============================================================================================-->
 	<link rel="stylesheet" href="./css/tablo.css">
-	<link rel="stylesheet" href="https://rchesapla.github.io/css/fonts.css">
-    <link rel="shortcut icon" type="image/x-icon" href="https://rchesapla.github.io/favicon.png">
+	<link rel="stylesheet" href="../css/fonts.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!--===============================================================================================-->
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png">
+
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/spark-md5/3.0.0/spark-md5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+<!--===============================================================================================-->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5"></script>
+    <script src="data/basic_miners.js"></script>
+    <script src="data/merge_miners.js"></script>
+    <script src="data/old/merge_miners.js"></script>
+    <script src="data/components.js"></script>
+    <script src="app.js"></script>
+    <script src="firebase-db-service.js"></script>
+    <script src="services.js"></script>
+    <script src="user-miner-service.js"></script>
+    <script src="miner-service.js"></script>
+<!--===============================================================================================-->
     <style>
         #chart {
             width: 30%;
             height: 250px;
             margin: 0 auto;
             margin-top: 350px;
+        }
+        html {
+            scroll-behavior: smooth;
         }
         .already-have-miner {
             background-color: rgba(0,0,0,0.2);
@@ -124,7 +154,7 @@
   }
     </style>
 </head>
-<body ng-controller="MiningController" class="ozel">
+<body ng-controller="MiningController" class="body">
     <header>
         <h1>RCHesapla • Kişisel Kazım Gücünü Hesapla!</h1>
     </header>
@@ -134,13 +164,13 @@
             <div class="col-md-3"  style="text-align: center">
                 <form name="miningForm"  class="ozel">
                     <div class="form-group">
-                        <label for="currency"><img src="https://rchesapla.github.io/img/svg/test.gif" width="40" height="30"/>Kripto Seç:</label>
+                        <label for="currency"><img src="../img/svg/test.gif" width="40" height="30"/>Kripto Seç:</label>
                         <select id="currency" class="roller-select" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()">
                             <option value="">Kripto seçiniz</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="power"><img src="https://rchesapla.github.io/img/svg/ag_gucu.svg" width="15" height="15"/> Ağ Gücü</label>
+                        <label for="power"><img src="../img/svg/ag_gucu.svg" width="15" height="15"/> Ağ Gücü</label>
                         <div class="form-inline">
                             <input type="number" id="networkPower" class="roller-select" ng-model="formData.networkPower" disabled width="4px">
                             <select id="networkUnit" class="roller-select" ng-model="formData.networkUnit" disabled ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')">
@@ -149,20 +179,20 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="power"><img src="https://rchesapla.github.io/img/svg/kazım_gucu.svg" width="15" height="15"/> Kazım Gücü</label>
+                        <label for="power"><img src="../img/svg/kazım_gucu.svg" width="15" height="15"/> Kazım Gücü</label>
                         <div class="form-inline">
                             <input type="text" id="power" ng-disabled="isLoadedUser" class="roller-select" ng-model="formData.power">
                             <select id="unit" class="roller-select" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')"></select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="blockSize"><img src="https://rchesapla.github.io/img/svg/blok_odulu.svg" width="15" height="15"/> Blok Ödülü</label>
+                        <label for="blockSize"><img src="../img/svg/blok_odulu.svg" width="15" height="15"/> Blok Ödülü</label>
                         <div class="form-inline">
                             <input type="text" id="blockSize" class="roller-select" ng-model="formData.blockSize" disabled>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="blockTime"><img src="https://rchesapla.github.io/img/svg/blok_suresi.svg" width="15" height="15"/> Blok Süresi</label>
+                        <label for="blockTime"><img src="../img/svg/blok_suresi.svg" width="15" height="15"/> Blok Süresi</label>
                         <div class="form-inline">
                             <input type="number" id="blockTime" class="roller-select" ng-model="formData.blockTime" disabled>
                             <select id="timeUnit" class="roller-select" ng-model="formData.timeUnit" disabled ng-change="updateTimeUnit('{{formData.timeUnit}}')">
@@ -1130,7 +1160,7 @@ Beni Güncel Tut
             </div>
 
             <div class="col-md-7">
-                <table ng-if="formData.currency" class="blueTable ozel2"  class="tablov2">
+                <table ng-if="formData.currency" class="blueTable ozel2">
                     <thead>
                         <tr>
                             <th style="text-align: center" colspan="4">
@@ -1169,6 +1199,11 @@ Beni Güncel Tut
                             <td>{{calculateEarnings('month', 'amount')}} {{formData.currency.name}}</td>
                             <td ng-hide="formData.currency.in_game_only">$ {{calculateEarnings('month', 'usd')}}</td>
                         </tr>
+						<tr>
+                            <td>Yıllık</td>
+                            <td>{{calculateEarnings('year', 'amount')}} {{formData.currency.name}}</td>
+                            <td ng-hide="formData.currency.in_game_only">$ {{calculateEarnings('year', 'usd')}}</td>
+                        </tr>
                     </tbody>
                 </table>
                 <form name="myForm">
@@ -1179,7 +1214,7 @@ Beni Güncel Tut
                                 GENEL İSTATİSTİKLER
                             </th>
                         </tr>
-                        <tr class="tablov2">
+                        <tr>
                             <th style="text-align: center" rowspan="2" colspan="2">
                                 KRİPTO
                             </th>
@@ -1189,7 +1224,7 @@ Beni Güncel Tut
                             <th style="text-align: center" rowspan="2" colspan="2">
                                 BLOK ÖDÜLÜ
                             </th>
-                            <th class="tablov2" style="text-align: center" colspan="4">
+                            <th style="text-align: center" colspan="4">
                                 BLOK BAŞINA DEĞER
                             </th>
                             <th style="text-align: center" colspan="9">
@@ -1411,24 +1446,5 @@ Beni Güncel Tut
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/spark-md5/3.0.0/spark-md5.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5"></script>
-    <script src="data/basic_miners.js"></script>
-    <script src="data/merge_miners.js"></script>
-    <script src="data/old/merge_miners.js"></script>
-    <script src="data/components.js"></script>
-    <script src="app.js"></script>
-    <script src="firebase-db-service.js"></script>
-    <script src="services.js"></script>
-    <script src="user-miner-service.js"></script>
-    <script src="miner-service.js"></script>
 </body>
 </html>
