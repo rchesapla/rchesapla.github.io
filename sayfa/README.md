@@ -1,1 +1,0 @@
-"# wminerrc.github.io" 
