@@ -126,7 +126,7 @@ table.blueTable {
   border-collapse: collapse;
 }
 table.blueTable td, table.blueTable th {
-  border: 1px solid #AAAAAA;
+  border: 10px solid #AAAAAA;
   padding: 3px 2px;
 }
 table.blueTable tbody td {
