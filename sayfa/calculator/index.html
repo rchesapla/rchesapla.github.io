@@ -1237,7 +1237,7 @@ Beni Güncel Tut
                                 USD
                             </th>
                             <th style="text-align: center" colspan="2">
-                                MİN. PARA ÇEKİMİ
+                                PARA ÇEKİMİ
                             </th>
                             <th style="text-align: center" colspan="2">
                                 <div ng-if="hasAnyAllocatedPower()">
@@ -1256,7 +1256,7 @@ Beni Güncel Tut
                                     {{currency.name}}
                                 </td>
                                 <td colspan="2">{{chooseBestHashRateUnit(currency.networkPower, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').unit}}</td>
-                                <td colspan="2">Her {{currency.blockTime}} sn {{currency.blockSize}} {{currency.name}}</td>
+                                <td colspan="2">{{currency.blockTime}} sn {{currency.blockSize}} {{currency.name}}</td>
                                 <td colspan="2">${{currency.block_value_in_usd}}</td>
                                 <td colspan="2">{{currency.user_block_farm_token}} {{currency.name}}</td>
                                 <td colspan="2">${{currency.user_block_farm_usd}}</td>
