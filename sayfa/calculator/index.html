@@ -164,16 +164,16 @@
             <div class="col-md-3"  style="text-align: center">
                 <form name="miningForm"  class="ozel">
                     <div class="form-group">
-                        <label for="currency"><img src="./img/svg/test.gif" width="40" height="30"/>Kripto Seç:</label>
+                        <label for="currency"><img src="./img/svg/test.gif" width="40" height="30"/> Kripto Seç</label>
                         <select id="currency" class="roller-select" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()">
-                            <option value="">Kripto seçiniz</option>
+                            <option value="">Genel Hesaplama</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="power"><img src="./img/svg/ag_gucu.svg" width="15" height="15"/> Ağ Gücü</label>
                         <div class="form-inline">
-                            <input type="number" id="networkPower" class="roller-select" ng-model="formData.networkPower" disabled width="4px">
-                            <select id="networkUnit" class="roller-select" ng-model="formData.networkUnit" disabled ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')">
+                            <input type="number" id="networkPower" class="roller-select" ng-disabled="isLoadedUser" ng-model="formData.networkPower" width="4px">
+                            <select id="networkUnit" class="roller-select" ng-disabled="isLoadedUser" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')">
                                 <option ng-repeat="unit in networkUnits">{{unit}}</option>
                             </select>
                         </div>
@@ -188,14 +188,14 @@
                     <div class="form-group">
                         <label for="blockSize"><img src="./img/svg/blok_odulu.svg" width="15" height="15"/> Blok Ödülü</label>
                         <div class="form-inline">
-                            <input type="text" id="blockSize" class="roller-select" ng-model="formData.blockSize" disabled>
+                            <input type="text" id="blockSize" class="roller-select" ng-disabled="isLoadedUser" ng-model="formData.blockSize">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="blockTime"><img src="./img/svg/blok_suresi.svg" width="15" height="15"/> Blok Süresi</label>
                         <div class="form-inline">
-                            <input type="number" id="blockTime" class="roller-select" ng-model="formData.blockTime" disabled>
-                            <select id="timeUnit" class="roller-select" ng-model="formData.timeUnit" disabled ng-change="updateTimeUnit('{{formData.timeUnit}}')">
+                            <input type="number" id="blockTime" class="roller-select" ng-disabled="isLoadedUser" ng-model="formData.blockTime">
+                            <select id="timeUnit" class="roller-select" ng-disabled="isLoadedUser" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')">
                                 <option value="seconds">Saniye</option>
                                 <option value="minutes">Dakika</option>
                             </select>
