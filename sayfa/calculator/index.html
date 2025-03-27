@@ -223,12 +223,14 @@
                                 typeahead-no-results="playerSearchNoResults"
                                 typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
                                 typeahead-loading="loading">
-                            <div ng-show="playerSearchNoResults">
-                                <i class="glyphicon glyphicon-remove"></i> Oyuncu bulunamadı! Rollercoin bağlantısına /p/'den sonra gelen kodu girmeyi unutmayın.
+                            <div class="fctr01" ng-show="playerSearchNoResults">
+                                <i class="fa-solid fa-ban"></i> Oyuncu bulunamadı! Rollercoin bağlantısına /p/'den sonra gelen kodu girmeyi unutmayın.
                             </div>
-                        </div></br>
-    <div style="text-align: center;">
-		<button class="btn-show" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-trash"></i> Beni Unut <i class="fa-solid fa-trash"></i></button><br></br>
+                        </div>
+    <div class="fctr01" style="text-align: center;">
+		<button class="btn-show" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-trash"></i> Beni Unut <i class="fa-solid fa-trash"></i></button>
+    </div>
+	<div class="fctr01" style="text-align: center;">
         <button class="btn-show" ng-click="resetValues()"><i class="fa-solid fa-rotate-right"></i> Güncelle <i class="fa-solid fa-rotate-right"></i></button>
     </div>
                     </div>
