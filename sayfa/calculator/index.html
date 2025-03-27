@@ -132,29 +132,6 @@
     </style>
 </head>
 <body ng-controller="MiningController" class="body">
-<iframe src="./ayyola-homay.mp3" loop id="x" allow="autoplay" style="display:none">
-</iframe> 
-<audio id="y">
-
-  <source src="./ayyola-homay.mp3"  type="audio/mpeg">
-
-</audio>
-	<div class="fctr01" style="text-align: center;">
-		<button class="btn-show" onclick="play()"><i class="fa-solid fa-music"></i> Dinle</button>
-		<button class="btn-show" onclick="pause()"><i class="fa-solid fa-pause"></i> Durdur</button>
-    </div>
-<script>
- function play() {
-       y.play();
-    }
-
-    function pause() {
-
-      x.setAttribute("src", "");
-       y.pause();
-    }  
-</script>
-
     <div class="loading-overlay" ng-show="isLoading">
         <p>Yükleniyor... (Biraz zaman alabilir)</p>
     </div>
