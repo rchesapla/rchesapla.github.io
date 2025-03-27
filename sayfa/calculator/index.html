@@ -1199,11 +1199,6 @@ Beni Güncel Tut
                             <td>{{calculateEarnings('month', 'amount')}} {{formData.currency.name}}</td>
                             <td ng-hide="formData.currency.in_game_only">$ {{calculateEarnings('month', 'usd')}}</td>
                         </tr>
-						<tr>
-                            <td>Yıllık</td>
-                            <td>{{calculateEarnings('year', 'amount')}} {{formData.currency.name}}</td>
-                            <td ng-hide="formData.currency.in_game_only">$ {{calculateEarnings('year', 'usd')}}</td>
-                        </tr>
                     </tbody>
                 </table>
                 <form name="myForm">
