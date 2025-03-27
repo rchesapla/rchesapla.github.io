@@ -21,6 +21,37 @@
 	padding: 10px;
 }
 
+.page-banner {
+  width: 100%;
+  font-family: var(--açıklama);
+  margin: 0 auto;
+  background: #181928; /* Gradient for banner */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  font-size: 3vw;
+  color: #c3b0d0; 
+  letter-spacing: 2px; /* Spacing for elegance */
+  text-transform: uppercase;
+animation: orange 1.5s ease-in-out infinite alternate;
+}
+
+@media (max-width: 768px) {
+  .page-banner {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 3vw;
+  }
+}
+
+body.page-banner {
+  padding-top: 100px;
+  background: black; /* Black background for contrast */
+}
+
+
 .roller-select {
 	width:100%;
     font-size: 15px;
@@ -192,4 +223,30 @@ table.blueTable tfoot .links a{
     text-align: center;
 }
 
+}
+
+/*ANİMASYON AYARLARI*/
+
+ @keyframes pink {
+	 to {
+		 text-shadow: 0 0 10px #fff, 0 0 20px #fff;
+	}
+}
+ @keyframes orange {
+	 to {
+		 text-shadow: 0 0 10px red, 0 0 20px red;
+	}
+	 from {
+		 filter: brightness(100%);
+		 text-shadow: 3px 2px 1px #CE5937;
+	}
+}
+ @keyframes yellow {
+	 to {
+		 text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ffeb3b, 0 0 70px #ffeb3b, 0 0 80px #ffeb3b, 0 0 100px #ffeb3b, 0 0 150px #ffeb3b;
+	}
+	 from {
+		 filter: brightness(110%);
+		 text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ffeb3b, 0 0 35px #ffeb3b, 0 0 40px #ffeb3b, 0 0 50px #ffeb3b, 0 0 75px #ffeb3b;
+	}
 }

@@ -6,9 +6,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nosifer&family=Nova+Square&display=swap'); /*BODY FONT ALANI*/
 @import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&family=Rubik+Vinyl&family=VT323&display=swap'); /*BİLGİLER FONT*/
+@import url('https://fonts.googleapis.com/css2?family=Nova+Flat&display=swap'); /* Nova Flat */
 
 :root {
-  --ozelfont: Offside, sans-serif;
+  --ozelfont: Nova Flat, sans-serif;
   --cardbaslik: Audiowide, sans-serif;
   --siteadı: Audiowide, sans-serif;
   --siteadı2: Audiowide, sans-serif;
