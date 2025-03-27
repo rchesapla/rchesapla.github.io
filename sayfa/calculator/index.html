@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="./css/tablo.css">
 	<link rel="stylesheet" href="./css/fonts.css">
 	<link rel="stylesheet" href="./css/header.css">
+	<link rel="stylesheet" href="./css/mp3play.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!--===============================================================================================-->
     <link rel="shortcut icon" type="image/x-icon" href="https://rchesapla.github.io/favicon.png">
@@ -28,8 +29,11 @@
     <script src="https://wminerrc.github.io/calculator/data/merge_miners.js"></script>
     <script src="https://wminerrc.github.io/calculator/data/old/merge_miners.js"></script>
     <script src="https://wminerrc.github.io/calculator/data/components.js"></script>
+<!--===============================================================================================-->
 	<script src="./js/paracekme.js"></script>
+	<script src="./js/mp3play.js"></script>
     <script src="./js/firebase-db-service.js"></script>
+<!--===============================================================================================-->
     <script src="https://wminerrc.github.io/calculator/services.js"></script>
     <script src="https://wminerrc.github.io/calculator/user-miner-service.js"></script>
     <script src="https://wminerrc.github.io/calculator/miner-service.js"></script>
@@ -105,11 +109,6 @@
             animation: slideUp 2s forwards;
         }
 
-        @keyframes slideUp {
-            0% { opacity: 0; transform: translateY(50px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
         canvas {
             position: absolute;
             top: 0;
@@ -133,20 +132,28 @@
     </style>
 </head>
 <body ng-controller="MiningController" class="body">
-    <div class="overlay" id="overlay">
-        <div class="modal">
-          <h2>Olá querido amigo!</h2>
-          <p>Essa ferramenta é feita com todo carinho e cuidado para você<br/>
-            se ela te ajuda ou ajudou, não hesite em contribuir com a carteia no rodapé da página</p>
-          <button id="closeButton" ng-click="closeModal()">Fechar</button>
-        </div>
-    </div>
-    <audio id="confettiSound">
-        <source src="ayyola-homay.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+<iframe src="./ayyola-homay.mp3" loop id="x" allow="autoplay" style="display:none">
+</iframe> 
+<audio id="y">
+
+  <source src="./ayyola-homay.mp3"  type="audio/mpeg">
+
+</audio>
+  
+<script>
+ function play() {
+       y.play();
+    }
+
+    function pause() {
+
+      x.setAttribute("src", "");
+       y.pause();
+    }  
+</script>
+
     <div class="loading-overlay" ng-show="isLoading">
-        <p>Carregando...Isso vai demorar um pouco!</p>
+        <p>Yükleniyor... (Biraz zaman alabilir)</p>
     </div>
     <header>
          <h1 class="page-banner">RCHesapla • Kişisel Kazım Gücünü Hesapla!</h1>
@@ -223,7 +230,7 @@
     <div class="fctr01" style="text-align: center;">
 		<button class="btn-show" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-trash"></i> Beni Unut</button>
     </div>
-	<div class="111" style="text-align: center;">
+	<div class="fctr01" style="text-align: center;">
         <button class="btn-show" ng-click="resetValues()"><i class="fa-solid fa-rotate-right"></i> Güncelle</button>
     </div>
                     </div>
@@ -1197,6 +1204,10 @@ Beni Güncel Tut
                     </tbody>
                 </table>
                 <form name="myForm">
+	<div class="fctr01" style="text-align: center;">
+		<button class="btn-show" onclick="play()"><i class="fa-solid fa-music"></i> Dinle</button>
+		<button class="btn-show" onclick="pause()"><i class="fa-solid fa-pause"></i> Durdur</button>
+    </div>
                 <table ng-if="!formData.currency" class="blueTable ozel2" style="text-align: center">
                     <thead>
                         <tr>

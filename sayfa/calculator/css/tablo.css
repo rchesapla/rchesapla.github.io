@@ -107,8 +107,11 @@ body.page-banner {
 }
 
 .btn-show:focus {
-  background-color: #2f3045;
   color: #c3b0d0;
+}
+
+button {
+	outline: 1px solid red;
 }
 
 .checkboxItem {
