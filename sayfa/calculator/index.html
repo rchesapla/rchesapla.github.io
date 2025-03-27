@@ -156,6 +156,21 @@
     </style>
 </head>
 <body ng-controller="MiningController" class="body">
+    <div class="overlay" id="overlay">
+        <div class="modal">
+          <h2>Olá querido amigo!</h2>
+          <p>Essa ferramenta é feita com todo carinho e cuidado para você<br/>
+            se ela te ajuda ou ajudou, não hesite em contribuir com a carteia no rodapé da página</p>
+          <button id="closeButton" ng-click="closeModal()">Fechar</button>
+        </div>
+    </div>
+    <audio id="confettiSound">
+        <source src="confetti-sound.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <div class="loading-overlay" ng-show="isLoading">
+        <p>Carregando...Isso vai demorar um pouco!</p>
+    </div>
     <header>
          <h1 class="page-banner">RCHesapla • Kişisel Kazım Gücünü Hesapla!</h1>
     </header>
