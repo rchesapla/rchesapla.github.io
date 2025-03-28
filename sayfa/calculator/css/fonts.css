@@ -19,7 +19,7 @@
 }
 
 .ozelfont {
-	font-size:20px var(--ozelfont);
+	font-size: 10px var(--ozelfont);
 	}
 .cardbaslik {
 	font:15px var(--cardbaslik);
