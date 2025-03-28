@@ -1227,7 +1227,7 @@ Beni Güncel Tut
                                 <div ng-if="hasAnyAllocatedPower()">
                                     <button ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i></button><br/>
                                 </div>
-                                BÖLÜNMÜŞ GÜÇ (%)
+                                GÜÇ (%)
                             </th>
                         </tr>
                     </thead>
@@ -1284,108 +1284,45 @@ Beni Güncel Tut
         </table>
             </div>
             <div class="col-md-7">
-                <table ng-if="!formData.currency && getCurrenciesSum('user_alocated_power')  > 0" class="table ">
+                <table style="text-align: center" ng-if="!formData.currency && getCurrenciesSum('user_alocated_power')  > 0" class="blueTable ozel2">
                     <thead>
                         <tr>
                             <th style="text-align: center" colspan="22">
-                                Minha mineração <span ng-class="{'wrong-value': getCurrenciesSum('user_alocated_power')  > 100}">{{getCurrenciesSum('user_alocated_power')}}</span>/100%
+                                BÖLÜNMÜŞ GÜÇ HESAPLAMA <span ng-class="{'wrong-value': getCurrenciesSum('user_alocated_power')  > 100}">{{getCurrenciesSum('user_alocated_power')}}</span>/100%
                             </th>
                         </tr>
                         <tr>
                             <th style="text-align: center" rowspan="2" colspan="2">
-                                Moeda
+                                KRİPTO
                             </th>
                             <th style="text-align: center" rowspan="2" colspan="2">
-                                Poder alocado
+                                TAHSİL EDİLEN GÜÇ
                             </th>
                             <th style="text-align: center" colspan="6">
-                                Farm diário
+                                GÜNLÜK KAZANÇ
                             </th>
                             <th style="text-align: center" colspan="6">
-                                Farm semanal
-                            </th>
-                            <th style="text-align: center" colspan="6">
-                                Farm mensal
+                                HAFTALIK KAZANÇ
                             </th>
                         </tr>
                         <tr>
                             <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_day_profit_in_usd'; reverseSort = !reverseSort; $event.preventDefault();">
-                                    USD
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_day_profit_in_usd'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
+                                USD
                             </th>
                             <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_day_profit_in_cripto'; reverseSort = !reverseSort; $event.preventDefault();">
-                                    CRIPTO
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_day_profit_in_cripto'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
+                                KRİPTO
                             </th>
                             <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_week_profit_in_usd'; reverseSort = !reverseSort; $event.preventDefault();">
-                                    USD
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_usd'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
+                                USD
                             </th>
                             <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_week_profit_in_cripto'; reverseSort = !reverseSort; $event.preventDefault();">
-                                    CRIPTO
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_cripto'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
+                                KRİPTO
                             </th>
                             <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_month_profit_in_usd'; reverseSort = !reverseSort; $event.preventDefault();">
-                                    USD
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_usd'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
+                                USD
                             </th>
                             <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_month_profit_in_cripto'; reverseSort = !reverseSort; $event.preventDefault();">
-                                    CRIPTO
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_cripto'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
+                                KRİPTO
                             </th>
                         </tr>
                     </thead>
@@ -1406,15 +1343,15 @@ Beni Güncel Tut
                                 <td colspan="2">{{currency.user_alocated_power_month_profit_in_cripto}} {{currency.name}}</td>
                             </tr>
                     </tbody>
-                    <tfoot ng-show="filteredCurrencies.length">
+                    <tfoot style="text-align: center" ng-show="filteredCurrencies.length">
                         <tr style="background-color:rgba(255,255,255,0.7)">
-                            <th scope="row" colspan="2">Total</th>
+                            <th scope="row" colspan="2">Toplam</th>
                             <td colspan="2">{{chooseBestHashRateUnit(getCurrenciesSum('user_alocated_power_value'), 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(getCurrenciesSum('user_alocated_power_value'), 'GH/s').unit}}</td>
-                            <td colspan="2">U${{getCurrenciesSum('user_alocated_power_day_profit_in_usd').toFixed(2)}}</td>
+                            <td colspan="2">${{getCurrenciesSum('user_alocated_power_day_profit_in_usd').toFixed(2)}}</td>
                             <td colspan="2">-</td>
-                            <td colspan="2">U${{getCurrenciesSum('user_alocated_power_week_profit_in_usd').toFixed(2)}}</td>
+                            <td colspan="2">${{getCurrenciesSum('user_alocated_power_week_profit_in_usd').toFixed(2)}}</td>
                             <td colspan="2">-</td>
-                            <td colspan="2">U${{getCurrenciesSum('user_alocated_power_month_profit_in_usd').toFixed(2)}}</td>
+                            <td colspan="2">${{getCurrenciesSum('user_alocated_power_month_profit_in_usd').toFixed(2)}}</td>
                             <td colspan="2">-</td>
                         </tr>
                     </tfoot>
