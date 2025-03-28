@@ -177,7 +177,7 @@
                         <label for="blockTime"><i class="fa-solid fa-clock"></i> Blok Süresi</label>
                         <div class="form-inline">
                             <input type="number" id="blockTime" class="roller-select ozelfont" ng-disabled="isLoadedUser" ng-model="formData.blockTime" disabled>
-                            <select disabled id="timeUnit" class="roller-select ozelfont" ng-disabled="isLoadedUser" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')">
+                            <select id="timeUnit" class="roller-select ozelfont" ng-disabled="isLoadedUser" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')" disabled>
                                 <option value="seconds">Saniye</option>
                                 <option value="minutes">Dakika</option>
                             </select>
@@ -400,7 +400,7 @@ Beni Güncel Tut
                 </table>
             </div>
 
-            <div ng-if="customMiners.length > 0" class="col-md-8 ">
+            <div ng-if="customMiners.length > 0" class="col-md-7 ">
                 <table class="blueTable">
                     <thead>
                         <tr>
@@ -454,23 +454,23 @@ Beni Güncel Tut
                                 {{(miner.bonus_power / 100)}}%
                             </td>
                             <td style="text-align: center">
-                                <button style="min-width: 80px;margin: 4px;" ng-click="removeMinerFromSimulation(miner)">Remover!</button><br/>
-                                <button style="min-width: 80px;margin: 4px;" ng-click="openBuyLink(miner)">Comprar</button>
+                                <button style="min-width: 80px;margin: 4px;" ng-click="removeMinerFromSimulation(miner)">Sil!</button><br/>
+                                <button style="min-width: 80px;margin: 4px;" ng-click="openBuyLink(miner)">Satın Al</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <div ng-if="formData.showAllMiners" class="col-md-8 ">
+            <div ng-if="formData.showAllMiners" class="col-md-7 ozel">
                 <div class="form-group col-md-4">
-                    <label for="currency">Nome</label>
-                    <input type="text" class="roller-select ozelfont" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Buscar miner...">
+                    <label class="cardbaslik" for="currency">İsmi</label>
+                    <input type="text" class="roller-select cardbaslik" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Buscar miner...">
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="currency">Raridade</label><br/>
-                    <select class="roller-select ozelfont" ng-model="allMinersRarity" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-                        <option value="all">Todas</option>
+                    <label class="cardbaslik" for="currency">Nadirlik</label><br/>
+                    <select class="roller-select" ng-model="allMinersRarity" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+                        <option value="all">Hepsi</option>
                         <option value="common">Common</option>
                         <option value="legacy">Legacy</option>
                         <option value="uncommon">Uncommon</option>
@@ -481,52 +481,52 @@ Beni Güncel Tut
                     </select>
                 </div>
                 <div class="form-group col-md-4 ng-binding">
-                    <label for="currency">Bônus</label><br>
+                    <label for="currency">Bonus</label><br>
                     De   
-                    <input class="roller-select ozelfont" ng-model="allMinerMinBonusSearch" type="text" style="width: 21%;" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-                    A  <input class="roller-select ozelfont" ng-model="allMinerMaxBonusSearch" type="text" style="width: 21%;" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+                    <input class="roller-select" ng-model="allMinerMinBonusSearch" type="text" style="width: 21%;" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+                    A  <input class="roller-select" ng-model="allMinerMaxBonusSearch" type="text" style="width: 21%;" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="currency">Negociável</label><br/>
-                    <select class="roller-select ozelfont" ng-model="allMinerNegotiableStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-                        <option value="all">Todas</option>
+                    <select class="roller-select" ng-model="allMinerNegotiableStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+                        <option value="all">Hepsi</option>
                         <option value="inegotiable">Não negociáveis</option>
                         <option value="negotiable">Negociáveis</option>
                     </select>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="currency">Tenho em sala</label><br/>
-                    <select class="roller-select ozelfont" ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-                        <option value="all">Todas</option>
+                    <select class="roller-select" ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+                        <option value="all">Hepsi</option>
                         <option value="mine">Somente as minhas</option>
                         <option value="not_mine">Somente novas</option>
                     </select>
                 </div>
 
                 <div class="form-group col-md-4">
-                    <label for="currency">Coleção</label><br/>
-                    <select class="roller-select ozelfont" ng-model="allMinerCollectionId" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-                        <option value="-1">Todas</option>
+                    <label for="currency">Koleksiyon</label><br/>
+                    <select class="roller-select" ng-model="allMinerCollectionId" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+                        <option value="-1">Hepsi</option>
                         <option ng-repeat="collection in collections" value="{{collection.id}}">{{collection.name}}</option>
                     </select>
                 </div>
 
                 <div class="form-group col-md-4">
                     <label for="currency">Poder mínimo (GH/s)</label><br/>
-                    <input placeholder="1" class="roller-select ozelfont" ng-model="allMinerMinPowerSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+                    <input placeholder="1" class="roller-select" ng-model="allMinerMinPowerSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
                 </div>
 
                 <div class="form-group col-md-4">
                     <label for="currency">Poder máximo (GH/s)</label><br/>
-                    <input placeholder="999999999999" class="roller-select ozelfont" ng-model="allMinerMaxPowerSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+                    <input placeholder="999999999999" class="roller-select" ng-model="allMinerMaxPowerSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
                 </div>
 
                 <div class="form-group col-md-4">
-                    <label for="currency">Células</label><br/>
+                    <label for="currency">Hücre</label><br/>
                     <select class="roller-select ozelfont" ng-model="allMinerCells" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-                        <option value="all">Todas</option>
-                        <option value="1">1 Slot</option>
-                        <option value="2">2 Slots</option>
+                        <option value="all">Hepsi</option>
+                        <option value="1">Tekli</option>
+                        <option value="2">İkili</option>
                     </select>
                 </div>
 
@@ -535,11 +535,11 @@ Beni Güncel Tut
                     <input placeholder="999999999999" class="roller-select ozelfont" ng-model="allMinerMinImpact" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
                 </div>
 
-                <!--<div class="form-group col-md-4">
-                    <button ng-click="loadWorstMinerImpact()" style="margin-top:28px">Minhas piores máquinas</button>
+                <div class="form-group col-md-4">
+                    <button class="btn-show" ng-click="loadWorstMinerImpact()" style="margin-top:28px">En Kötü Minerlarım</button>
                     <p>{{lowestMinerName}}</p>
                     <p>{{lowestImpactOneCellMiner}}</p>
-                </div> -->
+                </div>
                
                 <div ng-if="formData.showAllMiners">
                     <table class="blueTable">
@@ -632,7 +632,7 @@ Beni Güncel Tut
                                     </a>
                                 </th>
                                 <th style="text-align: center">
-                                    Ações
+                                    Eylem
                                 </th>
                             </tr>
                         </thead>
@@ -687,8 +687,8 @@ Beni Güncel Tut
                                     {{miner.includeImpactLegend.value.toFixed(2)}} {{miner.includeImpactLegend.unit}}
                                 </td>
                                 <td style="text-align: center">
-                                    <button style="min-width: 80px;margin: 4px;" ng-click="addMinerToSimulation(miner)">Adicionar!</button><br/>
-                                    <button style="min-width: 80px;margin: 4px;" ng-click="openBuyLink(miner)">Comprar</button>
+                                    <button style="min-width: 80px;margin: 4px;" ng-click="addMinerToSimulation(miner)">Ekle!</button><br/>
+                                    <button style="min-width: 80px;margin: 4px;" ng-click="openBuyLink(miner)">Satın Al</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -714,7 +714,7 @@ Beni Güncel Tut
                 <div class="form-group col-md-4">
                     <label for="currency">Raridade</label><br/>
                     <select class="roller-select ozelfont" ng-model="userInventoryMinersRarity" ng-change="filteruserInventoryMiners(userMinerNameSearch, userInventoryMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
-                        <option value="all">Todas</option>
+                        <option value="all">Hepsi</option>
                         <option value="common">Common</option>
                         <option value="legacy">Legacy</option>
                         <option value="uncommon">Uncommon</option>
@@ -733,7 +733,7 @@ Beni Güncel Tut
                 <div class="form-group col-md-4">
                     <label for="currency">Negociável</label><br/>
                     <select class="roller-select ozelfont" ng-model="userMinerNegotiableStatus" ng-change="filteruserInventoryMiners(userMinerNameSearch, userInventoryMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
-                        <option value="all">Todas</option>
+                        <option value="all">Hepsi</option>
                         <option value="inegotiable">Não negociáveis</option>
                         <option value="negotiable">Negociáveis</option>
                     </select>
@@ -752,7 +752,7 @@ Beni Güncel Tut
                 <div class="form-group col-md-4">
                     <label for="currency">Células</label><br/>
                     <select class="roller-select ozelfont" ng-model="userMinerCells" ng-change="filteruserInventoryMiners(userMinerNameSearch, userInventoryMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
-                        <option value="all">Todas</option>
+                        <option value="all">Hepsi</option>
                         <option value="1">1 Slot</option>
                         <option value="2">2 Slots</option>
                     </select>
@@ -761,7 +761,7 @@ Beni Güncel Tut
                 <div class="form-group col-md-4">
                     <label for="currency">Duplicadas</label><br/>
                     <select class="roller-select ozelfont" ng-model="userMinerDuplicate" ng-change="filteruserInventoryMiners(userMinerNameSearch, userInventoryMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
-                        <option value="all">Todas</option>
+                        <option value="all">Hepsi</option>
                         <option value="unique">Apenas únicas</option>
                         <option value="dup">Apenas duplicadas</option>
                         <option value="stairs">Escadinhas</option>
@@ -898,7 +898,7 @@ Beni Güncel Tut
                 <div class="form-group col-md-4">
                     <label for="currency">Raridade</label><br/>
                     <select class="roller-select ozelfont" ng-model="userMinersRarity" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
-                        <option value="all">Todas</option>
+                        <option value="all">Hepsi</option>
                         <option value="common">Common</option>
                         <option value="legacy">Legacy</option>
                         <option value="uncommon">Uncommon</option>
@@ -917,7 +917,7 @@ Beni Güncel Tut
                 <div class="form-group col-md-4">
                     <label for="currency">Negociável</label><br/>
                     <select class="roller-select ozelfont" ng-model="userMinerNegotiableStatus" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
-                        <option value="all">Todas</option>
+                        <option value="all">Hepsi</option>
                         <option value="inegotiable">Não negociáveis</option>
                         <option value="negotiable">Negociáveis</option>
                     </select>
@@ -936,7 +936,7 @@ Beni Güncel Tut
                 <div class="form-group col-md-4">
                     <label for="currency">Células</label><br/>
                     <select class="roller-select ozelfont" ng-model="userMinerCells" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
-                        <option value="all">Todas</option>
+                        <option value="all">Hepsi</option>
                         <option value="1">1 Slot</option>
                         <option value="2">2 Slots</option>
                     </select>
@@ -945,7 +945,7 @@ Beni Güncel Tut
                 <div class="form-group col-md-4">
                     <label for="currency">Duplicadas</label><br/>
                     <select class="roller-select ozelfont" ng-model="userMinerDuplicate" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
-                        <option value="all">Todas</option>
+                        <option value="all">Hepsi</option>
                         <option value="unique">Apenas únicas</option>
                         <option value="dup">Apenas duplicadas</option>
                         <option value="stairs">Escadinhas</option>

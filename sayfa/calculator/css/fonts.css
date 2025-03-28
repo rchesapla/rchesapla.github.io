@@ -13,7 +13,7 @@
 
 :root {
   --ozelfont: Bowlby One SC, sans-serif;
-  --cardbaslik: Audiowide, sans-serif;
+  --cardbaslik: Nova Flat, sans-serif;
   --siteadı: Audiowide, sans-serif;
   --siteadı2: Audiowide, sans-serif;
   --açıklama: Nova Flat, sans-serif;
@@ -31,7 +31,7 @@
 	font-size: 15px var(--tablofont);
 	}
 .cardbaslik {
-	font:15px var(--cardbaslik);
+	font:13px var(--cardbaslik);
 	}
 .siteadı {
 	font-family: var(--siteadı);
