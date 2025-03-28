@@ -1148,12 +1148,12 @@ Beni Güncel Tut
                     <thead>
                         <tr>
                             <th style="text-align: center" colspan="4">
-                                KRİPTO: {{formData.currency.name}}
+                                {{formData.currency.name}}
                             </th>
                         </tr>
                         <tr ng-hide="formData.currency.in_game_only">
                             <th style="text-align: center" colspan="3">
-                                1 {{formData.currency.name}} = $ {{exchangeRates[formData.currency.name]['usd']}}
+                                1 {{formData.currency.name}} = ${{exchangeRates[formData.currency.name]['usd']}}
                             </th>
                         </tr>
                         <tr>
@@ -1166,22 +1166,22 @@ Beni Güncel Tut
                         <tr>
                             <td>Blok Ödülü</td>
                             <td>{{calculateEarnings('block', 'amount')}} {{formData.currency.name}}</td>
-                            <td ng-hide="formData.currency.in_game_only">$ {{calculateEarnings('block', 'usd')}}</td>
+                            <td ng-hide="formData.currency.in_game_only">${{calculateEarnings('block', 'usd')}}</td>
                         </tr>
                         <tr>
                             <td>Günlük</td>
                             <td>{{calculateEarnings('day', 'amount')}} {{formData.currency.name}}</td>
-                            <td ng-hide="formData.currency.in_game_only">$ {{calculateEarnings('day', 'usd')}}</td>
+                            <td ng-hide="formData.currency.in_game_only">${{calculateEarnings('day', 'usd')}}</td>
                         </tr>
                         <tr>
                             <td>Haftalık</td>
                             <td>{{calculateEarnings('week', 'amount')}} {{formData.currency.name}}</td>
-                            <td ng-hide="formData.currency.in_game_only">$ {{calculateEarnings('week', 'usd')}}</td>
+                            <td ng-hide="formData.currency.in_game_only">${{calculateEarnings('week', 'usd')}}</td>
                         </tr>
                         <tr>
                             <td>Aylık</td>
                             <td>{{calculateEarnings('month', 'amount')}} {{formData.currency.name}}</td>
-                            <td ng-hide="formData.currency.in_game_only">$ {{calculateEarnings('month', 'usd')}}</td>
+                            <td ng-hide="formData.currency.in_game_only">${{calculateEarnings('month', 'usd')}}</td>
                         </tr>
                     </tbody>
                 </table>
