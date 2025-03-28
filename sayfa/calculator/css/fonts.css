@@ -7,19 +7,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Nosifer&family=Nova+Square&display=swap'); /*BODY FONT ALANI*/
 @import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&family=Rubik+Vinyl&family=VT323&display=swap'); /*BİLGİLER FONT*/
 @import url('https://fonts.googleapis.com/css2?family=Nova+Flat&display=swap'); /* Nova Flat */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap'); /* font-family: "VT323", monospace; */
+@import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&display=swap');
 
 :root {
-  --ozelfont: Nova Flat, sans-serif;
+  --ozelfont: Bowlby One SC, sans-serif;
   --cardbaslik: Audiowide, sans-serif;
   --siteadı: Audiowide, sans-serif;
   --siteadı2: Audiowide, sans-serif;
-  --açıklama: Gemunu Libre, sans-serif;
+  --açıklama: Nova Flat, sans-serif;
   --kazımgücü: Gemunu Libre, sans-serif;
   --bilgilerfont: VT323, sans-serif;
 }
 
 .ozelfont {
 	font-size: 10px var(--ozelfont);
+	font-weight: 400;
+	font-style: normal;
 	}
 .cardbaslik {
 	font:15px var(--cardbaslik);
@@ -40,7 +44,7 @@
 	font:16px var(--kazımgücü);
 	}
 .bilgilerfont {
-	font:20px var(--bilgilerfont);
+	font: 40px var(--bilgilerfont);
 	}
 
 .discord-widget {

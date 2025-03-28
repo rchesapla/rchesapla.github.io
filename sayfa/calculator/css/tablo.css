@@ -23,15 +23,14 @@
 
 .page-banner {
   width: 100%;
-  font-family: var(--açıklama);
+  font-family: var(--ozelfont);
   margin: 0 auto;
-  background: #181928; /* Gradient for banner */
   display: flex;
   align-items: center;
   justify-content: center;
   padding-top: 25px;
   padding-bottom: 25px;
-  font-size: 3vw;
+  font-size: 40px;
   color: #c3b0d0; 
   letter-spacing: 2px; /* Spacing for elegance */
   text-transform: uppercase;
