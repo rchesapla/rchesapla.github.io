@@ -159,8 +159,9 @@ table.blueTable {
   font-family: var(--tablofont);
   background-color: #EEEEEE;
   width: 100%;
-  text-align: left;
+  text-align: center;
   border-collapse: collapse;
+  animation: profil 6s ease-out 0s 1 normal forwards;
 }
 table.blueTable td, table.blueTable th {
   border: 1px solid #AAAAAA;
@@ -214,7 +215,22 @@ table.blueTable tfoot .links a{
   border-radius: 5px;
 }
 
+table.profil {
+  animation: profil 6s ease 2s 1 normal forwards;
+}
 
+@keyframes profil {
+	0%,
+	50%,
+	100% {
+		opacity: 1;
+	}
+
+	25%,
+	75% {
+		opacity: 0;
+	}
+}
 
 @media screen and (max-width: 1000px) {
 .ozel {
