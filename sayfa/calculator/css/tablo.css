@@ -156,6 +156,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 table.blueTable {
   border: 1px solid #1C6EA4;
+  font-family: var(--tablofont);
   background-color: #EEEEEE;
   width: 100%;
   text-align: left;
