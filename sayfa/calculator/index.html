@@ -176,8 +176,8 @@
                     <div class="form-group">
                         <label for="blockTime"><i class="fa-solid fa-clock"></i> Blok Süresi</label>
                         <div class="form-inline">
-                            <input type="number" id="blockTime" class="roller-select ozelfont" ng-disabled="isLoadedUser" ng-model="formData.blockTime" disabled>
-                            <select id="timeUnit" class="roller-select ozelfont" ng-disabled="isLoadedUser" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')" disabled>
+                            <input type="number" id="blockTime" class="roller-select ozelfont" ng-disabled="isLoadedUser" ng-model="formData.blockTime">
+                            <select id="timeUnit" class="roller-select ozelfont" ng-disabled="isLoadedUser" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')" >
                                 <option value="seconds">Saniye</option>
                                 <option value="minutes">Dakika</option>
                             </select>
