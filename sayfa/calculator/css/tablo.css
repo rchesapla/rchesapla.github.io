@@ -13,9 +13,6 @@
 	font-size: 20px;
 }
 
-input.test {
-	padding-top: 30px;
-}
 
 .fctr01 {
 	padding: 10px;
@@ -34,7 +31,7 @@ input.test {
   color: #c3b0d0; 
   letter-spacing: 2px; /* Spacing for elegance */
   text-transform: uppercase;
-animation: orange 1.5s ease-in-out infinite alternate;
+	animation: orange 1.5s ease-in-out infinite alternate;
 }
 
 @media (max-width: 768px) {
