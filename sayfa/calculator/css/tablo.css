@@ -13,8 +13,8 @@
 	font-size: 25px;
 }
 
-.form-inline2 .form-control{
-	padding: 50px;
+input.test {
+	padding-top: 30px;
 }
 
 .fctr01 {
@@ -53,7 +53,8 @@ body.page-banner {
 
 .roller-select {
 	width:100%;
-	font-family: var(--minerbaslik);
+	padding: 3px;
+	font-family: var(--selectfont);
     color: red;
     background-color: #181928;
     border-radius: 4px 4px 4px 4px;
