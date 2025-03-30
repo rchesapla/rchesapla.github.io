@@ -9,8 +9,8 @@
 }
 
 .form-group label {
-	font-family: var(--açıklama);
-	font-size: 25px;
+	font-family: var(--selectfont);
+	font-size: 20px;
 }
 
 input.test {
