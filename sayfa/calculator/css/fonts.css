@@ -20,6 +20,7 @@
   --kazımgücü: Gemunu Libre, sans-serif;
   --tablofont: Chakra Petch, sans-serif;
   --bilgilerfont: VT323, sans-serif;
+  --minerbaslik: Nova Flat, sans-serif;
 }
 
 .ozelfont {
@@ -51,7 +52,9 @@
 .bilgilerfont {
 	font: 40px var(--bilgilerfont);
 	}
-
+.minerbaslik {
+	font-size: 50px var(--Chakra Petch);
+	}
 .discord-widget {
     background-color: #0E1119;
 	font-family: var(--siteadı);
