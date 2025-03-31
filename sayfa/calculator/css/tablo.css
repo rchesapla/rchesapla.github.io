@@ -65,7 +65,6 @@ body.page-banner {
     width: %100;
 	color: #c3b0d0;
 	padding: 5px;
-	background-color: #2f3045;
 	border-radius: 0 0 4px 4px;
 }
 
@@ -231,14 +230,10 @@ table.profil {
 
 @media screen and (max-width: 1000px) {
 .ozel {
-	display: block;
-	font-family: var(--siteadı);
-    padding: 20px;
-    width: 100;
-	color: white;
-    text-align: center;
-}
-
+    width: 50%;
+	margin: auto;
+	text-shadow: 0 0 2px red;
+	}
 }
 
 /*ANİMASYON AYARLARI*/

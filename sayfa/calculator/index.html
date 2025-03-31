@@ -205,13 +205,13 @@
                         </div>
                     </div-->
                     <div class="form-group">
-                        <label for="blockTime"><i class="fa-solid fa-user"></i> RollerCoin ID</label>
-                        <div class="form-inline">
+                        <label><i class="fa-solid fa-user"></i> RollerCoin ID</label>
+                        <div class="form-inline55">
                             <input type="text" 
                                 class="roller-select ozelfont" 
                                 ng-model="userSearchText" 
                                 placeholder="Kullanıcı adınız.." 
-                                typeahead-wait-ms="1500"
+                                typeahead-wait-ms="300"
                                 uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
                                 typeahead-no-results="playerSearchNoResults"
                                 typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
@@ -227,10 +227,6 @@
         <button class="btn-show" ng-click="resetValues()"><i class="fa-solid fa-rotate-right"></i> Güncelle</button>
     </div>
                     </div>
-<label class="checkboxItem"  style="text-align: center"  ng-if="isLoadedUser"><input type="checkbox" name="checkbox" value="Option 1" class="checkbox" checked ng-change="updateKeepUser(keepUser)" name="keep_user"/>
-Beni Güncel Tut
-</label>
-
                 </form>
             </div>
             
