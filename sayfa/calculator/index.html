@@ -78,15 +78,12 @@
         }
         .loading-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
+			margin: auto;
             color: white;
             font-size: 24px;
         }
@@ -144,7 +141,7 @@
   }
     </style>
 </head>
-<body ng-controller="MiningController" class="body">
+<body ng-controller="MiningController" class="body ortala">
     <div class="loading-overlay" ng-show="isLoading">
         <p><img src="https://productionassets.rollercoin.com/main-app/76fd67877efe330029cbbc82d4fa6061/static/img/icon/hamster_loader.gif" width="70" height="60"/> Yükleniyor... (Biraz zaman alabilir) <img src="https://productionassets.rollercoin.com/main-app/76fd67877efe330029cbbc82d4fa6061/static/img/icon/hamster_loader.gif" width="70" height="60"/></p>
     </div>
@@ -152,9 +149,9 @@
          <h1 class="page-banner"><img src="https://productionassets.rollercoin.com/main-app/76fd67877efe330029cbbc82d4fa6061/static/img/icon/hamster_loader.gif" width="70" height="60"/>• RCHesaplaV3 •<img src="https://productionassets.rollercoin.com/main-app/76fd67877efe330029cbbc82d4fa6061/static/img/icon/hamster_loader.gif" width="70" height="60"/></h1>
     </header>
     
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3"  style="text-align: center">
+    <div class="ortala">
+        <div class="55">
+            <div class="col-md-2"  style="text-align: center">
                 <form name="miningForm"  class="ozel">
                     <div class="form-group">
                         <label for="currency"><img src="./img/svg/test.gif" width="40" height="30"/> Kripto Seç</label>
@@ -230,7 +227,7 @@
                 </form>
             </div>
             
-            <div ng-if="user_data" class="col-md-7 ozel2">
+            <div ng-if="user_data" class="col-md-10 ozel2">
                 <!--fieldset>
                     <div>
                         <input type="checkbox" ng-model="formData.showMiners" name="show_miners"/>
@@ -342,7 +339,7 @@
                     </tbody>
                 </table>
             </div>
-            <div ng-if="formData.showRacks" class="col-md-8">
+            <div ng-if="formData.showRacks" class="col-md-10">
                 <h3>Racks de {{user_data.name}}</h3>
                 <table class="blueTable">
                     <thead>
@@ -407,7 +404,7 @@
                 </table>
             </div>
 
-            <div ng-if="customMiners.length > 0" class="col-md-7 ">
+            <div ng-if="customMiners.length > 0" class="col-md-10">
                 <table class="blueTable">
                     <thead>
                         <tr>
@@ -469,7 +466,7 @@
                 </table>
             </div>
 
-            <div ng-if="formData.showAllMiners" class="col-md-7 ozel">
+            <div ng-if="formData.showAllMiners" class="col-md-10">
                 <div class="form-group col-md-4">
                     <label class="cardbaslik" for="currency">İsmi</label>
                     <input type="text" class="roller-select cardbaslik" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Buscar miner...">
@@ -704,7 +701,7 @@
                 </div>
             </div>
 
-            <div ng-if="formData.showInventory" class="col-md-8 ">
+            <div ng-if="formData.showInventory" class="col-md-10">
                 <div class="form-group col-md-12">
                     <label>Carregar inventário</label>
                     <p>1. Acesse <a href="https://rollercoin.com/storage/inventory" target="_blank">seu inventário</a></p>
@@ -897,7 +894,7 @@
                 </div>
             </div>
 
-            <div ng-if="formData.showMiners" class="col-md-8 ">
+            <div ng-if="formData.showMiners" class="col-md-10">
                 <div class="form-group col-md-4">
                     <label for="currency">Nome</label>
                     <input type="text" class="roller-select ozelfont" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)" ng-model="userMinerNameSearch" placeholder="Buscar miner...">
@@ -1077,7 +1074,7 @@
                 <div id="chart"></div>
             </div>
 
-            <div ng-if="formData.showAddMinerSimulation" class="col-md-8 ">
+            <div ng-if="formData.showAddMinerSimulation" class="col-md-10">
                 <div class="autocomplete-container">
                     <input type="text" 
                         class="roller-select ozelfont" 
@@ -1150,7 +1147,7 @@
                 </div>
             </div>
 
-            <div class="col-md-7">
+            <div class="col-md-10">
                 <table ng-if="formData.currency" class="blueTable ozel2">
                     <thead>
                         <tr>
@@ -1258,7 +1255,7 @@
                 </table>
                 </form>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-10">
                 <table style="text-align: center" ng-if="!formData.currency && getCurrenciesSum('user_alocated_power')  > 0" class="blueTable ozel2">
                     <thead>
                         <tr>

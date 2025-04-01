@@ -18,20 +18,20 @@
 	padding: 10px;
 }
 
+.ortala {
+	margin: auto;
+}
+
 .page-banner {
-  width: 100%;
   font-family: var(--ozelfont);
-  margin: 0 auto;
+  margin: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 25px;
-  padding-bottom: 25px;
+  padding-top: 1px;
+  padding-bottom: 1px;
   font-size: 40px;
   color: #c3b0d0; 
-  letter-spacing: 2px; /* Spacing for elegance */
-  text-transform: uppercase;
-	animation: orange 1.5s ease-in-out infinite alternate;
 }
 
 @media (max-width: 768px) {
