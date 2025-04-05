@@ -218,14 +218,17 @@
                                 typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
                                 typeahead-loading="loading">
                             <div class="fctr01" ng-show="playerSearchNoResults">
-                                <i class="fa-solid fa-ban"></i> Oyuncu bulunamadı! Rollercoin bağlantısına /p/'den sonra gelen kodu girmeyi unutmayın.
+                                <i class="fa-solid fa-ban"></i> Oyuncu bulunamadı!
+                            </div>
+							<div class="fctr01">
+                                <i class="fa-solid fa-circle-info"></i> "/p/örnek" örnek yazan yere sizin kullanıcı adınızı giriniz. </br>(Not: /p/ olmadan!)
                             </div>
                         </div>
     <div class="fctr01" style="text-align: center;">
 		<button class="btn-show" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-trash"></i> Beni Unut</button>
     </div>
 	<div class="fctr01" style="text-align: center;">
-        <button class="btn-show" ng-click="resetValues()"><i class="fa-solid fa-rotate-right"></i> Güncelle</button>
+        <button class="btn-show"  ng-if="isLoadedUser" ng-click="resetValues()"><i class="fa-solid fa-rotate-right"></i> Verileri Yenile</button>
     </div>
                     </div>
                 </form>
