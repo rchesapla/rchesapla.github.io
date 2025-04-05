@@ -175,21 +175,21 @@
                     <div class="form-group">
                         <label for="power"><i class="fa-solid fa-person-digging"></i> Kazım Gücü</label>
                         <div class="form-inline">
-                            <input type="text" id="power" ng-disabled="isLoadedUser" class="roller-select ozelfont" ng-model="formData.power">
+                            <input type="number" id="power" ng-disabled="isLoadedUser" class="roller-select ozelfont" ng-model="formData.power">
                             <select id="unit" class="selectfont" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')"></select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="blockSize"><i class="fa-solid fa-trophy"></i> Blok Ödülü</label>
                         <div class="form-inline">
-                            <input type="text" id="blockSize" class="roller-select ozelfont" ng-disabled="isLoadedUser" ng-model="formData.blockSize">
+                            <input type="number" id="blockSize" class="roller-select ozelfont" ng-disabled="isLoadedUser" ng-model="formData.blockSize">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="blockTime"><i class="fa-solid fa-clock"></i> Blok Süresi</label>
                         <div class="form-inline">
-                            <input type="number" id="blockTime" class="roller-select ozelfont" ng-model="formData.blockTime" disabled >
-                            <select id="timeUnit" class="selectfont" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')" disabled >
+                            <input type="number" id="blockTime" class="roller-select ozelfont" ng-model="formData.blockTime" ng-disabled="isLoadedUser">
+                            <select id="timeUnit" class="selectfont" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')"  ng-disabled="isLoadedUser">
                                 <option value="seconds">Saniye</option>
                                 <option value="minutes">Dakika</option>
                             </select>
