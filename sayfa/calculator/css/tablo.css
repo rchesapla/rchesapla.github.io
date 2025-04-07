@@ -1,5 +1,6 @@
 .body {
 	background: #181928;
+	font-family: var(--bilgilerfont);
 	color: #333;
 }
 
@@ -12,10 +13,11 @@
 	font-family: var(--selectfont);
 	font-size: 20px;
 }
-
-
-.fctr01 {
-	padding: 10px;
+.form-group div {
+	padding: 1px;
+}
+.form-group .form-inline {
+	padding: 5px;
 }
 
 .ortala {
@@ -48,23 +50,21 @@ body.page-banner {
 }
 
 
-.roller-select {
+.deneme {
 	width:100%;
 	padding: 3px;
-	font-family: var(--selectfont);
-    color: red;
-    background-color: #181928;
-    border-radius: 4px 4px 4px 4px;
-	border: 1px solid yellow;
+	font-family: var(--bilgilerfont);
+	font: 25px;
+    color: black;
 	text-align: center;
+	background-color: #2f3045;
 }
 
 .ozel {
-	font-family: var(--açıklama);
-	font-size: 15px;
+	font-family: var(--bilgilerfont);
+	font-size: 20px;
     width: %100;
 	color: #c3b0d0;
-	padding: 5px;
 	border-radius: 0 0 4px 4px;
 }
 
@@ -76,14 +76,9 @@ body.page-banner {
 	font-size: 15px;
 }
 
-.ozel,
-.form-group {
-	padding: 5px;
-}
-
 .btn-show {
   background-color: #2f3045;
-  font-size: 13px;
+  font-size: 20px;
   border-style: none;
   color: #ffffff;
   cursor: pointer;
@@ -105,8 +100,9 @@ body.page-banner {
   color: #c3b0d0;
 }
 
-button {
-	outline: 1px solid red;
+.fctr01 {
+	padding: 10px;
+
 }
 
 .checkboxItem {
