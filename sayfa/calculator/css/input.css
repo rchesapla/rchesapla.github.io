@@ -20,6 +20,9 @@
  .form__field::placeholder {
 	 color: red;
 }
+.siyah {
+	 color: black;
+}
  .form__field:placeholder-shown ~ .form__label {
 	 font-size: 1.3rem;
 	 cursor: text;

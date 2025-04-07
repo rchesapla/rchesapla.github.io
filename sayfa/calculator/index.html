@@ -1272,7 +1272,7 @@
                                 <td colspan="2">{{currency.user_block_farm_token}} {{currency.name}}</td>
                                 <td colspan="2">${{currency.user_block_farm_usd}}</td>
                                 <td colspan="2">{{formatDays(currency.user_days_to_widthdraw)}}</td>
-                                <td colspan="2"><input type="text" ng-disabled="!formData.power" name="input{{$index}}" id="power" class="roller-select " ng-model="currency.user_alocated_power" ng-change="updateAllocatedPower(currency)" style="width:45px"></td>
+                                <td colspan="2"><input type="number" ng-disabled="!formData.power" name="input{{$index}}" id="power" class="form__field siyah" ng-model="currency.user_alocated_power" ng-change="updateAllocatedPower(currency)" style="width:50px"></td>
                             </tr>
                     </tbody>
                 </table>
