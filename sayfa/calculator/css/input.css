@@ -1,13 +1,13 @@
 .form__group {
-	 position: relative;
-	 width: 100%;
-	 text-align: center;
+	position: relative;
+	width: 100%;
+	text-align: center;
 }
  .form__field {
 	 font-family: inherit;
 	 width: 100%;
 	 border: 0;
-	 border-bottom: 2px solid #9b9b9b;
+	border-bottom: 2px solid #9b9b9b;
 	 box-shadow: 0 4px 12px red;
 	 color: #fff;
 	 padding: 3px;
@@ -18,7 +18,7 @@
  .form__field::placeholder {
 	 color: red;
 }
-.siyah {
+ .siyah {
 	 color: black;
 }
  .form__field:placeholder-shown ~ .form__label {

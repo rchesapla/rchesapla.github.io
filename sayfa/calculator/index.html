@@ -243,7 +243,7 @@
 								<button class="btn-show" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-trash"></i> Beni Unut</button>
 							</div>
 							<div class="form-inline">
-								<button class="btn-show"  ng-if="isLoadedUser" ng-click="resetValues()"><i class="fa-solid fa-rotate-right"></i> Verileri Yenile</button>
+								<button class="btn-show" ng-click="resetValues()"><i class="fa-solid fa-rotate-right"></i> Verileri Yenile</button>
 							</div>
 						</div>
                     </div>
@@ -251,49 +251,49 @@
             </div>
             
             <div ng-if="user_data" class="col-md-10 ozel2">
-                <!--fieldset>
+                <fieldset>
                     <div>
                         <input type="checkbox" ng-model="formData.showMiners" name="show_miners"/>
-                        <label for="scales">Exibir miners</label>
+                        <label for="scales">Minerları Göster</label>
                         <input type="checkbox" ng-model="formData.showRacks" name="show_miners" />
-                        <label for="scales">Exibir racks</label>
+                        <label for="scales">Rafları Göster</label>
                         <input type="checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners" />
                         <label for="scales">Simular aquisições</label>
-                        <input type="checkbox" ng-model="formData.showUserStatistics" ng-change="showStatistics()" name="show_statistics" />
-                        <label for="scales">Mostrar estatísticas</label>
+                        <!--input type="checkbox" ng-model="formData.showUserStatistics" ng-change="showStatistics()" name="show_statistics" />
+                        <label for="scales">Mostrar estatísticas</label-->
                         <input type="checkbox" ng-model="formData.showInventory" name="show_inventory" />
                         <label for="show_inventory">Carregar inventário</label>
                     </div>
-                </fieldset-->
+                </fieldset>
                 <table class="blueTable ozel2">
                     <thead>
                         <tr>
                             <th style="text-align: center">
-                               <i class="fa-solid fa-user"></i> K. ADI
+                               KULLANICI ADI
                             </th>
                             <th style="text-align: center">
-                                <i class="fa-solid fa-user-tie"></i> AVATAR
+                                AVATAR
                             </th>
                             <th style="text-align: center">
-                                <i class="fa-solid fa-gamepad"></i> O. GÜCÜ
+                                OYUN GÜCÜ
                             </th>
                             <th style="text-align: center">
-                                <i class="fa-solid fa-person-shelter"></i> M. GÜCÜ
+                                MINER GÜCÜ
                             </th>
                             <th style="text-align: center">
-                                <i class="fa-solid fa-person-shelter"></i> R. GÜCÜ
+                                RAF GÜCÜ
                             </th>
                             <th style="text-align: center">
-                                <i class="fa-solid fa-person-shelter"></i> G. GÜCÜ
+                                GEÇİCİ GÜCÜ
                             </th>
                             <th style="text-align: center">
-                                <i class="fa-solid fa-battery-full"></i> TOP. GÜCÜ
+                                TOPLAM GÜCÜ
                             </th>
                             <th style="text-align: center">
-                                <i class="fa-solid fa-money-bill-trend-up"></i> B. GÜCÜ
+								BONUS GÜCÜ
                             </th>
                             <th style="text-align: center">
-                                <i class="fa-solid fa-person-arrow-up-from-line"></i> ODA DURUMU
+								ODA DURUMU
                             </th>
                         </tr>
                     </thead>
