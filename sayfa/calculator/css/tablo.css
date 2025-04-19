@@ -76,7 +76,7 @@ body.page-banner {
 	font-size: 15px;
 }
 
-.btn-show {
+button.btn-show {
   background-color: #2f3045;
   font-size: 20px;
   border-style: none;
@@ -89,14 +89,14 @@ body.page-banner {
   border: 1px solid yellow;
 }
 
-.btn-show:hover {
+button.btn-show:hover {
   background-color: #2f3045;
   color: #c3b0d0;
   border: 1px solid yellow;
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
-.btn-show:focus {
+button.btn-show:focus {
   color: #c3b0d0;
 }
 

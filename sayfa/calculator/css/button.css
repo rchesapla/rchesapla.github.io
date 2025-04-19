@@ -12,34 +12,6 @@ button {
   cursor: pointer;
 }
 
-button::after {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 3%;
-  width: 95%;
-  height: 40%;
-  background-color: #212121;
-  transition: 0.5s;
-  transform-origin: center;
-}
-
-button::before {
-  content: "";
-  transform-origin: center;
-  position: absolute;
-  top: 80%;
-  left: 3%;
-  width: 95%;
-  height: 40%;
-  background-color: #212121;
-  transition: 0.5s;
-}
-
-button:hover::before, button:hover::after {
-  transform: scale(0)
-}
-
 button:hover {
-  box-shadow: inset 0px 0px 25px #1479EA;
+  box-shadow: inset 0px 0px 25px red;
 }
