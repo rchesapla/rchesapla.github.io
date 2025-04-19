@@ -171,7 +171,7 @@
                     <div class="form-group">
                         <label for="networkPower"><i class="fa-solid fa-globe"></i> Ağ Gücü</label>
 						<div class="form__group">
-							<input class="form__field" type="number" id="networkPower" class="deneme" ng-disabled="isLoadedUser" ng-model="formData.networkPower"/>
+							<input class="input" type="number" id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower"/>
 						</div>
 						<div class="form__group">
 							<select id="networkUnit" class="selectfont" ng-disabled="isLoadedUser" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')">
@@ -182,7 +182,7 @@
                     <div class="form-group">
                         <label for="power"><i class="fa-solid fa-person-digging"></i> Kazım Gücü</label>
 						<div class="form__group">
-							<input class="form__field" type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power">
+							<input class="input" type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power">
 						</div>
 						<div class="form__group">
 							<select id="unit" class="selectfont" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')"></select>
@@ -191,13 +191,13 @@
                     <div class="form-group">
                         <label for="blockSize"><i class="fa-solid fa-trophy"></i> Blok Ödülü</label>
 						<div class="form__group">
-							<input class="form__field" type="number" id="blockSize"" ng-disabled="isLoadedUser" ng-model="formData.blockSize">
+							<input class="input" type="number" id="blockSize"" ng-disabled="isLoadedUser" ng-model="formData.blockSize">
 						</div>
                     </div>
                     <div class="form-group">
                         <label for="blockTime"><i class="fa-solid fa-clock"></i> Blok Süresi</label>
 						<div class="form__group">
-							<input class="form__field" type="number" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser">
+							<input class="input" type="number" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser">
 						</div>
 						<div class="form__group">
 							<select id="timeUnit" class="selectfont" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')"  ng-disabled="isLoadedUser">
@@ -220,7 +220,7 @@
                         <label><i class="fa-solid fa-user"></i> RollerCoin ID</label>
 						<div class="form__group">
 							<input type="text" 
-                                class="form__field" 
+                                class="input" 
                                 ng-model="userSearchText" 
                                 placeholder="Örn: FthCLK" 
                                 typeahead-wait-ms="300"
@@ -1272,7 +1272,7 @@
                                 <td colspan="2">{{currency.user_block_farm_token}} {{currency.name}}</td>
                                 <td colspan="2">${{currency.user_block_farm_usd}}</td>
                                 <td colspan="2">{{formatDays(currency.user_days_to_widthdraw)}}</td>
-                                <td colspan="2"><input type="number" ng-disabled="!formData.power" name="input{{$index}}" id="power" class="form__field siyah" ng-model="currency.user_alocated_power" ng-change="updateAllocatedPower(currency)" style="width:50px"></td>
+                                <td colspan="2"><input type="number" ng-disabled="!formData.power" name="input{{$index}}" id="power" class="input siyah" ng-model="currency.user_alocated_power" ng-change="updateAllocatedPower(currency)" style="width:50px"></td>
                             </tr>
                     </tbody>
                 </table>
