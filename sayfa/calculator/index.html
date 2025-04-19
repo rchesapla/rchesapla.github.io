@@ -10,7 +10,9 @@
 	<link rel="stylesheet" href="./css/fonts.css">
 	<link rel="stylesheet" href="./css/header.css">
 	<link rel="stylesheet" href="./css/duyuru.css">
+<!--===============================================================================================-->
 	<link rel="stylesheet" href="./css/button.css">
+	<link rel="stylesheet" href="./css/onaykutusu.css">
 <!--===============================================================================================-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -645,16 +647,38 @@
             <div ng-if="user_data" class="col-md-10 ozel2">
                 <fieldset>
                     <div>
-                        <input type="checkbox" ng-model="formData.showMiners" name="show_miners"/>
-                        <label for="scales">Minerları Göster</label>
+<div class="checkbox-wrapper-4">
+  <input class="inp-cbx" id="Miner" type="checkbox" ng-model="formData.showMiners" name="show_miners"/>
+  <label class="cbx" for="Miner">
+    <span> <svg id="svg" width="12px" height="10px"></svg></span>
+    <span>Miner Listesi</span>
+  </label>
+</div>
+<div class="checkbox-wrapper-4">
+  <input class="inp-cbx" id="Raf" type="checkbox" ng-model="formData.showRacks" name="show_miners"/>
+  <label class="cbx" for="Raf">
+    <span> <svg id="svg" width="12px" height="10px"></svg></span>
+    <span>Raf Listesi</span>
+  </label>
+</div>
+<div class="checkbox-wrapper-4">
+  <input class="inp-cbx" id="Magaza" type="checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners"/>
+  <label class="cbx" for="Magaza">
+    <span> <svg id="svg" width="12px" height="10px"></svg></span>
+    <span>Mağaza Listesi</span>
+  </label>
+</div>
+
+                        <!--input type="checkbox" ng-model="formData.showMiners" name="show_miners"/>
+                        <label class="cbx" for="scales">Minerları Göster</label>
                         <input type="checkbox" ng-model="formData.showRacks" name="show_miners" />
                         <label for="scales">Rafları Göster</label>
                         <input type="checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners" />
                         <label for="scales">Simular aquisições</label>
-                        <!--input type="checkbox" ng-model="formData.showUserStatistics" ng-change="showStatistics()" name="show_statistics" />
-                        <label for="scales">Mostrar estatísticas</label-->
+                        <input type="checkbox" ng-model="formData.showUserStatistics" ng-change="showStatistics()" name="show_statistics" />
+                        <label for="scales">Mostrar estatísticas</label>
                         <input type="checkbox" ng-model="formData.showInventory" name="show_inventory" />
-                        <label for="show_inventory">Carregar inventário</label>
+                        <label for="show_inventory">Carregar inventário</label-->
                     </div>
                 </fieldset>
                 <table class="blueTable ozel2">
