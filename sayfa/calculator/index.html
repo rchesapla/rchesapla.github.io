@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="./css/fonts.css">
 	<link rel="stylesheet" href="./css/header.css">
 	<link rel="stylesheet" href="./css/duyuru.css">
+	<link rel="stylesheet" href="./css/button.css">
 <!--===============================================================================================-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -162,65 +163,380 @@
                 <form name="miningForm"  class="ozel">
                     <div class="form-group">
                         <label for="currency"><img src="./img/svg/test.gif" width="40" height="30"/> Kripto Seç</label>
-						<div class="form__group">
-							<select id="currency" class="selectfont" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()">
+						<div class="input-field-container2">
+							<select id="currency" class="seçenekler" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()">
                             <option value="">Genel Hesaplama</option>
                         </select>
 						</div>
                     </div>
-                    <div class="form-group">
-                        <label for="networkPower"><i class="fa-solid fa-globe"></i> Ağ Gücü</label>
-						<div class="form__group">
-							<input class="form__field" type="number" id="networkPower" class="deneme" ng-disabled="isLoadedUser" ng-model="formData.networkPower"/>
-						</div>
-						<div class="form__group">
-							<select id="networkUnit" class="selectfont" ng-disabled="isLoadedUser" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')">
-                                <option ng-repeat="unit in networkUnits">{{unit}}</option>
-                            </select>
-						</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="power"><i class="fa-solid fa-person-digging"></i> Kazım Gücü</label>
-						<div class="form__group">
-							<input class="form__field" type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power">
-						</div>
-						<div class="form__group">
-							<select id="unit" class="selectfont" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')"></select>
-						</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="blockSize"><i class="fa-solid fa-trophy"></i> Blok Ödülü</label>
-						<div class="form__group">
-							<input class="form__field" type="number" id="blockSize"" ng-disabled="isLoadedUser" ng-model="formData.blockSize">
-						</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="blockTime"><i class="fa-solid fa-clock"></i> Blok Süresi</label>
-						<div class="form__group">
-							<input class="form__field" type="number" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser">
-						</div>
-						<div class="form__group">
-							<select id="timeUnit" class="selectfont" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')"  ng-disabled="isLoadedUser">
-                                <option value="seconds">Saniye</option>
-                                <option value="minutes">Dakika</option>
-                            </select>
-						</div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-inline">
-                            <button class="btn-show" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"><i class="fa-solid fa-coins"></i> En İyi Kazanç</button>
-                        </div>
-                    </div>
+<!--===============================================================================================-->
+<div class="input-container">
+  <div class="input-field-container">
+    <input type="number" class="holo-input" placeholder="Ağ Gücü" id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower" />
+    <div class="input-border"></div>
+    <div class="holo-scan-line"></div>
+    <div class="input-glow"></div>
+    <div class="input-active-indicator"></div>
+	<div class="input-label">Ağ Gücü</div>
+
+    <div class="input-data-visualization">
+      <div class="data-segment" style="--index: 1;"></div>
+      <div class="data-segment" style="--index: 2;"></div>
+      <div class="data-segment" style="--index: 3;"></div>
+      <div class="data-segment" style="--index: 4;"></div>
+      <div class="data-segment" style="--index: 5;"></div>
+      <div class="data-segment" style="--index: 6;"></div>
+      <div class="data-segment" style="--index: 7;"></div>
+      <div class="data-segment" style="--index: 8;"></div>
+      <div class="data-segment" style="--index: 9;"></div>
+      <div class="data-segment" style="--index: 10;"></div>
+      <div class="data-segment" style="--index: 11;"></div>
+      <div class="data-segment" style="--index: 12;"></div>
+      <div class="data-segment" style="--index: 13;"></div>
+      <div class="data-segment" style="--index: 14;"></div>
+      <div class="data-segment" style="--index: 15;"></div>
+      <div class="data-segment" style="--index: 16;"></div>
+      <div class="data-segment" style="--index: 17;"></div>
+      <div class="data-segment" style="--index: 18;"></div>
+      <div class="data-segment" style="--index: 19;"></div>
+      <div class="data-segment" style="--index: 20;"></div>
+    </div>
+
+    <div class="input-particles">
+      <div
+        class="input-particle"
+        style="--index: 1; top: 20%; left: 10%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 2; top: 65%; left: 25%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 3; top: 40%; left: 40%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 4; top: 75%; left: 60%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 5; top: 30%; left: 75%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 6; top: 60%; left: 90%;"
+      ></div>
+    </div>
+
+    <div class="input-holo-overlay"></div>
+
+    <div class="interface-lines">
+      <div class="interface-line"></div>
+      <div class="interface-line"></div>
+      <div class="interface-line"></div>
+      <div class="interface-line"></div>
+    </div>
+
+    <div class="hex-decoration"></div>
+    <div class="input-status">By: FthCLK</div>
+    <div class="power-indicator"></div>
+
+    <div class="input-decoration">
+      <div class="decoration-dot"></div>
+      <div class="decoration-line"></div>
+      <div class="decoration-dot"></div>
+      <div class="decoration-line"></div>
+      <div class="decoration-dot"></div>
+      <div class="decoration-line"></div>
+      <div class="decoration-dot"></div>
+    </div>
+  </div>
+</div>
+<!--===============================================================================================-->
+	<div class="input-field-container2">
+		<select id="networkUnit" class="seçenekler" ng-disabled="isLoadedUser" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')">
+			<option ng-repeat="unit in networkUnits">{{unit}}</option>
+		</select>
+	</div>
+<!--===============================================================================================-->
+<div class="input-container">
+  <div class="input-field-container">
+    <input type="number" class="holo-input" placeholder="Kazım Gücü" id="power" ng-disabled="isLoadedUser" ng-model="formData.power"/>
+    <div class="input-border"></div>
+    <div class="holo-scan-line"></div>
+    <div class="input-glow"></div>
+    <div class="input-active-indicator"></div>
+	<div class="input-label">Kazım Gücü</div>
+
+    <div class="input-data-visualization">
+      <div class="data-segment" style="--index: 1;"></div>
+      <div class="data-segment" style="--index: 2;"></div>
+      <div class="data-segment" style="--index: 3;"></div>
+      <div class="data-segment" style="--index: 4;"></div>
+      <div class="data-segment" style="--index: 5;"></div>
+      <div class="data-segment" style="--index: 6;"></div>
+      <div class="data-segment" style="--index: 7;"></div>
+      <div class="data-segment" style="--index: 8;"></div>
+      <div class="data-segment" style="--index: 9;"></div>
+      <div class="data-segment" style="--index: 10;"></div>
+      <div class="data-segment" style="--index: 11;"></div>
+      <div class="data-segment" style="--index: 12;"></div>
+      <div class="data-segment" style="--index: 13;"></div>
+      <div class="data-segment" style="--index: 14;"></div>
+      <div class="data-segment" style="--index: 15;"></div>
+      <div class="data-segment" style="--index: 16;"></div>
+      <div class="data-segment" style="--index: 17;"></div>
+      <div class="data-segment" style="--index: 18;"></div>
+      <div class="data-segment" style="--index: 19;"></div>
+      <div class="data-segment" style="--index: 20;"></div>
+    </div>
+
+    <div class="input-particles">
+      <div
+        class="input-particle"
+        style="--index: 1; top: 20%; left: 10%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 2; top: 65%; left: 25%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 3; top: 40%; left: 40%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 4; top: 75%; left: 60%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 5; top: 30%; left: 75%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 6; top: 60%; left: 90%;"
+      ></div>
+    </div>
+
+    <div class="input-holo-overlay"></div>
+
+    <div class="interface-lines">
+      <div class="interface-line"></div>
+      <div class="interface-line"></div>
+      <div class="interface-line"></div>
+      <div class="interface-line"></div>
+    </div>
+
+    <div class="hex-decoration"></div>
+    <div class="input-status">By: FthCLK</div>
+    <div class="power-indicator"></div>
+
+    <div class="input-decoration">
+      <div class="decoration-dot"></div>
+      <div class="decoration-line"></div>
+      <div class="decoration-dot"></div>
+      <div class="decoration-line"></div>
+      <div class="decoration-dot"></div>
+      <div class="decoration-line"></div>
+      <div class="decoration-dot"></div>
+    </div>
+  </div>
+</div>
+<!--===============================================================================================-->
+	<div class="input-field-container2">
+		<select id="unit" class="seçenekler" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')"></select>
+	</div>
+<!--===============================================================================================-->
+<div class="input-container">
+  <div class="input-field-container">
+    <input type="number" class="holo-input" placeholder="Blok Ödülü" id="blockSize"" ng-disabled="isLoadedUser" ng-model="formData.blockSize"/>
+    <div class="input-border"></div>
+    <div class="holo-scan-line"></div>
+    <div class="input-glow"></div>
+    <div class="input-active-indicator"></div>
+	<div class="input-label">Blok Ödülü</div>
+
+    <div class="input-data-visualization">
+      <div class="data-segment" style="--index: 1;"></div>
+      <div class="data-segment" style="--index: 2;"></div>
+      <div class="data-segment" style="--index: 3;"></div>
+      <div class="data-segment" style="--index: 4;"></div>
+      <div class="data-segment" style="--index: 5;"></div>
+      <div class="data-segment" style="--index: 6;"></div>
+      <div class="data-segment" style="--index: 7;"></div>
+      <div class="data-segment" style="--index: 8;"></div>
+      <div class="data-segment" style="--index: 9;"></div>
+      <div class="data-segment" style="--index: 10;"></div>
+      <div class="data-segment" style="--index: 11;"></div>
+      <div class="data-segment" style="--index: 12;"></div>
+      <div class="data-segment" style="--index: 13;"></div>
+      <div class="data-segment" style="--index: 14;"></div>
+      <div class="data-segment" style="--index: 15;"></div>
+      <div class="data-segment" style="--index: 16;"></div>
+      <div class="data-segment" style="--index: 17;"></div>
+      <div class="data-segment" style="--index: 18;"></div>
+      <div class="data-segment" style="--index: 19;"></div>
+      <div class="data-segment" style="--index: 20;"></div>
+    </div>
+
+    <div class="input-particles">
+      <div
+        class="input-particle"
+        style="--index: 1; top: 20%; left: 10%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 2; top: 65%; left: 25%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 3; top: 40%; left: 40%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 4; top: 75%; left: 60%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 5; top: 30%; left: 75%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 6; top: 60%; left: 90%;"
+      ></div>
+    </div>
+
+    <div class="input-holo-overlay"></div>
+
+    <div class="interface-lines">
+      <div class="interface-line"></div>
+      <div class="interface-line"></div>
+      <div class="interface-line"></div>
+      <div class="interface-line"></div>
+    </div>
+
+    <div class="hex-decoration"></div>
+    <div class="input-status">By: FthCLK</div>
+    <div class="power-indicator"></div>
+
+    <div class="input-decoration">
+      <div class="decoration-dot"></div>
+      <div class="decoration-line"></div>
+      <div class="decoration-dot"></div>
+      <div class="decoration-line"></div>
+      <div class="decoration-dot"></div>
+      <div class="decoration-line"></div>
+      <div class="decoration-dot"></div>
+    </div>
+  </div>
+</div>
+<!--===============================================================================================-->
+
+<!--===============================================================================================-->
+<div class="input-container">
+  <div class="input-field-container">
+    <input type="number" class="holo-input" placeholder="Blok Süresi" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser"/>
+    <div class="input-border"></div>
+    <div class="holo-scan-line"></div>
+    <div class="input-glow"></div>
+    <div class="input-active-indicator"></div>
+	<div class="input-label">Blok Süresi</div>
+
+    <div class="input-data-visualization">
+      <div class="data-segment" style="--index: 1;"></div>
+      <div class="data-segment" style="--index: 2;"></div>
+      <div class="data-segment" style="--index: 3;"></div>
+      <div class="data-segment" style="--index: 4;"></div>
+      <div class="data-segment" style="--index: 5;"></div>
+      <div class="data-segment" style="--index: 6;"></div>
+      <div class="data-segment" style="--index: 7;"></div>
+      <div class="data-segment" style="--index: 8;"></div>
+      <div class="data-segment" style="--index: 9;"></div>
+      <div class="data-segment" style="--index: 10;"></div>
+      <div class="data-segment" style="--index: 11;"></div>
+      <div class="data-segment" style="--index: 12;"></div>
+      <div class="data-segment" style="--index: 13;"></div>
+      <div class="data-segment" style="--index: 14;"></div>
+      <div class="data-segment" style="--index: 15;"></div>
+      <div class="data-segment" style="--index: 16;"></div>
+      <div class="data-segment" style="--index: 17;"></div>
+      <div class="data-segment" style="--index: 18;"></div>
+      <div class="data-segment" style="--index: 19;"></div>
+      <div class="data-segment" style="--index: 20;"></div>
+    </div>
+
+    <div class="input-particles">
+      <div
+        class="input-particle"
+        style="--index: 1; top: 20%; left: 10%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 2; top: 65%; left: 25%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 3; top: 40%; left: 40%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 4; top: 75%; left: 60%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 5; top: 30%; left: 75%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 6; top: 60%; left: 90%;"
+      ></div>
+    </div>
+
+    <div class="input-holo-overlay"></div>
+
+    <div class="interface-lines">
+      <div class="interface-line"></div>
+      <div class="interface-line"></div>
+      <div class="interface-line"></div>
+      <div class="interface-line"></div>
+    </div>
+
+    <div class="hex-decoration"></div>
+    <div class="input-status">By: FthCLK</div>
+    <div class="power-indicator"></div>
+
+    <div class="input-decoration">
+      <div class="decoration-dot"></div>
+      <div class="decoration-line"></div>
+      <div class="decoration-dot"></div>
+      <div class="decoration-line"></div>
+      <div class="decoration-dot"></div>
+      <div class="decoration-line"></div>
+      <div class="decoration-dot"></div>
+    </div>
+  </div>
+</div>
+<!--===============================================================================================-->
+	<div class="input-field-container2">
+		<select id="timeUnit" class="seçenekler" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')"  ng-disabled="isLoadedUser">
+			<option value="seconds">Saniye</option>
+			<option value="minutes">Dakika</option>
+		</select>
+	</div>
+	<div class="input-field-container2">
+		<button class="" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"><i class="fa-solid fa-coins"></i> En İyi Kazanç</button>
+	</div>
+<!--===============================================================================================-->
                     <!--div class="form-group">
                         <div class="form-inline">
                             <button class="btn-show" ng-disabled="!isLoadedUser" ng-click="bestBuys()"><i class="fas fa-shopping-cart"></i> Miner Listesi</button>
                         </div>
                     </div-->
-                    <div class="form-group">
-                        <label><i class="fa-solid fa-user"></i> RollerCoin ID</label>
-						<div class="form__group">
-							<input type="text" 
-                                class="form__field" 
+<div class="input-container">
+  <div class="input-field-container">
+    <input type="text" 
+                                class="holo-input" 
                                 ng-model="userSearchText" 
                                 placeholder="Örn: FthCLK" 
                                 typeahead-wait-ms="300"
@@ -228,24 +544,100 @@
                                 typeahead-no-results="playerSearchNoResults"
                                 typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
                                 typeahead-loading="loading"/>
-						</div>
-						
-                        <div class="form-inline55">
-                            <div class="fctr01" ng-show="playerSearchNoResults">
-                                <i class="fa-solid fa-ban"></i> Oyuncu bulunamadı!
-                            </div>
-							<div class="fctr01">
-                                <i class="fa-solid fa-circle-info"></i> "/p/örnek" örnek yazan yere sizin kullanıcı adınızı giriniz. </br>(Not: /p/ olmadan!)
-                            </div>
-                        </div>
-						<div class="form-group">
-							<div class="form-inline">
-								<button class="btn-show" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-trash"></i> Beni Unut</button>
-							</div>
-							<div class="form-inline">
-								<button class="btn-show" ng-click="resetValues()"><i class="fa-solid fa-rotate-right"></i> Verileri Yenile</button>
-							</div>
-						</div>
+    <div class="input-border"></div>
+    <div class="holo-scan-line"></div>
+    <div class="input-glow"></div>
+    <div class="input-active-indicator"></div>
+	<div class="input-label">RollerCoin ID</div>
+
+    <div class="input-data-visualization">
+      <div class="data-segment" style="--index: 1;"></div>
+      <div class="data-segment" style="--index: 2;"></div>
+      <div class="data-segment" style="--index: 3;"></div>
+      <div class="data-segment" style="--index: 4;"></div>
+      <div class="data-segment" style="--index: 5;"></div>
+      <div class="data-segment" style="--index: 6;"></div>
+      <div class="data-segment" style="--index: 7;"></div>
+      <div class="data-segment" style="--index: 8;"></div>
+      <div class="data-segment" style="--index: 9;"></div>
+      <div class="data-segment" style="--index: 10;"></div>
+      <div class="data-segment" style="--index: 11;"></div>
+      <div class="data-segment" style="--index: 12;"></div>
+      <div class="data-segment" style="--index: 13;"></div>
+      <div class="data-segment" style="--index: 14;"></div>
+      <div class="data-segment" style="--index: 15;"></div>
+      <div class="data-segment" style="--index: 16;"></div>
+      <div class="data-segment" style="--index: 17;"></div>
+      <div class="data-segment" style="--index: 18;"></div>
+      <div class="data-segment" style="--index: 19;"></div>
+      <div class="data-segment" style="--index: 20;"></div>
+    </div>
+
+    <div class="input-particles">
+      <div
+        class="input-particle"
+        style="--index: 1; top: 20%; left: 10%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 2; top: 65%; left: 25%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 3; top: 40%; left: 40%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 4; top: 75%; left: 60%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 5; top: 30%; left: 75%;"
+      ></div>
+      <div
+        class="input-particle"
+        style="--index: 6; top: 60%; left: 90%;"
+      ></div>
+    </div>
+
+    <div class="input-holo-overlay"></div>
+
+    <div class="interface-lines">
+      <div class="interface-line"></div>
+      <div class="interface-line"></div>
+      <div class="interface-line"></div>
+      <div class="interface-line"></div>
+    </div>
+
+    <div class="hex-decoration"></div>
+    <div class="input-status">By: FthCLK</div>
+    <div class="power-indicator"></div>
+
+    <div class="input-decoration">
+      <div class="decoration-dot"></div>
+      <div class="decoration-line"></div>
+      <div class="decoration-dot"></div>
+      <div class="decoration-line"></div>
+      <div class="decoration-dot"></div>
+      <div class="decoration-line"></div>
+      <div class="decoration-dot"></div>
+    </div>
+  </div>
+</div>
+<!--===============================================================================================-->
+	<div class="input-field-container2" ng-show="playerSearchNoResults">
+		<i class="fa-solid fa-ban"></i> Oyuncu bulunamadı!
+	</div>
+	<div class="input-field-container2">
+		<i class="fa-solid fa-circle-info"></i> "/p/örnek" örnek yazan yere sizin kullanıcı adınızı giriniz. </br>(Not: /p/ olmadan!)
+	</div>
+	<div class="input-field-container2">
+		<button class="" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-trash"></i> Beni Unut</button>
+	</div>
+	<div class="input-field-container2">
+		<button class="" ng-click="resetValues()"><i class="fa-solid fa-rotate-right"></i> Verileri Yenile</button>
+	</div>
+<!--===============================================================================================-->
                     </div>
                 </form>
             </div>
