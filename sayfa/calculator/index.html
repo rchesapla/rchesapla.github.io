@@ -520,13 +520,13 @@
   </div>
 </div>
 <!--===============================================================================================-->
-	<div class="input-field-container2">
+	<div class="input-field-container">
 		<select id="timeUnit" class="seçenekler" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')"  ng-disabled="isLoadedUser">
 			<option value="seconds">Saniye</option>
 			<option value="minutes">Dakika</option>
 		</select>
 	</div>
-	<div class="input-field-container2">
+	<div class="input-field-container">
 		<button class="" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"><i class="fa-solid fa-coins"></i> En İyi Kazanç</button>
 	</div>
 <!--===============================================================================================-->
@@ -627,16 +627,16 @@
   </div>
 </div>
 <!--===============================================================================================-->
-	<div class="input-field-container2" ng-show="playerSearchNoResults">
+	<div class="input-field-container" ng-show="playerSearchNoResults">
 		<i class="fa-solid fa-ban"></i> Oyuncu bulunamadı!
 	</div>
-	<div class="input-field-container2">
+	<div class="input-field-container">
 		<i class="fa-solid fa-circle-info"></i> "/p/örnek" örnek yazan yere sizin kullanıcı adınızı giriniz. </br>(Not: /p/ olmadan!)
 	</div>
-	<div class="input-field-container2">
+	<div class="input-field-container">
 		<button class="" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-trash"></i> Beni Unut</button>
 	</div>
-	<div class="input-field-container2">
+	<div class="input-field-container">
 		<button class="" ng-click="resetValues()"><i class="fa-solid fa-rotate-right"></i> Verileri Yenile</button>
 	</div>
 <!--===============================================================================================-->

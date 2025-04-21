@@ -226,9 +226,7 @@ table.profil {
 
 @media screen and (max-width: 1000px) {
 .ozel {
-    width: 50%;
 	margin: auto;
-	text-shadow: 0 0 2px red;
 	}
 }
 

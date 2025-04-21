@@ -13,5 +13,5 @@ button {
 }
 
 button:hover {
-  box-shadow: inset 0px 0px 25px red;
+  box-shadow: inset 0px 0px 25px blue;
 }
