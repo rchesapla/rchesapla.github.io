@@ -1,9 +1,11 @@
 .input-container {
   position: relative;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 10;
+  font-family: var(--tablofont);
 }
 
 .input-field-container {
@@ -27,7 +29,7 @@
   padding: 10px;
   text-align:center;
   color: rgba(0, 195, 255, 0.9);
-  font-family: "Orbitron", sans-serif;
+  font-family: var(--tablofont);
   font-size: 18px;
   letter-spacing: 1px;
   backdrop-filter: blur(5px);
@@ -47,9 +49,9 @@
   background: rgba(0, 12, 36, 0.7);
   border: none;
   outline: none;
-  padding: 0 60px 0 20px;
+  padding: 0 60px 0 25px;
   color: rgba(0, 195, 255, 0.9);
-  font-family: "Orbitron", sans-serif;
+  font-family: var(--tablofont);
   font-size: 18px;
   letter-spacing: 1px;
   backdrop-filter: blur(5px);
@@ -60,7 +62,6 @@
     inset 0 0 10px rgba(0, 0, 0, 0.8);
   transition: all 0.3s ease;
   text-shadow: 0 0 5px rgba(0, 160, 255, 0.7);
-  z-index: 1;
 }
 
 .holo-input::placeholder {

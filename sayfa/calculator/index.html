@@ -161,12 +161,11 @@
     </header>
 
     
-    <div class="fatihcelik">
-        <div class="55">
+    <div class="1">
+        <div class="1">
             <div class="col-md-2"  style="text-align: center">
-                <form name="miningForm"  class="ozel">
+                <form name="miningForm" class="">
                     <div class="form-group">
-                        <label for="currency"><img src="./img/svg/test.gif" width="40" height="30"/> Kripto Seç</label>
 						<div class="input-field-container2">
 							<select id="currency" class="seçenekler" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()">
                             <option value="">Genel Hesaplama</option>
@@ -646,7 +645,7 @@
                 </form>
             </div>
             
-            <div ng-if="user_data" class="col-md-10 ozel2">
+            <div ng-if="user_data" class=" col-md-10">
                 <fieldset>
                     <div>
 <div class="checkbox-wrapper-4">
@@ -683,7 +682,7 @@
                         <label for="show_inventory">Carregar inventário</label-->
                     </div>
                 </fieldset>
-                <table class="blueTable ozel2">
+                <table class="blueTable">
                     <thead>
                         <tr>
                             <th style="text-align: center">
@@ -780,7 +779,7 @@
                     </tbody>
                 </table>
             </div>
-            <div ng-if="formData.showRacks" class="col-md-10">
+            <div ng-if="formData.showRacks" class=" col-md-10">
                 <h3>Racks de {{user_data.name}}</h3>
                 <table class="blueTable">
                     <thead>
@@ -845,7 +844,7 @@
                 </table>
             </div>
 
-            <div ng-if="customMiners.length > 0" class="col-md-10">
+            <div ng-if="customMiners.length > 0" class=" col-md-10">
                 <table class="blueTable">
                     <thead>
                         <tr>
@@ -907,7 +906,7 @@
                 </table>
             </div>
 
-            <div ng-if="formData.showAllMiners" class="col-md-10">
+            <div ng-if="formData.showAllMiners" class=" col-md-10">
                 <div class="form-group col-md-4">
                     <label class="cardbaslik" for="currency">İsmi</label>
                     <input type="text" class="seçenekler cardbaslik" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Buscar miner...">
@@ -1335,7 +1334,7 @@
                 </div>
             </div>
 
-            <div ng-if="formData.showMiners" class="col-md-10">
+            <div ng-if="formData.showMiners" class=" col-md-10">
                 <div class="form-group col-md-4">
                     <label for="currency">Adı</label>
                     <input type="text" class="seçenekler " ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)" ng-model="userMinerNameSearch" placeholder="Miner adını giriniz...">
@@ -1577,8 +1576,8 @@
                 </div>
             </div>
 
-            <div class="col-md-10">
-                <table ng-if="formData.currency" class="blueTable ozel2">
+            <div class=" col-md-10">
+                <table ng-if="formData.currency" class="blueTable">
                     <thead>
                         <tr>
                             <th style="text-align: center" colspan="4">
@@ -1620,7 +1619,7 @@
                     </tbody>
                 </table>
                 <form name="myForm">
-                <table ng-if="!formData.currency" class="blueTable ozel2" style="text-align: center">
+                <table ng-if="!formData.currency" class="blueTable" style="text-align: center">
                     <thead>
                         <tr>
                             <th style="text-align: center" colspan="19">
@@ -1658,9 +1657,6 @@
                                 PARA ÇEKİMİ
                             </th>
                             <th style="text-align: center" colspan="2">
-                                <div ng-if="hasAnyAllocatedPower()">
-                                    <button ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i></button><br/>
-                                </div>
                                 GÜÇ (%)
                             </th>
                         </tr>
@@ -1686,7 +1682,7 @@
                 </form>
             </div>
             <div class="col-md-10">
-                <table style="text-align: center" ng-if="!formData.currency && getCurrenciesSum('user_alocated_power')  > 0" class="blueTable ozel2">
+                <table style="text-align: center" ng-if="!formData.currency && getCurrenciesSum('user_alocated_power')  > 0" class="blueTable">
                     <thead>
                         <tr>
                             <th style="text-align: center" colspan="22">
@@ -1761,11 +1757,13 @@
                         </tr>
                     </tfoot>
                 </table>
-        <table class="blueTable ozel2" style="text-align: center">
+            </div>
+			<div class=" col-md-10">
+        <table class="blueTable" style="text-align: center">
             <thead>
                 <tr>
                     <th colspan="3" style="text-align: center">
-                        <i class="fa-solid fa-address-book"></i> HESAPLAMA ARACIMIZI KULLANANLAR LİSTESİ <i class="fa-solid fa-address-book"></i>
+                        HESAPLAMA ARACIMIZI KULLANANLAR LİSTESİ
                     </th>
                 </tr>
                 <tr>
@@ -1787,11 +1785,6 @@
                         <td>{{user.searchCount}}</td>
                     </tr>
             </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3">❤️ Bizi tercih ettiğiniz için teşekkür ederiz. ❤️</td>
-                </tr>
-            </tfoot>
         </table>
             </div>
         </div>
