@@ -24,16 +24,12 @@
 	margin: auto;
 }
 
-.page-banner {
+h1.page-banner {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: center;
   font-family: var(--tablofont);
   color: white; 
-  letter-spacing: 2px; /* Spacing for elegance */
-  text-transform: uppercase;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3); /* Soft shadow for clarity */
   border-radius: 20px; /* Rounded ends */
 }
 
