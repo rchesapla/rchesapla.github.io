@@ -125,6 +125,7 @@ hr{
     font-family: var(--selectfont);
     font-size: 20px;
 	width: 100%;
+	text-align:center;
 }
 
 .roller-input-number:focus {
@@ -155,6 +156,7 @@ hr{
     border: 1px solid var(--rum);
 	padding: 5px;
     border-radius: 4px;
+	text-align:center !important;
 }
 
 .important {
