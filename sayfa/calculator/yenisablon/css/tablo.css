@@ -47,7 +47,7 @@ table th {
   table td {
     border: 1px solid var(--rum);
     display: block;
-    text-align: center;
+    text-align: right;
   }
   
   table td::before {
@@ -55,9 +55,8 @@ table th {
     * aria-label has no advantage, it won't be read inside a table
     content: attr(aria-label);
     */
-    content: attr(data-label);
+    content: attr(fatihcelik);
     float: left;
-    font-weight: bold;
     text-transform: uppercase;
   }
   
