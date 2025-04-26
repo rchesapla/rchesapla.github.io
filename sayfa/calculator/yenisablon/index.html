@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="css/header.css">
 	<link rel="stylesheet" href="https://rchesapla.github.io/sayfa/calculator/css/fonts.css">
 <!--===============================================================================================-->
-	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!--===============================================================================================-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
@@ -47,7 +47,7 @@
 
 <!--===============================================================================================-->
   <main id="hesapla">
-    <div class="form-container col-md-3">
+    <div class="form-container col-md-2">
         <div class="form-content roller-section">
           <form action="">
             <div class="form-group">
@@ -125,13 +125,13 @@
         </div>
     </div>
 
-    <div class="form-container col-md-7">
+    <div class="form-container col-md-10">
       <div class="calculated-ss roller-section">
         <div class="table-responsive">
 			<div ng-if="user_data">
                 <table class="blueTable">
                     <thead>
-                        <tr>
+                        <tr class="highlight-tag">
                             <th style="text-align: center" class="highlight-tag">
                                KULLANICI ADI
                             </th>
@@ -230,17 +230,17 @@
             <div class="">
                 <table ng-if="formData.currency" class="blueTable">
                     <thead>
-                        <tr>
+                        <tr class="highlight-tag">
                             <th style="text-align: center" colspan="3">
                                 {{formData.currency.name}}
                             </th>
                         </tr>
-                        <tr ng-hide="formData.currency.in_game_only">
+                        <tr ng-hide="formData.currency.in_game_only" class="highlight-tag">
                             <th style="text-align: center" colspan="3">
                                 1 {{formData.currency.name}} = ${{exchangeRates[formData.currency.name]['usd']}}
                             </th>
                         </tr>
-                        <tr>
+                        <tr class="highlight-tag">
                             <th style="text-align:center;">GÜNLER</th>
                             <th style="text-align:center;">KAZANÇ</th>
                             <th style="text-align:center;" ng-hide="formData.currency.in_game_only">USD</th>
@@ -272,29 +272,29 @@
                 <form name="myForm">
                 <table ng-if="!formData.currency" class="blueTable" style="text-align: center">
                     <thead>
-                        <tr>
-                            <th style="text-align: center" colspan="16" class="highlight-tag">
+                        <tr class="highlight-tag">
+                            <th style="text-align: center" colspan="16">
                                 GENEL İSTATİSTİKLER
                             </th>
                         </tr>
-                        <tr>
-                            <th style="text-align: center" rowspan="2" colspan="2" class="highlight-tag">
+                        <tr class="highlight-tag">
+                            <th style="text-align: center" rowspan="2" colspan="2">
                                 KRİPTO
                             </th>
-                            <th style="text-align: center" rowspan="2" colspan="2" class="highlight-tag">
+                            <th style="text-align: center" rowspan="2" colspan="2">
                                 AĞ GÜCÜ
                             </th>
-                            <th style="text-align: center" rowspan="2" colspan="2" class="highlight-tag">
+                            <th style="text-align: center" rowspan="2" colspan="2">
                                 BLOK ÖDÜLÜ
                             </th>
-                            <th style="text-align: center" colspan="4" class="highlight-tag">
+                            <th style="text-align: center" colspan="4">
                                 BLOK BAŞINA DEĞER
                             </th>
-                            <th style="text-align: center" colspan="6" class="highlight-tag">
+                            <th style="text-align: center" colspan="6">
                                 BENİM BLOK BAŞINA DEĞER
                             </th>
                         </tr>
-                        <tr>
+                        <tr class="highlight-tag">
                             <th style="text-align: center" colspan="2" class="highlight-tag">
                                 USD
                             </th>
@@ -306,9 +306,6 @@
                             </th>
                             <th style="text-align: center" colspan="2" class="highlight-tag">
                                 PARA ÇEKİMİ
-                            </th>
-                            <th style="text-align: center" colspan="2" class="highlight-tag">
-                                GÜÇ (%)
                             </th>
                         </tr>
                     </thead>
@@ -326,7 +323,6 @@
                                 <td colspan="2">{{currency.user_block_farm_token}} {{currency.name}}</td>
                                 <td colspan="2">${{currency.user_block_farm_usd}}</td>
                                 <td colspan="2">{{formatDays(currency.user_days_to_widthdraw)}}</td>
-                                <td colspan="2"><input type="number" ng-disabled="!formData.power" name="input{{$index}}" id="power" class="form__field siyah" ng-model="currency.user_alocated_power" ng-change="updateAllocatedPower(currency)" style="width:50px"></td>
                             </tr>
                     </tbody>
                 </table>
