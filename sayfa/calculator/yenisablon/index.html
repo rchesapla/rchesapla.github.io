@@ -32,43 +32,19 @@
 <!--===============================================================================================-->
 	<script src="https://rchesapla.github.io/sayfa/calculator/js/paracekme.js"></script>
     <script src="https://rchesapla.github.io/sayfa/calculator/js/firebase-db-service.js"></script>
-	<script src="js/header.js"></script>
 <!--===============================================================================================-->
     <script src="https://wminerrc.github.io/calculator/services.js"></script>
     <script src="https://wminerrc.github.io/calculator/user-miner-service.js"></script>
     <script src="https://wminerrc.github.io/calculator/miner-service.js"></script>
-
 <!--===============================================================================================-->
 </head>
 <body ng-controller="MiningController">
     <div class="loading-overlay" ng-show="isLoading">
         <p><img src="https://rollercoin.com/static/img/wallet/rlt.svg?v=1.13" width="70" height="60"/> Yükleniyor... (Biraz zaman alabilir) <img src="https://rollercoin.com/static/img/wallet/rlt.svg?v=1.13" width="70" height="60"/></p>
     </div>
+<!--===============================================================================================-->
 
-    <nav class="navbar">
-        <div class="navbar-container">
-            <div class="logo">RCV3</div>
-            <button class="mobile-nav-toggle" aria-label="Toggle navigation">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-            <ul class="nav-links">
-                <li><a href="#anasayfa">Ana Sayfa</a></li>
-                <li><a href="#hesapla">Güç Hesapla</a></li>
-            </ul>
-        </div>
-    </nav>
-    <div class="overlay"></div>
-
-    <section id="anasayfa">
-        <div class="bg-effect bg-effect-1"></div>
-        <div class="section-content">
-            <h1 class="section-title">Hoşgeldiniz</h1>
-            <p class="section-description">RollerCoin Kişisel Kazım Gücünü Hesapla!</p>
-        </div>
-    </section>
-
+<!--===============================================================================================-->
   <main id="hesapla">
     <div class="form-container col-md-3">
         <div class="form-content roller-section">
@@ -155,31 +131,31 @@
                 <table class="blueTable">
                     <thead>
                         <tr>
-                            <th style="text-align: center">
+                            <th style="text-align: center" class="highlight-tag">
                                KULLANICI ADI
                             </th>
-                            <th style="text-align: center">
+                            <th style="text-align: center" class="highlight-tag">
                                 AVATAR
                             </th>
-                            <th style="text-align: center">
+                            <th style="text-align: center" class="highlight-tag">
                                 OYUN GÜCÜ
                             </th>
-                            <th style="text-align: center">
+                            <th style="text-align: center" class="highlight-tag">
                                 MINER GÜCÜ
                             </th>
-                            <th style="text-align: center">
+                            <th style="text-align: center" class="highlight-tag">
                                 RAF GÜCÜ
                             </th>
-                            <th style="text-align: center">
+                            <th style="text-align: center" class="highlight-tag">
                                 GEÇİCİ GÜCÜ
                             </th>
-                            <th style="text-align: center">
+                            <th style="text-align: center" class="highlight-tag">
                                 TOPLAM GÜCÜ
                             </th>
-                            <th style="text-align: center">
+                            <th style="text-align: center" class="highlight-tag">
 								BONUS GÜCÜ
                             </th>
-                            <th style="text-align: center">
+                            <th style="text-align: center" class="highlight-tag">
 								ODA DURUMU
                             </th>
                         </tr>
@@ -254,7 +230,7 @@
                 <table ng-if="formData.currency" class="blueTable">
                     <thead>
                         <tr>
-                            <th style="text-align: center" colspan="4">
+                            <th style="text-align: center" colspan="3">
                                 {{formData.currency.name}}
                             </th>
                         </tr>
@@ -296,41 +272,41 @@
                 <table ng-if="!formData.currency" class="blueTable" style="text-align: center">
                     <thead>
                         <tr>
-                            <th style="text-align: center" colspan="16">
+                            <th style="text-align: center" colspan="16" class="highlight-tag">
                                 GENEL İSTATİSTİKLER
                             </th>
                         </tr>
                         <tr>
-                            <th style="text-align: center" rowspan="2" colspan="2">
+                            <th style="text-align: center" rowspan="2" colspan="2" class="highlight-tag">
                                 KRİPTO
                             </th>
-                            <th style="text-align: center" rowspan="2" colspan="2">
+                            <th style="text-align: center" rowspan="2" colspan="2" class="highlight-tag">
                                 AĞ GÜCÜ
                             </th>
-                            <th style="text-align: center" rowspan="2" colspan="2">
+                            <th style="text-align: center" rowspan="2" colspan="2" class="highlight-tag">
                                 BLOK ÖDÜLÜ
                             </th>
-                            <th style="text-align: center" colspan="4">
+                            <th style="text-align: center" colspan="4" class="highlight-tag">
                                 BLOK BAŞINA DEĞER
                             </th>
-                            <th style="text-align: center" colspan="6">
+                            <th style="text-align: center" colspan="6" class="highlight-tag">
                                 BENİM BLOK BAŞINA DEĞER
                             </th>
                         </tr>
                         <tr>
-                            <th style="text-align: center" colspan="2">
+                            <th style="text-align: center" colspan="2" class="highlight-tag">
                                 USD
                             </th>
-                            <th style="text-align: center" colspan="2">
+                            <th style="text-align: center" colspan="2" class="highlight-tag">
                                 KRİPTO
                             </th>
-                            <th style="text-align: center" colspan="2">
+                            <th style="text-align: center" colspan="2" class="highlight-tag">
                                 USD
                             </th>
-                            <th style="text-align: center" colspan="2">
+                            <th style="text-align: center" colspan="2" class="highlight-tag">
                                 PARA ÇEKİMİ
                             </th>
-                            <th style="text-align: center" colspan="2">
+                            <th style="text-align: center" colspan="2" class="highlight-tag">
                                 GÜÇ (%)
                             </th>
                         </tr>
@@ -359,5 +335,8 @@
       </div>
     </div>
   </main>
+<!--===============================================================================================-->
+	<script src="js/header.js"></script>
+<!--===============================================================================================-->
 </body>
 </html>
