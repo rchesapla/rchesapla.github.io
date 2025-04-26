@@ -300,18 +300,18 @@
                     </thead>
                     <tbody>
                             <tr ng-repeat="currency in currencies | orderBy:orderByField:reverseSort">
-                                <td colspan="2">
+                                <td fatihcelik="Kripto:" colspan="2">
                                     <span ng-show="$first">
                                         <i style="color:#b7b706" class="fa-solid fa-crown"></i>
                                     </span>
                                     {{currency.name}}
                                 </td>
-                                <td colspan="2">{{chooseBestHashRateUnit(currency.networkPower, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').unit}}</td>
-                                <td colspan="2">{{currency.blockTime}} sn {{currency.blockSize}} {{currency.name}}</td>
-                                <td colspan="2">${{currency.block_value_in_usd}}</td>
-                                <td colspan="2">{{currency.user_block_farm_token}} {{currency.name}}</td>
-                                <td colspan="2">${{currency.user_block_farm_usd}}</td>
-                                <td colspan="2">{{formatDays(currency.user_days_to_widthdraw)}}</td>
+                                <td fatihcelik="Ağ Gücü:" colspan="2">{{chooseBestHashRateUnit(currency.networkPower, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').unit}}</td>
+                                <td fatihcelik="Blok Ödülü:" colspan="2">{{currency.blockTime}} sn {{currency.blockSize}} {{currency.name}}</td>
+                                <td fatihcelik="USD:" colspan="2">${{currency.block_value_in_usd}}</td>
+                                <td fatihcelik="Blok Miktarı:" colspan="2">{{currency.user_block_farm_token}} {{currency.name}}</td>
+                                <td fatihcelik="USD:" colspan="2">${{currency.user_block_farm_usd}}</td>
+                                <td fatihcelik="Para Çekimi:" colspan="2">{{formatDays(currency.user_days_to_widthdraw)}}</td>
                             </tr>
                     </tbody>
                 </table>
