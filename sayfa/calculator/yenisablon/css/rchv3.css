@@ -320,7 +320,7 @@ aside.apps-promotion img {
     }
 }
 
-@media only screen and (min-width: 450px) {
+@media only screen and (min-width: 100px) {
     main {
         flex-direction: row;
 		margin:0;
