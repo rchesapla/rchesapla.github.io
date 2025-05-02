@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en" ng-app="miningApp">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +12,10 @@
 	<link rel="stylesheet" href="./css/style_v2.css">
 	<link rel="stylesheet" href="./css/tablo.css">
 	<link rel="stylesheet" href="./css/fonts.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" href="./css/ytvideo.css">
+	<link rel="stylesheet" href="./css/info.css">
+	<link rel="stylesheet" href="https://rchesapla.github.io/sayfa/calculator/css/duyuru.css">
 <!--===============================================================================================-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
 	rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -36,34 +40,19 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.css" />
 <!--===============================================================================================-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/spark-md5/3.0.0/spark-md5.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
-<!--===============================================================================================-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5"></script>
-<!--===============================================================================================-->
-    <script src="https://wminerrc.github.io/calculator/data/basic_miners.js"></script>
-    <script src="https://wminerrc.github.io/calculator/data/merge_miners.js"></script>
-    <script src="https://wminerrc.github.io/calculator/data/old/merge_miners.js"></script>
-    <script src="https://wminerrc.github.io/calculator/data/components.js"></script>
-<!--===============================================================================================-->
-	<script src="https://rchesapla.github.io/sayfa/calculator/js/paracekme.js"></script>
-    <script src="https://rchesapla.github.io/sayfa/calculator/js/firebase-db-service.js"></script>
-<!--===============================================================================================-->
-    <script src="https://wminerrc.github.io/calculator/services.js"></script>
-    <script src="https://wminerrc.github.io/calculator/user-miner-service.js"></script>
-    <script src="https://wminerrc.github.io/calculator/miner-service.js"></script>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZET143DDKF"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-ZET143DDKF');
+	</script>
+	<!-- Google tag (gtag.js) -->
 <!--===============================================================================================-->
 </head>
 <!--===============================================================================================-->
-<body id="index" class="body" ng-controller="MiningController">
+<body id="index" class="body">
                         <div class="container-convert col-12 col-md-10">
 						<div class="card-fc my-2 özelfont" >
 <!--===============================================================================================-->
@@ -134,22 +123,18 @@
 		<div class="card-fc my-2 özelfont">
 			<h6 class="card-header head asit text-center">📝 KAZIM BİLGİLERİNİZ 📝</h6>
         <div class="card-body  kazımgücü">
-		<div class="form-group row my-1">
-				<label for="inputNetworkPower"><img src="./img/svg/ag_gucu.svg" width="15" height="15"/> <span class="özelfont">Kripto Seç:</span></label>
-					<div class="">
-						<select id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="form-select seçenekler">
-							<option value="">Kripto seçiniz...</option>
-					</select>
-                </div>
-            </div>
 			<div class="form-group row my-1">
 				<label for="inputNetworkPower"><img src="./img/svg/ag_gucu.svg" width="15" height="15"/> <span class="özelfont">Ağ Gücü:</span></label>
 					<div class="col-7">
-						<input id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower" type="number" name="inputNetworkPower" class="form-control sayılar " placeholder="Ağ gücünü giriniz...">
+						<input id="inputNetworkPower" type="number" name="inputNetworkPower" class="form-control sayılar " placeholder="Ağ gücünü giriniz...">
 					</div>
 					<div class="col-5">
-						<select id="networkUnit" ng-disabled="isLoadedUser" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')" class="form-select seçenekler">
-							<option ng-repeat="unit in networkUnits">{{unit}}</option>
+						<select id="selectNetworkPower" name="" class="form-select seçenekler">
+							<option value="GH/s">GH/s</option>
+							<option value="TH/s">TH/s</option>
+							<option value="PH/s">PH/s</option>
+							<option value="EH/s" selected="">EH/s</option>
+							<option value="ZH/s">ZH/s</option>
 					</select>
                 </div>
             </div>
@@ -158,10 +143,15 @@
                 <div class="form-group row my-1">
 				<label for="inputUserPower"><img src="./img/svg/kazım_gucu.svg" width="15" height="15"/> <span class="özelfont">Kazım Gücü:</span></label>
 					<div class="col-7">
-						<input type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power" class="form-control sayılar" placeholder="Kazım gücünü giriniz...">
+						<input type="number" id="inputUserPower" name="inputUserPower" class="form-control sayılar" placeholder="Kazım gücünü giriniz...">
 					</div>
 					<div class="col-5">
-						<select id="unit" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')" class="form-select">
+						<select name="" id="selectUserPower" class="form-select">
+							<option value="GH/s">GH/s</option>
+							<option value="TH/s" selected="">TH/s</option>
+							<option value="PH/s">PH/s</option>
+							<option value="EH/s">EH/s</option>
+							<option value="ZH/s">ZH/s</option>
 						</select>
 					</div>
                 </div>
@@ -171,7 +161,22 @@
                 <div class="form-group row my-1">
 				<label for="inputBlockReward"><img src="./img/svg/blok_odulu.svg" width="15" height="15"/> <span class="özelfont">Blok Ödülü:</span></label>
 					<div class="col-7">
-						<input type="number" id="blockSize"" ng-disabled="isLoadedUser" ng-model="formData.blockSize" class="form-control sayılar" placeholder="Blok ödülünü giriniz...">
+						<input type="number" id="inputBlockReward" name="inputBlockReward" class="form-control sayılar" placeholder="Blok ödülünü giriniz...">
+					</div>
+					<div class="col-5">
+						<select id="selectBlockReward" name="selectBlockReward" class="form-select seçenekler">
+							<option value="BTC">BITCOIN (BTC)</option>
+							<option value="DOGE">DOGECOIN (DOGE)</option>
+							<option value="ETH">ETHERIUM (ETH)</option>
+							<option value="BNB">BINANCECOIN (BNB)</option>
+							<option value="MATIC">POLYGON (POL)</option>
+							<option value="SOL">SOLANA (SOL)</option>
+							<option value="TRX">TRON (TRX)</option>
+							<option value="LTC">LITECOIN (LTC)</option>
+							<option value="XRP">RIPPLE (XRP)</option>
+							<option value="RST">ROLLERSEZON (RST)</option>
+							<option value="RLT">ROLLERTOKEN (RLT)</option>
+						</select>
 					</div>
 				</div>
             </div>
@@ -180,45 +185,20 @@
                 <div class="form-group row my-1">
 				<label for="inputTimePerBlock"><img src="./img/svg/blok_suresi.svg" width="15" height="15"/> <span class="özelfont">Blok Süresi:</span></label>
 					<div class="col-7">
-						<input type="number" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser" class="form-control sayılar" placeholder="Blok süresini giriniz...">
+						<input type="number" id="inputTimePerBlock" name="inputTimePerBlock" class="form-control sayılar" placeholder="Blok süresini giriniz...">
 					</div>
 					<div class="col-5">
-						<select id="timeUnit" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')"  ng-disabled="isLoadedUser" class="form-select seçenekler">
-							<option value="seconds">Saniye</option>
-						<option value="minutes">Dakika</option>
+						<select id="selectTimePerBlock" name="selectTimePerBlock" class="form-select seçenekler">
+							<option value="SECONDS" selected="">Saniye</option>
+							<option value="MINUTES">Dakika</option>
 						</select>
 					</div>
                 </div>
             </div>
 <!--===============================================================================================-->
-			<div class="şiş">
-                <div class="form-group row my-1">
-				<label for="inputTimePerBlock"><img src="./img/svg/blok_suresi.svg" width="15" height="15"/> <span class="özelfont">Rollercoin ID:</span></label>
-					<div class="">
-						<input ng-model="userSearchText" placeholder="Örn: FthCLK" typeahead-wait-ms="300"
-                                uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
-                                typeahead-no-results="playerSearchNoResults"
-                                typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
-                                typeahead-loading="loading" class="form-control sayılar">
-					</div>
-                </div>
-            </div>
-<!--===============================================================================================-->
-	<div class="input-field-container" ng-show="playerSearchNoResults" style="text-align: center">
-		<i class="fa-solid fa-ban"></i> Oyuncu bulunamadı!
-	</div>
-	<div class="input-field-container" style="text-align: center">
-		<i class="fa-solid fa-circle-info"></i> "/p/örnek" örnek yazan yere sizin kullanıcı adınızı giriniz. </br>(Not: /p/ olmadan!)
-	</div>
-<!--===============================================================================================-->
-			<div class="btn-submit-container" style="text-align: center">
+			<div class="btn-submit-container">
                 <div class="tree-dimensional-button btn-default">
-                    <input ng-if="isLoadedUser" ng-click="reloadWithoutUser()" type="button" class="btn-show mt-2 head siteadı2" value="Beni Unut">
-                </div>
-            </div>
-			<div class="btn-submit-container" style="text-align: center">
-                <div class="tree-dimensional-button btn-default">
-                    <input ng-click="resetValues()" type="button" class="btn-show mt-2 head siteadı2" value="Verileri Güncelle">
+                    <input id="calculateButton" type="button" class="btn-show mt-2 head siteadı2" value="Hesapla">
                 </div>
             </div>
 <!--===============================================================================================-->
@@ -241,33 +221,42 @@
 <table>
   <thead>
     <tr>
-      <th scope="col">GÜNLER</th>
-      <th scope="col">MİKTAR</th>
-      <th scope="col">USD</th>
+      <th scope="col">BEKLENEN</th>
+      <th scope="col">GÜNLÜK</th>
+      <th scope="col">HAFTALIK</th>
+      <th scope="col">AYLIK</th>
+	  <th scope="col">KRİPTO</th>
     </tr>
   </thead>
-                    <tbody>
-                        <tr>
-                            <td style="text-align: center">Blok Ödülü</td>
-                            <td fatihcelik="Miktar:">{{calculateEarnings('block', 'amount')}} {{formData.currency.name}}</td>
-                            <td fatihcelik="USD:" ng-hide="formData.currency.in_game_only">${{calculateEarnings('block', 'usd')}}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center">Günlük</td>
-                            <td fatihcelik="Miktar:">{{calculateEarnings('day', 'amount')}} {{formData.currency.name}}</td>
-                            <td fatihcelik="USD:"  ng-hide="formData.currency.in_game_only">${{calculateEarnings('day', 'usd')}}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center">Haftalık</td>
-                            <td fatihcelik="Miktar:">{{calculateEarnings('week', 'amount')}} {{formData.currency.name}}</td>
-                            <td fatihcelik="USD:"  ng-hide="formData.currency.in_game_only">${{calculateEarnings('week', 'usd')}}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center">Aylık</td>
-                            <td fatihcelik="Miktar:">{{calculateEarnings('month', 'amount')}} {{formData.currency.name}}</td>
-                            <td fatihcelik="USD:"  ng-hide="formData.currency.in_game_only">${{calculateEarnings('month', 'usd')}}</td>
-                        </tr>
-                    </tbody>
+  <tbody>
+    <tr>
+      <td data-label="Beklenen">
+	  <span class="kazımgücü" id="resultExpectedReward">Beklenen</span>
+	  <img src="https://www.svgrepo.com/show/283989/pick-dig.svg" width="15" height="15"/><br>
+	  <span class="kazımgücü" id="resultExpectedUsdReward">Kazanç</span>
+	  <img src="https://www.svgrepo.com/show/444838/money.svg" width="15" height="15"/></td>
+	  <td data-label="Günlük">
+	  <span class="kazımgücü" id="resultDailyReward">Günlük</span>
+	  <img src="https://www.svgrepo.com/show/283989/pick-dig.svg" width="15" height="15"/><br>
+	  <span class="kazımgücü" id="resultDailyUsdReward">Kazanç</span>
+	  <img src="https://www.svgrepo.com/show/444838/money.svg" width="15" height="15"/></td>
+	  <td data-label="Haftalık">
+	  <span class="kazımgücü" id="resultWeeklyReward">Haftalık</span>
+	  <img src="https://www.svgrepo.com/show/283989/pick-dig.svg" width="15" height="15"/><br>
+	  <span class="kazımgücü" id="resultWeeklyUsdReward">Kazanç</span>
+	  <img src="https://www.svgrepo.com/show/444838/money.svg" width="15" height="15"/></td>
+	  <td data-label="Aylık">
+	  <span class="kazımgücü" id="resultMonthlyReward">Aylık</span>
+	  <img src="https://www.svgrepo.com/show/283989/pick-dig.svg" width="15" height="15"/><br>
+	  <span class="kazımgücü" id="resultMonthlyUsdReward">Kazanç</span>
+	  <img src="https://www.svgrepo.com/show/444838/money.svg" width="15" height="15"/></td>
+	  <td data-label="KRİPTO">
+	  <span id="coinIcon"></span>
+	  <span id="coinName"></span><br>
+	  <span id="coinTicker"></span>
+	  </td>
+    </tr>
+  </tbody>
 </table>
                         </div>
 						<h6 class="card-header head text-center"></h6>
@@ -308,7 +297,10 @@
 							</div>
                         </div>
 <!--===============================================================================================-->
+	<script type="module" src="https://rchesapla.github.io/sayfa/v5/js/index.js"></script>
+<!--===============================================================================================-->
 	<script src="js/gün-tarih-saat.js"></script>
+	<script src="js/ytvideo.js"></script>
 <!--===============================================================================================-->
     <script src="https://kit.fontawesome.com/1e0b62f15f.js" crossorigin="anonymous"></script>
 	<!-- Bootstrap JS -->

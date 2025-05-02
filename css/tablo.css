@@ -18,7 +18,7 @@ table td {
 }
 
 table th {
-  font-size: .85em;
+  font-size: 20px;
   letter-spacing: .1em;
   text-transform: uppercase;
 }
@@ -55,7 +55,7 @@ table th {
     * aria-label has no advantage, it won't be read inside a table
     content: attr(aria-label);
     */
-    content: attr(data-label);
+    content: attr(fatihcelik);
     float: left;
     font-weight: bold;
     text-transform: uppercase;
