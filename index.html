@@ -1,390 +1,385 @@
 ﻿<!DOCTYPE html>
 <html lang="en" ng-app="miningApp">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!--===============================================================================================-->
-    <title>RCHesapla • Kişisel Kazım Gücünü Hesapla!</title>
-	<meta name="description" content="Rollercoin kişisel kazım gücünü hesapla!">
-	<meta name="author" content="Fatih ÇELİK">
+<title>RCHesapla • Kişisel Kazım Gücünü Hesapla!</title>
+<meta name="description" content="Rollercoin kişisel kazım gücünü hesapla!">
+<meta name="author" content="Fatih ÇELİK">
 <!--===============================================================================================-->
-	<link rel="stylesheet" href="./css/style_v2.css">
-	<link rel="stylesheet" href="./css/tablo.css">
-	<link rel="stylesheet" href="./css/fonts.css">
+<link rel="stylesheet" href="./css/style_v2.css">
+<link rel="stylesheet" href="./css/tablo.css">
+<link rel="stylesheet" href="./css/fonts.css">
 <!--===============================================================================================-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
-	rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
+rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <!--===============================================================================================-->
-	<link rel="shortcut icon" href="favicon.png" type="image/x-icon">
-	<meta name="google-site-verification" content="zLhTa_Vn0bP5jm3ZYoCir1VtRUw2xHvHclGPHv3d4-o" />
+<link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+<meta name="google-site-verification" content="zLhTa_Vn0bP5jm3ZYoCir1VtRUw2xHvHclGPHv3d4-o" />
 <!--===============================================================================================-->
-	<meta name="keywords" content="rchesapla, turkcraft01, pb01adana, rollercoin, rollercoin hesapla, rollercoin calculator, rollercoin güç hesaplama, bitcoin hesapla, doge hesapla, eth hesapla, xrp hesapla">
+<meta name="keywords" content="rchesapla, turkcraft01, pb01adana, rollercoin, rollercoin hesapla, rollercoin calculator, rollercoin güç hesaplama, bitcoin hesapla, doge hesapla, eth hesapla, xrp hesapla">
 <!--===============================================================================================-->
-    <meta property="og:title" content="☪ RCHesapla ☪ • Kişisel Kazım Gücünü Hesapla!">
-    <meta property="og:description" content="Anlık, günlük, haftalık, aylık aynı zamanda yıllık olarak hesaplama yapabilirsin. ||Tek resmi web sitemiz budur!||">
-	<meta property="og:image" content="https://media.discordapp.net/attachments/798825351555317760/960999892480823356/standard.gif?ex=67aa61e4&is=67a91064&hm=20ad890e21ab9025a1b5ba26e6f1ceb697d13f3138af57063e80602f8835f8ce">
-    <meta property="og:url" content="https://rchesapla.github.io/">
+<meta property="og:title" content="☪ RCHesapla ☪ • Kişisel Kazım Gücünü Hesapla!">
+<meta property="og:description" content="Anlık, günlük, haftalık, aylık aynı zamanda yıllık olarak hesaplama yapabilirsin. ||Tek resmi web sitemiz budur!||">
+<meta property="og:image" content="https://media.discordapp.net/attachments/798825351555317760/960999892480823356/standard.gif?ex=67aa61e4&is=67a91064&hm=20ad890e21ab9025a1b5ba26e6f1ceb697d13f3138af57063e80602f8835f8ce">
+<meta property="og:url" content="https://rchesapla.github.io/">
 <!--===============================================================================================-->
-	<meta name="twitter:title" content="☪ RCHesapla ☪ • Kişisel Kazım Gücünü Hesapla!">
-	<meta name="twitter:description" content="Anlık, günlük, haftalık, aylık aynı zamanda yıllık olarak hesaplama yapabilirsin. ||Tek resmi web sitemiz budur!||">
-	<meta name="twitter:image" content="https://media.discordapp.net/attachments/798825351555317760/960999892480823356/standard.gif?ex=67aa61e4&is=67a91064&hm=20ad890e21ab9025a1b5ba26e6f1ceb697d13f3138af57063e80602f8835f8ce">
-	<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="☪ RCHesapla ☪ • Kişisel Kazım Gücünü Hesapla!">
+<meta name="twitter:description" content="Anlık, günlük, haftalık, aylık aynı zamanda yıllık olarak hesaplama yapabilirsin. ||Tek resmi web sitemiz budur!||">
+<meta name="twitter:image" content="https://media.discordapp.net/attachments/798825351555317760/960999892480823356/standard.gif?ex=67aa61e4&is=67a91064&hm=20ad890e21ab9025a1b5ba26e6f1ceb697d13f3138af57063e80602f8835f8ce">
+<meta name="twitter:card" content="summary_large_image">
 <!--===============================================================================================-->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.css" />
 <!--===============================================================================================-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/spark-md5/3.0.0/spark-md5.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/spark-md5/3.0.0/spark-md5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
 <!--===============================================================================================-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5"></script>
 <!--===============================================================================================-->
-    <script src="https://wminerrc.github.io/calculator/data/basic_miners.js"></script>
-    <script src="https://wminerrc.github.io/calculator/data/merge_miners.js"></script>
-    <script src="https://wminerrc.github.io/calculator/data/old/merge_miners.js"></script>
-    <script src="https://wminerrc.github.io/calculator/data/components.js"></script>
+<script src="https://wminerrc.github.io/calculator/data/basic_miners.js"></script>
+<script src="https://wminerrc.github.io/calculator/data/merge_miners.js"></script>
+<script src="https://wminerrc.github.io/calculator/data/old/merge_miners.js"></script>
+<script src="https://wminerrc.github.io/calculator/data/components.js"></script>
 <!--===============================================================================================-->
-	<script src="https://rchesapla.github.io/sayfa/calculator/js/paracekme.js"></script>
-    <script src="https://rchesapla.github.io/sayfa/calculator/js/firebase-db-service.js"></script>
+<script src="https://rchesapla.github.io/sayfa/calculator/js/paracekme.js"></script>
+<script src="https://rchesapla.github.io/sayfa/calculator/js/firebase-db-service.js"></script>
 <!--===============================================================================================-->
-    <script src="https://wminerrc.github.io/calculator/services.js"></script>
-    <script src="https://wminerrc.github.io/calculator/user-miner-service.js"></script>
-    <script src="https://wminerrc.github.io/calculator/miner-service.js"></script>
+<script src="https://wminerrc.github.io/calculator/services.js"></script>
+<script src="https://wminerrc.github.io/calculator/user-miner-service.js"></script>
+<script src="https://wminerrc.github.io/calculator/miner-service.js"></script>
 <!--===============================================================================================-->
 </head>
 <!--===============================================================================================-->
 <body class="body" ng-controller="MiningController">
-    <div class="loading-overlay" ng-show="isLoading">
-        <p><img src="https://rollercoin.com/static/img/wallet/rlt.svg?v=1.13" width="70" height="60"/> Yükleniyor... (Biraz zaman alabilir) <img src="https://rollercoin.com/static/img/wallet/rlt.svg?v=1.13" width="70" height="60"/></p>
-    </div>
+<div class="loading-overlay" ng-show="isLoading">
+<p><img src="https://rollercoin.com/static/img/wallet/rlt.svg?v=1.13" width="70" height="60"/> Yükleniyor... (Biraz zaman alabilir) <img src="https://rollercoin.com/static/img/wallet/rlt.svg?v=1.13" width="70" height="60"/></p>
+</div>
 <div class="container-convert col-12 col-md-10">
-						<div class="card-fc my-2 özelfont" >
+<div class="card-fc my-2 özelfont" >
 <!--===============================================================================================-->
 <nav class="navbar navbar-expand-md navbar-dark">
   <div class="container">
-    <!-- Brand/logo -->
-	<a class="navbar-brand" href="https://www.youtube.com/channel/UCiS4gfhe4kmmgXB4Wny43kQ" target="_blank">
-      <i class="fa-brands fa-youtube"></i>
-    </a>
-	<a class="navbar-brand" href="https://t.me/bilgilendiriyor" target="_blank">
-      <i class="fa-brands fa-telegram"></i>
-    </a>
-    <!-- Toggler/collapsibe Button -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<!-- Brand/logo -->
+<a class="navbar-brand" href="https://www.youtube.com/channel/UCiS4gfhe4kmmgXB4Wny43kQ" target="_blank">
+  <i class="fa-brands fa-youtube"></i>
+</a>
+<a class="navbar-brand" href="https://t.me/bilgilendiriyor" target="_blank">
+  <i class="fa-brands fa-telegram"></i>
+</a>
+<!-- Toggler/collapsibe Button -->
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+  <span class="navbar-toggler-icon"></span>
+</button>
 
-    <!-- Navbar links -->
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-      <ul class="navbar-nav ml-auto">
-		<li class="nav-item">
-          <a class="nav-link kazımgücü" href="./sayfa/bilgilendiriyor"><i class="fa-solid fa-star"></i> Önemli Bilgiler</a>
-        </li>
-      </ul>
-    </div>
+<!-- Navbar links -->
+<div class="collapse navbar-collapse" id="collapsibleNavbar">
+  <ul class="navbar-nav ml-auto">
+<li class="nav-item">
+  <a class="nav-link kazımgücü" href="./sayfa/bilgilendiriyor"><i class="fa-solid fa-star"></i> Önemli Bilgiler</a>
+</li>
+  </ul>
+</div>
   </div>
 </nav>
 <!--===============================================================================================-->
-        <!--h6 class="card-header head">📣 RCHesapla Yenilendi! / 17.08.2022</h6-->
-        <div class="card-body"><center>
-								<h1 class="siteadı2 asit">⦕ RCHesapla ⦖</h1>
-								<p class="açıklama">Kişisel kazım gücünü hesapla!</p>
-								<div id="cntdwn" class="orta"></div>
+<!--h6 class="card-header head">📣 RCHesapla Yenilendi! / 17.08.2022</h6-->
+<div class="card-body"><center>
+<h1 class="siteadı2 asit">⦕ RCHesapla ⦖</h1>
+<p class="açıklama">Kişisel kazım gücünü hesapla!</p>
+<div id="cntdwn" class="orta"></div>
 <!--===============================================================================================-->
 <div class="açıklama" id="cpcontainer">&nbsp;</div>
 <div class="açıklama" id="clock"></div>
 <!--===============================================================================================-->
-        </center>
-								</div>
-								<h6 class="card-header head text-center">
-
-								</h6>
+</center>
 </div>
-    </div>
+<h6 class="card-header head text-center"></h6>
+</div>
+</div>
 <!--===============================================================================================-->
-    <section class="container">
-        <div class="row">
+<section class="container">
+<div class="row">
 <!--===============================================================================================-->
-            <div class="col-0 col-md-1">
-		
-			</div>
+<div class="col-0 col-md-1"></div>
 <!--===============================================================================================-->
 <!-- END PUBLICIDAD -->
 <!--===============================================================================================-->
 <!-- CONTENIDO -->
-            <div class="col-12 col-md-10">
+<div class="col-12 col-md-10">
 <!--===============================================================================================-->
-	<center>
-
-	</center>
+<center>
+<iframe data-aa='2351339' src='//acceptable.a-ads.com/2351339' style='border:0px; padding:0; width:100%; height:100%; overflow:hidden; background-color: transparent;'></iframe>
+</center>
 <!--===============================================================================================-->
 <div class="row">
 <article class="col-md-5 head">
-    <div>
-		<div class="card-fc my-2 özelfont">
-			<h6 class="card-header head asit text-center">📝 KAZIM BİLGİLERİNİZ 📝</h6>
-        <div class="card-body  kazımgücü">
-		<div class="form-group row my-1">
-				<label for="inputNetworkPower"><span class="head2">Kripto Seç:</span></label>
-					<div class="">
-						<select id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="form-select ">
-							<option value="">Genel Hesaplama</option>
-					</select>
-                </div>
-            </div>
-			<div class="form-group row my-1">
-				<label for="inputNetworkPower"><span class="head2">Ağ Gücü:</span></label>
-					<div class="col-7">
-						<input id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower" type="number" name="inputNetworkPower" class="form-control sayılar " placeholder="Ağ gücünü giriniz...">
-					</div>
-					<div class="col-5">
-						<select id="networkUnit" ng-disabled="isLoadedUser" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')" class="form-select ">
-							<option ng-repeat="unit in networkUnits">{{unit}}</option>
-					</select>
-                </div>
-            </div>
+<div>
+<div class="card-fc my-2 özelfont">
+<h6 class="card-header head asit text-center">📝 KAZIM BİLGİLERİNİZ 📝</h6>
+<div class="card-body  kazımgücü">
+<div class="form-group row my-1">
+<label for="inputNetworkPower"><span class="head2">Kripto Seç:</span></label>
+<div class="">
+<select id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="form-select ">
+<option value="">Genel Hesaplama</option>
+</select>
+</div>
+</div>
+<div class="form-group row my-1">
+<label for="inputNetworkPower"><span class="head2">Ağ Gücü:</span></label>
+<div class="col-7">
+<input id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower" type="number" name="inputNetworkPower" class="form-control sayılar " placeholder="Ağ gücünü giriniz...">
+</div>
+<div class="col-5">
+<select id="networkUnit" ng-disabled="isLoadedUser" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')" class="form-select ">
+<option ng-repeat="unit in networkUnits">{{unit}}</option>
+</select>
+</div>
+</div>
 <!--===============================================================================================-->
-            <div class="şiş">
-                <div class="form-group row my-1">
-				<label for="inputUserPower"><span class="head2">Kazım Gücü:</span></label>
-					<div class="col-7">
-						<input type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power" class="form-control sayılar" placeholder="Kazım gücünü giriniz...">
-					</div>
-					<div class="col-5">
-						<select id="unit" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')" class="form-select">
-						</select>
-					</div>
-                </div>
-            </div>
+<div class="şiş">
+<div class="form-group row my-1">
+<label for="inputUserPower"><span class="head2">Kazım Gücü:</span></label>
+<div class="col-7">
+<input type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power" class="form-control sayılar" placeholder="Kazım gücünü giriniz...">
+</div>
+<div class="col-5">
+<select id="unit" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')" class="form-select">
+</select>
+</div>
+</div>
+</div>
 <!--===============================================================================================-->
-			<div class="şiş">
-                <div class="form-group row my-1">
-				<label for="inputBlockReward"><span class="head2">Blok Ödülü:</span></label>
-					<div class="col-7">
-						<input type="number" id="blockSize"" ng-disabled="isLoadedUser" ng-model="formData.blockSize" class="form-control sayılar" placeholder="Blok ödülünü giriniz...">
-					</div>
-				</div>
-            </div>
+<div class="şiş">
+<div class="form-group row my-1">
+<label for="inputBlockReward"><span class="head2">Blok Ödülü:</span></label>
+<div class="col-7">
+<input type="number" id="blockSize"" ng-disabled="isLoadedUser" ng-model="formData.blockSize" class="form-control sayılar" placeholder="Blok ödülünü giriniz...">
+</div>
+</div>
+</div>
 <!--===============================================================================================-->
-			<div class="şiş">
-                <div class="form-group row my-1">
-				<label for="inputTimePerBlock"><span class="head2">Blok Süresi:</span></label>
-					<div class="col-7">
-						<input type="number" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser" class="form-control sayılar" placeholder="Blok süresini giriniz...">
-					</div>
-					<div class="col-5">
-						<select id="timeUnit" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')"  ng-disabled="isLoadedUser" class="form-select ">
-							<option value="seconds">Saniye</option>
-						<option value="minutes">Dakika</option>
-						</select>
-					</div>
-                </div>
-            </div>
+<div class="şiş">
+<div class="form-group row my-1">
+<label for="inputTimePerBlock"><span class="head2">Blok Süresi:</span></label>
+<div class="col-7">
+<input type="number" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser" class="form-control sayılar" placeholder="Blok süresini giriniz...">
+</div>
+<div class="col-5">
+<select id="timeUnit" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')"  ng-disabled="isLoadedUser" class="form-select ">
+<option value="seconds">Saniye</option>
+<option value="minutes">Dakika</option>
+</select>
+</div>
+</div>
+</div>
 <!--===============================================================================================-->
-			<div class="şiş">
-                <div class="form-group row my-1">
-				<label for="inputTimePerBlock"><span class="head2">Rollercoin ID:</span></label>
-					<div class="">
-						<input ng-model="userSearchText" placeholder="Örn: FthCLK" typeahead-wait-ms="300"
-        uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
-        typeahead-no-results="playerSearchNoResults"
-        typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
-        typeahead-loading="loading" class="form-control sayılar">
-					</div>
-                </div>
-            </div>
+<div class="şiş">
+<div class="form-group row my-1">
+<label for="inputTimePerBlock"><span class="head2">Rollercoin ID:</span></label>
+<div class="">
+<input ng-model="userSearchText" placeholder="Örn: FthCLK" typeahead-wait-ms="300"
+uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
+typeahead-no-results="playerSearchNoResults"
+typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
+typeahead-loading="loading" class="form-control sayılar">
+</div>
+</div>
+</div>
 <!--===============================================================================================-->
-	<div class="input-field-container" ng-show="playerSearchNoResults" style="text-align: center">
-		<i class="fa-solid fa-ban"></i> Oyuncu bulunamadı!
-	</div>
-	<div class="input-field-container" style="text-align: center">
-		<i class="fa-solid fa-circle-info"></i> "/p/örnek" örnek yazan yere sizin kullanıcı adınızı giriniz. </br>(Not: /p/ olmadan!)
-	</div>
+<div class="input-field-container" ng-show="playerSearchNoResults" style="text-align: center">
+<i class="fa-solid fa-ban"></i> Oyuncu bulunamadı!
+</div>
+<div class="input-field-container" style="text-align: center">
+<i class="fa-solid fa-circle-info"></i> "/p/örnek" örnek yazan yere sizin kullanıcı adınızı giriniz. </br>(Not: /p/ olmadan!)
+</div>
 <!--===============================================================================================-->
-			<div class="btn-submit-container" style="text-align: center">
-                <div class="tree-dimensional-button btn-default">
-                    <input ng-if="isLoadedUser" ng-click="reloadWithoutUser()" type="button" class="btn-show mt-2 head siteadı2" value="Beni Unut">
-                </div>
-            </div>
-			<div class="btn-submit-container" style="text-align: center">
-                <div class="tree-dimensional-button btn-default">
-                    <input ng-click="resetValues()" type="button" class="btn-show mt-2 head siteadı2" value="Verileri Güncelle">
-                </div>
-            </div>
+<div class="btn-submit-container" style="text-align: center">
+<div class="tree-dimensional-button btn-default">
+<input ng-if="isLoadedUser" ng-click="reloadWithoutUser()" type="button" class="btn-show mt-2 head siteadı2" value="Beni Unut">
+</div>
+</div>
+<div class="btn-submit-container" style="text-align: center">
+<div class="tree-dimensional-button btn-default">
+<input ng-click="resetValues()" type="button" class="btn-show mt-2 head siteadı2" value="Verileri Güncelle">
+</div>
+</div>
 <!--===============================================================================================-->
 </div>
-						<h6 class="card-header head text-center"></h6>
-        </div>
-								
-    </div>
+<h6 class="card-header head text-center"></h6>
+</div>
+</div>
 <!--===============================================================================================-->
 <center>
-
+<iframe data-aa='2351339' src='//acceptable.a-ads.com/2351339' style='border:0px; padding:0; width:100%; height:100%; overflow:hidden; background-color: transparent;'></iframe>
 </center>
 <!--===============================================================================================-->
-                    </article>
+</article>
 <!--===============================================================================================-->
-	<aside class="col-md-7">
-		<div class="card-fc my-2 özelfont">
-        <h6 class="card-header head özelfont2 text-center">🧮 KAZANÇ İSTATİSTİKLERİN 🧮</h6>
-		<div class="card-body kazımgücü">
-			<table ng-if="formData.currency">
-				<thead>
-                        <tr class="highlight-tag">
-                            <th style="text-align: center" colspan="3">
-                                {{formData.currency.name}}
-                            </th>
-                        </tr>
-                        <tr ng-hide="formData.currency.in_game_only" class="highlight-tag">
-                            <th style="text-align: center" colspan="3">
-                                1 {{formData.currency.name}} = ${{exchangeRates[formData.currency.name]['usd']}}
-                            </th>
-                        </tr>
-					<tr>
-					<th scope="col">GÜNLER</th>
-					<th scope="col">MİKTAR</th>
-					<th scope="col">USD</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td style="text-align: center">Blok Ödülü</td>
-						<td fatihcelik="Miktar:">{{calculateEarnings('block', 'amount')}} {{formData.currency.name}}</td>
-						<td fatihcelik="USD:" ng-hide="formData.currency.in_game_only">${{calculateEarnings('block', 'usd')}}</td>
-					</tr>
-					<tr>
-						<td style="text-align: center">Günlük</td>
-						<td fatihcelik="Miktar:">{{calculateEarnings('day', 'amount')}} {{formData.currency.name}}</td>
-						<td fatihcelik="USD:"  ng-hide="formData.currency.in_game_only">${{calculateEarnings('day', 'usd')}}</td>
-					</tr>
-					<tr>
-						<td style="text-align: center">Haftalık</td>
-						<td fatihcelik="Miktar:">{{calculateEarnings('week', 'amount')}} {{formData.currency.name}}</td>
-						<td fatihcelik="USD:"  ng-hide="formData.currency.in_game_only">${{calculateEarnings('week', 'usd')}}</td>
-					</tr>
-					<tr>
-						<td style="text-align: center">Aylık</td>
-						<td fatihcelik="Miktar:">{{calculateEarnings('month', 'amount')}} {{formData.currency.name}}</td>
-						<td fatihcelik="USD:"  ng-hide="formData.currency.in_game_only">${{calculateEarnings('month', 'usd')}}</td>
-					</tr>
-				</tbody>
-			</table>
+<aside class="col-md-7">
+<div class="card-fc my-2 özelfont">
+<h6 class="card-header head özelfont2 text-center">🧮 KAZANÇ İSTATİSTİKLERİN 🧮</h6>
+<div class="card-body kazımgücü">
+<table ng-if="formData.currency">
+<thead>
+<tr class="highlight-tag">
+<th style="text-align: center" colspan="3">
+{{formData.currency.name}}
+</th>
+</tr>
+<tr ng-hide="formData.currency.in_game_only" class="highlight-tag">
+<th style="text-align: center" colspan="3">
+1 {{formData.currency.name}} = ${{exchangeRates[formData.currency.name]['usd']}}
+</th>
+</tr>
+<tr>
+<th scope="col">GÜNLER</th>
+<th scope="col">MİKTAR</th>
+<th scope="col">USD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">Blok Ödülü</td>
+<td fatihcelik="Miktar:">{{calculateEarnings('block', 'amount')}} {{formData.currency.name}}</td>
+<td fatihcelik="USD:" ng-hide="formData.currency.in_game_only">${{calculateEarnings('block', 'usd')}}</td>
+</tr>
+<tr>
+<td style="text-align: center">Günlük</td>
+<td fatihcelik="Miktar:">{{calculateEarnings('day', 'amount')}} {{formData.currency.name}}</td>
+<td fatihcelik="USD:"  ng-hide="formData.currency.in_game_only">${{calculateEarnings('day', 'usd')}}</td>
+</tr>
+<tr>
+<td style="text-align: center">Haftalık</td>
+<td fatihcelik="Miktar:">{{calculateEarnings('week', 'amount')}} {{formData.currency.name}}</td>
+<td fatihcelik="USD:"  ng-hide="formData.currency.in_game_only">${{calculateEarnings('week', 'usd')}}</td>
+</tr>
+<tr>
+<td style="text-align: center">Aylık</td>
+<td fatihcelik="Miktar:">{{calculateEarnings('month', 'amount')}} {{formData.currency.name}}</td>
+<td fatihcelik="USD:"  ng-hide="formData.currency.in_game_only">${{calculateEarnings('month', 'usd')}}</td>
+</tr>
+</tbody>
+</table>
 <!--===============================================================================================-->
-                <table ng-if="!formData.currency" class="blueTable" style="text-align: center">
-                    <thead>
-                        <tr class="highlight-tag">
-                            <th style="text-align: center" colspan="14">
-                                GENEL İSTATİSTİKLER
-                            </th>
-                        </tr>
-                        <tr class="highlight-tag">
-                            <th style="text-align: center" rowspan="2" colspan="2">
-                                KRİPTO
-                            </th>
-                            <th style="text-align: center" rowspan="2" colspan="2">
-                                AĞ GÜCÜ
-                            </th>
-                            <th style="text-align: center" rowspan="2" colspan="2">
-                                BLOK ÖDÜLÜ
-                            </th>
-                            <th style="text-align: center" colspan="4">
-                                BLOK BAŞINA DEĞER
-                            </th>
-                            <th style="text-align: center" colspan="4">
-                                BENİM BLOK BAŞINA DEĞER
-                            </th>
-                        </tr>
-                        <tr class="highlight-tag">
-                            <th style="text-align: center" colspan="2" class="highlight-tag">
-                                USD
-                            </th>
-                            <th style="text-align: center" colspan="2" class="highlight-tag">
-                                KRİPTO
-                            </th>
-                            <th style="text-align: center" colspan="2" class="highlight-tag">
-                                USD
-                            </th>
-                            <th style="text-align: center" colspan="2" class="highlight-tag">
-                                PARA ÇEKİMİ
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                            <tr ng-repeat="currency in currencies | orderBy:orderByField:reverseSort">
-                                <td fatihcelik="Kripto:" colspan="2">
-                                    <span ng-show="$first">
-                                        <i style="color:#b7b706" class="fa-solid fa-crown"></i>
-                                    </span>
-                                    {{currency.name}}
-                                </td>
-                                <td fatihcelik="Ağ Gücü:" colspan="2">{{chooseBestHashRateUnit(currency.networkPower, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').unit}}</td>
-                                <td fatihcelik="Blok Ödülü:" colspan="2">{{currency.blockTime}} sn {{currency.blockSize}} {{currency.name}}</td>
-                                <td fatihcelik="USD:" colspan="2">${{currency.block_value_in_usd}}</td>
-                                <td fatihcelik="Blok Miktarı:" colspan="2">{{currency.user_block_farm_token}} {{currency.name}}</td>
-                                <td fatihcelik="USD:" colspan="2">${{currency.user_block_farm_usd}}</td>
-                                <td fatihcelik="Para Çekimi:" colspan="2">{{formatDays(currency.user_days_to_widthdraw)}}</td>
-                            </tr>
-                    </tbody>
-                </table>
+<table ng-if="!formData.currency" class="blueTable" style="text-align: center">
+<thead>
+<tr class="highlight-tag">
+<th style="text-align: center" colspan="14">
+GENEL İSTATİSTİKLER
+</th>
+</tr>
+<tr class="highlight-tag">
+<th style="text-align: center" rowspan="2" colspan="2">
+KRİPTO
+</th>
+<th style="text-align: center" rowspan="2" colspan="2">
+AĞ GÜCÜ
+</th>
+<th style="text-align: center" rowspan="2" colspan="2">
+BLOK ÖDÜLÜ
+</th>
+<th style="text-align: center" colspan="4">
+BLOK BAŞINA DEĞER
+</th>
+<th style="text-align: center" colspan="4">
+BENİM BLOK BAŞINA DEĞER
+</th>
+</tr>
+<tr class="highlight-tag">
+<th style="text-align: center" colspan="2" class="highlight-tag">
+USD
+</th>
+<th style="text-align: center" colspan="2" class="highlight-tag">
+KRİPTO
+</th>
+<th style="text-align: center" colspan="2" class="highlight-tag">
+USD
+</th>
+<th style="text-align: center" colspan="2" class="highlight-tag">
+PARA ÇEKİMİ
+</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="currency in currencies | orderBy:orderByField:reverseSort">
+<td fatihcelik="Kripto:" colspan="2">
+<span ng-show="$first">
+<i style="color:#b7b706" class="fa-solid fa-crown"></i>
+</span>
+{{currency.name}}
+</td>
+<td fatihcelik="Ağ Gücü:" colspan="2">{{chooseBestHashRateUnit(currency.networkPower, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').unit}}</td>
+<td fatihcelik="Blok Ödülü:" colspan="2">{{currency.blockTime}} sn {{currency.blockSize}} {{currency.name}}</td>
+<td fatihcelik="USD:" colspan="2">${{currency.block_value_in_usd}}</td>
+<td fatihcelik="Blok Miktarı:" colspan="2">{{currency.user_block_farm_token}} {{currency.name}}</td>
+<td fatihcelik="USD:" colspan="2">${{currency.user_block_farm_usd}}</td>
+<td fatihcelik="Para Çekimi:" colspan="2">{{formatDays(currency.user_days_to_widthdraw)}}</td>
+</tr>
+</tbody>
+</table>
 <!--===============================================================================================-->
-		</div>
-		<h6 class="card-header head text-center"></h6>
-		</div>
+</div>
+<h6 class="card-header head text-center"></h6>
+</div>
 <!--===============================================================================================-->
 <center>
-
+<iframe data-aa='2351339' src='//acceptable.a-ads.com/2351339' style='border:0px; padding:0; width:100%; height:100%; overflow:hidden; background-color: transparent;'></iframe>
 </center>
 <!--===============================================================================================-->
 </div>
-                    </aside>
-                </div>
+</aside>
+</div>
 <!--===============================================================================================-->
-            <div class="col-md-1">
+<div class="col-md-1">
 
-			</div>
+</div>
 <!--===============================================================================================-->
-            </div>
-    </section>
+</div>
+</section>
 <!--===============================================================================================-->
-						<div class="container-convert col-12 col-md-10">
-							<div class="card-fc my-2 özelfont">
-        <h6 class="card-header head baslikv22 text-center">❓ NASIL KULLANILIR? ❓</h6>
-									<div class="card-body kazımgücü">
+<div class="container-convert col-12 col-md-10">
+<div class="card-fc my-2 özelfont">
+<h6 class="card-header head baslikv22 text-center">❓ NASIL KULLANILIR? ❓</h6>
+<div class="card-body kazımgücü">
 <!--===============================================================================================-->
 <footer class="text-center">
 <!--===============================================================================================-->
 <h1>YENİ VİDEO YAYINDA!</h1>
 <h2>HESAPLAMA SİTESİ NASIL KULLANILIR?</h2>
 <div class="wrapper">
-    <div id="player1"></div>
+<div id="player1"></div>
 </div>
 <!--===============================================================================================-->
 </footer>
 <!--===============================================================================================-->
-									</div>
-								<h6 class="card-header head text-center özelfont" id="snake">TELİF HAKKI © 2024 RCHesapla TÜM HAKLARI SAKLIDIR! ☪</h6>
-							</div>
+</div>
+<h6 class="card-header head text-center özelfont" id="snake">TELİF HAKKI © 2024 RCHesapla TÜM HAKLARI SAKLIDIR! ☪</h6>
+</div>
 </div>
 <!--===============================================================================================-->
-	<script src="js/gün-tarih-saat.js"></script>
+<script src="js/gün-tarih-saat.js"></script>
 <!--===============================================================================================-->
-    <script src="https://kit.fontawesome.com/1e0b62f15f.js" crossorigin="anonymous"></script>
-	<!-- Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://kit.fontawesome.com/1e0b62f15f.js" crossorigin="anonymous"></script>
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <!--===============================================================================================-->
 </body>
 </html>
