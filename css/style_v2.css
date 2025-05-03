@@ -24,8 +24,8 @@
 	align-items: center;
 	text-align: center;
 	z-index: 9999;
-	color: white;
-	font-size: 24px;
+	color: #ffdc00 !important;
+	font-size: 30px !important;
 }
 
 .roller-select {
@@ -240,6 +240,11 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 
+	.loading-overlay img {
+		width: 50px;
+		height: 50px;
+	}
+
 @media only screen and (min-width: 100px) {
 	.loading-overlay {
 		position: fixed;
@@ -255,8 +260,5 @@ input[type="number"]::-webkit-outer-spin-button {
 		color: white;
 		font-size: 15px;
 	}
-	img {
-		width: 20px;
-		height: 20px;
-	}
+	
 }
