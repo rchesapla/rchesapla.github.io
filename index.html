@@ -63,7 +63,10 @@
 <!--===============================================================================================-->
 </head>
 <!--===============================================================================================-->
-<body id="index" class="body" ng-controller="MiningController">
+<body class="body" ng-controller="MiningController">
+    <div class="loading-overlay" ng-show="isLoading">
+        <p><img src="https://rollercoin.com/static/img/wallet/rlt.svg?v=1.13" width="70" height="60"/> Yükleniyor... (Biraz zaman alabilir) <img src="https://rollercoin.com/static/img/wallet/rlt.svg?v=1.13" width="70" height="60"/></p>
+    </div>
 <div class="container-convert col-12 col-md-10">
 						<div class="card-fc my-2 özelfont" >
 <!--===============================================================================================-->
@@ -134,7 +137,7 @@
 		<div class="form-group row my-1">
 				<label for="inputNetworkPower"><span class="head2">Kripto Seç:</span></label>
 					<div class="">
-						<select id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="form-select seçenekler">
+						<select id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="form-select ">
 							<option value="">Genel Hesaplama</option>
 					</select>
                 </div>
@@ -145,7 +148,7 @@
 						<input id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower" type="number" name="inputNetworkPower" class="form-control sayılar " placeholder="Ağ gücünü giriniz...">
 					</div>
 					<div class="col-5">
-						<select id="networkUnit" ng-disabled="isLoadedUser" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')" class="form-select seçenekler">
+						<select id="networkUnit" ng-disabled="isLoadedUser" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')" class="form-select ">
 							<option ng-repeat="unit in networkUnits">{{unit}}</option>
 					</select>
                 </div>
@@ -180,7 +183,7 @@
 						<input type="number" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser" class="form-control sayılar" placeholder="Blok süresini giriniz...">
 					</div>
 					<div class="col-5">
-						<select id="timeUnit" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')"  ng-disabled="isLoadedUser" class="form-select seçenekler">
+						<select id="timeUnit" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')"  ng-disabled="isLoadedUser" class="form-select ">
 							<option value="seconds">Saniye</option>
 						<option value="minutes">Dakika</option>
 						</select>
@@ -237,6 +240,16 @@
 		<div class="card-body kazımgücü">
 			<table ng-if="formData.currency">
 				<thead>
+                        <tr class="highlight-tag">
+                            <th style="text-align: center" colspan="3">
+                                {{formData.currency.name}}
+                            </th>
+                        </tr>
+                        <tr ng-hide="formData.currency.in_game_only" class="highlight-tag">
+                            <th style="text-align: center" colspan="3">
+                                1 {{formData.currency.name}} = ${{exchangeRates[formData.currency.name]['usd']}}
+                            </th>
+                        </tr>
 					<tr>
 					<th scope="col">GÜNLER</th>
 					<th scope="col">MİKTAR</th>
