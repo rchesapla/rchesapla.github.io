@@ -132,15 +132,15 @@
 			<h6 class="card-header head asit text-center">📝 KAZIM BİLGİLERİNİZ 📝</h6>
         <div class="card-body  kazımgücü">
 		<div class="form-group row my-1">
-				<label for="inputNetworkPower"><img src="./img/svg/ag_gucu.svg" width="15" height="15"/> <span class="özelfont">Kripto Seç:</span></label>
+				<label for="inputNetworkPower"><span class="head2">Kripto Seç:</span></label>
 					<div class="">
 						<select id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="form-select seçenekler">
-							<option value="">Kripto seçiniz...</option>
+							<option value="">Genel Hesaplama</option>
 					</select>
                 </div>
             </div>
 			<div class="form-group row my-1">
-				<label for="inputNetworkPower"><img src="./img/svg/ag_gucu.svg" width="15" height="15"/> <span class="özelfont">Ağ Gücü:</span></label>
+				<label for="inputNetworkPower"><span class="head2">Ağ Gücü:</span></label>
 					<div class="col-7">
 						<input id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower" type="number" name="inputNetworkPower" class="form-control sayılar " placeholder="Ağ gücünü giriniz...">
 					</div>
@@ -153,7 +153,7 @@
 <!--===============================================================================================-->
             <div class="şiş">
                 <div class="form-group row my-1">
-				<label for="inputUserPower"><img src="./img/svg/kazım_gucu.svg" width="15" height="15"/> <span class="özelfont">Kazım Gücü:</span></label>
+				<label for="inputUserPower"><span class="head2">Kazım Gücü:</span></label>
 					<div class="col-7">
 						<input type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power" class="form-control sayılar" placeholder="Kazım gücünü giriniz...">
 					</div>
@@ -166,7 +166,7 @@
 <!--===============================================================================================-->
 			<div class="şiş">
                 <div class="form-group row my-1">
-				<label for="inputBlockReward"><img src="./img/svg/blok_odulu.svg" width="15" height="15"/> <span class="özelfont">Blok Ödülü:</span></label>
+				<label for="inputBlockReward"><span class="head2">Blok Ödülü:</span></label>
 					<div class="col-7">
 						<input type="number" id="blockSize"" ng-disabled="isLoadedUser" ng-model="formData.blockSize" class="form-control sayılar" placeholder="Blok ödülünü giriniz...">
 					</div>
@@ -175,7 +175,7 @@
 <!--===============================================================================================-->
 			<div class="şiş">
                 <div class="form-group row my-1">
-				<label for="inputTimePerBlock"><img src="./img/svg/blok_suresi.svg" width="15" height="15"/> <span class="özelfont">Blok Süresi:</span></label>
+				<label for="inputTimePerBlock"><span class="head2">Blok Süresi:</span></label>
 					<div class="col-7">
 						<input type="number" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser" class="form-control sayılar" placeholder="Blok süresini giriniz...">
 					</div>
@@ -190,7 +190,7 @@
 <!--===============================================================================================-->
 			<div class="şiş">
                 <div class="form-group row my-1">
-				<label for="inputTimePerBlock"><img src="./img/svg/blok_suresi.svg" width="15" height="15"/> <span class="özelfont">Rollercoin ID:</span></label>
+				<label for="inputTimePerBlock"><span class="head2">Rollercoin ID:</span></label>
 					<div class="">
 						<input ng-model="userSearchText" placeholder="Örn: FthCLK" typeahead-wait-ms="300"
         uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
@@ -235,7 +235,7 @@
 		<div class="card-fc my-2 özelfont">
         <h6 class="card-header head özelfont2 text-center">🧮 KAZANÇ İSTATİSTİKLERİN 🧮</h6>
 		<div class="card-body kazımgücü">
-			<table>
+			<table ng-if="formData.currency">
 				<thead>
 					<tr>
 					<th scope="col">GÜNLER</th>
