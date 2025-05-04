@@ -6,7 +6,7 @@
 
 ::-webkit-scrollbar {
     background: #2f3045;
-    width: 7px;
+    width: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -28,110 +28,6 @@
 	font-size: 30px !important;
 }
 
-.roller-select {
-    /*-webkit-appearance: none;*/
-    outline: none;
-    font-size: 50px !important;
-    border: 2px solid var(--rum);
-    color: var(--white);
-    background-color: red;
-    border-radius: 4px;
-    padding: .9rem;
-    
-    border-left: none;
-    border-radius: 0 4px 4px 0;
-}
-
-.desired-coin{
-    margin: 1px;
-	text-align: center;
-}
-
-.desired-coin-container{
- 
-    justify-content: center;
-}
-
-.desired-coin-container img {
-    width: 2.4rem;
-}
-
-.desired-coin-container .title-text2{
-
-}
-
-.desired-coin-container .title-text2 p:first-child {
-    font-weight: bold;
-}
-
-.desired-coin p {
-    border-left: 1px solid red;
-    border-right: 1px solid blue;
-}
-
-.head {
-  /*font-family: 'Russo One', sans-serif; */
-  text-decoration:none;
-}
-
-.head2 {
-  font-family: 'Caveat Brush', cursive;
-  font-size: 20px;
-  text-decoration:none;
-}
-
-.drawer-menu {
-  font-family: 'Germania One', cursive;
-  font-size: 13px;
-  text-decoration:none;
-  color: black
-}
-
-.fcinput {
-	text-align: center;
-}
-
-.fatihceliktr-3d{
-font-family: 'Germania One', cursive;
-color: #2f3045;
-font-weight:bold;
-font-size: 25px;
-padding: 10px 20px;
-text-shadow:0px 0px 0 rgb(223,223,223),1px 1px 0 rgb(202,202,202),2px 2px 0 
-rgb(180,180,180),3px 3px 0 rgb(158,158,158), 4px 4px 0 rgb(136,136,136),5px 
-5px 4px rgba(0,0,0,0.6),5px 5px 1px rgba(0,0,0,0.5),0px 0px 4px rgba(0,0,0,.2);
-}
-
-.asdasda{
-	font: 80px;
-	font-family: 'Russo One', sans-serif;
-	color:black;
-	width: 100%;
-	background: #2f3045; /* background: #151414; */
-	text-shadow: 0px 0px 10px #00ff0f, -1px -1px #000;
-}
-
-.asit{
-font: 80px;
-font-family: 'Russo One', sans-serif;
-color:#00ff0f;
-text-shadow: 0px 0px 10px #00ff0f, -1px -1px #000;
-}
-
-.uc-boyut{
-font: 80px;
-font-family: 'Russo One', sans-serif;
-color: #fff;
-text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135;
-}
-
-.alfa{
-font: 100px;
-font-family: 'Russo One', sans-serif;
-color: black;
-text-shadow: 0px 0px 0 blue
-}
-
 .card-body {
 	background: #0E1119; /* background: #151414; */
 	font-size: 13px;
@@ -146,9 +42,12 @@ text-shadow: 0px 0px 0 blue
 }
 
 .card-header {
-	font-size: 14px;
+	font-size: 22px;
 	color: black;
-	text-shadow: 0px 0px 10px #00ff0f, -1px -1px #000;
+	border-left: 2px solid red;
+	border-right: 2px solid red;
+	text-align:center;
+	font-family: var(--kazımgücü);
 }
 
 .body {
