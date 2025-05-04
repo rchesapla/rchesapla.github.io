@@ -41,8 +41,8 @@
 	font:20px var(--açıklama);
 	}
 .kazımgücü {
-	font-family: var(--kazımgücü);
-	font-size: 18px !important;
+	font-family: var(--açıklama);
+	font-size: 19px !important;
 	}
 .bilgilerfont {
 	font:20px var(--bilgilerfont);
