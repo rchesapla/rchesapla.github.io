@@ -36,6 +36,9 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
 <!--===============================================================================================-->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
@@ -77,7 +80,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </h6>
 <!--===============================================================================================-->
 <div class="card-body"><center>
-<h1 class="siteadı2 asit">RCHesapla</h1>
+<h1 class="rchesapla">RCHesapla</h1>
 <p class="açıklama">Kişisel kazım gücünü hesapla!</p>
 <div id="cntdwn" class="orta"></div>
 <!--===============================================================================================-->
@@ -109,9 +112,9 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div>
 <div class="card-fc my-2 özelfont">
 <h6 class="card-header">KAZIM BİLGİLERİNİZ</h6>
-<div class="card-body  kazımgücü">
+<div class="card-body">
 <div class="form-group row my-1">
-<label for="inputNetworkPower"><span class="head2">Kripto Seç:</span></label>
+<label for="inputNetworkPower"><span class="kazımgücü">Kripto Seç:</span></label>
 <div class="">
 <select id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="form-select ">
 <option value="">Genel Hesaplama</option>
@@ -119,7 +122,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </div>
 </div>
 <div class="form-group row my-1">
-<label for="inputNetworkPower"><span class="head2">Ağ Gücü:</span></label>
+<label for="inputNetworkPower"><span class="kazımgücü">Ağ Gücü:</span></label>
 <div class="col-7">
 <input id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower" type="number" name="inputNetworkPower" class="form-control sayılar " placeholder="Ağ gücünü giriniz...">
 </div>
@@ -132,7 +135,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="form-group row my-1">
-<label for="inputUserPower"><span class="head2">Kazım Gücü:</span></label>
+<label for="inputUserPower"><span class="kazımgücü">Kazım Gücü:</span></label>
 <div class="col-7">
 <input type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power" class="form-control sayılar" placeholder="Kazım gücünü giriniz...">
 </div>
@@ -145,7 +148,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="form-group row my-1">
-<label for="inputBlockReward"><span class="head2">Blok Ödülü:</span></label>
+<label for="inputBlockReward"><span class="kazımgücü">Blok Ödülü:</span></label>
 <div class="col-7">
 <input type="number" id="blockSize"" ng-disabled="isLoadedUser" ng-model="formData.blockSize" class="form-control sayılar" placeholder="Blok ödülünü giriniz...">
 </div>
@@ -154,7 +157,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="form-group row my-1">
-<label for="inputTimePerBlock"><span class="head2">Blok Süresi:</span></label>
+<label for="inputTimePerBlock"><span class="kazımgücü">Blok Süresi:</span></label>
 <div class="col-7">
 <input type="number" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser" class="form-control sayılar" placeholder="Blok süresini giriniz...">
 </div>
@@ -169,7 +172,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="form-group row my-1">
-<label for="inputTimePerBlock"><span class="head2">Rollercoin ID:</span></label>
+<label for="inputTimePerBlock"><span class="kazımgücü">Rollercoin ID:</span></label>
 <div class="">
 <input ng-model="userSearchText" placeholder="Örn: FthCLK" typeahead-wait-ms="300"
 uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
@@ -212,7 +215,7 @@ typeahead-loading="loading" class="form-control sayılar">
 <aside class="col-md-7">
 <div class="card-fc my-2 özelfont">
 <h6 class="card-header head özelfont2 text-center">KAZANÇ İSTATİSTİKLERİN</h6>
-<div class="card-body kazımgücü">
+<div class="card-body ">
 <table ng-if="formData.currency">
 <thead>
 <tr class="highlight-tag">
@@ -334,7 +337,7 @@ PARA ÇEKİMİ
 <div class="container-convert col-12 col-md-10">
 <div class="card-fc my-2 özelfont">
 <h6 class="card-header">❓ NASIL KULLANILIR? ❓</h6>
-<div class="card-body kazımgücü">
+<div class="card-body ">
 <!--===============================================================================================-->
 <footer class="text-center">
 <!--===============================================================================================-->

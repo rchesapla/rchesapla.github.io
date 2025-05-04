@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap'); /* Saira Stencil One */
+
 @import url('https://fonts.googleapis.com/css2?family=Offside&display=swap'); /* BAŞLIKLAR */
 @import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@200..800&display=swap'); /* KAZIMGÜCÜ */
 @import url('https://fonts.googleapis.com/css2?family=Stalinist+One&display=swap'); /* BAŞLIK2 */
@@ -6,17 +9,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nosifer&family=Nova+Square&display=swap'); /*BODY FONT ALANI*/
 @import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&family=Rubik+Vinyl&family=VT323&display=swap'); /*BİLGİLER FONT*/
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&family=Sixtyfour+Convergence&display=swap');
 
 :root {
   --ozelfont: Offside, sans-serif;
   --cardbaslik: Audiowide, sans-serif;
   --siteadı: Audiowide, sans-serif;
-  --siteadı2: Audiowide, sans-serif;
+  --rchesapla: Audiowide, sans-serif;
   --açıklama: Gemunu Libre, sans-serif;
-  --kazımgücü: Gemunu Libre, sans-serif;
+  --kazımgücü: Rubik Wet Paint, sans-serif;
   --bilgilerfont: VT323, sans-serif;
+  --card-header: Saira Stencil One, sans-serif; /* Rubik Wet Paint */
 }
-
+.rchesapla {
+	font-family: var(--card-header);
+	}
+.card-header {
+	font-family: var(--card-header);
+	}
 .ozelfont {
 	font-size:20px var(--ozelfont);
 	}
@@ -27,16 +37,12 @@
 	font-family: var(--siteadı);
 	font-size: 50px
 	}
-.siteadı2 {
-	font-family: var(--siteadı2);
-	font-weight: 400;
-	font-style: normal;
-	}
 .açıklama {
 	font:20px var(--açıklama);
 	}
 .kazımgücü {
-	font:16px var(--kazımgücü);
+	font-family: var(--kazımgücü);
+	font-size: 18px !important;
 	}
 .bilgilerfont {
 	font:20px var(--bilgilerfont);
