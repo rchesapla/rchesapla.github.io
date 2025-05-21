@@ -3,407 +3,415 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>RollerCoin Madenci Listesi</title>
+<title>RollerCoin Ağ Gücü Birimleriyle Detaylı Hesaplama</title>
 <style>
-  /* Reset ve temel */
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
+  /* (Önceki stil kodları aynı kalabilir, sadece burada alanlar ve butonların biraz genişliği artırıldı) */
   body {
-    margin: 0; padding: 40px 20px;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #e0e0e0;
+    font-family: 'Roboto Mono', monospace;
+    background: #121212;
+    color: #eee;
+    margin: 0; padding: 0;
+    display: flex; flex-direction: column; align-items: center;
     min-height: 100vh;
   }
-  h1 {
+  header {
+    background: #1f1f1f;
+    width: 100%;
+    padding: 20px 0;
     text-align: center;
-    font-weight: 900;
-    font-size: 2.8rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
     color: #4caf50;
-    margin-bottom: 50px;
-    text-shadow: 0 0 12px #4caf50bb;
+    border-bottom: 2px solid #4caf50;
   }
-  .container {
+  main {
+    width: 90%;
     max-width: 1100px;
-    margin: 0 auto;
+    margin: 30px auto 60px;
+    background: #222;
+    border-radius: 15px;
+    padding: 25px 40px;
+    box-shadow: 0 0 20px #4caf5070;
   }
-  .grid {
+  h2 {
+    margin-top: 0;
+    color: #81c784;
+    text-align: center;
+  }
+  form {
     display: grid;
-    gap: 25px;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
+    gap: 20px 30px;
+    margin-bottom: 40px;
+  }
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #a5d6a7;
+  }
+  input[type=number], select {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    background: #333;
+    color: #eee;
+    box-shadow: inset 0 0 5px #000;
+    transition: box-shadow 0.3s ease;
+  }
+  input[type=number]:focus, select:focus {
+    outline: none;
+    box-shadow: inset 0 0 8px #4caf50;
+  }
+  button {
+    grid-column: 1 / -1;
+    padding: 15px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: #4caf50;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    color: #121212;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background: #81c784;
+  }
+  .results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
   }
   .card {
-    background: linear-gradient(145deg, #1c2733, #15202b);
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(76,175,80,0.6);
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.25s ease;
+    background: #1a1a1a;
+    border-radius: 15px;
+    box-shadow: 0 0 12px #4caf5070;
+    flex: 1 1 280px;
+    padding: 20px 30px;
+    min-width: 280px;
   }
-  .card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 35px rgba(76,175,80,0.8);
+  .card h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #aed581;
+    border-bottom: 2px solid #4caf50;
+    padding-bottom: 6px;
   }
-  .header {
+  .stat-line {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 14px;
-  }
-  .tags {
-    display: flex;
-    gap: 10px;
-  }
-  .tag {
-    font-weight: 700;
-    font-size: 0.9rem;
-    padding: 6px 14px;
-    border-radius: 25px;
-    user-select: none;
-    color: white;
-    text-shadow: 0 0 5px black;
-    white-space: nowrap;
-  }
-  .tag.gh { background: #27ae60; }
-  .tag.th { background: #2980b9; }
-  .tag.ph { background: #8e44ad; }
-  .tag.zh { background: #e67e22; }
-  .tag.common { background: #7f8c8d; }
-  .tag.rare { background: #3498db; }
-  .tag.epic { background: #9b59b6; }
-  .tag.legendary { background: #f39c12; }
-  .title {
-    font-weight: 900;
-    font-size: 1.6rem;
-    color: #a2d729;
-    text-shadow: 0 0 8px #a2d729aa;
-  }
-  .desc {
-    font-style: italic;
-    color: #b9c2b7;
-    margin-bottom: 12px;
+    margin: 10px 0;
     font-size: 1rem;
   }
-  .stats {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 18px;
-    font-size: 0.95rem;
-    color: #81c784;
+  .stat-line span {
     font-weight: 700;
   }
-  .stat {
-    text-align: center;
+  canvas {
+    width: 100% !important;
+    max-height: 280px !important;
   }
-  .details-toggle {
-    background: none;
-    border: 2px solid #4caf50;
-    border-radius: 30px;
-    padding: 12px 20px;
-    font-weight: 700;
-    color: #4caf50;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    user-select: none;
-    align-self: center;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1rem;
+  .tooltip {
+    position: relative;
+    cursor: help;
   }
-  .details-toggle:hover {
+  .tooltip:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
     background: #4caf50;
     color: #121212;
+    padding: 6px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    box-shadow: 0 2px 8px #0008;
+    z-index: 100;
   }
-  .details-toggle svg {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
-    transition: transform 0.3s ease;
+  .tooltip::after {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
   }
-  .details-toggle.open svg {
-    transform: rotate(180deg);
+  .tooltip:hover::after {
+    opacity: 1;
   }
-  .details {
-    margin-top: 15px;
-    font-size: 0.95rem;
-    color: #a9b3a5;
-    max-height: 0;
-    overflow: hidden;
-    padding: 0 15px;
-    transition: max-height 0.6s ease, padding 0.6s ease;
-  }
-  .details.open {
-    max-height: 650px;
-    padding: 15px;
-  }
-  .details h3 {
-    margin-top: 0;
-    color: #6ec975;
-  }
-  .details ul {
-    margin: 10px 0 18px 20px;
-  }
-  .details ul li {
-    margin-bottom: 8px;
-  }
-
-  @media (max-width: 480px) {
-    .stats {
+  @media(max-width: 600px) {
+    form {
+      grid-template-columns: 1fr;
+    }
+    .results {
       flex-direction: column;
-      gap: 12px;
+      align-items: center;
     }
-    .stat {
-      font-size: 0.9rem;
-    }
-    .title {
-      font-size: 1.4rem;
-    }
-    .details-toggle {
-      font-size: 0.95rem;
-      padding: 14px 18px;
-    }
-    .details {
-      font-size: 0.9rem;
+    .card {
+      width: 100%;
+      min-width: auto;
     }
   }
 </style>
 </head>
 <body>
-  <div class="container">
-    <h1>RollerCoin Madenci Listesi</h1>
-    <div class="grid">
 
-      <article class="card">
-        <header class="header">
-          <div class="tags">
-            <span class="tag gh">GH</span>
-            <span class="tag common">Common</span>
-          </div>
-          <div class="stat power">1 GH/s</div>
-        </header>
-        <h2 class="title">Green Hash Miner</h2>
-        <p class="desc">Başlangıç için düşük güç, yüksek enerji verimliliği ve uygun fiyatlı madenci.</p>
-        <div class="stats">
-          <div class="stat">Çıkış: 2018</div>
-          <div class="stat">Çip: ASIC GH-1000</div>
-          <div class="stat">Enerji: 20 W/GH</div>
-        </div>
-        <button class="details-toggle" aria-expanded="false" aria-controls="details1" id="toggle1">
-          Detayları Göster
-          <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
-        </button>
-        <section class="details" id="details1" aria-hidden="true" tabindex="0">
-          <h3>Teknik Özellikler</h3>
-          <ul>
-            <li>Soğutma: Pasif radyatör + sessiz fan</li>
-            <li>Ağırlık: 1.5 kg</li>
-            <li>Boyutlar: 20x15x10 cm</li>
-          </ul>
-          <h3>Kullanıcı Deneyimi</h3>
-          <ul>
-            <li>Kolay kurulum ve düşük bakım</li>
-            <li>Yeni başlayanlar için ideal madenci</li>
-            <li>Yüksek rekabet dönemlerinde performans düşebilir</li>
-          </ul>
-          <h3>Avantajlar</h3>
-          <ul>
-            <li>Düşük elektrik tüketimi</li>
-            <li>Uygun fiyat</li>
-            <li>Uzun ömürlü tasarım</li>
-          </ul>
-          <h3>Dezavantajlar</h3>
-          <ul>
-            <li>Düşük hash gücü</li>
-            <li>Yüksek rekabette düşük karlılık</li>
-          </ul>
-          <h3>Stratejik İpuçları</h3>
-          <ul>
-            <li>Düşük elektrik maliyetine sahip bölgelerde kullanın</li>
-            <li>Uzun vadede küçük ama sabit kazanç için tercih edin</li>
-          </ul>
-        </section>
-      </article>
+<header>RollerCoin Ağ Gücü Birimleriyle Detaylı Hesaplama</header>
 
-      <article class="card">
-        <header class="header">
-          <div class="tags">
-            <span class="tag th">TH</span>
-            <span class="tag rare">Rare</span>
-          </div>
-          <div class="stat power">10 TH/s</div>
-        </header>
-        <h2 class="title">Titanium Thunder Miner</h2>
-        <p class="desc">Orta seviye madenci, yüksek performans ve verimlilik dengesi.</p>
-        <div class="stats">
-          <div class="stat">Çıkış: 2020</div>
-          <div class="stat">Çip: ASIC TH-2500</div>
-          <div class="stat">Enerji: 15 W/TH</div>
-        </div>
-        <button class="details-toggle" aria-expanded="false" aria-controls="details2" id="toggle2">
-          Detayları Göster
-          <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
-        </button>
-        <section class="details" id="details2" aria-hidden="true" tabindex="0">
-          <h3>Teknik Özellikler</h3>
-          <ul>
-            <li>Soğutma: Sıvı soğutma + çift fan</li>
-            <li>Ağırlık: 4.2 kg</li>
-            <li>Boyutlar: 30x22x15 cm</li>
-          </ul>
-          <h3>Kullanıcı Deneyimi</h3>
-          <ul>
-            <li>Orta düzey zorlukta kurulum</li>
-            <li>Güçlü performans, uzun süreli stabilite</li>
-          </ul>
-          <h3>Avantajlar</h3>
-          <ul>
-            <li>Yüksek hash gücü</li>
-            <li>İyi enerji verimliliği</li>
-            <li>Dayanıklı yapı</li>
-          </ul>
-          <h3>Dezavantajlar</h3>
-          <ul>
-            <li>Yüksek başlangıç maliyeti</li>
-            <li>Bakım gerektirir</li>
-          </ul>
-          <h3>Stratejik İpuçları</h3>
-          <ul>
-            <li>Performansı artırmak için düzenli bakım yapın</li>
-            <li>Elektrik maliyetlerini optimize edin</li>
-          </ul>
-        </section>
-      </article>
+<main>
+  <h2>Profil Bilgileri Girin</h2>
+  <form id="calcForm" aria-label="RollerCoin kazanç hesaplama formu">
+    <label for="level" class="tooltip" data-tip="RollerCoin profil seviyeniz (1-100)">Seviye (Level):</label>
+    <input type="number" id="level" name="level" min="1" max="100" value="15" required />
 
-      <article class="card">
-        <header class="header">
-          <div class="tags">
-            <span class="tag ph">PH</span>
-            <span class="tag epic">Epic</span>
-          </div>
-          <div class="stat power">100 PH/s</div>
-        </header>
-        <h2 class="title">Photon Epic Miner</h2>
-        <p class="desc">Yüksek güçte, endüstri lideri performans sunan madenci.</p>
-        <div class="stats">
-          <div class="stat">Çıkış: 2022</div>
-          <div class="stat">Çip: ASIC PH-9000</div>
-          <div class="stat">Enerji: 10 W/PH</div>
-        </div>
-        <button class="details-toggle" aria-expanded="false" aria-controls="details3" id="toggle3">
-          Detayları Göster
-          <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
-        </button>
-        <section class="details" id="details3" aria-hidden="true" tabindex="0">
-          <h3>Teknik Özellikler</h3>
-          <ul>
-            <li>Soğutma: Yüksek performanslı sıvı soğutma</li>
-            <li>Ağırlık: 8.5 kg</li>
-            <li>Boyutlar: 40x30x20 cm</li>
-          </ul>
-          <h3>Kullanıcı Deneyimi</h3>
-          <ul>
-            <li>Profesyonel kullanıcılar için uygun</li>
-            <li>Yüksek ısı üretimi, iyi havalandırma gerekir</li>
-          </ul>
-          <h3>Avantajlar</h3>
-          <ul>
-            <li>Çok yüksek hash gücü</li>
-            <li>Düşük enerji tüketimi</li>
-            <li>Uzun vadeli yatırım</li>
-          </ul>
-          <h3>Dezavantajlar</h3>
-          <ul>
-            <li>Çok yüksek maliyet</li>
-            <li>Yoğun bakım gereksinimi</li>
-          </ul>
-          <h3>Stratejik İpuçları</h3>
-          <ul>
-            <li>Profesyonel ekipmanla kullanın</li>
-            <li>İyi soğutma ve düzenli bakım şarttır</li>
-          </ul>
-        </section>
-      </article>
-
-      <article class="card">
-        <header class="header">
-          <div class="tags">
-            <span class="tag zh">ZH</span>
-            <span class="tag legendary">Legendary</span>
-          </div>
-          <div class="stat power">1 ZH/s</div>
-        </header>
-        <h2 class="title">Zephyr Legendary Miner</h2>
-        <p class="desc">En üst seviye, efsanevi performans ve nadirlikte madenci.</p>
-        <div class="stats">
-          <div class="stat">Çıkış: 2024</div>
-          <div class="stat">Çip: ASIC ZH-10000</div>
-          <div class="stat">Enerji: 7 W/ZH</div>
-        </div>
-        <button class="details-toggle" aria-expanded="false" aria-controls="details4" id="toggle4">
-          Detayları Göster
-          <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
-        </button>
-        <section class="details" id="details4" aria-hidden="true" tabindex="0">
-          <h3>Teknik Özellikler</h3>
-          <ul>
-            <li>Soğutma: Gelişmiş kriyojenik sistem</li>
-            <li>Ağırlık: 12.3 kg</li>
-            <li>Boyutlar: 50x35x25 cm</li>
-          </ul>
-          <h3>Kullanıcı Deneyimi</h3>
-          <ul>
-            <li>Profesyonel madenciler için eşsiz tasarım</li>
-            <li>Yüksek bakım ve uzmanlık gerektirir</li>
-          </ul>
-          <h3>Avantajlar</h3>
-          <ul>
-            <li>En yüksek hash gücü</li>
-            <li>En iyi enerji verimliliği</li>
-            <li>Uzun ömürlü ve dayanıklı</li>
-          </ul>
-          <h3>Dezavantajlar</h3>
-          <ul>
-            <li>Aşırı yüksek maliyet</li>
-            <li>Karmaşık kurulum ve bakım</li>
-          </ul>
-          <h3>Stratejik İpuçları</h3>
-          <ul>
-            <li>Yalnızca büyük ölçekli madencilik için</li>
-            <li>Profesyonel ekiple bakım yapın</li>
-          </ul>
-        </section>
-      </article>
-
+    <label for="hashrate" class="tooltip" data-tip="Toplam madencilik gücünüz (Hashrate)">Ağ Gücü:</label>
+    <div style="display:flex; gap:10px;">
+      <input type="number" id="hashrate" name="hashrate" min="0" value="1500" step="any" required style="flex:3" />
+      <select id="hashrateUnit" name="hashrateUnit" aria-label="Ağ gücü birimi" style="flex:2;">
+        <option value="GH">GH/s</option>
+        <option value="TH">TH/s</option>
+        <option value="PH">PH/s</option>
+        <option value="ZH">ZH/s</option>
+      </select>
     </div>
-  </div>
 
+    <label for="networkHashrate" class="tooltip" data-tip="RollerCoin toplam ağ gücü (Hashrate)">Toplam Ağ Gücü:</label>
+    <div style="display:flex; gap:10px;">
+      <input type="number" id="networkHashrate" name="networkHashrate" min="1" value="1000000" step="any" required style="flex:3" />
+      <select id="networkHashrateUnit" name="networkHashrateUnit" aria-label="Toplam ağ gücü birimi" style="flex:2;">
+        <option value="GH">GH/s</option>
+        <option value="TH">TH/s</option>
+        <option value="PH">PH/s</option>
+        <option value="ZH">ZH/s</option>
+      </select>
+    </div>
+
+    <label for="blockReward" class="tooltip" data-tip="Bir blok için verilen BTC ödülü">Blok Ödülü (BTC):</label>
+    <input type="number" id="blockReward" name="blockReward" min="0" value="0.00013" step="0.000001" required />
+
+    <label for="blockTime" class="tooltip" data-tip="Blokların çıkarılma süresi (dakika)">Blok Süresi (Dakika):</label>
+    <input type="number" id="blockTime" name="blockTime" min="1" value="9" required />
+
+    <label for="activeHours" class="tooltip" data-tip="Günde kaç saat aktif madencilik yapıyorsunuz?">Günlük Aktif Madencilik Süresi (Saat):</label>
+    <input type="number" id="activeHours" name="activeHours" min="0" max="24" step="0.1" value="12" required />
+
+    <label for="bonus" class="tooltip" data-tip="Rozetler ve bonuslardan gelen ekstra kazanç yüzdesi">Bonus Kazanç (%):</label>
+    <input type="number" id="bonus" name="bonus" min="0" max="100" value="10" required />
+
+    <label for="usdPrice" class="tooltip" data-tip="BTC'nin güncel USD fiyatı (örnek)">BTC/USD Fiyatı (USD):</label>
+    <input type="number" id="usdPrice" name="usdPrice" min="0" value="30000" step="0.01" required />
+
+    <button type="submit" aria-label="Kazancı hesapla">Kazancı Hesapla</button>
+  </form>
+
+  <section class="results" aria-live="polite" aria-atomic="true">
+    <article class="card" aria-label="Kazanç Özetleri">
+      <h3>BTC Kazancı</h3>
+      <div class="stat-line"><span>Günlük:</span> <span id="btcDaily">-</span></div>
+      <div class="stat-line"><span>Haftalık:</span> <span id="btcWeekly">-</span></div>
+      <div class="stat-line"><span>Aylık:</span> <span id="btcMonthly">-</span></div>
+      <div class="stat-line"><span>Yıllık:</span> <span id="btcYearly">-</span></div>
+    </article>
+
+    <article class="card" aria-label="RLT Kazancı">
+      <h3>RLT Kazancı (Tahmini)</h3>
+      <div class="stat-line"><span>Günlük:</span> <span id="rltDaily">-</span></div>
+      <div class="stat-line"><span>Haftalık:</span> <span id="rltWeekly">-</span></div>
+      <div class="stat-line"><span>Aylık:</span> <span id="rltMonthly">-</span></div>
+      <div class="stat-line"><span>Yıllık:</span> <span id="rltYearly">-</span></div>
+    </article>
+
+    <article class="card" aria-label="ROI Tahmini">
+      <h3>ROI (Yatırım Getirisi) Tahmini</h3>
+      <p id="roiText">-</p>
+    </article>
+
+    <article class="card" aria-label="Kazanç Grafiği">
+      <h3>Kazanç Grafiği</h3>
+      <canvas id="earningsChart" role="img" aria-label="BTC ve RLT kazançlarını gösteren çizgi grafik"></canvas>
+    </article>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  document.querySelectorAll('.details-toggle').forEach(button => {
-    button.addEventListener('click', () => {
-      const detailsId = button.getAttribute('aria-controls');
-      const details = document.getElementById(detailsId);
-      const expanded = button.getAttribute('aria-expanded') === 'true';
+  const form = document.getElementById('calcForm');
 
-      if (expanded) {
-        details.classList.remove('open');
-        button.classList.remove('open');
-        button.setAttribute('aria-expanded', 'false');
-        details.setAttribute('aria-hidden', 'true');
-        button.textContent = 'Detayları Göster';
-        button.appendChild(button.querySelector('svg'));
-      } else {
-        details.classList.add('open');
-        button.classList.add('open');
-        button.setAttribute('aria-expanded', 'true');
-        details.setAttribute('aria-hidden', 'false');
-        button.textContent = 'Detayları Gizle';
-        button.appendChild(button.querySelector('svg'));
+  const btcDaily = document.getElementById('btcDaily');
+  const btcWeekly = document.getElementById('btcWeekly');
+  const btcMonthly = document.getElementById('btcMonthly');
+  const btcYearly = document.getElementById('btcYearly');
+
+  const rltDaily = document.getElementById('rltDaily');
+  const rltWeekly = document.getElementById('rltWeekly');
+  const rltMonthly = document.getElementById('rltMonthly');
+  const rltYearly = document.getElementById('rltYearly');
+
+  const roiText = document.getElementById('roiText');
+  const ctx = document.getElementById('earningsChart').getContext('2d');
+
+  let chart;
+
+  // Birimleri GH/s cinsine çeviren fonksiyon
+  function convertToGH(value, unit) {
+    switch(unit) {
+      case 'GH': return value;
+      case 'TH': return value * 1e3;
+      case 'PH': return value * 1e6;
+      case 'ZH': return value * 1e9;
+      default: return value;
+    }
+  }
+
+  function calculateEarnings(data) {
+    const blocksPerDay = (24 * 60) / data.blockTime;
+    const userShare = data.hashrate / data.networkHashrate;
+    const baseDailyBTC = blocksPerDay * data.blockReward * userShare;
+    const activeRatio = data.activeHours / 24;
+    const dailyBTC = baseDailyBTC * activeRatio * (1 + data.bonus / 100);
+    const dailyRLT = dailyBTC * 0.5;
+
+    return {
+      dailyBTC,
+      weeklyBTC: dailyBTC * 7,
+      monthlyBTC: dailyBTC * 30,
+      yearlyBTC: dailyBTC * 365,
+      dailyRLT,
+      weeklyRLT: dailyRLT * 7,
+      monthlyRLT: dailyRLT * 30,
+      yearlyRLT: dailyRLT * 365,
+    };
+  }
+
+  function updateUI(earnings, data) {
+    btcDaily.textContent = earnings.dailyBTC.toFixed(8) + ' BTC';
+    btcWeekly.textContent = earnings.weeklyBTC.toFixed(8) + ' BTC';
+    btcMonthly.textContent = earnings.monthlyBTC.toFixed(8) + ' BTC';
+    btcYearly.textContent = earnings.yearlyBTC.toFixed(8) + ' BTC';
+
+    rltDaily.textContent = earnings.dailyRLT.toFixed(8) + ' RLT';
+    rltWeekly.textContent = earnings.weeklyRLT.toFixed(8) + ' RLT';
+    rltMonthly.textContent = earnings.monthlyRLT.toFixed(8) + ' RLT';
+    rltYearly.textContent = earnings.yearlyRLT.toFixed(8) + ' RLT';
+
+    const investment = data.level * 100;
+    const dailyUSD = earnings.dailyBTC * data.usdPrice;
+    if (dailyUSD <= 0) {
+      roiText.textContent = 'ROI hesaplanamıyor (kazanç sıfır veya negatif).';
+    } else {
+      const daysToROI = investment / dailyUSD;
+      roiText.innerHTML = `Tahmini yatırım geri dönüş süresi: <strong>${daysToROI.toFixed(1)}</strong> gün`;
+    }
+  }
+
+  function updateChart(earnings) {
+    const labels = ['Günlük', 'Haftalık', 'Aylık', 'Yıllık'];
+    const btcData = [
+      earnings.dailyBTC,
+      earnings.weeklyBTC,
+      earnings.monthlyBTC,
+      earnings.yearlyBTC,
+    ];
+    const rltData = [
+      earnings.dailyRLT,
+      earnings.weeklyRLT,
+      earnings.monthlyRLT,
+      earnings.yearlyRLT,
+    ];
+
+    if(chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'BTC Kazancı',
+            data: btcData,
+            borderColor: '#4caf50',
+            backgroundColor: 'rgba(76,175,80,0.2)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 6,
+            pointHoverRadius: 9,
+          },
+          {
+            label: 'RLT Kazancı (Tahmini)',
+            data: rltData,
+            borderColor: '#aed581',
+            backgroundColor: 'rgba(174,213,129,0.2)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 6,
+            pointHoverRadius: 9,
+          }
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: { color: '#c8e6c9', font: {weight: '700'} }
+          },
+          tooltip: { mode: 'index', intersect: false }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { color: '#a5d6a7', callback: v => v.toFixed(8) }
+          },
+          x: {
+            ticks: { color: '#a5d6a7' }
+          }
+        }
       }
     });
+  }
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const level = Number(form.level.value);
+    const hashrateRaw = Number(form.hashrate.value);
+    const hashrateUnit = form.hashrateUnit.value;
+    const networkHashrateRaw = Number(form.networkHashrate.value);
+    const networkHashrateUnit = form.networkHashrateUnit.value;
+
+    const blockReward = Number(form.blockReward.value);
+    const blockTime = Number(form.blockTime.value);
+    const activeHours = Number(form.activeHours.value);
+    const bonus = Number(form.bonus.value);
+    const usdPrice = Number(form.usdPrice.value);
+
+    const hashrate = convertToGH(hashrateRaw, hashrateUnit);
+    const networkHashrate = convertToGH(networkHashrateRaw, networkHashrateUnit);
+
+    const data = {
+      level,
+      hashrate,
+      networkHashrate,
+      blockReward,
+      blockTime,
+      activeHours,
+      bonus,
+      usdPrice,
+    };
+
+    const earnings = calculateEarnings(data);
+    updateUI(earnings, data);
+    updateChart(earnings);
+  });
+
+  window.addEventListener('load', () => {
+    form.dispatchEvent(new Event('submit'));
   });
 </script>
+
 </body>
 </html>
