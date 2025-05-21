@@ -1,14 +1,409 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RollerCoin Mining Calculator</title>
-    <meta name="description" content="Calculate your potential mining rewards on RollerCoin based on your hashrate and network conditions" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RollerCoin Madenci Listesi</title>
+<style>
+  /* Reset ve temel */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0; padding: 40px 20px;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #e0e0e0;
+    min-height: 100vh;
+  }
+  h1 {
+    text-align: center;
+    font-weight: 900;
+    font-size: 2.8rem;
+    color: #4caf50;
+    margin-bottom: 50px;
+    text-shadow: 0 0 12px #4caf50bb;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .grid {
+    display: grid;
+    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  .card {
+    background: linear-gradient(145deg, #1c2733, #15202b);
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(76,175,80,0.6);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease;
+  }
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 35px rgba(76,175,80,0.8);
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .tags {
+    display: flex;
+    gap: 10px;
+  }
+  .tag {
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 6px 14px;
+    border-radius: 25px;
+    user-select: none;
+    color: white;
+    text-shadow: 0 0 5px black;
+    white-space: nowrap;
+  }
+  .tag.gh { background: #27ae60; }
+  .tag.th { background: #2980b9; }
+  .tag.ph { background: #8e44ad; }
+  .tag.zh { background: #e67e22; }
+  .tag.common { background: #7f8c8d; }
+  .tag.rare { background: #3498db; }
+  .tag.epic { background: #9b59b6; }
+  .tag.legendary { background: #f39c12; }
+  .title {
+    font-weight: 900;
+    font-size: 1.6rem;
+    color: #a2d729;
+    text-shadow: 0 0 8px #a2d729aa;
+  }
+  .desc {
+    font-style: italic;
+    color: #b9c2b7;
+    margin-bottom: 12px;
+    font-size: 1rem;
+  }
+  .stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 18px;
+    font-size: 0.95rem;
+    color: #81c784;
+    font-weight: 700;
+  }
+  .stat {
+    text-align: center;
+  }
+  .details-toggle {
+    background: none;
+    border: 2px solid #4caf50;
+    border-radius: 30px;
+    padding: 12px 20px;
+    font-weight: 700;
+    color: #4caf50;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+  }
+  .details-toggle:hover {
+    background: #4caf50;
+    color: #121212;
+  }
+  .details-toggle svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    transition: transform 0.3s ease;
+  }
+  .details-toggle.open svg {
+    transform: rotate(180deg);
+  }
+  .details {
+    margin-top: 15px;
+    font-size: 0.95rem;
+    color: #a9b3a5;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 15px;
+    transition: max-height 0.6s ease, padding 0.6s ease;
+  }
+  .details.open {
+    max-height: 650px;
+    padding: 15px;
+  }
+  .details h3 {
+    margin-top: 0;
+    color: #6ec975;
+  }
+  .details ul {
+    margin: 10px 0 18px 20px;
+  }
+  .details ul li {
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 480px) {
+    .stats {
+      flex-direction: column;
+      gap: 12px;
+    }
+    .stat {
+      font-size: 0.9rem;
+    }
+    .title {
+      font-size: 1.4rem;
+    }
+    .details-toggle {
+      font-size: 0.95rem;
+      padding: 14px 18px;
+    }
+    .details {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>RollerCoin Madenci Listesi</h1>
+    <div class="grid">
+
+      <article class="card">
+        <header class="header">
+          <div class="tags">
+            <span class="tag gh">GH</span>
+            <span class="tag common">Common</span>
+          </div>
+          <div class="stat power">1 GH/s</div>
+        </header>
+        <h2 class="title">Green Hash Miner</h2>
+        <p class="desc">Başlangıç için düşük güç, yüksek enerji verimliliği ve uygun fiyatlı madenci.</p>
+        <div class="stats">
+          <div class="stat">Çıkış: 2018</div>
+          <div class="stat">Çip: ASIC GH-1000</div>
+          <div class="stat">Enerji: 20 W/GH</div>
+        </div>
+        <button class="details-toggle" aria-expanded="false" aria-controls="details1" id="toggle1">
+          Detayları Göster
+          <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
+        </button>
+        <section class="details" id="details1" aria-hidden="true" tabindex="0">
+          <h3>Teknik Özellikler</h3>
+          <ul>
+            <li>Soğutma: Pasif radyatör + sessiz fan</li>
+            <li>Ağırlık: 1.5 kg</li>
+            <li>Boyutlar: 20x15x10 cm</li>
+          </ul>
+          <h3>Kullanıcı Deneyimi</h3>
+          <ul>
+            <li>Kolay kurulum ve düşük bakım</li>
+            <li>Yeni başlayanlar için ideal madenci</li>
+            <li>Yüksek rekabet dönemlerinde performans düşebilir</li>
+          </ul>
+          <h3>Avantajlar</h3>
+          <ul>
+            <li>Düşük elektrik tüketimi</li>
+            <li>Uygun fiyat</li>
+            <li>Uzun ömürlü tasarım</li>
+          </ul>
+          <h3>Dezavantajlar</h3>
+          <ul>
+            <li>Düşük hash gücü</li>
+            <li>Yüksek rekabette düşük karlılık</li>
+          </ul>
+          <h3>Stratejik İpuçları</h3>
+          <ul>
+            <li>Düşük elektrik maliyetine sahip bölgelerde kullanın</li>
+            <li>Uzun vadede küçük ama sabit kazanç için tercih edin</li>
+          </ul>
+        </section>
+      </article>
+
+      <article class="card">
+        <header class="header">
+          <div class="tags">
+            <span class="tag th">TH</span>
+            <span class="tag rare">Rare</span>
+          </div>
+          <div class="stat power">10 TH/s</div>
+        </header>
+        <h2 class="title">Titanium Thunder Miner</h2>
+        <p class="desc">Orta seviye madenci, yüksek performans ve verimlilik dengesi.</p>
+        <div class="stats">
+          <div class="stat">Çıkış: 2020</div>
+          <div class="stat">Çip: ASIC TH-2500</div>
+          <div class="stat">Enerji: 15 W/TH</div>
+        </div>
+        <button class="details-toggle" aria-expanded="false" aria-controls="details2" id="toggle2">
+          Detayları Göster
+          <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
+        </button>
+        <section class="details" id="details2" aria-hidden="true" tabindex="0">
+          <h3>Teknik Özellikler</h3>
+          <ul>
+            <li>Soğutma: Sıvı soğutma + çift fan</li>
+            <li>Ağırlık: 4.2 kg</li>
+            <li>Boyutlar: 30x22x15 cm</li>
+          </ul>
+          <h3>Kullanıcı Deneyimi</h3>
+          <ul>
+            <li>Orta düzey zorlukta kurulum</li>
+            <li>Güçlü performans, uzun süreli stabilite</li>
+          </ul>
+          <h3>Avantajlar</h3>
+          <ul>
+            <li>Yüksek hash gücü</li>
+            <li>İyi enerji verimliliği</li>
+            <li>Dayanıklı yapı</li>
+          </ul>
+          <h3>Dezavantajlar</h3>
+          <ul>
+            <li>Yüksek başlangıç maliyeti</li>
+            <li>Bakım gerektirir</li>
+          </ul>
+          <h3>Stratejik İpuçları</h3>
+          <ul>
+            <li>Performansı artırmak için düzenli bakım yapın</li>
+            <li>Elektrik maliyetlerini optimize edin</li>
+          </ul>
+        </section>
+      </article>
+
+      <article class="card">
+        <header class="header">
+          <div class="tags">
+            <span class="tag ph">PH</span>
+            <span class="tag epic">Epic</span>
+          </div>
+          <div class="stat power">100 PH/s</div>
+        </header>
+        <h2 class="title">Photon Epic Miner</h2>
+        <p class="desc">Yüksek güçte, endüstri lideri performans sunan madenci.</p>
+        <div class="stats">
+          <div class="stat">Çıkış: 2022</div>
+          <div class="stat">Çip: ASIC PH-9000</div>
+          <div class="stat">Enerji: 10 W/PH</div>
+        </div>
+        <button class="details-toggle" aria-expanded="false" aria-controls="details3" id="toggle3">
+          Detayları Göster
+          <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
+        </button>
+        <section class="details" id="details3" aria-hidden="true" tabindex="0">
+          <h3>Teknik Özellikler</h3>
+          <ul>
+            <li>Soğutma: Yüksek performanslı sıvı soğutma</li>
+            <li>Ağırlık: 8.5 kg</li>
+            <li>Boyutlar: 40x30x20 cm</li>
+          </ul>
+          <h3>Kullanıcı Deneyimi</h3>
+          <ul>
+            <li>Profesyonel kullanıcılar için uygun</li>
+            <li>Yüksek ısı üretimi, iyi havalandırma gerekir</li>
+          </ul>
+          <h3>Avantajlar</h3>
+          <ul>
+            <li>Çok yüksek hash gücü</li>
+            <li>Düşük enerji tüketimi</li>
+            <li>Uzun vadeli yatırım</li>
+          </ul>
+          <h3>Dezavantajlar</h3>
+          <ul>
+            <li>Çok yüksek maliyet</li>
+            <li>Yoğun bakım gereksinimi</li>
+          </ul>
+          <h3>Stratejik İpuçları</h3>
+          <ul>
+            <li>Profesyonel ekipmanla kullanın</li>
+            <li>İyi soğutma ve düzenli bakım şarttır</li>
+          </ul>
+        </section>
+      </article>
+
+      <article class="card">
+        <header class="header">
+          <div class="tags">
+            <span class="tag zh">ZH</span>
+            <span class="tag legendary">Legendary</span>
+          </div>
+          <div class="stat power">1 ZH/s</div>
+        </header>
+        <h2 class="title">Zephyr Legendary Miner</h2>
+        <p class="desc">En üst seviye, efsanevi performans ve nadirlikte madenci.</p>
+        <div class="stats">
+          <div class="stat">Çıkış: 2024</div>
+          <div class="stat">Çip: ASIC ZH-10000</div>
+          <div class="stat">Enerji: 7 W/ZH</div>
+        </div>
+        <button class="details-toggle" aria-expanded="false" aria-controls="details4" id="toggle4">
+          Detayları Göster
+          <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
+        </button>
+        <section class="details" id="details4" aria-hidden="true" tabindex="0">
+          <h3>Teknik Özellikler</h3>
+          <ul>
+            <li>Soğutma: Gelişmiş kriyojenik sistem</li>
+            <li>Ağırlık: 12.3 kg</li>
+            <li>Boyutlar: 50x35x25 cm</li>
+          </ul>
+          <h3>Kullanıcı Deneyimi</h3>
+          <ul>
+            <li>Profesyonel madenciler için eşsiz tasarım</li>
+            <li>Yüksek bakım ve uzmanlık gerektirir</li>
+          </ul>
+          <h3>Avantajlar</h3>
+          <ul>
+            <li>En yüksek hash gücü</li>
+            <li>En iyi enerji verimliliği</li>
+            <li>Uzun ömürlü ve dayanıklı</li>
+          </ul>
+          <h3>Dezavantajlar</h3>
+          <ul>
+            <li>Aşırı yüksek maliyet</li>
+            <li>Karmaşık kurulum ve bakım</li>
+          </ul>
+          <h3>Stratejik İpuçları</h3>
+          <ul>
+            <li>Yalnızca büyük ölçekli madencilik için</li>
+            <li>Profesyonel ekiple bakım yapın</li>
+          </ul>
+        </section>
+      </article>
+
+    </div>
+  </div>
+
+<script>
+  document.querySelectorAll('.details-toggle').forEach(button => {
+    button.addEventListener('click', () => {
+      const detailsId = button.getAttribute('aria-controls');
+      const details = document.getElementById(detailsId);
+      const expanded = button.getAttribute('aria-expanded') === 'true';
+
+      if (expanded) {
+        details.classList.remove('open');
+        button.classList.remove('open');
+        button.setAttribute('aria-expanded', 'false');
+        details.setAttribute('aria-hidden', 'true');
+        button.textContent = 'Detayları Göster';
+        button.appendChild(button.querySelector('svg'));
+      } else {
+        details.classList.add('open');
+        button.classList.add('open');
+        button.setAttribute('aria-expanded', 'true');
+        details.setAttribute('aria-hidden', 'false');
+        button.textContent = 'Detayları Gizle';
+        button.appendChild(button.querySelector('svg'));
+      }
+    });
+  });
+</script>
+</body>
 </html>
