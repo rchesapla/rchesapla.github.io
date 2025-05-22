@@ -3,414 +3,120 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>RollerCoin Ağ Gücü Birimleriyle Detaylı Hesaplama</title>
+<title>RollerCoin Kazanç Hesaplayıcı</title>
 <style>
-  /* (Önceki stil kodları aynı kalabilir, sadece burada alanlar ve butonların biraz genişliği artırıldı) */
   body {
-    font-family: 'Roboto Mono', monospace;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #121212;
-    color: #eee;
-    margin: 0; padding: 0;
-    display: flex; flex-direction: column; align-items: center;
+    color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
     min-height: 100vh;
+    align-items: center;
+    justify-content: center;
   }
-  header {
-    background: #1f1f1f;
+  .container {
+    background: #1e1e1e;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+    max-width: 400px;
     width: 100%;
-    padding: 20px 0;
+  }
+  h1 {
     text-align: center;
-    font-size: 1.8rem;
+    margin-bottom: 25px;
     font-weight: 700;
-    letter-spacing: 2px;
     color: #4caf50;
-    border-bottom: 2px solid #4caf50;
-  }
-  main {
-    width: 90%;
-    max-width: 1100px;
-    margin: 30px auto 60px;
-    background: #222;
-    border-radius: 15px;
-    padding: 25px 40px;
-    box-shadow: 0 0 20px #4caf5070;
-  }
-  h2 {
-    margin-top: 0;
-    color: #81c784;
-    text-align: center;
-  }
-  form {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
-    gap: 20px 30px;
-    margin-bottom: 40px;
   }
   label {
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 10px;
     font-weight: 600;
-    font-size: 0.9rem;
-    color: #a5d6a7;
+    font-size: 1.1rem;
   }
-  input[type=number], select {
+  input[type="number"] {
     width: 100%;
-    padding: 12px 14px;
-    font-size: 1rem;
+    padding: 10px 14px;
     border: none;
-    border-radius: 10px;
-    background: #333;
-    color: #eee;
-    box-shadow: inset 0 0 5px #000;
-    transition: box-shadow 0.3s ease;
-  }
-  input[type=number]:focus, select:focus {
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 1rem;
     outline: none;
-    box-shadow: inset 0 0 8px #4caf50;
   }
   button {
-    grid-column: 1 / -1;
-    padding: 15px;
-    font-size: 1.2rem;
-    font-weight: 700;
-    background: #4caf50;
+    width: 100%;
+    padding: 12px 0;
+    background-color: #4caf50;
     border: none;
-    border-radius: 15px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
     cursor: pointer;
-    color: #121212;
-    letter-spacing: 1px;
     transition: background-color 0.3s ease;
   }
   button:hover {
-    background: #81c784;
+    background-color: #45a049;
   }
-  .results {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 20px;
-  }
-  .card {
-    background: #1a1a1a;
-    border-radius: 15px;
-    box-shadow: 0 0 12px #4caf5070;
-    flex: 1 1 280px;
-    padding: 20px 30px;
-    min-width: 280px;
-  }
-  .card h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    color: #aed581;
-    border-bottom: 2px solid #4caf50;
-    padding-bottom: 6px;
-  }
-  .stat-line {
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0;
-    font-size: 1rem;
-  }
-  .stat-line span {
+  .result {
+    margin-top: 25px;
+    padding: 15px 20px;
+    background-color: #333;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.3rem;
     font-weight: 700;
+    color: #4caf50;
   }
-  canvas {
-    width: 100% !important;
-    max-height: 280px !important;
-  }
-  .tooltip {
-    position: relative;
-    cursor: help;
-  }
-  .tooltip:hover::after {
-    content: attr(data-tip);
-    position: absolute;
-    bottom: 125%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #4caf50;
-    color: #121212;
-    padding: 6px 12px;
-    border-radius: 6px;
-    white-space: nowrap;
+  footer {
+    margin-top: 30px;
     font-size: 0.85rem;
-    box-shadow: 0 2px 8px #0008;
-    z-index: 100;
-  }
-  .tooltip::after {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-  }
-  .tooltip:hover::after {
-    opacity: 1;
-  }
-  @media(max-width: 600px) {
-    form {
-      grid-template-columns: 1fr;
-    }
-    .results {
-      flex-direction: column;
-      align-items: center;
-    }
-    .card {
-      width: 100%;
-      min-width: auto;
-    }
+    text-align: center;
+    color: #888;
   }
 </style>
 </head>
 <body>
 
-<header>RollerCoin Ağ Gücü Birimleriyle Detaylı Hesaplama</header>
+<div class="container">
+  <h1>RollerCoin Kazanç Hesaplayıcı</h1>
+  
+  <label for="hashrate">Madencilik Gücü (GH/s):</label>
+  <input type="number" id="hashrate" placeholder="Örn: 1000" min="0" />
+  
+  <button onclick="calculateEarnings()">Hesapla</button>
+  
+  <div id="result" class="result" style="display:none;"></div>
+  
+  <footer>© 2025 RollerCoin Hesaplayıcı</footer>
+</div>
 
-<main>
-  <h2>Profil Bilgileri Girin</h2>
-  <form id="calcForm" aria-label="RollerCoin kazanç hesaplama formu">
-    <label for="level" class="tooltip" data-tip="RollerCoin profil seviyeniz (1-100)">Seviye (Level):</label>
-    <input type="number" id="level" name="level" min="1" max="100" value="15" required />
-
-    <label for="hashrate" class="tooltip" data-tip="Toplam madencilik gücünüz (Hashrate)">Ağ Gücü:</label>
-    <div style="display:flex; gap:10px;">
-      <input type="number" id="hashrate" name="hashrate" min="0" value="1500" step="any" required style="flex:3" />
-      <select id="hashrateUnit" name="hashrateUnit" aria-label="Ağ gücü birimi" style="flex:2;">
-        <option value="GH">GH/s</option>
-        <option value="TH">TH/s</option>
-        <option value="PH">PH/s</option>
-        <option value="ZH">ZH/s</option>
-      </select>
-    </div>
-
-    <label for="networkHashrate" class="tooltip" data-tip="RollerCoin toplam ağ gücü (Hashrate)">Toplam Ağ Gücü:</label>
-    <div style="display:flex; gap:10px;">
-      <input type="number" id="networkHashrate" name="networkHashrate" min="1" value="1000000" step="any" required style="flex:3" />
-      <select id="networkHashrateUnit" name="networkHashrateUnit" aria-label="Toplam ağ gücü birimi" style="flex:2;">
-        <option value="GH">GH/s</option>
-        <option value="TH">TH/s</option>
-        <option value="PH">PH/s</option>
-        <option value="ZH">ZH/s</option>
-      </select>
-    </div>
-
-    <label for="blockReward" class="tooltip" data-tip="Bir blok için verilen BTC ödülü">Blok Ödülü (BTC):</label>
-    <input type="number" id="blockReward" name="blockReward" min="0" value="0.00013" step="0.000001" required />
-
-    <label for="blockTime" class="tooltip" data-tip="Blokların çıkarılma süresi (dakika)">Blok Süresi (Dakika):</label>
-    <input type="number" id="blockTime" name="blockTime" min="1" value="9" required />
-
-    <label for="activeHours" class="tooltip" data-tip="Günde kaç saat aktif madencilik yapıyorsunuz?">Günlük Aktif Madencilik Süresi (Saat):</label>
-    <input type="number" id="activeHours" name="activeHours" min="0" max="24" step="0.1" value="12" required />
-
-    <label for="bonus" class="tooltip" data-tip="Rozetler ve bonuslardan gelen ekstra kazanç yüzdesi">Bonus Kazanç (%):</label>
-    <input type="number" id="bonus" name="bonus" min="0" max="100" value="10" required />
-
-    <label for="usdPrice" class="tooltip" data-tip="BTC'nin güncel USD fiyatı (örnek)">BTC/USD Fiyatı (USD):</label>
-    <input type="number" id="usdPrice" name="usdPrice" min="0" value="30000" step="0.01" required />
-
-    <button type="submit" aria-label="Kazancı hesapla">Kazancı Hesapla</button>
-  </form>
-
-  <section class="results" aria-live="polite" aria-atomic="true">
-    <article class="card" aria-label="Kazanç Özetleri">
-      <h3>BTC Kazancı</h3>
-      <div class="stat-line"><span>Günlük:</span> <span id="btcDaily">-</span></div>
-      <div class="stat-line"><span>Haftalık:</span> <span id="btcWeekly">-</span></div>
-      <div class="stat-line"><span>Aylık:</span> <span id="btcMonthly">-</span></div>
-      <div class="stat-line"><span>Yıllık:</span> <span id="btcYearly">-</span></div>
-    </article>
-
-    <article class="card" aria-label="RLT Kazancı">
-      <h3>RLT Kazancı (Tahmini)</h3>
-      <div class="stat-line"><span>Günlük:</span> <span id="rltDaily">-</span></div>
-      <div class="stat-line"><span>Haftalık:</span> <span id="rltWeekly">-</span></div>
-      <div class="stat-line"><span>Aylık:</span> <span id="rltMonthly">-</span></div>
-      <div class="stat-line"><span>Yıllık:</span> <span id="rltYearly">-</span></div>
-    </article>
-
-    <article class="card" aria-label="ROI Tahmini">
-      <h3>ROI (Yatırım Getirisi) Tahmini</h3>
-      <p id="roiText">-</p>
-    </article>
-
-    <article class="card" aria-label="Kazanç Grafiği">
-      <h3>Kazanç Grafiği</h3>
-      <canvas id="earningsChart" role="img" aria-label="BTC ve RLT kazançlarını gösteren çizgi grafik"></canvas>
-    </article>
-  </section>
-</main>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  const form = document.getElementById('calcForm');
-
-  const btcDaily = document.getElementById('btcDaily');
-  const btcWeekly = document.getElementById('btcWeekly');
-  const btcMonthly = document.getElementById('btcMonthly');
-  const btcYearly = document.getElementById('btcYearly');
-
-  const rltDaily = document.getElementById('rltDaily');
-  const rltWeekly = document.getElementById('rltWeekly');
-  const rltMonthly = document.getElementById('rltMonthly');
-  const rltYearly = document.getElementById('rltYearly');
-
-  const roiText = document.getElementById('roiText');
-  const ctx = document.getElementById('earningsChart').getContext('2d');
-
-  let chart;
-
-  // Birimleri GH/s cinsine çeviren fonksiyon
-  function convertToGH(value, unit) {
-    switch(unit) {
-      case 'GH': return value;
-      case 'TH': return value * 1e3;
-      case 'PH': return value * 1e6;
-      case 'ZH': return value * 1e9;
-      default: return value;
+  function calculateEarnings() {
+    const hashrate = parseFloat(document.getElementById('hashrate').value);
+    const resultDiv = document.getElementById('result');
+    
+    if (isNaN(hashrate) || hashrate <= 0) {
+      resultDiv.style.display = 'block';
+      resultDiv.style.color = '#f44336';
+      resultDiv.textContent = 'Lütfen geçerli bir madencilik gücü girin.';
+      return;
     }
+    
+    /*
+    Basit örnek formül:
+    Günlük RollerCoin kazancı (RLT) = hashrate * 0.00012
+    (Bu formül tamamen örnek, gerçek oranlar değişebilir)
+    */
+    
+    const dailyEarnings = hashrate * 0.00012;
+    
+    resultDiv.style.display = 'block';
+    resultDiv.style.color = '#4caf50';
+    resultDiv.textContent = `Tahmini Günlük Kazanç: ${dailyEarnings.toFixed(6)} RLT`;
   }
-
-  function calculateEarnings(data) {
-    const blocksPerDay = (24 * 60) / data.blockTime;
-    const userShare = data.hashrate / data.networkHashrate;
-    const baseDailyBTC = blocksPerDay * data.blockReward * userShare;
-    const activeRatio = data.activeHours / 24;
-    const dailyBTC = baseDailyBTC * activeRatio * (1 + data.bonus / 100);
-    const dailyRLT = dailyBTC * 0.5;
-
-    return {
-      dailyBTC,
-      weeklyBTC: dailyBTC * 7,
-      monthlyBTC: dailyBTC * 30,
-      yearlyBTC: dailyBTC * 365,
-      dailyRLT,
-      weeklyRLT: dailyRLT * 7,
-      monthlyRLT: dailyRLT * 30,
-      yearlyRLT: dailyRLT * 365,
-    };
-  }
-
-  function updateUI(earnings, data) {
-    btcDaily.textContent = earnings.dailyBTC.toFixed(8) + ' BTC';
-    btcWeekly.textContent = earnings.weeklyBTC.toFixed(8) + ' BTC';
-    btcMonthly.textContent = earnings.monthlyBTC.toFixed(8) + ' BTC';
-    btcYearly.textContent = earnings.yearlyBTC.toFixed(8) + ' BTC';
-
-    rltDaily.textContent = earnings.dailyRLT.toFixed(8) + ' RLT';
-    rltWeekly.textContent = earnings.weeklyRLT.toFixed(8) + ' RLT';
-    rltMonthly.textContent = earnings.monthlyRLT.toFixed(8) + ' RLT';
-    rltYearly.textContent = earnings.yearlyRLT.toFixed(8) + ' RLT';
-
-    const investment = data.level * 100;
-    const dailyUSD = earnings.dailyBTC * data.usdPrice;
-    if (dailyUSD <= 0) {
-      roiText.textContent = 'ROI hesaplanamıyor (kazanç sıfır veya negatif).';
-    } else {
-      const daysToROI = investment / dailyUSD;
-      roiText.innerHTML = `Tahmini yatırım geri dönüş süresi: <strong>${daysToROI.toFixed(1)}</strong> gün`;
-    }
-  }
-
-  function updateChart(earnings) {
-    const labels = ['Günlük', 'Haftalık', 'Aylık', 'Yıllık'];
-    const btcData = [
-      earnings.dailyBTC,
-      earnings.weeklyBTC,
-      earnings.monthlyBTC,
-      earnings.yearlyBTC,
-    ];
-    const rltData = [
-      earnings.dailyRLT,
-      earnings.weeklyRLT,
-      earnings.monthlyRLT,
-      earnings.yearlyRLT,
-    ];
-
-    if(chart) chart.destroy();
-
-    chart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels,
-        datasets: [
-          {
-            label: 'BTC Kazancı',
-            data: btcData,
-            borderColor: '#4caf50',
-            backgroundColor: 'rgba(76,175,80,0.2)',
-            fill: true,
-            tension: 0.4,
-            pointRadius: 6,
-            pointHoverRadius: 9,
-          },
-          {
-            label: 'RLT Kazancı (Tahmini)',
-            data: rltData,
-            borderColor: '#aed581',
-            backgroundColor: 'rgba(174,213,129,0.2)',
-            fill: true,
-            tension: 0.4,
-            pointRadius: 6,
-            pointHoverRadius: 9,
-          }
-        ],
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            labels: { color: '#c8e6c9', font: {weight: '700'} }
-          },
-          tooltip: { mode: 'index', intersect: false }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: { color: '#a5d6a7', callback: v => v.toFixed(8) }
-          },
-          x: {
-            ticks: { color: '#a5d6a7' }
-          }
-        }
-      }
-    });
-  }
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const level = Number(form.level.value);
-    const hashrateRaw = Number(form.hashrate.value);
-    const hashrateUnit = form.hashrateUnit.value;
-    const networkHashrateRaw = Number(form.networkHashrate.value);
-    const networkHashrateUnit = form.networkHashrateUnit.value;
-
-    const blockReward = Number(form.blockReward.value);
-    const blockTime = Number(form.blockTime.value);
-    const activeHours = Number(form.activeHours.value);
-    const bonus = Number(form.bonus.value);
-    const usdPrice = Number(form.usdPrice.value);
-
-    const hashrate = convertToGH(hashrateRaw, hashrateUnit);
-    const networkHashrate = convertToGH(networkHashrateRaw, networkHashrateUnit);
-
-    const data = {
-      level,
-      hashrate,
-      networkHashrate,
-      blockReward,
-      blockTime,
-      activeHours,
-      bonus,
-      usdPrice,
-    };
-
-    const earnings = calculateEarnings(data);
-    updateUI(earnings, data);
-    updateChart(earnings);
-  });
-
-  window.addEventListener('load', () => {
-    form.dispatchEvent(new Event('submit'));
-  });
 </script>
 
 </body>
