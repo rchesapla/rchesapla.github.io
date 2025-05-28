@@ -1,35 +1,29 @@
 form {
-	border: 10px solid red;
+	border: 10px solid red);
 }
 
 table {
   margin: 0;
   padding: 0;
   width: 100%;
-  color: #c3b0d0 !important;
-  font-family: var(--açıklama);
 }
 
 table tr {
   background-color: #1b2130;
-  border: 1px solid #c3b0d0 !important;
+  border: 1px solid var(--rum);
   padding: 1px;
-}
-
-table th {
-  color: #ffdc00 !important;
 }
 
 table th,
 table td {
   padding: .625em;
-  font-size: 18px !important;
   text-align: center;
-  border: 1px solid #2f3045;
+  border: 1px solid var(--rum);
 }
 
 table th {
-  font-size: 18px !important;
+  font-size: .85em !important;
+  letter-spacing: .1em !important;
   text-transform: uppercase !important;
 }
 

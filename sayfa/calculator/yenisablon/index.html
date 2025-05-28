@@ -1,0 +1,341 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="miningApp">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--===============================================================================================-->
+	<title>RCHesaplaV3 • Kişisel Kazım Gücünü Hesapla!</title>
+	<link rel="shortcut icon" href="https://rchesapla.github.io/favicon.png" type="image/x-icon">
+<!--===============================================================================================-->
+	<link rel="stylesheet" href="css/rchv3.css">
+	<link rel="stylesheet" href="css/tablo.css">
+	<link rel="stylesheet" href="css/header.css">
+	<link rel="stylesheet" href="https://rchesapla.github.io/sayfa/calculator/css/fonts.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<meta name="keywords" content="rchesapla, turkcraft01, pb01adana, rollercoin, rollercoin hesapla, rollercoin calculator, rollercoin güç hesaplama, bitcoin hesapla, doge hesapla, eth hesapla, xrp hesapla">
+<!--===============================================================================================-->
+    <meta property="og:title" content="☪ RCHesapla ☪ • Kişisel Kazım Gücünü Hesapla!">
+    <meta property="og:description" content="Anlık, günlük, haftalık, aylık aynı zamanda yıllık olarak hesaplama yapabilirsin. ||Tek resmi web sitemiz budur!||">
+	<meta property="og:image" content="https://media.discordapp.net/attachments/798825351555317760/960999892480823356/standard.gif?ex=68152b64&is=6813d9e4&hm=11ffb4d2fb0ee81ecc33f90137778de5dca60398b22212b327084b832a4214cc&">
+    <meta property="og:url" content="https://rchesapla.github.io/">
+<!--===============================================================================================-->
+	<meta name="twitter:title" content="☪ RCHesapla ☪ • Kişisel Kazım Gücünü Hesapla!">
+	<meta name="twitter:description" content="Anlık, günlük, haftalık, aylık aynı zamanda yıllık olarak hesaplama yapabilirsin. ||Tek resmi web sitemiz budur!||">
+	<meta name="twitter:image" content="https://media.discordapp.net/attachments/798825351555317760/960999892480823356/standard.gif?ex=68152b64&is=6813d9e4&hm=11ffb4d2fb0ee81ecc33f90137778de5dca60398b22212b327084b832a4214cc&">
+	<meta name="twitter:card" content="summary_large_image">
+<!--===============================================================================================-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/spark-md5/3.0.0/spark-md5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+<!--===============================================================================================-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5"></script>
+<!--===============================================================================================-->
+    <script src="https://wminerrc.github.io/calculator/data/basic_miners.js"></script>
+    <script src="https://wminerrc.github.io/calculator/data/merge_miners.js"></script>
+    <script src="https://wminerrc.github.io/calculator/data/old/merge_miners.js"></script>
+    <script src="https://wminerrc.github.io/calculator/data/components.js"></script>
+<!--===============================================================================================-->
+	<script src="https://rchesapla.github.io/sayfa/calculator/js/paracekme.js"></script>
+    <script src="https://rchesapla.github.io/sayfa/calculator/js/firebase-db-service.js"></script>
+<!--===============================================================================================-->
+    <script src="https://wminerrc.github.io/calculator/services.js"></script>
+    <script src="https://wminerrc.github.io/calculator/user-miner-service.js"></script>
+    <script src="https://wminerrc.github.io/calculator/miner-service.js"></script>
+<!--===============================================================================================-->
+</head>
+<body ng-controller="MiningController">
+    <div class="loading-overlay" ng-show="isLoading">
+        <p><img src="https://rollercoin.com/static/img/wallet/rlt.svg?v=1.13" width="70" height="60"/> Yükleniyor... (Biraz zaman alabilir) <img src="https://rollercoin.com/static/img/wallet/rlt.svg?v=1.13" width="70" height="60"/></p>
+    </div>
+<!--===============================================================================================-->
+
+<!--===============================================================================================-->
+  <main id="hesapla">
+    <div class="form-ss col-md-2">
+        <div class="form-content roller-section">
+          <form action="">
+            <div class="form-group">
+                <div class="roller-input-group">
+					<select id="currency" class="roller-input-number" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()">
+						<option value="">Genel Hesaplama</option>
+					</select>
+                </div>
+            </div>
+			
+			<div class="form-group">
+                <label for="inputNetworkPower"><span class="important">Ağ Gücü</span></label>
+                <div class="roller-input-group">
+                    <input type="number" id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower" class="roller-input-number">
+                    <select class="roller-select" id="networkUnit" ng-disabled="isLoadedUser" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')">
+                        <option ng-repeat="unit in networkUnits">{{unit}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputUserPower"><span class="important">Kazım Gücü</span></label>
+                <div class="roller-input-group">
+                    <input type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power" class="roller-input-number">
+                    <select id="unit" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')" class="roller-select">
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputBlockReward"><span class="important">Blok Ödülü</span></label>
+                <div class="roller-input-group">
+                    <input type="number" id="blockSize"" ng-disabled="isLoadedUser" ng-model="formData.blockSize" class="roller-input-number">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputTimePerBlock"><span class="important">Blok Süresi</span></label>
+                <div class="roller-input-group">
+                    <input type="number" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser" class="roller-input-number">
+                    <select id="timeUnit" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')"  ng-disabled="isLoadedUser" class="roller-select">
+                        <option value="seconds">Saniye</option>
+						<option value="minutes">Dakika</option>
+                    </select>
+                </div>
+            </div>
+			
+			<div class="form-group">
+                <label for="inputTimePerBlock"><span class="important">RollerCoin ID</span></label>
+                <div class="roller-input-group">
+                    <input type="text" ng-model="userSearchText" placeholder="Örn: FthCLK" typeahead-wait-ms="300"
+                                uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
+                                typeahead-no-results="playerSearchNoResults"
+                                typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
+                                typeahead-loading="loading" class="roller-input-number">
+                </div>
+            </div>
+
+<!--===============================================================================================-->
+	<div class="input-field-container" ng-show="playerSearchNoResults" style="text-align: center">
+		<i class="fa-solid fa-ban"></i> Oyuncu bulunamadı!
+	</div>
+	<div class="input-field-container" style="text-align: center">
+		<i class="fa-solid fa-circle-info"></i> "/p/örnek" örnek yazan yere sizin kullanıcı adınızı giriniz. </br>(Not: /p/ olmadan!)
+	</div>
+	<div class="input-field-container">
+		<button class="" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-trash"></i> Beni Unut</button>
+	</div>
+	<div class="input-field-container">
+		<button class="" ng-click="resetValues()"><i class="fa-solid fa-rotate-right"></i> Verileri Yenile</button>
+	</div>
+<!--===============================================================================================-->
+          </form>
+        </div>
+    </div>
+
+    <div class="form-ss col-md-10">
+      <div class="roller-section">
+        <div class="1453">
+			<div ng-if="user_data">
+                <table class="ss">
+                    <thead>
+                        <tr class="highlight-tag">
+                            <th style="text-align: center" class="highlight-tag">
+                               KULLANICI ADI
+                            </th>
+                            <th style="text-align: center" class="highlight-tag">
+                                AVATAR
+                            </th>
+                            <th style="text-align: center" class="highlight-tag">
+                                OYUN GÜCÜ
+                            </th>
+                            <th style="text-align: center" class="highlight-tag">
+                                MINER GÜCÜ
+                            </th>
+                            <th style="text-align: center" class="highlight-tag">
+                                RAF GÜCÜ
+                            </th>
+                            <th style="text-align: center" class="highlight-tag">
+                                GEÇİCİ GÜCÜ
+                            </th>
+                            <th style="text-align: center" class="highlight-tag">
+                                TOPLAM GÜCÜ
+                            </th>
+                            <th style="text-align: center" class="highlight-tag">
+								BONUS GÜCÜ
+                            </th>
+                            <th style="text-align: center" class="highlight-tag">
+								ODA DURUMU
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td fatihcelik="Kullanıcı Adı:">
+                                {{user_data.name}}
+                            </td>
+                            <td fatihcelik="Avatar:">
+                                <img src="https://avatars.rollercoin.com/static/avatars/thumbnails/48/{{user_data.avatar_id}}.png?v=1652150400524" style="width: 20px; height: 20px; border-radius: 50%; vertical-align: middle; margin-right: 8px;">
+                            </td>
+                            <td fatihcelik="Oyun Gücü:">
+                                {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').unit}}
+                            </td>
+                            <td fatihcelik="Miner Gücü:">
+								{{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').unit}}
+                            </td>
+                            <td fatihcelik="Raf Gücü:">
+                                {{chooseBestHashRateUnit(user_data.powerData.racks, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.racks, 'GH/s').unit}}
+                            </td>
+                            <td fatihcelik="Geçici Gücü:">
+                                {{chooseBestHashRateUnit(user_data.powerData.temp, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.temp, 'GH/s').unit}}
+                            </td>
+                            <td fatihcelik="Toplam Gücü:">
+                                {{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').unit}}
+                            </td>
+                            <td ng-if="user_data.newPowerData && user_data.newPowerData.new_total > 0" style="text-align: center">
+                                <s>{{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').unit}}</s></br>
+                                {{chooseBestHashRateUnit(user_data.newPowerData.total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.total, 'GH/s').unit}}<br>
+                                <i class="fa-solid fa-arrow-up"></i> {{chooseBestHashRateUnit(user_data.newPowerData.new_total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.new_total, 'GH/s').unit}} ({{(user_data.newPowerData.new_total_percent.toFixed(2))}}%)
+                            </td>
+                            <td ng-if="user_data.newPowerData && user_data.newPowerData.new_total < 0" style="text-align: center">
+                                <s>{{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').unit}}</s></br>
+                                {{chooseBestHashRateUnit(user_data.newPowerData.total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.total, 'GH/s').unit}}<br>
+                                <i class="fa-solid fa-arrow-down"></i> {{chooseBestHashRateUnit(user_data.newPowerData.new_total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.new_total, 'GH/s').unit}} ({{(user_data.newPowerData.new_total_percent.toFixed(2))}}%)
+                            </td>
+                            <td ng-if="user_data.newPowerData && user_data.newPowerData.new_bonus_percent > 0" style="text-align: center">
+                                <s>{{(user_data.powerData.bonus_percent / 100)}}%</s></br>
+                                {{(user_data.newPowerData.bonus_percent / 100)}}%<br>
+                                <i class="fa-solid fa-arrow-up"></i> {{(user_data.newPowerData.new_bonus_percent / 100)}}%
+                            </td>
+                            <td fatihcelik="Bonus Gücü:">
+                                {{(user_data.powerData.bonus_percent / 100)}}%
+                            </td>
+                            <td ng-if="user_data.newPowerData && user_data.newPowerData.new_bonus_percent < 0" style="text-align: center">
+                                <s>{{(user_data.powerData.bonus_percent / 100)}}%</s></br>
+                                {{(user_data.newPowerData.bonus_percent / 100)}}%<br>
+                                <i class="fa-solid fa-arrow-down"></i> {{(user_data.newPowerData.new_bonus_percent / 100)}}%
+                            </td>
+                            <td fatihcelik="Oda Durumu:">
+                                Oda: {{user_data.roomData.rooms.length}}/4<br/>
+                                <span ng-class="{'wrong-value': user_data.occupied_racks_cells  > user_data.all_racks_cells}">Hücre: {{user_data.occupied_racks_cells}}</span>/{{user_data.all_racks_cells}}<br/>
+                                Raf: {{user_data.all_racks}}/{{user_data.all_racks_space}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="">
+                <table ng-if="formData.currency" class="blueTable">
+                    <thead>
+                        <tr class="highlight-tag">
+                            <th style="text-align: center" colspan="3">
+                                {{formData.currency.name}}
+                            </th>
+                        </tr>
+                        <tr ng-hide="formData.currency.in_game_only" class="highlight-tag">
+                            <th style="text-align: center" colspan="3">
+                                1 {{formData.currency.name}} = ${{exchangeRates[formData.currency.name]['usd']}}
+                            </th>
+                        </tr>
+                        <tr class="highlight-tag">
+                            <th>GÜNLER</th>
+                            <th style="text-align:center;">KAZANÇ</th>
+                            <th style="text-align:center;" ng-hide="formData.currency.in_game_only">USD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center">Blok Ödülü</td>
+                            <td fatihcelik="Miktar:">{{calculateEarnings('block', 'amount')}} {{formData.currency.name}}</td>
+                            <td fatihcelik="USD:" ng-hide="formData.currency.in_game_only">${{calculateEarnings('block', 'usd')}}</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">Günlük</td>
+                            <td fatihcelik="Miktar:">{{calculateEarnings('day', 'amount')}} {{formData.currency.name}}</td>
+                            <td fatihcelik="USD:"  ng-hide="formData.currency.in_game_only">${{calculateEarnings('day', 'usd')}}</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">Haftalık</td>
+                            <td fatihcelik="Miktar:">{{calculateEarnings('week', 'amount')}} {{formData.currency.name}}</td>
+                            <td fatihcelik="USD:"  ng-hide="formData.currency.in_game_only">${{calculateEarnings('week', 'usd')}}</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">Aylık</td>
+                            <td fatihcelik="Miktar:">{{calculateEarnings('month', 'amount')}} {{formData.currency.name}}</td>
+                            <td fatihcelik="USD:"  ng-hide="formData.currency.in_game_only">${{calculateEarnings('month', 'usd')}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <sss name="myForm">
+                <table ng-if="!formData.currency" class="blueTable" style="text-align: center">
+                    <thead>
+                        <tr class="highlight-tag">
+                            <th style="text-align: center" colspan="16">
+                                GENEL İSTATİSTİKLER
+                            </th>
+                        </tr>
+                        <tr class="highlight-tag">
+                            <th style="text-align: center" rowspan="2" colspan="2">
+                                KRİPTO
+                            </th>
+                            <th style="text-align: center" rowspan="2" colspan="2">
+                                AĞ GÜCÜ
+                            </th>
+                            <th style="text-align: center" rowspan="2" colspan="2">
+                                BLOK ÖDÜLÜ
+                            </th>
+                            <th style="text-align: center" colspan="4">
+                                BLOK BAŞINA DEĞER
+                            </th>
+                            <th style="text-align: center" colspan="6">
+                                BENİM BLOK BAŞINA DEĞER
+                            </th>
+                        </tr>
+                        <tr class="highlight-tag">
+                            <th style="text-align: center" colspan="2" class="highlight-tag">
+                                USD
+                            </th>
+                            <th style="text-align: center" colspan="2" class="highlight-tag">
+                                KRİPTO
+                            </th>
+                            <th style="text-align: center" colspan="2" class="highlight-tag">
+                                USD
+                            </th>
+                            <th style="text-align: center" colspan="2" class="highlight-tag">
+                                PARA ÇEKİMİ
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr ng-repeat="currency in currencies | orderBy:orderByField:reverseSort">
+                                <td fatihcelik="Kripto:" colspan="2">
+                                    <span ng-show="$first">
+                                        <i style="color:#b7b706" class="fa-solid fa-crown"></i>
+                                    </span>
+                                    {{currency.name}}
+                                </td>
+                                <td fatihcelik="Ağ Gücü:" colspan="2">{{chooseBestHashRateUnit(currency.networkPower, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').unit}}</td>
+                                <td fatihcelik="Blok Ödülü:" colspan="2">{{currency.blockTime}} sn {{currency.blockSize}} {{currency.name}}</td>
+                                <td fatihcelik="USD:" colspan="2">${{currency.block_value_in_usd}}</td>
+                                <td fatihcelik="Blok Miktarı:" colspan="2">{{currency.user_block_farm_token}} {{currency.name}}</td>
+                                <td fatihcelik="USD:" colspan="2">${{currency.user_block_farm_usd}}</td>
+                                <td fatihcelik="Para Çekimi:" colspan="2">{{formatDays(currency.user_days_to_widthdraw)}}</td>
+                            </tr>
+                    </tbody>
+                </table>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </main>
+<!--===============================================================================================-->
+	<script src="js/header.js"></script>
+<!--===============================================================================================-->
+</body>
+</html>
