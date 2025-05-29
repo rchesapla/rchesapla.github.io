@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="./css/tablo.css">
 	<link rel="stylesheet" href="./css/fonts.css">
 	<link rel="stylesheet" href="./css/nav.css">
+	<link rel="stylesheet" href="./css/input.css">
 <!--===============================================================================================-->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
 rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -170,7 +171,8 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="form-group row my-1">
 <label for="inputTimePerBlock"><span class="kazımgücü">Rollercoin ID:</span></label>
 <div class="col-7">
-<input ng-model="userSearchText" placeholder="Örn: FthCLK" typeahead-wait-ms="300"
+<input ng-model="userSearchText" placeholder="Örn: FthCLK"
+typeahead-wait-ms="300"
 uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
 typeahead-no-results="playerSearchNoResults"
 typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
@@ -187,12 +189,12 @@ typeahead-loading="loading" class="form-control">
 </div>
 <!--===============================================================================================-->
 <div class="btn-submit-container" style="text-align: center">
-<div class="tree-dimensional-button btn-default">
+<div class="">
 <input ng-if="isLoadedUser" ng-click="reloadWithoutUser()" type="button" class="btn-show mt-2 head siteadı2" value="Beni Unut">
 </div>
 </div>
 <div class="btn-submit-container" style="text-align: center">
-<div class="tree-dimensional-button btn-default">
+<div class="">
 <input ng-click="resetValues()" type="button" class="btn-show mt-2 head siteadı2" value="Verileri Güncelle">
 </div>
 </div>
