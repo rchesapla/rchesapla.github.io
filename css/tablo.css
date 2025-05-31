@@ -1,36 +1,32 @@
-form {
-	border: 10px solid red;
-}
-
 table {
   margin: 0;
   padding: 0;
   width: 100%;
-  color: #c3b0d0 !important;
-  font-family: var(--açıklama);
+  color: #c3b0d0 ;
+  font: 200px var(--açıklama)!important;
 }
 
 table tr {
   background-color: #1b2130;
-  border: 1px solid #c3b0d0 !important;
+  border: 1px solid #c3b0d0 ;
   padding: 1px;
 }
 
 table th {
-  color: #ffdc00 !important;
+  color: #ffdc00 ;
 }
 
 table th,
 table td {
   padding: .625em;
-  font-size: 18px !important;
+  font-size: 18px ;
   text-align: center;
   border: 1px solid #2f3045;
 }
 
 table th {
-  font-size: 18px !important;
-  text-transform: uppercase !important;
+  font-size: 18px ;
+  text-transform: uppercase ;
 }
 
 @media screen and (max-width: 1100px) {
@@ -41,8 +37,6 @@ table th {
   table thead {
     border: none;
     clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
     overflow: hidden;
     padding: 0;
     position: absolute;
@@ -51,13 +45,13 @@ table th {
   
   table tr {
     display: block;
-    margin-bottom: .625em;
+    margin-bottom: 20px;
   }
   
   table td {
-    border: 1px solid var(--rum);
+    border: 1px solid #2f3045;
     display: block;
-    text-align: right;
+    text-align: center;
   }
   
   table td::before {
@@ -66,8 +60,7 @@ table th {
     content: attr(aria-label);
     */
     content: attr(fatihcelik);
-    float: left;
-    text-transform: uppercase;
+    float: center;
   }
   
   table td:last-child {
