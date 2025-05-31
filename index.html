@@ -219,10 +219,7 @@ typeahead-loading="loading" class="form-control">
 <thead>
 <tr class="highlight-tag">
 <th style="text-align: center" class="highlight-tag">
-KULLANICI ADI
-</th>
-<th style="text-align: center" class="highlight-tag">
-AVATAR
+PROFİL
 </th>
 <th style="text-align: center" class="highlight-tag">
 OYUN GÜCÜ
@@ -248,9 +245,6 @@ BONUS GÜCÜ
 <tr>
 <td fatihcelik="Kullanıcı Adı:">
 {{user_data.name}}
-</td>
-<td fatihcelik="Avatar:">
-<img src="https://avatars.rollercoin.com/static/avatars/thumbnails/48/{{user_data.avatar_id}}.png?v=1652150400524" style="width: 20px; height: 20px; border-radius: 50%; vertical-align: middle; margin-right: 8px;">
 </td>
 <td fatihcelik="Oyun Gücü:">
 {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').unit}}
@@ -298,12 +292,14 @@ BONUS GÜCÜ
 <thead>
 <tr class="highlight-tag">
 <th style="text-align: center" colspan="3">
-{{formData.currency.name}}
+<img style="width: 30px;height: 30px;margin: 5px;" ng-if="formData.currency" ng-src="{{formData.currency.image}}" alt="{{formData.currency.name}} logo" class="currency-icon">
+{{formData.currency.name}} İçin Hesaplama Bilgileri
+<img style="width: 30px;height: 30px;margin: 5px;" ng-if="formData.currency" ng-src="{{formData.currency.image}}" alt="{{formData.currency.name}} logo" class="currency-icon">
 </th>
 </tr>
 <tr ng-hide="formData.currency.in_game_only" class="highlight-tag">
 <th style="text-align: center" colspan="3">
-1 {{formData.currency.name}} = ${{exchangeRates[formData.currency.name]['usd']}}
+1 {{formData.currency.name}} > ${{exchangeRates[formData.currency.name]['usd']}}
 </th>
 </tr>
 <tr>
