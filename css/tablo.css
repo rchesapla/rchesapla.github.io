@@ -51,7 +51,7 @@ table th {
   table td {
     border: 1px solid #2f3045;
     display: block;
-    text-align: center;
+    text-align: right;
   }
   
   table td::before {
@@ -60,7 +60,10 @@ table th {
     content: attr(aria-label);
     */
     content: attr(fatihcelik);
-    float: center;
+	color: #ffdc00;
+	border: 1px solid #2f3045;
+	padding-right: 5px;
+    float: left;
   }
   
   table td:last-child {
