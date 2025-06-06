@@ -25,7 +25,7 @@
 	font-family: var(--card-header);
 	}
 .card-header {
-	font-family: var(--card-header);
+	font-family: var(--bilgilerfont);
 	}
 .ozelfont {
 	font-size:20px var(--ozelfont);
