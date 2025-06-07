@@ -3,67 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hover Info Box</title>
+  <title>Kayan Info Box</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      padding: 60px;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
+      color: white;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .info-wrapper {
+    .info-container {
       position: relative;
       display: inline-block;
-      cursor: pointer;
     }
 
-    .info-icon {
-      font-size: 22px;
-      color: #007c91;
+    .trigger-label {
+      background-color: #1e88e5;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .trigger-label:hover {
+      background-color: #1565c0;
     }
 
     .info-box {
       position: absolute;
-      top: 30px;
-      left: 0;
-      background-color: #e0f7fa;
-      border-left: 4px solid #00acc1;
-      padding: 12px 16px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      width: 250px;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background-color: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 20px;
+      width: 300px;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-      z-index: 100;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      transition: all 0.4s ease;
+      z-index: 99;
     }
 
-    .info-wrapper:hover .info-box {
+    .info-container:hover .info-box {
       opacity: 1;
       visibility: visible;
+      transform: translateX(-50%) translateY(0);
     }
 
-    .info-title {
-      margin: 0;
-      font-size: 16px;
-      font-weight: bold;
-      color: #007c91;
+    .info-box h4 {
+      margin: 0 0 10px;
+      font-size: 17px;
+      color: #90caf9;
     }
 
-    .info-text {
-      margin-top: 4px;
+    .info-box p {
       font-size: 14px;
-      color: #004d5b;
+      color: #e0e0e0;
+      line-height: 1.4;
     }
   </style>
 </head>
 <body>
 
-  <div class="info-wrapper">
-    <span class="info-icon">ℹ️</span>
+  <div class="info-container">
+    <div class="trigger-label">Detayları Gör</div>
     <div class="info-box">
-      <h4 class="info-title">Bilgi Kutusu</h4>
-      <p class="info-text">Bu bilgi kutusu, kullanıcı imleci simgenin üzerine getirdiğinde otomatik olarak görünür.</p>
+      <h4>İleri Seviye Bilgi</h4>
+      <p>Bu kutu, kullanıcı imlecini butonun üzerine getirdiğinde kayan ve görünür hale gelen bir karttır.</p>
     </div>
   </div>
 
