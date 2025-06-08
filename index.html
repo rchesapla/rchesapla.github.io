@@ -293,13 +293,13 @@ BONUS GÜCÜ
 <tr class="highlight-tag">
 <th style="text-align: center" colspan="3">
 <img style="width: 30px;height: 30px;margin: 5px;" ng-if="formData.currency" ng-src="{{formData.currency.image}}" alt="{{formData.currency.name}} logo" class="currency-icon">
-{{formData.currency.name}}
+{{formData.currency.name}} | KAZANÇ İSTATİSTİKLERİ
 <img style="width: 30px;height: 30px;margin: 5px;" ng-if="formData.currency" ng-src="{{formData.currency.image}}" alt="{{formData.currency.name}} logo" class="currency-icon">
 </th>
 </tr>
 <tr ng-hide="formData.currency.in_game_only" class="highlight-tag">
 <th style="text-align: center" colspan="3">
-1 {{formData.currency.name}} > ${{exchangeRates[formData.currency.name]['usd']}}
+1 {{formData.currency.name}} | ${{exchangeRates[formData.currency.name]['usd']}}
 </th>
 </tr>
 </thead>
