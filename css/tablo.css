@@ -31,7 +31,7 @@ table th {
     border: 0;
   }
   
-  table thead {
+  table .deneme {
     border: none;
     clip: rect(0 0 0 0);
     overflow: hidden;
@@ -40,9 +40,15 @@ table th {
     width: 1px;
   }
   
+  table .ortala{
+	color: red;
+    text-align: center;
+  }
+  
   table tr {
     display: block;
     margin-bottom: 20px;
+	text-align: center;
   }
   
   table td {

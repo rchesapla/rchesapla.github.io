@@ -78,7 +78,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </h6>
 <!--===============================================================================================-->
 <div class="card-body"><center>
-<h1 class="rchesapla"><span>&#9770;</span> RCHesapla <span>&#9770;</span></h1>
+<h1 class="siteadı"><span>&#9770;</span> RCHesapla <span>&#9770;</span></h1>
 <p class="açıklama">Kişisel kazım gücünü hesapla!</p>
 <div id="cntdwn" class="orta"></div>
 <!--===============================================================================================-->
@@ -111,7 +111,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <h6 class="card-header">KAZIM BİLGİLERİNİZ</h6>
 <div class="card-body">
 <div class="form-group row my-1">
-<label for="inputNetworkPower"><span class="kazımgücü">Kripto Seç:</span></label>
+<label for="inputNetworkPower"><span class="labelbaşlık">Kripto Seç:</span></label>
 <div class="">
 <select id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="form-select ">
 <option value="">Genel Hesaplama</option>
@@ -119,7 +119,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </div>
 </div>
 <div class="form-group row my-1">
-<label for="inputNetworkPower"><span class="kazımgücü">Ağ Gücü:</span></label>
+<label for="inputNetworkPower"><span class="labelbaşlık">Ağ Gücü:</span></label>
 <div class="col-7">
 <input id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower" type="number" name="inputNetworkPower" class="form-control sayılar " placeholder="Ağ gücünü giriniz...">
 </div>
@@ -132,7 +132,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="form-group row my-1">
-<label for="inputUserPower"><span class="kazımgücü">Kazım Gücü:</span></label>
+<label for="inputUserPower"><span class="labelbaşlık">Kazım Gücü:</span></label>
 <div class="col-7">
 <input type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power" class="form-control sayılar" placeholder="Kazım gücünü giriniz...">
 </div>
@@ -145,7 +145,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="form-group row my-1">
-<label for="inputBlockReward"><span class="kazımgücü">Blok Ödülü:</span></label>
+<label for="inputBlockReward"><span class="labelbaşlık">Blok Ödülü:</span></label>
 <div class="col-7">
 <input type="number" id="blockSize"" ng-disabled="isLoadedUser" ng-model="formData.blockSize" class="form-control sayılar" placeholder="Blok ödülünü giriniz...">
 </div>
@@ -154,7 +154,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="form-group row my-1">
-<label for="inputTimePerBlock"><span class="kazımgücü">Blok Süresi:</span></label>
+<label for="inputTimePerBlock"><span class="labelbaşlık">Blok Süresi:</span></label>
 <div class="col-7">
 <input type="number" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser" class="form-control sayılar" placeholder="Blok süresini giriniz...">
 </div>
@@ -169,7 +169,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="form-group row my-1">
-<label for="inputTimePerBlock"><span class="kazımgücü">Rollercoin ID:</span></label>
+<label for="inputTimePerBlock"><span class="labelbaşlık">RC-ID:</span></label>
 <div class="">
 <input ng-model="userSearchText" placeholder="Örn: FthCLK"
 typeahead-wait-ms="300"
@@ -193,6 +193,13 @@ typeahead-loading="loading" class="form-control">
 <input ng-if="isLoadedUser" ng-click="reloadWithoutUser()" type="button" class="btn-show mt-2 head siteadı2" value="Beni Unut">
 </div>
 </div>
+
+<div class="btn-submit-container" style="text-align: center">
+<div class="">
+<input  ng-if="isLoadedUser" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()" type="button" class="btn-show mt-2 head siteadı2" value="En İyi Kazanç">
+</div>
+</div>
+
 <div class="btn-submit-container" style="text-align: center">
 <div class="">
 <input ng-click="resetValues()" type="button" class="btn-show mt-2 head siteadı2" value="Verileri Güncelle">
@@ -217,7 +224,7 @@ typeahead-loading="loading" class="form-control">
 <div ng-if="user_data">
 <table class="ss">
 <thead>
-<tr class="highlight-tag">
+<tr class="deneme" class="highlight-tag">
 <th style="text-align: center" class="highlight-tag">
 PROFİL
 </th>
@@ -330,11 +337,11 @@ BONUS GÜCÜ
 <table ng-if="!formData.currency" class="blueTable" style="text-align: center">
 <thead>
 <tr class="highlight-tag">
-<th style="text-align: center" colspan="14">
+<th class="ortala" style="text-align: center" colspan="14">
 GENEL İSTATİSTİKLER
 </th>
 </tr>
-<tr class="highlight-tag">
+<tr class="deneme" class="highlight-tag">
 <th style="text-align: center" rowspan="2" colspan="2">
 KRİPTO
 </th>
@@ -351,7 +358,7 @@ BLOK BAŞINA DEĞER
 BENİM BLOK BAŞINA DEĞER
 </th>
 </tr>
-<tr class="highlight-tag">
+<tr class="deneme" class="highlight-tag">
 <th style="text-align: center" colspan="2" class="highlight-tag">
 USD
 </th>
@@ -380,6 +387,122 @@ PARA ÇEKİMİ
 <td fatihcelik="Blok Miktarı:" colspan="2">{{currency.user_block_farm_token}} {{currency.name}}</td>
 <td fatihcelik="USD:" colspan="2">${{currency.user_block_farm_usd}}</td>
 <td fatihcelik="Para Çekimi:" colspan="2">{{formatDays(currency.user_days_to_widthdraw)}}</td>
+</tr>
+</tbody>
+</table>
+<!--===============================================================================================-->
+<table ng-if="!formData.currency && getCurrenciesSum('user_alocated_power')  > 0" class="blueTable">
+<thead>
+<tr>
+<th class="ortala" style="text-align: center" colspan="22">
+MADENCİ DEĞERLERİM | <span ng-class="{'wrong-value': getCurrenciesSum('user_alocated_power')  > 100}">{{getCurrenciesSum('user_alocated_power')}}</span>/100%
+</th>
+</tr>
+<tr class="deneme">
+<th style="text-align: center" rowspan="2" colspan="2">
+KRİPTO
+</th>
+<th style="text-align: center" rowspan="2" colspan="2">
+GÜÇ
+</th>
+<th style="text-align: center" colspan="4">
+GÜNLÜK
+</th>
+<th style="text-align: center" colspan="4">
+HAFTALIK
+</th>
+<th style="text-align: center" colspan="5">
+AYLIK
+</th>
+</tr>
+<tr class="deneme">
+<th style="text-align: center" colspan="2">
+<a >
+USD
+<span ng-show="orderByFarmField == 'user_alocated_power_day_profit_in_usd'">
+</span>
+</a>
+</th>
+<th style="text-align: center" colspan="2">
+<a>
+KRİPTO
+<span ng-show="orderByFarmField == 'user_alocated_power_day_profit_in_cripto'">
+</span>
+</a>
+</th>
+<th style="text-align: center" colspan="2">
+<a>
+USD
+<span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_usd'">
+</span>
+</a>
+</th>
+<th style="text-align: center" colspan="2">
+<a>
+KRİPTO
+<span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_cripto'">
+</span>
+</a>
+</th>
+<th style="text-align: center" colspan="2">
+<a>
+USD
+<span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_usd'">
+</span>
+</a>
+</th>
+<th fatihcelik2="USD:" style="text-align: center" colspan="2">
+<a>
+KRİPTO
+<span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_cripto'">
+</span>
+</a>
+</th>
+</tr>
+</thead>
+<tbody class="allocated-farm">
+<tr ng-repeat="currency in filteredCurrencies = (currencies | filter:filterFn | orderBy:orderByFarmField:reverseSort)">
+<td fatihcelik="Kripto:" colspan="2">
+<span ng-show="$first" id="bestCoinTable">
+<i style="color:#b7b706" class="fa-solid fa-crown"></i>
+</span>
+{{currency.name}}
+</td>
+<td fatihcelik="Güç:" colspan="2">{{chooseBestHashRateUnit(currency.user_alocated_power_value, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.user_alocated_power_value, 'GH/s').unit}}</td>
+<td fatihcelik="USD:" colspan="2">${{currency.user_alocated_power_day_profit_in_usd}}</td>
+<td fatihcelik="Günlük:" colspan="2">{{currency.user_alocated_power_day_profit_in_cripto}} {{currency.name}}</td>
+<td fatihcelik="USD:" colspan="2">${{currency.user_alocated_power_week_profit_in_usd}}</td>
+<td fatihcelik="Haftalık:" colspan="2">{{currency.user_alocated_power_week_profit_in_cripto}} {{currency.name}}</td>
+<td fatihcelik="USD:" colspan="2">${{currency.user_alocated_power_month_profit_in_usd}}</td>
+<td fatihcelik="Aylık:" colspan="2">{{currency.user_alocated_power_month_profit_in_cripto}} {{currency.name}}</td>
+</tr>
+</tbody>
+</table>
+<!--===============================================================================================-->
+<table class="blueTable">
+<thead>
+<tr>
+<th class="ortala" colspan="3" style="text-align: center">
+SİSTEMİ AKTİF KULLANAN LİSTESİ
+</th>
+</tr>
+<tr class="deneme">
+<th style="text-align: center">
+PROFİL
+</th>
+<th style="text-align: center">
+SAAT
+</th>
+<th style="text-align: center">
+KAÇ DEFA KULLANDI
+</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="user in recentUsers">
+<td fatihcelik="Profil:">{{user.name}}</td>
+<td fatihcelik="Saat:">{{user.timeAgo}}</td>
+<td fatihcelik="Kaç Defa Kullandı:">{{user.searchCount}}</td>
 </tr>
 </tbody>
 </table>

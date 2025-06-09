@@ -1,41 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap'); /* Saira Stencil One */
-
-@import url('https://fonts.googleapis.com/css2?family=Offside&display=swap'); /* BAŞLIKLAR */
-@import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@200..800&display=swap'); /* KAZIMGÜCÜ */
-@import url('https://fonts.googleapis.com/css2?family=Stalinist+One&display=swap'); /* BAŞLIK2 */
-@import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap'); /* BAŞLIK2 */
-@import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap'); /* AÇIKLAMA */
-@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nosifer&family=Nova+Square&display=swap'); /*BODY FONT ALANI*/
-@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&family=Rubik+Vinyl&family=VT323&display=swap'); /*BİLGİLER FONT*/
-@import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&family=Sixtyfour+Convergence&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Potta+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Russo+One&display=swap'); /* Card Başlıkları */
 
 :root {
-  --ozelfont: Offside, sans-serif;
-  --cardbaslik: Audiowide, sans-serif;
-  --siteadı: Audiowide, sans-serif;
-  --rchesapla: Audiowide, sans-serif;
-  --açıklama: Gemunu Libre, sans-serif;
-  --kazımgücü: Potta One, sans-serif;
-  --bilgilerfont: VT323, sans-serif;
-  --card-header: Potta One, sans-serif; /* Rubik Wet Paint */
+  --siteadı: Russo One, sans-serif;
+  --açıklama: Russo One, sans-serif;
+  --labelbaşlık: Russo One, sans-serif;
+  --card-header: Russo One, sans-serif;
+  --card-body: Russo One, sans-serif;
+  --tablo: Russo One, sans-serif;
 }
-.rchesapla {
-	font-family: var(--card-header);
-	}
-.card-header {
-	font-family: var(--card-header);
-	text-shadow: 3px 3px 3px rgba(255,0,0,0.7);
-	}
-.ozelfont {
-	font-size:20px var(--ozelfont);
-	}
-.cardbaslik {
-	font:15px var(--cardbaslik);
-	}
 .siteadı {
 	font-family: var(--siteadı);
 	font-size: 50px
@@ -43,22 +15,27 @@
 .açıklama {
 	font:20px var(--açıklama);
 	}
-.kazımgücü {
-	font-family: var(--kazımgücü);
+.card-header {
+	font-family: var(--card-header);
+	text-shadow: 3px 3px 3px rgba(255,0,0,0.7);
+	}
+.card-body {
+	font-family: var(--card-body);
+	text-shadow: 3px 3px 3px rgba(255,0,0,0.7);
+	}
+.labelbaşlık {
+	font-family: var(--labelbaşlık);
 	font-size: 15px !important;
 	text-shadow: 3px 3px 3px rgba(255,0,0,0.7);
 	}
 .form-select,
 .form-control {
-	font-family: var(--kazımgücü);
+	font-family: var(--tablo);
 	font-size: 15px !important;
 	text-shadow: 3px 3px 3px rgba(255,0,0,0.7);
 	}
-.bilgilerfont {
-	font:20px var(--bilgilerfont);
-	}
 table {
-	font-family: var(--kazımgücü);
+	font-family: var(--tablo);
 	font-size: 15px !important;
 	text-shadow: 3px 3px 3px rgba(255,0,0,0.7);
 }
