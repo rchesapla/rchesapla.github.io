@@ -176,7 +176,7 @@ typeahead-wait-ms="300"
 uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
 typeahead-no-results="playerSearchNoResults"
 typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
-typeahead-loading="loading" class="form-control">
+typeahead-loading="loading" class="form-control"/>
 </div>
 </div>
 </div>
@@ -194,11 +194,11 @@ typeahead-loading="loading" class="form-control">
 </div>
 
 <div class="btn-submit-container" style="text-align: center">
-<input  ng-if="isLoadedUser" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()" type="button" class="btn-show mt-2 head siteadı2" value="En İyi Kazanç">
+<input  ng-if="isLoadedUser" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()" type="button" class="btn-show mt-2 head eniyikazanç" value="En İyi Kazanç">
 </div>
 
 <div class="btn-submit-container" style="text-align: center" ng-if="hasAnyAllocatedPower()">
-<button class="btn-show mt-2" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i> En İyi Kazanç Listesini Temizle</button>
+<button class="btn-show mt-2" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i> Kazanç Temizle</button>
 </div>
 
 <div class="btn-submit-container" style="text-align: center">
