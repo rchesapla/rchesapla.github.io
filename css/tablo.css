@@ -64,7 +64,6 @@ table th {
     */
     content: attr(fatihcelik);
 	color: #ffdc00;
-	border: 1px solid #2f3045;
 	padding-right: 5px;
     float: left;
   }
