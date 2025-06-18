@@ -29,26 +29,25 @@
 }
 
 .eniyikazanç:not([disabled]) {
-    background-color: gold;
-    font-weight: bolder;
+    background-color: red;
     animation: pulse 2s infinite ease-in-out;
 }
-        .eniyikazanç[disabled] {
-            background-color: #d7d0a7;
-            font-weight: bolder;
-        }
 
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
+.eniyikazanç[disabled] {
+	background-color: red;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.1);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
 
 
 
