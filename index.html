@@ -389,16 +389,13 @@ PARA ÇEKİMİ
 <table ng-if="!formData.currency && getCurrenciesSum('user_alocated_power')  > 0" class="blueTable">
 <thead>
 <tr>
-<th class="ortala" style="text-align: center" colspan="22">
+<th class="başlık" style="text-align: center" colspan="22">
 MADENCİ DEĞERLERİM | <span ng-class="{'wrong-value': getCurrenciesSum('user_alocated_power')  > 100}">{{getCurrenciesSum('user_alocated_power')}}</span>/100%
 </th>
 </tr>
 <tr class="deneme">
 <th style="text-align: center" rowspan="2" colspan="2">
 KRİPTO
-</th>
-<th style="text-align: center" rowspan="2" colspan="2">
-GÜÇ
 </th>
 <th style="text-align: center" colspan="4">
 GÜNLÜK
@@ -463,7 +460,6 @@ KRİPTO
 </span>
 {{currency.name}}
 </td>
-<td fatihcelik="Güç:" colspan="2">{{chooseBestHashRateUnit(currency.user_alocated_power_value, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.user_alocated_power_value, 'GH/s').unit}}</td>
 <td fatihcelik="USD:" colspan="2">${{currency.user_alocated_power_day_profit_in_usd}}</td>
 <td fatihcelik="Günlük:" colspan="2">{{currency.user_alocated_power_day_profit_in_cripto}} {{currency.name}}</td>
 <td fatihcelik="USD:" colspan="2">${{currency.user_alocated_power_week_profit_in_usd}}</td>
