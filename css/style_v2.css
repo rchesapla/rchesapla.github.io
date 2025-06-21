@@ -28,6 +28,17 @@
 	font-size: 30px !important;
 }
 
+ .inner img {
+	 width: 50%;
+	 padding: 10px;
+}
+
+@media only screen and (min-width: 1px) {
+ .inner img {
+	 width: 100%;
+}
+}
+
 .eniyikazanç:not([disabled]) {
     background-color: red;
     animation: pulse 2s infinite ease-in-out;
@@ -182,5 +193,4 @@ input[type="number"]::-webkit-outer-spin-button {
 		color: white;
 		font-size: 15px;
 	}
-	
 }
