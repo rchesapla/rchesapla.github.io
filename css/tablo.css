@@ -17,7 +17,7 @@ table th {
 
 table th,
 table td {
-  padding: .625em;
+  padding: 3px;
   text-align: center;
   border: 1px solid #2f3045;
 }
@@ -38,9 +38,14 @@ table th {
     padding: 0;
     position: absolute;
     width: 1px;
+	color: red;
   }
   
   table .ortala{
+	color: red;
+    text-align: center;
+  }
+  table .test2{
 	color: red;
     text-align: center;
   }
@@ -54,7 +59,7 @@ table th {
   table td {
     border: 1px solid #2f3045;
     display: block;
-    text-align: right;
+    text-align: center;
   }
   
   table td::before {
@@ -65,7 +70,7 @@ table th {
     content: attr(fatihcelik);
 	color: #ffdc00;
 	padding-right: 5px;
-    float: left;
+    float: center;
   }
   
   table td:last-child {

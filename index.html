@@ -115,7 +115,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </div>
 </div>
 <div class="form-group row my-1">
-<label for="inputNetworkPower"><span class="labelbaşlık">Ağ Gücü:</span></label>
+<label for="inputNetworkPower"><span class="labelbaşlık">Ağ Gücü</span></label>
 <div class="col-7">
 <input id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower" type="number" name="inputNetworkPower" class="form-control sayılar " placeholder="Ağ gücünü giriniz...">
 </div>
@@ -128,7 +128,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="form-group row my-1">
-<label for="inputUserPower"><span class="labelbaşlık">Kazım Gücü:</span></label>
+<label for="inputUserPower"><span class="labelbaşlık">Kazım Gücü</span></label>
 <div class="col-7">
 <input type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power" class="form-control sayılar" placeholder="Kazım gücünü giriniz...">
 </div>
@@ -248,22 +248,22 @@ BONUS GÜCÜ
 </thead>
 <tbody>
 <tr>
-<td fatihcelik="Profil:">
+<td fatihcelik="Profil">
 {{user_data.name}}
 </td>
-<td fatihcelik="Oyun Gücü:">
+<td fatihcelik="Oyun Gücü">
 {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').unit}}
 </td>
-<td fatihcelik="Miner Gücü:">
+<td fatihcelik="Miner Gücü">
 {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').unit}}
 </td>
-<td fatihcelik="Raf Gücü:">
+<td fatihcelik="Raf Gücü">
 {{chooseBestHashRateUnit(user_data.powerData.racks, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.racks, 'GH/s').unit}}
 </td>
-<td fatihcelik="Geçici Gücü:">
+<td fatihcelik="Geçici Gücü">
 {{chooseBestHashRateUnit(user_data.powerData.temp, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.temp, 'GH/s').unit}}
 </td>
-<td fatihcelik="Toplam Gücü:">
+<td fatihcelik="Toplam Gücü">
 {{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').unit}}
 </td>
 <td ng-if="user_data.newPowerData && user_data.newPowerData.new_total > 0" style="text-align: center">
@@ -281,7 +281,7 @@ BONUS GÜCÜ
 {{(user_data.newPowerData.bonus_percent / 100)}}%<br>
 <i class="fa-solid fa-arrow-up"></i> {{(user_data.newPowerData.new_bonus_percent / 100)}}%
 </td>
-<td fatihcelik="Bonus Gücü:">
+<td fatihcelik="Bonus Gücü">
 {{(user_data.powerData.bonus_percent / 100)}}%
 </td>
 <td ng-if="user_data.newPowerData && user_data.newPowerData.new_bonus_percent < 0" style="text-align: center">
@@ -316,23 +316,23 @@ BONUS GÜCÜ
 <tbody>
 <tr>
 <td style="text-align: center">Blok Ödülü</td>
-<td fatihcelik="Miktar:">{{calculateEarnings('block', 'amount')}} {{formData.currency.name}}</td>
-<td fatihcelik="USD:" ng-hide="formData.currency.in_game_only">${{calculateEarnings('block', 'usd')}}</td>
+<td fatihcelik="Miktar">{{calculateEarnings('block', 'amount')}} {{formData.currency.name}}</td>
+<td fatihcelik="USD" ng-hide="formData.currency.in_game_only">${{calculateEarnings('block', 'usd')}}</td>
 </tr>
 <tr>
 <td style="text-align: center">Günlük</td>
-<td fatihcelik="Miktar:">{{calculateEarnings('day', 'amount')}} {{formData.currency.name}}</td>
-<td fatihcelik="USD:"  ng-hide="formData.currency.in_game_only">${{calculateEarnings('day', 'usd')}}</td>
+<td fatihcelik="Miktar">{{calculateEarnings('day', 'amount')}} {{formData.currency.name}}</td>
+<td fatihcelik="USD"  ng-hide="formData.currency.in_game_only">${{calculateEarnings('day', 'usd')}}</td>
 </tr>
 <tr>
 <td style="text-align: center">Haftalık</td>
-<td fatihcelik="Miktar:">{{calculateEarnings('week', 'amount')}} {{formData.currency.name}}</td>
-<td fatihcelik="USD:"  ng-hide="formData.currency.in_game_only">${{calculateEarnings('week', 'usd')}}</td>
+<td fatihcelik="Miktar">{{calculateEarnings('week', 'amount')}} {{formData.currency.name}}</td>
+<td fatihcelik="USD"  ng-hide="formData.currency.in_game_only">${{calculateEarnings('week', 'usd')}}</td>
 </tr>
 <tr>
 <td style="text-align: center">Aylık</td>
-<td fatihcelik="Miktar:">{{calculateEarnings('month', 'amount')}} {{formData.currency.name}}</td>
-<td fatihcelik="USD:"  ng-hide="formData.currency.in_game_only">${{calculateEarnings('month', 'usd')}}</td>
+<td fatihcelik="Miktar">{{calculateEarnings('month', 'amount')}} {{formData.currency.name}}</td>
+<td fatihcelik="USD"  ng-hide="formData.currency.in_game_only">${{calculateEarnings('month', 'usd')}}</td>
 </tr>
 </tbody>
 </table>
@@ -378,18 +378,18 @@ PARA ÇEKİMİ
 </thead>
 <tbody>
 <tr ng-repeat="currency in currencies | orderBy:orderByField:reverseSort">
-<td fatihcelik="Kripto:" colspan="2">
+<td fatihcelik="Kripto" colspan="2">
 <span ng-show="$first">
 <i style="color:#b7b706" class="fa-solid fa-crown"></i>
 </span>
 {{currency.name}}
 </td>
-<td fatihcelik="Ağ Gücü:" colspan="2">{{chooseBestHashRateUnit(currency.networkPower, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').unit}}</td>
-<td fatihcelik="Blok Ödülü:" colspan="2">{{currency.blockTime}} sn {{currency.blockSize}} {{currency.name}}</td>
-<td fatihcelik="USD:" colspan="2">${{currency.block_value_in_usd}}</td>
-<td fatihcelik="Blok Miktarı:" colspan="2">{{currency.user_block_farm_token}} {{currency.name}}</td>
-<td fatihcelik="USD:" colspan="2">${{currency.user_block_farm_usd}}</td>
-<td fatihcelik="Para Çekimi:" colspan="2">{{formatDays(currency.user_days_to_widthdraw)}}</td>
+<td fatihcelik="Ağ Gücü" colspan="2">{{chooseBestHashRateUnit(currency.networkPower, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').unit}}</td>
+<td fatihcelik="Blok Ödülü" colspan="2">{{currency.blockTime}} sn {{currency.blockSize}} {{currency.name}}</td>
+<td fatihcelik="USD" colspan="2">${{currency.block_value_in_usd}}</td>
+<td fatihcelik="Blok Miktarı" colspan="2">{{currency.user_block_farm_token}} {{currency.name}}</td>
+<td fatihcelik="USD" colspan="2">${{currency.user_block_farm_usd}}</td>
+<td fatihcelik="Para Çekimi" colspan="2">{{formatDays(currency.user_days_to_widthdraw)}}</td>
 </tr>
 </tbody>
 </table>
@@ -468,12 +468,12 @@ KRİPTO
 </span>
 {{currency.name}}
 </td>
-<td fatihcelik="USD:" colspan="2">${{currency.user_alocated_power_day_profit_in_usd}}</td>
-<td fatihcelik="Günlük:" colspan="2">{{currency.user_alocated_power_day_profit_in_cripto}} {{currency.name}}</td>
-<td fatihcelik="USD:" colspan="2">${{currency.user_alocated_power_week_profit_in_usd}}</td>
-<td fatihcelik="Haftalık:" colspan="2">{{currency.user_alocated_power_week_profit_in_cripto}} {{currency.name}}</td>
-<td fatihcelik="USD:" colspan="2">${{currency.user_alocated_power_month_profit_in_usd}}</td>
-<td fatihcelik="Aylık:" colspan="2">{{currency.user_alocated_power_month_profit_in_cripto}} {{currency.name}}</td>
+<td fatihcelik="USD" colspan="2">${{currency.user_alocated_power_day_profit_in_usd}}</td>
+<td fatihcelik="Günlük" colspan="2">{{currency.user_alocated_power_day_profit_in_cripto}} {{currency.name}}</td>
+<td fatihcelik="USD" colspan="2">${{currency.user_alocated_power_week_profit_in_usd}}</td>
+<td fatihcelik="Haftalık" colspan="2">{{currency.user_alocated_power_week_profit_in_cripto}} {{currency.name}}</td>
+<td fatihcelik="USD" colspan="2">${{currency.user_alocated_power_month_profit_in_usd}}</td>
+<td fatihcelik="Aylık" colspan="2">{{currency.user_alocated_power_month_profit_in_cripto}} {{currency.name}}</td>
 </tr>
 </tbody>
 </table>
