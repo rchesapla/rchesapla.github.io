@@ -188,9 +188,9 @@ typeahead-loading="loading" class="form-control"/>
 <p>En iyi kazanç hesaplama yapabilmeniz için lütfen kripto seç bölümünü genel hesaplama yapınız.</p>
 </div>
 <!--===============================================================================================-->
-<div class="btn-submit-container" style="text-align: center" ng-if="isLoadedUser">
-<input type="checkbox" ng-model="formData.showMiners" name="show_miners"/>
-<label for="scales">Madencilerim</label>
+<div ng-if="isLoadedUser">
+<label class="cyberpunk-checkbox-label">
+<input type="checkbox" class="cyberpunk-checkbox"  ng-model="formData.showMiners" name="show_miners"> Madencilerim</label>
 </div>
 
 <div class="btn-submit-container" style="text-align: center">
