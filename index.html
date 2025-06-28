@@ -545,15 +545,15 @@ DOLAR
 </article>
                
                 <div ng-if="formData.showMiners">
-                    <table class="blueTable">
-                        <thead>
+                    <table class="">
+                        <thead class="madencilerim">
                             <tr>
                                 <th colspan="6" style="text-align: center">
                                     MADENCİ SAYISI: {{visible_user_miners.length}}
                                 </th>
                             </tr>
                             <tr>
-                                <th style="text-align: center">
+                                <th fatihcelik="PROFİL" style="text-align: center">
                                     <a href="#" ng-click="orderByuserMinersField='filename'; reverseuserMinersSort = !reverseuserMinersSort ; $event.preventDefault();">
                                         ADI
                                         <span ng-show="orderByuserMinersField == 'filename'">
@@ -613,33 +613,30 @@ DOLAR
                         <tbody>
                             <tr ng-repeat="miner in visible_user_miners | orderBy:orderByuserMinersField:reverseuserMinersSort | limitTo:  userMinersItemsPerPage : (userMinersCurrentPage - 1) * userMinersItemsPerPage"
                                 ng-class="{ 'removed-have-miner': miner.removed }">
-                                <td style="text-align: center; position: relative;">
+                                <td fatihcelik="MADENCİ" style="text-align: center; position: relative;">
                                     {{miner.name.en}}<br/>
                                     <img ng-if="miner.level == 0" src='https://rollercoin.com/static/img/storage/rarity_icons/level_1.png?v=1.0.0' />
                                     <img ng-if="miner.type === 'old_merge'" src='https://rollercoin.com/static/images/level_star.4ff18517e5e8eed42060..png'/>
-                                    <img ng-if="miner.level > 0 && miner.type !== 'old_merge'" src='https://rollercoin.com/static/img/storage/rarity_icons/level_{{miner.level+1}}.png?v=1.0.0' style='left: 40px;position: absolute;top: 40px;'/>
+                                    <img ng-if="miner.level > 0 && miner.type !== 'old_merge'" src='https://rollercoin.com/static/img/storage/rarity_icons/level_{{miner.level+1}}.png?v=1.0.0'/>
                                     <img src='https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608' width="80px" height="auto"/>
                                     <div ng-if="!miner.is_can_be_sold_on_mp"
                                         style="
-                                        height: 10px;
-                                        width: 100px;
                                         background-color: red;
-                                        font-size: 8px;
-                                        margin-left: 30%;
+                                        font-size: 13px;
                                         color: white;
                                     ">SATILAMAZ</div>
                                 </td>
-                                <td style="text-align: center">
+                                <td fatihcelik="GÜÇ" style="text-align: center">
                                     {{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
                                 </td>
-                                <td style="text-align: center">
+                                <td fatihcelik="BONUS" style="text-align: center">
                                     {{(miner.bonus_power / 100)}}%
                                 </td>
-                                <td>
+                                <td fatihcelik="ETKİ GÜCÜ">
                                     {{miner.removeImpactLegend.value.toFixed(2)}} {{miner.removeImpactLegend.unit}}
                                 </td>
-                                <td style="text-align: center">
-                                    <button class="btn-show mt-2" style="min-width: 80px;margin: 4px;" ng-click="openBuyLink(miner)">Mağazaya Git!</button>
+                                <td fatihcelik="ETKİLEŞİM" style="text-align: center">
+                                    <button class="btn-show" ng-click="openBuyLink(miner)">Mağazaya Git!</button>
                                 </td>
                             </tr>
                         </tbody>
