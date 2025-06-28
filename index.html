@@ -107,7 +107,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <h6 class="card-header">KAZIM BİLGİLERİNİZ</h6>
 <div class="card-body">
 <div class="form-group row my-1">
-<label for="inputNetworkPower"><span class="labelbaşlık">Kripto Seç:</span></label>
+<label for="currency"><span class="labelbaşlık">Kripto Seç:</span></label>
 <div class="">
 <select id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="form-select ">
 <option value="">Genel Hesaplama</option>
@@ -115,7 +115,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </div>
 </div>
 <div class="form-group row my-1">
-<label for="inputNetworkPower"><span class="labelbaşlık">Ağ Gücü</span></label>
+<label for="inputNetworkPower"><span class="labelbaşlık">Ağ Gücü:</span></label>
 <div class="col-7">
 <input id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower" type="number" name="inputNetworkPower" class="form-control sayılar " placeholder="Ağ gücünü giriniz...">
 </div>
@@ -128,7 +128,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="form-group row my-1">
-<label for="inputUserPower"><span class="labelbaşlık">Kazım Gücü</span></label>
+<label for="inputUserPower"><span class="labelbaşlık">Kazım Gücü:</span></label>
 <div class="col-7">
 <input type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power" class="form-control sayılar" placeholder="Kazım gücünü giriniz...">
 </div>
@@ -207,16 +207,15 @@ typeahead-loading="loading" class="form-control"/>
 </label>
 </div>
 
-<div class="btn-submit-container" style="text-align: center">
-<input ng-if="isLoadedUser" ng-click="reloadWithoutUser()" type="button" class="btn-show mt-2 head siteadı2" value="Beni Unut">
-</div>
-
-<div class="btn-submit-container" style="text-align: center">
-<input  ng-if="isLoadedUser" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()" type="button" class="btn-show mt-2 head eniyikazanç" value="En İyi Kazanç">
-</div>
+                    <div class="form-group">
+                        <div class="form-inline">
+                            <button class="btn-show eniyikazanç" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-user-xmark"></i> Beni Unut</button>
+							<button class="btn-show eniyikazanç" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"><i class="fa-solid fa-coins"></i> En İyi Kazanç</button>
+                        </div>
+                    </div>
 
 <div class="btn-submit-container" style="text-align: center" ng-if="hasAnyAllocatedPower()">
-<button class="btn-show mt-2" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i> Kazanç Temizle</button>
+<button class="btn-show" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i> Kazanç Temizle</button>
 </div>
 
 <div class="btn-submit-container" style="text-align: center">
@@ -418,6 +417,7 @@ PARA ÇEKİMİ
 <tr>
 <th class="başlık" style="text-align: center" colspan="22">
 MADENCİ DEĞERLERİM | <span ng-class="{'wrong-value': getCurrenciesSum('user_alocated_power')  > 100}">{{getCurrenciesSum('user_alocated_power')}}</span>/100%
+<button class="btn-show" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i></button>
 </th>
 </tr>
 <tr class="deneme">
