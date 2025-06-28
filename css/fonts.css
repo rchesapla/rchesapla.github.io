@@ -1,12 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Russo+One&display=swap'); /* Card Başlıkları */
+@import url('https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@100..900&family=Cutive+Mono&family=Russo+One&family=Tektur:wght@400..900&family=WDXL+Lubrifont+TC&display=swap');
+/*
+Bitcount Grid Double
+Cutive Mono
+Russo One
+WDXL Lubrifont TC
+Tektur
+*/
 
 :root {
-  --siteadı: Russo One, sans-serif;
-  --açıklama: Russo One, sans-serif;
-  --labelbaşlık: Russo One, sans-serif;
-  --card-header: Russo One, sans-serif;
-  --card-body: Russo One, sans-serif;
-  --tablo: Russo One, sans-serif;
+  --siteadı: Bitcount Grid Double, sans-serif;
+  --açıklama: Tektur, sans-serif;
+  --labelbaşlık: Tektur, sans-serif;
+  --card-header: Tektur, sans-serif;
+  --card-body: Tektur, sans-serif;
+  --tablo: Tektur, sans-serif;
 }
 .siteadı {
 	font-family: var(--siteadı);

@@ -189,8 +189,22 @@ typeahead-loading="loading" class="form-control"/>
 </div>
 <!--===============================================================================================-->
 <div ng-if="isLoadedUser">
-<label class="cyberpunk-checkbox-label">
-<input type="checkbox" class="cyberpunk-checkbox"  ng-model="formData.showMiners" name="show_miners"> Madencilerim</label>
+
+
+<label class="checkbox-wrapper">
+  <input type="checkbox" ng-model="formData.showMiners" name="show_miners"/>
+  <div class="checkmark">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path
+        d="M20 6L9 17L4 12"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+  </div>
+  <span class="label">Madencilerim</span>
+</label>
 </div>
 
 <div class="btn-submit-container" style="text-align: center">
@@ -519,7 +533,7 @@ DOLAR
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="form-group row my-1">
-<label for="currency"><span class="labelbaşlık">Maksimum Güç: (GH/s))</span></label>
+<label for="currency"><span class="labelbaşlık">Maksimum Güç: (GH/s)</span></label>
 <div class="col-7">
 <input placeholder="999999999999" class="form-control" ng-model="userMinerMaxPowerSearch" type="text" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
 </div>
@@ -601,8 +615,8 @@ DOLAR
                                 ng-class="{ 'removed-have-miner': miner.removed }">
                                 <td style="text-align: center; position: relative;">
                                     {{miner.name.en}}<br/>
-                                    <img ng-if="miner.level == 0" src='https://rollercoin.com/static/img/storage/rarity_icons/level_1.png?v=1.0.0' style='left: 40px;position: absolute;top: 40px;'/>
-                                    <img ng-if="miner.type === 'old_merge'" src='https://rollercoin.com/static/images/level_star.4ff18517e5e8eed42060..png' style='left: 40px;position: absolute;top: 40px;'/>
+                                    <img ng-if="miner.level == 0" src='https://rollercoin.com/static/img/storage/rarity_icons/level_1.png?v=1.0.0' />
+                                    <img ng-if="miner.type === 'old_merge'" src='https://rollercoin.com/static/images/level_star.4ff18517e5e8eed42060..png'/>
                                     <img ng-if="miner.level > 0 && miner.type !== 'old_merge'" src='https://rollercoin.com/static/img/storage/rarity_icons/level_{{miner.level+1}}.png?v=1.0.0' style='left: 40px;position: absolute;top: 40px;'/>
                                     <img src='https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608' width="80px" height="auto"/>
                                     <div ng-if="!miner.is_can_be_sold_on_mp"
