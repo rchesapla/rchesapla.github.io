@@ -94,14 +94,12 @@
             padding: 20px;
         }
         body {
-            --font-family-sans-serif: pixelSC,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
             background: linear-gradient(90deg, rgba(255,25,147,0.55) 0%, rgba(2,199,251,0.73) 100%);
             color: #333;
             display: flex;
             flex-direction: column;
             font-size:1.5em;
             min-height: 100vh;
-            font-family: var(--font-family-sans-serif);
         }
         @font-face {
             font-family: pixelSC;
@@ -328,7 +326,6 @@
                         <label for="blockSize">Tamanho do Bloco</label>
                         <div class="form-inline">
                             <input type="text" id="blockSize" class="form-control" ng-model="formData.blockSize" disabled>
-                            <input type="text" id="blockSizeCurrency" class="form-control" value="{{formData.currency.name}} por bloco" disabled>
                         </div>
                     </div>
                     <div class="form-group">
@@ -352,12 +349,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="blockTime">Carregar jogador</label>
+                        <label for="blockTime">RollerCoin ID</label>
                         <div class="form-inline">
                             <input type="text" 
                                 class="form-control" 
                                 ng-model="userSearchText" 
-                                placeholder="Procurar por código..." 
+                                placeholder="Örn: FthCLK" 
                                 typeahead-wait-ms="1500"
                                 uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
                                 typeahead-no-results="playerSearchNoResults"
@@ -371,56 +368,35 @@
                     </div>
                     <div ng-if="isLoadedUser" class="form-group">
                         <input type="checkbox" ng-model="keepUser" ng-change="updateKeepUser(keepUser)" name="keep_user"/>
-                        <label for="keep_user">Manter carregado</label>
+                        <label for="keep_user">Beni hatırla</label>
                     </div>
                 </form>
             </div>
             
             <div ng-if="user_data" class="col-md-8 table-container">
-                <h3>Calculando ganhos para {{user_data.name}}</h3>
-                <fieldset>
-                    <div>
-                        <input type="checkbox" ng-model="formData.showMiners" name="show_miners"/>
-                        <label for="scales">Exibir miners</label>
-                        <input type="checkbox" ng-model="formData.showRacks" name="show_miners" />
-                        <label for="scales">Exibir racks</label>
-                        <input type="checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners" />
-                        <label for="scales">Simular aquisições</label>
-                        <input type="checkbox" ng-model="formData.showUserStatistics" ng-change="showStatistics()" name="show_statistics" />
-                        <label for="scales">Mostrar estatísticas</label>
-                        <input type="checkbox" ng-model="formData.showInventory" name="show_inventory" />
-                        <label for="show_inventory">Carregar inventário</label>
-                    </div>
-                </fieldset>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th style="text-align: center">
-                                Usuário
+                                PROFİL
                             </th>
                             <th style="text-align: center">
-                                Avatar
+                                OYUN GÜCÜ
                             </th>
                             <th style="text-align: center">
-                                Poder de jogos
+                                MINER GÜCÜ
                             </th>
                             <th style="text-align: center">
-                                Poder de miners
+                                RAF GÜCÜ
                             </th>
                             <th style="text-align: center">
-                                Poder de racks
+                                GEÇİCİ GÜCÜ
                             </th>
                             <th style="text-align: center">
-                                Poder temporário
+                                TOPLAM GÜCÜ
                             </th>
                             <th style="text-align: center">
-                                Total de poder de mineração
-                            </th>
-                            <th style="text-align: center">
-                                Bônus de coleção
-                            </th>
-                            <th style="text-align: center">
-                                Salas liberadas
+                                BONUS ORANI
                             </th>
                         </tr>
                     </thead>
@@ -428,9 +404,6 @@
                         <tr>
                             <td style="text-align: center">
                                 {{user_data.name}}
-                            </td>
-                            <td style="text-align: center">
-                                <img src="https://avatars.rollercoin.com/static/avatars/thumbnails/48/{{user_data.avatar_id}}.png?v=1652150400524" style="width: 30px; height: 30px; border-radius: 50%; vertical-align: middle; margin-right: 8px;">
                             </td>
                             <td style="text-align: center">
                                 {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').unit}}
@@ -479,11 +452,6 @@
                                 <s>{{(user_data.powerData.bonus_percent / 100)}}%</s></br>
                                 {{(user_data.newPowerData.bonus_percent / 100)}}%<br>
                                 <i class="fa-solid fa-arrow-down"></i> {{(user_data.newPowerData.new_bonus_percent / 100)}}%
-                            </td>
-                            <td style="text-align: center">
-                                {{user_data.roomData.rooms.length}}/4 salas<br/>
-                                <span ng-class="{'wrong-value': user_data.occupied_racks_cells  > user_data.all_racks_cells}">{{user_data.occupied_racks_cells}}</span>/{{user_data.all_racks_cells}} células ocupadas<br/>
-                                {{user_data.all_racks}}/{{user_data.all_racks_space}} racks alocados
                             </td>
                         </tr>
                     </tbody>
@@ -1299,12 +1267,12 @@
             </div>
 
             <div class="col-md-8 table-container">
-                <h3>Resultados</h3>
+                <h3>SONUÇLAR</h3>
                 <table ng-if="formData.currency" class="table table-bordered">
                     <thead>
                         <tr>
                             <th style="text-align: center" colspan="4">
-                                Cálculo de mineração em {{formData.currency.name}}
+                                {{formData.currency.name}}
                                 <img style="width: 30px;height: 30px;margin: 5px;" ng-if="formData.currency" ng-src="{{formData.currency.image}}" alt="{{formData.currency.name}} logo" class="currency-icon">
                             </th>
                         </tr>
@@ -1312,15 +1280,15 @@
                             <th style="text-align: center" colspan="2">
                                 1 {{formData.currency.name}} = ${{exchangeRates[formData.currency.name]['usd']}}
                             </th>
-                            <th style="text-align: center" colspan="2">
-                                1 {{formData.currency.name}} = R${{exchangeRates[formData.currency.name]['brl']}}
+							<th style="text-align: center" colspan="2">
+                                1 {{formData.currency.name}} = ₺{{exchangeRates[formData.currency.name]['try']}}
                             </th>
                         </tr>
                         <tr>
                             <th style="text-align:center;">Tempo</th>
                             <th style="text-align:center;">Moeda</th>
                             <th style="text-align:center;" ng-hide="formData.currency.in_game_only">Dólar</th>
-                            <th style="text-align:center;" ng-hide="formData.currency.in_game_only">Real</th>
+                            <th style="text-align:center;" ng-hide="formData.currency.in_game_only">TRY (₺)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -1328,25 +1296,25 @@
                             <td>Ganho por Bloco</td>
                             <td>{{calculateEarnings('block', 'amount')}} {{formData.currency.name}}</td>
                             <td ng-hide="formData.currency.in_game_only">${{calculateEarnings('block', 'usd')}}</td>
-                            <td ng-hide="formData.currency.in_game_only">R${{calculateEarnings('block', 'brl')}}</td>
+                            <td ng-hide="formData.currency.in_game_only">R${{calculateEarnings('block', 'try')}}</td>
                         </tr>
                         <tr>
                             <td>Ganho Diário</td>
                             <td>{{calculateEarnings('day', 'amount')}} {{formData.currency.name}}</td>
                             <td ng-hide="formData.currency.in_game_only">${{calculateEarnings('day', 'usd')}}</td>
-                            <td ng-hide="formData.currency.in_game_only">R${{calculateEarnings('day', 'brl')}}</td>
+                            <td ng-hide="formData.currency.in_game_only">R${{calculateEarnings('day', 'try')}}</td>
                         </tr>
                         <tr>
                             <td>Ganho Semanal</td>
                             <td>{{calculateEarnings('week', 'amount')}} {{formData.currency.name}}</td>
                             <td ng-hide="formData.currency.in_game_only">${{calculateEarnings('week', 'usd')}}</td>
-                            <td ng-hide="formData.currency.in_game_only">R${{calculateEarnings('week', 'brl')}}</td>
+                            <td ng-hide="formData.currency.in_game_only">R${{calculateEarnings('week', 'try')}}</td>
                         </tr>
                         <tr>
                             <td>Ganho Mensal</td>
                             <td>{{calculateEarnings('month', 'amount')}} {{formData.currency.name}}</td>
                             <td ng-hide="formData.currency.in_game_only">${{calculateEarnings('month', 'usd')}}</td>
-                            <td ng-hide="formData.currency.in_game_only">R${{calculateEarnings('month', 'brl')}}</td>
+                            <td ng-hide="formData.currency.in_game_only">R${{calculateEarnings('month', 'try')}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1355,16 +1323,16 @@
                     <thead>
                         <tr>
                             <th style="text-align: center" colspan="19">
-                                Informações gerais
+                                GENEL BİLGİLER
                             </th>
                         </tr>
                         <tr>
                             <th style="text-align: center" rowspan="2" colspan="2">
-                                Moeda
+                                KRİPTO
                             </th>
                             <th style="text-align: center" rowspan="2" colspan="2">
                                 <a href="#" ng-click="orderByField='networkPower'; reverseSort = !reverseSort">
-                                    Poder da rede 
+                                    AĞ GÜCÜ
                                     <span ng-show="orderByField == 'networkPower'">
                                         <span ng-show="!reverseSort">
                                             <i class="fa fa-fw fa-sort-asc"></i>
@@ -1376,13 +1344,13 @@
                                 </a>
                             </th>
                             <th style="text-align: center" rowspan="2" colspan="2">
-                                Tamanho do bloco
+                                BLOK ÖDÜLÜ
                             </th>
                             <th style="text-align: center" colspan="4">
-                                Valor por bloco
+                                BLOK BAŞINA DEĞER
                             </th>
                             <th style="text-align: center" colspan="9">
-                                Meu Farm por bloco 
+                                BENİM BLOK BAŞINA DEĞER 
                                 <span title="Preencha seu poder para calcular o Farm">
                                     <i style="color:rgb(83, 83, 243)" class="fa fa-info-circle"></i>
                                 </span>
@@ -1403,9 +1371,9 @@
                                 </a>
                             </th>
                             <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByField='block_value_in_brl'; reverseSort = !reverseSort">
-                                    BRL 
-                                    <span ng-show="orderByField == 'block_value_in_brl'">
+                                <a href="#" ng-click="orderByField='block_value_in_try'; reverseSort = !reverseSort">
+                                    TRY 
+                                    <span ng-show="orderByField == 'block_value_in_try'">
                                         <span ng-show="!reverseSort">
                                             <i class="fa fa-fw fa-sort-asc"></i>
                                         </span>
@@ -1429,9 +1397,9 @@
                                 </a>
                             </th>
                             <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByField='user_block_farm_brl'; reverseSort = !reverseSort">
-                                    BRL 
-                                    <span ng-show="orderByField == 'user_block_farm_brl'">
+                                <a href="#" ng-click="orderByField='user_block_farm_try'; reverseSort = !reverseSort">
+                                    TRY 
+                                    <span ng-show="orderByField == 'user_block_farm_try'">
                                         <span ng-show="!reverseSort">
                                             <i class="fa fa-fw fa-sort-asc"></i>
                                         </span>
@@ -1486,9 +1454,9 @@
                                 <td colspan="2">{{chooseBestHashRateUnit(currency.networkPower, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').unit}}</td>
                                 <td colspan="2">{{currency.blockSize}} {{currency.name}} a cada {{currency.blockTime}} segundos</td>
                                 <td colspan="2">${{currency.block_value_in_usd}}</td>
-                                <td colspan="2">R${{currency.block_value_in_brl}}</td>
+                                <td colspan="2">{{currency.block_value_in_try}} ₺</td>
                                 <td colspan="2">{{currency.user_block_farm_token}} {{currency.name}}</td>
-                                <td colspan="2">R${{currency.user_block_farm_brl}}</td>
+                                <td colspan="2">{{currency.user_block_farm_try}} ₺</td>
                                 <td colspan="2">${{currency.user_block_farm_usd}}</td>
                                 <td colspan="2">{{formatDays(currency.user_days_to_widthdraw)}}</td>
                                 <td colspan="2"><input type="text" ng-disabled="!formData.power" name="input{{$index}}" id="power" class="form-control" ng-model="currency.user_alocated_power" ng-change="updateAllocatedPower(currency)" style="width:45px"></td>
@@ -1682,102 +1650,13 @@
         </div>
     </div>
     <div style="text-align: center;">
-        <button ng-click="resetValues()">↻ Resetar valores</button>
+        <button ng-click="resetValues()">↻ Verileri güncelle</button>
     </div>
     <br/>
     <br/>
     <br/>
 
-    <div class="col-md-8 col-xs-offset-2 table-container">
 
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th colspan="3" style="text-align: center">
-                        Usuários consultados recentemente
-                    </th>
-                </tr>
-                <tr>
-                    <th style="text-align: center">
-                        Usuário
-                    </th>
-                    <th style="text-align: center">
-                        Consultado em
-                    </th>
-                    <th style="text-align: center">
-                        Total de consultas
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                    <tr ng-repeat="user in recentUsers">
-                        <td>{{user.name}}</td>
-                        <td>{{user.timeAgo}}</td>
-                        <td>{{user.searchCount}}</td>
-                    </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3">Ferramenta da comunidade para a comunidade ❤️</td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-
-
-    <div style="
-    background-color: white;
-    width: 40%;
-    min-width:800px;
-    margin-left: 30%;
-    height: 100px;
-    display: flex;
-">
-        <img style="width: 14%;" src="images/dev-working.gif">
-<div style="
-    margin-top: 15px;
-    width: 130px;
-">Quer pagar um café para o desenvolvedor dessa calculadora?
-</div><div style="
-    margin-top: 35px;
-    margin-left: 40px;
-">
-<label>Valor</label>
-    <input type="text" ng-model="donationValue" 
-    ng-change="calculateDonation()"
-    style="
-    width: 60px;
-    align-content: right;
-"><select
-    ng-model="donationCurrency"
-    ng-change="calculateDonation()"
-     style="
-    margin-left: 4px;
-    align-content: right;
-    width: 50px;
-    height: 28px;
-"><option>U$</option><option>R$</option></select>
-
-</div>
-
-<div style="
-    margin-top: 35px;
-    margin-left: 40px;
-">
-    <button ng-click="donate('BSC')">Doar {{donationInBnb.toFixed(3)}} BNB</button>
-</div>
-<div style="
-    margin-top: 35px;
-    margin-left: 40px;
-">
-    <button ng-click="donate('POLYGON')">Doar {{donationInMatic.toFixed(3)}} Matic</button>
-</div>
-
-    </div>
-
-    </div>
-
-    <p style="text-align: center;">Você também pode doar diretamente em: <b>0x57721770F5Ea06B79ECe6996D653BAC413667Fa2</b></p>
     <footer>
         <p>&copy; 2024 Calculadora de Mineração Wminer. Desenvolvida pela e para a comunidade.</p>
     </footer>
