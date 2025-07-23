@@ -27,6 +27,7 @@
 
 .rwd-table th {
   display: none;
+  border: 1px solid #ddd;
 }
 
 .rwd-table td {
