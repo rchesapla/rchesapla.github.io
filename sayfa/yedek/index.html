@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Rollercoin | Wminer</title>
+	<link href="sablonlar/tablo.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -28,84 +29,6 @@
     <script src="user-miner-service.js"></script>
     <script src="miner-service.js"></script>
     <style>
-
-        .balao {
-            position: fixed;
-            bottom: 10px; /* Define a distância do fundo da página */
-            right: 10px;  /* Define a distância do lado direito da página */
-            width: 500px; /* Defina uma largura adequada para o balão */
-            height: auto; /* Permita que a altura seja ajustada automaticamente conforme o conteúdo */
-            background-color: green;
-            color: #fff;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-            display: none;
-            text-align: center;
-            z-index: 999;
-        }
-
-        .balao p {
-            margin: 0;
-            font-size: 20px;
-        }
-
-        .balao a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 20px;
-        }
-        #balao2{
-            bottom: 100px;
-            width: 266px;
-            height: 96px;
-            background: url(../images/tap.png);
-        }
-
-        #balao2 p{
-            vertical-align: middle;
-            margin-top: 10px;
-            background-color: rgba(255, 255, 255, 0.6);
-            color: #000000;
-        }
-
-        .fechar {
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            cursor: pointer;
-        }
-        #chart {
-            width: 30%;
-            height: 250px;
-            margin: 0 auto;
-            margin-top: 350px;
-        }
-        html {
-            scroll-behavior: smooth;
-        }
-        .already-have-miner {
-            background-color: rgba(0,0,0,0.2);
-        }
-        .removed-have-miner {
-            background-color: rgba(252, 79, 79, 0.2);
-        }
-        .autocomplete-container {
-            padding: 20px;
-        }
-        body {
-            background: linear-gradient(90deg, rgba(255,25,147,0.55) 0%, rgba(2,199,251,0.73) 100%);
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            font-size:1.5em;
-            min-height: 100vh;
-        }
-        @font-face {
-            font-family: pixelSC;
-            src: url('fonts/PixelOperatorSC.ttf');
-            font-display: swap;
-        }
         .container {
             flex: 1;
             margin-top: 20px;
@@ -129,16 +52,6 @@
             width: 50px;
             height: 50px;
             margin-bottom: 10px;
-        }
-        .table-bordered {
-            background-color: rgba(255, 255, 255, 0.7);
-        }
-        .table-container {
-            text-align: center;
-        }
-        .form-control {
-            width: calc(100% - 20px);
-            display: inline-block;
         }
         .loading-overlay {
             position: fixed;
@@ -199,49 +112,107 @@
             left: 0;
             pointer-events: none;
         }
-        .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-
-  .modal {
-    text-align: center;
-    display:block;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    max-width: 80%;
-    max-height: 80%;
-    overflow: auto;
-    margin-left: 10%;
-    margin-top: 5%;
-  }
-/* 
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-
-  button:hover {
-    background-color: #0056b3;
-  } */
     </style>
 </head>
 <body ng-controller="MiningController">
+
+<div class="container">
+<h1>Responsive Table</h1>
+  <table class="rwd-table">
+    <tbody>
+      <tr>
+        <th>Supplier Code</th>
+        <th>Supplier Name</th>
+        <th>Invoice Number</th>
+        <th>Invoice Date</th>
+        <th>Due Date</th>
+        <th>Net Amount</th>
+      </tr>
+      <tr>
+        <td data-th="Supplier Code">
+          UPS5005
+        </td>
+        <td data-th="Supplier Name">
+          UPS
+        </td>
+        <td data-th="Invoice Number">
+          ASDF19218
+        </td>
+        <td data-th="Invoice Date">
+          06/25/2016
+        </td>
+        <td data-th="Due Date">
+          12/25/2016
+        </td>
+        <td data-th="Net Amount">
+          $8,322.12
+        </td>
+      </tr>
+      <tr>
+        <td data-th="Supplier Code">
+          UPS3449
+        </td>
+        <td data-th="Supplier Name">
+          UPS South Inc.
+        </td>
+        <td data-th="Invoice Number">
+          ASDF29301
+        </td>
+        <td data-th="Invoice Date">
+          6/24/2016
+        </td>
+        <td data-th="Due Date">
+          12/25/2016
+        </td>
+        <td data-th="Net Amount">
+          $3,255.49
+        </td>
+      </tr>
+      <tr>
+        <td data-th="Supplier Code">
+          BOX5599
+        </td>
+        <td data-th="Supplier Name">
+          BOX Pro West
+        </td>
+        <td data-th="Invoice Number">
+          ASDF43000
+        </td>
+        <td data-th="Invoice Date">
+          6/27/2016
+        </td>
+        <td data-th="Due Date">
+          12/25/2016
+        </td>
+        <td data-th="Net Amount">
+          $45,255.49
+        </td>
+      </tr>
+      <tr>
+        <td data-th="Supplier Code">
+          PAN9999
+        </td>
+        <td data-th="Supplier Name">
+          Pan Providers and Co.
+        </td>
+        <td data-th="Invoice Number">
+          ASDF33433
+        </td>
+        <td data-th="Invoice Date">
+          6/29/2016
+        </td>
+        <td data-th="Due Date">
+          12/25/2016
+        </td>
+        <td data-th="Net Amount">
+          $12,335.69
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Resize Me</h3>
+</div>
+
     <!--<div class="overlay" id="overlay">
         <div class="modal">
           <h2>Olá querido amigo!</h2>
@@ -263,40 +234,6 @@
     </header>
     
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-xs-offset-2">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th style="text-align: center" colspan="2">
-                                Task bônus do dia {{dailyBonus.date}}
-                            </th>
-                        </tr>
-                        <tr>
-                            <th style="text-align: center">
-                                Quest
-                            </th>
-                            <th style="text-align: center">
-                                Recompensas
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="task in dailyBonus.task">
-                            <td style="text-align: center">
-                                {{task.quest}}
-                            </td>
-                            <td style="text-align: center">
-                                <ul style="list-style: none;">
-                                    <li ng-repeat="reward in dailyBonus.task[0].rewards">{{ reward }}</li>
-                                </ul>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-4">
                 <form name="miningForm">
@@ -374,7 +311,7 @@
             </div>
             
             <div ng-if="user_data" class="col-md-8 table-container">
-                <table class="table table-bordered">
+                <table  class="rwd-table">
                     <thead>
                         <tr>
                             <th style="text-align: center">
@@ -402,29 +339,19 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="text-align: center">
+                            <td style="text-align: center" data-th="Profil">
                                 {{user_data.name}}
                             </td>
-                            <td style="text-align: center">
+                            <td style="text-align: center" data-th="Oyun Gücü">
                                 {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').unit}}
                             </td>
-                            <td ng-if="user_data.newPowerData && user_data.newPowerData.new_power > 0" style="text-align: center">
-                                <s>{{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').unit}}</s></br>
-                                {{chooseBestHashRateUnit(user_data.newPowerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.miners, 'GH/s').unit}}<br>
-                                <i class="fa-solid fa-arrow-up"></i> {{chooseBestHashRateUnit(user_data.newPowerData.new_power, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.new_power, 'GH/s').unit}}<br>
-                            </td>
-                            <td ng-if="user_data.newPowerData && user_data.newPowerData.new_power < 0" style="text-align: center">
-                                <s>{{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').unit}}</s></br>
-                                {{chooseBestHashRateUnit(user_data.newPowerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.miners, 'GH/s').unit}}<br>
-                                <i class="fa-solid fa-arrow-down"></i> {{chooseBestHashRateUnit(user_data.newPowerData.new_power, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.new_power, 'GH/s').unit}}<br>
-                            </td>
-                            <td ng-if="!user_data.newPowerData || !user_data.newPowerData.new_power" style="text-align: center">
+                            <td  style="text-align: center" data-th="Miner Gücü">
                                 {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').unit}}
                             </td>
-                            <td style="text-align: center">
+                            <td style="text-align: center" data-th="Raf Gücü">
                                 {{chooseBestHashRateUnit(user_data.powerData.racks, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.racks, 'GH/s').unit}}
                             </td>
-                            <td style="text-align: center">
+                            <td style="text-align: center" data-th="Geçici Gücü">
                                 {{chooseBestHashRateUnit(user_data.powerData.temp, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.temp, 'GH/s').unit}}
                             </td>
                             <td ng-if="!user_data.newPowerData || !user_data.newPowerData.new_total" style="text-align: center">
@@ -691,9 +618,9 @@
                                 </a>
                             </th>
                             <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_day_profit_in_brl'; reverseSort = !reverseSort; $event.preventDefault();">
+                                <a href="#" ng-click="orderByFarmField='user_alocated_power_day_profit_in_try'; reverseSort = !reverseSort; $event.preventDefault();">
                                     BRL
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_day_profit_in_brl'">
+                                    <span ng-show="orderByFarmField == 'user_alocated_power_day_profit_in_try'">
                                         <span ng-show="!reverseSort">
                                             <i class="fa fa-fw fa-sort-asc"></i>
                                         </span>
@@ -730,9 +657,9 @@
                                 </a>
                             </th>
                             <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_week_profit_in_brl'; reverseSort = !reverseSort; $event.preventDefault();">
+                                <a href="#" ng-click="orderByFarmField='user_alocated_power_week_profit_in_try'; reverseSort = !reverseSort; $event.preventDefault();">
                                     BRL
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_brl'">
+                                    <span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_try'">
                                         <span ng-show="!reverseSort">
                                             <i class="fa fa-fw fa-sort-asc"></i>
                                         </span>
@@ -769,9 +696,9 @@
                                 </a>
                             </th>
                             <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_month_profit_in_brl'; reverseSort = !reverseSort; $event.preventDefault();">
+                                <a href="#" ng-click="orderByFarmField='user_alocated_power_month_profit_in_try'; reverseSort = !reverseSort; $event.preventDefault();">
                                     BRL
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_brl'">
+                                    <span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_try'">
                                         <span ng-show="!reverseSort">
                                             <i class="fa fa-fw fa-sort-asc"></i>
                                         </span>
@@ -806,13 +733,13 @@
                                 </td>
                                 <td colspan="2">{{chooseBestHashRateUnit(currency.user_alocated_power_value, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.user_alocated_power_value, 'GH/s').unit}}</td>
                                 <td colspan="2">${{currency.user_alocated_power_day_profit_in_usd}}</td>
-                                <td colspan="2">R${{currency.user_alocated_power_day_profit_in_brl}}</td>
+                                <td colspan="2">R${{currency.user_alocated_power_day_profit_in_try}}</td>
                                 <td colspan="2">{{currency.user_alocated_power_day_profit_in_cripto}} {{currency.name}}</td>
                                 <td colspan="2">${{currency.user_alocated_power_week_profit_in_usd}}</td>
-                                <td colspan="2">R${{currency.user_alocated_power_week_profit_in_brl}}</td>
+                                <td colspan="2">R${{currency.user_alocated_power_week_profit_in_try}}</td>
                                 <td colspan="2">{{currency.user_alocated_power_week_profit_in_cripto}} {{currency.name}}</td>
                                 <td colspan="2">${{currency.user_alocated_power_month_profit_in_usd}}</td>
-                                <td colspan="2">R${{currency.user_alocated_power_month_profit_in_brl}}</td>
+                                <td colspan="2">R${{currency.user_alocated_power_month_profit_in_try}}</td>
                                 <td colspan="2">{{currency.user_alocated_power_month_profit_in_cripto}} {{currency.name}}</td>
                             </tr>
                     </tbody>
@@ -821,13 +748,13 @@
                             <th scope="row" colspan="2">Total</th>
                             <td colspan="2">{{chooseBestHashRateUnit(getCurrenciesSum('user_alocated_power_value'), 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(getCurrenciesSum('user_alocated_power_value'), 'GH/s').unit}}</td>
                             <td colspan="2">U${{getCurrenciesSum('user_alocated_power_day_profit_in_usd').toFixed(2)}}</td>
-                            <td colspan="2">R${{getCurrenciesSum('user_alocated_power_day_profit_in_brl').toFixed(2)}}</td>
+                            <td colspan="2">R${{getCurrenciesSum('user_alocated_power_day_profit_in_try').toFixed(2)}}</td>
                             <td colspan="2">-</td>
                             <td colspan="2">U${{getCurrenciesSum('user_alocated_power_week_profit_in_usd').toFixed(2)}}</td>
-                            <td colspan="2">R${{getCurrenciesSum('user_alocated_power_week_profit_in_brl').toFixed(2)}}</td>
+                            <td colspan="2">R${{getCurrenciesSum('user_alocated_power_week_profit_in_try').toFixed(2)}}</td>
                             <td colspan="2">-</td>
                             <td colspan="2">U${{getCurrenciesSum('user_alocated_power_month_profit_in_usd').toFixed(2)}}</td>
-                            <td colspan="2">R${{getCurrenciesSum('user_alocated_power_month_profit_in_brl').toFixed(2)}}</td>
+                            <td colspan="2">R${{getCurrenciesSum('user_alocated_power_month_profit_in_try').toFixed(2)}}</td>
                             <td colspan="2">-</td>
                         </tr>
                     </tfoot>
