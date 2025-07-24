@@ -1,4 +1,4 @@
-/*checkbox ayarları*/
+@import url('https://fonts.googleapis.com/css2?family=Protest+Guerrilla&family=Tillana:wght@400;500;600;700;800&display=swap');
 
 .checkbox-wrapper {
   --checkbox-size: 25px;
@@ -139,6 +139,7 @@ table {
   padding: 0;
   width: 100%;
   color: #c3b0d0;
+  font-family: "Tillana", sans-serif;
 }
 
 table tr {
