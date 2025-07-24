@@ -204,23 +204,28 @@ stroke-linejoin="round"
 <span class="label">Madencilerim</span>
 </label>
 </div-->
-
+<!--===============================================================================================-->
 <div class="form-group" style="text-align: center">
 <div class="form-inline">
 <button class="btn-show eniyikazanç" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-user-xmark"></i> Beni Unut</button>
 <button class="btn-show eniyikazanç" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"><i class="fa-solid fa-coins"></i> En İyi Kazanç</button>
 </div>
 </div>
-
-                    <div ng-if="isLoadedUser" class="form-group">
-                        <input type="checkbox" ng-model="keepUser" ng-change="updateKeepUser(keepUser)" name="keep_user"/>
-                        <label for="keep_user">Beni hatırla</label>
-                    </div>
-
+<!--===============================================================================================-->
+<div class="glitch-checkbox-wrapper"ng-if="isLoadedUser">
+<label class="glitch-checkbox-container">
+<input type="checkbox" name="option2"ng-model="keepUser" ng-change="updateKeepUser(keepUser)" name="keep_user"/>
+<div class="checkbox-box">
+<div class="checkbox-mark"></div>
+</div>
+<span class="checkbox-label" data-text="Beni hatırla!">Beni hatırla!</span>
+</label>
+</div>
+<!--===============================================================================================-->
 <div class="btn-submit-container" style="text-align: center" ng-if="hasAnyAllocatedPower()">
 <button class="btn-show" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i> Kazanç Temizle</button>
 </div>
-
+<!--===============================================================================================-->
 <div class="btn-submit-container" style="text-align: center">
 <input ng-click="resetValues()" type="button" class="btn-show mt-2 head siteadı2" value="Verileri Güncelle">
 </div>
