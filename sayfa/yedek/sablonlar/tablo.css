@@ -1,215 +1,164 @@
-@import url('https://fonts.googleapis.com/css2?family=Protest+Guerrilla&family=Tillana:wght@400;500;600;700;800&display=swap');
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:600,700';
 
-.checkbox-wrapper {
-  --checkbox-size: 25px;
-  --checkbox-color: #00ff88;
-  --checkbox-shadow: rgba(0, 255, 136, 0.3);
-  --checkbox-border: rgba(0, 255, 136, 0.7);
-  display: flex;
-  align-items: center;
-  position: relative;
-  cursor: pointer;
-  padding: 10px;
+* {font-family: 'Open Sans', sans-serif;}
+
+.rwd-table {
+  margin: auto;
 }
 
-.checkbox-wrapper input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
+.rwd-table tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background-color: #428bca;
 }
 
-.checkbox-wrapper .checkmark {
-  position: relative;
-  width: var(--checkbox-size);
-  height: var(--checkbox-size);
-  border: 2px solid var(--checkbox-border);
-  border-radius: 8px;
-  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.2);
-  box-shadow: 0 0 15px var(--checkbox-shadow);
+.rwd-table tr:nth-child(odd):not(:first-child) {
+  background-color: #ebf3f9;
+}
+
+.rwd-table th {
+  display: none;
+}
+
+.rwd-table td {
+  display: block;
+}
+
+.rwd-table td:first-child {
+  margin-top: .5em;
+}
+
+.rwd-table td:last-child {
+  margin-bottom: .5em;
+}
+
+.rwd-table td:before {
+  content: attr(data-th) ": ";
+  font-weight: bold;
+  width: 120px;
+  display: inline-block;
+  color: #000;
+}
+
+.rwd-table th,
+.rwd-table td {
+  text-align: left;
+}
+
+.rwd-table {
+  color: #333;
+  border-radius: .4em;
   overflow: hidden;
 }
 
-.checkbox-wrapper .checkmark::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, var(--checkbox-color), #00ffcc);
-  opacity: 0;
-  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  transform: scale(0) rotate(-45deg);
+.rwd-table tr {
+  border-color: #bfbfbf;
 }
 
-.checkbox-wrapper input:checked ~ .checkmark::before {
-  opacity: 1;
-  transform: scale(1) rotate(0);
+.rwd-table th,
+.rwd-table td {
+  padding: .5em 1em;
 }
-
-.checkbox-wrapper .checkmark svg {
-  width: 0;
-  height: 0;
-  color: #1a1a1a;
-  z-index: 1;
-  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
-}
-
-.checkbox-wrapper input:checked ~ .checkmark svg {
-  width: 18px;
-  height: 18px;
-  transform: rotate(360deg);
-}
-
-.checkbox-wrapper:hover .checkmark {
-  border-color: var(--checkbox-color);
-  transform: scale(1.1);
-  box-shadow:
-    0 0 20px var(--checkbox-shadow),
-    0 0 40px var(--checkbox-shadow),
-    inset 0 0 10px var(--checkbox-shadow);
-}
-
-.checkbox-wrapper input:checked ~ .checkmark {
-  animation: pulse 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 20px var(--checkbox-shadow);
+@media screen and (max-width: 601px) {
+  .rwd-table tr:nth-child(2) {
+    border-top: none;
   }
-  50% {
-    transform: scale(0.9);
-    box-shadow:
-      0 0 30px var(--checkbox-shadow),
-      0 0 50px var(--checkbox-shadow);
+}
+@media screen and (min-width: 600px) {
+  .rwd-table tr:hover:not(:first-child) {
+    background-color: #d8e7f3;
   }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 20px var(--checkbox-shadow);
+  .rwd-table td:before {
+    display: none;
+  }
+  .rwd-table th,
+  .rwd-table td {
+    display: table-cell;
+    padding: .25em .5em;
+  }
+  .rwd-table th:first-child,
+  .rwd-table td:first-child {
+    padding-left: 0;
+  }
+  .rwd-table th:last-child,
+  .rwd-table td:last-child {
+    padding-right: 0;
+  }
+  .rwd-table th,
+  .rwd-table td {
+    padding: 1em !important;
   }
 }
 
-.checkbox-wrapper .label {
-  font-family: var(--tablo);
-  color: var(--checkbox-color);
-  font-size: 18px;
-  text-shadow: 0 0 10px var(--checkbox-shadow);
-  opacity: 0.9;
-  transition: all 0.3s;
+
+/* THE END OF THE IMPORTANT STUFF */
+
+/* Basic Styling */
+body {
+background: #4B79A1;
+background: -webkit-linear-gradient(to left, #4B79A1 , #283E51);
+background: linear-gradient(to left, #4B79A1 , #283E51);        
 }
-
-.checkbox-wrapper:hover .label {
-  opacity: 1;
-  transform: translateX(5px);
-}
-
-.checkbox-wrapper::before {
-  left: -10px;
-  top: 50%;
-}
-
-.checkbox-wrapper::after {
-  right: -10px;
-  top: 50%;
-}
-
-.checkbox-wrapper:hover::before {
-  opacity: 1;
-  transform: translateX(-10px);
-  box-shadow: 0 0 10px var(--checkbox-color);
-}
-
-.checkbox-wrapper:hover::after {
-  opacity: 1;
-  transform: translateX(10px);
-  box-shadow: 0 0 10px var(--checkbox-color);
-}
-
-
-/*tablo ayarları*/
-table {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  color: #c3b0d0;
-  font-family: "Tillana", sans-serif;
-}
-
-table tr {
-  background-color: #1b2130;
-  border: 1px solid #c3b0d0 ;
-  padding: 1px;
-}
-
-table th {
-  color: #ffdc00 ;
-}
-
-table th,
-table td {
-  padding: 3px;
+h1 {
   text-align: center;
-  border: 1px solid #2f3045;
+  font-size: 2.4em;
+  color: #f2f2f2;
+}
+.container {
+  display: block;
+  text-align: center;
+}
+h3 {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  font-size: 1.5em;
+  color: #cecece;
+}
+h3:before {
+  content: "\25C0";
+  position: absolute;
+  left: -50px;
+  -webkit-animation: leftRight 2s linear infinite;
+  animation: leftRight 2s linear infinite;
+}
+h3:after {
+  content: "\25b6";
+  position: absolute;
+  right: -50px;
+  -webkit-animation: leftRight 2s linear infinite reverse;
+  animation: leftRight 2s linear infinite reverse;
+}
+@-webkit-keyframes leftRight {
+  0%    { -webkit-transform: translateX(0)}
+  25%   { -webkit-transform: translateX(-10px)}
+  75%   { -webkit-transform: translateX(10px)}
+  100%  { -webkit-transform: translateX(0)}
+}
+@keyframes leftRight {
+  0%    { transform: translateX(0)}
+  25%   { transform: translateX(-10px)}
+  75%   { transform: translateX(10px)}
+  100%  { transform: translateX(0)}
 }
 
-table th {
-  text-transform: uppercase ;
-}
-
-@media screen and (max-width: 1100px) {
-  table {
-    border: 0;
+/*
+    Don't look at this last part. It's unnecessary. I was just playing with pixel gradients... Don't judge.
+*/
+/*
+@media screen and (max-width: 601px) {
+  .rwd-table tr {
+    background-image: -webkit-linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
+    background-image: -moz-linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
+    background-image: -o-linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
+    background-image: -ms-linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
+    background-image: linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
   }
-  
-  table .deneme {
-    border: none;
-    clip: rect(0 0 0 0);
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-	color: red;
+  .rwd-table tr:nth-child(odd) {
+    background-image: -webkit-linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
+    background-image: -moz-linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
+    background-image: -o-linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
+    background-image: -ms-linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
+    background-image: linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
   }
-  
-  table .ortala{
-	color: red;
-    text-align: center;
-  }
-  table .madencilerim{
-	padding: 10px;
-  }
-  
-  table tr {
-    display: block;
-    margin-bottom: 20px;
-	text-align: center;
-  }
-  
-  table td {
-    border: 1px solid #2f3045;
-    display: block;
-    text-align: center;
-  }
-  
-  table td::before {
-    /*
-    * aria-label has no advantage, it won't be read inside a table
-    content: attr(aria-label);
-    */
-    content: attr(fatihcelik);
-	color: #ffdc00;
-	padding-right: 5px;
-    float: center;
-  }
-  
-  table td:last-child {
-    border-bottom: 0;
-  }
-}
+}*/
