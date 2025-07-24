@@ -208,11 +208,11 @@ stroke-linejoin="round"
 <div class="form-group" style="text-align: center">
 <div class="form-inline">
 <button class="btn-show eniyikazanç" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-user-xmark"></i> Beni Unut</button>
-<button class="btn-show eniyikazanç" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"><i class="fa-solid fa-coins"></i> En İyi Kazanç</button>
+<button ng-if="isLoadedUser" class="btn-show eniyikazanç" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"><i class="fa-solid fa-coins"></i> En İyi Kazanç</button>
 </div>
 </div>
 <!--===============================================================================================-->
-<div class="glitch-checkbox-wrapper"ng-if="isLoadedUser">
+<div class="glitch-checkbox-wrapper" ng-if="isLoadedUser">
 <label class="glitch-checkbox-container">
 <input type="checkbox" name="option2"ng-model="keepUser" ng-change="updateKeepUser(keepUser)" name="keep_user"/>
 <div class="checkbox-box">
