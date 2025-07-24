@@ -212,6 +212,11 @@ stroke-linejoin="round"
 </div>
 </div>
 
+                    <div ng-if="isLoadedUser" class="form-group">
+                        <input type="checkbox" ng-model="keepUser" ng-change="updateKeepUser(keepUser)" name="keep_user"/>
+                        <label for="keep_user">Beni hatırla</label>
+                    </div>
+
 <div class="btn-submit-container" style="text-align: center" ng-if="hasAnyAllocatedPower()">
 <button class="btn-show" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i> Kazanç Temizle</button>
 </div>
@@ -335,21 +340,25 @@ BONUS GÜCÜ
 <td style="text-align: center">Blok Ödülü</td>
 <td fatihcelik="KAZANÇ">{{calculateEarnings('block', 'amount')}} {{formData.currency.name}}</td>
 <td fatihcelik="DOLAR" ng-hide="formData.currency.in_game_only">${{calculateEarnings('block', 'usd')}}</td>
+<td fatihcelik="DOLAR" ng-hide="formData.currency.in_game_only">${{calculateEarnings('block', 'try')}}</td>
 </tr>
 <tr>
 <td style="text-align: center">Günlük</td>
 <td fatihcelik="KAZANÇ">{{calculateEarnings('day', 'amount')}} {{formData.currency.name}}</td>
 <td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('day', 'usd')}}</td>
+<td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('day', 'try')}}</td>
 </tr>
 <tr>
 <td style="text-align: center">Haftalık</td>
 <td fatihcelik="KAZANÇ">{{calculateEarnings('week', 'amount')}} {{formData.currency.name}}</td>
 <td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('week', 'usd')}}</td>
+<td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('week', 'try')}}</td>
 </tr>
 <tr>
 <td style="text-align: center">Aylık</td>
 <td fatihcelik="KAZANÇ">{{calculateEarnings('month', 'amount')}} {{formData.currency.name}}</td>
 <td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('month', 'usd')}}</td>
+<td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('month', 'try')}}</td>
 </tr>
 </tbody>
 </table>
