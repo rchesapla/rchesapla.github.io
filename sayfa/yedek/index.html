@@ -116,25 +116,20 @@ pointer-events: none;
 </head>
 <body ng-controller="MiningController">
 <div class="loading-overlay" ng-show="isLoading">
-<p>Carregando...Isso vai demorar um pouco!</p>
+<p>Biraz beklemeniz lazım..</p>
 </div>
-<header>
-<img src="images/hamster.png" style="height:50px;width:50px;margin-right:15px;">
-<h1>Calculadora Rollercoin | Wminer</h1>
-</header>
-
 <div class="container">
 <div class="row">
 <div class="col-md-4">
 <form name="miningForm">
 <div class="form-group">
-<label for="currency">Moeda a Minerar</label>
+<label for="currency">Kripto seç</label>
 <select id="currency" class="form-control" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()">
-<option value="">Selecione uma moeda</option>
+<option value="">Genel Hesaplama</option>
 </select>
 </div>
 <div class="form-group">
-<label for="networkPower">Poder da Rede</label>
+<label for="networkPower">Ağ Gücü</label>
 <div class="form-inline">
 <input type="number" id="networkPower" class="form-control" ng-model="formData.networkPower" disabled>
 <select id="networkUnit" class="form-control" ng-model="formData.networkUnit" disabled ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')">
@@ -143,25 +138,25 @@ pointer-events: none;
 </div>
 </div>
 <div class="form-group">
-<label for="power">Seu Poder</label>
+<label for="power">Kazım Gücü</label>
 <div class="form-inline">
 <input type="text" id="power" ng-disabled="isLoadedUser" class="form-control" ng-model="formData.power">
 <select id="unit" class="form-control" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')"></select>
 </div>
 </div>
 <div class="form-group">
-<label for="blockSize">Tamanho do Bloco</label>
+<label for="blockSize">Blok Ödülü</label>
 <div class="form-inline">
 <input type="text" id="blockSize" class="form-control" ng-model="formData.blockSize" disabled>
 </div>
 </div>
 <div class="form-group">
-<label for="blockTime">Tempo do Bloco</label>
+<label for="blockTime">Blok Süresi</label>
 <div class="form-inline">
 <input type="number" id="blockTime" class="form-control" ng-model="formData.blockTime" disabled>
 <select id="timeUnit" class="form-control" ng-model="formData.timeUnit" disabled ng-change="updateTimeUnit('{{formData.timeUnit}}')">
-<option value="seconds">Segundos</option>
-<option value="minutes">Minutos</option>
+<option value="seconds">Saniye</option>
+<option value="minutes">Dakika</option>
 </select>
 </div>
 </div>
@@ -501,24 +496,24 @@ KRİPTO
 <thead>
 <tr>
 <th colspan="5" style="text-align: center">
-Miners adicionadas
+EKRAN KARTLARI
 </th>
 </tr>
 <tr>
 <th style="text-align: center">
-Nome
+MINER ADI
 </th>
 <th style="text-align: center">
-Level
+SEVİYE
 </th>
 <th style="text-align: center">
-Poder
+GÜCÜ
 </th>
 <th style="text-align: center">
-Bônus
+BONUS
 </th>
 <th style="text-align: center">
-Ações
+ETKİLEŞİM
 </th>
 </tr>
 </thead>
@@ -550,8 +545,8 @@ color: white;
 {{(miner.bonus_power / 100)}}%
 </td>
 <td style="text-align: center">
-<button style="min-width: 80px;margin: 4px;" ng-click="removeMinerFromSimulation(miner)">Remover!</button><br/>
-<button style="min-width: 80px;margin: 4px;" ng-click="openBuyLink(miner)">Comprar</button>
+<button style="min-width: 80px;margin: 4px;" ng-click="removeMinerFromSimulation(miner)">Kaldır!</button><br/>
+<button style="min-width: 80px;margin: 4px;" ng-click="openBuyLink(miner)">Mağazaya Git</button>
 </td>
 </tr>
 </tbody>
@@ -560,8 +555,8 @@ color: white;
 
 <div ng-if="formData.showAllMiners" class="">
 <div class="form-group col-md-4">
-<label for="currency">Nome</label>
-<input type="text" class="form-control" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Buscar miner...">
+<label for="currency">Miner Adı</label>
+<input type="text" class="form-control" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Örn: YMCA">
 </div>
 <div class="form-group col-md-4">
 <label for="currency">Raridade</label><br/>
@@ -797,19 +792,6 @@ color: white;
 </div>
 <div style="text-align: center;">
 <button ng-click="resetValues()">↻ Verileri güncelle</button>
-</div>
-<br/>
-<br/>
-<br/>
-
-
-<footer>
-<p>&copy; 2024 Calculadora de Mineração Wminer. Desenvolvida pela e para a comunidade.</p>
-</footer>
-
-<div id="balao2" class="balao">
-<span class="fechar" onclick="document.getElementById('balao2').style.display = 'none';">X</span>
-<a href="https://t.me/TonHashersBot?start=1969089985" target="_blank"><p>Novo Jogo de mineracao TON! Entre agora mesmo</p></a>
 </div>
 </body>
 </html>
