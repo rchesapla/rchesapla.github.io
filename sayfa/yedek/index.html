@@ -145,7 +145,7 @@ pointer-events: none;
 </div>
 <div class="container">
 <div class="row">
-<div class="col-md-4">
+<div class="- - -">
 <form name="miningForm">
 <div class="form-group">
 <label for="currency">Kripto seç</label>
@@ -219,8 +219,8 @@ typeahead-loading="loading">
 </div>
 </form>
 </div>
-
-<div ng-if="user_data" class="col-md-8">
+<!--===============================================================================================-->
+<div ng-if="user_data" class="- - -">
 <table class="rwd-table">
 <thead class="deneme">
 <tr>
@@ -255,7 +255,17 @@ BONUS ORANI
 <td style="text-align: center" fatihcelik="OYUN GÜCÜ">
 {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').unit}}
 </td>
-<td  style="text-align: center" fatihcelik="MINER GÜCÜ">
+<td ng-if="user_data.newPowerData && user_data.newPowerData.new_power > 0" style="text-align: center" fatihcelik="MINER GÜCÜ">
+<s>{{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').unit}}</s></br>
+{{chooseBestHashRateUnit(user_data.newPowerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.miners, 'GH/s').unit}}<br>
+<i class="fa-solid fa-arrow-up"></i> {{chooseBestHashRateUnit(user_data.newPowerData.new_power, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.new_power, 'GH/s').unit}}<br>
+</td>
+<td ng-if="user_data.newPowerData && user_data.newPowerData.new_power < 0" style="text-align: center" fatihcelik="MINER GÜCÜ">
+<s>{{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').unit}}</s></br>
+{{chooseBestHashRateUnit(user_data.newPowerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.miners, 'GH/s').unit}}<br>
+<i class="fa-solid fa-arrow-down"></i> {{chooseBestHashRateUnit(user_data.newPowerData.new_power, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.new_power, 'GH/s').unit}}<br>
+</td>
+<td ng-if="!user_data.newPowerData || !user_data.newPowerData.new_power" style="text-align: center" fatihcelik="MINER GÜCÜ">
 {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').unit}}
 </td>
 <td style="text-align: center" fatihcelik="RAF GÜCÜ">
@@ -293,10 +303,7 @@ BONUS ORANI
 </tr>
 </tbody>
 </table>
-</div>
-
-<div class="col-md-8">
-<h3>SONUÇLAR</h3>
+<!--===============================================================================================-->
 <table ng-if="formData.currency" class="rwd-table">
 <thead class="deneme">
 <tr ng-hide="formData.currency.in_game_only">
@@ -341,6 +348,11 @@ BONUS ORANI
 </tr>
 </tbody>
 </table>
+</div>
+
+<div class="- - -">
+<h3>SONUÇLAR</h3>
+
 <form name="myForm">
 <table ng-if="!formData.currency" class="rwd-table">
 <thead class="deneme">
