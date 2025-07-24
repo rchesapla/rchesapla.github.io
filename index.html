@@ -333,18 +333,18 @@ BONUS GÜCÜ
 <img style="width: 30px;height: 30px;margin: 5px;" ng-if="formData.currency" ng-src="{{formData.currency.image}}" alt="{{formData.currency.name}} logo" class="currency-icon">
 </th>
 </tr>
-<tr ng-hide="formData.currency.in_game_only" class="highlight-tag">
+<tr ng-hide="formData.currency.in_game_only" class="highlight-tag" class="deneme">
 <th style="text-align: center" colspan="4">
 1 {{formData.currency.name}} ${{exchangeRates[formData.currency.name]['usd']}} |
 1 {{formData.currency.name}} {{exchangeRates[formData.currency.name]['try']}}₺
 </th>
 </tr>
-<tr>
-                            <th style="text-align:center;">GÜNLER</th>
-                            <th style="text-align:center;">KRİPTO</th>
-                            <th style="text-align:center;" ng-hide="formData.currency.in_game_only">$</th>
-                            <th style="text-align:center;" ng-hide="formData.currency.in_game_only">₺</th>
-                        </tr>
+<tr class="deneme">
+<th style="text-align:center;">GÜNLER</th>
+<th style="text-align:center;">KRİPTO</th>
+<th style="text-align:center;" ng-hide="formData.currency.in_game_only">$</th>
+<th style="text-align:center;" ng-hide="formData.currency.in_game_only">₺</th>
+</tr>
 </thead>
 <tbody>
 <tr>
@@ -432,8 +432,8 @@ PARA ÇEKİMİ
 <td fatihcelik="BLOK DEĞERİ $" colspan="2">${{currency.block_value_in_usd}}</td>
 <td fatihcelik="BLOK DEĞERİ ₺" colspan="2">{{currency.block_value_in_try}}₺</td>
 <td fatihcelik="BLOK MİKTARI" colspan="2">{{currency.user_block_farm_token}} {{currency.name}}</td>
-<td fatihcelik="BENİM KAZANCIM" colspan="2">${{currency.user_block_farm_usd}}</td>
-<td fatihcelik="BENİM KAZANCIM ₺" colspan="2">{{currency.user_block_farm_try}}₺</td>
+<td fatihcelik="BENİM KAZANCIM DOLAR" colspan="2">${{currency.user_block_farm_usd}}</td>
+<td fatihcelik="BENİM KAZANCIM TL" colspan="2">{{currency.user_block_farm_try}}₺</td>
 <td fatihcelik="PARA ÇEKİMİ" colspan="2">{{formatDays(currency.user_days_to_widthdraw)}}</td>
 </tr>
 </tbody>
@@ -537,13 +537,13 @@ $
 </td>
 <td fatihcelik="GÜNLÜK" colspan="2">{{currency.user_alocated_power_day_profit_in_cripto}} {{currency.name}}</td>
 <td fatihcelik="GÜNLÜK DOLAR" colspan="2">${{currency.user_alocated_power_day_profit_in_usd}}</td>
-<td fatihcelik="GÜNLÜK TRY" colspan="2">{{currency.user_alocated_power_day_profit_in_try}}₺</td>
+<td fatihcelik="GÜNLÜK TL" colspan="2">{{currency.user_alocated_power_day_profit_in_try}}₺</td>
 <td fatihcelik="HAFTALIK" colspan="2">{{currency.user_alocated_power_week_profit_in_cripto}} {{currency.name}}</td>
 <td fatihcelik="HAFTALIK DOLAR" colspan="2">${{currency.user_alocated_power_week_profit_in_usd}}</td>
-<td fatihcelik="HAFTALIK TRY" colspan="2">{{currency.user_alocated_power_week_profit_in_try}}₺</td>
+<td fatihcelik="HAFTALIK TL" colspan="2">{{currency.user_alocated_power_week_profit_in_try}}₺</td>
 <td fatihcelik="AYLIK" colspan="2">{{currency.user_alocated_power_month_profit_in_cripto}} {{currency.name}}</td>
 <td fatihcelik="AYLIK DOLAR" colspan="2">${{currency.user_alocated_power_month_profit_in_usd}}</td>
-<td fatihcelik="AYLIK TRY" colspan="2">{{currency.user_alocated_power_month_profit_in_try}}₺</td>
+<td fatihcelik="AYLIK TL" colspan="2">{{currency.user_alocated_power_month_profit_in_try}}₺</td>
 </tr>
 </tbody>
 </table>
