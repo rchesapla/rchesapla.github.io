@@ -22,6 +22,7 @@ table th,
 table td {
   padding: .625em;
   text-align: center;
+   border: 1px solid #ddd;
 }
 
 table th {
