@@ -210,22 +210,23 @@ stroke-linejoin="round"
 <button class="" ng-click="resetValues()"><i class="fa-solid fa-coins"></i> Verileri Güncelle</button>
 <button class="best-coin animated-button" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"><i class="fa-solid fa-coins"></i> En İyi Kazanç</button>
 <button class="best-coin animated-button" ng-disabled="!isLoadedUser" ng-click="bestBuys()"><i class="fas fa-shopping-cart"></i> Miner Listesi</button>
+<button class="" ng-if="hasAnyAllocatedPower()" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i> Kazanç Temizle</button>
 </div>
 </div>
 <!--===============================================================================================-->
-<div class="glitch-checkbox-wrapper" ng-if="isLoadedUser">
-<label class="glitch-checkbox-container">
-<input type="checkbox" name="option2"ng-model="keepUser" ng-change="updateKeepUser(keepUser)" name="keep_user"/>
-<div class="checkbox-box">
-<div class="checkbox-mark"></div>
+<div class="uv-checkbox-wrapper" ng-if="isLoadedUser">
+  <input type="checkbox" id="uv-checkbox" class="uv-checkbox" ng-model="keepUser" ng-change="updateKeepUser(keepUser)" name="keep_user"/>
+  <label for="uv-checkbox" class="uv-checkbox-label">
+    <div class="uv-checkbox-icon">
+      <svg viewBox="0 0 24 24" class="uv-checkmark">
+        <path d="M4.1,12.7 9,17.6 20.3,6.3" fill="none"></path>
+      </svg>
+    </div>
+    <span class="uv-checkbox-text">Beni hatırla!</span>
+  </label>
 </div>
-<span class="checkbox-label" data-text="Beni hatırla!">Beni hatırla!</span>
-</label>
-</div>
-<!--===============================================================================================-->
-<div class="btn-submit-container" style="text-align: center" ng-if="hasAnyAllocatedPower()">
-<button class="" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i> Kazanç Temizle</button>
-</div>
+
+
 <!--===============================================================================================-->
 </div>
 <h6 class="card-header head text-center"></h6>
