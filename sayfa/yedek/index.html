@@ -266,15 +266,15 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </div>
 <div class="container">
 <div class="row">
-<div class="- - -">
-<form name="miningForm">
-<div class="form-group">
+<div class="card-fc">
+<form name="miningForm" class="card-body">
+<div class="card-body">
 <label for="currency">Kripto seç</label>
 <select id="currency" class="form-control" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()">
 <option value="">Genel Hesaplama</option>
 </select>
 </div>
-<div class="card-fc" class="card-body">
+<div class="">
 <label for="networkPower">Ağ Gücü</label>
 <div class="form-inline">
 <input type="number" id="networkPower" class="form-control" ng-model="formData.networkPower" disabled>
@@ -331,7 +331,12 @@ typeahead-loading="loading">
 <div ng-show="playerSearchNoResults">
 <i class="glyphicon glyphicon-remove"></i> Jogador não encontrado! Lembre-se que deve ser digitado o código que vem após o /p/ no link do rollercoin
 </div>
-<button ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa fa-trash"></i></button>
+</div>
+</div>
+<!--===============================================================================================-->
+<div class="form-group" style="text-align: center">
+<div class="form-inline">
+
 </div>
 </div>
 <!--===============================================================================================-->
@@ -343,6 +348,7 @@ typeahead-loading="loading">
 </div>
 <span class="checkbox-label" data-text="Beni hatırla!">Beni hatırla!</span>
 </label>
+<button class="btn-show checkbox-label" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-user-xmark"></i> Beni Unut</button>
 </div>
 <!--===============================================================================================-->
 </form>
