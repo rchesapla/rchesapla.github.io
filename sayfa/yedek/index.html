@@ -58,206 +58,162 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css'>
 <!--===============================================================================================-->
 <style>
-
-        .balao {
-            position: fixed;
-            bottom: 10px; /* Define a distância do fundo da página */
-            right: 10px;  /* Define a distância do lado direito da página */
-            width: 500px; /* Defina uma largura adequada para o balão */
-            height: auto; /* Permita que a altura seja ajustada automaticamente conforme o conteúdo */
-            background-color: green;
-            color: #fff;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-            display: none;
-            text-align: center;
-            z-index: 999;
-        }
-
-        .balao p {
-            margin: 0;
-            font-size: 20px;
-        }
-
-        .balao a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 20px;
-        }
-        #balao2{
-            bottom: 100px;
-            width: 266px;
-            height: 96px;
-            background: url(../images/tap.png);
-        }
-
-        #balao2 p{
-            vertical-align: middle;
-            margin-top: 10px;
-            background-color: rgba(255, 255, 255, 0.6);
-            color: #000000;
-        }
-
-        .fechar {
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            cursor: pointer;
-        }
-        #chart {
-            width: 30%;
-            height: 250px;
-            margin: 0 auto;
-            margin-top: 350px;
-        }
-        .already-have-miner {
-            background-color: rgba(0,0,0,0.2);
-        }
-        .removed-have-miner {
-            background-color: rgba(252, 79, 79, 0.2);
-        }
-        .autocomplete-container {
-            padding: 20px;
-        }
-        @font-face {
-            font-family: pixelSC;
-            src: url('fonts/PixelOperatorSC.ttf');
-            font-display: swap;
-        }
-        .container {
-            flex: 1;
-            margin-top: 20px;
-        }
-        .form-inline .form-group {
-            margin-right: 10px;
-        }
-        header, footer {
-            background-color: rgba(255, 255, 255, 0.5);
-            color: #000;
-            padding: 10px 0;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-        }
-        header h1, footer p {
-            margin: 0;
-            align-self: center;
-        }
-        .currency-icon {
-            width: 50px;
-            height: 50px;
-            margin-bottom: 10px;
-        }
-        .table-bordered {
-            background-color: rgba(255, 255, 255, 0.7);
-        }
-        .table-container {
-            text-align: center;
-        }
-        .form-control {
-            width: calc(100% - 20px);
-            display: inline-block;
-        }
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            color: white;
-            font-size: 24px;
-        }
-        .invalid {
-            border-color: red;
-        }
-        .wrong-value {
-            color:red;
-        }
-        .best-coin:not([disabled]) {
-            background-color: gold;
-            font-weight: bolder;
-            animation: pulse 2s infinite ease-in-out;
-        }
-        .best-coin[disabled] {
-            background-color: #d7d0a7;
-            font-weight: bolder;
-        }
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-        tbody.allocated-farm tr:first-child {
-            background-color: rgba(255, 255, 255, 0.5);
-        }
-        #message {
-            font-size: 24px;
-            animation: slideUp 2s forwards;
-        }
-
-        @keyframes slideUp {
-            0% { opacity: 0; transform: translateY(50px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
-        .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-
-  .modal {
-    text-align: center;
-    display:block;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    max-width: 80%;
-    max-height: 80%;
-    overflow: auto;
-    margin-left: 10%;
-    margin-top: 5%;
-  }
+.fechar {
+position: absolute;
+top: 5px;
+right: 10px;
+cursor: pointer;
+}
+#chart {
+width: 30%;
+height: 250px;
+margin: 0 auto;
+margin-top: 350px;
+}
+.already-have-miner {
+background-color: rgba(0,0,0,0.2);
+}
+.removed-have-miner {
+background-color: rgba(252, 79, 79, 0.2);
+}
+.autocomplete-container {
+padding: 20px;
+}
+@font-face {
+font-family: pixelSC;
+src: url('fonts/PixelOperatorSC.ttf');
+font-display: swap;
+}
+.container {
+flex: 1;
+margin-top: 20px;
+}
+.form-inline .form-group {
+margin-right: 10px;
+}
+header, footer {
+background-color: rgba(255, 255, 255, 0.5);
+color: #000;
+padding: 10px 0;
+text-align: center;
+display: flex;
+justify-content: center;
+}
+header h1, footer p {
+margin: 0;
+align-self: center;
+}
+.currency-icon {
+width: 50px;
+height: 50px;
+margin-bottom: 10px;
+}
+.table-bordered {
+background-color: rgba(255, 255, 255, 0.7);
+}
+.table-container {
+text-align: center;
+}
+.form-control {
+width: calc(100% - 20px);
+display: inline-block;
+}
+.loading-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 9999;
+color: white;
+font-size: 24px;
+}
+.invalid {
+border-color: red;
+}
+.wrong-value {
+color:red;
+}
+.best-coin:not([disabled]) {
+background-color: gold;
+font-weight: bolder;
+animation: pulse 2s infinite ease-in-out;
+}
+.best-coin[disabled] {
+background-color: #d7d0a7;
+font-weight: bolder;
+}
+@keyframes pulse {
+0% {
+transform: scale(1);
+}
+50% {
+transform: scale(1.1);
+}
+100% {
+transform: scale(1);
+}
+}
+tbody.allocated-farm tr:first-child {
+background-color: rgba(255, 255, 255, 0.5);
+}
+#message {
+font-size: 24px;
+animation: slideUp 2s forwards;
+}
+@keyframes slideUp {
+0% { opacity: 0; transform: translateY(50px); }
+100% { opacity: 1; transform: translateY(0); }
+}
+canvas {
+position: absolute;
+top: 0;
+left: 0;
+pointer-events: none;
+}
+.overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 1000;
+}
+.modal {
+text-align: center;
+display:block;
+background-color: #fff;
+padding: 20px;
+border-radius: 8px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+max-width: 80%;
+max-height: 80%;
+overflow: auto;
+margin-left: 10%;
+margin-top: 5%;
+}
 /* 
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-  }
+button {
+padding: 10px 20px;
+font-size: 16px;
+background-color: #007bff;
+color: #fff;
+border: none;
+cursor: pointer;
+border-radius: 4px;
+}
 
-  button:hover {
-    background-color: #0056b3;
-  } */
+button:hover {
+background-color: #0056b3;
+} */
 </style>
 </head>
 <body ng-controller="MiningController" class="body">
@@ -558,7 +514,7 @@ PARA ÇEKİMİ
 </form>
 </div>
 <div class="- - -">
-<table ng-if="!formData.currency && getCurrenciesSum('user_alocated_power')  > 0" class="- - -">
+<table ng-if="!formData.currency && getCurrenciesSum('user_alocated_power')> 0" class="- - -">
 <thead>
 <tr class="highlight-tag">
 <th class="başlık" style="text-align: center" colspan="20">
@@ -745,9 +701,9 @@ color: white;
 </div>
 <div class="form-group col-md-4 ng-binding">
 <label for="currency">Bônus</label><br>
-De   
+De 
 <input class="form-control" ng-model="allMinerMinBonusSearch" type="text" style="width: 21%;" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-A  <input class="form-control" ng-model="allMinerMaxBonusSearch" type="text" style="width: 21%;" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+A<input class="form-control" ng-model="allMinerMaxBonusSearch" type="text" style="width: 21%;" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
 </div>
 <div class="form-group col-md-4">
 <label for="currency">Negociável</label><br/>
@@ -803,7 +759,7 @@ A  <input class="form-control" ng-model="allMinerMaxBonusSearch" type="text" sty
 <p>{{lowestMinerName}}</p>
 <p>{{lowestImpactOneCellMiner}}</p>
 </div> -->
-   
+ 
 <div ng-if="formData.showAllMiners">
 <table class="- - -">
 <thead>
@@ -817,7 +773,7 @@ Miners encontradas: {{allMiners.length}}
 Nome
 </th>
 <th style="text-align: center">
-<a href="#" ng-click="orderByAllMinersField='recipe_cost'; reverseAllMinersSort = !reverseAllMinersSort  ; $event.preventDefault();">
+<a href="#" ng-click="orderByAllMinersField='recipe_cost'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
 Receita
 <span ng-show="orderByAllMinersField == 'recipe_cost'">
 <span ng-show="!reverseMinersSort">
@@ -830,7 +786,7 @@ Receita
 </a>
 </th>
 <th style="text-align: center">
-<a href="#" ng-click="orderByAllMinersField='craft_cost_diff'; reverseAllMinersSort = !reverseAllMinersSort  ; $event.preventDefault();">
+<a href="#" ng-click="orderByAllMinersField='craft_cost_diff'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
 Desconto merge (%)
 <span ng-show="orderByAllMinersField == 'craft_cost_diff'">
 <span ng-show="!reverseMinersSort">
@@ -843,7 +799,7 @@ Desconto merge (%)
 </a>
 </th>
 <th style="text-align: center">
-<a href="#" ng-click="orderByAllMinersField='supply'; reverseAllMinersSort = !reverseAllMinersSort  ; $event.preventDefault();">
+<a href="#" ng-click="orderByAllMinersField='supply'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
 Supply
 <span ng-show="orderByAllMinersField == 'supply'">
 <span ng-show="!reverseMinersSort">
@@ -856,7 +812,7 @@ Supply
 </a>
 </th>
 <th style="text-align: center">
-<a href="#" ng-click="orderByAllMinersField='power'; reverseAllMinersSort = !reverseAllMinersSort  ; $event.preventDefault();">
+<a href="#" ng-click="orderByAllMinersField='power'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
 Poder
 <span ng-show="orderByAllMinersField == 'power'">
 <span ng-show="!reverseMinersSort">
@@ -869,7 +825,7 @@ Poder
 </a>
 </th>
 <th style="text-align: center">
-<a href="#" ng-click="orderByAllMinersField='bonus_power'; reverseAllMinersSort = !reverseAllMinersSort  ; $event.preventDefault();">
+<a href="#" ng-click="orderByAllMinersField='bonus_power'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
 Bônus
 <span ng-show="orderByAllMinersField == 'bonus_power'">
 <span ng-show="!reverseMinersSort">
@@ -882,7 +838,7 @@ Bônus
 </a>
 </th>
 <th style="text-align: center">
-<a href="#" ng-click="orderByAllMinersField='includeImpactPower'; reverseAllMinersSort = !reverseAllMinersSort  ; $event.preventDefault();">
+<a href="#" ng-click="orderByAllMinersField='includeImpactPower'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
 Impacto
 <span ng-show="orderByAllMinersField == 'includeImpactPower'">
 <span ng-show="!reverseMinersSort">
@@ -900,7 +856,7 @@ Ações
 </tr>
 </thead>
 <tbody>
-<tr ng-repeat="miner in allMiners | orderBy:orderByAllMinersField:reverseAllMinersSort | limitTo:  itemsPerPage : (currentPage - 1) * itemsPerPage"  
+<tr ng-repeat="miner in allMiners | orderBy:orderByAllMinersField:reverseAllMinersSort | limitTo:itemsPerPage : (currentPage - 1) * itemsPerPage"
 ng-class="{ 'already-have-miner': miner.already_have }" >
 <td style="text-align: center; position: relative;">
 {{miner.name.en}}<br/>

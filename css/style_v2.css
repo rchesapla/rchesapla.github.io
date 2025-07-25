@@ -52,13 +52,34 @@
 }
 }
 
-.eniyikazanç:not([disabled]) {
-    background-color: red;
-    animation: pulse 2s infinite ease-in-out;
+.best-coin:not([disabled]) {
+background-color: gold;
+font-weight: bolder;
+animation: pulse 2s infinite ease-in-out;
+}
+.best-coin[disabled] {
+background-color: #d7d0a7;
+font-weight: bolder;
+}
+@keyframes pulse {
+0% {
+transform: scale(1);
+}
+50% {
+transform: scale(1.1);
+}
+100% {
+transform: scale(1);
+}
 }
 
-.eniyikazanç[disabled] {
-	background-color: red;
+#message {
+font-size: 24px;
+animation: slideUp 2s forwards;
+}
+@keyframes slideUp {
+0% { opacity: 0; transform: translateY(50px); }
+100% { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes pulse {
