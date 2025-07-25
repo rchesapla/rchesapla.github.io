@@ -620,7 +620,7 @@ color: white;
 
 <article class="- - -">
 <div class="card-fc my-2 özelfont">
-<h6 class="card-header">KAZIM BİLGİLERİNİZ</h6>
+<h6 class="card-header">Miner Listesi</h6>
 <div class="card-body">
 <div class="form-group row my-1">
 <label for="currency"><span class="labelbaşlık">Miner Adı:</span></label>
@@ -702,7 +702,7 @@ color: white;
 
 
 
-
+<!--
 <div class="">
 <label for="currency">Poder mínimo (GH/s)</label><br/>
 <input placeholder="1" class="form-control" ng-model="allMinerMinPowerSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
@@ -726,28 +726,19 @@ color: white;
 <label for="currency">Impacto mínimo (GH/s)</label><br/>
 <input placeholder="999999999999" class="form-control" ng-model="allMinerMinImpact" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
 </div>
-
-<!--<div class="">
-<button ng-click="loadWorstMinerImpact()" style="margin-top:28px">Minhas piores máquinas</button>
-<p>{{lowestMinerName}}</p>
-<p>{{lowestImpactOneCellMiner}}</p>
-</div> -->
+-->
  
 <div ng-if="formData.showAllMiners">
 <table class="- - -">
 <thead>
-<tr class="deneme">
-<th colspan="8" style="text-align: center">
-Miners encontradas: {{allMiners.length}}
-</th>
-</tr>
+<h6 class="card-header">Miner Sayısı: {{allMiners.length}} adet!</h6>
 <tr>
 <th style="text-align: center">
-Nome
+Miner Adı
 </th>
 <th style="text-align: center">
 <a href="#" ng-click="orderByAllMinersField='recipe_cost'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
-Receita
+Parçalar
 <span ng-show="orderByAllMinersField == 'recipe_cost'">
 <span ng-show="!reverseMinersSort">
 <i class="fa fa-fw fa-sort-asc"></i>
@@ -760,7 +751,7 @@ Receita
 </th>
 <th style="text-align: center">
 <a href="#" ng-click="orderByAllMinersField='craft_cost_diff'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
-Desconto merge (%)
+Merge İndirimi (%)
 <span ng-show="orderByAllMinersField == 'craft_cost_diff'">
 <span ng-show="!reverseMinersSort">
 <i class="fa fa-fw fa-sort-asc"></i>
@@ -773,7 +764,7 @@ Desconto merge (%)
 </th>
 <th style="text-align: center">
 <a href="#" ng-click="orderByAllMinersField='supply'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
-Supply
+Tedarik Edilen
 <span ng-show="orderByAllMinersField == 'supply'">
 <span ng-show="!reverseMinersSort">
 <i class="fa fa-fw fa-sort-asc"></i>
@@ -786,7 +777,7 @@ Supply
 </th>
 <th style="text-align: center">
 <a href="#" ng-click="orderByAllMinersField='power'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
-Poder
+Güç
 <span ng-show="orderByAllMinersField == 'power'">
 <span ng-show="!reverseMinersSort">
 <i class="fa fa-fw fa-sort-asc"></i>
@@ -799,7 +790,7 @@ Poder
 </th>
 <th style="text-align: center">
 <a href="#" ng-click="orderByAllMinersField='bonus_power'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
-Bônus
+Bonus
 <span ng-show="orderByAllMinersField == 'bonus_power'">
 <span ng-show="!reverseMinersSort">
 <i class="fa fa-fw fa-sort-asc"></i>
@@ -812,7 +803,7 @@ Bônus
 </th>
 <th style="text-align: center">
 <a href="#" ng-click="orderByAllMinersField='includeImpactPower'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
-Impacto
+Etkisi
 <span ng-show="orderByAllMinersField == 'includeImpactPower'">
 <span ng-show="!reverseMinersSort">
 <i class="fa fa-fw fa-sort-asc"></i>
@@ -824,7 +815,7 @@ Impacto
 </a>
 </th>
 <th style="text-align: center">
-Ações
+Etkileşim
 </th>
 </tr>
 </thead>
@@ -881,7 +872,7 @@ color: white;
 </tr>
 </tbody>
 </table>
-<ul uib-pagination first-text="Primeira Pág." previous-text="Anterior" last-text="Última Pág." next-text="Próxima Pág." total-items="allMiners.length" ng-model="currentPage" max-size="5" class="pagination-sm" items-per-page="itemsPerPage" boundary-links="true" num-pages="numPages"></ul>
+<ul uib-pagination first-text="İlk sayfa" previous-text="Önceki" last-text="Son sayfa" next-text="Sonraki sayfa" total-items="allMiners.length" ng-model="currentPage" max-size="5" class="pagination-sm" items-per-page="itemsPerPage" boundary-links="true" num-pages="numPages"></ul>
 </div>
 </div>
 <!--===============================================================================================-->
