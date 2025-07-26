@@ -591,7 +591,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             $scope.visible_user_inventory_miners =  miners.map(m => ({...all_miners.find(m2 => m.name === m2.name.en && (m2.type === m.type || m2.level === m.level)), quantity: m.quantity, rdid: uuidv4()}));
             $scope.$apply();
         }catch(err) {
-            alert('Erro ao carregar. Siga as instruções corretamente!');
+            alert('Yükleme hatası. Talimatları doğru şekilde izleyin!');
             $scope.visible_user_inventory_miners = [];
         }
     }
@@ -736,7 +736,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.openBuyLink = async function(item) {
         if(!localStorage.getItem('alreadyDonatedMessage')) {
             localStorage.setItem('alreadyDonatedMessage', 'true');
-            if(confirm('Te ajudei a tomar essa decisão de compra? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
+            if(confirm('Satın alma kararını vermene yardım ettim mi? Lütfen bu projenin gelişimini sürdürmek için katkıda bulunmayı düşünün')) {
                 window.scrollTo(0, document.body.scrollHeight);
                 return;
             }
@@ -747,7 +747,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.openSellLink = async function(item) {
         if(!localStorage.getItem('alreadyDonatedMessage')) {
             localStorage.setItem('alreadyDonatedMessage', 'true');
-            if(confirm('Te ajudei a tomar essa decisão de venda? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
+            if(confirm('Satın alma kararını vermene yardım ettim mi? Lütfen bu projenin gelişimini sürdürmek için katkıda bulunmayı düşünün')) {
                 window.scrollTo(0, document.body.scrollHeight);
                 return;
             }
@@ -758,7 +758,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.openBuyCraftLink = async function(id, type) {
         if(!localStorage.getItem('alreadyDonatedMessage')) {
             localStorage.setItem('alreadyDonatedMessage', 'true');
-            if(confirm('Te ajudei a tomar essa decisão de compra? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
+            if(confirm('Satın alma kararını vermene yardım ettim mi? Lütfen bu projenin gelişimini sürdürmek için katkıda bulunmayı düşünün')) {
                 window.scrollTo(0, document.body.scrollHeight);
                 return;
             }
@@ -941,7 +941,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     };
 
     $scope.resetValues = function() {
-        if(confirm("Isso irá recarregar todos os valores de poder de rede e cotação e demorará algum tempo. Tem certeza?")) {
+        if(confirm("Bu, tüm ağ gücünü ve teklif değerlerini yeniden yükleyecek ve biraz zaman alacaktır. Emin misin?")) {
             localStorage.clear();
             location.reload();  
         }
@@ -1064,11 +1064,11 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
     $scope.bestBuys = async function() {
         $scope.formData.showAllMiners = true;
-        $scope.allMinerNegotiableStatus = 'negotiable';
-        $scope.allMinerPosessionStatus = 'not_mine';
+        $scope.allMinerNegotiableStatus = 'all';
+        $scope.allMinerPosessionStatus = 'all';
         $scope.orderByAllMinersField='supply';
         $scope.reverseAllMinersSort = true;
-        $scope.allMinerMinBonusSearch = 2;
+        $scope.allMinerMinBonusSearch = 0;
         $scope.filterAllMiners($scope.allMinerNameSearch, $scope.allMinersRarity, {min:$scope.allMinerMinBonusSearch, max:$scope.allMinerMaxBonusSearch}, $scope.allMinerNegotiableStatus, $scope.allMinerPosessionStatus, $scope.allMinerCollectionId, $scope.allMinerMinPowerSearch, $scope.allMinerMaxPowerSearch)
         $scope.$apply();
     }
