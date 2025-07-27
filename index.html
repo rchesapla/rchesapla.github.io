@@ -631,11 +631,11 @@ color: white;
 <h6 class="card-header">MINER LİSTESİ</h6>
 <div class="card-body">
 <div class="row my-1">
-<label for="- - -"><span class="labelbaşlık">Miner Adı:</span></label>
+<span class="labelbaşlık">Miner Adı:</span>
 <div class="- - -">
 <input type="text" class="form-control" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Örn: YMCA">
 </div>
-<label for="- - -"><span class="labelbaşlık">Seviye Durumu:</span></label>
+<span class="labelbaşlık">Seviye Durumu:</span>
 <div class="- - -">
 <select class="form-control" ng-model="allMinersRarity" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
 <option value="all">Hepsi</option>
@@ -652,7 +652,7 @@ color: white;
 <!--===============================================================================================-->
 <div class="ng-binding">
 <div class="row my-1">
-<label for="- - -"><span class="labelbaşlık">Bonus Oranı:</span></label>
+<span class="labelbaşlık">Bonus Oranı:</span>
 <div class="- - -">
 <input class="form-control" ng-model="allMinerMinBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/> / 
 <input class="form-control" ng-model="allMinerMaxBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/>
@@ -662,7 +662,7 @@ color: white;
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="row my-1">
-<label for="- - -"><span class="labelbaşlık">Satılık Durumu:</span></label>
+<span class="labelbaşlık">Satılık Durumu:</span>
 <div class="- - -">
 <select class="form-control" ng-model="allMinerNegotiableStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
 <option value="all">Hepsi</option>
@@ -675,7 +675,7 @@ color: white;
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="row my-1">
-<label for="- - -"><span class="labelbaşlık">Bende ki Mınerlar:</span></label>
+<span class="labelbaşlık">Bende ki Mınerlar:</span>
 <div class="- - -">
 <select class="form-control" ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
 <option value="all">Hepsi</option>
