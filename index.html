@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="./css/fonts.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" href="./css/input.css">
+<link rel="stylesheet" href="./css/button.css">
 <link rel="stylesheet" href="./css/solmenu.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" href="./css/benihatirla.css">
@@ -108,16 +109,16 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="card-fc my-2 özelfont">
 <h6 class="card-header">KAZIM BİLGİLERİNİZ</h6>
 <div class="card-body">
-<div class="form-group row my-1">
-<label for="currency"><span class="labelbaşlık">Kripto Seç:</span></label>
+<div class="row my-1">
+<span class="labelbaşlık">Kripto Seç:</span>
 <div class="col-7">
 <select id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="input">
 <option value="">Genel Hesaplama</option>
 </select>
 </div>
 </div>
-<div class="form-group row my-1">
-<label for="inputNetworkPower"><span class="labelbaşlık">Ağ Gücü:</span></label>
+<div class="row my-1">
+<span class="labelbaşlık">Ağ Gücü:</span>
 <div class="col-7">
 <input id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower" type="number" name="inputNetworkPower" class="input" placeholder="Ağ gücünü giriniz...">
 </div>
@@ -129,8 +130,8 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </div>
 <!--===============================================================================================-->
 <div class="şiş">
-<div class="form-group row my-1">
-<label for="inputUserPower"><span class="labelbaşlık">Kazım Gücü:</span></label>
+<div class="row my-1">
+<span class="labelbaşlık">Kazım Gücü:</span>
 <div class="col-7">
 <input type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power" class="input" placeholder="Kazım gücünü giriniz...">
 </div>
@@ -142,8 +143,8 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </div>
 <!--===============================================================================================-->
 <div class="şiş">
-<div class="form-group row my-1">
-<label for="inputBlockReward"><span class="labelbaşlık">Blok Ödülü:</span></label>
+<div class="row my-1">
+<span class="labelbaşlık">Blok Ödülü:</span>
 <div class="col-7">
 <input type="number" id="blockSize"" ng-disabled="isLoadedUser" ng-model="formData.blockSize" class="input" placeholder="Blok ödülünü giriniz...">
 </div>
@@ -151,8 +152,8 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </div>
 <!--===============================================================================================-->
 <div class="şiş">
-<div class="form-group row my-1">
-<label for="inputTimePerBlock"><span class="labelbaşlık">Blok Süresi:</span></label>
+<div class="row my-1">
+<span class="labelbaşlık">Blok Süresi:</span>
 <div class="col-7">
 <input type="number" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser" class="input" placeholder="Blok süresini giriniz...">
 </div>
@@ -166,17 +167,18 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </div>
 <!--===============================================================================================-->
 <div class="şiş">
-<div class="form-group row my-1">
-<label for="- - -"><span class="labelbaşlık">RC-ID:</span></label>
+<div class="row my-1">
+<span class="labelbaşlık">RC-ID:</span>
 <div class="col-7">
 <input
 ng-model="userSearchText"
-placeholder="Örn: FthCLK"
 typeahead-wait-ms="300"
 uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
 typeahead-no-results="playerSearchNoResults"
 typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
-typeahead-loading="loading" class="input"/>
+typeahead-loading="loading"
+placeholder="Örn: FthCLK"
+class="input"/>
 </div>
 </div>
 <div class="inner">
@@ -209,13 +211,13 @@ stroke-linejoin="round"
 </label>
 </div-->
 <!--===============================================================================================-->
-<div class="form-group" style="text-align: center">
+<div class="" style="text-align: center">
 <div class="form-inline">
-<button class="" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-user-xmark"></i> Beni Unut</button>
-<button class="" ng-click="resetValues()"><i class="fa-solid fa-coins"></i> Verileri Güncelle</button>
-<button class="best-coin animated-button" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"><i class="fa-solid fa-coins"></i> En İyi Kazanç</button>
-<button class="best-coin animated-button" ng-disabled="!isLoadedUser" ng-click="bestBuys()"><i class="fas fa-shopping-cart"></i> Miner Listesi</button>
-<button class="" ng-if="hasAnyAllocatedPower()" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i> Kazanç Temizle</button>
+<button class="btn" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-user-xmark"></i> Beni Unut</button>
+<button class="btn" ng-click="resetValues()"><i class="fa-solid fa-coins"></i> Verileri Güncelle</button>
+<button class="btn best-coin animated-button" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"><i class="fa-solid fa-coins"></i> En İyi Kazanç</button>
+<button class="btn best-coin animated-button" ng-disabled="!isLoadedUser" ng-click="bestBuys()"><i class="fas fa-shopping-cart"></i> Miner Listesi</button>
+<button class="btn" ng-if="hasAnyAllocatedPower()" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i> Kazanç Temizle</button>
 </div>
 </div>
 <!--===============================================================================================-->
@@ -457,7 +459,7 @@ PARA ÇEKİMİ
 <tr>
 <th class="başlık card-header" style="text-align: center" colspan="22">
 EN İYİ KAZANÇ İSTATİSTİKLERİM
-<button class="" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i></button>
+<button class="btn" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i></button>
 </th>
 </tr>
 <tr class="deneme">
@@ -628,7 +630,7 @@ color: white;
 <div class="card-fc my-2 özelfont">
 <h6 class="card-header">MINER LİSTESİ</h6>
 <div class="card-body">
-<div class="form-group row my-1">
+<div class="row my-1">
 <label for="- - -"><span class="labelbaşlık">Miner Adı:</span></label>
 <div class="- - -">
 <input type="text" class="form-control" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Örn: YMCA">
@@ -649,7 +651,7 @@ color: white;
 </div>
 <!--===============================================================================================-->
 <div class="ng-binding">
-<div class="form-group row my-1">
+<div class="row my-1">
 <label for="- - -"><span class="labelbaşlık">Bonus Oranı:</span></label>
 <div class="- - -">
 <input class="form-control" ng-model="allMinerMinBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/> / 
@@ -659,7 +661,7 @@ color: white;
 </div>
 <!--===============================================================================================-->
 <div class="şiş">
-<div class="form-group row my-1">
+<div class="row my-1">
 <label for="- - -"><span class="labelbaşlık">Satılık Durumu:</span></label>
 <div class="- - -">
 <select class="form-control" ng-model="allMinerNegotiableStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
@@ -672,7 +674,7 @@ color: white;
 </div>
 <!--===============================================================================================-->
 <div class="şiş">
-<div class="form-group row my-1">
+<div class="row my-1">
 <label for="- - -"><span class="labelbaşlık">Bende ki Mınerlar:</span></label>
 <div class="- - -">
 <select class="form-control" ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
@@ -800,7 +802,7 @@ color: white;
 <div class="card-fc my-2 özelfont">
 <h6 class="card-header">MADENCİLERİM</h6>
 <div class="card-body">
-<div class="form-group row my-1">
+<div class="row my-1">
 <label for="currency"><span class="labelbaşlık">Miner Adı / Türü:</span></label>
 <div class="col-7">
 <input type="text" class="form-control" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)" ng-model="userMinerNameSearch" placeholder="Miner adını girin...">
@@ -820,7 +822,7 @@ color: white;
 </div>
 <!--===============================================================================================-->
 <div class="şiş">
-<div class="form-group row my-1">
+<div class="row my-1">
 <label for="currency"><span class="labelbaşlık">Minimum Güç: (GH/s)</span></label>
 <div class="col-7">
 <input placeholder="1" class="form-control" ng-model="userMinerMinPowerSearch" type="text" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
@@ -829,7 +831,7 @@ color: white;
 </div>
 <!--===============================================================================================-->
 <div class="şiş">
-<div class="form-group row my-1">
+<div class="row my-1">
 <label for="currency"><span class="labelbaşlık">Maksimum Güç: (GH/s)</span></label>
 <div class="col-7">
 <input placeholder="999999999999" class="form-control" ng-model="userMinerMaxPowerSearch" type="text" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">

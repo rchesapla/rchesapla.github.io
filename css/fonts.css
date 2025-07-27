@@ -24,7 +24,7 @@ Tektur
 	}
 .card-header {
 	font-family: var(--card-header);
-	font-size: 15px !important;
+	font-size: 18px !important;
 	}
 .card-body {
 	font-family: var(--card-body);
@@ -32,7 +32,7 @@ Tektur
 	}
 .labelbaşlık {
 	font-family: var(--labelbaşlık);
-	font-size: 13px !important;
+	font-size: 15px !important;
 	}
 .form-select,
 .form-control {
