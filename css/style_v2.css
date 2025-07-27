@@ -40,12 +40,10 @@
 
 .best-coin:not([disabled]) {
 background-color: gold;
-font-weight: bolder;
 animation: pulse 2s infinite ease-in-out;
 }
 .best-coin[disabled] {
 background-color: #d7d0a7;
-font-weight: bolder;
 }
 @keyframes pulse {
 0% {
