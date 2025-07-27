@@ -734,35 +734,14 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     }
 
     $scope.openBuyLink = async function(item) {
-        if(!localStorage.getItem('alreadyDonatedMessage')) {
-            localStorage.setItem('alreadyDonatedMessage', 'true');
-            if(confirm('Satın alma kararını vermene yardım ettim mi? Lütfen bu projenin gelişimini sürdürmek için katkıda bulunmayı düşünün')) {
-                window.scrollTo(0, document.body.scrollHeight);
-                return;
-            }
-        }
         window.open(`https://rollercoin.com/marketplace/buy/miner/${item.miner_id}`,'_blank');
     }
 
     $scope.openSellLink = async function(item) {
-        if(!localStorage.getItem('alreadyDonatedMessage')) {
-            localStorage.setItem('alreadyDonatedMessage', 'true');
-            if(confirm('Satın alma kararını vermene yardım ettim mi? Lütfen bu projenin gelişimini sürdürmek için katkıda bulunmayı düşünün')) {
-                window.scrollTo(0, document.body.scrollHeight);
-                return;
-            }
-        }
         window.open(`https://rollercoin.com/marketplace/sell/miner/${item.miner_id}`,'_blank');
     }
 
     $scope.openBuyCraftLink = async function(id, type) {
-        if(!localStorage.getItem('alreadyDonatedMessage')) {
-            localStorage.setItem('alreadyDonatedMessage', 'true');
-            if(confirm('Satın alma kararını vermene yardım ettim mi? Lütfen bu projenin gelişimini sürdürmek için katkıda bulunmayı düşünün')) {
-                window.scrollTo(0, document.body.scrollHeight);
-                return;
-            }
-        }
         window.open(`https://rollercoin.com/marketplace/buy/${type}/${id}`,'_blank');
     }
 
