@@ -1,10 +1,9 @@
 .input {
   background-color: #1a1a1a;
-  border: none;
   padding: 5px;
   border-radius: 5px;
   color: #c3b0d0;
-  border: 1px solid red;
+  border: 1px solid #c3b0d0;
 }
 
 .input:focus {

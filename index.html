@@ -110,7 +110,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="card-body">
 <div class="form-group row my-1">
 <label for="currency"><span class="labelbaşlık">Kripto Seç:</span></label>
-<div class="">
+<div class="col-7">
 <select id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="input">
 <option value="">Genel Hesaplama</option>
 </select>
@@ -168,7 +168,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="şiş">
 <div class="form-group row my-1">
 <label for="- - -"><span class="labelbaşlık">RC-ID:</span></label>
-<div class="">
+<div class="col-7">
 <input
 ng-model="userSearchText"
 placeholder="Örn: FthCLK"
