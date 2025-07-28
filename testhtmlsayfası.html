@@ -101,10 +101,11 @@
       font-weight: bold;
     }
     .rarity.common { color: #ccc; }
-    .rarity.uncommon { color: limegreen; }
-    .rarity.rare { color: dodgerblue; }
-    .rarity.epic { color: violet; }
-    .rarity.legendary { color: gold; }
+    .rarity.lvl2 { color: limegreen; }
+    .rarity.lvl3 { color: dodgerblue; }
+    .rarity.lvl4 { color: violet; }
+    .rarity.lvl5 { color: gold; }
+	.rarity.lvl6 { color: rgb(235, 0, 0) }
     .details {
       margin: 4px 0;
     }
@@ -171,7 +172,7 @@
   <script>
     const productData = [
 	{ name: "VoltSurge", 
-		rarity: "uncommon",  
+		rarity: "lvl2",  
 		bonus: "%2",
 		type: "Miners", 
 		price: 4.5, 
@@ -181,7 +182,7 @@
 		active: false },
 	
 	{ name: "Sparky", 
-		rarity: "common",  
+		rarity: "lvl1",  
 		bonus: "Henüz Belirlenmedi!",
 		type: "Miners", 
 		price: 0.9, 
@@ -191,7 +192,7 @@
 		active: false },
 	
 	{ name: "MysticGarden", 
-		rarity: "uncommon",  
+		rarity: "lvl2",  
 		bonus: "Henüz Belirlenmedi!",
 		type: "Miners", 
 		price: 1.9, 
@@ -201,7 +202,7 @@
 		active: false },
 	
 	{ name: "Mighty Hamjolnir", 
-		rarity: "common",  
+		rarity: "lvl1",  
 		bonus: "Henüz Belirlenmedi!",
 		type: "Miners", 
 		price: 4.9, 
@@ -211,7 +212,7 @@
 		active: false },
 	
 	{ name: "Tamborim", 
-		rarity: "common", 
+		rarity: "lvl1", 
 		bonus: "Henüz Belirlenmedi!", 
 		type: "Miners", 
 		price: 2.3, 
@@ -221,7 +222,7 @@
 		active: false },
 	
 	{ name: "RollerFuture", 
-		rarity: "common", 
+		rarity: "lvl1", 
 		bonus: "Henüz Belirlenmedi!",
 		type: "Miners", 
 		price: 3.8, 
@@ -231,7 +232,7 @@
 		active: false },
 	
 	{ name: "Starground", 
-		rarity: "common", 
+		rarity: "lvl1", 
 		bonus: "Henüz Belirlenmedi!",
 		type: "Miners", 
 		price: 3.1, 
@@ -239,9 +240,21 @@
 		date: "07.28.2025", 
 		img: "https://static.rollercoin.com/static/img/market/miners/starground.gif?v=1", 
 		active: false },
+<!-------------------------------------------------------------------------------------------------------->
+	/*Hokusai - Bütün Minerları*/
+<!-------------------------------------------------------------------------------------------------------->
+	{ name: "Hokusai", 
+		rarity: "lvl1", 
+		bonus: "%2",
+		type: "Miners", 
+		price: 1.1, 
+		quantity: 1, 
+		date: "07.28.2025", 
+		img: "https://static.rollercoin.com/static/img/market/miners/hokusai.gif?v=1", 
+		active: false },
 	
 	{ name: "Hokusai", 
-		rarity: "uncommon", 
+		rarity: "lvl2", 
 		bonus: "Henüz Belirlenmedi!",
 		type: "Miners", 
 		price: 2.1, 
@@ -250,18 +263,39 @@
 		img: "https://static.rollercoin.com/static/img/market/miners/hokusai.gif?v=1", 
 		active: false },
 	
-	{ name: "RollerFuture", 
-		rarity: "common", 
+	{ name: "Hokusai", 
+		rarity: "lvl3", 
+		bonus: "%2.21",
+		type: "Miners", 
+		price: 4.7, 
+		quantity: 1, 
+		date: "Henüz Alınmadı!", 
+		img: "https://static.rollercoin.com/static/img/market/miners/hokusai.gif?v=1", 
+		active: false },
+	
+	{ name: "Hokusai", 
+		rarity: "lvl4", 
 		bonus: "Henüz Belirlenmedi!",
 		type: "Miners", 
-		price: 3.8, 
+		price: 2.1, 
 		quantity: 1, 
 		date: "07.28.2025", 
-		img: "https://static.rollercoin.com/static/img/market/miners/rollerfuture.gif?v=1", 
+		img: "https://static.rollercoin.com/static/img/market/miners/hokusai.gif?v=1", 
+		active: false },
+	
+<!-------------------------------------------------------------------------------------------------------->
+	{ name: "Steamwheedle", 
+		rarity: "lvl1", 
+		bonus: "Henüz Belirlenmedi!",
+		type: "Miners", 
+		price: 2.8, 
+		quantity: 1, 
+		date: "07.28.2025", 
+		img: "https://static.rollercoin.com/static/img/market/miners/steamwheedle.gif?v=1", 
 		active: false },
 	
 	{ name: "RollerFuture", 
-		rarity: "common", 
+		rarity: "lvl1", 
 		bonus: "Henüz Belirlenmedi!",
 		type: "Miners", 
 		price: 3.8, 
@@ -271,7 +305,7 @@
 		active: false },
 	
 	{ name: "Fatih ÇELİK (Deneme Miner)", 
-		rarity: "legendary", 
+		rarity: "lvl6", 
 		bonus: "Henüz Belirlenmedi!",
 		type: "Miners", 
 		price: 3.8, 
@@ -298,7 +332,7 @@
             </div>
             <div class="details">Bonus: ${item.bonus}</div>
 			<div class="details">Ücret: ${item.price} RLT</div>
-            <div class="details">Tarih: ${item.date}</div>
+            <div class="details">Aldığım Tarih: ${item.date}</div>
           </div>
         `;
         container.appendChild(card);
