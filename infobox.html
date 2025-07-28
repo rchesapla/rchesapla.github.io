@@ -1,81 +1,204 @@
 ﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>Profil Linki Kutusu</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gelişmiş Menü Paneli</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
+    /* Tema Değişkenleri */
+    :root {
+      --bg: #1e1e2f;
+      --text: #fff;
+      --sidebar: #2f314c;
+      --hover: #3e4162;
+      --accent: #00ffd5;
+    }
+
+    [data-theme="light"] {
+      --bg: #f9f9f9;
+      --text: #222;
+      --sidebar: #e0e0e0;
+      --hover: #d0d0d0;
+      --accent: #0d7cff;
+    }
+
     body {
-      background-color: #1c1f2b;
-      font-family: Arial, sans-serif;
-      color: #ffffff;
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
       display: flex;
-      justify-content: center;
-      padding: 50px;
+      transition: background 0.3s, color 0.3s;
     }
 
-    .profile-box {
-      background-color: #2c2f3c;
-      border: 1px solid #333;
+    .sidebar {
+      width: 260px;
+      min-width: 260px;
+      height: 100vh;
+      background-color: var(--sidebar);
+      position: fixed;
+      left: 0;
+      top: 0;
+      padding: 20px;
+      overflow-y: auto;
+      transition: transform 0.3s ease;
+      z-index: 1000;
+    }
+
+    .sidebar.hide {
+      transform: translateX(-100%);
+    }
+
+    .sidebar .logo {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      margin: 10px 0;
+    }
+
+    .sidebar ul li a {
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      text-decoration: none;
+      color: var(--text);
       border-radius: 6px;
-      padding: 15px 20px;
-      width: 400px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      transition: background 0.3s;
     }
 
-    .profile-box a {
-      color: #5fb5ff;
-      text-decoration: none;
-      font-weight: bold;
+    .sidebar ul li a:hover {
+      background-color: var(--hover);
     }
 
-    .profile-box a:hover {
-      text-decoration: underline;
+    .sidebar ul li a i {
+      margin-right: 10px;
+      width: 20px;
     }
 
-    .profile-label {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-      color: #8fbfff;
-      font-weight: 600;
+    .toggle-btn {
+      position: absolute;
+      top: 15px;
+      left: 270px;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 1001;
     }
 
-    .profile-link-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #1f222e;
+    .content {
+      margin-left: 260px;
+      padding: 30px;
+      flex-grow: 1;
+      transition: margin-left 0.3s ease;
+    }
+
+    .sidebar.hide + .content {
+      margin-left: 0;
+    }
+
+    .theme-toggle {
+      margin-top: 30px;
+      padding: 10px 15px;
+      background-color: var(--accent);
+      border: none;
       border-radius: 5px;
-      padding: 10px 12px;
-    }
-
-    .profile-url {
-      color: #5c93ff;
+      color: #000;
       font-weight: bold;
-      overflow-wrap: anywhere;
+      cursor: pointer;
     }
 
-    .change-link {
-      color: #33c3ff;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
+    .profile {
+      margin-top: 40px;
+      padding: 15px;
+      background: var(--hover);
+      border-radius: 8px;
+      text-align: center;
     }
 
-    .change-link:hover {
-      text-decoration: underline;
+    .profile img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .profile h4 {
+      margin: 5px 0;
+      font-size: 16px;
+    }
+
+    @media(max-width: 768px) {
+      .toggle-btn {
+        left: 15px;
+      }
+      .content {
+        margin-left: 0;
+      }
     }
   </style>
 </head>
-<body>
+<body data-theme="dark">
 
-  <div class="profile-box">
-    <div class="profile-label">🔗 Profile link</div>
-    <div class="profile-link-container">
-      <span class="profile-url">https://rollercoin.com/p/FfhCLK</span>
-      <a href="#" class="change-link">Change</a>
+  <div class="sidebar" id="sidebar">
+    <div class="logo">⚡ MenuPanel</div>
+    <ul>
+      <li><a href="#" onclick="loadPage('home')"><i class="fas fa-home"></i> Anasayfa</a></li>
+      <li><a href="#" onclick="loadPage('games')"><i class="fas fa-gamepad"></i> Oyunlar</a></li>
+      <li><a href="#" onclick="loadPage('tasks')"><i class="fas fa-tasks"></i> Görevler</a></li>
+      <li><a href="#" onclick="loadPage('leaderboard')"><i class="fas fa-chart-line"></i> Sıralama</a></li>
+      <li><a href="#" onclick="loadPage('store')"><i class="fas fa-store"></i> Mağaza</a></li>
+    </ul>
+
+    <button class="theme-toggle" onclick="toggleTheme()">🌙 Tema Değiştir</button>
+
+    <div class="profile">
+      <img src="https://i.pravatar.cc/100" alt="Profil">
+      <h4>Kullanıcı Adı</h4>
+      <p>Premium</p>
     </div>
   </div>
+
+  <div class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></div>
+
+  <div class="content" id="mainContent">
+    <h1>Hoş geldin 👋</h1>
+    <p>Soldaki menüden sayfa geçişlerini test edebilirsin.</p>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('hide');
+    }
+
+    function toggleTheme() {
+      const body = document.body;
+      body.setAttribute('data-theme', body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    }
+
+    function loadPage(page) {
+      const content = document.getElementById('mainContent');
+      switch(page) {
+        case 'home':
+          content.innerHTML = "<h1>🏠 Anasayfa</h1><p>Hoş geldin, burası başlangıç noktası.</p>"; break;
+        case 'games':
+          content.innerHTML = "<h1>🎮 Oyunlar</h1><p>Tüm oyunlara buradan ulaşabilirsin.</p>"; break;
+        case 'tasks':
+          content.innerHTML = "<h1>📋 Görevler</h1><p>Aktif görevleri bu alanda görebilirsin.</p>"; break;
+        case 'leaderboard':
+          content.innerHTML = "<h1>🏆 Sıralama</h1><p>Liderlik tablosunu takip et.</p>"; break;
+        case 'store':
+          content.innerHTML = "<h1>🛒 Mağaza</h1><p>Öğe satın alabileceğin bölüm.</p>"; break;
+      }
+    }
+  </script>
 
 </body>
 </html>
