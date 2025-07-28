@@ -168,7 +168,15 @@
   </div>
   <script>
     const productData = [
-      { name: "VoltSurge", rarity: "uncommon", type: "Battery", price: 4.5675, quantity: 1, date: "07.28.2025", img: "https://via.placeholder.com/80x80.png?text=VoltSurge", active: true },
+      { name: "VoltSurge", 
+		rarity: "uncommon", 
+		type: "Miners", 
+		price: 4.5675, 
+		quantity: 1, 
+		date: "07.28.2025", 
+		img: "https://static.rollercoin.com/static/img/market/miners/voltsurge.gif?v=1", 
+		active: true },
+		
       { name: "Hashboard", rarity: "common", type: "Parts", price: 0.002149, quantity: 500, date: "07.28.2025", img: "https://via.placeholder.com/80x80.png?text=Hashboard", active: false },
       { name: "Sparky", rarity: "common", type: "Miners", price: 0.9975, quantity: 1, date: "07.28.2025", img: "https://via.placeholder.com/80x80.png?text=Sparky", active: false },
       { name: "MysticGarden", rarity: "rare", type: "Miners", price: 1.995, quantity: 1, date: "07.27.2025", img: "https://via.placeholder.com/80x80.png?text=MysticGarden", active: true },
@@ -190,10 +198,10 @@
               ${item.active ? '<span class="status-indicator"></span>' : ''}
               <span class="rarity ${item.rarity}">${item.rarity.charAt(0).toUpperCase() + item.rarity.slice(1)}</span> ${item.name}
             </div>
-            <div class="details">Per unit: ${item.price} RLT</div>
-            <div class="details">Quantity: ${item.quantity} | Listed on: ${item.date}</div>
+            <div class="details">Ücret: ${item.price} RLT</div>
+            <div class="details">Adet: ${item.quantity} | Tarih: ${item.date}</div>
           </div>
-          <button class="purchased-btn">PURCHASED</button>
+          <button class="purchased-btn">SATIN ALINDI</button>
         `;
         container.appendChild(card);
       });
