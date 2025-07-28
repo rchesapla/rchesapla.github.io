@@ -211,7 +211,7 @@ stroke-linejoin="round"
 </label>
 </div-->
 <!--===============================================================================================-->
-<div class="" style="text-align: center">
+<!--div class="" style="text-align: center">
 <div class="form-inline" style="text-align: center">
 <button class="btn" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-user-xmark"></i> Beni Unut</button>
 <button class="btn" ng-click="resetValues()"><i class="fa-solid fa-coins"></i> Verileri Güncelle</button>
@@ -219,7 +219,7 @@ stroke-linejoin="round"
 <button class="btn best-coin animated-button" ng-disabled="!isLoadedUser" ng-click="bestBuys()"><i class="fas fa-shopping-cart"></i> Miner Listesi</button>
 <button class="btn" ng-if="hasAnyAllocatedPower()" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i> Kazanç Temizle</button>
 </div>
-</div>
+</div-->
 <!--===============================================================================================-->
 <div class="uv-checkbox-wrapper" ng-if="isLoadedUser">
   <input type="checkbox" id="uv-checkbox" class="uv-checkbox" ng-model="keepUser" ng-change="updateKeepUser(keepUser)" name="keep_user"/>
@@ -250,6 +250,12 @@ stroke-linejoin="round"
 <div class="card-fc my-2">
 <h6 class="card-header">KAZANÇ İSTATİSTİKLERİN</h6>
 <div class="card-body ">
+<!--===============================================================================================-->
+<button class="btn" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-user-xmark"></i> Beni Unut</button>
+<button class="btn" ng-click="resetValues()"><i class="fa-solid fa-coins"></i> Verileri Güncelle</button>
+<button class="btn best-coin animated-button" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"><i class="fa-solid fa-coins"></i> En İyi Kazanç</button>
+<button class="btn best-coin animated-button" ng-disabled="!isLoadedUser" ng-click="bestBuys()"><i class="fas fa-shopping-cart"></i> Miner Listesi</button>
+<!--===============================================================================================-->
 <div ng-if="user_data">
 <table class="ss">
 <thead>
@@ -566,7 +572,7 @@ $
 <table class="">
 <thead>
 <tr>
-<th colspan="5" style="text-align: center">
+<th class="başlık card-header" colspan="5" style="text-align: center">
 EKRAN KARTLARI
 </th>
 </tr>
