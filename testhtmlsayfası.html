@@ -170,7 +170,8 @@
   <script>
     const productData = [
 	{ name: "VoltSurge", 
-		rarity: "uncommon", 
+		rarity: "uncommon",  
+		bonus: "%2",
 		type: "Miners", 
 		price: 4.5, 
 		quantity: 1, 
@@ -179,7 +180,8 @@
 		active: false },
 	
 	{ name: "Sparky", 
-		rarity: "common", 
+		rarity: "common",  
+		bonus: "2",
 		type: "Miners", 
 		price: 0.9, 
 		quantity: 1, 
@@ -188,7 +190,8 @@
 		active: false },
 	
 	{ name: "MysticGarden", 
-		rarity: "uncommon", 
+		rarity: "uncommon",  
+		bonus: "2",
 		type: "Miners", 
 		price: 1.9, 
 		quantity: 1, 
@@ -197,7 +200,8 @@
 		active: false },
 	
 	{ name: "Mighty Hamjolnir", 
-		rarity: "common", 
+		rarity: "common",  
+		bonus: "2",
 		type: "Miners", 
 		price: 4.9, 
 		quantity: 1, 
@@ -205,22 +209,24 @@
 		img: "https://static.rollercoin.com/static/img/market/miners/mighty_hamjolnir.gif?v=1", 
 		active: false },
 	
-	{ name: "Sparky", 
+	{ name: "Tamborim", 
 		rarity: "common", 
+		bonus: "2", 
 		type: "Miners", 
-		price: 4.5675, 
+		price: 2.3, 
 		quantity: 1, 
 		date: "07.28.2025", 
-		img: "https://static.rollercoin.com/static/img/market/miners/sparky.gif?v=1", 
+		img: "https://static.rollercoin.com/static/img/market/miners/tamborim.gif?v=1", 
 		active: false },
 	
-	{ name: "Sparky", 
+	{ name: "RollerFuture", 
 		rarity: "common", 
+		bonus: "2",
 		type: "Miners", 
-		price: 4.5675, 
+		price: 3.8, 
 		quantity: 1, 
 		date: "07.28.2025", 
-		img: "https://static.rollercoin.com/static/img/market/miners/sparky.gif?v=1", 
+		img: "https://static.rollercoin.com/static/img/market/miners/rollerfuture.gif?v=1", 
 		active: false },
 	
       { name: "MysticGarden", rarity: "rare", type: "Miners", price: 1.995, quantity: 1, date: "07.27.2025", img: "https://via.placeholder.com/80x80.png?text=MysticGarden", active: true },
@@ -242,7 +248,8 @@
               ${item.active ? '<span class="status-indicator"></span>' : ''}
               <span class="rarity ${item.rarity}">${item.rarity.charAt(0).toUpperCase() + item.rarity.slice(1)}</span> ${item.name}
             </div>
-            <div class="details">Ücret: ${item.price} RLT</div>
+            <div class="details">Bonus: ${item.bonus}</div>
+			<div class="details">Ücret: ${item.price} RLT</div>
             <div class="details">Adet: ${item.quantity} | Tarih: ${item.date}</div>
           </div>
           <button class="purchased-btn">SATIN ALINDI</button>
