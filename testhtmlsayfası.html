@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Market Listings</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/fonts.css">
   <style>
     body {
       margin: 0;
-      font-family: 'Orbitron', sans-serif;
+      font: 18px var(--açıklama);
       background-color: #0e1121;
       color: #fff;
     }
@@ -93,7 +93,7 @@
     }
     .title {
       font-weight: bold;
-      font-size: 16px;
+      font-size: 20px;
     }
     .rarity {
       font-weight: bold;
@@ -104,7 +104,6 @@
     .rarity.epic { color: violet; }
     .rarity.legendary { color: gold; }
     .details {
-      font-size: 14px;
       margin: 4px 0;
     }
     .purchased-btn {
@@ -181,7 +180,7 @@
 	
 	{ name: "Sparky", 
 		rarity: "common",  
-		bonus: "2",
+		bonus: "Henüz Belirlenmedi!",
 		type: "Miners", 
 		price: 0.9, 
 		quantity: 1, 
@@ -191,7 +190,7 @@
 	
 	{ name: "MysticGarden", 
 		rarity: "uncommon",  
-		bonus: "2",
+		bonus: "Henüz Belirlenmedi!",
 		type: "Miners", 
 		price: 1.9, 
 		quantity: 1, 
@@ -201,7 +200,7 @@
 	
 	{ name: "Mighty Hamjolnir", 
 		rarity: "common",  
-		bonus: "2",
+		bonus: "Henüz Belirlenmedi!",
 		type: "Miners", 
 		price: 4.9, 
 		quantity: 1, 
@@ -211,7 +210,7 @@
 	
 	{ name: "Tamborim", 
 		rarity: "common", 
-		bonus: "2", 
+		bonus: "Henüz Belirlenmedi!", 
 		type: "Miners", 
 		price: 2.3, 
 		quantity: 1, 
@@ -221,7 +220,7 @@
 	
 	{ name: "RollerFuture", 
 		rarity: "common", 
-		bonus: "2",
+		bonus: "Henüz Belirlenmedi!",
 		type: "Miners", 
 		price: 3.8, 
 		quantity: 1, 
@@ -229,9 +228,56 @@
 		img: "https://static.rollercoin.com/static/img/market/miners/rollerfuture.gif?v=1", 
 		active: false },
 	
-      { name: "MysticGarden", rarity: "rare", type: "Miners", price: 1.995, quantity: 1, date: "07.27.2025", img: "https://via.placeholder.com/80x80.png?text=MysticGarden", active: true },
-      { name: "PowerCube", rarity: "epic", type: "Racks", price: 3.50, quantity: 3, date: "07.25.2025", img: "https://via.placeholder.com/80x80.png?text=PowerCube", active: true },
-      { name: "SolarStorm", rarity: "legendary", type: "Battery", price: 7.777, quantity: 1, date: "07.24.2025", img: "https://via.placeholder.com/80x80.png?text=SolarStorm", active: true }
+	{ name: "Starground", 
+		rarity: "common", 
+		bonus: "Henüz Belirlenmedi!",
+		type: "Miners", 
+		price: 3.1, 
+		quantity: 1, 
+		date: "07.28.2025", 
+		img: "https://static.rollercoin.com/static/img/market/miners/starground.gif?v=1", 
+		active: false },
+	
+	{ name: "RollerFuture", 
+		rarity: "common", 
+		bonus: "Henüz Belirlenmedi!",
+		type: "Miners", 
+		price: 3.8, 
+		quantity: 1, 
+		date: "07.28.2025", 
+		img: "https://static.rollercoin.com/static/img/market/miners/rollerfuture.gif?v=1", 
+		active: false },
+	
+	{ name: "RollerFuture", 
+		rarity: "common", 
+		bonus: "Henüz Belirlenmedi!",
+		type: "Miners", 
+		price: 3.8, 
+		quantity: 1, 
+		date: "07.28.2025", 
+		img: "https://static.rollercoin.com/static/img/market/miners/rollerfuture.gif?v=1", 
+		active: false },
+	
+	{ name: "RollerFuture", 
+		rarity: "common", 
+		bonus: "Henüz Belirlenmedi!",
+		type: "Miners", 
+		price: 3.8, 
+		quantity: 1, 
+		date: "07.28.2025", 
+		img: "https://static.rollercoin.com/static/img/market/miners/rollerfuture.gif?v=1", 
+		active: false },
+	
+	{ name: "Fatih ÇELİK (Deneme Miner)", 
+		rarity: "legendary", 
+		bonus: "Henüz Belirlenmedi!",
+		type: "Miners", 
+		price: 3.8, 
+		quantity: 1, 
+		date: "07.28.2025", 
+		img: "https://avatars.rollercoin.com/static/avatars/thumbnails/50/63eea2b3a8c681f515df3b79.png?v=1676583643980", 
+		active: true }
+	
     ];
 
     function renderListings(data) {
