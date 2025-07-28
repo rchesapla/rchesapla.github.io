@@ -8,7 +8,7 @@ Tektur
 */
 
 :root {
-  --siteadı: Bitcount Grid Double, sans-serif;
+  --siteadı: Tektur, sans-serif;
   --açıklama: Tektur, sans-serif;
   --labelbaşlık: Tektur, sans-serif;
   --card-header: Tektur, sans-serif;
@@ -20,7 +20,7 @@ Tektur
 	font-size: 50px
 	}
 .açıklama {
-	font: 13px var(--açıklama);
+	font: 15px var(--açıklama);
 	}
 .card-header {
 	font-family: var(--card-header);
@@ -28,7 +28,7 @@ Tektur
 	}
 .card-body {
 	font-family: var(--card-body);
-	font-size: 13px !important;
+	font-size: 15px !important;
 	}
 .labelbaşlık {
 	font-family: var(--labelbaşlık);

@@ -582,7 +582,7 @@ $
 EKRAN KARTLARI
 </th>
 </tr>
-<tr>
+<tr class="deneme">
 <th style="text-align: center">
 MINER ADI
 </th>
@@ -602,10 +602,10 @@ ETKİLEŞİM
 </thead>
 <tbody>
 <tr ng-repeat="miner in customMiners track by $index">
-<td  fatihcelik="MINER ADI">
+<td fatihcelik="MINER ADI">
 {{miner.name.en}}
 </td>
-<td style="position: relative;">
+<td fatihcelik="RESİM" style="position: relative;">
 <img ng-if="miner.level == 0" src='https://rollercoin.com/static/img/storage/rarity_icons/level_1.png?v=1.0.0' style='position: absolute;'/>
 <img ng-if="miner.type === 'old_merge'" src='https://rollercoin.com/static/images/level_star.4ff18517e5e8eed42060..png' style='left: 40px;position: absolute;top: 25px;'/>
 <img ng-if="miner.level > 0 && miner.type !== 'old_merge'" src='https://rollercoin.com/static/img/storage/rarity_icons/level_{{miner.level+1}}.png?v=1.0.0' style='left: 40px;position: absolute;top: 25px;'/>
@@ -618,15 +618,15 @@ font-weight: bold;
 color: white;
 ">SATILAMAZ</div>
 </td>
-<td style="text-align: center">
+<td fatihcelik="GÜÇ">
 {{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
 </td>
-<td style="text-align: center">
+<td fatihcelik="BONUS">
 {{(miner.bonus_power / 100)}}%
 </td>
-<td style="text-align: center">
-<button style="min-width: 80px;margin: 4px;" ng-click="removeMinerFromSimulation(miner)">Kaldır!</button><br/>
-<button style="min-width: 80px;margin: 4px;" ng-click="openBuyLink(miner)">Mağazaya Git</button>
+<td fatihcelik="ETKİLEŞİM">
+<button class="btn" ng-click="removeMinerFromSimulation(miner)">Kaldır!</button><br/>
+<button class="btn" ng-click="openBuyLink(miner)">Mağazaya Git</button>
 </td>
 </tr>
 </tbody>
