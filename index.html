@@ -596,24 +596,21 @@ ETKİLEŞİM
 </thead>
 <tbody>
 <tr ng-repeat="miner in customMiners track by $index">
-<td data-label="NIM" style="text-align: center">
+<td  fatihcelik="MINER ADI">
 {{miner.name.en}}
 </td>
-<td style="text-align: center; position: relative;">
-<img ng-if="miner.level == 0" src='https://rollercoin.com/static/img/storage/rarity_icons/level_1.png?v=1.0.0' style='left: 40px;position: absolute;top: 25px;'/>
+<td style="position: relative;">
+<img ng-if="miner.level == 0" src='https://rollercoin.com/static/img/storage/rarity_icons/level_1.png?v=1.0.0' style='position: absolute;'/>
 <img ng-if="miner.type === 'old_merge'" src='https://rollercoin.com/static/images/level_star.4ff18517e5e8eed42060..png' style='left: 40px;position: absolute;top: 25px;'/>
 <img ng-if="miner.level > 0 && miner.type !== 'old_merge'" src='https://rollercoin.com/static/img/storage/rarity_icons/level_{{miner.level+1}}.png?v=1.0.0' style='left: 40px;position: absolute;top: 25px;'/>
 <img src='https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608' width="80px" height="auto"/>
 <div ng-if="!miner.is_can_be_sold_on_mp"
 style="
-height: 10px;
-width: 100px;
 background-color: red;
-font-size: 0.6em;
+font-size: 13px;
 font-weight: bold;
-margin-left: 16%;
 color: white;
-">INEGOCIAVEL</div>
+">SATILAMAZ</div>
 </td>
 <td style="text-align: center">
 {{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
