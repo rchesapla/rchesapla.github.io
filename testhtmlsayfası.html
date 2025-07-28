@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Market Listings</title>
   <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/button.css">
   <style>
     body {
       margin: 0;
@@ -32,10 +33,11 @@
     }
     .container {
       display: flex;
-      max-width: 1200px;
       margin: 20px auto;
-      padding: 0 20px;
+      padding: 20px;
+	  width: 500px;
       flex-wrap: wrap;
+	  text-align: center;
     }
     .content-area {
       flex: 1;
@@ -238,14 +240,14 @@
 		img: "https://static.rollercoin.com/static/img/market/miners/starground.gif?v=1", 
 		active: false },
 	
-	{ name: "RollerFuture", 
-		rarity: "common", 
+	{ name: "Hokusai", 
+		rarity: "uncommon", 
 		bonus: "Henüz Belirlenmedi!",
 		type: "Miners", 
-		price: 3.8, 
+		price: 2.1, 
 		quantity: 1, 
 		date: "07.28.2025", 
-		img: "https://static.rollercoin.com/static/img/market/miners/rollerfuture.gif?v=1", 
+		img: "https://static.rollercoin.com/static/img/market/miners/hokusai.gif?v=1", 
 		active: false },
 	
 	{ name: "RollerFuture", 
@@ -296,9 +298,8 @@
             </div>
             <div class="details">Bonus: ${item.bonus}</div>
 			<div class="details">Ücret: ${item.price} RLT</div>
-            <div class="details">Adet: ${item.quantity} | Tarih: ${item.date}</div>
+            <div class="details">Tarih: ${item.date}</div>
           </div>
-          <button class="purchased-btn">SATIN ALINDI</button>
         `;
         container.appendChild(card);
       });
