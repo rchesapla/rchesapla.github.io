@@ -179,7 +179,7 @@ table th {
   
   table .ortala{
 	color: red;
-    text-align: center;
+    text-align: right;
   }
   table .madencilerim{
 	padding: 10px;
@@ -188,13 +188,13 @@ table th {
   table tr {
     display: block;
     margin-bottom: 20px;
-	text-align: center;
+	text-align: right;
   }
   
   table td {
     border: 1px solid #2f3045;
     display: block;
-    text-align: center;
+    text-align: right;
   }
   
   table td::before {
@@ -205,7 +205,7 @@ table th {
     content: attr(fatihcelik);
 	color: #ffdc00;
 	padding-right: 5px;
-    float: center;
+    float: left;
   }
   
   table td:last-child {
