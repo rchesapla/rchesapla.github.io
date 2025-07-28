@@ -1,204 +1,317 @@
 ﻿<!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gelişmiş Menü Paneli</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <title>Market Listings</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* Tema Değişkenleri */
-    :root {
-      --bg: #1e1e2f;
-      --text: #fff;
-      --sidebar: #2f314c;
-      --hover: #3e4162;
-      --accent: #00ffd5;
-    }
-
-    [data-theme="light"] {
-      --bg: #f9f9f9;
-      --text: #222;
-      --sidebar: #e0e0e0;
-      --hover: #d0d0d0;
-      --accent: #0d7cff;
-    }
-
     body {
       margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
+      font-family: 'Orbitron', sans-serif;
+      background-color: #0e1121;
+      color: #fff;
+    }
+
+    .tabs {
       display: flex;
-      transition: background 0.3s, color 0.3s;
+      justify-content: center;
+      background-color: #14172a;
     }
 
-    .sidebar {
-      width: 260px;
-      min-width: 260px;
-      height: 100vh;
-      background-color: var(--sidebar);
-      position: fixed;
-      left: 0;
-      top: 0;
-      padding: 20px;
-      overflow-y: auto;
-      transition: transform 0.3s ease;
-      z-index: 1000;
-    }
-
-    .sidebar.hide {
-      transform: translateX(-100%);
-    }
-
-    .sidebar .logo {
-      font-size: 22px;
-      font-weight: bold;
-      margin-bottom: 30px;
-    }
-
-    .sidebar ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .sidebar ul li {
-      margin: 10px 0;
-    }
-
-    .sidebar ul li a {
-      display: flex;
-      align-items: center;
-      padding: 12px 15px;
-      text-decoration: none;
-      color: var(--text);
-      border-radius: 6px;
-      transition: background 0.3s;
-    }
-
-    .sidebar ul li a:hover {
-      background-color: var(--hover);
-    }
-
-    .sidebar ul li a i {
-      margin-right: 10px;
-      width: 20px;
-    }
-
-    .toggle-btn {
-      position: absolute;
-      top: 15px;
-      left: 270px;
-      font-size: 20px;
+    .tab {
+      padding: 10px 20px;
+      background: #1f2338;
+      margin: 5px;
+      border-radius: 8px;
       cursor: pointer;
-      z-index: 1001;
+      transition: 0.3s;
     }
 
-    .content {
-      margin-left: 260px;
-      padding: 30px;
-      flex-grow: 1;
-      transition: margin-left 0.3s ease;
-    }
-
-    .sidebar.hide + .content {
-      margin-left: 0;
-    }
-
-    .theme-toggle {
-      margin-top: 30px;
-      padding: 10px 15px;
-      background-color: var(--accent);
-      border: none;
-      border-radius: 5px;
+    .tab.active {
+      background-color: #00bcd4;
       color: #000;
       font-weight: bold;
-      cursor: pointer;
     }
 
-    .profile {
-      margin-top: 40px;
+    .container {
+      display: flex;
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
+      flex-wrap: wrap;
+    }
+
+    .content-area {
+      flex: 1;
+      margin-right: 20px;
+    }
+
+    .filters {
+      width: 250px;
+      background: #1f2338;
+      border-radius: 10px;
       padding: 15px;
-      background: var(--hover);
-      border-radius: 8px;
-      text-align: center;
+      height: fit-content;
     }
 
-    .profile img {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      margin-bottom: 10px;
+    .filters h3 {
+      margin-top: 0;
     }
 
-    .profile h4 {
-      margin: 5px 0;
+    .filters label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .search-sort {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .search-sort input,
+    .search-sort select {
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      background: #1f2338;
+      color: #fff;
+    }
+
+    .listing-card {
+      background: #1f2338;
+      border-radius: 10px;
+      padding: 15px;
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      align-items: center;
+      transition: 0.2s;
+    }
+
+    .listing-card:hover {
+      background-color: #2a2e4b;
+      transform: scale(1.01);
+    }
+
+    .listing-card img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .card-info {
+      flex-grow: 1;
+    }
+
+    .title {
+      font-weight: bold;
       font-size: 16px;
     }
 
-    @media(max-width: 768px) {
-      .toggle-btn {
-        left: 15px;
+    .rarity {
+      color: limegreen;
+    }
+
+    .details {
+      font-size: 14px;
+      margin: 4px 0;
+    }
+
+    .purchased-btn {
+      padding: 8px 12px;
+      background-color: #00bcd4;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .status-indicator {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: limegreen;
+      margin-right: 5px;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(0,255,0, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(0,255,0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0,255,0, 0); }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
       }
-      .content {
-        margin-left: 0;
+
+      .filters {
+        margin-top: 20px;
+        margin-right: 0;
+        width: 100%;
       }
     }
   </style>
 </head>
-<body data-theme="dark">
+<body>
 
-  <div class="sidebar" id="sidebar">
-    <div class="logo">⚡ MenuPanel</div>
-    <ul>
-      <li><a href="#" onclick="loadPage('home')"><i class="fas fa-home"></i> Anasayfa</a></li>
-      <li><a href="#" onclick="loadPage('games')"><i class="fas fa-gamepad"></i> Oyunlar</a></li>
-      <li><a href="#" onclick="loadPage('tasks')"><i class="fas fa-tasks"></i> Görevler</a></li>
-      <li><a href="#" onclick="loadPage('leaderboard')"><i class="fas fa-chart-line"></i> Sıralama</a></li>
-      <li><a href="#" onclick="loadPage('store')"><i class="fas fa-store"></i> Mağaza</a></li>
-    </ul>
+  <div style="text-align: center; padding: 10px; background: #14172a;">
+    Here you can see the active listing of your products that are selling on the market, history of your purchases and...
+    <a href="#" style="color: #00bcd4;">Show more</a>
+  </div>
 
-    <button class="theme-toggle" onclick="toggleTheme()">🌙 Tema Değiştir</button>
+  <div class="tabs">
+    <div class="tab active" data-tab="active">ACTIVE LISTINGS</div>
+    <div class="tab" data-tab="purchases">PURCHASE HISTORY</div>
+    <div class="tab" data-tab="sales">SALES HISTORY</div>
+  </div>
 
-    <div class="profile">
-      <img src="https://i.pravatar.cc/100" alt="Profil">
-      <h4>Kullanıcı Adı</h4>
-      <p>Premium</p>
+  <div class="container">
+    <div class="content-area">
+      <div class="search-sort">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <select>
+          <option>New - Old</option>
+          <option>Old - New</option>
+        </select>
+        <select>
+          <option>12</option>
+          <option>24</option>
+        </select>
+      </div>
+
+      <div id="tab-content"></div>
+    </div>
+
+    <div class="filters">
+      <h3>Filters</h3>
+      <label><input type="radio" name="category" value="all" checked> All (54)</label>
+      <label><input type="radio" name="category" value="miners"> Miners (35)</label>
+      <label><input type="radio" name="category" value="parts"> Parts (5)</label>
+      <label><input type="radio" name="category" value="racks"> Racks (2)</label>
+      <label><input type="radio" name="category" value="battery"> Batteries (12)</label>
+      <hr>
+      <label>From:</label>
+      <input type="date">
+      <label>To:</label>
+      <input type="date" value="2025-07-28">
     </div>
   </div>
 
-  <div class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></div>
-
-  <div class="content" id="mainContent">
-    <h1>Hoş geldin 👋</h1>
-    <p>Soldaki menüden sayfa geçişlerini test edebilirsin.</p>
-  </div>
-
   <script>
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('hide');
-    }
-
-    function toggleTheme() {
-      const body = document.body;
-      body.setAttribute('data-theme', body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-    }
-
-    function loadPage(page) {
-      const content = document.getElementById('mainContent');
-      switch(page) {
-        case 'home':
-          content.innerHTML = "<h1>🏠 Anasayfa</h1><p>Hoş geldin, burası başlangıç noktası.</p>"; break;
-        case 'games':
-          content.innerHTML = "<h1>🎮 Oyunlar</h1><p>Tüm oyunlara buradan ulaşabilirsin.</p>"; break;
-        case 'tasks':
-          content.innerHTML = "<h1>📋 Görevler</h1><p>Aktif görevleri bu alanda görebilirsin.</p>"; break;
-        case 'leaderboard':
-          content.innerHTML = "<h1>🏆 Sıralama</h1><p>Liderlik tablosunu takip et.</p>"; break;
-        case 'store':
-          content.innerHTML = "<h1>🛒 Mağaza</h1><p>Öğe satın alabileceğin bölüm.</p>"; break;
+    const productData = [
+      {
+        name: "VoltSurge",
+        rarity: "Uncommon",
+        type: "Battery",
+        price: 4.5675,
+        quantity: 1,
+        date: "07.28.2025",
+        img: "https://via.placeholder.com/80x80.png?text=VoltSurge",
+        active: true
+      },
+      {
+        name: "Hashboard",
+        rarity: "Common",
+        type: "Parts",
+        price: 0.002149,
+        quantity: 500,
+        date: "07.28.2025",
+        img: "https://via.placeholder.com/80x80.png?text=Hashboard",
+        active: false
+      },
+      {
+        name: "Sparky",
+        rarity: "Common",
+        type: "Miners",
+        price: 0.9975,
+        quantity: 1,
+        date: "07.28.2025",
+        img: "https://via.placeholder.com/80x80.png?text=Sparky",
+        active: false
+      },
+      {
+        name: "MysticGarden",
+        rarity: "Uncommon",
+        type: "Miners",
+        price: 1.995,
+        quantity: 1,
+        date: "07.27.2025",
+        img: "https://via.placeholder.com/80x80.png?text=MysticGarden",
+        active: true
       }
-    }
-  </script>
+    ];
 
+    function renderListings(data) {
+      const container = document.getElementById("tab-content");
+      container.innerHTML = "";
+
+      data.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "listing-card";
+        card.setAttribute("data-type", item.type.toLowerCase());
+
+        card.innerHTML = `
+          <img src="${item.img}" alt="${item.name}">
+          <div class="card-info">
+            <div class="title">
+              ${item.active ? '<span class="status-indicator"></span>' : ''}
+              ${item.rarity === 'Uncommon' ? '<span class="rarity">Uncommon</span>' : 'Common'} ${item.name}
+            </div>
+            <div class="details">Per unit: ${item.price} RLT</div>
+            <div class="details">Quantity: ${item.quantity} | Listed on: ${item.date}</div>
+          </div>
+          <button class="purchased-btn">PURCHASED</button>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderListings(productData);
+    });
+
+    document.getElementById('searchInput').addEventListener('input', function () {
+      const term = this.value.toLowerCase();
+      document.querySelectorAll('.listing-card').forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(term) ? 'flex' : 'none';
+      });
+    });
+
+    document.querySelectorAll('input[name="category"]').forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        const selected = e.target.value;
+        const filtered = selected === "all"
+          ? productData
+          : productData.filter(p => p.type.toLowerCase().includes(selected));
+        renderListings(filtered);
+      });
+    });
+
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelector('.tab.active')?.classList.remove('active');
+        tab.classList.add('active');
+        const tabName = tab.getAttribute('data-tab');
+        if (tabName === 'active') {
+          renderListings(productData);
+        } else if (tabName === 'purchases') {
+          document.getElementById('tab-content').innerHTML = `<div style="padding:20px;">No purchases yet.</div>`;
+        } else if (tabName === 'sales') {
+          document.getElementById('tab-content').innerHTML = `<div style="padding:20px;">No sales yet.</div>`;
+        }
+      });
+    });
+  </script>
 </body>
 </html>
