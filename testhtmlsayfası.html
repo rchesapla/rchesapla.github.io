@@ -161,24 +161,68 @@
       <h3>Sırala</h3>
       <label><input type="radio" name="category" value="all" checked> Hepsi</label>
       <label><input type="radio" name="category" value="miners"> Ekran Kartları</label>
-      <label><input type="radio" name="category" value="parts"> Parçalar</label>
+      <!--label><input type="radio" name="category" value="parts"> Parçalar</label-->
       <label><input type="radio" name="category" value="racks"> Raflar</label>
       <label><input type="radio" name="category" value="battery"> Piller</label>
-    </div>
+    </div> 
   </div>
+  <!-- 1. common | 2. uncommon | 3. rare | 4. epic | 5. legendary | 6.  -->
   <script>
     const productData = [
-      { name: "VoltSurge", 
+	{ name: "VoltSurge", 
 		rarity: "uncommon", 
+		type: "Miners", 
+		price: 4.5, 
+		quantity: 1, 
+		date: "07.28.2025", 
+		img: "https://static.rollercoin.com/static/img/market/miners/voltsurge.gif?v=1", 
+		active: false },
+	
+	{ name: "Sparky", 
+		rarity: "common", 
+		type: "Miners", 
+		price: 0.9, 
+		quantity: 1, 
+		date: "07.28.2025", 
+		img: "https://static.rollercoin.com/static/img/market/miners/sparky.gif?v=1", 
+		active: false },
+	
+	{ name: "MysticGarden", 
+		rarity: "uncommon", 
+		type: "Miners", 
+		price: 1.9, 
+		quantity: 1, 
+		date: "07.28.2025", 
+		img: "https://static.rollercoin.com/static/img/market/miners/mysticgarden.gif?v=1", 
+		active: false },
+	
+	{ name: "Mighty Hamjolnir", 
+		rarity: "common", 
+		type: "Miners", 
+		price: 4.9, 
+		quantity: 1, 
+		date: "07.28.2025", 
+		img: "https://static.rollercoin.com/static/img/market/miners/mighty_hamjolnir.gif?v=1", 
+		active: false },
+	
+	{ name: "Sparky", 
+		rarity: "common", 
 		type: "Miners", 
 		price: 4.5675, 
 		quantity: 1, 
 		date: "07.28.2025", 
-		img: "https://static.rollercoin.com/static/img/market/miners/voltsurge.gif?v=1", 
-		active: true },
-		
-      { name: "Hashboard", rarity: "common", type: "Parts", price: 0.002149, quantity: 500, date: "07.28.2025", img: "https://via.placeholder.com/80x80.png?text=Hashboard", active: false },
-      { name: "Sparky", rarity: "common", type: "Miners", price: 0.9975, quantity: 1, date: "07.28.2025", img: "https://via.placeholder.com/80x80.png?text=Sparky", active: false },
+		img: "https://static.rollercoin.com/static/img/market/miners/sparky.gif?v=1", 
+		active: false },
+	
+	{ name: "Sparky", 
+		rarity: "common", 
+		type: "Miners", 
+		price: 4.5675, 
+		quantity: 1, 
+		date: "07.28.2025", 
+		img: "https://static.rollercoin.com/static/img/market/miners/sparky.gif?v=1", 
+		active: false },
+	
       { name: "MysticGarden", rarity: "rare", type: "Miners", price: 1.995, quantity: 1, date: "07.27.2025", img: "https://via.placeholder.com/80x80.png?text=MysticGarden", active: true },
       { name: "PowerCube", rarity: "epic", type: "Racks", price: 3.50, quantity: 3, date: "07.25.2025", img: "https://via.placeholder.com/80x80.png?text=PowerCube", active: true },
       { name: "SolarStorm", rarity: "legendary", type: "Battery", price: 7.777, quantity: 1, date: "07.24.2025", img: "https://via.placeholder.com/80x80.png?text=SolarStorm", active: true }
