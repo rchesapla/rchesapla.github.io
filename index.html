@@ -263,6 +263,7 @@ stroke-linejoin="round"
 <button class="btn best-coin animated-button" ng-disabled="!isLoadedUser" ng-click="bestBuys()"><i class="fas fa-shopping-cart"></i> Miner Listesi</button>
 <!--===============================================================================================-->
 <div ng-if="user_data">
+<input type="checkbox" ng-model="formData.showMiners" name="show_miners"/>
 <table class="ss">
 <thead>
 <tr class="deneme" class="highlight-tag">
@@ -684,12 +685,12 @@ color: white;
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="row my-1">
-<span class="labelbaşlık">Bende ki Mınerlar:</span>
+<span class="labelbaşlık">Odadaki Miner:</span>
 <div class="- - -">
 <select class="form-control" ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
 <option value="all">Hepsi</option>
-<option value="mine">Olanlar</option>
-<option value="not_mine">Olmayanlar</option>
+<option value="mine">Odamda Olanlar</option>
+<option value="not_mine">Odamda Olmayanlar</option>
 </select>
 </div>
 </div>
@@ -796,7 +797,7 @@ color: white;
 {{miner.includeImpactLegend.value.toFixed(2)}} {{miner.includeImpactLegend.unit}}
 </td>
 <td style="text-align: center">
-<button ng-click="addMinerToSimulation(miner)">Listeye Ekle</button><br/>
+<button class="btn" ng-click="addMinerToSimulation(miner)">Listeye Ekle</button><br/>
 </td>
 </tr>
 </tbody>
@@ -944,7 +945,7 @@ color: white;
 {{miner.removeImpactLegend.value.toFixed(2)}} {{miner.removeImpactLegend.unit}}
 </td>
 <td fatihcelik="ETKİLEŞİM" style="text-align: center">
-<button class="btn-show" ng-click="openBuyLink(miner)">Mağazaya Git!</button>
+<button class="btn" ng-click="openBuyLink(miner)">Mağazaya Git!</button>
 </td>
 </tr>
 </tbody>
