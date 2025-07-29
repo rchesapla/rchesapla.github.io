@@ -265,6 +265,11 @@ stroke-linejoin="round"
 <div ng-if="user_data">
 <table class="ss">
 <thead>
+<tr class="highlight-tag">
+<th class="başlık card-header" style="text-align: center" colspan="17">
+ROLLERCOIN PROFİL BİLGİLERİ
+</th>
+</tr>
 <tr class="deneme" class="highlight-tag">
 <th style="text-align: center" class="highlight-tag">
 PROFİL
@@ -354,6 +359,11 @@ BONUS GÜCÜ
 <table ng-if="formData.currency">
 <thead>
 <tr class="highlight-tag">
+<th class="başlık card-header" style="text-align: center" colspan="17">
+TEKLİ KRİPTO KAZANÇ İSTATİSTİKLERİ
+</th>
+</tr>
+<tr class="highlight-tag">
 <th style="text-align: center" colspan="5">
 <img style="width: 30px;height: 30px;margin: 5px;" ng-if="formData.currency" ng-src="{{formData.currency.image}}" alt="{{formData.currency.name}} logo" class="currency-icon">
 {{formData.currency.name}} | KAZANÇ İSTATİSTİKLERİ
@@ -405,7 +415,7 @@ BONUS GÜCÜ
 <thead>
 <tr class="highlight-tag">
 <th class="başlık card-header" style="text-align: center" colspan="17">
-GENEL İSTATİSTİKLER
+GENEL KAZANÇ İSTATİSTİKLERİ
 </th>
 </tr>
 <tr class="deneme" class="highlight-tag">
@@ -465,6 +475,7 @@ PARA ÇEKİMİ
 </tr>
 </tbody>
 </table>
+
 <!--===============================================================================================-->
 <table ng-if="!formData.currency && getCurrenciesSum('user_alocated_power')> 0" class="- - -">
 <thead>
