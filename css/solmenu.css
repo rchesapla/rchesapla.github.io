@@ -1,0 +1,124 @@
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 100vh;
+      background-color: #1e242d;
+      overflow: hidden;
+      transform: translateX(0);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+    }
+
+    .sidebar.collapsed {
+      transform: translateX(-100%);
+    }
+
+    .sidebar .toggle-btn {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+      font-size: 20px;
+      color: #ffdc00;
+      cursor: pointer;
+      background-color: #2c3440;
+    }
+
+    .user-section {
+      padding: 20px 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .user-img img {
+      width: 40px;
+      height: 40px;
+      background-color: #444;
+      border-radius: 85%;
+    }
+
+    .user-name {
+      white-space: nowrap;
+	  color: #ffdc00;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 14px 20px;
+      color: #ffdc00;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .menu-item:hover,
+    .menu-item.active {
+      background-color: #2c3440;
+	text-decoration: none;
+      color: white;
+    }
+
+    .menu-item i {
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .bottom {
+      margin-top: auto;
+      margin-bottom: 20px;
+    }
+
+    .main-content {
+      margin-left: 100px;
+      transition: margin-left 0.3s;
+	background: #181928; /* background: #151414; */
+	color: #ffdc00;
+	font-family: 'Russo One', sans-serif;
+    }
+
+    /* Mobil */
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .sidebar .toggle-btn {
+        display: flex;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .topbar {
+        display: flex;
+        text-align: center;
+        background-color: #1e242d;
+        padding: 10px;
+      }
+
+      .hamburger {
+        font-size: 22px;
+        cursor: pointer;
+      }
+
+      .logo-text {
+        font-weight: bold;
+        font-size: 18px;
+		color: #ffdc00;
+		text-align: center;
+      }
+    }

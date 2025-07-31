@@ -1,261 +1,118 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Expedition Full System</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #161a30;
-      color: #fff;
-    }
-    h1 {
-      text-align: center;
-      padding: 20px;
-      font-size: 36px;
-      color: #00ffff;
-    }
-    .tabs {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 10px;
-    }
-    .tabs button {
-      background: #00ffff;
-      color: #000;
-      border: none;
-      padding: 10px 20px;
-      margin: 0 5px;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 20px;
-    }
-    .hamster-card {
-      background: #202540;
-      width: 220px;
-      border-radius: 10px;
-      padding: 15px;
-      text-align: center;
-      cursor: pointer;
-      transition: 0.3s;
-      border: 2px solid transparent;
-    }
-    .hamster-card.selected {
-      border: 2px solid #00ffff;
-      background: #303657;
-    }
-    .hamster-card:hover {
-      transform: scale(1.03);
-    }
-    .hamster-avatar {
-      width: 80px;
-      height: 80px;
-      margin: 10px auto;
-      border-radius: 50%;
-      background: #555;
-    }
-    .expedition-card {
-      width: 220px;
-      background: #252a4a;
-      border-radius: 10px;
-      padding: 15px;
-      cursor: pointer;
-      transition: 0.3s;
-      border: 2px solid transparent;
-    }
-    .expedition-card.selected {
-      border: 2px solid #00ffff;
-      background: #303657;
-    }
-    .expedition-card:hover {
-      transform: scale(1.03);
-    }
-    .bar {
-      height: 8px;
-      border-radius: 5px;
-      background: #333;
-      margin-bottom: 8px;
-    }
-    .bar-fill {
-      height: 100%;
-      background: #a05eff;
-      border-radius: 5px;
-    }
-    .rewards {
-      color: #00cfff;
-      text-align: center;
-      font-size: 14px;
-      margin-top: 5px;
-    }
-    .start-btn {
-      display: block;
-      margin: 30px auto;
-      padding: 12px 40px;
-      font-size: 18px;
-      border-radius: 10px;
-      background: #00ffff;
-      color: #000;
-      border: none;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .start-btn:disabled {
-      background: #555;
-      cursor: not-allowed;
-      color: #999;
-    }
-    .info-box {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 20px;
-      background: #2b2f50;
-      border-radius: 12px;
-    }
-    .reward-popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #222;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px #00ffff;
-      display: none;
-      text-align: center;
-      z-index: 999;
-    }
-    .reward-popup h3 {
-      color: #00ffff;
-    }
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RolerGui Panel</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #1a1a2e;
+    color: #eaeaea;
+  }
+  header {
+    background: #16213e;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #00adb5;
+    user-select: none;
+  }
+  nav {
+    background: #0f3460;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0;
+  }
+  nav button {
+    background: #53354a;
+    border: none;
+    padding: 10px 25px;
+    color: #eee;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  nav button:hover {
+    background: #00adb5;
+    color: #0f3460;
+  }
+  main {
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .card {
+    background: #16213e;
+    border-radius: 12px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 0 10px #00adb5aa;
+    transition: transform 0.2s ease;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  .card h2 {
+    margin-top: 0;
+    color: #00adb5;
+  }
+  .card p {
+    font-size: 1.1rem;
+  }
+  footer {
+    margin-top: 40px;
+    text-align: center;
+    color: #555;
+    font-size: 0.9rem;
+    user-select: none;
+  }
+</style>
 </head>
 <body>
-  <h1>EXPEDITION</h1>
-  <div class="tabs">
-    <button>📅 Expeditions</button>
-    <button>🐹 Hamsters</button>
+
+<header>RolerGui Panel</header>
+
+<nav>
+  <button onclick="showInfo('home')">Anasayfa</button>
+  <button onclick="showInfo('settings')">Ayarlar</button>
+  <button onclick="showInfo('stats')">İstatistikler</button>
+</nav>
+
+<main id="content">
+  <div class="card" id="home">
+    <h2>Hoşgeldiniz</h2>
+    <p>RolerGui paneline hoşgeldiniz! Buradan kontrol sağlayabilirsiniz.</p>
   </div>
-
-  <div class="container" id="hamsterList">
-    <!-- Hamster Cards -->
+  <div class="card" id="settings" style="display:none;">
+    <h2>Ayarlar</h2>
+    <p>Burada panel ayarlarını değiştirebilirsiniz.</p>
   </div>
-
-  <div class="container">
-    <div class="expedition-card" onclick="selectMission(this, 'Lost Shot Trail')">
-      <h3>LOST SHOT TRAIL</h3>
-      <p>Duration: 3h</p>
-      <p>Difficulty</p><div class="bar"><div class="bar-fill" style="width:30%"></div></div>
-      <p>Rewards Value</p><div class="bar"><div class="bar-fill" style="width:30%"></div></div>
-      <p>Rewards Amount</p><div class="bar"><div class="bar-fill" style="width:30%"></div></div>
-      <div class="rewards">Possible Rewards →</div>
-    </div>
-    <div class="expedition-card" onclick="selectMission(this, 'Tousland')">
-      <h3>TOUSLAND</h3>
-      <p>Duration: 12h</p>
-      <p>Difficulty</p><div class="bar"><div class="bar-fill" style="width:40%"></div></div>
-      <p>Rewards Value</p><div class="bar"><div class="bar-fill" style="width:60%"></div></div>
-      <p>Rewards Amount</p><div class="bar"><div class="bar-fill" style="width:60%"></div></div>
-      <div class="rewards">Possible Rewards →</div>
-    </div>
-    <div class="expedition-card" onclick="selectMission(this, 'Dark Valleys')">
-      <h3>DARK VALLEYS</h3>
-      <p>Duration: 1d</p>
-      <p>Difficulty</p><div class="bar"><div class="bar-fill" style="width:80%"></div></div>
-      <p>Rewards Value</p><div class="bar"><div class="bar-fill" style="width:80%"></div></div>
-      <p>Rewards Amount</p><div class="bar"><div class="bar-fill" style="width:90%"></div></div>
-      <div class="rewards">Possible Rewards →</div>
-    </div>
+  <div class="card" id="stats" style="display:none;">
+    <h2>İstatistikler</h2>
+    <p>Burada güncel veriler gösteriliyor.</p>
   </div>
+</main>
 
-  <button class="start-btn" id="startBtn" disabled onclick="startExpedition()">START</button>
+<footer>© 2025 RolerGui</footer>
 
-  <div class="info-box">
-    <h2>How it works</h2>
-    <p>Choose your best Hamster and send them on an expedition to earn rewards!</p>
-    <p>Hamsters gain experience and level up, earning you points to upgrade them.</p>
-    <p>Better stats = more rewards!</p>
-  </div>
-
-  <div class="reward-popup" id="rewardPopup">
-    <h3>🎉 Expedition Complete!</h3>
-    <p id="rewardText">You earned 50 XP and 30 Coins!</p>
-    <button onclick="closeRewardPopup()">Close</button>
-  </div>
-
-  <script>
-    let selectedHamster = null;
-    let selectedMission = null;
-
-    const hamsterList = document.getElementById("hamsterList");
-    const startBtn = document.getElementById("startBtn");
-
-    const hamsters = [
-      { id: 1, name: "Hamster A", level: 2 },
-      { id: 2, name: "Hamster B", level: 5 },
-      { id: 3, name: "Hamster C", level: 3 }
-    ];
-
-    hamsters.forEach(h => {
-      const card = document.createElement("div");
-      card.className = "hamster-card";
-      card.innerHTML = `
-        <div class="hamster-avatar"></div>
-        <h3>${h.name}</h3>
-        <p>Level: ${h.level}</p>
-      `;
-      card.onclick = () => selectHamster(card, h);
-      hamsterList.appendChild(card);
+<script>
+  function showInfo(section) {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      card.style.display = (card.id === section) ? 'block' : 'none';
     });
+  }
+</script>
 
-    function selectHamster(card, hamster) {
-      document.querySelectorAll('.hamster-card').forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      selectedHamster = hamster;
-      checkStart();
-    }
-
-    function selectMission(card, name) {
-      document.querySelectorAll('.expedition-card').forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      selectedMission = name;
-      checkStart();
-    }
-
-    function checkStart() {
-      startBtn.disabled = !(selectedHamster && selectedMission);
-    }
-
-    function startExpedition() {
-      const rewardPopup = document.getElementById("rewardPopup");
-      const rewardText = document.getElementById("rewardText");
-      rewardText.textContent = `Hamster ${selectedHamster.name} completed ${selectedMission} and earned ${50 + selectedHamster.level * 10} XP and ${30 + selectedHamster.level * 5} coins!`;
-      rewardPopup.style.display = "block";
-    }
-
-    function closeRewardPopup() {
-      document.getElementById("rewardPopup").style.display = "none";
-      selectedHamster = null;
-      selectedMission = null;
-      document.querySelectorAll('.selected').forEach(c => c.classList.remove('selected'));
-      checkStart();
-    }
-  </script>
 </body>
 </html>

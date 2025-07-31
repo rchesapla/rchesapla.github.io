@@ -68,7 +68,28 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!--===============================================================================================-->
 </head>
 <!--===============================================================================================-->
-<body class="body" ng-controller="MiningController">
+<body ng-controller="MiningController">
+  <!-- Mobil Topbar -->
+  <div class="topbar"  onclick="toggleSidebar()">
+    <div class="logo-text"><i class="fa-solid fa-bars"></i> MENÜYÜ AÇ!</div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="toggle-btn" onclick="toggleSidebar()">
+      <i class="fas fa-times"></i>
+    </div>
+    <div class="user-section">
+      <div class="user-img"><img src="https://avatars.rollercoin.com/static/avatars/thumbnails/48/{{user_data.avatar_id}}.png?v=1652150400524"></div>
+      <div class="user-name">{{user_data.name}}</div>
+    </div>
+    <div class="menu">
+      <a href="#" class="menu-item active"><i class="fas fa-house"></i><span>Ana Sayfa</span></a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
 <div class="container-convert col-12 col-md-10">
 <div class="card-fc my-2">
 <!--===============================================================================================-->
@@ -992,7 +1013,7 @@ color: white;
 <script src="js/gün-tarih-saat.js"></script>
 <script src="js/solmenu.js"></script>
 <!--===============================================================================================-->
-<script src="https://kit.fontawesome.com/1e0b62f15f.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/33f434b192.js" crossorigin="anonymous"></script>
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
@@ -1000,5 +1021,14 @@ color: white;
 <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <!--===============================================================================================-->
+
+
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('active');
+    }
+  </script>
 </body>
 </html>

@@ -90,14 +90,8 @@ background: #2f3045 !important;
 text-align:center;
 }
 
-.body {
-background: #181928; /* background: #151414; */
-background-image: url("https://rchesapla.github.io/img/bayrak.png"); /* Add a search icon to input */
-background-position: top left;
-background-repeat : no-repeat;
-filter: drop-shadow(0 0 1px red);
-color: #ffdc00;
-font-family: 'Russo One', sans-serif;
+body {
+background: #181928 !important; /* background: #151414; */
 }
 
 /* font-family: 'Russo One', sans-serif; */
