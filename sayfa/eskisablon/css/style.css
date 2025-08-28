@@ -10,11 +10,6 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type=number] {
-  -moz-appearance: textfield;
-  width: 100%;
-}
-
 :root {
     --black-russian: #181928;
     --ebony-clay: #2f3045;
@@ -169,23 +164,6 @@ main form {
 
 hr{
     margin-bottom: 1rem;
-}
-
-.roller-input-group {
-    display: flex;
-}
-
-.roller-input-number {
-    background-color: var(--steel-gray);
-    color: var(--white);
-    border-radius: 4px 0 0 4px;
-    border: 2px solid var(--rum);
-    padding: 12px 14px;
-    font-size: 15px;
-}
-
-.roller-input-number:focus {
-    outline: none;
 }
 
 .form-container {
