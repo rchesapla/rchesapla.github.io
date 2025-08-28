@@ -399,3 +399,42 @@ aside.apps-promotion img {
         margin-right: 10rem;
     }
 }
+
+.custom-select {
+	position: relative;
+	font-family: var(--tablo);
+}
+
+.custom-select select {
+	appearance: none;
+	-webkit-appearance: none;
+	width: 100%;
+	font-size: 18px;
+	padding: 5px 10px 5px 10px;
+	background-color: #3C3A57;
+	border: 1px solid #FF0000;
+	border-radius: 5px;
+	color: #FFFFFF;
+	cursor: pointer;
+	outline: none;
+}
+
+.custom-select select:focus {
+	background: #3C3A57;
+	border: 1px solid #1900FF;
+	border-radius: 5px;
+}
+
+.custom-select::after {
+	content: "";
+	position: absolute;
+	pointer-events: none;
+	top: 50%;
+	right: 10px;
+	transform: translate(0, -50%);
+	width: 15px;
+	height: 15px;
+	background-color: #FFFFFF;
+	clip-path: polygon(50% 80%, 0 20%, 100% 20%);
+}
+

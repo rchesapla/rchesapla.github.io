@@ -7,6 +7,7 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/inpt.css">
+	<link rel="stylesheet" href="../../css/fonts.css">
 <!--===============================================================================================-->
 	<title>RCHesapla - RollerCoin Kişisel Kazım Gücünü Hesapla!</title>
 <!--===============================================================================================-->
@@ -22,15 +23,16 @@
 <div class="input__container">
   <label class="input__label">Ağ Gücü</label>
   <input placeholder="Ağ gücünü giriniz..." class="input" id="inputNetworkPower" type="number" name="inputNetworkPower"/>
-                      <select id="selectNetworkPower" name="" class="roller-select">
+<div class="custom-select">
+                      <select id="selectNetworkPower" name="">
                         <option value="GH/s">GH/s</option>
                         <option value="TH/s">TH/s</option>
                         <option value="PH/s">PH/s</option>
                         <option value="EH/s" selected="">EH/s</option>
 						<option value="ZH/s">ZH/s | Yeni</option>
                     </select>
-					
-
+    <div class="select-arrow"></div>
+</div>	
   <p class="input__description">Kazdığınız kripto ağ gücünü giriniz..</p>
 </div>
             </div>
@@ -39,14 +41,16 @@
 <div class="input__container">
   <label class="input__label">Kazım Gücü</label>
   <input placeholder="Kazım gücünü giriniz..." class="input" id="inputUserPower" type="number" name="inputUserPower"/>
-                      <select id="selectUserPower" name="" class="roller-select">
+<div class="custom-select">
+                      <select id="selectUserPower" name="">
                         <option value="GH/s">GH/s</option>
                         <option value="TH/s">TH/s</option>
                         <option value="PH/s" selected="">PH/s</option>
                         <option value="EH/s">EH/s</option>
 						<option value="ZH/s">ZH/s | Yeni</option>
                     </select>
-					
+    <div class="select-arrow"></div>
+</div>			
 
   <p class="input__description">Kazım gücünü giriniz..</p>
 </div>
@@ -56,7 +60,8 @@
 <div class="input__container">
   <label class="input__label">Blok Ödülü</label>
   <input placeholder="Yükleniyor..." class="input" id="inputBlockReward" type="number" name="inputBlockReward"/>
-                    <select id="selectBlockReward" name="selectBlockReward" class="roller-select">
+<div class="custom-select">
+ <select id="selectBlockReward" name="selectBlockReward">
                         <option value="BTC" selected="">BTC</option>
                         <option value="DOGE">DOGE</option>
                         <option value="ETH">ETH</option>
@@ -68,6 +73,8 @@
                         <option value="TRX">TRX</option>
                         <option value="LTC">LTC</option>
                     </select>
+    <div class="select-arrow"></div>
+</div>
   <p class="input__description"></p>
 </div>
             </div>
@@ -76,12 +83,16 @@
 <div class="input__container">
   <label class="input__label">Blok Süresi</label>
   <input placeholder="Yükleniyor..." class="input" id="inputTimePerBlock" type="number" name="inputTimePerBlock"/>
-                    <select id="selectTimePerBlock" name="selectTimePerBlock" class="roller-select">
-                        <option value="SECONDS" selected="">Saniye</option>
-                        <option value="MINUTES">Dakika</option>
-                    </select>
+<div class="custom-select">
+    <select id="selectTimePerBlock" name="selectTimePerBlock">
+		<option value="SECONDS" selected="">Saniye</option>
+		<option value="MINUTES">Dakika</option>
+    </select>
+    <div class="select-arrow"></div>
+</div>
   <p class="input__description"></p>
 </div>
+
             </div>
 
             <div class="btn-submit-container">
