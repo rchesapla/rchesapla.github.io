@@ -58,7 +58,11 @@ export class Calculator {
             expextedUsdReward, 
             dailyUsdReward, 
             weeklyUsdReward, 
-            monthlyUsdReward
+            monthlyUsdReward,
+			expextedTryReward, 
+            dailyTryReward, 
+            weeklyTryReward, 
+            monthlyTryReward
         } = await calculateReward({ 
             inputNetworkPower,
             inputUserPower,
@@ -75,13 +79,18 @@ export class Calculator {
 
         const formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
-            currency: 'USD',
+            currency: 'USD', 
+			 currency: 'TRY',
         });
 
         this.DOMElements.resultExpectedUsdReward.innerHTML = formatter.format(expextedUsdReward)
         this.DOMElements.resultDailyUsdReward.innerHTML = formatter.format(dailyUsdReward)
         this.DOMElements.resultWeeklyUsdReward.innerHTML = formatter.format(weeklyUsdReward)
         this.DOMElements.resultMonthlyUsdReward.innerHTML = formatter.format(monthlyUsdReward)
+		this.DOMElements.resultExpectedTryReward.innerHTML = formatter.format(expextedTryReward)
+        this.DOMElements.resultDailyTryReward.innerHTML = formatter.format(dailyTryReward)
+        this.DOMElements.resultWeeklyTryReward.innerHTML = formatter.format(weeklyTryReward)
+        this.DOMElements.resultMonthlyTryReward.innerHTML = formatter.format(monthlyTryReward)
 
     }
 
