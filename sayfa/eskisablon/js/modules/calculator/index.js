@@ -58,11 +58,7 @@ export class Calculator {
             expextedUsdReward, 
             dailyUsdReward, 
             weeklyUsdReward, 
-            monthlyUsdReward,
-			expextedTryReward, 
-            dailyTryReward, 
-            weeklyTryReward, 
-            monthlyTryReward
+            monthlyUsdReward
         } = await calculateReward({ 
             inputNetworkPower,
             inputUserPower,
@@ -86,10 +82,6 @@ export class Calculator {
         this.DOMElements.resultDailyUsdReward.innerHTML = formatter.format(dailyUsdReward)
         this.DOMElements.resultWeeklyUsdReward.innerHTML = formatter.format(weeklyUsdReward)
         this.DOMElements.resultMonthlyUsdReward.innerHTML = formatter.format(monthlyUsdReward)
-		this.DOMElements.resultExpectedTryReward.innerHTML = formatter.format(expextedTryReward)
-        this.DOMElements.resultDailyTryReward.innerHTML = formatter.format(dailyTryReward)
-        this.DOMElements.resultWeeklyTryReward.innerHTML = formatter.format(weeklyTryReward)
-        this.DOMElements.resultMonthlyTryReward.innerHTML = formatter.format(monthlyTryReward)
 
     }
 

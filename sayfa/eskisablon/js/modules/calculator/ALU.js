@@ -14,7 +14,6 @@ export const calculateReward = async ({ inputNetworkPower, inputUserPower, input
         let coingecko   = await res.json()
 
         usdPrice = Object.values(coingecko)[0].usd
-		tryPrice = Object.values(coingecko)[0].try
     }catch(warn) { 
         console.warn(warn)
     }
@@ -32,16 +31,12 @@ export const calculateReward = async ({ inputNetworkPower, inputUserPower, input
     const dailyUsdReward    = dailyReward       * usdPrice
     const weeklyUsdReward   = weeklyReward      * usdPrice
     const monthlyUsdReward  = monthlyReward     * usdPrice
-	const expextedTryReward = expextedReward    * tryPrice
-    const dailyTryReward    = dailyReward       * tryPrice
-    const weeklyTryReward   = weeklyReward      * tryPrice
-    const monthlyTryReward  = monthlyReward     * tryPrice
 
-    return { expextedReward, dailyReward, weeklyReward, monthlyReward, expextedUsdReward, dailyUsdReward, weeklyUsdReward, monthlyUsdReward, expextedTryReward, dailyTryReward, weeklyTryReward, monthlyTryReward}
+    return { expextedReward, dailyReward, weeklyReward, monthlyReward, expextedUsdReward, dailyUsdReward, weeklyUsdReward, monthlyUsdReward}
 }
 
 export const calculateBestCoinsToMine = async ({networkPower, userPower}) => {
-    const COINGECKO_URL = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,dogecoin,ethereum,binancecoin,matic-network,solana,tron,litecoin&vs_currencies=usd,TRY"
+    const COINGECKO_URL = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,dogecoin,ethereum,binancecoin,matic-network,solana,tron,litecoin&vs_currencies=usd"
         
     try{
         let res         = await fetch(COINGECKO_URL) 
