@@ -14,6 +14,7 @@ export const calculateReward = async ({ inputNetworkPower, inputUserPower, input
         let coingecko   = await res.json()
 
         usdPrice = Object.values(coingecko)[0].usd
+		tryPrice = Object.values(coingecko)[0].try
     }catch(warn) { 
         console.warn(warn)
     }
@@ -31,8 +32,12 @@ export const calculateReward = async ({ inputNetworkPower, inputUserPower, input
     const dailyUsdReward    = dailyReward       * usdPrice
     const weeklyUsdReward   = weeklyReward      * usdPrice
     const monthlyUsdReward  = monthlyReward     * usdPrice
+	const expextedTryReward = expextedReward    * tryPrice
+    const dailyTryReward    = dailyReward       * tryPrice
+    const weeklyTryReward   = weeklyReward      * tryPrice
+    const monthlyTryReward  = monthlyReward     * tryPrice
 
-    return { expextedReward, dailyReward, weeklyReward, monthlyReward, expextedUsdReward, dailyUsdReward, weeklyUsdReward, monthlyUsdReward}
+    return { expextedReward, dailyReward, weeklyReward, monthlyReward, expextedUsdReward, dailyUsdReward, weeklyUsdReward, monthlyUsdReward, expextedTryReward, dailyTryReward, weeklyTryReward, monthlyTryReward}
 }
 
 export const calculateBestCoinsToMine = async ({networkPower, userPower}) => {
