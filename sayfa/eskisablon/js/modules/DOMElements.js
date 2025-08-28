@@ -22,6 +22,11 @@ export const DOMElements = {
     resultDailyUsdReward:      document.getElementById("resultDailyUsdReward"),
     resultWeeklyUsdReward:     document.getElementById("resultWeeklyUsdReward"),
     resultMonthlyUsdReward:    document.getElementById("resultMonthlyUsdReward"),
+	
+	resultExpectedTryReward:   document.getElementById("resultExpectedTryReward"),
+    resultDailyTryReward:      document.getElementById("resultDailyTryReward"),
+    resultWeeklyTryReward:     document.getElementById("resultWeeklyTryReward"),
+    resultMonthlyTryReward:    document.getElementById("resultMonthlyTryReward"),
 
     coinIcon:               document.getElementById("coinIcon"),
     coinName:               document.getElementById("coinName"),
