@@ -79,8 +79,7 @@ export class Calculator {
 
         const formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
-            currency: 'USD', 
-			 currency: 'TRY',
+            currency: 'USD',
         });
 
         this.DOMElements.resultExpectedUsdReward.innerHTML = formatter.format(expextedUsdReward)
