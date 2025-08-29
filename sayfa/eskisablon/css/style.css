@@ -15,7 +15,7 @@ input::-webkit-inner-spin-button {
     --ebony-clay: #2f3045;
     --steel-gray: #1f1f2d;
     --rum: #6a668a;
-    --white: #fff;
+    --white: black;
     --default-btn: #7e7da1;
     --primary: #03e1e4;
     --breakpoint-md: 768px;
@@ -236,38 +236,6 @@ hr{
     border: none;
     background-color: var(--black-russian);
     padding: 8px 16px;
-}
-
-table {
-    border-collapse: collapse;
-}
-
-table td, table th {
-    padding: 8px 0;
-}
-
-table tbody tr td:first-child p {
-    padding-left: 16px;
-    border-left: 1px solid var(--rum);
-    border-right: 1px solid var(--rum);
-}
-
-table tbody tr td:not(:first-child) p {
-    padding-right: 16px;
-    text-align: right;
-    border-right: 1px solid var(--rum);
-}
-
-.roller-table tbody tr td {
-    border-bottom: 1px solid var(--rum);
-}
-
-thead{
-    font-size: 1rem;
-}
-
-tbody{
-    font-size: 1rem;
 }
 
 .desired-coin{
