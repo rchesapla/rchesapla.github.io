@@ -190,6 +190,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     ];
 
     let loaded_user = getUrlParamValue('user');
+    let loaded_league = getUrlParamValue('league');
     loaded_user = loaded_user || localStorage.getItem('keep_loaded_user');
 
     let loaded_miners = getUrlParamValue('miners');
@@ -321,6 +322,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             $scope.formData.showRacks = false;
             $scope.formData.showInventory = false;
             $scope.isLoadedUser = true;
+            loaded_league = $scope.user_data?.league_id;
         }catch(err) {
             $scope.playerSearchNoResults = true;
         }
@@ -332,11 +334,11 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
     const formatDays = (dias) => {
         if(!dias) {
-            return "0";
+            return "0 dia";
         }
 
         if(dias === Number.MAX_SAFE_INTEGER) {
-            return "Pasif";
+            return "Sem Saque";
         }
 
         const diasPorAno = 365;
@@ -350,21 +352,21 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         let resultado = "";
     
         if (anos > 0) {
-            resultado += `${anos} ${anos > 1 ? 'yıl' : 'yıl'}`;
+            resultado += `${anos} ${anos > 1 ? 'anos' : 'ano'}`;
             if (meses > 0 || diasRestantes > 0) {
                 resultado += ", ";
             }
         }
     
         if (meses > 0) {
-            resultado += `${meses} ${meses > 1 ? 'ay' : 'ay'}`;
+            resultado += `${meses} ${meses > 1 ? 'meses' : 'mês'}`;
             if (diasRestantes > 0) {
-                resultado += " ";
+                resultado += " e ";
             }
         }
     
         if (diasRestantes > 0) {
-            resultado += `${diasRestantes} ${diasRestantes > 1 ? 'gün' : 'gün'}`;
+            resultado += `${diasRestantes} ${diasRestantes > 1 ? 'dias' : 'dia'}`;
         }
         return resultado;
     }
@@ -382,8 +384,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.$watch('formData.power', function(newvalue) {
         if(!$scope.formData.currency && typeof newvalue !== 'undefined') {
             $scope.currencies?.forEach(c => {
-                c.user_block_farm_try =  calculateCoinFarm(newvalue, $scope.formData.unit, c, 'try');
-				c.user_block_farm_brl =  calculateCoinFarm(newvalue, $scope.formData.unit, c, 'brl');
+                c.user_block_farm_brl =  calculateCoinFarm(newvalue, $scope.formData.unit, c, 'brl');
                 c.user_block_farm_usd =  calculateCoinFarm(newvalue, $scope.formData.unit, c, 'usd');
                 c.user_block_farm_token =  calculateCoinFarm(newvalue, $scope.formData.unit, c, 'amount');
                 c.user_days_to_widthdraw = calculateDaysUntilWithdraw(convertHashrate(newvalue,  $scope.formData.unit, 'GH/s'),c);
@@ -591,7 +592,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             $scope.visible_user_inventory_miners =  miners.map(m => ({...all_miners.find(m2 => m.name === m2.name.en && (m2.type === m.type || m2.level === m.level)), quantity: m.quantity, rdid: uuidv4()}));
             $scope.$apply();
         }catch(err) {
-            alert('Yükleme hatası. Talimatları doğru şekilde izleyin!');
+            alert('Erro ao carregar. Siga as instruções corretamente!');
             $scope.visible_user_inventory_miners = [];
         }
     }
@@ -734,14 +735,35 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     }
 
     $scope.openBuyLink = async function(item) {
+        if(!localStorage.getItem('alreadyDonatedMessage')) {
+            localStorage.setItem('alreadyDonatedMessage', 'true');
+            if(confirm('Te ajudei a tomar essa decisão de compra? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
+                window.scrollTo(0, document.body.scrollHeight);
+                return;
+            }
+        }
         window.open(`https://rollercoin.com/marketplace/buy/miner/${item.miner_id}`,'_blank');
     }
 
     $scope.openSellLink = async function(item) {
+        if(!localStorage.getItem('alreadyDonatedMessage')) {
+            localStorage.setItem('alreadyDonatedMessage', 'true');
+            if(confirm('Te ajudei a tomar essa decisão de venda? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
+                window.scrollTo(0, document.body.scrollHeight);
+                return;
+            }
+        }
         window.open(`https://rollercoin.com/marketplace/sell/miner/${item.miner_id}`,'_blank');
     }
 
     $scope.openBuyCraftLink = async function(id, type) {
+        if(!localStorage.getItem('alreadyDonatedMessage')) {
+            localStorage.setItem('alreadyDonatedMessage', 'true');
+            if(confirm('Te ajudei a tomar essa decisão de compra? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
+                window.scrollTo(0, document.body.scrollHeight);
+                return;
+            }
+        }
         window.open(`https://rollercoin.com/marketplace/buy/${type}/${id}`,'_blank');
     }
 
@@ -857,14 +879,15 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     }
 
     $scope.getCurrenciesSum = getCurrenciesSum;
-
-    $scope.currencies = await CurrencyService.getDetailedCurrencies();
+    $scope.leagues = CurrencyService.getLeagues();
+    $scope.loaded_league = loaded_league || $scope.leagues[0].id;
+    $scope.formData.league = $scope.leagues.filter(l => l.id == $scope.loaded_league)[0] ?? $scope.leagues[0];
+    $scope.loaded_league = $scope.leagues.filter(l => l.id == $scope.loaded_league)[0].id ?? $scope.leagues[0].id;
+    $scope.currencies = await CurrencyService.getDetailedCurrenciesByLeague($scope.loaded_league);
     $scope.currencies?.forEach(c => {
         c.block_value_in_brl = c.in_game_only ? 0 : exchangeCoin(c.blockSize, c.name, 'brl');
         c.block_value_in_usd = c.in_game_only ? 0 : exchangeCoin(c.blockSize, c.name, 'usd');
-		c.block_value_in_try = c.in_game_only ? 0 : exchangeCoin(c.blockSize, c.name, 'try');
         c.user_block_farm_brl = 0;
-		c.user_block_farm_try = 0;
         c.user_block_farm_usd = 0;
         c.user_block_farm_token = 0;
         c.user_days_to_widthdraw = c.disabled_withdraw ? Number.MAX_SAFE_INTEGER : 0;
@@ -920,10 +943,16 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     };
 
     $scope.resetValues = function() {
-        if(confirm("Bu, tüm ağ gücünü ve teklif değerlerini yeniden yükleyecek ve biraz zaman alacaktır. Emin misin?")) {
+        if(confirm("Isso irá recarregar todos os valores de poder de rede e cotação e demorará algum tempo. Tem certeza?")) {
             localStorage.clear();
             location.reload();  
         }
+    }
+
+    $scope.updateLeagueDetails = async function() {
+        const selectedLeague = $scope.formData.league;
+        let  new_url = window.location.pathname+"?league=" + selectedLeague.id;
+        window.location.href = new_url;
     }
 
     $scope.updateCurrencyDetails = function() {
@@ -974,15 +1003,12 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             currency.user_alocated_power_value = percentual_user_alocated_power;
             currency.user_alocated_power_day_profit_in_usd = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'usd'));
             currency.user_alocated_power_day_profit_in_brl = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'brl'));
-			currency.user_alocated_power_day_profit_in_try = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'try'));
             currency.user_alocated_power_day_profit_in_cripto = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'amount'));
             currency.user_alocated_power_week_profit_in_usd = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'usd'));
             currency.user_alocated_power_week_profit_in_brl = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'brl'));
-			currency.user_alocated_power_week_profit_in_try = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'try'));
             currency.user_alocated_power_week_profit_in_cripto = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'amount'));
             currency.user_alocated_power_month_profit_in_usd = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'usd'));
             currency.user_alocated_power_month_profit_in_brl = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'brl'));
-			currency.user_alocated_power_month_profit_in_try = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'try'));
             currency.user_alocated_power_month_profit_in_cripto = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'amount'));
             setParamValue(currency.name.toLowerCase(), user_alocated_power);
         }else {
@@ -1043,11 +1069,11 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
     $scope.bestBuys = async function() {
         $scope.formData.showAllMiners = true;
-        $scope.allMinerNegotiableStatus = 'all';
-        $scope.allMinerPosessionStatus = 'all';
+        $scope.allMinerNegotiableStatus = 'negotiable';
+        $scope.allMinerPosessionStatus = 'not_mine';
         $scope.orderByAllMinersField='supply';
         $scope.reverseAllMinersSort = true;
-        $scope.allMinerMinBonusSearch = 0;
+        $scope.allMinerMinBonusSearch = 2;
         $scope.filterAllMiners($scope.allMinerNameSearch, $scope.allMinersRarity, {min:$scope.allMinerMinBonusSearch, max:$scope.allMinerMaxBonusSearch}, $scope.allMinerNegotiableStatus, $scope.allMinerPosessionStatus, $scope.allMinerCollectionId, $scope.allMinerMinPowerSearch, $scope.allMinerMaxPowerSearch)
         $scope.$apply();
     }
