@@ -1,0 +1,76 @@
+.custom_input {
+	display: flex;
+	align-items: center;
+	position: relative;
+	max-width: 100%;
+}
+
+.input {
+	font-size: 17px;
+	font-weight: bold;
+	padding: 5px 10px;
+	width: 100%;
+	padding-left: 35px;
+	outline: none;
+	background: #181928;
+	color: #03E1E4;
+	border: 1px solid #C4D1EB;
+	border-radius: 5px;
+	transition: .3s ease;
+}
+
+.input:focus {
+	background: #F2F2F2;
+	border: 1px solid #5A7EC7;
+	border-radius: 10px;
+}
+
+.input::placeholder {
+	color: #DDDDDD;
+}
+
+.svg_icon {
+	position: absolute;
+	left: 10px;
+	fill: #4660DC;
+	width: 17px;
+	height: 17px;
+}
+
+
+.custom-select {
+	position: relative;
+}
+
+.custom-select select {
+	appearance: none;
+	-webkit-appearance: none;
+	font-size: 18px;
+	padding: 5px 10px 5px 10px;
+	background-color: #181928;
+	border: 1px solid #C4D1EB;
+	border-radius: 5px;
+	color: #03E1E4;
+	cursor: pointer;
+	outline: none;
+}
+
+.custom-select select:focus {
+	background: #F2F2F2;
+	border: 1px solid #5A7EC7;
+	border-radius: 5px;
+}
+
+.custom-select::after {
+	position: absolute;
+	
+	pointer-events: none;
+	top: 50%;
+	right: 20px;
+	transform: translate(0, -50%);
+	width: 20px;
+	height: 20px;
+	background-color: #03E1E4;
+	clip-path: polygon(50% 80%, 0 20%, 100% 20%);
+}
+

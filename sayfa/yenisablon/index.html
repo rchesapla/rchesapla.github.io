@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/fonts.css">
 <link rel="stylesheet" href="css/tablo.css">
+<link rel="stylesheet" href="css/input.css">
 <title>RCHesapla | Yedek Hesaplama Sitesi!</title>
 
 <meta name="description" content="Rollercoin Calculator, The most accurate and complete Rollercoin calculator. Get list of best coins to mine on crypto game webpage.">
@@ -35,8 +36,18 @@
 <div class="form-group">
 <label for="inputNetworkPower"><span class="important labelbaşlık">Network Power | Ağ Gücü</span></label>
 <div class="roller-input-group">
-<input id="inputNetworkPower" type="number" name="inputNetworkPower" class="roller-input-number">
-<select id="selectNetworkPower" name="" class="roller-select">
+
+
+<div class="custom_input">
+    <svg xmlns="http://www.w3.org/2000/svg" class="svg_icon bi-hdd-network-fill" viewBox="0 0 16 16">
+  <path d="M2 2a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h5.5v3A1.5 1.5 0 0 0 6 11.5H.5a.5.5 0 0 0 0 1H6A1.5 1.5 0 0 0 7.5 14h1a1.5 1.5 0 0 0 1.5-1.5h5.5a.5.5 0 0 0 0-1H10A1.5 1.5 0 0 0 8.5 10V7H14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2zm.5 3a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm2 0a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1z"></path>
+</svg>
+    <input class="input" id="inputNetworkPower" type="number" name="inputNetworkPower">
+</div>
+
+
+<div class="custom-select">
+<select id="selectNetworkPower" name="" >
 <option value="GH/s">GH/s</option>
 <option value="TH/s">TH/s</option>
 <option value="PH/s">PH/s</option>
@@ -44,27 +55,53 @@
 <option value="ZH/s">ZH/s</option>
 </select>
 </div>
+
+
+</div>
 </div>
 
 <div class="form-group">
 <label for="inputUserPower"><span class="important labelbaşlık">My Power | Kazım Gücü</span></label>
 <div class="roller-input-group">
-<input type="number" id="inputUserPower" name="inputUserPower" class="roller-input-number">
-<select name="" id="selectUserPower" class="roller-select">
+
+<div class="custom_input">
+    <svg xmlns="http://www.w3.org/2000/svg" class="svg_icon bi-power" viewBox="0 0 16 16">
+  <path d="M7.5 1v7h1V1h-1z"></path>
+  <path d="M3 8.812a4.999 4.999 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812z"></path>
+</svg>
+    <input class="input" id="inputUserPower" type="number" name="inputUserPower">
+</div>
+
+
+<div class="custom-select">
+<select id="selectUserPower" name="" >
 <option value="GH/s">GH/s</option>
 <option value="TH/s">TH/s</option>
-<option value="PH/s" selected="">PH/s</option>
-<option value="EH/s">EH/s</option>
+<option value="PH/s">PH/s</option>
+<option value="EH/s" selected="">EH/s</option>
 <option value="ZH/s">ZH/s</option>
 </select>
+</div>
+
+
+
 </div>
 </div>
 
 <div class="form-group">
 <label for="inputBlockReward"><span class="important labelbaşlık">Block Reward | Blok Ödülü</span></label>
 <div class="roller-input-group">
-<input type="number" id="inputBlockReward" name="inputBlockReward" class="roller-input-number">
-<select id="selectBlockReward" name="selectBlockReward" class="roller-select">
+
+<div class="custom_input">
+    <svg xmlns="http://www.w3.org/2000/svg" class="svg_icon bi-gift-fill" viewBox="0 0 16 16">
+  <path d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A2.968 2.968 0 0 1 3 2.506V2.5zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43a.522.522 0 0 0 .023.07zM9 3h2.932a.56.56 0 0 0 .023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0V3zm6 4v7.5a1.5 1.5 0 0 1-1.5 1.5H9V7h6zM2.5 16A1.5 1.5 0 0 1 1 14.5V7h6v9H2.5z"></path>
+</svg>
+    <input class="input" id="inputBlockReward" type="number" name="inputBlockReward">
+</div>
+
+
+<div class="custom-select">
+<select id="selectBlockReward" name="selectBlockReward">
 <option value="BTC" selected="">BTC</option>
 <option value="DOGE">DOGE</option>
 <option value="ETH">ETH</option>
@@ -78,16 +115,29 @@
 <option value="XRP">XRP</option>
 </select>
 </div>
+
+</div>
 </div>
 
 <div class="form-group">
 <label for="inputTimePerBlock"><span class="important labelbaşlık">Block Timer | Blok Süresi</span></label>
 <div class="roller-input-group">
-<input type="number" id="inputTimePerBlock" name="inputTimePerBlock" class="roller-input-number">
-<select id="selectTimePerBlock" name="selectTimePerBlock" class="roller-select">
+
+<div class="custom_input">
+    <svg xmlns="http://www.w3.org/2000/svg" class="svg_icon bi-hourglass-split" viewBox="0 0 16 16">
+  <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2h-7zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48V8.35zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"></path>
+</svg>
+    <input class="input" id="inputTimePerBlock" type="number" name="inputTimePerBlock">
+</div>
+
+
+<div class="custom-select">
+<select id="selectTimePerBlock" name="selectTimePerBlock">
 <option value="SECONDS" selected="">Seconds | Saniye</option>
 <option value="MINUTES">Minutes | Dakika</option>
 </select>
+</div>
+
 </div>
 </div>
 
