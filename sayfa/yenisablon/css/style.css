@@ -57,54 +57,8 @@ a{
     font-size: 1rem;
 }
 
-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    background-color: var(--ebony-clay);
-    min-height: 6rem;
-    font-size: 1.2rem;
-
-    margin-bottom: .5rem;
-    
-}
-
-h1 {
-    margin: 0;
-    text-align: center;
-}
-
-
-nav {
-    text-transform: uppercase;
-    font-size: 1.3rem;
-    margin-bottom: 1.2rem;
-}
-
-nav ul, .lang ul {
-    display: flex;
-    justify-content: center;
-}
-
-nav ul li {
-    list-style: none;
-}
-
-nav ul li a:hover, .lang ul li a:hover{
-    text-decoration: underline;
-}
-
-nav ul li:not(:first-child), .lang ul li:not(:first-child)  {
-    padding-left: .5rem;
-    margin-left: .5rem;
-    border-left: 1px solid var(--white);
-}
-
 main {
-    margin: 0 1rem;
-    margin-bottom: 1rem;
+    margin: 50px;
     display: flex;
     flex-direction: column;
 }
@@ -161,13 +115,13 @@ hr{
 }
 
 .form-container {
-    margin-bottom: 1rem;
+    margin-bottom: 50px;
 }
 
 .roller-section {
     border: 1px solid var(--rum);
     background-color: var(--ebony-clay);
-    padding: 24px 25px;
+    padding: 20px;
     border-radius: 4px;
 }
 
