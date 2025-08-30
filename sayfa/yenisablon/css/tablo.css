@@ -194,7 +194,8 @@ table th {
   table td {
     border: 1px solid #2f3045;
     display: block;
-    text-align: right;
+	font-size: 15px;
+    text-align: center;
   }
   
   table td::before {
@@ -204,8 +205,8 @@ table th {
     */
     content: attr(fatihcelik);
 	color: #ffdc00;
-	padding-right: 5px;
-    float: left;
+ 
+    float: center;
   }
   
   table td:last-child {
