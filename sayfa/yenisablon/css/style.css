@@ -208,62 +208,6 @@ hr{
     transform: translateY(5px);
 }
 
-.table-responsive {
-    display: flex;
-    align-items: stretch;
-    flex-direction: column;
-}
-
-.roller-table thead tr:first-child th{
-    border-radius: 4px 4px 0 0;
-}
-
-.roller-table thead tr:last-child th:first-child{
-    border-radius: 0 0 0 4px;
-}
-
-.roller-table thead tr:last-child th:last-child{
-    border-radius: 0 0 4px 0;
-}
-
-.roller-table thead th {
-    border: none;
-    background-color: var(--black-russian);
-    padding: 8px 16px;
-}
-
-table {
-    border-collapse: collapse;
-}
-
-table td, table th {
-    padding: 8px 0;
-}
-
-table tbody tr td:first-child p {
-    padding-left: 16px;
-    border-left: 1px solid var(--rum);
-    border-right: 1px solid var(--rum);
-}
-
-table tbody tr td:not(:first-child) p {
-    padding-right: 16px;
-    text-align: right;
-    border-right: 1px solid var(--rum);
-}
-
-.roller-table tbody tr td {
-    border-bottom: 1px solid var(--rum);
-}
-
-thead{
-    font-size: 1.5rem;
-}
-
-tbody{
-    font-size: 1.2rem;
-}
-
 .desired-coin{
     margin-top: .5rem;
 }
