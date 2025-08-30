@@ -111,13 +111,15 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <h6 class="card-header">KAZIM BİLGİLERİNİZ</h6>
 <div class="card-body">
 
-                    <div class="form-group">
-                        <label for="currency">Lig Durumu:</label>
-                        <select id="currency" class="form-control" ng-disabled="isLoadedUser" ng-model="formData.league" ng-options="league.name for league in leagues" ng-change="updateLeagueDetails()">
-                            <option value="">Lig Seçiniz</option>
-                        </select>
-                    </div>
-
+                    
+<div class="row my-1">
+<span class="labelbaşlık">Lig Seç:</span>
+<div class="col-7">
+<select id="currency" ng-model="formData.league" ng-options="league.name for league in leagues" ng-change="updateLeagueDetails()" class="input">
+<option value="">Lig seçiniz</option>
+</select>
+</div>
+</div>
 <div class="row my-1">
 <span class="labelbaşlık">Kripto Seç:</span>
 <div class="col-7">
