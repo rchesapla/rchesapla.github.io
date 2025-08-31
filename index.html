@@ -484,13 +484,13 @@ EN İYİ KAZANÇ İSTATİSTİKLERİM
 <th style="text-align: center" rowspan="2" colspan="2">
 COIN
 </th>
-<th style="text-align: center" colspan="2">
+<th style="text-align: center" colspan="3">
 GÜNLÜK
 </th>
-<th style="text-align: center" colspan="2">
+<th style="text-align: center" colspan="3">
 HAFTALIK
 </th>
-<th style="text-align: center" colspan="2">
+<th style="text-align: center" colspan="3">
 AYLIK
 </th>
 </tr>
@@ -511,6 +511,13 @@ $
 </th>
 <th style="text-align: center" colspan="1">
 <a>
+₺
+<span ng-show="orderByFarmField == 'user_alocated_power_day_profit_in_try'">
+</span>
+</a>
+</th>
+<th style="text-align: center" colspan="1">
+<a>
 COIN
 <span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_cripto'">
 </span>
@@ -520,6 +527,13 @@ COIN
 <a>
 $
 <span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_usd'">
+</span>
+</a>
+</th>
+<th style="text-align: center" colspan="1">
+<a>
+₺
+<span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_try'">
 </span>
 </a>
 </th>
@@ -537,6 +551,13 @@ $
 </span>
 </a>
 </th>
+<th style="text-align: center" colspan="1">
+<a>
+₺
+<span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_try'">
+</span>
+</a>
+</th>
 </tr>
 </thead>
 <tbody class="allocated-farm">
@@ -548,11 +569,14 @@ $
 {{currency.name}}
 </td>
 <td fatihcelik="GÜNLÜK" colspan="1">{{currency.user_alocated_power_day_profit_in_cripto}} {{currency.name}}</td>
-<td fatihcelik="GÜNLÜK DOLAR" colspan="1">${{currency.user_alocated_power_day_profit_in_usd}}</td>
+<td fatihcelik="GÜNLÜK DOLAR" colspan="1">{{currency.user_alocated_power_day_profit_in_usd}}</td>
+<td fatihcelik="GÜNLÜK TL" colspan="1">{{currency.user_alocated_power_day_profit_in_try}}</td>
 <td fatihcelik="HAFTALIK" colspan="1">{{currency.user_alocated_power_week_profit_in_cripto}} {{currency.name}}</td>
-<td fatihcelik="HAFTALIK DOLAR" colspan="1">${{currency.user_alocated_power_week_profit_in_usd}}</td>
+<td fatihcelik="HAFTALIK DOLAR" colspan="1">{{currency.user_alocated_power_week_profit_in_usd}}</td>
+<td fatihcelik="HAFTALIK TL" colspan="1">{{currency.user_alocated_power_week_profit_in_try}}</td>
 <td fatihcelik="AYLIK" colspan="1">{{currency.user_alocated_power_month_profit_in_cripto}} {{currency.name}}</td>
-<td fatihcelik="AYLIK DOLAR" colspan="1">${{currency.user_alocated_power_month_profit_in_usd}}</td>
+<td fatihcelik="AYLIK DOLAR" colspan="1">{{currency.user_alocated_power_month_profit_in_usd}}</td>
+<td fatihcelik="AYLIK TL" colspan="1">{{currency.user_alocated_power_month_profit_in_try}}</td>
 </tr>
 </tbody>
 </table>
