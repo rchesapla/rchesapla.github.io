@@ -381,15 +381,13 @@ TEKLİ KRİPTO KAZANÇ İSTATİSTİKLERİ
 </tr>
 <tr ng-hide="formData.currency.in_game_only" class="highlight-tag" class="deneme">
 <th style="text-align: center" colspan="4">
-1 {{formData.currency.name}} ${{exchangeRates[formData.currency.name]['usd']}} |
-1 {{formData.currency.name}} {{exchangeRates[formData.currency.name]['try']}}₺
+1 {{formData.currency.name}} ${{exchangeRates[formData.currency.name]['usd']}}
 </th>
 </tr>
 <tr class="deneme">
 <th style="text-align:center;">GÜNLER</th>
 <th style="text-align:center;">KRİPTO</th>
 <th style="text-align:center;" ng-hide="formData.currency.in_game_only">$</th>
-<th style="text-align:center;" ng-hide="formData.currency.in_game_only">₺</th>
 </tr>
 </thead>
 <tbody>
@@ -397,25 +395,21 @@ TEKLİ KRİPTO KAZANÇ İSTATİSTİKLERİ
 <td style="text-align: center">Blok Ödülü</td>
 <td fatihcelik="KAZANÇ">{{calculateEarnings('block', 'amount')}} {{formData.currency.name}}</td>
 <td fatihcelik="DOLAR" ng-hide="formData.currency.in_game_only">${{calculateEarnings('block', 'usd')}}</td>
-<td fatihcelik="TL" ng-hide="formData.currency.in_game_only">{{calculateEarnings('block', 'try')}}₺</td>
 </tr>
 <tr>
 <td style="text-align: center">Günlük</td>
 <td fatihcelik="KAZANÇ">{{calculateEarnings('day', 'amount')}} {{formData.currency.name}}</td>
 <td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('day', 'usd')}}</td>
-<td fatihcelik="TL"ng-hide="formData.currency.in_game_only">{{calculateEarnings('day', 'try')}}₺</td>
 </tr>
 <tr>
 <td style="text-align: center">Haftalık</td>
 <td fatihcelik="KAZANÇ">{{calculateEarnings('week', 'amount')}} {{formData.currency.name}}</td>
 <td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('week', 'usd')}}</td>
-<td fatihcelik="TL"ng-hide="formData.currency.in_game_only">{{calculateEarnings('week', 'try')}}₺</td>
 </tr>
 <tr>
 <td style="text-align: center">Aylık</td>
 <td fatihcelik="KAZANÇ">{{calculateEarnings('month', 'amount')}} {{formData.currency.name}}</td>
 <td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('month', 'usd')}}</td>
-<td fatihcelik="TL"ng-hide="formData.currency.in_game_only">{{calculateEarnings('month', 'try')}}₺</td>
 </tr>
 </tbody>
 </table>
@@ -429,7 +423,7 @@ GENEL KAZANÇ İSTATİSTİKLERİ
 </tr>
 <tr class="deneme" class="highlight-tag">
 <th style="text-align: center" rowspan="2" colspan="2">
-KRİPTO
+COIN
 </th>
 <th style="text-align: center" rowspan="2" colspan="2">
 AĞ GÜCÜ
@@ -449,16 +443,10 @@ BENİM BLOK BAŞINA DEĞER
 $
 </th>
 <th style="text-align: center" colspan="2" class="highlight-tag">
-₺
-</th>
-<th style="text-align: center" colspan="2" class="highlight-tag">
-KRİPTO
+COIN
 </th>
 <th style="text-align: center" colspan="2" class="highlight-tag">
 $
-</th>
-<th style="text-align: center" colspan="2" class="highlight-tag">
-₺
 </th>
 <th style="text-align: center" colspan="2" class="highlight-tag">
 PARA ÇEKİMİ
@@ -467,7 +455,7 @@ PARA ÇEKİMİ
 </thead>
 <tbody>
 <tr ng-repeat="currency in currencies | orderBy:orderByField:reverseSort">
-<td fatihcelik="KRİPTO" colspan="2">
+<td fatihcelik="COIN" colspan="2">
 <span ng-show="$first">
 <i style="color:#b7b706" class="fa-solid fa-crown"></i>
 </span>
@@ -476,10 +464,8 @@ PARA ÇEKİMİ
 <td fatihcelik="AĞ GÜCÜ" colspan="2">{{chooseBestHashRateUnit(currency.networkPower, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').unit}}</td>
 <td fatihcelik="BLOK ÖDÜLÜ" colspan="2">{{currency.blockTime}} sn {{currency.blockSize}} {{currency.name}}</td>
 <td fatihcelik="BLOK DEĞERİ $" colspan="2">${{currency.block_value_in_usd}}</td>
-<td fatihcelik="BLOK DEĞERİ ₺" colspan="2">{{currency.block_value_in_try}}₺</td>
 <td fatihcelik="BLOK MİKTARI" colspan="2">{{currency.user_block_farm_token}} {{currency.name}}</td>
 <td fatihcelik="BENİM KAZANCIM DOLAR" colspan="2">${{currency.user_block_farm_usd}}</td>
-<td fatihcelik="BENİM KAZANCIM TL" colspan="2">{{currency.user_block_farm_try}}₺</td>
 <td fatihcelik="PARA ÇEKİMİ" colspan="2">{{formatDays(currency.user_days_to_widthdraw)}}</td>
 </tr>
 </tbody>
@@ -496,79 +482,58 @@ EN İYİ KAZANÇ İSTATİSTİKLERİM
 </tr>
 <tr class="deneme">
 <th style="text-align: center" rowspan="2" colspan="2">
-KRİPTO
+COIN
 </th>
-<th style="text-align: center" colspan="6">
+<th style="text-align: center" colspan="2">
 GÜNLÜK
 </th>
-<th style="text-align: center" colspan="6">
+<th style="text-align: center" colspan="2">
 HAFTALIK
 </th>
-<th style="text-align: center" colspan="6">
+<th style="text-align: center" colspan="2">
 AYLIK
 </th>
 </tr>
 <tr class="deneme">
-<th style="text-align: center" colspan="2">
+<th style="text-align: center" colspan="1">
 <a>
-KRİPTO
+COIN
 <span ng-show="orderByFarmField == 'user_alocated_power_day_profit_in_cripto'">
 </span>
 </a>
 </th>
-<th style="text-align: center" colspan="2">
+<th style="text-align: center" colspan="1">
 <a>
 $
 <span ng-show="orderByFarmField == 'user_alocated_power_day_profit_in_usd'">
 </span>
 </a>
 </th>
-<th style="text-align: center" colspan="2">
+<th style="text-align: center" colspan="1">
 <a>
-₺
-<span ng-show="orderByFarmField == 'user_alocated_power_day_profit_in_try'">
-</span>
-</a>
-</th>
-<th style="text-align: center" colspan="2">
-<a>
-KRİPTO
+COIN
 <span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_cripto'">
 </span>
 </a>
 </th>
-<th style="text-align: center" colspan="2">
+<th style="text-align: center" colspan="1">
 <a>
 $
 <span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_usd'">
 </span>
 </a>
 </th>
-<th style="text-align: center" colspan="2">
+<th fatihcelik2="USD:" style="text-align: center" colspan="1">
 <a>
-₺
-<span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_try'">
-</span>
-</a>
-</th>
-<th fatihcelik2="USD:" style="text-align: center" colspan="2">
-<a>
-KRİPTO
+COIN
 <span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_cripto'">
 </span>
 </a>
 </th>
-<th style="text-align: center" colspan="2">
+<th style="text-align: center" colspan="1">
 <a>
 $
 <span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_usd'">
-</span>
-</a>
-</th>
-<th style="text-align: center" colspan="2">
-<a>
-₺
-<span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_try'">
 </span>
 </a>
 </th>
@@ -582,15 +547,12 @@ $
 </span>
 {{currency.name}}
 </td>
-<td fatihcelik="GÜNLÜK" colspan="2">{{currency.user_alocated_power_day_profit_in_cripto}} {{currency.name}}</td>
-<td fatihcelik="GÜNLÜK DOLAR" colspan="2">${{currency.user_alocated_power_day_profit_in_usd}}</td>
-<td fatihcelik="GÜNLÜK TL" colspan="2">{{currency.user_alocated_power_day_profit_in_try}}₺</td>
-<td fatihcelik="HAFTALIK" colspan="2">{{currency.user_alocated_power_week_profit_in_cripto}} {{currency.name}}</td>
-<td fatihcelik="HAFTALIK DOLAR" colspan="2">${{currency.user_alocated_power_week_profit_in_usd}}</td>
-<td fatihcelik="HAFTALIK TL" colspan="2">{{currency.user_alocated_power_week_profit_in_try}}₺</td>
-<td fatihcelik="AYLIK" colspan="2">{{currency.user_alocated_power_month_profit_in_cripto}} {{currency.name}}</td>
-<td fatihcelik="AYLIK DOLAR" colspan="2">${{currency.user_alocated_power_month_profit_in_usd}}</td>
-<td fatihcelik="AYLIK TL" colspan="2">{{currency.user_alocated_power_month_profit_in_try}}₺</td>
+<td fatihcelik="GÜNLÜK" colspan="1">{{currency.user_alocated_power_day_profit_in_cripto}} {{currency.name}}</td>
+<td fatihcelik="GÜNLÜK DOLAR" colspan="1">${{currency.user_alocated_power_day_profit_in_usd}}</td>
+<td fatihcelik="HAFTALIK" colspan="1">{{currency.user_alocated_power_week_profit_in_cripto}} {{currency.name}}</td>
+<td fatihcelik="HAFTALIK DOLAR" colspan="1">${{currency.user_alocated_power_week_profit_in_usd}}</td>
+<td fatihcelik="AYLIK" colspan="1">{{currency.user_alocated_power_month_profit_in_cripto}} {{currency.name}}</td>
+<td fatihcelik="AYLIK DOLAR" colspan="1">${{currency.user_alocated_power_month_profit_in_usd}}</td>
 </tr>
 </tbody>
 </table>
