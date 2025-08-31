@@ -334,11 +334,11 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
     const formatDays = (dias) => {
         if(!dias) {
-            return "0 dia";
+            return "-";
         }
 
         if(dias === Number.MAX_SAFE_INTEGER) {
-            return "Sem Saque";
+            return "Çekim yok!";
         }
 
         const diasPorAno = 365;
