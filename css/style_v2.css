@@ -13,9 +13,6 @@ width: 5px;
 background: red;
 }
 
-.best-coin:not([disabled]) {
-animation: pulse 2s infinite ease-in-out;
-}
 .best-coin[disabled] {
 background-color: #d7d0a7;
 }

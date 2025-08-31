@@ -196,7 +196,7 @@ class="input"/>
     <div class="profile-label">🔗 Profile link</div>
     <div class="profile-link-container">
       <span class="profile-url">https://rollercoin.com/p/FthCLK</span>
-      <a href="https://rollercoin.com/profile/personal-profile" target="_blank" class="change-link">Nasıl Öğrenirim?</a>
+      <a href="https://rollercoin.com/profile/personal-profile" target="_blank" class="change-link btn">Nasıl Öğrenirim?</a>
     </div>
   </div>
 
@@ -268,8 +268,8 @@ stroke-linejoin="round"
 <!--===============================================================================================-->
 <button class="btn" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-user-xmark"></i> Beni Unut</button>
 <button class="btn" ng-click="resetValues()"><i class="fa-solid fa-coins"></i> Verileri Güncelle</button>
-<button class="btn best-coin animated-button" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"><i class="fa-solid fa-coins"></i> En İyi Kazanç</button>
-<button class="btn best-coin animated-button" ng-disabled="!isLoadedUser" ng-click="bestBuys()"><i class="fas fa-shopping-cart"></i> Miner Listesi</button>
+<button class="btn best-coin" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"><i class="fa-solid fa-coins"></i> En İyi Kazanç</button>
+<button class="btn best-coin" ng-disabled="!isLoadedUser" ng-click="bestBuys()"><i class="fas fa-shopping-cart"></i> Miner Listesi</button>
 <!--===============================================================================================-->
 <div ng-if="user_data">
 <table class="ss">
