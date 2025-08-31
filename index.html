@@ -417,7 +417,7 @@ TEKLİ KRİPTO KAZANÇ İSTATİSTİKLERİ
 <table ng-if="!formData.currency" class="- - -" style="text-align: center">
 <thead>
 <tr class="highlight-tag">
-<th class="başlık card-header" style="text-align: center" colspan="17">
+<th class="başlık card-header" style="text-align: center" colspan="20">
 GENEL KAZANÇ İSTATİSTİKLERİ
 </th>
 </tr>
@@ -431,24 +431,24 @@ AĞ GÜCÜ
 <th style="text-align: center" rowspan="2" colspan="2">
 BLOK ÖDÜLÜ
 </th>
-<th style="text-align: center" colspan="6">
+<th style="text-align: center" colspan="2">
 BLOK BAŞINA DEĞER
 </th>
-<th style="text-align: center" colspan="6">
+<th style="text-align: center" colspan="2">
 BENİM BLOK BAŞINA DEĞER
 </th>
 </tr>
 <tr class="deneme" class="highlight-tag">
-<th style="text-align: center" colspan="2" class="highlight-tag">
+<th style="text-align: center" colspan="1" class="highlight-tag">
 $
 </th>
-<th style="text-align: center" colspan="2" class="highlight-tag">
+<th style="text-align: center" colspan="1" class="highlight-tag">
 COIN
 </th>
-<th style="text-align: center" colspan="2" class="highlight-tag">
+<th style="text-align: center" colspan="1" class="highlight-tag">
 $
 </th>
-<th style="text-align: center" colspan="2" class="highlight-tag">
+<th style="text-align: center" colspan="1" class="highlight-tag">
 PARA ÇEKİMİ
 </th>
 </tr>
@@ -463,10 +463,10 @@ PARA ÇEKİMİ
 </td>
 <td fatihcelik="AĞ GÜCÜ" colspan="2">{{chooseBestHashRateUnit(currency.networkPower, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').unit}}</td>
 <td fatihcelik="BLOK ÖDÜLÜ" colspan="2">{{currency.blockTime}} sn {{currency.blockSize}} {{currency.name}}</td>
-<td fatihcelik="BLOK DEĞERİ $" colspan="2">${{currency.block_value_in_usd}}</td>
-<td fatihcelik="BLOK MİKTARI" colspan="2">{{currency.user_block_farm_token}} {{currency.name}}</td>
-<td fatihcelik="BENİM KAZANCIM DOLAR" colspan="2">${{currency.user_block_farm_usd}}</td>
-<td fatihcelik="PARA ÇEKİMİ" colspan="2">{{formatDays(currency.user_days_to_widthdraw)}}</td>
+<td fatihcelik="BLOK DEĞERİ $" colspan="1">${{currency.block_value_in_usd}}</td>
+<td fatihcelik="BLOK MİKTARI" colspan="1">{{currency.user_block_farm_token}} {{currency.name}}</td>
+<td fatihcelik="BENİM KAZANCIM DOLAR" colspan="1">${{currency.user_block_farm_usd}}</td>
+<td fatihcelik="PARA ÇEKİMİ" colspan="1">{{formatDays(currency.user_days_to_widthdraw)}}</td>
 </tr>
 </tbody>
 </table>
