@@ -334,7 +334,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
     const formatDays = (dias) => {
         if(!dias) {
-            return "-";
+            return "0";
         }
 
         if(dias === Number.MAX_SAFE_INTEGER) {
