@@ -39,13 +39,3 @@ Tektur
 	font-family: var(--tablo);
 	font-size: 13px !important;
 	}
-table {
-	font-family: var(--tablo);
-	font-size: 13px !important;
-}
-
-table .başlık {
-	font-family: var(--tablo);
-	color: red;
-	font-size: 15px !important;
-}
