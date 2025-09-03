@@ -127,63 +127,63 @@ service_app.service('CurrencyService', ['$http', '$q', 'FirebaseService', functi
         return [
             {
                 "id": "68af01ce48490927df92d687",
-                "name": "Bronze I" 
+                "name": "Bronz I" 
             },
             {
                 "id": "68af01ce48490927df92d686",
-                "name": "Bronze II" 
+                "name": "Bronz II" 
             },
             {
                 "id": "68af01ce48490927df92d685",
-                "name": "Bronze III" 
+                "name": "Bronz III" 
             },
             {
                 "id": "68af01ce48490927df92d684",
-                "name": "Silver I" 
+                "name": "Gümüş I" 
             },
             {
                 "id": "68af01ce48490927df92d683",
-                "name": "Silver II" 
+                "name": "Gümüş II" 
             },
             {
                 "id": "68af01ce48490927df92d682",
-                "name": "Silver III" 
+                "name": "Gümüş III" 
             },
             {
                 "id": "68af01ce48490927df92d681",
-                "name": "Gold I" 
+                "name": "Altın I" 
             },
             {
                 "id": "68af01ce48490927df92d680",
-                "name": "Gold II" 
+                "name": "Altın II" 
             },
             {
                 "id": "68af01ce48490927df92d67f",
-                "name": "Gold III" 
+                "name": "Altın III" 
             },
             {
                 "id": "68af01ce48490927df92d67e",
-                "name": "Platinum I" 
+                "name": "Platin I" 
             },
             {
                 "id": "68af01ce48490927df92d67d",
-                "name": "Platinum II" 
+                "name": "Platin II" 
             },
             {
                 "id": "68af01ce48490927df92d67c",
-                "name": "Platinum III" 
+                "name": "Platin III" 
             },
             {
                 "id": "68af01ce48490927df92d67b",
-                "name": "Diamond I" 
+                "name": "Elmas I" 
             },
             {
                 "id": "68af01ce48490927df92d67a",
-                "name": "Diamond II" 
+                "name": "Elmas II" 
             },
             {
                 "id": "68af01ce48490927df92d679",
-                "name": "Diamond III" 
+                "name": "Elmas III" 
             }
         ];
     }
