@@ -1069,11 +1069,11 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
     $scope.bestBuys = async function() {
         $scope.formData.showAllMiners = true;
-        $scope.allMinerNegotiableStatus = 'negotiable';
-        $scope.allMinerPosessionStatus = 'not_mine';
+        $scope.allMinerNegotiableStatus = 'all';
+        $scope.allMinerPosessionStatus = 'all';
         $scope.orderByAllMinersField='supply';
         $scope.reverseAllMinersSort = true;
-        $scope.allMinerMinBonusSearch = 2;
+        $scope.allMinerMinBonusSearch = 0;
         $scope.filterAllMiners($scope.allMinerNameSearch, $scope.allMinersRarity, {min:$scope.allMinerMinBonusSearch, max:$scope.allMinerMaxBonusSearch}, $scope.allMinerNegotiableStatus, $scope.allMinerPosessionStatus, $scope.allMinerCollectionId, $scope.allMinerMinPowerSearch, $scope.allMinerMaxPowerSearch)
         $scope.$apply();
     }
