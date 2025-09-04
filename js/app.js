@@ -189,8 +189,8 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         }
     ];
 
-    let loaded_user = getUrlParamValue('user');
-    let loaded_league = getUrlParamValue('league');
+    let loaded_user = getUrlParamValue('kullanıcı');
+    let loaded_league = getUrlParamValue('lig');
     loaded_user = loaded_user || localStorage.getItem('keep_loaded_user');
 
     let loaded_miners = getUrlParamValue('miners');
@@ -722,7 +722,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     }
 
     $scope.onSelectPlayer = async function($item) {
-        let  new_url = window.location.pathname+"?user=" + $item.code;
+        let  new_url = window.location.pathname+"?kullanıcı=" + $item.code;
         if(loaded_miners) {
             new_url+= '&miners=' + loaded_miners;
         }
@@ -757,13 +757,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     }
 
     $scope.openBuyCraftLink = async function(id, type) {
-        if(!localStorage.getItem('alreadyDonatedMessage')) {
-            localStorage.setItem('alreadyDonatedMessage', 'true');
-            if(confirm('Te ajudei a tomar essa decisão de compra? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
-                window.scrollTo(0, document.body.scrollHeight);
-                return;
-            }
-        }
+
         window.open(`https://rollercoin.com/marketplace/buy/${type}/${id}`,'_blank');
     }
 
@@ -943,7 +937,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     };
 
     $scope.resetValues = function() {
-        if(confirm("Isso irá recarregar todos os valores de poder de rede e cotação e demorará algum tempo. Tem certeza?")) {
+        if(confirm("Bütün veriler güncellenecektir onaylıyor musun?")) {
             localStorage.clear();
             location.reload();  
         }
@@ -951,7 +945,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
     $scope.updateLeagueDetails = async function() {
         const selectedLeague = $scope.formData.league;
-        let  new_url = window.location.pathname+"?league=" + selectedLeague.id;
+        let  new_url = window.location.pathname+"?lig=" + selectedLeague.id;
         window.location.href = new_url;
     }
 
