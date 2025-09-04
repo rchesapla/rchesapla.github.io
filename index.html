@@ -447,6 +447,11 @@ TEKLİ KRİPTO KAZANÇ İSTATİSTİKLERİ
 <td fatihcelik="KAZANÇ">{{calculateEarnings('month', 'amount')}} {{formData.currency.name}}</td>
 <td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('month', 'usd')}}</td>
 </tr>
+<tr>
+<td style="text-align: center">Yıllık</td>
+<td fatihcelik="KAZANÇ">{{calculateEarnings('year', 'amount')}} {{formData.currency.name}}</td>
+<td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('year', 'usd')}}</td>
+</tr>
 </tbody>
 </table>
 <!--===============================================================================================-->

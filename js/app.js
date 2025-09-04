@@ -237,6 +237,8 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
                 return fiatCurrency === 'amount' ? (earningsPerDay * 7).toFixed(6) : coin.in_game_only ? 0 : (earningsPerDay * 7 * exchangeRates[coin.name][fiatCurrency]).toFixed(2);
             case 'month':
                 return fiatCurrency === 'amount' ? (earningsPerDay * 30).toFixed(6) : coin.in_game_only ? 0 : (earningsPerDay * 30 * exchangeRates[coin.name][fiatCurrency]).toFixed(2);
+            case 'year':
+                return fiatCurrency === 'amount' ? (earningsPerDay * 365).toFixed(6) : coin.in_game_only ? 0 : (earningsPerDay * 365 * exchangeRates[coin.name][fiatCurrency]).toFixed(2);
             default:
                 return 0;
         }
@@ -1117,6 +1119,8 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
                 return currency === 'amount' ? (earningsPerDay * 7).toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerDay * 7 * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
             case 'month':
                 return currency === 'amount' ? (earningsPerDay * 30).toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerDay * 30 * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
+			case 'year':
+                return currency === 'amount' ? (earningsPerDay * 365).toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerDay * 365 * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
             default:
                 return 0;
         }
