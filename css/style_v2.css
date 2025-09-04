@@ -219,7 +219,6 @@ margin-left: auto;
       color: #33c3ff;
       text-decoration: none;
       font-weight: 600;
-      font-size: 14px;
     }
 
     .change-link:hover {
@@ -259,11 +258,10 @@ li {
     z-index: 1000;
     display: none;
     float: left;
-    min-width: 160px;
     padding: 5px 0;
     margin: 2px 0 0;
     font-size: 14px;
-    text-align: left;
+    text-align: center;
     list-style: none;
     background-color: #fff;
     -webkit-background-clip: padding-box;
