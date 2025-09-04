@@ -30,14 +30,9 @@ table th {
 }
 
 @media screen and (max-width: 1300px){
-
-table {
-    border: 0;
-  }
   
   table .deneme {
     border: none;
-    clip: rect(0 0 0 0);
     overflow: hidden;
     padding: 0;
     position: absolute;
@@ -87,8 +82,8 @@ table {
 
 	
 	.profile-box:not([disabled]) {
-animation: pulse 2s infinite ease-in-out;
-}
+		animation: pulse 2s infinite ease-in-out;
+	}
 .profile-box[disabled] {
 background-color: #d7d0a7;
 }

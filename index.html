@@ -260,6 +260,48 @@ stroke-linejoin="round"
 <h6 class="card-header">KAZANÇ İSTATİSTİKLERİN</h6>
 <div class="card-body ">
 <!--===============================================================================================-->
+<table class="ss">
+<thead>
+<tr class="highlight-tag">
+<th class="başlık card-header" style="text-align: center" colspan="17">
+ROLLERCOIN TABLO ARAÇLARI
+</th>
+</tr>
+</thead>
+</table>
+
+<!--div class="checkbox-wrapper-46">
+  <input type="checkbox" id="eniyikazanç" class="inp-cbx" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"/>
+  <label for="eniyikazanç" class="cbx"
+    ><span>
+      <svg viewBox="0 0 12 10" height="10px" width="12px">
+        <polyline points="1.5 6 4.5 9 10.5 1"></polyline></svg></span
+    ><span>En İyi Kazanç</span>
+  </label>
+  <input type="checkbox" id="cbx-47" class="inp-cbx" type="checkbox" ng-model="formData.showMiners" name="show_miners"/>
+  <label for="cbx-47" class="cbx"
+    ><span>
+      <svg viewBox="0 0 12 10" height="10px" width="12px">
+        <polyline points="1.5 6 4.5 9 10.5 1"></polyline></svg></span
+    ><span>Ekran Kartlarım</span>
+  </label>
+  <input type="checkbox" id="cbx-48" class="inp-cbx" />
+  <label for="cbx-48" class="cbx"
+    ><span>
+      <svg viewBox="0 0 12 10" height="10px" width="12px">
+        <polyline points="1.5 6 4.5 9 10.5 1"></polyline></svg></span
+    ><span>Checkbox</span>
+  </label>
+  <input type="checkbox" id="cbx-49" class="inp-cbx" />
+  <label for="cbx-49" class="cbx"
+    ><span>
+      <svg viewBox="0 0 12 10" height="10px" width="12px">
+        <polyline points="1.5 6 4.5 9 10.5 1"></polyline></svg></span
+    ><span>Checkbox</span>
+  </label>
+</div-->
+
+
 <button class="btn" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-user-xmark"></i> Beni Unut</button>
 <button class="btn" ng-click="resetValues()"><i class="fa-solid fa-coins"></i> Verileri Güncelle</button>
 <button class="btn best-coin" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"><i class="fa-solid fa-coins"></i> En İyi Kazanç</button>
@@ -558,7 +600,7 @@ $
 <tr ng-repeat="currency in filteredCurrencies = (currencies | filter:filterFn | orderBy:orderByFarmField:reverseSort)">
 <td fatihcelik="Kripto:" colspan="2">
 <span ng-show="$first" id="bestCoinTable">
-<i class="fa-solid fa-crown"></i>
+<i  style="color:#b7b706" class="fa-solid fa-crown"></i>
 </span>
 {{currency.name}}
 </td>
