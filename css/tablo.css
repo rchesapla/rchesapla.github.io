@@ -8,7 +8,6 @@ table {
 
 table tr {
   background-color: #1b2130;
-  border: 1px solid #c3b0d0 ;
   padding: 1px;
 }
 
@@ -22,7 +21,6 @@ table th,
 table td {
   padding: 3px;
   text-align: center;
-  border: 1px solid #2f3045;
 }
 
 table th {

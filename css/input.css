@@ -3,30 +3,8 @@
   padding: 5px;
   border-radius: 5px;
   color: #c3b0d0;
-  border: 1px solid #c3b0d0;
 }
 
-.input:focus {
-  animation: rotateShadow 2s infinite linear;
-}
-
-@keyframes rotateShadow {
-  0% {
-    box-shadow: -2px -2px 8px 1px #aa00ff, 2px 2px 8px 1px #3700ff;
-  }
-  25% {
-    box-shadow: -2px 2px 8px 1px #aa00ff, 2px -2px 8px 1px #3700ff;
-  }
-  50% {
-    box-shadow: 2px 2px 8px 1px #aa00ff, -2px -2px 8px 1px #3700ff;
-  }
-  75% {
-    box-shadow: 2px -2px 8px 1px #aa00ff, -2px 2px 8px 1px #3700ff;
-  }
-  100% {
-    box-shadow: -2px -2px 8px 1px #aa00ff, 2px 2px 8px 1px #3700ff;
-  }
-}
 
 
 .checkbox-wrapper-46 input[type="checkbox"] {
@@ -52,7 +30,6 @@
   border-radius: 3px;
   transform: scale(1);
   vertical-align: middle;
-  border: 1px solid #9098a9;
   transition: all 0.2s ease;
 }
 .checkbox-wrapper-46 .cbx span:first-child svg {

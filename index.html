@@ -280,7 +280,7 @@ stroke-linejoin="round"
 <!--===============================================================================================-->
 <table class="ss">
 <thead>
-<tr class="highlight-tag">
+<tr class="- - -">
 <th class="başlık card-header" style="text-align: center" colspan="17">
 ROLLERCOIN TABLO ARAÇLARI
 </th>
@@ -328,31 +328,31 @@ ROLLERCOIN TABLO ARAÇLARI
 <div ng-if="user_data">
 <table class="ss">
 <thead>
-<tr class="highlight-tag">
+<tr class="- - -">
 <th class="başlık card-header" style="text-align: center" colspan="17">
 ROLLERCOIN PROFİL BİLGİLERİ
 </th>
 </tr>
-<tr class="deneme" class="highlight-tag">
-<th style="text-align: center" class="highlight-tag">
+<tr class="deneme" class="- - -">
+<th style="text-align: center" class="- - -">
 PROFİL
 </th>
-<th style="text-align: center" class="highlight-tag">
+<th style="text-align: center" class="- - -">
 OYUN GÜCÜ
 </th>
-<th style="text-align: center" class="highlight-tag">
+<th style="text-align: center" class="- - -">
 MINER GÜCÜ
 </th>
-<th style="text-align: center" class="highlight-tag">
+<th style="text-align: center" class="- - -">
 RAF GÜCÜ
 </th>
-<th style="text-align: center" class="highlight-tag">
+<th style="text-align: center" class="- - -">
 GEÇİCİ GÜCÜ
 </th>
-<th style="text-align: center" class="highlight-tag">
+<th style="text-align: center" class="- - -">
 TOPLAM GÜCÜ
 </th>
-<th style="text-align: center" class="highlight-tag">
+<th style="text-align: center" class="- - -">
 BONUS GÜCÜ
 </th>
 </tr>
@@ -421,52 +421,52 @@ BONUS GÜCÜ
 </div>
 <table ng-if="formData.currency">
 <thead>
-<tr class="highlight-tag">
-<th class="başlık card-header" style="text-align: center" colspan="17">
-TEKLİ KRİPTO KAZANÇ İSTATİSTİKLERİ
+<tr class="- - -">
+<th class="card-header" style="text-align: center" colspan="17">
+TEKLİ COIN KAZANÇ İSTATİSTİKLERİ
 </th>
 </tr>
-<tr class="highlight-tag">
+<tr class="- - -">
 <th style="text-align: center" colspan="5">
 <img style="width: 30px;height: 30px;margin: 5px;" ng-if="formData.currency" ng-src="{{formData.currency.image}}" alt="{{formData.currency.name}} logo" class="currency-icon">
 {{formData.currency.name}} | KAZANÇ İSTATİSTİKLERİ
 <img style="width: 30px;height: 30px;margin: 5px;" ng-if="formData.currency" ng-src="{{formData.currency.image}}" alt="{{formData.currency.name}} logo" class="currency-icon">
 </th>
 </tr>
-<tr ng-hide="formData.currency.in_game_only" class="highlight-tag" class="deneme">
+<tr ng-hide="formData.currency.in_game_only" class="- - -" class="deneme">
 <th style="text-align: center" colspan="4">
 1 {{formData.currency.name}} ${{exchangeRates[formData.currency.name]['usd']}}
 </th>
 </tr>
 <tr class="deneme">
 <th style="text-align:center;">GÜNLER</th>
-<th style="text-align:center;">KRİPTO</th>
+<th style="text-align:center;">COIN</th>
 <th style="text-align:center;" ng-hide="formData.currency.in_game_only">$</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: center">Blok Ödülü</td>
+<td style="text-align: center">BLOK ÖDÜLÜ</td>
 <td fatihcelik="KAZANÇ">{{calculateEarnings('block', 'amount')}} {{formData.currency.name}}</td>
 <td fatihcelik="DOLAR" ng-hide="formData.currency.in_game_only">${{calculateEarnings('block', 'usd')}}</td>
 </tr>
 <tr>
-<td style="text-align: center">Günlük</td>
+<td style="text-align: center">GÜNLÜK</td>
 <td fatihcelik="KAZANÇ">{{calculateEarnings('day', 'amount')}} {{formData.currency.name}}</td>
 <td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('day', 'usd')}}</td>
 </tr>
 <tr>
-<td style="text-align: center">Haftalık</td>
+<td style="text-align: center">HAFTALIK</td>
 <td fatihcelik="KAZANÇ">{{calculateEarnings('week', 'amount')}} {{formData.currency.name}}</td>
 <td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('week', 'usd')}}</td>
 </tr>
 <tr>
-<td style="text-align: center">Aylık</td>
+<td style="text-align: center">AYLIK</td>
 <td fatihcelik="KAZANÇ">{{calculateEarnings('month', 'amount')}} {{formData.currency.name}}</td>
 <td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('month', 'usd')}}</td>
 </tr>
 <tr>
-<td style="text-align: center">Yıllık</td>
+<td style="text-align: center">YILLIK</td>
 <td fatihcelik="KAZANÇ">{{calculateEarnings('year', 'amount')}} {{formData.currency.name}}</td>
 <td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('year', 'usd')}}</td>
 </tr>
@@ -475,12 +475,12 @@ TEKLİ KRİPTO KAZANÇ İSTATİSTİKLERİ
 <!--===============================================================================================-->
 <table ng-if="!formData.currency" class="- - -" style="text-align: center">
 <thead>
-<tr class="highlight-tag">
+<tr class="- - -">
 <th class="başlık card-header" style="text-align: center" colspan="20">
 GENEL KAZANÇ İSTATİSTİKLERİ
 </th>
 </tr>
-<tr class="deneme" class="highlight-tag">
+<tr class="deneme" class="- - -">
 <th style="text-align: center" rowspan="2" colspan="2">
 COIN
 </th>
@@ -497,17 +497,17 @@ BLOK BAŞINA DEĞER
 BENİM BLOK BAŞINA DEĞER
 </th>
 </tr>
-<tr class="deneme" class="highlight-tag">
-<th style="text-align: center" colspan="1" class="highlight-tag">
+<tr class="deneme" class="- - -">
+<th style="text-align: center" colspan="1" class="- - -">
 $
 </th>
-<th style="text-align: center" colspan="1" class="highlight-tag">
+<th style="text-align: center" colspan="1" class="- - -">
 COIN
 </th>
-<th style="text-align: center" colspan="1" class="highlight-tag">
+<th style="text-align: center" colspan="1" class="- - -">
 $
 </th>
-<th style="text-align: center" colspan="1" class="highlight-tag">
+<th style="text-align: center" colspan="1" class="- - -">
 PARA ÇEKİMİ
 </th>
 </tr>
