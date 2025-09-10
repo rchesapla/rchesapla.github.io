@@ -131,7 +131,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="row my-1">
 <span class="labelbaşlık">Lig Seç:</span>
 <div class="- - -">
-<select id="currency" ng-model="formData.league" ng-options="league.name for league in leagues" ng-change="updateLeagueDetails()" class="input">
+<select id="currency" ng-model="formData.league" ng-options="league.name for league in leagues" ng-change="updateLeagueDetails()" class="password">
 <option value="">Lig seçiniz</option>
 </select>
 </div>
@@ -139,7 +139,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="row my-1">
 <span class="labelbaşlık">Kripto Seç:</span>
 <div class="- - -">
-<select id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="input">
+<select id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="password">
 <option value="">Genel Hesaplama</option>
 </select>
 </div>
@@ -147,8 +147,8 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="row">
 <span class="labelbaşlık">Ağ Gücü:</span>
 <div class="- - -">
-<input id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower" type="number" name="inputNetworkPower" class="input" placeholder="Ağ gücünü giriniz...">
-<select id="networkUnit" ng-disabled="isLoadedUser" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')" class="input">
+<input id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower" type="number" name="inputNetworkPower" class="password" placeholder="Ağ gücünü giriniz...">
+<select id="networkUnit" ng-disabled="isLoadedUser" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')" class="password">
 <option ng-repeat="unit in networkUnits">{{unit}}</option>
 </select>
 </div>
@@ -158,8 +158,8 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="row my-1">
 <span class="labelbaşlık">Kazım Gücü:</span>
 <div class="- - -">
-<input type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power" class="input" placeholder="Kazım gücünü giriniz...">
-<select id="unit" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')" class="input">
+<input type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power" class="password" placeholder="Kazım gücünü giriniz...">
+<select id="unit" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')" class="password">
 </select>
 </div>
 </div>
@@ -169,7 +169,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="row my-1">
 <span class="labelbaşlık">Blok Ödülü:</span>
 <div class="- - -">
-<input type="number" id="blockSize"" ng-disabled="isLoadedUser" ng-model="formData.blockSize" class="input" placeholder="Blok ödülünü giriniz...">
+<input type="number" id="blockSize"" ng-disabled="isLoadedUser" ng-model="formData.blockSize" class="password" placeholder="Blok ödülünü giriniz...">
 </div>
 </div>
 </div>
@@ -178,8 +178,8 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="row my-1">
 <span class="labelbaşlık">Blok Süresi:</span>
 <div class="- - -">
-<input type="number" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser" class="input" placeholder="Blok süresini giriniz...">
-<select id="timeUnit" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')"ng-disabled="isLoadedUser" class="input">
+<input type="number" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser" class="password" placeholder="Blok süresini giriniz...">
+<select id="timeUnit" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')"ng-disabled="isLoadedUser" class="password">
 <option value="seconds">Saniye</option>
 <option value="minutes">Dakika</option>
 </select>
@@ -199,7 +199,7 @@ typeahead-no-results="playerSearchNoResults"
 typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
 typeahead-loading="loading"
 placeholder="Örn: FthCLK"
-class="input"/>
+class="password"/>
 </div>
 </div>
 </div>
@@ -707,8 +707,8 @@ color: white;
 <div class="row my-1">
 <span class="labelbaşlık">Miner Adı:</span>
 <div class="- - -">
-<input type="text" class="input" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Örn: YMCA">
-<select class="input" ng-model="allMinersRarity" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<input type="text" class="password" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Örn: YMCA">
+<select class="password" ng-model="allMinersRarity" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
 <option value="all">Hepsi</option>
 <option value="common">Common</option>
 <option value="legacy">Legacy</option>
@@ -724,15 +724,15 @@ color: white;
 <div class="row my-1">
 <span class="labelbaşlık">Bonus Oranı:</span>
 <div class="- - -">
-<input class="input" ng-model="allMinerMinBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/> / 
-<input class="input" ng-model="allMinerMaxBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/>
+<input class="password" ng-model="allMinerMinBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/> / 
+<input class="password" ng-model="allMinerMaxBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/>
 </div>
 </div>
 
 <div class="row my-1">
 <span class="labelbaşlık">Mağaza Durumu:</span>
 <div class="- - -">
-<select class="input" ng-model="allMinerNegotiableStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<select class="password" ng-model="allMinerNegotiableStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
 <option value="all">Hepsi</option>
 <option value="inegotiable">Satılamaz</option>
 <option value="negotiable">Satılabilir</option>
@@ -743,7 +743,7 @@ color: white;
 <div class="row my-1">
 <span class="labelbaşlık">Oda Durumu:</span>
 <div class="- - -">
-<select class="input" ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<select class="password" ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
 <option value="all">Hepsi</option>
 <option value="mine">Varolan</option>
 <option value="not_mine">Varolmayan</option>
