@@ -423,25 +423,18 @@ BONUS GÜCÜ
 <thead>
 <tr class="- - -">
 <th class="card-header" style="text-align: center" colspan="17">
-TEKLİ COIN KAZANÇ İSTATİSTİKLERİ
-</th>
-</tr>
-<tr class="- - -">
-<th style="text-align: center" colspan="5">
-<img style="width: 30px;height: 30px;margin: 5px;" ng-if="formData.currency" ng-src="{{formData.currency.image}}" alt="{{formData.currency.name}} logo" class="currency-icon">
-{{formData.currency.name}} | KAZANÇ İSTATİSTİKLERİ
-<img style="width: 30px;height: 30px;margin: 5px;" ng-if="formData.currency" ng-src="{{formData.currency.image}}" alt="{{formData.currency.name}} logo" class="currency-icon">
+COIN KAZANÇ İSTATİSTİKLERİ
 </th>
 </tr>
 <tr ng-hide="formData.currency.in_game_only" class="- - -" class="deneme">
-<th style="text-align: center" colspan="4">
-1 {{formData.currency.name}} ${{exchangeRates[formData.currency.name]['usd']}}
-</th>
+<th style="text-align: center" colspan="2">1 {{formData.currency.name}} = ${{exchangeRates[formData.currency.name]['usd']}}</th>
+<th style="text-align: center" colspan="2">1 {{formData.currency.name}} = {{exchangeRates[formData.currency.name]['try']}}₺</th>
 </tr>
 <tr class="deneme">
 <th style="text-align:center;">GÜNLER</th>
 <th style="text-align:center;">COIN</th>
 <th style="text-align:center;" ng-hide="formData.currency.in_game_only">$</th>
+<th style="text-align:center;" ng-hide="formData.currency.in_game_only">₺</th>
 </tr>
 </thead>
 <tbody>
@@ -449,26 +442,31 @@ TEKLİ COIN KAZANÇ İSTATİSTİKLERİ
 <td style="text-align: center">BLOK ÖDÜLÜ</td>
 <td fatihcelik="KAZANÇ">{{calculateEarnings('block', 'amount')}} {{formData.currency.name}}</td>
 <td fatihcelik="DOLAR" ng-hide="formData.currency.in_game_only">${{calculateEarnings('block', 'usd')}}</td>
+<td fatihcelik="DOLAR" ng-hide="formData.currency.in_game_only">${{calculateEarnings('block', 'try')}}</td>
 </tr>
 <tr>
 <td style="text-align: center">GÜNLÜK</td>
 <td fatihcelik="KAZANÇ">{{calculateEarnings('day', 'amount')}} {{formData.currency.name}}</td>
 <td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('day', 'usd')}}</td>
+<td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('day', 'try')}}</td>
 </tr>
 <tr>
 <td style="text-align: center">HAFTALIK</td>
 <td fatihcelik="KAZANÇ">{{calculateEarnings('week', 'amount')}} {{formData.currency.name}}</td>
 <td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('week', 'usd')}}</td>
+<td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('week', 'try')}}</td>
 </tr>
 <tr>
 <td style="text-align: center">AYLIK</td>
 <td fatihcelik="KAZANÇ">{{calculateEarnings('month', 'amount')}} {{formData.currency.name}}</td>
 <td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('month', 'usd')}}</td>
+<td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('month', 'try')}}</td>
 </tr>
 <tr>
 <td style="text-align: center">YILLIK</td>
 <td fatihcelik="KAZANÇ">{{calculateEarnings('year', 'amount')}} {{formData.currency.name}}</td>
 <td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('year', 'usd')}}</td>
+<td fatihcelik="DOLAR"ng-hide="formData.currency.in_game_only">${{calculateEarnings('year', 'try')}}</td>
 </tr>
 </tbody>
 </table>
