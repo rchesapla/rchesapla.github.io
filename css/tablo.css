@@ -70,14 +70,6 @@ table td {
   table td:last-child {
     border-bottom: 0;
   }
-
-	
-	.profile-box:not([disabled]) {
-		animation: pulse 2s infinite ease-in-out;
-	}
-.profile-box[disabled] {
-background-color: #d7d0a7;
-}
   
     .profile-url {
       color: red;
@@ -87,8 +79,6 @@ background-color: #d7d0a7;
     }
 	.change-link {
       color: #33c3ff;
-      text-decoration: none;
-      font-size: 8px;
     }
 
 }
