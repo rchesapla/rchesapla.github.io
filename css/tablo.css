@@ -8,23 +8,17 @@ table {
 
 table tr {
   background-color: #1b2130;
-  padding: 1px;
 }
 
 table th {
   color: #ffdc00 ;
   background-color: #1D454F;
-  font-size: 15px;
 }
 
 table th,
 table td {
-  padding: 3px;
+  padding: 1px;
   text-align: center;
-}
-
-table th {
-  text-transform: uppercase ;
 }
 
 @media screen and (max-width: 1300px){
@@ -55,7 +49,6 @@ table th {
   table th {
     display: block;
     text-align: center;
-	font-size:10px;
   }
   
   table td {
