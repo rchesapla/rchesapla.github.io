@@ -529,7 +529,7 @@ HAFTALIK
 AYLIK
 </th>
 </tr>
-<tr class="deneme">
+<tr class="">
 <th style="text-align: center" colspan="1">
 <a>
 COIN
@@ -573,11 +573,17 @@ $
 </a>
 </th>
 <th fatihcelik2="USD:" style="text-align: center" colspan="1">
-<a>
-COIN
-<span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_cripto'">
-</span>
-</a>
+                                <a href="#" ng-click="orderByFarmField='user_alocated_power_month_profit_in_cripto'; reverseSort = !reverseSort; $event.preventDefault();">
+                                    COIN
+                                    <span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_cripto'">
+                                        <span ng-show="!reverseSort">
+                                            <i class="fa fa-fw fa-sort-asc"></i>
+                                        </span>
+                                        <span ng-show="reverseSort">
+                                            <i class="fa fa-fw fa-sort-desc"></i>
+                                        </span>
+                                    </span>
+                                </a>
 </th>
 <th style="text-align: center" colspan="1">
 <a>
