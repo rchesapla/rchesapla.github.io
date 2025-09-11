@@ -288,10 +288,20 @@ ROLLERCOIN TABLO ARAÇLARI
 </thead>
 </table>
 <!--===============================================================================================-->
-<button class="btn" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-user-xmark"></i> Beni Unut</button>
-<button class="btn" ng-click="resetValues()"><i class="fa-solid fa-coins"></i> Verileri Güncelle</button>
-<button class="btn best-coin" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"><i class="fa-solid fa-coins"></i> En İyi Kazanç</button>
-<button class="btn best-coin" ng-disabled="!isLoadedUser" ng-click="bestBuys()"><i class="fas fa-shopping-cart"></i> Miner Listesi</button>
+<div style="text-align: center">
+<button class="button" ng-if="isLoadedUser" ng-click="reloadWithoutUser()">
+  <span><i class="fa-solid fa-user-xmark"></i> Beni Unut</span>
+</button>
+<button class="button" ng-click="resetValues()">
+  <span><i class="fa-solid fa-coins"></i> Verileri Güncelle</span>
+</button>
+<button class="button" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()">
+  <span><i class="fa-solid fa-coins"></i> En İyi Kazanç</span>
+</button>
+<button class="button" ng-disabled="!isLoadedUser" ng-click="bestBuys()">
+  <span><i class="fas fa-shopping-cart"></i> Miner Listesi</span>
+</button>
+</div>
 <!--===============================================================================================-->
 <div ng-if="user_data">
 <table class="ss">
