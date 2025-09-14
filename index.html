@@ -672,8 +672,8 @@ color: white;
 {{(miner.bonus_power / 100)}}%
 </td>
 <td fatihcelik="ETKİLEŞİM">
-<button class="btn" ng-click="removeMinerFromSimulation(miner)">Kaldır!</button><br/>
-<button class="btn" ng-click="openBuyLink(miner)">Mağazaya Git</button>
+<button class="button" ng-click="removeMinerFromSimulation(miner)">Kaldır!</button><br/>
+<button class="button" ng-click="openBuyLink(miner)">Mağazaya Git</button>
 </td>
 </tr>
 </tbody>
@@ -690,9 +690,9 @@ color: white;
 <div class="şiş">
 <div class="row my-1">
 <span class="label">Miner Adı:</span>
-<div class="- - -">
-<input type="text" class="password" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Örn: YMCA">
-<select class="password" ng-model="allMinersRarity" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<div class="input-container">
+<input type="text" class="input-field" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Örn: YMCA">
+<select class="input-field" ng-model="allMinersRarity" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
 <option value="all">Hepsi</option>
 <option value="common">Common</option>
 <option value="legacy">Legacy</option>
@@ -708,15 +708,15 @@ color: white;
 <div class="row my-1">
 <span class="label">Bonus Oranı:</span>
 <div class="- - -">
-<input class="password" ng-model="allMinerMinBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/> / 
-<input class="password" ng-model="allMinerMaxBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/>
+<input class="input-field" ng-model="allMinerMinBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/> / 
+<input class="input-field" ng-model="allMinerMaxBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/>
 </div>
 </div>
 
 <div class="row my-1">
 <span class="label">Mağaza Durumu:</span>
 <div class="- - -">
-<select class="password" ng-model="allMinerNegotiableStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<select class="input-field" ng-model="allMinerNegotiableStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
 <option value="all">Hepsi</option>
 <option value="inegotiable">Satılamaz</option>
 <option value="negotiable">Satılabilir</option>
@@ -727,7 +727,7 @@ color: white;
 <div class="row my-1">
 <span class="label">Oda Durumu:</span>
 <div class="- - -">
-<select class="password" ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<select class="input-field" ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
 <option value="all">Hepsi</option>
 <option value="mine">Varolan</option>
 <option value="not_mine">Varolmayan</option>
@@ -838,7 +838,7 @@ color: white;
 {{miner.includeImpactLegend.value.toFixed(2)}} {{miner.includeImpactLegend.unit}}
 </td>
 <td style="text-align: center">
-<button class="btn" ng-click="addMinerToSimulation(miner)">Listeye Ekle</button><br/>
+<button class="button" ng-click="addMinerToSimulation(miner)">Listeye Ekle</button><br/>
 </td>
 </tr>
 </tbody>
@@ -988,7 +988,7 @@ color: white;
 {{miner.removeImpactLegend.value.toFixed(2)}} {{miner.removeImpactLegend.unit}}
 </td>
 <td fatihcelik="ETKİLEŞİM" style="text-align: center">
-<button class="btn" ng-click="openBuyLink(miner)">Mağazaya Git!</button>
+<button class="button" ng-click="openBuyLink(miner)">Mağazaya Git!</button>
 </td>
 </tr>
 </tbody>
