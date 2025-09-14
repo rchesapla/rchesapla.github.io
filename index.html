@@ -130,25 +130,25 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="card-body">
 <div class="row my-1">
 <span class="label">Lig Seç:</span>
-<div class="- - -">
-<select id="currency" ng-model="formData.league" ng-options="league.name for league in leagues" ng-change="updateLeagueDetails()" class="password">
+<div class="input-container">
+<select id="currency" ng-model="formData.league" ng-options="league.name for league in leagues" ng-change="updateLeagueDetails()" class="input-field">
 <option value="">Lig seçiniz</option>
 </select>
 </div>
 </div>
 <div class="row my-1">
 <span class="label">Kripto Seç:</span>
-<div class="- - -">
-<select id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="password">
+<div class="input-container">
+<select id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="input-field">
 <option value="">Genel Hesaplama</option>
 </select>
 </div>
 </div>
 <div class="row">
 <span class="label">Ağ Gücü:</span>
-<div class="- - -">
-<input id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower" type="number" name="inputNetworkPower" class="password" placeholder="Ağ gücünü giriniz...">
-<select id="networkUnit" ng-disabled="isLoadedUser" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')" class="password">
+<div class="input-container">
+<input id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower" type="number" name="inputNetworkPower" class="input-field" placeholder="Ağ gücünü giriniz...">
+<select id="networkUnit" ng-disabled="isLoadedUser" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')" class="input-field">
 <option ng-repeat="unit in networkUnits">{{unit}}</option>
 </select>
 </div>
@@ -157,9 +157,9 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="şiş">
 <div class="row my-1">
 <span class="label">Kazım Gücü:</span>
-<div class="- - -">
-<input type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power" class="password" placeholder="Kazım gücünü giriniz...">
-<select id="unit" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')" class="password">
+<div class="input-container">
+<input type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power" class="input-field" placeholder="Kazım gücünü giriniz...">
+<select id="unit" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')" class="input-field">
 </select>
 </div>
 </div>
@@ -168,8 +168,8 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="şiş">
 <div class="row my-1">
 <span class="label">Blok Ödülü:</span>
-<div class="- - -">
-<input type="number" id="blockSize"" ng-disabled="isLoadedUser" ng-model="formData.blockSize" class="password" placeholder="Blok ödülünü giriniz...">
+<div class="input-container">
+<input type="number" id="blockSize"" ng-disabled="isLoadedUser" ng-model="formData.blockSize" class="input-field" placeholder="Blok ödülünü giriniz...">
 </div>
 </div>
 </div>
@@ -177,9 +177,9 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="şiş">
 <div class="row my-1">
 <span class="label">Blok Süresi:</span>
-<div class="- - -">
-<input type="number" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser" class="password" placeholder="Blok süresini giriniz...">
-<select id="timeUnit" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')"ng-disabled="isLoadedUser" class="password">
+<div class="input-container">
+<input type="number" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser" class="input-field" placeholder="Blok süresini giriniz...">
+<select id="timeUnit" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')"ng-disabled="isLoadedUser" class="input-field">
 <option value="seconds">Saniye</option>
 <option value="minutes">Dakika</option>
 </select>
@@ -190,7 +190,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="şiş">
 <div class="row my-1">
 <span class="label">Rollercoin Kullanıcı Adı:</span>
-<div class="- - -">
+<div class="input-container">
 <input
 ng-model="userSearchText"
 typeahead-wait-ms="300"
@@ -199,7 +199,7 @@ typeahead-no-results="playerSearchNoResults"
 typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
 typeahead-loading="loading"
 placeholder="Örn: FthCLK"
-class="password"/>
+class="input-field"/>
 </div>
 </div>
 </div>

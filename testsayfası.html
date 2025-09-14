@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bar Loader</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111;
+      color: #fff;
+    }
+
+    .bar {
+      width: 200px;
+      height: 12px;
+      background: #333;
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, #00ffcc, #00ccff);
+      animation: load 2s infinite;
+    }
+
+    @keyframes load {
+      0%   { width: 0; }
+      50%  { width: 100%; }
+      100% { width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <div class="progress"></div>
+  </div>
+</body>
+</html>
