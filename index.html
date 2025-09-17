@@ -490,12 +490,7 @@ PARA ÇEKİMİ
 </thead>
 <tbody>
 <tr ng-repeat="currency in currencies | orderBy:orderByField:reverseSort">
-<td fatihcelik="COIN" colspan="2">
-<span ng-show="$first">
-<i style="color:#b7b706" class="fa-solid fa-crown"></i>
-</span>
-{{currency.name}}
-</td>
+<td fatihcelik="COIN" colspan="2">{{currency.name}}</td>
 <td fatihcelik="AĞ GÜCÜ" colspan="2">{{chooseBestHashRateUnit(currency.networkPower, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').unit}}</td>
 <td fatihcelik="BLOK ÖDÜLÜ" colspan="2">{{currency.blockTime}} sn {{currency.blockSize}} {{currency.name}}</td>
 <td fatihcelik="$" colspan="1">${{currency.block_value_in_usd}}</td>
