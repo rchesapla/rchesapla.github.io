@@ -289,18 +289,53 @@ ROLLERCOIN TABLO ARAÇLARI
 </table>
 <!--===============================================================================================-->
 <div style="text-align: center">
-<button class="button" ng-if="isLoadedUser" ng-click="reloadWithoutUser()">
-  <span><i class="fa-solid fa-user-xmark"></i> Beni Unut</span>
-</button>
-<button class="button" ng-click="resetValues()">
+
+<div class="buttons">
+  <button class="blob-btn" ng-if="isLoadedUser" ng-click="reloadWithoutUser()">
+    <span><i class="fa-solid fa-user-xmark"></i> Beni Unut</span>
+    <span class="blob-btn__inner">
+      <span class="blob-btn__blobs">
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+      </span>
+    </span>
+  </button>
+  <button class="blob-btn" ng-click="resetValues()">
   <span><i class="fa-solid fa-coins"></i> Verileri Güncelle</span>
-</button>
-<button class="button" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()">
+    <span class="blob-btn__inner">
+      <span class="blob-btn__blobs">
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+      </span>
+    </span>
+  </button>
+  <button class="blob-btn" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()">
   <span><i class="fa-solid fa-coins"></i> En İyi Kazanç</span>
-</button>
-<button class="button" ng-disabled="!isLoadedUser" ng-click="bestBuys()">
+    <span class="blob-btn__inner">
+      <span class="blob-btn__blobs">
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+      </span>
+    </span>
+  </button>
+  <button class="blob-btn" ng-disabled="!isLoadedUser" ng-click="bestBuys()">
   <span><i class="fas fa-shopping-cart"></i> Miner Listesi</span>
-</button>
+    <span class="blob-btn__inner">
+      <span class="blob-btn__blobs">
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+      </span>
+    </span>
+  </button>
+</div>
 </div>
 <!--===============================================================================================-->
 <div ng-if="user_data">

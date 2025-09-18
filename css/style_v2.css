@@ -13,9 +13,14 @@ width: 5px;
 background: red;
 }
 
-.best-coin[disabled] {
-background-color: #d7d0a7;
-}
+        .blob-btn:not([disabled]) {
+            background-color: gold;
+            font-weight: bolder;
+        }
+        .blob-btn[disabled] {
+            background-color: #d7d0a7;
+            font-weight: bolder;
+        }
 
 @keyframes pulse {
 0% {
