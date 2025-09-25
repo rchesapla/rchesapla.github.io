@@ -627,21 +627,18 @@ $
 </thead>
 <tbody class="allocated-farm">
 <tr ng-repeat="currency in filteredCurrencies = (currencies | filter:filterFn | orderBy:orderByFarmField:reverseSort)">
-<td fatihcelik="Kripto:" colspan="2">
-<span ng-show="$first" id="bestCoinTable">
-<i  style="color:#b7b706" class="fa-solid fa-crown"></i>
-</span>
+<td fatihcelik="COIN" colspan="2">
 {{currency.name}}
 </td>
 <td fatihcelik="GÜNLÜK" colspan="1">{{currency.user_alocated_power_day_profit_in_cripto}} {{currency.name}}</td>
-<td fatihcelik="GÜNLÜK DOLAR" colspan="1">${{currency.user_alocated_power_day_profit_in_usd}}</td>
-<td fatihcelik="GÜNLÜK TL" colspan="1">{{currency.user_alocated_power_day_profit_in_try}}₺</td>
+<td fatihcelik="$" colspan="1">${{currency.user_alocated_power_day_profit_in_usd}}</td>
+<td fatihcelik="₺" colspan="1">{{currency.user_alocated_power_day_profit_in_try}}₺</td>
 <td fatihcelik="HAFTALIK" colspan="1">{{currency.user_alocated_power_week_profit_in_cripto}} {{currency.name}}</td>
-<td fatihcelik="HAFTALIK DOLAR" colspan="1">${{currency.user_alocated_power_week_profit_in_usd}}</td>
-<td fatihcelik="HAFTALIK TL" colspan="1">{{currency.user_alocated_power_week_profit_in_try}}₺</td>
+<td fatihcelik="$" colspan="1">${{currency.user_alocated_power_week_profit_in_usd}}</td>
+<td fatihcelik="₺" colspan="1">{{currency.user_alocated_power_week_profit_in_try}}₺</td>
 <td fatihcelik="AYLIK" colspan="1">{{currency.user_alocated_power_month_profit_in_cripto}} {{currency.name}}</td>
-<td fatihcelik="AYLIK DOLAR" colspan="1">${{currency.user_alocated_power_month_profit_in_usd}}</td>
-<td fatihcelik="AYLIK TL" colspan="1">{{currency.user_alocated_power_month_profit_in_try}}₺</td>
+<td fatihcelik="$" colspan="1">${{currency.user_alocated_power_month_profit_in_usd}}</td>
+<td fatihcelik="₺" colspan="1">{{currency.user_alocated_power_month_profit_in_try}}₺</td>
 </tr>
 </tbody>
 </table>
