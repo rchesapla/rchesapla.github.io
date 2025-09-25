@@ -28,7 +28,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <meta name="keywords" content="rchesapla, turkcraft01, pb01adana, rollercoin, rollercoin hesapla, rollercoin calculator, rollercoin güç hesaplama, bitcoin hesapla, doge hesapla, eth hesapla, xrp hesapla">
 <!--===============================================================================================-->
 <meta property="og:title" content="☪ RCHesapla ☪ • Kişisel Kazım Gücünü Hesapla!">
-<meta property="og:description" content="Anlık, günlük, haftalık, aylık aynı zamanda yıllık olarak hesaplama yapabilirsin. ||Tek resmi web sitemiz budur!||">
+<meta property="og:description" content="Anlık, günlük, haftalık, aylık aynı zamanda yıllık olarak hesaplama yapabilirsin.">
 <meta property="og:image" content="https://media.discordapp.net/attachments/798825351555317760/960999892480823356/standard.gif?ex=67aa61e4&is=67a91064&hm=20ad890e21ab9025a1b5ba26e6f1ceb697d13f3138af57063e80602f8835f8ce">
 <meta property="og:url" content="https://rchesapla.github.io/">
 <!--===============================================================================================-->
@@ -542,7 +542,7 @@ PARA ÇEKİMİ
 <tr>
 <th class=" card-header" style="text-align: center" colspan="22">
 EN İYİ KAZANÇ İSTATİSTİKLERİM
-<button class="btn" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i></button>
+<button class="blob-btn" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i></button>
 </th>
 </tr>
 <tr class="deneme">
@@ -602,18 +602,12 @@ $
 </span>
 </a>
 </th>
-<th fatihcelik2="USD:" style="text-align: center" colspan="1">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_month_profit_in_cripto'; reverseSort = !reverseSort; $event.preventDefault();">
-                                    COIN
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_cripto'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
+<th style="text-align: center" colspan="1">
+<a>
+COIN
+<span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_cripto'">
+</span>
+</a>
 </th>
 <th style="text-align: center" colspan="1">
 <a>

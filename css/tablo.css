@@ -6,6 +6,10 @@ table {
   color: #c3b0d0;
 }
 
+tr:nth-child(even) {
+  background-color: #1D454F;
+}
+
 table tr {
   background-color: #1b2130;
 }
@@ -19,6 +23,8 @@ table th,
 table td {
   padding: 1px;
   text-align: center;
+  border: 1px solid black;
+  border-collapse: collapse;
 }
 
 @media screen and (max-width: 1300px){
