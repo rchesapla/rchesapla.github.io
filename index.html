@@ -324,17 +324,12 @@ ROLLERCOIN TABLO ARAÇLARI
       </span>
     </span>
   </button>
-  <button class="blob-btn" ng-disabled="!isLoadedUser" ng-click="bestBuys()">
-  <span href="#minerlistesi"><i class="fas fa-shopping-cart"></i> Miner Listesi</span>
-    <span class="blob-btn__inner">
-      <span class="blob-btn__blobs">
-        <span class="blob-btn__blob"></span>
-        <span class="blob-btn__blob"></span>
-        <span class="blob-btn__blob"></span>
-        <span class="blob-btn__blob"></span>
-      </span>
-    </span>
-  </button>
+
+<input type="checkbox" ng-model="formData.showMiners" name="show_miners" ng-if="isLoadedUser"/>
+<label for="scales" ng-if="isLoadedUser">Ekran Kartlarım</label>
+<input type="checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners" ng-if="isLoadedUser"/>
+<label for="scales" ng-if="isLoadedUser"><i class="fas fa-shopping-cart"></i> Miner Listesi</label>
+
 </div>
 </div>
 <!--===============================================================================================-->

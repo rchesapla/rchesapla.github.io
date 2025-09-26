@@ -1055,6 +1055,15 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         await sleep(500);
         document.getElementById('bestCoinTable').scrollIntoView();
     }
+	
+    $scope.bestBuys = async function() {
+        $scope.currencies?.forEach(c => {
+            c.user_alocated_power = 100
+            updateAllocatedPower(c);
+        });
+        await sleep(500);
+		document.getElementById('minerlistesi').scrollIntoView();
+    }
 
     $scope.bestBuys = async function() {
         $scope.formData.showAllMiners = true;

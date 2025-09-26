@@ -1,47 +1,108 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bar Loader</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Yeni Farklı Animasyonlu Checkboxes</title>
   <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #111;
-      color: #fff;
+    body{
+      margin:0;
+      font-family:sans-serif;
+      background:#0f172a;
+      color:#f8fafc;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px;
     }
+    .wrap{
+      background:#1e293b;
+      border-radius:14px;
+      padding:30px;
+      width:800px;
+      max-width:95%;
+      box-shadow:0 6px 30px rgba(0,0,0,.6);
+    }
+    h1{text-align:center;margin-bottom:20px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px}
 
-    .bar {
-      width: 200px;
-      height: 12px;
-      background: #333;
-      border-radius: 6px;
-      overflow: hidden;
-      position: relative;
+    /* Star burst */
+    .star{
+      cursor:pointer;display:flex;align-items:center;gap:10px;position:relative;
     }
+    .star input{display:none}
+    .star span{
+      width:26px;height:26px;border:2px solid #38bdf8;border-radius:50%;display:inline-block;position:relative;overflow:hidden;
+    }
+    .star span::after{
+      content:"★";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#38bdf8;font-size:18px;transform:scale(0);transition:.3s;
+    }
+    .star input:checked + span::after{transform:scale(1) rotate(360deg)}
 
-    .progress {
-      width: 0;
-      height: 100%;
-      background: linear-gradient(90deg, #00ffcc, #00ccff);
-      animation: load 2s infinite;
+    /* Pulse */
+    .pulse{cursor:pointer;display:flex;align-items:center;gap:10px}
+    .pulse input{display:none}
+    .pulse span{
+      width:24px;height:24px;border:2px solid #a78bfa;border-radius:50%;display:inline-block;position:relative;transition:.3s;
     }
+    .pulse input:checked + span{background:#a78bfa;animation:pulse 1s infinite}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(167,139,250,.6)}70%{box-shadow:0 0 0 10px rgba(167,139,250,0)}100%{box-shadow:0 0 0 0 rgba(167,139,250,0)}}
 
-    @keyframes load {
-      0%   { width: 0; }
-      50%  { width: 100%; }
-      100% { width: 0; }
+    /* Switch with emoji */
+    .emoji-switch{cursor:pointer;display:flex;align-items:center;gap:10px}
+    .emoji-switch input{display:none}
+    .emoji-switch span{
+      width:50px;height:28px;border-radius:20px;background:#475569;position:relative;display:inline-block;transition:.3s;
     }
+    .emoji-switch span::before{
+      content:"☀️";position:absolute;left:2px;top:2px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:50%;transition:.3s;font-size:14px}
+    .emoji-switch input:checked + span{background:#0ea5e9}
+    .emoji-switch input:checked + span::before{transform:translateX(22px);content:"🌙"}
+
+    /* Checkbox with progress bar */
+    .progress{cursor:pointer;display:flex;flex-direction:column;gap:6px}
+    .progress input{display:none}
+    .progress .bar{
+      width:100%;height:6px;background:#334155;border-radius:4px;overflow:hidden;position:relative;
+    }
+    .progress .fill{
+      height:100%;width:0;background:#22c55e;transition:width .4s;
+    }
+    .progress input:checked ~ .bar .fill{width:100%}
+
   </style>
 </head>
 <body>
-  <div class="bar">
-    <div class="progress"></div>
+  <div class="wrap">
+    <h1>Yeni Farklı Animasyonlu Checkboxes</h1>
+    <div class="grid">
+
+      <label class="star">
+        <input type="checkbox">
+        <span></span>
+        Star Burst
+      </label>
+
+      <label class="pulse">
+        <input type="checkbox">
+        <span></span>
+        Pulse Effect
+      </label>
+
+      <label class="emoji-switch">
+        <input type="checkbox">
+        <span></span>
+        Emoji Switch
+      </label>
+
+      <label class="progress">
+        <input type="checkbox">
+        Progress Check
+        <div class="bar"><div class="fill"></div></div>
+      </label>
+
+    </div>
   </div>
 </body>
 </html>
