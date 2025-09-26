@@ -868,16 +868,16 @@ color: white;
 <div ng-if="formData.showMiners" class="">
 
 <article>
-<div class="card-fc my-2 özelfont">
+<div class="card-fc my-2">
 <h6 class="card-header">MADENCİLERİM</h6>
 <div class="card-body">
 <div class="row my-1">
 <label for="currency"><span class="label">Miner Adı / Türü:</span></label>
 <div class="- - -">
-<input type="text" class="form-control" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)" ng-model="userMinerNameSearch" placeholder="Miner adını girin...">
+<input type="text" class="input-field" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)" ng-model="userMinerNameSearch" placeholder="Miner adını girin...">
 </div>
-<div class="col-5">
-<select class="form-control" ng-model="userMinersRarity" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)"placeholder="Kazım gücünü giriniz...">
+<div class="- - -">
+<select class="input-field" ng-model="userMinersRarity" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)"placeholder="Kazım gücünü giriniz...">
 <option value="all">Hepsi</option>
 <option value="common">Common</option>
 <option value="legacy">Legacy</option>
@@ -894,7 +894,7 @@ color: white;
 <div class="row my-1">
 <label for="currency"><span class="label">Minimum Güç: (GH/s)</span></label>
 <div class="- - -">
-<input placeholder="1" class="form-control" ng-model="userMinerMinPowerSearch" type="text" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
+<input placeholder="1" class="input-field" ng-model="userMinerMinPowerSearch" type="text" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
 </div>
 </div>
 </div>
@@ -903,7 +903,7 @@ color: white;
 <div class="row my-1">
 <label for="currency"><span class="label">Maksimum Güç: (GH/s)</span></label>
 <div class="- - -">
-<input placeholder="999999999999" class="form-control" ng-model="userMinerMaxPowerSearch" type="text" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
+<input placeholder="999999999" class="input-field" ng-model="userMinerMaxPowerSearch" type="text" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
 </div>
 </div>
 </div>
