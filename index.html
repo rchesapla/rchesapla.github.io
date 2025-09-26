@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="./css/input.css">
 <link rel="stylesheet" href="./css/button.css">
 <link rel="stylesheet" href="./css/solmenu.css">
+<link rel="stylesheet" href="./css/checkbox.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" href="./css/benihatirla.css">
 <!--===============================================================================================-->
@@ -281,7 +282,7 @@ stroke-linejoin="round"
 <table>
 <thead>
 <tr class="- - -">
-<th class=" card-header" style="text-align: center" colspan="17">
+<th class="card-header" style="text-align: center" colspan="17">
 ROLLERCOIN TABLO ARAÇLARI
 </th>
 </tr>
@@ -325,15 +326,18 @@ ROLLERCOIN TABLO ARAÇLARI
     </span>
   </button>
 
-<input type="checkbox" ng-model="formData.showMiners" name="show_miners" ng-if="isLoadedUser"/>
-<label for="scales" ng-if="isLoadedUser">Ekran Kartlarım</label>
-<input type="checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners" ng-if="isLoadedUser"/>
-<label for="scales" ng-if="isLoadedUser"><i class="fas fa-shopping-cart"></i> Miner Listesi</label>
+<div id="inputPreview" ng-if="isLoadedUser">
+		<input name="cssCheckbox" id="demo_opt_1" type="checkbox" class="css-checkbox" ng-model="formData.showMiners" name="show_miners">
+		<label for="demo_opt_1">Minerlarım</label>
+		<input name="cssCheckbox" id="demo_opt_2" type="checkbox" class="css-checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners">
+		<label for="demo_opt_2">Miner Listesi</label>
+	</div>
 
 </div>
 </div>
 <!--===============================================================================================-->
 <div ng-if="user_data">
+
 <table class="ss">
 <thead>
 <tr class="- - -">
