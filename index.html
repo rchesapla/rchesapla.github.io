@@ -325,7 +325,7 @@ ROLLERCOIN TABLO ARAÇLARI
     </span>
   </button>
   <button class="blob-btn" ng-disabled="!isLoadedUser" ng-click="bestBuys()">
-  <span><i class="fas fa-shopping-cart"></i> Miner Listesi</span>
+  <span href="#minerlistesi"><i class="fas fa-shopping-cart"></i> Miner Listesi</span>
     <span class="blob-btn__inner">
       <span class="blob-btn__blobs">
         <span class="blob-btn__blob"></span>
@@ -626,7 +626,7 @@ $
 </tr>
 </thead>
 <tbody class="allocated-farm">
-<tr ng-repeat="currency in filteredCurrencies = (currencies | filter:filterFn | orderBy:orderByFarmField:reverseSort)">
+<tr ng-repeat="currency in filteredCurrencies = (currencies | filter:filterFn | orderBy:orderByFarmField:reverseSort)" id="bestCoinTable">
 <td fatihcelik="COIN" colspan="2">
 {{currency.name}}
 </td>
@@ -701,7 +701,7 @@ color: white;
 </table>
 </div>
 
-<div ng-if="formData.showAllMiners" class="">
+<div ng-if="formData.showAllMiners" class="" id="minerlistesi">
 
 <article class="- - -">
 <div class="card-fc my-2 özelfont">
