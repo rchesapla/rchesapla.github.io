@@ -1,6 +1,10 @@
+        .blob-btn[disabled] {
+            background: red;
+			cursor:not-allowed;
+        }
+
 
  .buttons {
-
 	 text-align: center;
 }
  .blob-btn {

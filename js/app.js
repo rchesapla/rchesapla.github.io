@@ -356,14 +356,14 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         if (anos > 0) {
             resultado += `${anos} ${anos > 1 ? 'yıl' : 'yıl'}`;
             if (meses > 0 || diasRestantes > 0) {
-                resultado += ", ";
+                resultado += " ";
             }
         }
     
         if (meses > 0) {
             resultado += `${meses} ${meses > 1 ? 'ay' : 'ay'}`;
             if (diasRestantes > 0) {
-                resultado += " e ";
+                resultado += " ";
             }
         }
     
