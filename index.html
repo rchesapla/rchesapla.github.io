@@ -503,8 +503,8 @@ BLOK ÖDÜLÜ
 <th style="text-align: center" colspan="2">
 BLOK BAŞINA DEĞER
 </th>
-<th style="text-align: center" colspan="2">
-BENİM BLOK BAŞINA DEĞER
+<th style="text-align: center" rowspan="2" colspan="2">
+PARA ÇEKİMİ
 </th>
 </tr>
 <tr class="deneme" class="- - -">
@@ -513,12 +513,6 @@ $
 </th>
 <th style="text-align: center" colspan="1" class="- - -">
 COIN
-</th>
-<th style="text-align: center" colspan="1" class="- - -">
-$
-</th>
-<th style="text-align: center" colspan="1" class="- - -">
-PARA ÇEKİMİ
 </th>
 </tr>
 </thead>
@@ -529,7 +523,6 @@ PARA ÇEKİMİ
 <td fatihcelik="BLOK ÖDÜLÜ" colspan="2">{{currency.blockTime}} sn {{currency.blockSize}} {{currency.name}}</td>
 <td fatihcelik="$" colspan="1">${{currency.block_value_in_usd}}</td>
 <td fatihcelik="BLOK MİKTARI" colspan="1">{{currency.user_block_farm_token}} {{currency.name}}</td>
-<td fatihcelik="$" colspan="1">${{currency.user_block_farm_usd}}</td>
 <td fatihcelik="PARA ÇEKİMİ" colspan="1">{{formatDays(currency.user_days_to_widthdraw)}}</td>
 </tr>
 </tbody>
