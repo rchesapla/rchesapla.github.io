@@ -4,6 +4,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nosifer&family=Nova+Square&display=swap'); /*BODY FONT ALANI*/
 
+
+        #chart {
+            width: 30%;
+            height: 250px;
+            margin: 0 auto;
+            margin-top: 350px;
+        }
+
 ::-webkit-scrollbar {
 background: #2f3045;
 width: 5px;
