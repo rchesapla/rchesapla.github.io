@@ -977,7 +977,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         const noData = document.getElementById('noDataMessage');
         if (noData) {
             noData.style.display = 'block';
-            noData.textContent = 'Error (JSON).';
+            noData.textContent = 'Sistem yüklenemedi biraz bekleyin veyahut site sahibine mesaj atınız.';
         }
     }
 });
