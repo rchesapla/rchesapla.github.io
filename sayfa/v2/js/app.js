@@ -695,7 +695,7 @@ function initializeSecretButton() {
                 } else {
                     clearInterval(countdownInterval);
                     countdownInterval = null;
-                    window.open('https://minaryganar.com/', '_blank');
+                    window.open('https://rchesapla.github.io', '_blank');
                     secretOverlay.classList.add('hidden');
                 }
             }, 1000);
