@@ -387,7 +387,7 @@ function updateLeagueBadge(leagueName, leagueClass) {
         const badge = document.getElementById('leagueBadge');
         const imagePath = getLeagueImagePath(leagueName);
         badge.innerHTML = `
-            YOUR LEAGUE: ${leagueName}
+            SİZİN LİGİNİZ: ${leagueName}
             <img src="${imagePath}" alt="${leagueName}" class="inline-block w-6 h-6 ml-2" onerror="this.style.display='none';">
             `;
         badge.className = `league-badge ${leagueClass} inline-block`;
