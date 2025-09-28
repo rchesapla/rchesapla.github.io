@@ -486,16 +486,16 @@ function displayEarnings() {
             } else {
                 if (cryptoPrices[crypto]?.try && cryptoPrices[crypto].try > 0) {
                     const tryPrice = cryptoPrices[crypto].try;
-                    perBlockDisplay = `€${formatNumber(earningsPerBlock * tryPrice, null, false, 'try')}`;
-                    dailyDisplay = `€${formatNumber(earningsPerDay * tryPrice, null, false, 'try')}`;
-                    weeklyDisplay = `€${formatNumber(earningsPerWeek * tryPrice, null, false, 'try')}`;
-                    monthlyDisplay = `€${formatNumber(earningsPerMonth * tryPrice, null, false, 'try')}`;
+                    perBlockDisplay = `${formatNumber(earningsPerBlock * tryPrice, null, false, 'try')}₺`;
+                    dailyDisplay = `${formatNumber(earningsPerDay * tryPrice, null, false, 'try')}₺`;
+                    weeklyDisplay = `${formatNumber(earningsPerWeek * tryPrice, null, false, 'try')}₺`;
+                    monthlyDisplay = `${formatNumber(earningsPerMonth * tryPrice, null, false, 'try')}₺`;
                 } else if (cryptoPrices[crypto]?.usd && cryptoPrices[crypto].usd > 0 && eurToUsdRate > 0) {
                     const tryPrice = cryptoPrices[crypto].usd / eurToUsdRate;
-                    perBlockDisplay = `€${formatNumber(earningsPerBlock * tryPrice, null, false, 'try')}`;
-                    dailyDisplay = `€${formatNumber(earningsPerDay * tryPrice, null, false, 'try')}`;
-                    weeklyDisplay = `€${formatNumber(earningsPerWeek * tryPrice, null, false, 'try')}`;
-                    monthlyDisplay = `€${formatNumber(earningsPerMonth * tryPrice, null, false, 'try')}`;
+                    perBlockDisplay = `${formatNumber(earningsPerBlock * tryPrice, null, false, 'try')}₺`;
+                    dailyDisplay = `${formatNumber(earningsPerDay * tryPrice, null, false, 'try')}₺`;
+                    weeklyDisplay = `${formatNumber(earningsPerWeek * tryPrice, null, false, 'try')}₺`;
+                    monthlyDisplay = `${formatNumber(earningsPerMonth * tryPrice, null, false, 'try')}₺`;
                 } else {
                     perBlockDisplay = dailyDisplay = weeklyDisplay = monthlyDisplay = 'N/A';
                 }
