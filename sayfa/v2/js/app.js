@@ -144,16 +144,17 @@ async function fetchCryptoPrices() {
         };
 
         const ids = Object.values(cryptoIds).join(',');
-        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd,eur`);
+        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd,eur,try`);
         if (!res.ok) throw new Error('Failed to fetch prices');
 
         const data = await res.json();
 
         for (const [sym, id] of Object.entries(cryptoIds)) {
-            if (data[id]?.usd && !isNaN(data[id].usd) && data[id]?.eur && !isNaN(data[id].eur)) {
+            if (data[id]?.usd && !isNaN(data[id].usd) && data[id]?.eur && !isNaN(data[id].eur) && data[id]?.try && !isNaN(data[id].try)) {
                 cryptoPrices[sym] = {
                     usd: data[id].usd,
-                    eur: data[id].eur
+                    eur: data[id].eur,
+                    eur: data[id].try
                 };
             }
         }
