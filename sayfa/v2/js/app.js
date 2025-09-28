@@ -757,7 +757,7 @@ function updatePricesTable() {
     if (lastUpdateElement && pricesLastUpdated > 0) {
         const date = new Date(pricesLastUpdated);
         const timeString = date.toLocaleTimeString();
-        lastUpdateElement.innerHTML = `Last updated: ${timeString} | <span class="text-cyan-400">Data from CoinGecko API</span>`;
+        lastUpdateElement.innerHTML = `Son güncelleme: ${timeString} | <span class="text-cyan-400">CoinGecko API</span>`;
     }
 }
 
@@ -834,7 +834,7 @@ function updateWithdrawalsTable() {
                 </div>
             </td>
             <td class="py-2 px-3 text-center coming-soon-withdrawal" colspan="3">
-                Withdrawable Soon
+                Yakında Çekilebilir
             </td>
         `;
         
