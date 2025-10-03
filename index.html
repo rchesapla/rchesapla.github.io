@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="./css/input.css">
 <link rel="stylesheet" href="./css/button.css">
 <link rel="stylesheet" href="./css/solmenu.css">
+<link rel="stylesheet" href="./css/ytsayac.css">
 <link rel="stylesheet" href="./css/checkbox.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" href="./css/benihatirla.css">
@@ -121,7 +122,32 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="col-12 col-md-10">
 <!--===============================================================================================-->
 <center>
+<div id="subscriber-counter">
+  YT Abone Sayacı: <span id="count">0</span>
+</div>
 
+<script>
+  const API_KEY = 'AIzaSyBRyH1_qHbSOYlNPFaq1OCJp6cTRwrmMzs'; // YouTube Data API v3 anahtarınız
+  const CHANNEL_ID = 'UCiS4gfhe4kmmgXB4Wny43kQ'; // Kanal ID’niz
+  const countElement = document.getElementById('count');
+
+  async function getSubscriberCount() {
+    try {
+      const response = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`);
+      const data = await response.json();
+      const subCount = data.items[0].statistics.subscriberCount;
+      countElement.textContent = subCount;
+    } catch (error) {
+      console.error('Abone sayısı alınamadı:', error);
+    }
+  }
+
+  // İlk veri çekimi
+  getSubscriberCount();
+
+  // Her 15 saniyede bir güncelle
+  setInterval(getSubscriberCount, 15000);
+</script>
 </center>
 <!--===============================================================================================-->
 <div class="row">
