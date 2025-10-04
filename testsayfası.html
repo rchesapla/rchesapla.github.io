@@ -1,59 +1,103 @@
 ﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YT Canlı Abone Sayacı</title>
-<style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    height: 100vh;
-    background-color: #f0f0f0;
-  }
+  <meta charset="UTF-8">
+  <title>Modern Canlı YouTube Abone Sayacı</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: radial-gradient(circle, #1e1e1e, #000);
+      font-family: 'Arial', sans-serif;
+    }
 
-  #subscriber-counter {
-    position: fixed;
-    left: 10px;
-    bottom: 10px;
-    background-color: #ff0000;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 10px;
-    font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    z-index: 1000;
-  }
-</style>
+    .counter {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: conic-gradient(#FFD700 0%, #FF4500 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: #fff;
+      box-shadow: 0 0 40px rgba(255,255,255,0.2);
+      font-weight: bold;
+      font-size: 50px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .counter span {
+      display: block;
+      font-size: 20px;
+      color: #ccc;
+      margin-top: 10px;
+    }
+
+    .pulse {
+      animation: pulse 0.3s ease;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+  </style>
 </head>
 <body>
+  <div class="counter" id="counter">
+    <div id="count">0</div>
+    <span id="channelName">Kanal Adı</span>
+  </div>
 
-<div id="subscriber-counter">
-  Abone Sayısı: <span id="count">0</span>
-</div>
+  <script>
+    const API_KEY = "AIzaSyBRyH1_qHbSOYlNPFaq1OCJp6cTRwrmMzs"; 
+    const CHANNEL_USERNAME = "fatihcelik"; 
+    let channelId = "";
 
-<script>
-  const API_KEY = 'AIzaSyBRyH1_qHbSOYlNPFaq1OCJp6cTRwrmMzs'; // YouTube Data API v3 anahtarınız
-  const CHANNEL_ID = 'UCiS4gfhe4kmmgXB4Wny43kQ'; // Kanal ID’niz
-  const countElement = document.getElementById('count');
-
-  async function getSubscriberCount() {
-    try {
-      const response = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`);
-      const data = await response.json();
-      const subCount = data.items[0].statistics.subscriberCount;
-      countElement.textContent = subCount;
-    } catch (error) {
-      console.error('Abone sayısı alınamadı:', error);
+    async function getChannelId(username) {
+      const res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=id&forUsername=${username}&key=${API_KEY}`);
+      const data = await res.json();
+      if(data.items && data.items.length > 0){
+        return data.items[0].id;
+      } else {
+        console.error("Kanal bulunamadı");
+        return null;
+      }
     }
-  }
 
-  // İlk veri çekimi
-  getSubscriberCount();
+    async function updateCount() {
+      if(!channelId) return;
+      const res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelId}&key=${API_KEY}`);
+      const data = await res.json();
+      const newCount = parseInt(data.items[0].statistics.subscriberCount);
+      const countEl = document.getElementById("count");
+      
+      // Pulse animasyonu
+      countEl.classList.add("pulse");
+      setTimeout(() => countEl.classList.remove("pulse"), 300);
+      
+      // Renk değişimi
+      const counterEl = document.getElementById("counter");
+      const colorRatio = Math.min(newCount / 100000, 1); // 100k üstü max renk
+      counterEl.style.background = `conic-gradient(#FFD700 ${colorRatio*100}%, #FF4500 0%)`;
 
-  // Her 15 saniyede bir güncelle
-  setInterval(getSubscriberCount, 15000);
-</script>
+      countEl.textContent = newCount.toLocaleString("tr-TR");
+    }
 
+    async function init() {
+      channelId = await getChannelId(CHANNEL_USERNAME);
+      if(!channelId) return;
+      document.getElementById("channelName").textContent = CHANNEL_USERNAME;
+      updateCount();
+      setInterval(updateCount, 5000);
+    }
+
+    init();
+  </script>
 </body>
 </html>
