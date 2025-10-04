@@ -80,12 +80,22 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
 <!-- Sağ taraf -->
 <div class="topbar-right">
+<div class="user-info-fc">
+<button class="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 24">
+    <path d="m18 0 8 12 10-8-4 20H4L0 4l10 8 8-12z"></path>
+  </svg>
+  <a href="https://rchesapla.github.io/sayfa/v2/index.html" target="_blank">V2 Sürümü Aktif</a>
+</button>
+</div>
+
 <div class="user-info" ng-if="isLoadedUser">
 <img src="https://avatars.rollercoin.com/static/avatars/thumbnails/48/{{user_data.avatar_id}}.png?v=1652150400524" style="width: 30px; height: 30px; border-radius: 50%; vertical-align: middle; margin-right: 8px;">
 <div>
 <div class="username">{{user_data.name}}</div>
 </div>
 </div>
+
 </div>
 </div>
 
@@ -295,9 +305,6 @@ ROLLERCOIN TABLO ARAÇLARI
 <div style="text-align: center">
 
 <div class="buttons">
-
-<a class="blob-btn" href="https://rchesapla.github.io/sayfa/v2/index.html" class="button" target="_blank">V2 Sürümü Aktif</a>
-
 <button class="blob-btn" ng-if="isLoadedUser" ng-click="reloadWithoutUser()">
 <span><i class="fa-solid fa-user-xmark"></i> Beni Unut</span>
 <span class="blob-btn__inner">

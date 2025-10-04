@@ -93,6 +93,7 @@ font-family: var(--açıklama);
 }
 
 body {
+	    text-decoration:none;
 background: #181928 !important; /* background: #151414; */
 }
 
@@ -347,6 +348,7 @@ ul {
       border-radius: 8px;
       font-size: 14px;
       color: #fff;
+	  text-decoration: none;
     }
 
     .coin-box span {
@@ -360,6 +362,15 @@ ul {
       cursor: pointer;
     }
 
+    .user-info-fc {
+      display: flex;
+      align-items: center;
+      padding: 5px 10px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+    }
+	
     .user-info {
       display: flex;
       align-items: center;
@@ -379,6 +390,7 @@ ul {
 
     .username {
       font-weight: bold;
+	  text-decoration: none;
     }
 
     .hashrate {
@@ -407,8 +419,6 @@ ul {
       }
     }
 
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#0b1020;color:var(--text)}
 
     .footer{
       background:linear-gradient(180deg, var(--bg) 0%, #0b1020 100%);
