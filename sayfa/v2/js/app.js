@@ -812,10 +812,10 @@ function updateWithdrawalsTable() {
                 <span class="withdrawal-value">${formatWithdrawalAmount(minAmount)}</span>
             </td>
             <td class="py-2 px-3 text-center">
-                <span class="price-value">$${usdValue > 0 ? formatNumber(usdValue, null, false, 'usd') : 'N/A'}</span>
+                <span class="price-value">$${usdValue > 0 ? formatNumber(usdValue, null, false, 'usd') : 'Çekim Yok!'}</span>
             </td>
             <td class="py-2 px-3 text-center">
-                <span class="price-value">${tryValue > 0 ? formatNumber(tryValue, null, false, 'try') + '₺' : 'N/A'}</span>
+                <span class="price-value">${tryValue > 0 ? formatNumber(tryValue, null, false, 'try') + '₺' : 'Çekim Yok!'}</span>
             </td>
         `;
         
