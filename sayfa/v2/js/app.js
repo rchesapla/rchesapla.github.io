@@ -745,10 +745,10 @@ function updatePricesTable() {
                 </div>
             </td>
             <td class="py-2 px-3 text-center">
-                <span class="price-value">$${usdPrice ? formatNumber(usdPrice, null, false, 'usd') : 'N/A'}</span>
+                <span class="price-value">$${usdPrice ? formatNumber(usdPrice, null, false, 'usd') : 'Çekim Yok!'}</span>
             </td>
             <td class="py-2 px-3 text-center">
-                <span class="price-value">${tryPrice ? formatNumber(tryPrice, null, false, 'try') : 'N/A'}₺</span>
+                <span class="price-value">${tryPrice ? formatNumber(tryPrice, null, false, 'try') : 'Çekim Yok!'}₺</span>
             </td>
         `;
         
