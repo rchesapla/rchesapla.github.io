@@ -835,7 +835,7 @@ function updateWithdrawalsTable() {
                 </div>
             </td>
             <td class="py-2 px-3 text-center coming-soon-withdrawal" colspan="3">
-                Yakında Çekilebilir
+                Çekim Yok!
             </td>
         `;
         
@@ -855,7 +855,7 @@ function updateWithdrawalsTable() {
                 </div>
             </td>
             <td class="py-2 px-3 text-center coming-soon-withdrawal" colspan="3">
-                Withdrawable Soon
+                Çekim Yok!
             </td>
         `;
         
