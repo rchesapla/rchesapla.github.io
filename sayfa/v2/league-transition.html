@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RollerCoin League Transition</title>
-    <link rel="icon" type="image/png" href="icons/favicon64.png">
+    <title>RCHesapla | Lig Sistemi Hesaplayıcı V2!</title>
+	<link rel="shortcut icon" href="https://rchesapla.github.io/img/logo.png" type="image/x-icon">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#03e1e4">
     <link rel="apple-touch-icon" href="icons/favicon192.png">
@@ -21,14 +21,14 @@
             <div class="rollercoin-header p-6">
                 <div class="max-w-6xl mx-auto">
                     <h1 class="text-2xl md:text-3xl text-center rollercoin-title mb-2">
-                        ROLLERCOIN LEAGUE TRANSITION
+                        ROLLERCOİN LİG GEÇİŞİ
                     </h1>
                     <p class="text-sm text-gray-400 text-center font-medium">
-                        Analyze earnings impact when transitioning between leagues
+                        Ligler arasında geçiş yaparken kazanç etkisini analiz edin.
                     </p>
                     <div class="text-center mt-4">
                         <a href="index.html" class="roller-button back-button">
-                            ← BACK TO MAIN CALCULATOR
+                            ← HESAPLAMAYA DÖN
                         </a>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
 
             <div class="max-w-6xl mx-auto p-3">
                 <div id="leagueSelection" class="rollercoin-card p-6 mb-6">
-                    <h2 class="text-xl rollercoin-title font-bold mb-6 text-center">SELECT YOUR CURRENT LEAGUE</h2>
+                    <h2 class="text-xl rollercoin-title font-bold mb-6 text-center">MEVCUT LİGİNİZİ SEÇİN</h2>
 
                     <div class="league-grid">
                         <div class="league-tier">
@@ -126,12 +126,12 @@
                 <div id="calculatorSection" class="hidden">
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                         <div class="rollercoin-card p-6">
-                            <h2 class="text-lg rollercoin-title mb-3 font-bold">CURRENT LEAGUE NETWORK</h2>
+                            <h2 class="text-lg rollercoin-title mb-3 font-bold">MEVCUT LİG AĞI</h2>
                             <div class="league-display mb-4">
                                 <img id="currentLeagueIcon" src="" alt="" class="league-icon-small">
                                 <span id="currentLeagueName" class="league-name-display">BRONZE I</span>
                             </div>
-                            <label class="block rollercoin-label mb-2">Paste network data:</label>
+                            <label class="block rollercoin-label mb-2">Ağ Gücü:</label>
                             <textarea id="currentNetworkData" class="w-full rollercoin-input font-mono resize-none"
                                 rows="4" placeholder="RLT
 3.191 Zh/s
@@ -141,12 +141,12 @@ BTC
 4.178 Zh/s
 ..."></textarea>
                             <div id="currentNetworkError" class="error-message hidden">
-                                Unable to parse current league network data
+                                Geçerli lig ağı verileri ayrıştırılamıyor
                             </div>
                         </div>
 
                         <div class="rollercoin-card p-6">
-                            <h2 class="text-lg rollercoin-title mb-3 font-bold">NEXT LEAGUE NETWORK</h2>
+                            <h2 class="text-lg rollercoin-title mb-3 font-bold">SONRAKİ LİG AĞI</h2>
                             <div class="league-display mb-4">
                                 <img id="nextLeagueIcon" src="" alt="" class="league-icon-small">
                                 <span id="nextLeagueName" class="league-name-display">BRONZE II</span>
