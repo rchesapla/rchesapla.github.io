@@ -279,12 +279,12 @@ function calculateWithdrawalTime(dailyEarning, minWithdrawal) {
 
         if (hoursNeeded < 1) {
             const minutesNeeded = Math.ceil(hoursNeeded * 60);
-            return { text: `${minutesNeeded}m`, class: 'short' };
+            return { text: `${minutesNeeded} dakika`, class: 'short' };
         }
 
         if (hoursNeeded < 24) {
             const hours = Math.ceil(hoursNeeded);
-            return { text: `${hours}h`, class: 'short' };
+            return { text: `${hours} saat`, class: 'short' };
         }
 
         const totalHours = hoursNeeded;
@@ -293,9 +293,9 @@ function calculateWithdrawalTime(dailyEarning, minWithdrawal) {
 
         let timeText;
         if (remainingHours === 0) {
-            timeText = `${days}d`;
+            timeText = `${days} gün`;
         } else {
-            timeText = `${days}d ${remainingHours}h`;
+            timeText = `${days} gün ${remainingHours} saat`;
         }
 
         if (days <= 7) return { text: timeText, class: 'short' };
