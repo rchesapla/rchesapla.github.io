@@ -388,7 +388,7 @@ function updateLeagueBadge(leagueName, leagueClass) {
         const badge = document.getElementById('leagueBadge');
         const imagePath = getLeagueImagePath(leagueName);
         badge.innerHTML = `
-            SİZİN LİGİNİZ: ${leagueName}
+            Lig: ${leagueName}
             <img src="${imagePath}" alt="${leagueName}" class="inline-block w-6 h-6 ml-2" onerror="this.style.display='none';">
             `;
         badge.className = `league-badge ${leagueClass} inline-block`;
@@ -536,7 +536,7 @@ function displayEarnings() {
         if (calcNotice) {
             const noticeText = document.getElementById('calcNoticeText');
             if (networkMode === 'total' && hasWhaleWarning) {
-                noticeText.innerHTML = "<strong>Whale detected!</strong> Your power exceeds the pasted network. If you pasted the <em>rest of the network</em> (excluding yourself), switch to 'EXCLUDE ME' for accurate calculations.";
+                noticeText.innerHTML = "<strong>UYARI</strong> Kazanç oranların senin kazım gücüne göre fazla göstermektedir. Lütfen kazım gücünü doğru şekilde giriniz..";
                 calcNotice.classList.remove('hidden');
             } else if (networkMode === 'rest') {
                 noticeText.innerHTML = "<strong>Exclude Me Active:</strong> The pasted network does not include your power. Using P/(P + Network).";
