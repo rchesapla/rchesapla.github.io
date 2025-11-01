@@ -272,7 +272,7 @@ function formatNetworkPower(totalGH) {
 function calculateWithdrawalTime(dailyEarning, minWithdrawal) {
     try {
         if (!dailyEarning || !minWithdrawal || dailyEarning <= 0 || minWithdrawal <= 0) {
-            return 'N/A';
+            return 'Çekim Yok!';
         }
 
         const hoursNeeded = (minWithdrawal / dailyEarning) * 24;
@@ -302,7 +302,7 @@ function calculateWithdrawalTime(dailyEarning, minWithdrawal) {
         if (days <= 30) return { text: timeText, class: 'medium' };
         return { text: timeText, class: 'long' };
     } catch (e) {
-        return { text: 'N/A', class: 'medium' };
+        return { text: 'Çekim Yok!', class: 'medium' };
     }
 }
 
@@ -482,7 +482,7 @@ function displayEarnings() {
                     weeklyDisplay = `$${formatNumber(earningsPerWeek * usdPrice, null, false, 'usd')}`;
                     monthlyDisplay = `$${formatNumber(earningsPerMonth * usdPrice, null, false, 'usd')}`;
                 } else {
-                    perBlockDisplay = dailyDisplay = weeklyDisplay = monthlyDisplay = 'N/A';
+                    perBlockDisplay = dailyDisplay = weeklyDisplay = monthlyDisplay = 'Çekim Yok!';
                 }
             } else {
                 if (cryptoPrices[crypto]?.try && cryptoPrices[crypto].try > 0) {
@@ -498,7 +498,7 @@ function displayEarnings() {
                     weeklyDisplay = `${formatNumber(earningsPerWeek * tryPrice, null, false, 'try')}₺`;
                     monthlyDisplay = `${formatNumber(earningsPerMonth * tryPrice, null, false, 'try')}₺`;
                 } else {
-                    perBlockDisplay = dailyDisplay = weeklyDisplay = monthlyDisplay = 'N/A';
+                    perBlockDisplay = dailyDisplay = weeklyDisplay = monthlyDisplay = 'Çekim Yok!';
                 }
             }
 
@@ -506,7 +506,7 @@ function displayEarnings() {
                 const wt = calculateWithdrawalTime(earningsPerDay, withdrawalMinimums[crypto]);
                 withdrawalDisplay = `<span class="withdrawal-time ${wt.class}">${wt.text}</span>`;
             } else {
-                withdrawalDisplay = '<span class="text-gray-500">N/A</span>';
+                withdrawalDisplay = '<span class="text-gray-500">Çekim Yok!</span>';
             }
 
             const row = document.createElement('tr');
