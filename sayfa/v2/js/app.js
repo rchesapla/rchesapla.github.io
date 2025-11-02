@@ -566,7 +566,7 @@ function displayEarnings() {
                 <td class="p-4 font-bold" colspan="7">
                     <div class="text-center">
                         <span class="earnings-number" style="color: white;">
-                            TOTAL: ${formatNetworkPower(totalNetworkGH)}
+                            Toplam: ${formatNetworkPower(totalNetworkGH)}
                         </span>
                     </div>
                 </td>
