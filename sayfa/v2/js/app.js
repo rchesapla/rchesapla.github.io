@@ -364,21 +364,21 @@ function calculateEarnings() {
 
 function getLeagueImagePath(leagueName) {
     const leagueMap = {
-        'BRONZ I': 'leagues/bronze_1.png',
-        'BRONZ II': 'leagues/bronze_2.png',
-        'BRONZ III': 'leagues/bronze_3.png',
-        'GÜMÜŞ I': 'leagues/silver_1.png',
-        'GÜMÜŞ II': 'leagues/silver_2.png',
-        'GÜMÜŞ III': 'leagues/silver_3.png',
-        'ALTIN I': 'leagues/gold_1.png',
-        'ALTIN II': 'leagues/gold_2.png',
-        'ALTIN III': 'leagues/gold_3.png',
-        'PLATİN I': 'leagues/platinum_1.png',
-        'PLATİN II': 'leagues/platinum_2.png',
-        'PLATİN III': 'leagues/platinum_3.png',
-        'ELMAS I': 'leagues/diamond_1.png',
-        'ELMAS II': 'leagues/diamond_2.png',
-        'ELMAS III': 'leagues/diamond_3.png'
+        'BRONZE I': 'leagues/bronze_1.png',
+        'BRONZE II': 'leagues/bronze_2.png',
+        'BRONZE III': 'leagues/bronze_3.png',
+        'SILVER I': 'leagues/silver_1.png',
+        'SILVER II': 'leagues/silver_2.png',
+        'SILVER III': 'leagues/silver_3.png',
+        'GOLD I': 'leagues/gold_1.png',
+        'GOLD II': 'leagues/gold_2.png',
+        'GOLD III': 'leagues/gold_3.png',
+        'PLATINUM I': 'leagues/platinum_1.png',
+        'PLATINUM II': 'leagues/platinum_2.png',
+        'PLATINUM III': 'leagues/platinum_3.png',
+        'DIAMOND I': 'leagues/diamond_1.png',
+        'DIAMOND II': 'leagues/diamond_2.png',
+        'DIAMOND III': 'leagues/diamond_3.png'
     };
     return leagueMap[leagueName] || 'leagues/bronze_1.png';
 }
