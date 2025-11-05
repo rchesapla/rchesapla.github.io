@@ -1,115 +1,1133 @@
-﻿<head>
-  <title>RCHesapla - Bakım Modu Aktif!</title>
-<meta http-equiv="refresh" content="5; url='https://rchesapla.github.io/sayfa/v2'" />
-	<link rel="shortcut icon" href="https://rchesapla.github.io/img/logo.png" type="image/x-icon">
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="miningApp">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--===============================================================================================-->
+<title>RCHesapla • Kişisel Kazım Gücünü Hesapla!</title>
+<meta name="description" content="Rollercoin kişisel kazım gücünü hesapla!">
+<meta name="author" content="Fatih ÇELİK">
+<!--===============================================================================================-->
+<link rel="stylesheet" href="./css/style_v2.css">
+<link rel="stylesheet" href="./css/tablo.css">
+<link rel="stylesheet" href="./css/fonts.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" href="./css/input.css">
+<link rel="stylesheet" href="./css/button.css">
+<link rel="stylesheet" href="./css/solmenu.css">
+<link rel="stylesheet" href="./css/ytsayac.css">
+<link rel="stylesheet" href="./css/checkbox.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" href="./css/benihatirla.css">
+<!--===============================================================================================-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
+rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<!--===============================================================================================-->
+<link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+<meta name="google-site-verification" content="zLhTa_Vn0bP5jm3ZYoCir1VtRUw2xHvHclGPHv3d4-o" />
+<!--===============================================================================================-->
+<meta name="keywords" content="rchesapla, turkcraft01, pb01adana, rollercoin, rollercoin hesapla, rollercoin calculator, rollercoin güç hesaplama, bitcoin hesapla, doge hesapla, eth hesapla, xrp hesapla">
+<!--===============================================================================================-->
+<meta property="og:title" content="☪ RCHesapla ☪ • Kişisel Kazım Gücünü Hesapla!">
+<meta property="og:description" content="Anlık, günlük, haftalık, aylık aynı zamanda yıllık olarak hesaplama yapabilirsin.">
+<meta property="og:image" content="https://media.discordapp.net/attachments/798825351555317760/960999892480823356/standard.gif?ex=67aa61e4&is=67a91064&hm=20ad890e21ab9025a1b5ba26e6f1ceb697d13f3138af57063e80602f8835f8ce">
+<meta property="og:url" content="https://rchesapla.github.io/">
+<!--===============================================================================================-->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
- <style>
-*, *::before, *::after {
-	 margin: 0;
-	 padding: 0;
-	 box-sizing: inherit;
-}
- html {
-	 box-sizing: border-box;
-}
- body {
-	 background: #263238;
-	 font-family: "Kanit", sans-serif;
-
-}
- .container {
-	 margin: auto auto;
-	 height: 90vh;
-	 display: flex;
-	 flex-direction: column;
-	 justify-content: center;
-	 align-items: center;
-}
- .tittle, .subtitle {
-	 margin-bottom: 40px;
-	 color: #44b9ff;
-	 text-align: center;
-	 text-transform: uppercase;
-}
- .square-container {
-	 list-style-type: none;
-	 display: flex;
-	 position: relative;
-}
- .square {
-	 margin: 4px;
-	 width: 30px;
-	 height: 30px;
-	 border-radius: 7px;
-	 animation: rotating 2.5s ease infinite;
-}
- .square1 {
-	 background: #736efe;
-	 animation-delay: 0.2s;
-}
- .square2 {
-	 background: #5999ff;
-	 animation-delay: 0.4s;
-}
- .square3 {
-	 background: #44b9ff;
-	 animation-delay: 0.6s;
-}
- .square4 {
-	 background: #31d8ff;
-	 animation-delay: 0.8s;
-}
- .square5 {
-	 background: #18ffff;
-	 animation-delay: 1s;
-}
- @keyframes rotating {
-	 0% {
-		 transform: rotate(0) scale(1);
-	}
-	 50% {
-		 transform: rotate(90deg) scale(0.6);
-	}
-	 100% {
-		 transform: rotate(90deg) scale(1);
-	}
-}
- footer {
-	 margin: auto auto;
-	 display: flex;
-	 flex-direction: column;
-	 justify-content: center;
-	 align-items: center;
-	 margin-bottom: 10px;
-	 color: #31d8ff;
-}
- footer a {
-	 color: #736efe;
-}
- 
-  </style>
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
+<!--===============================================================================================-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/spark-md5/3.0.0/spark-md5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+<!--===============================================================================================-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5"></script>
+<!--===============================================================================================-->
+<script src="https://wminerrc.github.io/calculator/data/basic_miners.js"></script>
+<script src="https://wminerrc.github.io/calculator/data/merge_miners.js"></script>
+<script src="https://wminerrc.github.io/calculator/data/old/merge_miners.js"></script>
+<script src="https://wminerrc.github.io/calculator/data/components.js"></script>
+<!--===============================================================================================-->
+<script src="js/app.js"></script>
+<script src="js/firebase-db-service.js"></script>
+<!--===============================================================================================-->
+<script src="js/services.js"></script>
+<script src="js/user-miner-service.js"></script>
+<script src="js/miner-service.js"></script>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css'>
+<!--===============================================================================================-->
+<script id="chatBroEmbedCode">/* Chatbro Widget Embed Code Start */function ChatbroLoader(chats,async){async=!1!==async;var params={embedChatsParameters:chats instanceof Array?chats:[chats],lang:navigator.language||navigator.userLanguage,needLoadCode:'undefined'==typeof Chatbro,embedParamsVersion:localStorage.embedParamsVersion,chatbroScriptVersion:localStorage.chatbroScriptVersion},xhr=new XMLHttpRequest;xhr.withCredentials=!0,xhr.onload=function(){eval(xhr.responseText)},xhr.onerror=function(){console.error('Chatbro loading error')},xhr.open('GET','https://www.chatbro.com/embed.js?'+btoa(unescape(encodeURIComponent(JSON.stringify(params)))),async),xhr.send()}/* Chatbro Widget Embed Code End */ChatbroLoader({encodedChatId: '197zG'});</script>
 </head>
+<!--===============================================================================================-->
+<body ng-controller="MiningController">
 
-<body>
-	<section class="container">
-		<div class="tittle">
-			<h2>Yönlendiriliyor...</h2>
-		</div>
-		<div class="subtitle">
-			<h3>Şuan bakım çalışması devam edilmekte sizi V2 sürümüne yönlendiriyoruz.</h3>
-		</div>
-		<div class="square-container">
-			<div class="square square1">&nbsp;</div>
-			<div class="square square2">&nbsp;</div>
-			<div class="square square3">&nbsp;</div>
-			<div class="square square4">&nbsp;</div>
-			<div class="square square5">&nbsp;</div>
-		</div>
-	</section>
-	<footer>
-		<h4>Sizi yönlendirmek için 5 saniye beklemelisin!</h4>
-		<p>Yönlendirme işlemı yapılmadıysa lütfen <a href="https://rchesapla.github.io/sayfa/v2">buraya tıkla</a>.</p>
-	</footer>
+<div class="topbar">
+<!-- Sol taraf -->
+<div class="topbar-left">
+<img src="img/gif/üstbarlogo.gif" alt="Miner">
+</div>
+
+<!-- Sağ taraf -->
+<div class="topbar-right">
+<center>
+<a href="https://rollercoin.com/?r=le7ml8f3" target="_blank"><img src="https://static.rollercoin.com/static/img/ref/gen2/w460h60.gif?v=1.0.14" width="100%"></a>
+</center>
+<center>
+<a href="https://hashup.cc/?ref=118707" target="_blank"><img src="https://hashup.cc/images/HU-468.gif?v=2" width="100%"></a>
+</center>
+
+<div class="user-info" ng-if="isLoadedUser">
+<img src="https://avatars.rollercoin.com/static/avatars/thumbnails/48/{{user_data.avatar_id}}.png?v=1652150400524" style="width: 30px; height: 30px; border-radius: 50%; vertical-align: middle; margin-right: 8px;">
+<div>
+<div class="username">{{user_data.name}}</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="main-content">
+<div class="container-convert col-12 col-md-10">
+<div class="card-fc my-2">
+<!--===============================================================================================-->
+<h6 class="card-header">
+
+</h6>
+<!--===============================================================================================-->
+<div class="card-body"><center>
+<h1 class="siteadı">RCHesapla</h1>
+<p class="açıklama">Kişisel kazım gücünü hesapla!</p>
+<div id="cntdwn" class="orta"></div>
+<!--===============================================================================================-->
+<div class="açıklama" id="cpcontainer">&nbsp;</div>
+<div class="açıklama" id="clock"></div>
+<!--===============================================================================================-->
+</center>
+</div>
+<h6 class="card-header"></h6>
+</div>
+</div>
+<!--===============================================================================================-->
+<section class="container">
+<div class="row">
+<!--===============================================================================================-->
+<div class="col-0 col-md-1"></div>
+<!--===============================================================================================-->
+<!-- END PUBLICIDAD -->
+<!--===============================================================================================-->
+<!-- CONTENIDO -->
+<div class="col-12 col-md-10">
+<!--===============================================================================================-->
+<center>
+
+
+
+</center>
+<!--===============================================================================================-->
+<div class="row">
+<article class="col-md-4">
+<div class="card-fc my-2 özelfont">
+<h6 class="card-header">KAZIM BİLGİLERİNİZ</h6>
+<div class="card-body">
+<div class="row my-1">
+                    <div class="form-group">
+                        <label class="label">Lig Seç</label>
+                        <select class="input-field" ng-model="formData.league" ng-options="league.name for league in leagues" ng-change="updateLeagueDetails()">
+                            <option value="">Lig seçiniz</option>
+                        </select>
+                    </div>
+</div>
+<div class="row my-1">
+<span class="label">Kripto Seç:</span>
+<div class="input-container">
+<select id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="input-field">
+<option value="">Genel Hesaplama</option>
+</select>
+</div>
+</div>
+<div class="row">
+<span class="label">Ağ Gücü:</span>
+<div class="input-container">
+<input id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower" type="number" name="inputNetworkPower" class="input-field" placeholder="Ağ gücünü giriniz...">
+<select id="networkUnit" ng-disabled="isLoadedUser" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')" class="input-field">
+<option ng-repeat="unit in networkUnits">{{unit}}</option>
+</select>
+</div>
+</div>
+<!--===============================================================================================-->
+<div class="şiş">
+<div class="row my-1">
+<span class="label">Kazım Gücü:</span>
+<div class="input-container">
+<input type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power" class="input-field" placeholder="Kazım gücünü giriniz...">
+<select id="unit" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')" class="input-field">
+</select>
+</div>
+</div>
+</div>
+<!--===============================================================================================-->
+<div class="şiş">
+<div class="row my-1">
+<span class="label">Blok Ödülü:</span>
+<div class="input-container">
+<input type="number" id="blockSize"" ng-disabled="isLoadedUser" ng-model="formData.blockSize" class="input-field" placeholder="Blok ödülünü giriniz...">
+</div>
+</div>
+</div>
+<!--===============================================================================================-->
+<div class="şiş">
+<div class="row my-1">
+<span class="label">Blok Süresi:</span>
+<div class="input-container">
+<input type="number" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser" class="input-field" placeholder="Blok süresini giriniz...">
+<select id="timeUnit" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')"ng-disabled="isLoadedUser" class="input-field">
+<option value="seconds">Saniye</option>
+<option value="minutes">Dakika</option>
+</select>
+</div>
+</div>
+</div>
+<!--===============================================================================================-->
+<div class="şiş">
+<div class="row my-1">
+<span class="label">Rollercoin Kullanıcı Adı:</span>
+<div class="input-container">
+<input
+ng-model="userSearchText"
+typeahead-wait-ms="300"
+uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
+typeahead-no-results="playerSearchNoResults"
+typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
+typeahead-loading="loading"
+placeholder="Örn: FthCLK"
+class="input-field"/>
+</div>
+</div>
+</div>
+
+<div class="profile-box">
+<div class="profile-label">🔗 Profile link</div>
+<div class="profile-link-container">
+<span class="profile-url">https://rollercoin.com/p/FthCLK</span>
+<a href="https://rollercoin.com/profile/personal-profile" target="_blank" class="change-link">Nasıl Öğrenirim?</a>
+</div>
+</div>
+
+<!--===============================================================================================-->
+<div class="input-field-container" ng-show="playerSearchNoResults" style="text-align: center">
+<i class="fa-solid fa-ban"></i> Oyuncu bulunamadı!
+</div>
+<div class="input-field-container" style="text-align: center">
+<i class="fa-solid fa-circle-info"></i> "/p/örnek" örnek yazan yere sizin kullanıcı adınızı giriniz. </br>(Not: /p/ olmadan!)
+<p>En iyi kazanç hesaplama yapabilmeniz için lütfen kripto seç bölümünü genel hesaplama yapınız.</p>
+</div>
+<!--===============================================================================================-->
+<!--div ng-if="isLoadedUser">
+<label class="checkbox-wrapper">
+<input type="checkbox" ng-model="formData.showMiners" name="show_miners"/>
+<div class="checkmark">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+<path
+d="M20 6L9 17L4 12"
+stroke-width="3"
+stroke-linecap="round"
+stroke-linejoin="round"
+></path>
+</svg>
+</div>
+<span class="label">Madencilerim</span>
+</label>
+</div-->
+<!--===============================================================================================-->
+<!--div class="" style="text-align: center">
+<div class="form-inline" style="text-align: center">
+<button class="btn" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-user-xmark"></i> Beni Unut</button>
+<button class="btn" ng-click="resetValues()"><i class="fa-solid fa-coins"></i> Verileri Güncelle</button>
+<button class="btn best-coin animated-button" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"><i class="fa-solid fa-coins"></i> En İyi Kazanç</button>
+<button class="btn best-coin animated-button" ng-disabled="!isLoadedUser" ng-click="bestBuys()"><i class="fas fa-shopping-cart"></i> Miner Listesi</button>
+<button class="btn" ng-if="hasAnyAllocatedPower()" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i> Kazanç Temizle</button>
+</div>
+</div-->
+<!--===============================================================================================-->
+<div class="uv-checkbox-wrapper" ng-if="isLoadedUser">
+<input type="checkbox" id="uv-checkbox" class="uv-checkbox" ng-model="keepUser" ng-change="updateKeepUser(keepUser)" name="keep_user"/>
+<label for="uv-checkbox" class="uv-checkbox-label">
+<div class="uv-checkbox-icon">
+<svg viewBox="0 0 24 24" class="uv-checkmark">
+<path d="M4.1,12.7 9,17.6 20.3,6.3" fill="none"></path>
+</svg>
+</div>
+<span class="uv-checkbox-text">Beni hatırla!</span>
+</label>
+</div>
+
+
+<!--===============================================================================================-->
+</div>
+<h6 class="card-header head text-center"></h6>
+</div>
+<!--===============================================================================================-->
+<center>
+<a href="https://hashup.cc/?ref=118707" target="_blank"><img src="https://hashup.cc/images/HU-468.gif?v=2" width="100%"></a>
+</center>
+<!--===============================================================================================-->
+</article>
+<!--===============================================================================================-->
+<aside class="col-md-8">
+<!--===============================================================================================-->
+<div class="card-fc my-2">
+<h6 class="card-header">KAZANÇ İSTATİSTİKLERİN</h6>
+<div class="card-body">
+<!--===============================================================================================-->
+<table>
+<thead>
+<tr class="- - -">
+<th class="card-header" style="text-align: center" colspan="17">
+ROLLERCOIN TABLO ARAÇLARI
+</th>
+</tr>
+</thead>
+</table>
+<!--===============================================================================================-->
+<div style="text-align: center">
+
+<div class="buttons">
+<button class="blob-btn" ng-if="isLoadedUser" ng-click="reloadWithoutUser()">
+<span><i class="fa-solid fa-user-xmark"></i> Beni Unut</span>
+<span class="blob-btn__inner">
+<span class="blob-btn__blobs">
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+</span>
+</span>
+</button>
+<button class="blob-btn" ng-click="resetValues()">
+<span><i class="fa-solid fa-coins"></i> Verileri Güncelle</span>
+<span class="blob-btn__inner">
+<span class="blob-btn__blobs">
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+</span>
+</span>
+</button>
+<button class="blob-btn" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()">
+<span><i class="fa-solid fa-coins"></i> En İyi Kazanç</span>
+<span class="blob-btn__inner">
+<span class="blob-btn__blobs">
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+</span>
+</span>
+</button>
+
+<div id="inputPreview" ng-if="isLoadedUser">
+<input name="cssCheckbox" id="demo_opt_1" type="checkbox" class="css-checkbox" ng-model="formData.showMiners" name="show_miners">
+<label for="demo_opt_1">Minerlarım</label>
+<input name="cssCheckbox" id="demo_opt_2" type="checkbox" class="css-checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners">
+<label for="demo_opt_2">Miner Listesi</label>
+</div>
+
+</div>
+</div>
+<!--===============================================================================================-->
+<div ng-if="user_data">
+
+<table class="ss">
+<thead>
+<tr class="- - -">
+<th class=" card-header" style="text-align: center" colspan="17">
+ROLLERCOIN PROFİL BİLGİLERİ
+</th>
+</tr>
+<tr class="deneme" class="- - -">
+<th style="text-align: center" class="- - -">
+PROFİL
+</th>
+<th style="text-align: center" class="- - -">
+OYUN GÜCÜ
+</th>
+<th style="text-align: center" class="- - -">
+MINER GÜCÜ
+</th>
+<th style="text-align: center" class="- - -">
+RAF GÜCÜ
+</th>
+<th style="text-align: center" class="- - -">
+GEÇİCİ GÜCÜ
+</th>
+<th style="text-align: center" class="- - -">
+TOPLAM GÜCÜ
+</th>
+<th style="text-align: center" class="- - -">
+BONUS GÜCÜ
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td fatihcelik="PROFİL">
+{{user_data.name}}
+</td>
+<td fatihcelik="OYUN GÜCÜ">
+{{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').unit}}
+</td>
+<td ng-if="user_data.newPowerData && user_data.newPowerData.new_power > 0" fatihcelik="MINER GÜCÜ">
+<s>{{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').unit}}</s></br>
+{{chooseBestHashRateUnit(user_data.newPowerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.miners, 'GH/s').unit}}<br>
+<i class="fa-solid fa-arrow-up"></i> {{chooseBestHashRateUnit(user_data.newPowerData.new_power, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.new_power, 'GH/s').unit}}<br>
+</td>
+<td ng-if="user_data.newPowerData && user_data.newPowerData.new_power < 0" fatihcelik="MINER GÜCÜ">
+<s>{{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').unit}}</s></br>
+{{chooseBestHashRateUnit(user_data.newPowerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.miners, 'GH/s').unit}}<br>
+<i class="fa-solid fa-arrow-down"></i> {{chooseBestHashRateUnit(user_data.newPowerData.new_power, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.new_power, 'GH/s').unit}}<br>
+</td>
+<td ng-if="!user_data.newPowerData || !user_data.newPowerData.new_power" fatihcelik="MINER GÜCÜ">
+{{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').unit}}
+</td>
+<td fatihcelik="RAF GÜCÜ">
+{{chooseBestHashRateUnit(user_data.powerData.racks, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.racks, 'GH/s').unit}}
+</td>
+<td fatihcelik="GEÇİCİ GÜCÜ">
+{{chooseBestHashRateUnit(user_data.powerData.temp, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.temp, 'GH/s').unit}}
+</td>
+<td ng-if="!user_data.newPowerData || !user_data.newPowerData.new_total" fatihcelik="TOPLAM GÜCÜ">
+{{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').unit}}
+</td>
+<td ng-if="user_data.newPowerData && user_data.newPowerData.new_total > 0" fatihcelik="TOPLAM GÜCÜ">
+<s>{{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').unit}}</s></br>
+{{chooseBestHashRateUnit(user_data.newPowerData.total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.total, 'GH/s').unit}}<br>
+<i class="fa-solid fa-arrow-up"></i> {{chooseBestHashRateUnit(user_data.newPowerData.new_total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.new_total, 'GH/s').unit}} ({{(user_data.newPowerData.new_total_percent.toFixed(2))}}%)
+</td>
+<td ng-if="user_data.newPowerData && user_data.newPowerData.new_total < 0" fatihcelik="TOPLAM GÜCÜ">
+<s>{{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').unit}}</s></br>
+{{chooseBestHashRateUnit(user_data.newPowerData.total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.total, 'GH/s').unit}}<br>
+<i class="fa-solid fa-arrow-down"></i> {{chooseBestHashRateUnit(user_data.newPowerData.new_total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.new_total, 'GH/s').unit}} ({{(user_data.newPowerData.new_total_percent.toFixed(2))}}%)
+</td>
+<td ng-if="user_data.newPowerData && user_data.newPowerData.new_bonus_percent > 0" fatihcelik="BONUS ORANI">
+<s>{{(user_data.powerData.bonus_percent / 100)}}%</s></br>
+{{(user_data.newPowerData.bonus_percent / 100)}}%<br>
+<i class="fa-solid fa-arrow-up"></i> {{(user_data.newPowerData.new_bonus_percent / 100)}}%
+</td>
+<td ng-if="!user_data.newPowerData || !user_data.newPowerData.new_bonus_percent" fatihcelik="BONUS ORANI">
+{{(user_data.powerData.bonus_percent / 100)}}%
+</td>
+<td ng-if="user_data.newPowerData && user_data.newPowerData.new_bonus_percent < 0" fatihcelik="BONUS ORANI">
+<s>{{(user_data.powerData.bonus_percent / 100)}}%</s></br>
+{{(user_data.newPowerData.bonus_percent / 100)}}%<br>
+<i class="fa-solid fa-arrow-down"></i> {{(user_data.newPowerData.new_bonus_percent / 100)}}%
+</td>
+</tr>
+</tbody>
+</table>
+<!--===============================================================================================-->
+<center>
+
+</center>
+<!--===============================================================================================-->
+</div>
+<table ng-if="formData.currency">
+<thead>
+<tr class="- - -">
+<th class="card-header" style="text-align: center" colspan="17">
+COIN KAZANÇ İSTATİSTİKLERİ
+</th>
+</tr>
+<tr ng-hide="formData.currency.in_game_only" class="- - -" class="deneme">
+<th style="text-align: center" colspan="2">1 {{formData.currency.name}} = ${{exchangeRates[formData.currency.name]['usd']}}</th>
+<th style="text-align: center" colspan="2">1 {{formData.currency.name}} = {{exchangeRates[formData.currency.name]['try']}}₺</th>
+</tr>
+<tr class="deneme">
+<th style="text-align:center;">GÜNLER</th>
+<th style="text-align:center;">COIN</th>
+<th style="text-align:center;" ng-hide="formData.currency.in_game_only">$</th>
+<th style="text-align:center;" ng-hide="formData.currency.in_game_only">₺</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">BLOK ÖDÜLÜ</td>
+<td fatihcelik="KAZANÇ">{{calculateEarnings('block', 'amount')}} {{formData.currency.name}}</td>
+<td fatihcelik="$" ng-hide="formData.currency.in_game_only">${{calculateEarnings('block', 'usd')}}</td>
+<td fatihcelik="₺" ng-hide="formData.currency.in_game_only">{{calculateEarnings('block', 'try')}}₺</td>
+</tr>
+<tr>
+<td style="text-align: center">GÜNLÜK</td>
+<td fatihcelik="KAZANÇ">{{calculateEarnings('day', 'amount')}} {{formData.currency.name}}</td>
+<td fatihcelik="$"ng-hide="formData.currency.in_game_only">${{calculateEarnings('day', 'usd')}}</td>
+<td fatihcelik="₺"ng-hide="formData.currency.in_game_only">{{calculateEarnings('day', 'try')}}₺</td>
+</tr>
+<tr>
+<td style="text-align: center">HAFTALIK</td>
+<td fatihcelik="KAZANÇ">{{calculateEarnings('week', 'amount')}} {{formData.currency.name}}</td>
+<td fatihcelik="$"ng-hide="formData.currency.in_game_only">${{calculateEarnings('week', 'usd')}}</td>
+<td fatihcelik="₺"ng-hide="formData.currency.in_game_only">{{calculateEarnings('week', 'try')}}₺</td>
+</tr>
+<tr>
+<td style="text-align: center">AYLIK</td>
+<td fatihcelik="KAZANÇ">{{calculateEarnings('month', 'amount')}} {{formData.currency.name}}</td>
+<td fatihcelik="$"ng-hide="formData.currency.in_game_only">${{calculateEarnings('month', 'usd')}}</td>
+<td fatihcelik="₺"ng-hide="formData.currency.in_game_only">{{calculateEarnings('month', 'try')}}₺</td>
+</tr>
+<tr>
+<td style="text-align: center">YILLIK</td>
+<td fatihcelik="KAZANÇ">{{calculateEarnings('year', 'amount')}} {{formData.currency.name}}</td>
+<td fatihcelik="$"ng-hide="formData.currency.in_game_only">${{calculateEarnings('year', 'usd')}}</td>
+<td fatihcelik="₺"ng-hide="formData.currency.in_game_only">{{calculateEarnings('year', 'try')}}₺</td>
+</tr>
+</tbody>
+</table>
+<!--===============================================================================================-->
+<table ng-if="!formData.currency" class="- - -" style="text-align: center">
+<thead>
+<tr class="- - -">
+<th class=" card-header" style="text-align: center" colspan="20">
+GENEL KAZANÇ İSTATİSTİKLERİ
+</th>
+</tr>
+<tr class="deneme" class="- - -">
+<th style="text-align: center" rowspan="2" colspan="2">
+COIN
+</th>
+<th style="text-align: center" rowspan="2" colspan="2">
+AĞ GÜCÜ
+</th>
+<th style="text-align: center" rowspan="2" colspan="2">
+BLOK ÖDÜLÜ
+</th>
+<th style="text-align: center" colspan="2">
+BLOK BAŞINA DEĞER
+</th>
+<th style="text-align: center" rowspan="2" colspan="2">
+PARA ÇEKİMİ
+</th>
+</tr>
+<tr class="deneme" class="- - -">
+<th style="text-align: center" colspan="1" class="- - -">
+$
+</th>
+<th style="text-align: center" colspan="1" class="- - -">
+COIN
+</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="currency in currencies | orderBy:orderByField:reverseSort">
+<td fatihcelik="COIN" colspan="2">{{currency.name}}</td>
+<td fatihcelik="AĞ GÜCÜ" colspan="2">{{chooseBestHashRateUnit(currency.networkPower, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').unit}}</td>
+<td fatihcelik="BLOK ÖDÜLÜ" colspan="2">{{currency.blockTime}} sn {{currency.blockSize}} {{currency.name}}</td>
+<td fatihcelik="$" colspan="1">${{currency.block_value_in_usd}}</td>
+<td fatihcelik="BLOK MİKTARI" colspan="1">{{currency.user_block_farm_token}} {{currency.name}}</td>
+<td fatihcelik="PARA ÇEKİMİ" colspan="1">{{formatDays(currency.user_days_to_widthdraw)}}</td>
+</tr>
+</tbody>
+</table>
+
+<!--===============================================================================================-->
+<table ng-if="!formData.currency && getCurrenciesSum('user_alocated_power')> 0" class="- - -">
+<thead>
+<tr>
+<th class=" card-header" style="text-align: center" colspan="22">
+EN İYİ KAZANÇ İSTATİSTİKLERİM
+<button class="blob-btn" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i></button>
+</th>
+</tr>
+<tr class="deneme">
+<th style="text-align: center" rowspan="2" colspan="2">
+COIN
+</th>
+<th style="text-align: center" colspan="3">
+GÜNLÜK
+</th>
+<th style="text-align: center" colspan="3">
+HAFTALIK
+</th>
+<th style="text-align: center" colspan="3">
+AYLIK
+</th>
+</tr>
+<tr class="">
+<th style="text-align: center" colspan="1">
+<a>
+COIN
+<span ng-show="orderByFarmField == 'user_alocated_power_day_profit_in_cripto'">
+</span>
+</a>
+</th>
+<th style="text-align: center" colspan="1">
+<a>
+$
+<span ng-show="orderByFarmField == 'user_alocated_power_day_profit_in_usd'">
+</span>
+</a>
+</th>
+<th style="text-align: center" colspan="1">
+<a>
+₺
+<span ng-show="orderByFarmField == 'user_alocated_power_day_profit_in_try'">
+</span>
+</a>
+</th>
+<th style="text-align: center" colspan="1">
+<a>
+COIN
+<span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_cripto'">
+</span>
+</a>
+</th>
+<th style="text-align: center" colspan="1">
+<a>
+$
+<span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_usd'">
+</span>
+</a>
+</th>
+<th style="text-align: center" colspan="1">
+<a>
+₺
+<span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_try'">
+</span>
+</a>
+</th>
+<th style="text-align: center" colspan="1">
+<a>
+COIN
+<span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_cripto'">
+</span>
+</a>
+</th>
+<th style="text-align: center" colspan="1">
+<a>
+$
+<span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_usd'">
+</span>
+</a>
+</th>
+<th style="text-align: center" colspan="1">
+<a>
+₺
+<span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_try'">
+</span>
+</a>
+</th>
+</tr>
+</thead>
+<tbody class="allocated-farm">
+<tr ng-repeat="currency in filteredCurrencies = (currencies | filter:filterFn | orderBy:orderByFarmField:reverseSort)" id="bestCoinTable">
+<td fatihcelik="COIN" colspan="2">
+{{currency.name}}
+</td>
+<td fatihcelik="GÜNLÜK" colspan="1">{{currency.user_alocated_power_day_profit_in_cripto}} {{currency.name}}</td>
+<td fatihcelik="$" colspan="1">${{currency.user_alocated_power_day_profit_in_usd}}</td>
+<td fatihcelik="₺" colspan="1">{{currency.user_alocated_power_day_profit_in_try}}₺</td>
+<td fatihcelik="HAFTALIK" colspan="1">{{currency.user_alocated_power_week_profit_in_cripto}} {{currency.name}}</td>
+<td fatihcelik="$" colspan="1">${{currency.user_alocated_power_week_profit_in_usd}}</td>
+<td fatihcelik="₺" colspan="1">{{currency.user_alocated_power_week_profit_in_try}}₺</td>
+<td fatihcelik="AYLIK" colspan="1">{{currency.user_alocated_power_month_profit_in_cripto}} {{currency.name}}</td>
+<td fatihcelik="$" colspan="1">${{currency.user_alocated_power_month_profit_in_usd}}</td>
+<td fatihcelik="₺" colspan="1">{{currency.user_alocated_power_month_profit_in_try}}₺</td>
+</tr>
+</tbody>
+</table>
+<div ng-if="customMiners.length > 0" class="">
+<table class="">
+<thead>
+<tr>
+<th class=" card-header" colspan="5" style="text-align: center">
+EKRAN KARTLARI
+</th>
+</tr>
+<tr class="deneme">
+<th style="text-align: center">
+MINER ADI
+</th>
+<th style="text-align: center">
+SEVİYE
+</th>
+<th style="text-align: center">
+GÜCÜ
+</th>
+<th style="text-align: center">
+BONUS
+</th>
+<th style="text-align: center">
+ETKİLEŞİM
+</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="miner in customMiners track by $index">
+<td fatihcelik="MINER ADI">
+{{miner.name.en}}
+</td>
+<td fatihcelik="RESİM" style="position: relative;">
+<img ng-if="miner.level == 0" src='https://rollercoin.com/static/img/storage/rarity_icons/level_1.png?v=1.0.0' style='position: absolute;'/>
+<img ng-if="miner.type === 'old_merge'" src='https://rollercoin.com/static/images/level_star.4ff18517e5e8eed42060..png' style='left: 40px;position: absolute;top: 25px;'/>
+<img ng-if="miner.level > 0 && miner.type !== 'old_merge'" src='https://rollercoin.com/static/img/storage/rarity_icons/level_{{miner.level+1}}.png?v=1.0.0' style='left: 40px;position: absolute;top: 25px;'/>
+<img src='https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608' width="80px" height="auto"/>
+<div ng-if="!miner.is_can_be_sold_on_mp"
+style="
+background-color: red;
+font-size: 13px;
+font-weight: bold;
+color: white;
+">SATILAMAZ</div>
+</td>
+<td fatihcelik="GÜÇ">
+{{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
+</td>
+<td fatihcelik="BONUS">
+{{(miner.bonus_power / 100)}}%
+</td>
+<td fatihcelik="ETKİLEŞİM">
+<button class="button" ng-click="removeMinerFromSimulation(miner)">Kaldır!</button><br/>
+<button class="button" ng-click="openBuyLink(miner)">Mağazaya Git</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div ng-if="formData.showAllMiners" class="" id="minerlistesi">
+
+<article class="- - -">
+<div class="card-fc my-2 özelfont">
+<h6 class="card-header">MINER LİSTESİ</h6>
+<div class="card-body">
+
+<div class="şiş">
+<div class="row my-1">
+<span class="label">Miner Adı:</span>
+<div class="input-container">
+<input type="text" class="input-field" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Örn: YMCA">
+<select class="input-field" ng-model="allMinersRarity" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<option value="all">Hepsi</option>
+<option value="common">Common</option>
+<option value="legacy">Legacy</option>
+<option value="uncommon">Uncommon</option>
+<option value="rare">Rare</option>
+<option value="epic">Epic</option>
+<option value="legendary">Legendary</option>
+<option value="unreal">Unreal</option>
+</select>
+</div>
+</div>
+
+<div class="row my-1">
+<span class="label">Bonus Oranı:</span>
+<div class="- - -">
+<input class="input-field" ng-model="allMinerMinBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/> / 
+<input class="input-field" ng-model="allMinerMaxBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/>
+</div>
+</div>
+
+<div class="row my-1">
+<span class="label">Mağaza Durumu:</span>
+<div class="- - -">
+<select class="input-field" ng-model="allMinerNegotiableStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<option value="all">Hepsi</option>
+<option value="inegotiable">Satılamaz</option>
+<option value="negotiable">Satılabilir</option>
+</select>
+</div>
+</div>
+
+<div class="row my-1">
+<span class="label">Oda Durumu:</span>
+<div class="- - -">
+<select class="input-field" ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<option value="all">Hepsi</option>
+<option value="mine">Varolan</option>
+<option value="not_mine">Varolmayan</option>
+</select>
+</div>
+</div>
+
+</div>
+<!--===============================================================================================-->
+</div>
+<h6 class="card-header head text-center"></h6>
+</div>
+<!--===============================================================================================-->
+<center>
+
+</center>
+<!--===============================================================================================-->
+</article>
+
+
+
+<!--
+<div class="">
+<label for="currency">Poder mínimo (GH/s)</label><br/>
+<input placeholder="1" class="form-control" ng-model="allMinerMinPowerSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+</div>
+
+<div class="">
+<label for="currency">Poder máximo (GH/s)</label><br/>
+<input placeholder="999999999999" class="form-control" ng-model="allMinerMaxPowerSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+</div>
+
+<div class="">
+<label for="currency">Células</label><br/>
+<select class="form-control" ng-model="allMinerCells" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<option value="all">Todas</option>
+<option value="1">1 Slot</option>
+<option value="2">2 Slots</option>
+</select>
+</div>
+
+<div class="">
+<label for="currency">Impacto mínimo (GH/s)</label><br/>
+<input placeholder="999999999999" class="form-control" ng-model="allMinerMinImpact" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+</div>
+-->
+ 
+<div ng-if="formData.showAllMiners">
+<table class="- - -">
+<thead>
+<h6 class="card-header">Miner Sayısı: {{allMiners.length}} adet!</h6>
+<tr>
+<th style="text-align: center">
+Miner Adı
+</th>
+<th style="text-align: center">
+<a href="#" ng-click="orderByAllMinersField='supply'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
+Tedarik Edilen
+</a>
+</th>
+<th style="text-align: center">
+<a href="#" ng-click="orderByAllMinersField='power'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
+Güç
+</a>
+</th>
+<th style="text-align: center">
+<a href="#" ng-click="orderByAllMinersField='bonus_power'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
+Bonus
+</a>
+</th>
+<th style="text-align: center">
+<a href="#" ng-click="orderByAllMinersField='includeImpactPower'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
+Etkisi
+</a>
+</th>
+<th style="text-align: center">
+Etkileşim
+</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="miner in allMiners | orderBy:orderByAllMinersField:reverseAllMinersSort | limitTo:itemsPerPage : (currentPage - 1) * itemsPerPage"
+ng-class="{ 'already-have-miner': miner.already_have }" >
+<td style="text-align: center; position: relative;">
+{{miner.name.en}}<br/>
+<img ng-if="miner.level == 0" src='https://rollercoin.com/static/img/storage/rarity_icons/level_1.png?v=1.0.0' style='left: 40px;position: absolute;top: 40px;'/>
+<img ng-if="miner.type === 'old_merge'" src='https://rollercoin.com/static/images/level_star.4ff18517e5e8eed42060..png' style='left: 40px;position: absolute;top: 40px;'/>
+<img ng-if="miner.level > 0 && miner.type !== 'old_merge'" src='https://rollercoin.com/static/img/storage/rarity_icons/level_{{miner.level+1}}.png?v=1.0.0' style='left: 40px;position: absolute;top: 40px;'/>
+<img src='https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608' width="80px" height="auto"/>
+<div ng-if="!miner.is_can_be_sold_on_mp"
+style="
+background-color: red;
+font-size: 13px;
+font-weight: bold;
+color: white;
+">SATILAMAZ</div>
+</td>
+<td style="text-align: center">
+{{miner.supply}}
+</td>
+<td style="text-align: center">
+{{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
+</td>
+<td style="text-align: center">
+{{(miner.bonus_power / 100)}}%
+</td>
+<td style="text-align: center">
+{{miner.includeImpactLegend.value.toFixed(2)}} {{miner.includeImpactLegend.unit}}
+</td>
+<td style="text-align: center">
+<button class="button" ng-click="addMinerToSimulation(miner)">Listeye Ekle</button><br/>
+</td>
+</tr>
+</tbody>
+</table>
+<ul style="text-align: center" uib-pagination first-text="İlk sayfa" previous-text="Önceki" last-text="Son sayfa" next-text="Sonraki sayfa" total-items="allMiners.length" ng-model="currentPage" max-size="5" class="pagination-sm" items-per-page="itemsPerPage" boundary-links="true" num-pages="numPages"></ul>
+
+
+</div>
+</div>
+<!--===============================================================================================-->
+<div ng-if="formData.showMiners" class="">
+
+<article>
+<div class="card-fc my-2">
+<h6 class="card-header">MADENCİLERİM</h6>
+<div class="card-body">
+<div class="row my-1">
+<label><span class="label">Miner Adı / Türü:</span></label>
+<div class="- - -">
+<input type="text" class="input-field" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)" ng-model="userMinerNameSearch">
+</div>
+<div class="- - -">
+<select class="input-field" ng-model="userMinersRarity" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
+<option value="all">Hepsi</option>
+<option value="common">Common</option>
+<option value="legacy">Legacy</option>
+<option value="uncommon">Uncommon</option>
+<option value="rare">Rare</option>
+<option value="epic">Epic</option>
+<option value="legendary">Legendary</option>
+<option value="unreal">Unreal</option>
+</select>
+</div>
+</div>
+<!--===============================================================================================-->
+<div class="şiş">
+<div class="row my-1">
+<label><span class="label">Minimum Güç: (GH/s)</span></label>
+<div class="- - -">
+<input placeholder="1" class="input-field" ng-model="userMinerMinPowerSearch" type="text" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
+</div>
+</div>
+</div>
+<!--===============================================================================================-->
+<div class="şiş">
+<div class="row my-1">
+<label><span class="label">Maksimum Güç: (GH/s)</span></label>
+<div class="- - -">
+<input placeholder="999999999" class="input-field" ng-model="userMinerMaxPowerSearch" type="text" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
+</div>
+</div>
+</div>
+<!--===============================================================================================-->
+</div>
+</div>
+</article>
+ 
+<div ng-if="formData.showMiners">
+<table class="">
+<thead class="madencilerim">
+<tr>
+<th colspan="6" style="text-align: center">
+MADENCİ SAYISI: {{visible_user_miners.length}}
+</th>
+</tr>
+<tr>
+<th fatihcelik="PROFİL" style="text-align: center">
+<a href="#" ng-click="orderByuserMinersField='filename'; reverseuserMinersSort = !reverseuserMinersSort ; $event.preventDefault();">
+ADI
+<span ng-show="orderByuserMinersField == 'filename'">
+<span ng-show="!reverseMinersSort">
+<i class="fa fa-fw fa-sort-asc"></i>
+</span>
+<span ng-show="reverseMinersSort">
+<i class="fa fa-fw fa-sort-desc"></i>
+</span>
+</span>
+</a>
+</th>
+<th style="text-align: center">
+<a href="#" ng-click="orderByuserMinersField='power'; reverseuserMinersSort = !reverseuserMinersSort ; $event.preventDefault();">
+GÜÇ
+<span ng-show="orderByuserMinersField == 'power'">
+<span ng-show="!reverseMinersSort">
+<i class="fa fa-fw fa-sort-asc"></i>
+</span>
+<span ng-show="reverseMinersSort">
+<i class="fa fa-fw fa-sort-desc"></i>
+</span>
+</span>
+</a>
+</th>
+<th style="text-align: center">
+<a href="#" ng-click="orderByuserMinersField='bonus_power'; reverseuserMinersSort = !reverseuserMinersSort ; $event.preventDefault();">
+BONUS
+<span ng-show="orderByuserMinersField == 'bonus_power'">
+<span ng-show="!reverseMinersSort">
+<i class="fa fa-fw fa-sort-asc"></i>
+</span>
+<span ng-show="reverseMinersSort">
+<i class="fa fa-fw fa-sort-desc"></i>
+</span>
+</span>
+</a>
+</th>
+<th style="text-align: center">
+<a href="#" ng-click="orderByuserMinersField='removeImpactPower'; reverseuserMinersSort = !reverseuserMinersSort ; $event.preventDefault();">
+ETKİ GÜCÜ
+<span ng-show="orderByuserMinersField == 'removeImpactPower'">
+<span ng-show="!reverseMinersSort">
+<i class="fa fa-fw fa-sort-asc"></i>
+</span>
+<span ng-show="reverseMinersSort">
+<i class="fa fa-fw fa-sort-desc"></i>
+</span>
+</span>
+</a>
+</th>
+<th style="text-align: center">
+ETKİLEŞİM
+</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="miner in visible_user_miners | orderBy:orderByuserMinersField:reverseuserMinersSort | limitTo:userMinersItemsPerPage : (userMinersCurrentPage - 1) * userMinersItemsPerPage"
+ng-class="{ 'removed-have-miner': miner.removed }">
+<td fatihcelik="MADENCİ" style="text-align: center; position: relative;">
+{{miner.name.en}}<br/>
+<img ng-if="miner.level == 0" src='https://rollercoin.com/static/img/storage/rarity_icons/level_1.png?v=1.0.0' />
+<img ng-if="miner.type === 'old_merge'" src='https://rollercoin.com/static/images/level_star.4ff18517e5e8eed42060..png'/>
+<img ng-if="miner.level > 0 && miner.type !== 'old_merge'" src='https://rollercoin.com/static/img/storage/rarity_icons/level_{{miner.level+1}}.png?v=1.0.0'/>
+<img src='https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608' width="80px" height="auto"/>
+<div ng-if="!miner.is_can_be_sold_on_mp"
+style="
+background-color: red;
+font-size: 13px;
+color: white;
+">SATILAMAZ</div>
+</td>
+<td fatihcelik="GÜÇ" style="text-align: center">
+{{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
+</td>
+<td fatihcelik="BONUS" style="text-align: center">
+{{(miner.bonus_power / 100)}}%
+</td>
+<td fatihcelik="ETKİ GÜCÜ">
+{{miner.removeImpactLegend.value.toFixed(2)}} {{miner.removeImpactLegend.unit}}
+</td>
+<td fatihcelik="ETKİLEŞİM" style="text-align: center">
+<button class="- - -" ng-click="openBuyLink(miner)">Mağazaya Git!</button>
+</td>
+</tr>
+</tbody>
+</table>
+<ul uib-pagination first-text="İlk Sayfa" previous-text="Önceki" last-text="Son Sayfa" next-text="Sonraki Sayfa" total-items="visible_user_miners.length" ng-model="userMinersCurrentPage" max-size="5" class="pagination-sm" items-per-page="userMinersItemsPerPage" boundary-links="true" num-pages="numPages2"></ul>
+</div>
+</div>
+<!--===============================================================================================-->
+</div>
+<h6 class="card-header head text-center"></h6>
+</div>
+<!--===============================================================================================-->
+<center>
+
+</center>
+<!--===============================================================================================-->
+</div>
+</aside>
+</div>
+<!--===============================================================================================-->
+<div class="col-md-1">
+
+</div>
+<!--===============================================================================================-->
+</div>
+</section>
+<!--===============================================================================================-->
+<script src="js/gün-tarih-saat.js"></script>
+<script src="js/solmenu.js"></script>
+<!--===============================================================================================-->
+<script src="https://kit.fontawesome.com/33f434b192.js" crossorigin="anonymous"></script>
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!--===============================================================================================-->
+
+
+</div>
+
+<script>
+function toggleSidebar() {
+document.getElementById('sidebar').classList.toggle('active');
+}
+</script>
+
+<footer class="footer">
+<div class="container">
+<div class="grid">
+<!-- Marka ve kısa açıklama -->
+<div class="brand">
+<a class="logo" aria-label="Anasayfa">
+<span class="logo-badge" aria-hidden="true">
+<!-- basit yıldız/ışın simgesi -->
+<svg viewBox="0 0 24 24" role="img"><path d="M12 2l2.39 5.33L20 9.27l-4 3.9L17.48 20 12 16.9 6.52 20 8 13.17l-4-3.9 5.61-1.94L12 2z"/></svg>
+</span>
+<span>RCHesapla</span>
+</a>
+<p>Kişisel kazım gücünü hesapla!</p>
+<div class="social" aria-label="Sosyal bağlantılar">
+<a class="icon-btn" href="#" aria-label="Twitter">
+<svg viewBox="0 0 24 24"><path d="M22 5.9c-.7.3-1.5.6-2.3.6.8-.5 1.4-1.2 1.7-2-.8.5-1.7.9-2.6 1.1A3.9 3.9 0 0015.3 4c-2.2 0-4 1.8-4 4 0 .3 0 .6.1.9-3.3-.2-6.2-1.8-8.1-4.2-.4.6-.6 1.2-.6 2 0 1.4.7 2.6 1.8 3.3-.6 0-1.2-.2-1.7-.5v.1c0 2 1.5 3.7 3.4 4.1-.4.1-.8.2-1.3.2-.3 0-.6 0-.9-.1.6 1.7 2.2 2.9 4.1 3a7.9 7.9 0 01-4.9 1.7H2A11.2 11.2 0 008.1 21c7.3 0 11.3-6.1 11.3-11.3v-.5c.8-.6 1.5-1.3 2.1-2.1z"/></svg>
+</a>
+<a class="icon-btn" href="#" aria-label="Instagram">
+<svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3.5A5.5 5.5 0 1112 20.5 5.5 5.5 0 0112 7.5zm0 2A3.5 3.5 0 1015.5 13 3.5 3.5 0 0012 9.5zm6-2a1 1 0 110 2 1 1 0 010-2z"/></svg>
+</a>
+<a class="icon-btn" href="#" aria-label="YouTube">
+<svg viewBox="0 0 24 24"><path d="M23.5 7.5a3 3 0 00-2.1-2.1C19.4 5 12 5 12 5s-7.4 0-9.4.4A3 3 0 00.5 7.5 44 44 0 000 12a44 44 0 00.5 4.5 3 3 0 002.1 2.1C4.6 19 12 19 12 19s7.4 0 9.4-.4a3 3 0 002.1-2.1A44 44 0 0024 12a44 44 0 00-.5-4.5zM9.7 15.3V8.7L15.8 12l-6.1 3.3z"/></svg>
+</a>
+</div>
+</div>
+
+<!-- Linkler -->
+<nav class="col" aria-label="Hızlı Linkler">
+<h4>Hızlı Linkler</h4>
+<div class="list">
+<a href="#">Hakkımızda</a>
+<a href="#">Hizmetler</a>
+<a href="#">Projeler</a>
+<a href="#">Blog</a>
+<a href="#">İletişim</a>
+</div>
+</nav>
+
+<!-- Kaynaklar -->
+<!--nav class="col" aria-label="Kaynaklar">
+<h4>Kaynaklar</h4>
+<div class="list">
+<a href="#">SSS</a>
+<a href="#">Dokümantasyon</a>
+<a href="#">Topluluk</a>
+<a href="#">Durum Sayfası</a>
+<a href="#">API</a>
+</div>
+</nav-->
+</div>
+
+<div class="bottom">
+<p class="small">© <span id="y"></span> RCHesapla - Tüm hakları saklıdır.</p>
+<div class="legal" aria-label="Yasal bağlantılar">
+<a href="#">Gizlilik</a>
+<a href="#">Çerezler</a>
+<a href="#">Kullanım Şartları</a>
+</div>
+</div>
+</div>
+</footer>
+
+<script>
+// Yılı otomatik yaz
+document.getElementById('y').textContent = new Date().getFullYear();
+</script>
+
 </body>
+</html>
