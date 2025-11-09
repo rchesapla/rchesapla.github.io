@@ -86,5 +86,8 @@ table td {
 	.change-link {
       color: #33c3ff;
     }
+	.fc_mobil {
+      width: 100%;
+    }
 
 }
