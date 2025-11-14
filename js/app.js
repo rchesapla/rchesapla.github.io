@@ -189,7 +189,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         }
     ];
 
-    let loaded_user = getUrlParamValue('kullanıcı');
+    let loaded_user = getUrlParamValue('profil');
     let loaded_league = getUrlParamValue('lig');
     loaded_user = loaded_user || localStorage.getItem('keep_loaded_user');
 
@@ -724,7 +724,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     }
 
     $scope.onSelectPlayer = async function($item) {
-        let  new_url = window.location.pathname+"?kullanıcı=" + $item.code;
+        let  new_url = window.location.pathname+"?profil=" + $item.code;
         if(loaded_miners) {
             new_url+= '&miners=' + loaded_miners;
         }

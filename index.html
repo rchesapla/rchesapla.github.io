@@ -68,7 +68,6 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <script src="js/miner-service.js"></script>
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css'>
 <!--===============================================================================================-->
-<script id="chatBroEmbedCode">/* Chatbro Widget Embed Code Start */function ChatbroLoader(chats,async){async=!1!==async;var params={embedChatsParameters:chats instanceof Array?chats:[chats],lang:navigator.language||navigator.userLanguage,needLoadCode:'undefined'==typeof Chatbro,embedParamsVersion:localStorage.embedParamsVersion,chatbroScriptVersion:localStorage.chatbroScriptVersion},xhr=new XMLHttpRequest;xhr.withCredentials=!0,xhr.onload=function(){eval(xhr.responseText)},xhr.onerror=function(){console.error('Chatbro loading error')},xhr.open('GET','https://www.chatbro.com/embed.js?'+btoa(unescape(encodeURIComponent(JSON.stringify(params)))),async),xhr.send()}/* Chatbro Widget Embed Code End */ChatbroLoader({encodedChatId: '197zG'});</script>
 </head>
 <!--===============================================================================================-->
 <body ng-controller="MiningController">
@@ -213,7 +212,7 @@ class="input-field"/>
 </div>
 
 <div class="profile-box">
-<div class="profile-label">🔗 Profile link</div>
+<div class="profile-label">🔗 Kalıcı profil adresi:</div>
 <div class="profile-link-container">
 <span class="profile-url">https://rollercoin.com/p/FthCLK</span>
 <a href="https://rollercoin.com/profile/personal-profile" target="_blank" class="change-link">Nasıl Öğrenirim?</a>
@@ -225,8 +224,7 @@ class="input-field"/>
 <i class="fa-solid fa-ban"></i> Oyuncu bulunamadı!
 </div>
 <div class="input-field-container" style="text-align: center">
-<i class="fa-solid fa-circle-info"></i> "/p/örnek" örnek yazan yere sizin kullanıcı adınızı giriniz. </br>(Not: /p/ olmadan!)
-<p>En iyi kazanç hesaplama yapabilmeniz için lütfen kripto seç bölümünü genel hesaplama yapınız.</p>
+<p><i class="fa-solid fa-circle-info"></i> En iyi kazanç hesaplama yapabilmeniz için lütfen kripto seç bölümünü genel hesaplama yapınız.</p>
 </div>
 <!--===============================================================================================-->
 <!--div ng-if="isLoadedUser">
@@ -275,7 +273,9 @@ stroke-linejoin="round"
 </div>
 <!--===============================================================================================-->
 <center>
-<a href="https://hashup.cc/?ref=118707" target="_blank"><img src="https://hashup.cc/images/HU-468.gif?v=2" width="100%"></a>
+
+
+
 </center>
 <!--===============================================================================================-->
 </article>
@@ -442,7 +442,7 @@ BONUS GÜCÜ
 <thead>
 <tr class="- - -">
 <th class="card-header" style="text-align: center" colspan="17">
-COIN KAZANÇ İSTATİSTİKLERİ
+KRİPTO KAZANÇ İSTATİSTİKLERİ
 </th>
 </tr>
 <tr ng-hide="formData.currency.in_game_only" class="- - -" class="deneme">
@@ -451,7 +451,7 @@ COIN KAZANÇ İSTATİSTİKLERİ
 </tr>
 <tr class="deneme">
 <th style="text-align:center;">GÜNLER</th>
-<th style="text-align:center;">COIN</th>
+<th style="text-align:center;">KRİPTO</th>
 <th style="text-align:center;" ng-hide="formData.currency.in_game_only">$</th>
 <th style="text-align:center;" ng-hide="formData.currency.in_game_only">₺</th>
 </tr>
