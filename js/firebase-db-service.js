@@ -11,26 +11,7 @@ const firebaseConfig = {
 servicex.service('FirebaseService', ['$http', '$q', function($http, $q) {
     const firebaseapp = firebase.initializeApp(firebaseConfig);
     const db = firebaseapp.firestore();
-
-    function timeAgo(fromTime) {
-        try{
-        let diferenca = (new Date() - (fromTime.toDate())) / 1000;
-        let unidades = [
-            { limite: 60, singular: "segundo" },
-            { limite: 3600, singular: "minuto" },
-            { limite: 86400, singular: "hora" },
-            { limite: Infinity, singular: "dia" }
-        ];
-        for (let i = 0; i < unidades.length; i++) {
-            let { limite, singular } = unidades[i];
-            if (diferenca < limite) 
-                return `${Math.floor(diferenca / (limite / 60)) || 1} ${singular}(s) atrás`;
-            diferenca /= limite / 60;
-        }
-        }catch(err) {
-            return '';
-        }
-    }    
+   
 
     function getDateRange(startDate, endDate) {
         const today = new Date();
