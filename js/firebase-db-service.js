@@ -10,8 +10,7 @@ const firebaseConfig = {
 };
 servicex.service('FirebaseService', ['$http', '$q', function($http, $q) {
     const firebaseapp = firebase.initializeApp(firebaseConfig);
-    const db = firebaseapp.firestore();
-   
+    const db = firebaseapp.firestore();   
 
     function getDateRange(startDate, endDate) {
         const today = new Date();
@@ -57,13 +56,6 @@ servicex.service('FirebaseService', ['$http', '$q', function($http, $q) {
             }
             await docRef.set(newUserData);
         }
-    };
-
-    this.listUsers = async function() {
-        const docs = (await db.collection("users").orderBy('lastSearchedAt', 'desc').limit(5).get()).docs;
-        const users = docs.map(u => u.data());
-        users.forEach(u => u.timeAgo = timeAgo(u.lastSearchedAt) );
-        return users;
     };
 
     this.getBonusTask = async function() {
