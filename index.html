@@ -72,6 +72,22 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!--===============================================================================================-->
 <body ng-controller="MiningController">
 
+    <div class="loading-overlay" ng-show="isLoading">
+
+<div class="keyboard">
+  <span class="key">R</span>
+  <span class="key">C</span>
+  <span class="key">H</span>
+  <span class="key">E</span>
+  <span class="key">S</span>
+  <span class="key">A</span>
+  <span class="key">P</span>
+  <span class="key">L</span>
+  <span class="key">A</span>
+</div>
+
+    </div>
+
 <div class="topbar">
 <!-- Sol taraf -->
 <div class="topbar-left">
@@ -103,8 +119,8 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <p class="açıklama">Kişisel kazım gücünü hesapla!</p>
 <div id="cntdwn" class="orta"></div>
 <!--===============================================================================================-->
-<div class="açıklama" id="cpcontainer">&nbsp;</div>
-<div class="açıklama" id="clock"></div>
+<p><div class="açıklama" id="cpcontainer">&nbsp;</div></p>
+<p><div class="açıklama" id="clock"></div></p>
 <!--===============================================================================================-->
 </center>
 </div>
