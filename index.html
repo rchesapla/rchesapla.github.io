@@ -150,14 +150,33 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="card-fc my-2 özelfont">
 <div class="card-header">KAZIM BİLGİLERİNİZ</div>
 <div class="card-body">
+<!--===============================================================================================-->
+<div class="şiş">
+<div class="row my-1">
+<span class="label">RC Kul. Adı:</span>
+<div class="input-container">
+<input
+ng-model="userSearchText"
+typeahead-wait-ms="300"
+uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
+typeahead-no-results="playerSearchNoResults"
+typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
+typeahead-loading="loading"
+placeholder="Örn: FthCLK"
+class="input-field"/>
+</div>
+</div>
+</div>
+<!--===============================================================================================-->
 <div class="row my-1">
 <span class="labelbaşlık">Lig seç:</span>
 <div class="input-container">
 <select class="input-field" ng-model="formData.league" ng-options="league.name for league in leagues" ng-change="updateLeagueDetails()">
-                            <option value="">Lig seçiniz</option>
-                        </select>
+<option value="">Lig seçiniz</option>
+</select>
 </div>
 </div>
+<!--===============================================================================================-->
 <div class="row my-1">
 <span class="label">Kripto seç:</span>
 <div class="input-container">
@@ -166,6 +185,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </select>
 </div>
 </div>
+<!--===============================================================================================-->
 <div class="row">
 <span class="label">Ağ gücü:</span>
 <div class="input-container">
@@ -209,23 +229,6 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </div>
 </div>
 <!--===============================================================================================-->
-<div class="şiş">
-<div class="row my-1">
-<span class="label">RC Kul. Adı:</span>
-<div class="input-container">
-<input
-ng-model="userSearchText"
-typeahead-wait-ms="300"
-uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
-typeahead-no-results="playerSearchNoResults"
-typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
-typeahead-loading="loading"
-placeholder="Örn: FthCLK"
-class="input-field"/>
-</div>
-</div>
-</div>
-
 <!--div class="profile-box">
 <div class="profile-label">🔗 Kalıcı profil adresi:</div>
 <div class="profile-link-container">
@@ -233,7 +236,6 @@ class="input-field"/>
 <a href="https://rollercoin.com/profile/personal-profile" target="_blank" class="change-link">Nasıl Öğrenirim?</a>
 </div>
 </div-->
-
 <!--===============================================================================================-->
 <div class="input-field-container" ng-show="playerSearchNoResults" style="text-align: center">
 <i class="fa-solid fa-ban"></i> Oyuncu bulunamadı!
