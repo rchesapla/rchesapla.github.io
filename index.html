@@ -153,7 +153,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="row my-1">
-<span class="label">RC Kul. Adı:</span>
+<span class="labelbaşlık">RC Kul. Adı:</span>
 <div class="input-container">
 <input
 ng-model="userSearchText"
@@ -178,7 +178,7 @@ class="input-field"/>
 </div>
 <!--===============================================================================================-->
 <div class="row my-1">
-<span class="label">Kripto seç:</span>
+<span class="labelbaşlık">Kripto seç:</span>
 <div class="input-container">
 <select id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="input-field">
 <option value="">Genel Hesaplama</option>
@@ -187,7 +187,7 @@ class="input-field"/>
 </div>
 <!--===============================================================================================-->
 <div class="row">
-<span class="label">Ağ gücü:</span>
+<span class="labelbaşlık">Ağ gücü:</span>
 <div class="input-container">
 <input id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower" type="number" name="inputNetworkPower" class="input-field" placeholder="Ağ gücünü giriniz...">
 <select id="networkUnit" ng-disabled="isLoadedUser" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')" class="input-field">
@@ -198,7 +198,7 @@ class="input-field"/>
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="row my-1">
-<span class="label">Kazım gücü:</span>
+<span class="labelbaşlık">Kazım gücü:</span>
 <div class="input-container">
 <input type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power" class="input-field" placeholder="Kazım gücünü giriniz...">
 <select id="unit" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')" class="input-field">
@@ -209,7 +209,7 @@ class="input-field"/>
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="row my-1">
-<span class="label">Blok ödülü:</span>
+<span class="labelbaşlık">Blok ödülü:</span>
 <div class="input-container">
 <input type="number" id="blockSize"" ng-disabled="isLoadedUser" ng-model="formData.blockSize" class="input-field" placeholder="Blok ödülünü giriniz...">
 </div>
@@ -218,7 +218,7 @@ class="input-field"/>
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="row my-1">
-<span class="label">Blok süresi:</span>
+<span class="labelbaşlık">Blok süresi:</span>
 <div class="input-container">
 <input type="number" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser" class="input-field" placeholder="Blok süresini giriniz...">
 <select id="timeUnit" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')"ng-disabled="isLoadedUser" class="input-field">
