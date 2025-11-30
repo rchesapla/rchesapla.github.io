@@ -151,15 +151,15 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="card-header">KAZIM BİLGİLERİNİZ</div>
 <div class="card-body">
 <div class="row my-1">
-                    <div class="form-group">
-                        <label class="label">Lig Seç</label>
-                        <select class="input-field" ng-model="formData.league" ng-options="league.name for league in leagues" ng-change="updateLeagueDetails()">
+<span class="labelbaşlık">Lig seç:</span>
+<div class="input-container">
+<select class="input-field" ng-model="formData.league" ng-options="league.name for league in leagues" ng-change="updateLeagueDetails()">
                             <option value="">Lig seçiniz</option>
                         </select>
-                    </div>
+</div>
 </div>
 <div class="row my-1">
-<span class="label">Kripto Seç:</span>
+<span class="label">Kripto seç:</span>
 <div class="input-container">
 <select id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="input-field">
 <option value="">Genel Hesaplama</option>
@@ -167,7 +167,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </div>
 </div>
 <div class="row">
-<span class="label">Ağ Gücü:</span>
+<span class="label">Ağ gücü:</span>
 <div class="input-container">
 <input id="networkPower" ng-disabled="isLoadedUser" ng-model="formData.networkPower" type="number" name="inputNetworkPower" class="input-field" placeholder="Ağ gücünü giriniz...">
 <select id="networkUnit" ng-disabled="isLoadedUser" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')" class="input-field">
@@ -178,7 +178,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="row my-1">
-<span class="label">Kazım Gücü:</span>
+<span class="label">Kazım gücü:</span>
 <div class="input-container">
 <input type="number" id="power" ng-disabled="isLoadedUser" ng-model="formData.power" class="input-field" placeholder="Kazım gücünü giriniz...">
 <select id="unit" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')" class="input-field">
@@ -189,7 +189,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="row my-1">
-<span class="label">Blok Ödülü:</span>
+<span class="label">Blok ödülü:</span>
 <div class="input-container">
 <input type="number" id="blockSize"" ng-disabled="isLoadedUser" ng-model="formData.blockSize" class="input-field" placeholder="Blok ödülünü giriniz...">
 </div>
@@ -198,7 +198,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="row my-1">
-<span class="label">Blok Süresi:</span>
+<span class="label">Blok süresi:</span>
 <div class="input-container">
 <input type="number" id="blockTime" ng-model="formData.blockTime" ng-disabled="isLoadedUser" class="input-field" placeholder="Blok süresini giriniz...">
 <select id="timeUnit" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')"ng-disabled="isLoadedUser" class="input-field">
@@ -211,7 +211,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="row my-1">
-<span class="label">Rollercoin Kullanıcı Adı:</span>
+<span class="label">RC Kul. Adı:</span>
 <div class="input-container">
 <input
 ng-model="userSearchText"
@@ -269,7 +269,7 @@ stroke-linejoin="round"
 </div>
 </div-->
 <!--===============================================================================================-->
-<div class="uv-checkbox-wrapper" ng-if="isLoadedUser">
+<!--div class="uv-checkbox-wrapper" ng-if="isLoadedUser">
 <input type="checkbox" id="uv-checkbox" class="uv-checkbox" ng-model="keepUser" ng-change="updateKeepUser(keepUser)" name="keep_user"/>
 <label for="uv-checkbox" class="uv-checkbox-label">
 <div class="uv-checkbox-icon">
@@ -279,28 +279,8 @@ stroke-linejoin="round"
 </div>
 <span class="uv-checkbox-text">Beni hatırla!</span>
 </label>
-</div>
+</div-->
 
-
-<!--===============================================================================================-->
-</div>
-<h6 class="card-header head text-center"></h6>
-</div>
-<!--===============================================================================================-->
-<center>
-
-
-
-</center>
-<!--===============================================================================================-->
-</article>
-<!--===============================================================================================-->
-<aside class="col-md-8">
-<!--===============================================================================================-->
-<div class="card-fc my-2">
-<div class="card-header">KAZANÇ TABLOSU</div>
-<div class="card-body">
-<!--===============================================================================================-->
 <!--===============================================================================================-->
 <div style="text-align: center">
 
@@ -348,6 +328,27 @@ stroke-linejoin="round"
 
 </div>
 </div>
+<!--===============================================================================================-->
+
+
+<!--===============================================================================================-->
+</div>
+<h6 class="card-header head text-center"></h6>
+</div>
+<!--===============================================================================================-->
+<center>
+
+
+
+</center>
+<!--===============================================================================================-->
+</article>
+<!--===============================================================================================-->
+<aside class="col-md-8">
+<!--===============================================================================================-->
+<div class="card-fc my-2">
+<div class="card-header">KAZANÇ TABLOSU</div>
+<div class="card-body">
 <!--===============================================================================================-->
 <div ng-if="user_data">
 
