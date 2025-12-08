@@ -151,6 +151,65 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="card-header">KAZIM BİLGİLERİNİZ</div>
 <div class="card-body">
 <!--===============================================================================================-->
+<div style="text-align: center">
+
+<div class="buttons">
+<!--button class="blob-btn" ng-if="isLoadedUser" ng-click="reloadWithoutUser()">
+<span><i class="fa-solid fa-user-xmark"></i> Beni Unut</span>
+<span class="blob-btn__inner">
+<span class="blob-btn__blobs">
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+</span>
+</span>
+</button-->
+<button class="blob-btn" ng-click="resetValues()">
+<span><i class="fa-solid fa-coins"></i> Verileri Güncelle</span>
+<span class="blob-btn__inner">
+<span class="blob-btn__blobs">
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+</span>
+</span>
+</button>
+<button class="blob-btn" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()">
+<span><i class="fa-solid fa-coins"></i> En İyi Kazanç</span>
+<span class="blob-btn__inner">
+<span class="blob-btn__blobs">
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+</span>
+</span>
+</button>
+
+<div class="container_fc2">
+
+	<label class="check">
+		<input type="checkbox" ng-model="formData.showMiners" name="show_miners">Minerlarım
+	</label>
+
+	<label class="check">
+		<input type="checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners">Miner Listesi
+	</label>
+
+</div>
+
+<!--div id="inputPreview" ng-if="isLoadedUser">
+<input name="cssCheckbox" id="demo_opt_1" type="checkbox" class="css-checkbox" ng-model="formData.showMiners" name="show_miners">
+<label for="demo_opt_1">Minerlarım</label>
+<input name="cssCheckbox" id="demo_opt_2" type="checkbox" class="css-checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners">
+<label for="demo_opt_2">Miner Listesi</label>
+</div-->
+
+</div>
+</div>
+<!--===============================================================================================-->
 <div class="şiş">
 <div class="row my-1">
 <span class="labelbaşlık">RC Kul. Adı:</span>
@@ -282,57 +341,6 @@ stroke-linejoin="round"
 <span class="uv-checkbox-text">Beni hatırla!</span>
 </label>
 </div-->
-
-<!--===============================================================================================-->
-<div style="text-align: center">
-
-<div class="buttons">
-<!--button class="blob-btn" ng-if="isLoadedUser" ng-click="reloadWithoutUser()">
-<span><i class="fa-solid fa-user-xmark"></i> Beni Unut</span>
-<span class="blob-btn__inner">
-<span class="blob-btn__blobs">
-<span class="blob-btn__blob"></span>
-<span class="blob-btn__blob"></span>
-<span class="blob-btn__blob"></span>
-<span class="blob-btn__blob"></span>
-</span>
-</span>
-</button-->
-<button class="blob-btn" ng-click="resetValues()">
-<span><i class="fa-solid fa-coins"></i> Verileri Güncelle</span>
-<span class="blob-btn__inner">
-<span class="blob-btn__blobs">
-<span class="blob-btn__blob"></span>
-<span class="blob-btn__blob"></span>
-<span class="blob-btn__blob"></span>
-<span class="blob-btn__blob"></span>
-</span>
-</span>
-</button>
-<button class="blob-btn" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()">
-<span><i class="fa-solid fa-coins"></i> En İyi Kazanç</span>
-<span class="blob-btn__inner">
-<span class="blob-btn__blobs">
-<span class="blob-btn__blob"></span>
-<span class="blob-btn__blob"></span>
-<span class="blob-btn__blob"></span>
-<span class="blob-btn__blob"></span>
-</span>
-</span>
-</button>
-
-<div id="inputPreview" ng-if="isLoadedUser">
-<input name="cssCheckbox" id="demo_opt_1" type="checkbox" class="css-checkbox" ng-model="formData.showMiners" name="show_miners">
-<label for="demo_opt_1">Minerlarım</label>
-<input name="cssCheckbox" id="demo_opt_2" type="checkbox" class="css-checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners">
-<label for="demo_opt_2">Miner Listesi</label>
-</div>
-
-</div>
-</div>
-<!--===============================================================================================-->
-
-
 <!--===============================================================================================-->
 </div>
 <h6 class="card-header head text-center"></h6>

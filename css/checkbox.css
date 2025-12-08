@@ -1,1 +1,79 @@
-.css-checkbox { position: absolute; overflow: hidden; clip: rect(0 0 0 0); height: 1px; width: 1px; margin: -1px; padding: 0; border: 0; }#inputPreview { display: flex; gap: 20px; justify-content: center;	}.css-checkbox + label { position: relative; font-size: 20px; cursor: pointer; display: inline-flex; align-items: center; height: 31px; color: rgb(255, 221, 0); }.css-checkbox + label::before { content: " "; display: inline-block; vertical-align: middle; margin-right: 3px; width: 25px; height: 25px; background-color: white; border-width: 3px; border-style: ridge; border-color: rgb(204, 204, 204); border-radius: 50px; box-shadow: none; }.css-checkbox:checked + label::after { content: " "; background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjZmYwMDAwIiBkPSJNMTczLjg5OCA0MzkuNDA0bC0xNjYuNC0xNjYuNGMtOS45OTctOS45OTctOS45OTctMjYuMjA2IDAtMzYuMjA0bDM2LjIwMy0zNi4yMDRjOS45OTctOS45OTggMjYuMjA3LTkuOTk4IDM2LjIwNCAwTDE5MiAzMTIuNjkgNDMyLjA5NSA3Mi41OTZjOS45OTctOS45OTcgMjYuMjA3LTkuOTk3IDM2LjIwNCAwbDM2LjIwMyAzNi4yMDRjOS45OTcgOS45OTcgOS45OTcgMjYuMjA2IDAgMzYuMjA0bC0yOTQuNCAyOTQuNDAxYy05Ljk5OCA5Ljk5Ny0yNi4yMDcgOS45OTctMzYuMjA0LS4wMDF6Ii8+PC9zdmc+"); background-repeat: no-repeat; background-size: 17px 17px; background-position: center center; position: absolute; display: flex; justify-content: center; align-items: center; margin-left: 0px; left: 0px; top: 0px; text-align: center; background-color: transparent; font-size: 10px; height: 31px; width: 31px; }
+
+ .container_fc2 {
+	 flex-direction: column;
+	 row-gap: 1.5rem;
+	 max-width: 600px;
+	 background-color: red;
+	 padding: 2rem;
+	 border-radius: 1rem;
+	 background-color: #131313;
+}
+ .check {
+	 flex-wrap: wrap;
+	 gap: 4px 6px;
+	 position: relative;
+	 min-height: 24px;
+	 padding-left: 34px;
+	 padding-top: 5px;
+	 user-select: none;
+	 cursor: pointer;
+	 font-size: 19px;
+	 color: #9e9ea8;
+	 width: fit-content;
+}
+ .check::before, .check::after {
+	 content: "";
+	 position: absolute;
+	 transition: all 0.3s ease;
+}
+ .check::before {
+	 left: 0;
+	 top: 0;
+	 width: 24px;
+	 height: 24px;
+	 border: 2px solid #4a4a4f;
+	 background-color: transparent;
+}
+ .check::after {
+	 top: 11px;
+	 left: 8px;
+	 opacity: 0;
+}
+ .check a {
+	 color: #05f;
+}
+ .check > input[type="checkbox"], .check > input[type="radio"] {
+	 display: none;
+}
+ .check:has(input:checked)::before {
+	 background-color: #05f;
+	 border-color: #05f;
+}
+ .check:has(input:checked)::after {
+	 opacity: 1;
+}
+ .check:has(input[type="checkbox"])::before {
+	 border-radius: 6px;
+}
+ .check:has(input[type="checkbox"])::after {
+	 width: 7px;
+	 height: 11px;
+	 transform: translateY(-60%) rotate(45deg);
+	 border-right: 2px solid #fff;
+	 border-bottom: 2px solid #fff;
+}
+ .check:has(input[type="radio"])::before {
+	 border-radius: 50%;
+}
+ .check:has(input[type="radio"])::after {
+	 width: 8px;
+	 height: 8px;
+	 background-color: #fff;
+	 border-radius: 50%;
+	 top: 8px;
+}
+ .check:has(input:disabled) {
+	 opacity: 0.4;
+	 cursor: not-allowed;
+}
+ 
