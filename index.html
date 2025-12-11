@@ -188,7 +188,9 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </span>
 </button>
 
-<div class="container_fc2">
+<!--label ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()" class="btn"><i class="fa-solid fa-coins"></i> En İyi Kazanç</label-->
+
+<div class="container_fc2" ng-if="isLoadedUser">
 
 	<label class="check">
 		<input type="checkbox" ng-model="formData.showMiners" name="show_miners">Minerlarım
@@ -345,6 +347,25 @@ stroke-linejoin="round"
 </div>
 <h6 class="card-header head text-center"></h6>
 </div>
+
+<!--div class="window">
+  <h1> Bitácora Espacial: NeoUpload</h1>
+  <h2>Hora Galáctica: 16:13 | Sistema Solar: Sector Orion-7</h2>
+  <p>
+    Iniciando protocolo de tranferencia de datos.
+    Este modulo de carga está blindado con encriptación cuántica
+    y diseñado para infiltaciones seguras en redes interplanetarias.
+    Selecciona tu archivo y lánzalo al vacio digital:
+    el botón <span>Upload Files</span> abrirá el canal hacia la matriz central.
+    Recuerda: cada byte que subas quedara registrado en la cronica de los navegantes del cosmos.
+  </p>
+
+  <div>
+    <label for="file-input" class="btn">Upload File</label>
+    <input type="file" class="input-hidden" id="file-input">
+      
+  </div>
+</div-->
 <!--===============================================================================================-->
 <center>
 
@@ -816,30 +837,25 @@ color: white;
 <h6 class="card-header">Miner Sayısı: {{allMiners.length}} adet!</h6>
 <tr>
 <th style="text-align: center">
-Miner Adı
-</th>
-<th style="text-align: center">
-<a href="#" ng-click="orderByAllMinersField='supply'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
-Tedarik Edilen
-</a>
+MINER
 </th>
 <th style="text-align: center">
 <a href="#" ng-click="orderByAllMinersField='power'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
-Güç
+GÜÇ
 </a>
 </th>
 <th style="text-align: center">
 <a href="#" ng-click="orderByAllMinersField='bonus_power'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
-Bonus
+BONUS
 </a>
 </th>
 <th style="text-align: center">
 <a href="#" ng-click="orderByAllMinersField='includeImpactPower'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
-Etkisi
+ETKİSİ
 </a>
 </th>
 <th style="text-align: center">
-Etkileşim
+ETKİLEŞİM
 </th>
 </tr>
 </thead>
@@ -861,9 +877,6 @@ color: white;
 ">SATILAMAZ</div>
 </td>
 <td style="text-align: center">
-{{miner.supply}}
-</td>
-<td style="text-align: center">
 {{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
 </td>
 <td style="text-align: center">
@@ -873,7 +886,7 @@ color: white;
 {{miner.includeImpactLegend.value.toFixed(2)}} {{miner.includeImpactLegend.unit}}
 </td>
 <td style="text-align: center">
-<button class="button" ng-click="addMinerToSimulation(miner)">Listeye Ekle</button><br/>
+<p><button class="button" ng-click="addMinerToSimulation(miner)">Listeye Ekle</button></p>
 </td>
 </tr>
 </tbody>
