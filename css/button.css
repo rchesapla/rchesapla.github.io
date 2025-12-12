@@ -21,21 +21,6 @@ la comunidad y motivar la creación de más recursos abiertos.
   --ff: "Orbitron", sans-serif;
 }
 
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-body {
-  width: 100%;
-  height: 100vh;
-  padding: 20px;
-  background: var(--bg);
-  color: var(--fore);
-  font-family: var(--ff);
-}
-
 .window {
   max-width: 600px;
   min-width: 350px;
