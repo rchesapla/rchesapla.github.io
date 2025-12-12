@@ -21,9 +21,9 @@ table th {
 
 table th,
 table td {
-  padding: 1px;
+  padding: 5px;
   text-align: center;
-  border: 1px solid black;
+  border: 1px solid red;
   border-collapse: collapse;
 }
 
