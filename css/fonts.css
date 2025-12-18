@@ -1,19 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@100..900&family=Cutive+Mono&family=Russo+One&family=Tektur:wght@400..900&family=WDXL+Lubrifont+TC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap');
+
 /*
 Bitcount Grid Double
 Cutive Mono
 Russo One
 WDXL Lubrifont TC
 Tektur
+Rubik Wet Paint
 */
 
 :root {
-  --siteadı: Russo One, sans-serif;
+  --siteadı: Rubik Wet Paint, sans-serif;
   --açıklama: Tektur, sans-serif;
   --labelbaşlık: Tektur, sans-serif;
   --card-header: Russo One, sans-serif;
   --card-body: Tektur, sans-serif;
   --tablo: Tektur, sans-serif;
+  --yukleniyor: Rubik Wet Paint, sans-serif;
 }
 .siteadı {
 	font-family: var(--siteadı);
