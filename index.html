@@ -560,7 +560,13 @@ PARA ÇEKİMİ
 <tr>
 <th class=" card-header" style="text-align: center" colspan="22">
 EN İYİ KAZANÇ
-<button class="blob-btn" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i></button>
+<!--button class="blob-btn" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i></button-->
+
+<div class="checkbox-group">
+  <input type="checkbox" id="temizle" ng-click="resetAlocatedPower()">
+  <label for="temizle"><i class="fa fa-trash"></i></label>
+</div>
+
 </th>
 </tr>
 <tr class="deneme">
