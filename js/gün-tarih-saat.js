@@ -40,7 +40,7 @@ princewedding.oncountup=function(result){
     //result is an object containing the current count up date/time, updated every second
     //Available properties: result["days"], result["hours"], result["minutes"], and result["seconds"]
     var mycountainer=document.getElementById("cpcontainer")
-    mycountainer.innerHTML="Çalışma süresi: <a style='color:red'>"+result['days']+"</a> gündür aktif."
+    mycountainer.innerHTML="Çevrimiçi: <a style='color:red'>"+result['days']+"</a> gün."
 }
 
 // TARİH AYARI //
