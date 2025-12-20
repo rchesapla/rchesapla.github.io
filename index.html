@@ -190,16 +190,12 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
 <!--label ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()" class="btn"><i class="fa-solid fa-coins"></i> En İyi Kazanç</label-->
 
-<div class="container_fc2" ng-if="isLoadedUser">
+<div class="checkbox-group" ng-if="isLoadedUser">
+  <input type="checkbox" id="checkbox1" ng-model="formData.showMiners" name="show_miners">
+  <label for="checkbox1">Minerlarım</label>
 
-	<label class="check">
-		<input type="checkbox" ng-model="formData.showMiners" name="show_miners">Minerlarım
-	</label>
-
-	<label class="check">
-		<input type="checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners">Miner Listesi
-	</label>
-
+  <input type="checkbox" id="checkbox2" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners">
+  <label for="checkbox2">Miner Listesi</label>
 </div>
 
 <!--div id="inputPreview" ng-if="isLoadedUser">

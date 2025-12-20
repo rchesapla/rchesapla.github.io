@@ -1,79 +1,27 @@
+.checkbox-group body {
+  background: #333333;
+  color:beige;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
- .container_fc2 {
-	 flex-direction: column;
-	 row-gap: 1.5rem;
-	 max-width: 600px;
-	 background-color: red;
-	 padding: 2rem;
-	 border-radius: 1rem;
-	 background-color: #131313;
+.checkbox-group input[type="checkbox"] {
+  display: none;
 }
- .check {
-	 flex-wrap: wrap;
-	 gap: 4px 6px;
-	 position: relative;
-	 min-height: 24px;
-	 padding-left: 34px;
-	 padding-top: 5px;
-	 user-select: none;
-	 cursor: pointer;
-	 font-size: 19px;
-	 color: #9e9ea8;
-	 width: fit-content;
+
+.checkbox-group label {
+  display: inline-block;
+  padding: 0.5em 1em;
+  margin: 0.5em;
+  cursor: pointer;
+  border: 1px solid #999999;
+  border-radius: 5px;
+    background: #2f3045;
 }
- .check::before, .check::after {
-	 content: "";
-	 position: absolute;
-	 transition: all 0.3s ease;
+
+.checkbox-group input[type="checkbox"]:checked + label {
+  background-color: #007bff;
+  color: #ffffff;
+  border-color: #007bff;
 }
- .check::before {
-	 left: 0;
-	 top: 0;
-	 width: 24px;
-	 height: 24px;
-	 border: 2px solid #4a4a4f;
-	 background-color: transparent;
-}
- .check::after {
-	 top: 11px;
-	 left: 8px;
-	 opacity: 0;
-}
- .check a {
-	 color: #05f;
-}
- .check > input[type="checkbox"], .check > input[type="radio"] {
-	 display: none;
-}
- .check:has(input:checked)::before {
-	 background-color: #05f;
-	 border-color: #05f;
-}
- .check:has(input:checked)::after {
-	 opacity: 1;
-}
- .check:has(input[type="checkbox"])::before {
-	 border-radius: 6px;
-}
- .check:has(input[type="checkbox"])::after {
-	 width: 7px;
-	 height: 11px;
-	 transform: translateY(-60%) rotate(45deg);
-	 border-right: 2px solid #fff;
-	 border-bottom: 2px solid #fff;
-}
- .check:has(input[type="radio"])::before {
-	 border-radius: 50%;
-}
- .check:has(input[type="radio"])::after {
-	 width: 8px;
-	 height: 8px;
-	 background-color: #fff;
-	 border-radius: 50%;
-	 top: 8px;
-}
- .check:has(input:disabled) {
-	 opacity: 0.4;
-	 cursor: not-allowed;
-}
- 
