@@ -429,7 +429,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
 
     //userMinersFilter
-    $scope.userMinersItemsPerPage = 6;
+    $scope.userMinersItemsPerPage = 10;
     $scope.userMinersCurrentPage = 1;
 
     //userInventoryMinersFilter

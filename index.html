@@ -892,12 +892,14 @@ color: white;
 <div class="card-fc my-2">
 <h6 class="card-header">MADENCİLERİM</h6>
 <div class="card-body">
+<!--===============================================================================================-->
 <div class="row my-1">
-<label><span class="label">Miner Adı / Türü:</span></label>
-<div class="- - -">
+<span class="labelbaşlık">Miner Adı:</span>
+<div class="input-container">
 <input type="text" class="input-field" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)" ng-model="userMinerNameSearch">
 </div>
-<div class="- - -">
+<span class="labelbaşlık">Miner Türü:</span>
+<div class="input-container">
 <select class="input-field" ng-model="userMinersRarity" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
 <option value="all">Hepsi</option>
 <option value="common">Common</option>
@@ -910,6 +912,7 @@ color: white;
 </select>
 </div>
 </div>
+
 <!--===============================================================================================-->
 <div class="şiş">
 <div class="row my-1">
