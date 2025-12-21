@@ -2,6 +2,8 @@ let leagues = [];
 let leagueRewards = {};
 let blockTimes = {};
 let withdrawalMinimums = {};
+let leagueMode = 'auto';
+let manualLeagueName = null;
 
 async function loadConfig() {
     const [leaguesRes, rewardsRes, blocksRes, minRes] = await Promise.all([
@@ -24,16 +26,17 @@ async function loadConfig() {
 const cryptoInfo = {
     RLT: { color: '[#03E1E4]', bgColor: 'cyan-500', name: 'RLT', isGameToken: true, order: 1 },
     RST: { color: '[#FFDC00]', bgColor: 'yellow-500', name: 'RST', isGameToken: true, order: 2 },
-    BTC: { color: '[#F7931A]', bgColor: 'orange-500', name: 'BTC', isGameToken: false, order: 3 },
-    ETH: { color: '[#987EFF]', bgColor: 'purple-500', name: 'ETH', isGameToken: false, order: 4 },
-    BNB: { color: '[#F3BA2F]', bgColor: 'yellow-600', name: 'BNB', isGameToken: false, order: 5 },
-    POL: { color: '[#8247E5]', bgColor: 'purple-500', name: 'POL', isGameToken: false, order: 6 },
-    XRP: { color: '[#E5E6E7]', bgColor: 'gray-300', name: 'XRP', isGameToken: false, order: 7 },
-    DOGE: { color: '[#C2A633]', bgColor: 'yellow-600', name: 'DOGE', isGameToken: false, order: 8 },
-    TRX: { color: '[#D3392F]', bgColor: 'red-500', name: 'TRX', isGameToken: false, order: 9 },
-    SOL: { color: '[#21EBAA]', bgColor: 'green-400', name: 'SOL', isGameToken: false, order: 10 },
-    LTC: { color: '[#345D9D]', bgColor: 'blue-600', name: 'LTC', isGameToken: false, order: 11 },
-	ALGO: { color: '[#FF3E9A]', bgColor: 'pink-500', name: 'ALGO', isGameToken: false, order: 12 }
+    HMT: { color: '[#C954FF]', bgColor: 'purple-500', name: 'HMT', isGameToken: true, order: 3 },
+    BTC: { color: '[#F7931A]', bgColor: 'orange-500', name: 'BTC', isGameToken: false, order: 4 },
+    ETH: { color: '[#987EFF]', bgColor: 'purple-500', name: 'ETH', isGameToken: false, order: 5 },
+    BNB: { color: '[#F3BA2F]', bgColor: 'yellow-600', name: 'BNB', isGameToken: false, order: 6 },
+    POL: { color: '[#8247E5]', bgColor: 'purple-500', name: 'POL', isGameToken: false, order: 7 },
+    XRP: { color: '[#E5E6E7]', bgColor: 'gray-300', name: 'XRP', isGameToken: false, order: 8 },
+    DOGE: { color: '[#C2A633]', bgColor: 'yellow-600', name: 'DOGE', isGameToken: false, order: 9 },
+    TRX: { color: '[#D3392F]', bgColor: 'red-500', name: 'TRX', isGameToken: false, order: 10 },
+    SOL: { color: '[#21EBAA]', bgColor: 'green-400', name: 'SOL', isGameToken: false, order: 11 },
+    LTC: { color: '[#345D9D]', bgColor: 'blue-600', name: 'LTC', isGameToken: false, order: 12 },
+    ALGO: { color: '[#FF3E9A]', bgColor: 'pink-500', name: 'ALGO', isGameToken: false, order: 13 }
 };
 
 let cryptoPrices = {};
@@ -44,6 +47,48 @@ let currentLeague = null;
 let userPowerGH = 0;
 let pricesLastUpdated = 0;
 
+function loadLeaguePreferences() {
+    try {
+        const savedMode = localStorage.getItem('leagueMode');
+        const savedLeague = localStorage.getItem('manualLeagueName');
+
+        if (savedMode === 'manual' && savedLeague) {
+            leagueMode = 'manual';
+            manualLeagueName = savedLeague;
+        } else {
+            leagueMode = 'auto';
+            manualLeagueName = null;
+        }
+    } catch (e) {
+        leagueMode = 'auto';
+        manualLeagueName = null;
+    }
+}
+
+function saveLeaguePreferences() {
+    try {
+        localStorage.setItem('leagueMode', leagueMode);
+        if (manualLeagueName) {
+            localStorage.setItem('manualLeagueName', manualLeagueName);
+        } else {
+            localStorage.removeItem('manualLeagueName');
+        }
+    } catch (e) {
+
+    }
+}
+
+function updateLeagueModeButton() {
+    const modeText = document.getElementById('leagueModeText');
+    if (!modeText) return;
+
+    if (leagueMode === 'manual' && manualLeagueName) {
+        modeText.textContent = 'MANUAL';
+    } else {
+        modeText.textContent = 'AUTO LEAGUE';
+    }
+}
+
 function saveUserData() {
     try {
         const userData = {
@@ -53,7 +98,7 @@ function saveUserData() {
         };
         localStorage.setItem('rollercoinUserData', JSON.stringify(userData));
     } catch (e) {
-        
+
     }
 }
 
@@ -62,25 +107,25 @@ function loadUserData() {
         const savedData = localStorage.getItem('rollercoinUserData');
         if (savedData) {
             const userData = JSON.parse(savedData);
-            
+
             const miningPowerInput = document.getElementById('miningPower');
             const powerUnitSelect = document.getElementById('powerUnit');
             const networkDataTextarea = document.getElementById('networkData');
-            
+
             if (userData.miningPower && miningPowerInput) {
                 miningPowerInput.value = userData.miningPower;
             }
-            
+
             if (userData.powerUnit && powerUnitSelect) {
                 powerUnitSelect.value = userData.powerUnit;
             }
-            
+
             if (userData.networkData && networkDataTextarea) {
                 networkDataTextarea.value = userData.networkData;
             }
         }
     } catch (e) {
-        
+
     }
 }
 
@@ -112,6 +157,16 @@ function getLeagueForPower(powerGH) {
 
 function updateLeagueFromPower() {
     try {
+        if (leagueMode === 'manual' && manualLeagueName) {
+            const manualLeague = leagues.find(l => l.name === manualLeagueName);
+            if (manualLeague) {
+                currentLeague = manualLeague;
+                updateLeagueBadge(manualLeague.name, manualLeague.class);
+                updateUserLeagueRewards();
+                return;
+            }
+        }
+
         const powerInput = document.getElementById('miningPower');
         const unitSelect = document.getElementById('powerUnit');
 
@@ -121,7 +176,7 @@ function updateLeagueFromPower() {
         if (power && power > 0) {
             const powerGH = convertToGH(power, unit);
             const league = getLeagueForPower(powerGH);
-            currentLeague = league; 
+            currentLeague = league;
             updateLeagueBadge(league.name, league.class);
             updateUserLeagueRewards();
         } else {
@@ -145,22 +200,22 @@ async function fetchCryptoPrices() {
         };
 
         const ids = Object.values(cryptoIds).join(',');
-        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd,try`);
+        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd,eur`);
         if (!res.ok) throw new Error('Failed to fetch prices');
 
         const data = await res.json();
 
         for (const [sym, id] of Object.entries(cryptoIds)) {
-            if (data[id]?.usd && !isNaN(data[id].usd) && data[id]?.try && !isNaN(data[id].try)) {
+            if (data[id]?.usd && !isNaN(data[id].usd) && data[id]?.eur && !isNaN(data[id].eur)) {
                 cryptoPrices[sym] = {
                     usd: data[id].usd,
-                    try: data[id].try
+                    eur: data[id].eur
                 };
             }
         }
 
-        if (data.bitcoin?.usd && data.bitcoin?.try && data.bitcoin.try > 0) {
-            eurToUsdRate = data.bitcoin.usd / data.bitcoin.try;
+        if (data.bitcoin?.usd && data.bitcoin?.eur && data.bitcoin.eur > 0) {
+            eurToUsdRate = data.bitcoin.usd / data.bitcoin.eur;
         }
 
         pricesLastUpdated = Date.now();
@@ -172,7 +227,7 @@ async function fetchCryptoPrices() {
         updatePricesTable();
         updateWithdrawalsTable();
     } catch (e) {
-        
+
     }
 }
 
@@ -217,74 +272,63 @@ function parseNetworkData(data) {
     }
 }
 
-function formatNumber(num, decimals = null, isPerBlock = false, mode = 'crypto', crypto = null) {
-    try {
-        if (isNaN(num) || num == null) return '0';
+function formatNumber(num, decimals = null, isPerBlock = false, mode = "crypto", crypto = null, isNetwork = false) {
+    if (isNaN(num) || num === null) return "0";
 
-        if (mode === 'usd' || mode === 'try') {
-            return num.toFixed(2);
-        }
+    if (isNetwork) return num.toFixed(3);
 
-        if (isPerBlock) {
-            if (num >= 1) {
-                return parseFloat(num.toFixed(4)).toString();
-            } else if (num >= 0.01) {
-                return num.toFixed(4);
-            } else if (num >= 0.0001) {
-                return num.toFixed(6);
-            } else {
-                return num.toFixed(8);
-            }
-        }
+    if (mode === "usd" || mode === "eur") return num.toFixed(2);
 
-        const fourDecimalCoins = ['POL', 'XRP', 'DOGE', 'TRX', 'SOL', 'LTC', 'RST', 'RLT', 'ALGO'];
+    const decimalsByCrypto = {
+        "RLT": 6,
+        "RST": 6,
+        "HMT": 6,
+        "XRP": 6,
+        "ALGO": 6,
+        "TRX": 8,
+        "DOGE": 4,
+        "BTC": 10,
+        "ETH": 8,
+        "BNB": 8,
+        "POL": 8,
+        "SOL": 8,
+        "LTC": 8
+    };
 
-        if (crypto && fourDecimalCoins.includes(crypto)) {
-            return num.toFixed(4);
-        }
+    let maxDecimals = decimalsByCrypto[crypto] ?? 8;
+    if (typeof decimals === "number" && decimals > 0) maxDecimals = decimals;
 
-        if (num >= 1) {
-            return parseFloat(num.toFixed(8)).toString();
-        } else if (num >= 0.01) {
-            return num.toFixed(4);
-        } else if (num >= 0.0001) {
-            return num.toFixed(6);
-        } else {
-            return num.toFixed(8);
-        }
-    } catch (e) {
-        return '0';
-    }
+    return num.toFixed(maxDecimals);
 }
 
 function formatNetworkPower(totalGH) {
     if (totalGH >= 1_000_000_000_000) {
-        return `${formatNumber(totalGH / 1_000_000_000_000)} ZH/s`;
+        return `${parseFloat((totalGH / 1_000_000_000_000).toFixed(3))} Zh/s`;
     } else if (totalGH >= 1_000_000_000) {
-        return `${formatNumber(totalGH / 1_000_000_000)} EH/s`;
+        return `${parseFloat((totalGH / 1_000_000_000).toFixed(3))} Eh/s`;
     } else if (totalGH >= 1_000_000) {
-        return `${formatNumber(totalGH / 1_000_000)} PH/s`;
+        return `${parseFloat((totalGH / 1_000_000).toFixed(3))} Ph/s`;
     } else {
-        return `${formatNumber(totalGH)} GH/s`;
+        return `${parseFloat(totalGH.toFixed(3))} Gh/s`;
     }
 }
 
 function calculateWithdrawalTime(dailyEarning, minWithdrawal) {
     try {
         if (!dailyEarning || !minWithdrawal || dailyEarning <= 0 || minWithdrawal <= 0) {
-            return 'Çekim Yok!';
+            return 'N/A';
         }
 
         const hoursNeeded = (minWithdrawal / dailyEarning) * 24;
 
         if (hoursNeeded < 1) {
             const minutesNeeded = Math.ceil(hoursNeeded * 60);
-            return { text: `${minutesNeeded} dakika`, class: 'short' };
+            return { text: `${minutesNeeded}m`, class: 'short' };
         }
 
         if (hoursNeeded < 24) {
             const hours = Math.ceil(hoursNeeded);
-            return { text: `${hours} saat`, class: 'short' };
+            return { text: `${hours}h`, class: 'short' };
         }
 
         const totalHours = hoursNeeded;
@@ -293,16 +337,16 @@ function calculateWithdrawalTime(dailyEarning, minWithdrawal) {
 
         let timeText;
         if (remainingHours === 0) {
-            timeText = `${days} gün`;
+            timeText = `${days}d`;
         } else {
-            timeText = `${days} gün ${remainingHours} saat`;
+            timeText = `${days}d ${remainingHours}h`;
         }
 
         if (days <= 7) return { text: timeText, class: 'short' };
         if (days <= 30) return { text: timeText, class: 'medium' };
         return { text: timeText, class: 'long' };
     } catch (e) {
-        return { text: 'Çekim Yok!', class: 'medium' };
+        return { text: 'N/A', class: 'medium' };
     }
 }
 
@@ -322,9 +366,19 @@ function calculateEarnings() {
         if (!power || power <= 0 || isNaN(power)) {
             document.getElementById('noDataMessage').style.display = 'block';
             document.getElementById('earningsTableBody').innerHTML = '';
-            currentLeague = { name: 'BRONZ I', class: 'bronze' };
-            updateLeagueBadge('BRONZ I', 'bronze');
-            updateUserLeagueRewards();
+
+            if (leagueMode === 'manual' && manualLeagueName) {
+                const manualLeague = leagues.find(l => l.name === manualLeagueName);
+                if (manualLeague) {
+                    currentLeague = manualLeague;
+                    updateLeagueBadge(manualLeague.name, manualLeague.class);
+                    updateUserLeagueRewards();
+                }
+            } else {
+                currentLeague = { name: 'BRONZE I', class: 'bronze' };
+                updateLeagueBadge('BRONZE I', 'bronze');
+                updateUserLeagueRewards();
+            }
             return;
         }
 
@@ -340,7 +394,17 @@ function calculateEarnings() {
             return;
         }
 
-        currentLeague = getLeagueForPower(userPowerGH);
+        if (leagueMode === 'manual' && manualLeagueName) {
+            const manualLeague = leagues.find(l => l.name === manualLeagueName);
+            if (manualLeague) {
+                currentLeague = manualLeague;
+            } else {
+                currentLeague = getLeagueForPower(userPowerGH);
+            }
+        } else {
+            currentLeague = getLeagueForPower(userPowerGH);
+        }
+
         updateLeagueBadge(currentLeague.name, currentLeague.class);
         updateUserLeagueRewards();
 
@@ -388,12 +452,12 @@ function updateLeagueBadge(leagueName, leagueClass) {
         const badge = document.getElementById('leagueBadge');
         const imagePath = getLeagueImagePath(leagueName);
         badge.innerHTML = `
-            Lig: ${leagueName}
+            YOUR LEAGUE: ${leagueName}
             <img src="${imagePath}" alt="${leagueName}" class="inline-block w-6 h-6 ml-2" onerror="this.style.display='none';">
             `;
         badge.className = `league-badge ${leagueClass} inline-block`;
     } catch (e) {
-        
+
     }
 }
 
@@ -431,7 +495,7 @@ function displayEarnings() {
 
             if (!isFinite(networkTotalGH) || networkTotalGH <= 0) continue;
 
-            if ((currentMode === 'usd' || currentMode === 'try') && info.isGameToken) continue;
+            if ((currentMode === 'usd' || currentMode === 'eur') && info.isGameToken) continue;
 
             let userShare = 0;
             let isWhale = false;
@@ -470,10 +534,10 @@ function displayEarnings() {
             }
 
             if (currentMode === 'crypto' || info.isGameToken) {
-                perBlockDisplay = `${formatNumber(earningsPerBlock, null, true, 'crypto', crypto)} ${info.name}`;
-                dailyDisplay = `${formatNumber(earningsPerDay, null, false, 'crypto', crypto)} ${info.name}`;
-                weeklyDisplay = `${formatNumber(earningsPerWeek, null, false, 'crypto', crypto)} ${info.name}`;
-                monthlyDisplay = `${formatNumber(earningsPerMonth, null, false, 'crypto', crypto)} ${info.name}`;
+                perBlockDisplay = `${formatCryptoAmount(earningsPerBlock, crypto)} ${info.name}`;
+                dailyDisplay = `${formatCryptoAmount(earningsPerDay, crypto)} ${info.name}`;
+                weeklyDisplay = `${formatCryptoAmount(earningsPerWeek, crypto)} ${info.name}`;
+                monthlyDisplay = `${formatCryptoAmount(earningsPerMonth, crypto)} ${info.name}`;
             } else if (currentMode === 'usd') {
                 if (cryptoPrices[crypto]?.usd && cryptoPrices[crypto].usd > 0) {
                     const usdPrice = cryptoPrices[crypto].usd;
@@ -482,23 +546,23 @@ function displayEarnings() {
                     weeklyDisplay = `$${formatNumber(earningsPerWeek * usdPrice, null, false, 'usd')}`;
                     monthlyDisplay = `$${formatNumber(earningsPerMonth * usdPrice, null, false, 'usd')}`;
                 } else {
-                    perBlockDisplay = dailyDisplay = weeklyDisplay = monthlyDisplay = 'Çekim Yok!';
+                    perBlockDisplay = dailyDisplay = weeklyDisplay = monthlyDisplay = 'N/A';
                 }
             } else {
-                if (cryptoPrices[crypto]?.try && cryptoPrices[crypto].try > 0) {
-                    const tryPrice = cryptoPrices[crypto].try;
-                    perBlockDisplay = `${formatNumber(earningsPerBlock * tryPrice, null, false, 'try')}₺`;
-                    dailyDisplay = `${formatNumber(earningsPerDay * tryPrice, null, false, 'try')}₺`;
-                    weeklyDisplay = `${formatNumber(earningsPerWeek * tryPrice, null, false, 'try')}₺`;
-                    monthlyDisplay = `${formatNumber(earningsPerMonth * tryPrice, null, false, 'try')}₺`;
+                if (cryptoPrices[crypto]?.eur && cryptoPrices[crypto].eur > 0) {
+                    const eurPrice = cryptoPrices[crypto].eur;
+                    perBlockDisplay = `€${formatNumber(earningsPerBlock * eurPrice, null, false, 'eur')}`;
+                    dailyDisplay = `€${formatNumber(earningsPerDay * eurPrice, null, false, 'eur')}`;
+                    weeklyDisplay = `€${formatNumber(earningsPerWeek * eurPrice, null, false, 'eur')}`;
+                    monthlyDisplay = `€${formatNumber(earningsPerMonth * eurPrice, null, false, 'eur')}`;
                 } else if (cryptoPrices[crypto]?.usd && cryptoPrices[crypto].usd > 0 && eurToUsdRate > 0) {
-                    const tryPrice = cryptoPrices[crypto].usd / eurToUsdRate;
-                    perBlockDisplay = `${formatNumber(earningsPerBlock * tryPrice, null, false, 'try')}₺`;
-                    dailyDisplay = `${formatNumber(earningsPerDay * tryPrice, null, false, 'try')}₺`;
-                    weeklyDisplay = `${formatNumber(earningsPerWeek * tryPrice, null, false, 'try')}₺`;
-                    monthlyDisplay = `${formatNumber(earningsPerMonth * tryPrice, null, false, 'try')}₺`;
+                    const eurPrice = cryptoPrices[crypto].usd / eurToUsdRate;
+                    perBlockDisplay = `€${formatNumber(earningsPerBlock * eurPrice, null, false, 'eur')}`;
+                    dailyDisplay = `€${formatNumber(earningsPerDay * eurPrice, null, false, 'eur')}`;
+                    weeklyDisplay = `€${formatNumber(earningsPerWeek * eurPrice, null, false, 'eur')}`;
+                    monthlyDisplay = `€${formatNumber(earningsPerMonth * eurPrice, null, false, 'eur')}`;
                 } else {
-                    perBlockDisplay = dailyDisplay = weeklyDisplay = monthlyDisplay = 'Çekim Yok!';
+                    perBlockDisplay = dailyDisplay = weeklyDisplay = monthlyDisplay = 'N/A';
                 }
             }
 
@@ -506,7 +570,7 @@ function displayEarnings() {
                 const wt = calculateWithdrawalTime(earningsPerDay, withdrawalMinimums[crypto]);
                 withdrawalDisplay = `<span class="withdrawal-time ${wt.class}">${wt.text}</span>`;
             } else {
-                withdrawalDisplay = '<span class="text-gray-500">Çekim Yok!</span>';
+                withdrawalDisplay = '<span class="text-gray-500">N/A</span>';
             }
 
             const row = document.createElement('tr');
@@ -514,7 +578,12 @@ function displayEarnings() {
 
             const networkValue = networkPower.value;
             const networkUnit = networkPower.unit;
-            let networkDisplay = `${formatNumber(networkValue, null, false, 'crypto')} ${networkUnit}`;
+            let networkDisplay = `${parseFloat(networkValue.toFixed(3))} ${renderNetworkUnit(networkUnit)}`;
+
+            function renderNetworkUnit(unit) {
+                unit = unit.replace(/\/s/i, '');
+                return unit.charAt(0).toUpperCase() + "h/s";
+            }
 
             row.innerHTML = `
                 <td class="p-4"><div class="earnings-number" style="color: white; text-align: center;">${networkDisplay}</div></td>
@@ -536,7 +605,7 @@ function displayEarnings() {
         if (calcNotice) {
             const noticeText = document.getElementById('calcNoticeText');
             if (networkMode === 'total' && hasWhaleWarning) {
-                noticeText.innerHTML = "<strong>UYARI</strong> Kazanç oranların senin kazım gücüne göre fazla göstermektedir. Lütfen kazım gücünü doğru şekilde giriniz..";
+                noticeText.innerHTML = "<strong>Whale detected!</strong> Your power exceeds the pasted network. If you pasted the <em>rest of the network</em> (excluding yourself), switch to 'EXCLUDE ME' for accurate calculations.";
                 calcNotice.classList.remove('hidden');
             } else if (networkMode === 'rest') {
                 noticeText.innerHTML = "<strong>Exclude Me Active:</strong> The pasted network does not include your power. Using P/(P + Network).";
@@ -566,7 +635,7 @@ function displayEarnings() {
                 <td class="p-4 font-bold" colspan="7">
                     <div class="text-center">
                         <span class="earnings-number" style="color: white;">
-                            Toplam: ${formatNetworkPower(totalNetworkGH)}
+                            TOTAL: ${formatNetworkPower(totalNetworkGH)}
                         </span>
                     </div>
                 </td>
@@ -604,7 +673,7 @@ function updateUserLeagueRewards() {
     let html = '';
 
     Object.entries(rewards).forEach(([coin, amount]) => {
-        const displayAmount = formatRewardAmount(amount);
+        const displayAmount = formatCryptoAmount(amount, coin);
         const blockTime = formatBlockTime(blockTimes[coin] || 10);
 
         const networkUrl = getCryptoNetworkUrl(coin);
@@ -626,34 +695,35 @@ function updateUserLeagueRewards() {
     userRewardsList.innerHTML = html;
 }
 
-function formatRewardAmount(amount) {
-    if (isNaN(amount) || amount == null) return '0';
-
-    if (amount % 1 === 0) {
-        return amount.toString();
-    }
-
-    let formatted;
-    if (amount >= 1) {
-        formatted = amount.toFixed(6);
-    } else if (amount >= 0.01) {
-        formatted = amount.toFixed(6);
-    } else if (amount >= 0.0001) {
-        formatted = amount.toFixed(8);
-    } else {
-        formatted = amount.toFixed(8);
-    }
-
-    return parseFloat(formatted).toString();
+function formatCryptoAmount(amount, crypto) {
+    const decimalsByCrypto = {
+        "RLT": 6,
+        "RST": 6,
+        "HMT": 6,
+        "XRP": 6,
+        "ALGO": 6,
+        "TRX": 8,
+        "DOGE": 4,
+        "BTC": 10,
+        "ETH": 8,
+        "BNB": 8,
+        "POL": 8,
+        "SOL": 8,
+        "LTC": 8
+    };
+    let decimals = decimalsByCrypto[crypto] ?? 8;
+    let value = Number(amount).toFixed(decimals);
+    value = value.replace(/\.?0+$/, "");
+    return value;
 }
 
 function formatBlockTime(timeInMinutes) {
     if (!timeInMinutes || timeInMinutes <= 0) return '<img src="icons/clock.png" alt="clock" class="clock-icon">10m 0s';
-    
+
     const totalSeconds = Math.round(timeInMinutes * 60);
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
-    
+
     return `<img src="icons/clock.png" alt="clock" class="clock-icon">${minutes}m ${seconds}s`;
 }
 
@@ -669,7 +739,7 @@ function initializeSecretButton() {
     if (secretButton && secretOverlay && countdown) {
         const audio = new Audio('secret.mp3');
         audio.preload = 'auto';
-        
+
         let countdownInterval = null;
 
         secretButton.addEventListener('click', function (e) {
@@ -679,7 +749,7 @@ function initializeSecretButton() {
 
             audio.currentTime = 0;
             audio.play().catch(error => {
-                
+
             });
 
             let count = 3;
@@ -696,7 +766,7 @@ function initializeSecretButton() {
                 } else {
                     clearInterval(countdownInterval);
                     countdownInterval = null;
-                    window.open('https://rchesapla.github.io', '_blank');
+                    window.open('https://minaryganar.com/', '_blank');
                     secretOverlay.classList.add('hidden');
                 }
             }, 1000);
@@ -708,7 +778,7 @@ function initializeSecretButton() {
                     clearInterval(countdownInterval);
                     countdownInterval = null;
                 }
-                
+
                 secretOverlay.classList.add('hidden');
                 audio.pause();
                 audio.currentTime = 0;
@@ -720,23 +790,23 @@ function initializeSecretButton() {
 function updatePricesTable() {
     const tableBody = document.getElementById('pricesTableBody');
     const lastUpdateElement = document.getElementById('pricesLastUpdate');
-    
+
     if (!tableBody) return;
-    
+
     tableBody.innerHTML = '';
-    
+
     const tradableCryptos = Object.entries(cryptoInfo)
         .filter(([crypto, info]) => !info.isGameToken && cryptoPrices[crypto])
         .sort(([a], [b]) => cryptoInfo[a].order - cryptoInfo[b].order);
-    
+
     tradableCryptos.forEach(([crypto, info]) => {
         const prices = cryptoPrices[crypto];
         const usdPrice = prices?.usd || 0;
-        const tryPrice = prices?.try || 0;
-        
+        const eurPrice = prices?.eur || 0;
+
         const row = document.createElement('tr');
         row.className = 'hover:bg-opacity-50 transition-all duration-200';
-        
+
         row.innerHTML = `
             <td class="py-2 px-3">
                 <div class="coin-name-mini">
@@ -745,62 +815,67 @@ function updatePricesTable() {
                 </div>
             </td>
             <td class="py-2 px-3 text-center">
-                <span class="price-value">$${usdPrice ? formatNumber(usdPrice, null, false, 'usd') : 'Çekim Yok!'}</span>
+                <span class="price-value">$${usdPrice ? formatNumber(usdPrice, null, false, 'usd') : 'N/A'}</span>
             </td>
             <td class="py-2 px-3 text-center">
-                <span class="price-value">${tryPrice ? formatNumber(tryPrice, null, false, 'try') : 'Çekim Yok!'}₺</span>
+                <span class="price-value">€${eurPrice ? formatNumber(eurPrice, null, false, 'eur') : 'N/A'}</span>
             </td>
         `;
-        
+
         tableBody.appendChild(row);
     });
-    
+
     if (lastUpdateElement && pricesLastUpdated > 0) {
         const date = new Date(pricesLastUpdated);
         const timeString = date.toLocaleTimeString();
-        lastUpdateElement.innerHTML = `Son güncelleme: ${timeString} | <span class="text-cyan-400">CoinGecko API</span>`;
+        lastUpdateElement.innerHTML = `Last updated: ${timeString} | <span class="text-cyan-400">Data from CoinGecko API</span>`;
     }
 }
 
-function formatWithdrawalAmount(amount) {
-    if (isNaN(amount) || amount == null) return '0';
-    
-    let formatted = parseFloat(amount.toFixed(8)).toString();
-    
-    if (amount % 1 === 0) {
-        return Math.floor(amount).toString();
-    }
-    
-    if (formatted.includes('.')) {
-        formatted = formatted.replace(/\.?0+$/, '');
-    }
-    
-    return formatted;
+function formatWithdrawalAmount(amount, crypto = null) {
+    if (isNaN(amount) || amount === null) return "0";
+    const decimalsByCrypto = {
+        "RLT": 6,
+        "RST": 6,
+        "HMT": 6,
+        "XRP": 6,
+        "ALGO": 6,
+        "TRX": 8,
+        "DOGE": 4,
+        "BTC": 10,
+        "ETH": 8,
+        "BNB": 8,
+        "POL": 8,
+        "SOL": 8,
+        "LTC": 8
+    };
+    let maxDecimals = decimalsByCrypto[crypto] ?? 8;
+    return amount.toFixed(maxDecimals);
 }
 
 function updateWithdrawalsTable() {
     const tableBody = document.getElementById('withdrawalsTableBody');
-    
+
     if (!tableBody || !withdrawalMinimums) return;
-    
+
     tableBody.innerHTML = '';
-    
+
     const cryptosWithWithdrawal = Object.entries(withdrawalMinimums)
         .filter(([crypto]) => cryptoInfo[crypto] && crypto !== 'LTC')
         .sort(([a], [b]) => cryptoInfo[a].order - cryptoInfo[b].order);
-    
+
     cryptosWithWithdrawal.forEach(([crypto, minAmount]) => {
         const info = cryptoInfo[crypto];
         const prices = cryptoPrices[crypto];
         const usdPrice = prices?.usd || 0;
-        const tryPrice = prices?.try || (usdPrice && eurToUsdRate > 0 ? usdPrice / eurToUsdRate : 0);
-        
+        const eurPrice = prices?.eur || (usdPrice && eurToUsdRate > 0 ? usdPrice / eurToUsdRate : 0);
+
         const usdValue = usdPrice > 0 ? minAmount * usdPrice : 0;
-        const tryValue = tryPrice > 0 ? minAmount * tryPrice : 0;
-        
+        const eurValue = eurPrice > 0 ? minAmount * eurPrice : 0;
+
         const row = document.createElement('tr');
         row.className = 'hover:bg-opacity-50 transition-all duration-200';
-        
+
         row.innerHTML = `
             <td class="py-2 px-3">
                 <div class="coin-name-mini">
@@ -809,24 +884,24 @@ function updateWithdrawalsTable() {
                 </div>
             </td>
             <td class="py-2 px-3 text-center">
-                <span class="withdrawal-value">${formatWithdrawalAmount(minAmount)}</span>
+                <span class="withdrawal-value">${formatCryptoAmount(minAmount, crypto)}</span>
             </td>
             <td class="py-2 px-3 text-center">
-                <span class="price-value">$${usdValue > 0 ? formatNumber(usdValue, null, false, 'usd') : 'Çekim Yok!'}</span>
+                <span class="price-value">$${usdValue > 0 ? formatNumber(usdValue, null, false, 'usd') : 'N/A'}</span>
             </td>
             <td class="py-2 px-3 text-center">
-                <span class="price-value">${tryValue > 0 ? formatNumber(tryValue, null, false, 'try') + '₺' : 'Çekim Yok!'}</span>
+                <span class="price-value">${eurValue > 0 ? '€' + formatNumber(eurValue, null, false, 'eur') : 'N/A'}</span>
             </td>
         `;
-        
+
         tableBody.appendChild(row);
     });
-    
+
     if (cryptoInfo['LTC']) {
         const info = cryptoInfo['LTC'];
         const row = document.createElement('tr');
         row.className = 'hover:bg-opacity-50 transition-all duration-200';
-        
+
         row.innerHTML = `
             <td class="py-2 px-3">
                 <div class="coin-name-mini">
@@ -835,18 +910,18 @@ function updateWithdrawalsTable() {
                 </div>
             </td>
             <td class="py-2 px-3 text-center coming-soon-withdrawal" colspan="3">
-                Çekim Yok!
+                Withdrawable Soon
             </td>
         `;
-        
+
         tableBody.appendChild(row);
     }
-	
+
     if (cryptoInfo['ALGO']) {
         const info = cryptoInfo['ALGO'];
         const row = document.createElement('tr');
         row.className = 'hover:bg-opacity-50 transition-all duration-200';
-        
+
         row.innerHTML = `
             <td class="py-2 px-3">
                 <div class="coin-name-mini">
@@ -855,13 +930,118 @@ function updateWithdrawalsTable() {
                 </div>
             </td>
             <td class="py-2 px-3 text-center coming-soon-withdrawal" colspan="3">
-                Çekim Yok!
+                Withdrawable Soon
             </td>
         `;
-        
+
         tableBody.appendChild(row);
     }
 }
+
+function initializeLeagueModal() {
+    const changeLeagueBtn = document.getElementById('changeLeagueBtn');
+    const leagueModal = document.getElementById('leagueModal');
+    const closeModalBtn = document.getElementById('closeLeagueModal');
+    const cancelBtn = document.getElementById('leagueModalCancel');
+    const autoOption = document.getElementById('autoLeagueOption');
+    const leagueOptions = document.querySelectorAll('.league-option-card');
+
+    if (!changeLeagueBtn || !leagueModal) return;
+
+    changeLeagueBtn.addEventListener('click', function () {
+        leagueModal.classList.remove('hidden');
+
+        updateAutoLeagueDisplay();
+
+        if (leagueMode === 'auto') {
+            autoOption?.classList.add('selected');
+        } else {
+            autoOption?.classList.remove('selected');
+        }
+
+        leagueOptions.forEach(opt => {
+            const leagueName = opt.dataset.league;
+            if (leagueMode === 'manual' && leagueName === manualLeagueName) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    });
+
+    function closeModal() {
+        leagueModal.classList.add('hidden');
+    }
+
+    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+    if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+
+    leagueModal.addEventListener('click', function (e) {
+        if (e.target === leagueModal) closeModal();
+    });
+
+    if (autoOption) {
+        autoOption.addEventListener('click', function () {
+            leagueMode = 'auto';
+            manualLeagueName = null;
+            saveLeaguePreferences();
+            updateLeagueModeButton();
+            updateLeagueFromPower();
+            calculateEarnings();
+            closeModal();
+        });
+    }
+
+    leagueOptions.forEach(opt => {
+        opt.addEventListener('click', function () {
+            const selectedLeague = this.dataset.league;
+            leagueMode = 'manual';
+            manualLeagueName = selectedLeague;
+            saveLeaguePreferences();
+            updateLeagueModeButton();
+
+            const manualLeagueObj = leagues.find(l => l.name === selectedLeague);
+            if (manualLeagueObj) {
+                currentLeague = manualLeagueObj;
+                updateLeagueBadge(manualLeagueObj.name, manualLeagueObj.class);
+                updateUserLeagueRewards();
+                calculateEarnings();
+            }
+
+            closeModal();
+        });
+    });
+}
+
+function updateAutoLeagueDisplay() {
+    const autoLeagueIcon = document.getElementById('autoLeagueIcon');
+    const autoLeagueText = document.getElementById('autoLeagueText');
+
+    if (!autoLeagueIcon || !autoLeagueText) return;
+
+    const powerInput = document.getElementById('miningPower');
+    const unitSelect = document.getElementById('powerUnit');
+
+    let detectedLeague = { name: 'BRONZE I', class: 'bronze' };
+
+    if (powerInput && unitSelect) {
+        const power = parseFloat(powerInput.value);
+        const unit = unitSelect.value;
+
+        if (power && power > 0 && !isNaN(power)) {
+            const powerGH = convertToGH(power, unit);
+            detectedLeague = getLeagueForPower(powerGH);
+        }
+    }
+
+    const detectedLeagueImage = getLeagueImagePath(detectedLeague.name);
+    autoLeagueIcon.src = detectedLeagueImage;
+    autoLeagueIcon.alt = detectedLeague.name;
+
+    autoLeagueText.innerHTML = `Currently: <span class="text-cyan-300 font-semibold">${detectedLeague.name}</span> · Auto-detected by power`;
+}
+
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const tooltipContainers = document.querySelectorAll('.tooltip-container');
@@ -903,6 +1083,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     try {
         await loadConfig();
 
+        loadLeaguePreferences();
+        updateLeagueModeButton();
+
         const miningPowerInput = document.getElementById('miningPower');
         const powerUnitSelect = document.getElementById('powerUnit');
         const networkDataTextarea = document.getElementById('networkData');
@@ -926,15 +1109,29 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
 
         if (networkDataTextarea) {
-            networkDataTextarea.addEventListener('input', function() {
+            networkDataTextarea.addEventListener('input', function () {
                 saveUserData();
                 calculateEarnings();
             });
         }
 
+        if (networkDataTextarea) {
+            networkDataTextarea.addEventListener('paste', function () {
+                setTimeout(function () {
+                    const earningsTableCard = document.querySelector('.rollercoin-card.p-6.mb-6');
+                    if (earningsTableCard) {
+                        earningsTableCard.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }, 150);
+            });
+        }
+
         const btnCrypto = document.getElementById('btnCrypto');
         const btnUSD = document.getElementById('btnUSD');
-        const btnTRY = document.getElementById('btnTRY');
+        const btnEUR = document.getElementById('btnEUR');
 
         if (btnCrypto) {
             btnCrypto.addEventListener('click', function () {
@@ -954,9 +1151,9 @@ document.addEventListener('DOMContentLoaded', async function () {
             });
         }
 
-        if (btnTRY) {
-            btnTRY.addEventListener('click', function () {
-                currentMode = 'try';
+        if (btnEUR) {
+            btnEUR.addEventListener('click', function () {
+                currentMode = 'eur';
                 document.querySelectorAll('.currency-toggle-btn').forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
                 displayEarnings();
@@ -988,6 +1185,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             });
         }
 
+        initializeLeagueModal();
+
         initializeSecretButton();
         updateLeagueFromPower();
         initializePriceUpdates();
@@ -998,7 +1197,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         const noData = document.getElementById('noDataMessage');
         if (noData) {
             noData.style.display = 'block';
-            noData.textContent = 'Sistem yüklenemedi biraz bekleyin veyahut site sahibine mesaj atınız.';
+            noData.textContent = 'Error (JSON).';
         }
     }
 });
