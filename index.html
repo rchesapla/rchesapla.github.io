@@ -895,11 +895,11 @@ color: white;
 <div ng-if="formData.showMiners" class="">
 
 <article>
-<div class="card-fc my-2">
+<div class="card-fc">
 <h6 class="card-header">MADENCİLERİM</h6>
 <div class="card-body">
 <!--===============================================================================================-->
-<div class="row my-1">
+<div class="row">
 <span class="label">Miner Adı:</span>
 <div class="input-container">
 <input type="text" class="input-field" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Örn: YMCA">
@@ -915,42 +915,23 @@ color: white;
 </select>
 </div>
 </div>
-
-<!--===============================================================================================-->
-<div class="şiş">
-<div class="row my-1">
-<label><span class="label">Minimum Güç: (GH/s)</span></label>
-<div class="- - -">
-<input placeholder="1" class="input-field" ng-model="userMinerMinPowerSearch" type="text" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
-</div>
-</div>
-</div>
-<!--===============================================================================================-->
-<div class="şiş">
-<div class="row my-1">
-<label><span class="label">Maksimum Güç: (GH/s)</span></label>
-<div class="- - -">
-<input placeholder="999999999" class="input-field" ng-model="userMinerMaxPowerSearch" type="text" ng-change="filterUserMiners(userMinerNameSearch, userMinersRarity, {min:userMinerMinBonusSearch, max:userMinerMaxBonusSearch}, userMinerNegotiableStatus, userMinerMinPowerSearch, userMinerMaxPowerSearch, userMinerCells, userMinerDuplicate)">
-</div>
-</div>
-</div>
 <!--===============================================================================================-->
 </div>
 </div>
 </article>
  
 <div ng-if="formData.showMiners">
+
+<div class="card-fc my-2 özelfont">
+<h6 class="card-header">MADENCİ SAYISI: {{visible_user_miners.length}}</h6>
+</div>
+
 <table class="">
 <thead class="madencilerim">
 <tr>
-<th colspan="6" style="text-align: center">
-MADENCİ SAYISI: {{visible_user_miners.length}}
-</th>
-</tr>
-<tr>
 <th fatihcelik="PROFİL" style="text-align: center">
 <a href="#" ng-click="orderByuserMinersField='filename'; reverseuserMinersSort = !reverseuserMinersSort ; $event.preventDefault();">
-ADI
+MINER
 <span ng-show="orderByuserMinersField == 'filename'">
 <span ng-show="!reverseMinersSort">
 <i class="fa fa-fw fa-sort-asc"></i>
@@ -1036,8 +1017,12 @@ color: white;
 </tr>
 </tbody>
 </table>
+<p style="text-align: center">
 <ul uib-pagination first-text="İlk Sayfa" previous-text="Önceki" last-text="Son Sayfa" next-text="Sonraki Sayfa" total-items="visible_user_miners.length" ng-model="userMinersCurrentPage" max-size="5" class="pagination-sm" items-per-page="userMinersItemsPerPage" boundary-links="true" num-pages="numPages2"></ul>
+</p>
 </div>
+
+<h6 class="card-header head text-center"></h6>
 </div>
 <!--===============================================================================================-->
 </div>
