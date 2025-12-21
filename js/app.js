@@ -340,7 +340,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         }
 
         if(dias === Number.MAX_SAFE_INTEGER) {
-            return "Çekim yok!";
+            return "0";
         }
 
         const diasPorAno = 365;
