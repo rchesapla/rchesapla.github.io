@@ -459,9 +459,6 @@ PARA ÇEKİMİ
 </div>
 <thead>
 <tr class="deneme">
-<th style="text-align: center" rowspan="2" colspan="2">
-COIN
-</th>
 <th style="text-align: center" colspan="3">
 GÜNLÜK
 </th>
@@ -540,9 +537,6 @@ $
 </thead>
 <tbody class="allocated-farm">
 <tr ng-repeat="currency in filteredCurrencies = (currencies | filter:filterFn | orderBy:orderByFarmField:reverseSort)" id="bestCoinTable">
-<td fatihcelik="COIN" colspan="2">
-{{currency.name}}
-</td>
 <td fatihcelik="GÜNLÜK" colspan="1">{{currency.user_alocated_power_day_profit_in_cripto}} {{currency.name}}</td>
 <td fatihcelik="$" colspan="1">${{currency.user_alocated_power_day_profit_in_usd}}</td>
 <td fatihcelik="₺" colspan="1">{{currency.user_alocated_power_day_profit_in_try}}₺</td>
