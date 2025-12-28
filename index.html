@@ -54,6 +54,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5"></script>
+<script src="https://kit.fontawesome.com/15ed6ea9e5.js" crossorigin="anonymous"></script>
 <!--===============================================================================================-->
 <script src="https://wminerrc.github.io/calculator/data/basic_miners.js"></script>
 <script src="https://wminerrc.github.io/calculator/data/merge_miners.js"></script>
@@ -113,26 +114,6 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </div>
 
 <div class="main-content">
-<div class="container-convert col-12 col-md-10">
-<div class="card-fc my-2">
-<!--===============================================================================================-->
-<h6 class="card-header">
-
-</h6>
-<!--===============================================================================================-->
-<div class="card-body"><center>
-<h1 class="siteadı">RCHesapla</h1>
-<p class="açıklama">Kişisel kazım gücünü hesapla!</p>
-<div id="cntdwn" class="orta"></div>
-<!--===============================================================================================-->
-<!--p><div class="açıklama" id="clock"></div></p-->
-<!--===============================================================================================-->
-</center>
-</div>
-<h6 class="card-header"></h6>
-</div>
-</div>
-<!--===============================================================================================-->
 <section class="container">
 <div class="row">
 <!--===============================================================================================-->
@@ -145,16 +126,12 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!--===============================================================================================-->
 <center>
 
-<center>
-<a class="fc_mobil" href="https://hashup.cc/?ref=118707" target="_blank"><img class="fc_mobil" src="https://hashup.cc/images/HU-468.gif?v=2"></a>
-</center>
-
 </center>
 <!--===============================================================================================-->
 <div class="row">
 <article class="col-md-4">
 <div class="card-fc my-2 özelfont">
-<div class="card-header">KAZIM BİLGİLERİNİZ</div>
+<div class="card-header">ROLLERCOIN KAZIM BİLGİLERİ</div>
 <div class="card-body">
 <!--===============================================================================================-->
 <div style="text-align: center">
@@ -193,9 +170,6 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </span>
 </span>
 </button>
-
-<!--label ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()" class="btn"><i class="fa-solid fa-coins"></i> En İyi Kazanç</label-->
-
 <div class="checkbox-group" ng-if="isLoadedUser">
   <input type="checkbox" id="checkbox1" ng-model="formData.showMiners" name="show_miners">
   <label for="checkbox1">Minerlarım</label>
@@ -203,14 +177,6 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
   <input type="checkbox" id="checkbox2" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners">
   <label for="checkbox2">Miner Listesi</label>
 </div>
-
-<!--div id="inputPreview" ng-if="isLoadedUser">
-<input name="cssCheckbox" id="demo_opt_1" type="checkbox" class="css-checkbox" ng-model="formData.showMiners" name="show_miners">
-<label for="demo_opt_1">Minerlarım</label>
-<input name="cssCheckbox" id="demo_opt_2" type="checkbox" class="css-checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners">
-<label for="demo_opt_2">Miner Listesi</label>
-</div-->
-
 </div>
 </div>
 <!--===============================================================================================-->
@@ -319,7 +285,7 @@ class="input-field"/>
 <table class="ss">
 <thead>
 <tr class="- - -">
-<div class="card-header">PROFİL BİLGİLERİ</div>
+<div class="card-header"><i class="fa-regular fa-address-card"></i> PROFİL BİLGİLERİ <i class="fa-regular fa-address-card"></i></div>
 </tr>
 <tr class="deneme" class="- - -">
 <th style="text-align: center" class="- - -">
@@ -401,26 +367,19 @@ BONUS GÜCÜ
 </tr>
 </tbody>
 </table>
-<!--===============================================================================================-->
-<center>
-
-</center>
-<!--===============================================================================================-->
 </div>
-<table ng-if="formData.currency">
+<!--===============================================================================================-->
+<div ng-if="formData.currency">
+<table>
+<div class="card-header"><i class="fa-solid fa-chart-line"></i> COIN KAZANÇ İSTATİSTİKLERİ <i class="fa-solid fa-chart-line"></i></div>
 <thead>
-<tr class="- - -">
-<th class="card-header" style="text-align: center" colspan="17">
-KRİPTO KAZANÇ İSTATİSTİKLERİ
-</th>
-</tr>
 <tr ng-hide="formData.currency.in_game_only" class="- - -" class="deneme">
 <th style="text-align: center" colspan="2">1 {{formData.currency.name}} = ${{exchangeRates[formData.currency.name]['usd']}}</th>
 <th style="text-align: center" colspan="2">1 {{formData.currency.name}} = {{exchangeRates[formData.currency.name]['try']}}₺</th>
 </tr>
 <tr class="deneme">
 <th style="text-align:center;">GÜNLER</th>
-<th style="text-align:center;">KRİPTO</th>
+<th style="text-align:center;">COIN</th>
 <th style="text-align:center;" ng-hide="formData.currency.in_game_only">$</th>
 <th style="text-align:center;" ng-hide="formData.currency.in_game_only">₺</th>
 </tr>
@@ -458,14 +417,12 @@ KRİPTO KAZANÇ İSTATİSTİKLERİ
 </tr>
 </tbody>
 </table>
+</div>
 <!--===============================================================================================-->
-<table ng-if="!formData.currency" class="- - -" style="text-align: center">
+<div ng-if="!formData.currency">
+<table class="- - -" style="text-align: center">
+<div class="card-header"><i class="fa-solid fa-chart-line"></i> GENEL KAZANÇ İSTATİSTİKLERİ <i class="fa-solid fa-chart-line"></i></div>
 <thead>
-<tr class="- - -">
-<th class="card-header" style="text-align: center" colspan="20">
-GENEL KAZANÇ İSTATİSTİKLERİ
-</th>
-</tr>
 <tr class="deneme" class="- - -">
 <th style="text-align: center" rowspan="2" colspan="2">
 COIN
@@ -490,28 +447,17 @@ PARA ÇEKİMİ
 </tr>
 </tbody>
 </table>
-
+</div>
 <!--===============================================================================================-->
-<table ng-if="!formData.currency && getCurrenciesSum('user_alocated_power')> 0" class="- - -">
-<thead>
-<tr>
-<th class=" card-header" style="text-align: center" colspan="22">
-EN İYİ KAZANÇ
+<div ng-if="!formData.currency && getCurrenciesSum('user_alocated_power')> 0">
+<table class="- - -">
+<div class="card-header"><i class="fa-solid fa-coins"></i> EN İYİ KAZANÇ İSTATİSTİKLERİ <i class="fa-solid fa-coins"></i>
 
 <button class="blob-btn" ng-click="resetAlocatedPower()">
-<span><i class="fa-solid fa-coins"></i> Temizle <i class="fa fa-trash"></i></span>
-<span class="blob-btn__inner">
-<span class="blob-btn__blobs">
-<span class="blob-btn__blob"></span>
-<span class="blob-btn__blob"></span>
-<span class="blob-btn__blob"></span>
-<span class="blob-btn__blob"></span>
-</span>
-</span>
+<span><i class="fa fa-trash"></i></span>
 </button>
-
-</th>
-</tr>
+</div>
+<thead>
 <tr class="deneme">
 <th style="text-align: center" rowspan="2" colspan="2">
 COIN
@@ -609,6 +555,8 @@ $
 </tr>
 </tbody>
 </table>
+</div>
+<!--===============================================================================================-->
 <div ng-if="customMiners.length > 0" class="">
 <table class="">
 <thead>
