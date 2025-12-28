@@ -292,82 +292,13 @@ class="input-field"/>
 </div>
 </div>
 <!--===============================================================================================-->
-<!--div class="profile-box">
-<div class="profile-label">🔗 Kalıcı profil adresi:</div>
-<div class="profile-link-container">
-<span class="profile-url">https://rollercoin.com/p/FthCLK</span>
-<a href="https://rollercoin.com/profile/personal-profile" target="_blank" class="change-link">Nasıl Öğrenirim?</a>
-</div>
-</div-->
-<!--===============================================================================================-->
 <div class="input-field-container" ng-show="playerSearchNoResults" style="text-align: center">
-<i class="fa-solid fa-ban"></i> Oyuncu bulunamadı!
+<i class="fa-solid fa-ban"></i> Böyle bir kullanıcı adı bulunmuyor lüften kontrol ediniz.!
 </div>
-<!--div class="input-field-container" style="text-align: center">
-<p><i class="fa-solid fa-circle-info"></i> En iyi kazanç hesaplama yapabilmeniz için lütfen kripto seç bölümünü genel hesaplama yapınız.</p>
-</div-->
-<!--===============================================================================================-->
-<!--div ng-if="isLoadedUser">
-<label class="checkbox-wrapper">
-<input type="checkbox" ng-model="formData.showMiners" name="show_miners"/>
-<div class="checkmark">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-<path
-d="M20 6L9 17L4 12"
-stroke-width="3"
-stroke-linecap="round"
-stroke-linejoin="round"
-></path>
-</svg>
-</div>
-<span class="label">Madencilerim</span>
-</label>
-</div-->
-<!--===============================================================================================-->
-<!--div class="" style="text-align: center">
-<div class="form-inline" style="text-align: center">
-<button class="btn" ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa-solid fa-user-xmark"></i> Beni Unut</button>
-<button class="btn" ng-click="resetValues()"><i class="fa-solid fa-coins"></i> Verileri Güncelle</button>
-<button class="btn best-coin animated-button" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"><i class="fa-solid fa-coins"></i> En İyi Kazanç</button>
-<button class="btn best-coin animated-button" ng-disabled="!isLoadedUser" ng-click="bestBuys()"><i class="fas fa-shopping-cart"></i> Miner Listesi</button>
-<button class="btn" ng-if="hasAnyAllocatedPower()" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i> Kazanç Temizle</button>
-</div>
-</div-->
-<!--===============================================================================================-->
-<!--div class="uv-checkbox-wrapper" ng-if="isLoadedUser">
-<input type="checkbox" id="uv-checkbox" class="uv-checkbox" ng-model="keepUser" ng-change="updateKeepUser(keepUser)" name="keep_user"/>
-<label for="uv-checkbox" class="uv-checkbox-label">
-<div class="uv-checkbox-icon">
-<svg viewBox="0 0 24 24" class="uv-checkmark">
-<path d="M4.1,12.7 9,17.6 20.3,6.3" fill="none"></path>
-</svg>
-</div>
-<span class="uv-checkbox-text">Beni hatırla!</span>
-</label>
-</div-->
 <!--===============================================================================================-->
 </div>
 <h6 class="card-header head text-center"></h6>
 </div>
-
-<!--div class="window">
-  <h1> Bitácora Espacial: NeoUpload</h1>
-  <h2>Hora Galáctica: 16:13 | Sistema Solar: Sector Orion-7</h2>
-  <p>
-    Iniciando protocolo de tranferencia de datos.
-    Este modulo de carga está blindado con encriptación cuántica
-    y diseñado para infiltaciones seguras en redes interplanetarias.
-    Selecciona tu archivo y lánzalo al vacio digital:
-    el botón <span>Upload Files</span> abrirá el canal hacia la matriz central.
-    Recuerda: cada byte que subas quedara registrado en la cronica de los navegantes del cosmos.
-  </p>
-
-  <div>
-    <label for="file-input" class="btn">Upload File</label>
-    <input type="file" class="input-hidden" id="file-input">
-      
-  </div>
-</div-->
 <!--===============================================================================================-->
 <center>
 
@@ -566,12 +497,18 @@ PARA ÇEKİMİ
 <tr>
 <th class=" card-header" style="text-align: center" colspan="22">
 EN İYİ KAZANÇ
-<!--button class="blob-btn" ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i></button-->
 
-<div class="checkbox-group">
-  <input type="checkbox" id="temizle" ng-click="resetAlocatedPower()">
-  <label for="temizle"><i class="fa fa-trash"></i></label>
-</div>
+<button class="blob-btn" ng-click="resetAlocatedPower()">
+<span><i class="fa-solid fa-coins"></i> Temizle <i class="fa fa-trash"></i></span>
+<span class="blob-btn__inner">
+<span class="blob-btn__blobs">
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+<span class="blob-btn__blob"></span>
+</span>
+</span>
+</button>
 
 </th>
 </tr>
