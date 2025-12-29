@@ -1,14 +1,3 @@
-/*
-NeoUpload: Hacker File Input
-Autor: Carlos Andres Alzate
-
-Estilos para un input de archivos con gradientes, sombras internas (inset),
-efectos hover/active y un look inspirado en interfaces futuristas.
-
-Si lo usas en tu trabajo, agradecer o mencionar al autor es una forma de apoyar
-la comunidad y motivar la creación de más recursos abiertos.
-*/
-
 :root {
   --bg: #0a0f1c;
   --bg-inner: #141b2f;
@@ -91,4 +80,18 @@ la comunidad y motivar la creación de más recursos abiertos.
   color: black;
 }
 
+/* YENİ YIL ŞABLONLU BUTONLAR */
 
+.wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+h1 {
+  font-family: "Mountains of Christmas", cursive;
+  font: 50%;
+  margin-bottom: 2rem;
+  background: red;
+  -webkit-background-clip: text;
+  color: transparent;
+}
