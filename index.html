@@ -948,6 +948,192 @@ color: white;
 <!--===============================================================================================-->
 </div>
 </aside>
+
+<style>
+:root {
+  --bg: #0b1020;
+  --panel: #0f1630;
+  --card: #111a3a;
+  --border: #1e2a5a;
+  --accent: #00e5ff;
+  --text: #e6ecff;
+  --muted: #8fa3ff;
+}
+
+/* Main Container */
+.containertest {
+  max-width: 1200px;
+  margin: auto;
+  background: linear-gradient(180deg, #10183a, #0a0f22);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 0 40px rgba(0,229,255,0.05);
+}
+
+/* Header */
+.headertest {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.headertest h2 {
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: var(--accent);
+}
+
+.update {
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+/* League */
+.league {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.badge {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+  background: linear-gradient(145deg, #1a255a, #0e1433);
+}
+
+.league-info h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.league-info span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Rewards Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+/* Reward Card */
+.cardtest {
+  background: linear-gradient(180deg, #121b40, #0d1330);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  position: relative;
+}
+
+.card-headertest {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.coin {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.coin-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #1f2c66;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+}
+
+.timer {
+  font-size: 11px;
+  color: var(--accent);
+  border: 1px solid rgba(0,229,255,0.3);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.amount {
+  font-size: 20px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.link {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.link:hover {
+  background: rgba(0,229,255,0.1);
+}
+</style>
+
+<div class="containertest">
+  <div class="headertest">
+    <h2>PROFİL GENEL BİLGİLER (YAKINDA)</h2>
+  </div>
+
+  <div class="grid">
+    <!-- Card -->
+    <div class="cardtest">
+      <div class="card-headertest">
+        <div class="coin">
+          <div class="coin-icon"><img src="https://avatars.rollercoin.com/static/avatars/thumbnails/48/{{user_data.avatar_id}}.png?v=1652150400524" style="width: 30px; height: 30px; border-radius: 50%; vertical-align: middle; margin-right: 8px;"></div>
+        </div>
+      </div>
+      <div class="amount">{{user_data.name}}</div>
+    </div>
+	<!-- Card -->
+    <div class="cardtest">
+      <div class="card-headertest">
+        <div class="coin">
+          <div class="coin-icon">R</div>
+          RLT
+        </div>
+      </div>
+      <div class="amount">0.54</div>
+    </div>
+	<!-- Card -->
+    <div class="cardtest">
+      <div class="card-headertest">
+        <div class="coin">
+          <div class="coin-icon">R</div>
+          RLT
+        </div>
+      </div>
+      <div class="amount">0.54</div>
+    </div>
+	<!-- Card -->
+  </div>
+</div>
+
 </div>
 <!--===============================================================================================-->
 <div class="col-md-1">
