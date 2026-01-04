@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>YouTube Canlı Abone Sayacı</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    background: transparent;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.counter-box {
+    background: rgba(0,0,0,0.75);
+    border-radius: 20px;
+    padding: 30px 50px;
+    text-align: center;
+    box-shadow: 0 0 40px red;
+}
+
+.title {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.count {
+    font-size: 80px;
+    font-weight: bold;
+    color: #ff0000;
+    transition: all 0.5s ease;
+}
+
+.sub {
+    font-size: 14px;
+    opacity: 0.7;
+}
+</style>
+</head>
+
+<body>
+
+<div class="counter-box">
+    <div class="title">YouTube Aboneler</div>
+    <div id="count" class="count">0</div>
+    <div class="sub">Canlı Güncelleniyor</div>
+</div>
+
+<script>
+/* ===========================
+   AYARLAR
+=========================== */
+const API_KEY = "AIzaSyBRyH1_qHbSOYlNPFaq1OCJp6cTRwrmMzs";
+const CHANNEL_ID = "UCiS4gfhe4kmmgXB4Wny43kQ";
+const UPDATE_INTERVAL = 15000; // 15 sn
+
+let currentCount = 0;
+
+/* ===========================
+   SAYI ANİMASYONU
+=========================== */
+function animateCount(target) {
+    const step = Math.ceil((target - currentCount) / 20);
+    const interval = setInterval(() => {
+        currentCount += step;
+        if ((step > 0 && currentCount >= target) || (step < 0 && currentCount <= target)) {
+            currentCount = target;
+            clearInterval(interval);
+        }
+        document.getElementById("count").innerText =
+            currentCount.toLocaleString("tr-TR");
+    }, 30);
+}
+
+/* ===========================
+   API İLE ÇEK
+=========================== */
+async function fetchSubs() {
+    try {
+        const res = await fetch(
+            `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`
+        );
+        const data = await res.json();
+        const subs = parseInt(data.items[0].statistics.subscriberCount);
+        animateCount(subs);
+    } catch {
+        document.getElementById("count").innerText = "HATA";
+    }
+}
+
+fetchSubs();
+setInterval(fetchSubs, UPDATE_INTERVAL);
+</script>
+
+</body>
+</html>

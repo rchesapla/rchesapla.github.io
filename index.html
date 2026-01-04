@@ -113,8 +113,39 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </div>
 </div>
 <!-- -->
+<div class="user-info">
+<img src="https://images.vexels.com/media/users/3/137425/isolated/preview/f2ea1ded4d037633f687ee389a571086-youtube-icon-logo.png?w=360" style="width: 30px; height: 30px; border-radius: 50%; vertical-align: middle; margin-right: 8px;">
+<div>
+<div class="username">Abone:<div class="açıklama" id="count">Yükleniyor...</div></div>
 </div>
 </div>
+<!-- -->
+</div>
+</div>
+
+<script>
+const API_KEY = "AIzaSyBRyH1_qHbSOYlNPFaq1OCJp6cTRwrmMzs";
+const CHANNEL_ID = "UCiS4gfhe4kmmgXB4Wny43kQ";
+
+async function getSubscriberCount() {
+    const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
+    
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        const subs = data.items[0].statistics.subscriberCount;
+        document.getElementById("count").innerText = Number(subs).toLocaleString("tr-TR");
+    } catch (error) {
+        document.getElementById("count").innerText = "Hata!";
+    }
+}
+
+// İlk yükleme
+getSubscriberCount();
+
+// 10 saniyede bir güncelle (canlıya yakın)
+setInterval(getSubscriberCount, 10000);
+</script>
 
 <div class="main-content">
 <section class="container">
