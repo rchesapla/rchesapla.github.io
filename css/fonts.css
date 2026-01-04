@@ -21,7 +21,8 @@ Rubik Wet Paint
 }
 .siteadı {
 	font-family: var(--siteadı);
-	font-size: 50px;
+	font-size: 20px;
+	color: yellow;
 	}
 .açıklama {
 	font: 15px var(--açıklama);
