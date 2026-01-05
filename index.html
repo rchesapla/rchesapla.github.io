@@ -1063,7 +1063,7 @@ color: white;
 }
 
 .timer {
-  font-size: 11px;
+  font-size: 15px;
   color: var(--accent);
   border: 1px solid rgba(0,229,255,0.3);
   padding: 4px 8px;
@@ -1104,12 +1104,51 @@ color: white;
     <!-- Card -->
     <div class="cardtest">
       <div class="card-headertest">
-        <div class="coin">
-          <div class="coin-icon"><img src="https://avatars.rollercoin.com/static/avatars/thumbnails/48/{{user_data.avatar_id}}.png?v=1652150400524" style="width: 30px; height: 30px; border-radius: 50%; vertical-align: middle; margin-right: 8px;"></div>
-        </div>
         <div class="timer">RC Kul. Adı</div>
       </div>
       <div class="amount">{{user_data.name}}</div>
+    </div>
+	<!-- Card -->
+    <div class="cardtest">
+      <div class="card-headertest">
+        <div class="timer">Oyun Gücü</div>
+      </div>
+      <div class="amount">{{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').unit}}</div>
+    </div>
+	<!-- Card -->
+    <div class="cardtest">
+      <div class="card-headertest">
+        <div class="timer">Mıner Gücü</div>
+      </div>
+      <div class="amount">{{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').unit}}</div>
+    </div>
+	<!-- Card -->
+    <div class="cardtest">
+      <div class="card-headertest">
+        <div class="timer">Raf Gücü</div>
+      </div>
+      <div class="amount">{{chooseBestHashRateUnit(user_data.powerData.racks, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.racks, 'GH/s').unit}}</div>
+    </div>
+	<!-- Card -->
+    <div class="cardtest">
+      <div class="card-headertest">
+        <div class="timer">Geçici Gücü</div>
+      </div>
+      <div class="amount">{{chooseBestHashRateUnit(user_data.powerData.temp, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.temp, 'GH/s').unit}}</div>
+    </div>
+	<!-- Card -->
+    <div class="cardtest">
+      <div class="card-headertest">
+        <div class="timer">Bonus Oranı</div>
+      </div>
+      <div class="amount">{{(user_data.powerData.bonus_percent / 100)}}%</div>
+    </div>
+	<!-- Card -->
+    <div class="cardtest">
+      <div class="card-headertest">
+        <div class="timer">Toplam Gücü</div>
+      </div>
+      <div class="amount">{{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').unit}}</div>
     </div>
 	<!-- Card -->
   </div>
