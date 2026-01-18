@@ -13,7 +13,7 @@ Rubik Wet Paint
 :root {
   --siteadı: Rubik Wet Paint, sans-serif;
   --açıklama: Tektur, sans-serif;
-  --labelbaşlık: Tektur, sans-serif;
+  --labelbaşlık: Russo One, sans-serif;
   --card-header: Russo One, sans-serif;
   --card-body: Tektur, sans-serif;
   --tablo: Tektur, sans-serif;
@@ -37,7 +37,8 @@ Rubik Wet Paint
 	}
 .labelbaşlık {
 	font-family: var(--labelbaşlık);
-	font-size: 17px !important;
+	font-size: 20px !important;
+	text-shadow: 2px 2px 2px #CE5937;
 	}
 .form-select,
 .form-control {

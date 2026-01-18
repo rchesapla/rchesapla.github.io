@@ -2,4 +2,5 @@ input, select {
 	color: rgb(255, 220, 0);
 	background: #2a2d43;
 	font-family: var(--card-header) !important;
+	padding: 5px;
 }
