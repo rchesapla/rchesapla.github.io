@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@100..900&family=Cutive+Mono&family=Russo+One&family=Tektur:wght@400..900&family=WDXL+Lubrifont+TC&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 /*
 Bitcount Grid Double
@@ -8,12 +9,13 @@ Russo One
 WDXL Lubrifont TC
 Tektur
 Rubik Wet Paint
+Quantico
 */
 
 :root {
   --siteadı: Rubik Wet Paint, sans-serif;
   --açıklama: Tektur, sans-serif;
-  --labelbaşlık: Russo One, sans-serif;
+  --labelbaşlık: Quantico, sans-serif;
   --card-header: Russo One, sans-serif;
   --card-body: Tektur, sans-serif;
   --tablo: Tektur, sans-serif;
@@ -38,7 +40,9 @@ Rubik Wet Paint
 .labelbaşlık {
 	font-family: var(--labelbaşlık);
 	font-size: 20px !important;
-	text-shadow: 2px 2px 2px #CE5937;
+	font-weight: 700;
+	font-style: normal;
+	text-shadow: 1px 1px 1px 1px rgba(255,0,0,0.6);
 	}
 .form-select,
 .form-control {
