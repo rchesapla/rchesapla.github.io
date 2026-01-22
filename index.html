@@ -182,28 +182,13 @@ setInterval(getSubscriberCount, 10000);
 </span>
 </span>
 </button-->
-<button class="blob-btn" ng-click="resetValues()">
+<button class="checkbox-group" ng-click="resetValues()">
 <span><i class="fa-solid fa-coins"></i> Verileri Güncelle</span>
-<span class="blob-btn__inner">
-<span class="blob-btn__blobs">
-<span class="blob-btn__blob"></span>
-<span class="blob-btn__blob"></span>
-<span class="blob-btn__blob"></span>
-<span class="blob-btn__blob"></span>
-</span>
-</span>
 </button>
 <button class="blob-btn" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()">
 <span><i class="fa-solid fa-coins"></i> En İyi Kazanç</span>
-<span class="blob-btn__inner">
-<span class="blob-btn__blobs">
-<span class="blob-btn__blob"></span>
-<span class="blob-btn__blob"></span>
-<span class="blob-btn__blob"></span>
-<span class="blob-btn__blob"></span>
-</span>
-</span>
 </button>
+
 <div class="checkbox-group" ng-if="isLoadedUser">
   <input type="checkbox" id="checkbox1" ng-model="formData.showMiners" name="show_miners">
   <label for="checkbox1">Minerlarım</label>
