@@ -1,7 +1,35 @@
-input, select {
+/* input, select {
 	color: rgb(255, 220, 0);
 	background: #2a2d43;
 	font-family: var(--card-header) !important;
 	padding: 5px;
 	border: 1px solid #999999;
+}*/
+
+/* ANIMATION PULSE */
+@keyframes animated-border {
+ 	0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, .4); }
+ 	100% { box-shadow: 0 0 0 30px rgba(255, 255, 255, 0); }
 }
+
+#box {
+	padding: 5px;
+	border: 2px solid;
+	border-radius: 10px;
+	color: black;
+	font-size: 18px;
+	line-height: 30px;
+	animation: animated-border 1.5s infinite;
+}
+
+#box2 {
+	padding: 5px;
+	border: 2px solid;
+	border-radius: 10px;
+	color: black;
+	font-size: 18px;
+	line-height: 30px;
+}
+
+
+
