@@ -218,7 +218,7 @@ class="- - -"/>
 <div class="row my-1">
 <span class="labelbaşlık">Lig seç:</span>
 <div class="input-container">
-<select id="box" class="- - -" ng-model="formData.league" ng-options="league.name for league in leagues" ng-change="updateLeagueDetails()" disabled>
+<select id="box" class="- - -" ng-model="formData.league" ng-options="league.name for league in leagues" ng-change="updateLeagueDetails()" ng-disabled="isLoadedUser">
 <option value="">Yükleniyor</option>
 </select>
 </div>
