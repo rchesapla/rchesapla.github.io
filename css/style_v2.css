@@ -65,11 +65,18 @@ color: red;
 background: red;
 }
 
-.blob-btn:not([disabled]) {
+input,
+select:not([disabled]) {
 background-color: gold;
 font-weight: bolder;
 }
-.blob-btn[disabled] {
+
+select[disabled] {
+background-color: #d7d0a7;
+font-weight: bolder;
+}
+
+input[disabled] {
 background-color: #d7d0a7;
 font-weight: bolder;
 }
