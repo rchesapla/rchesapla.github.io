@@ -66,23 +66,6 @@ background: red;
 	animation: animated-border 1.5s infinite;
 }
 
-input,
-select,
-#verigüncelle:not([disabled]) {
-background-color: gold;
-font-weight: bolder;
-}
-
-select[disabled] {
-background-color: #d7d0a7;
-font-weight: bolder;
-}
-
-input[disabled] {
-background-color: #d7d0a7;
-font-weight: bolder;
-}
-
 @keyframes pulse {
 0% {
 transform: scale(1);
