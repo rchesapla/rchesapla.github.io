@@ -63,6 +63,7 @@ color: red;
 
 ::-webkit-scrollbar-thumb {
 background: red;
+	animation: animated-border 1.5s infinite;
 }
 
 input,

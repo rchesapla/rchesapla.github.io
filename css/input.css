@@ -15,22 +15,22 @@
 #box {
 	padding: 5px;
 	border: 1px solid;
-	border-radius: 5px;
+	border-radius: 8px;
 	width: 100%;
 	color: black;
 	font-size: 18px;
 	line-height: 18px;
-	animation: animated-border 1.5s infinite;
 }
 
 #verigüncelle {
 	padding: 5px;
-	border: 2px solid;
-	border-radius: 10px;
+	border: 1px solid;
+	border-radius: 5px;
 	width: 100%;
 	color: black;
 	font-size: 18px;
 	line-height: 30px;
+	animation: animated-border 1.5s infinite;
 }
 
 
