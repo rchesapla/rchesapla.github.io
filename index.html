@@ -181,7 +181,7 @@ setInterval(getSubscriberCount, 10000);
 </span>
 </span>
 </button-->
-<button id="box2" class="checkbox-group" ng-click="resetValues()">
+<button id="verigüncelle" class="checkbox-group" ng-click="resetValues()">
 <span><i class="fa-solid fa-coins"></i> Verileri Güncelle</span>
 </button>
 <!--button id="box2" class="blob-btn" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()">
@@ -189,10 +189,10 @@ setInterval(getSubscriberCount, 10000);
 </button-->
 
 <div class="checkbox-group" ng-if="isLoadedUser">
-  <input type="checkbox" id="checkbox1" ng-model="formData.showMiners" name="show_miners">
+  <input type="checkbox" id="checkbox1" ng-model="formData.showMiners" name="show_miners"/>
   <label for="checkbox1">Minerlarım</label>
 
-  <input type="checkbox" id="checkbox2" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners">
+  <input type="checkbox" id="checkbox2" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners"/>
   <label for="checkbox2">Miner Listesi</label>
 </div>
 </div>

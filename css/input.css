@@ -23,10 +23,11 @@
 	animation: animated-border 1.5s infinite;
 }
 
-#box2 {
+#verigüncelle {
 	padding: 5px;
 	border: 2px solid;
 	border-radius: 10px;
+	width: 100%;
 	color: black;
 	font-size: 18px;
 	line-height: 30px;
