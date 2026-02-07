@@ -66,7 +66,8 @@ background: red;
 }
 
 input,
-select:not([disabled]) {
+select,
+#verigüncelle:not([disabled]) {
 background-color: gold;
 font-weight: bolder;
 }
