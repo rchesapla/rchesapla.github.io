@@ -95,7 +95,7 @@ option {
   margin: 20px 10px;
   box-shadow: var(--shadow);
   border: 1px solid var(--light-gray);
-  padding: 10px 20px;
+  padding: 10px;
   transition: all 0.4s ease;
   border-radius: 8px;
   font-size: var(--f-sm);
