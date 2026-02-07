@@ -492,6 +492,25 @@ class="- - -"/>
       <div class="amount">{{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').unit}}</div>
     </div>
 	<!-- Card -->
+    <div class="cardtest">
+      <div class="card-headertest">
+        <div class="timer">Güncelleme Tarihi</div>
+      </div>
+      <div class="amount"><span id="tarih"></span>
+
+<script>
+  const bugun = new Date();
+  const secenekler = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  };
+  document.getElementById("tarih").innerText =
+    bugun.toLocaleDateString("tr-TR", secenekler);
+</script></div>
+    </div>
+	<!-- Card -->
   </div>
 </div>
 </div>
