@@ -1,108 +1,89 @@
-﻿<!DOCTYPE html>
-<html lang="tr">
-<head>
-<meta charset="UTF-8">
-<title>YouTube Kanal İstatistikleri</title>
-<style>
-    body {
-        margin: 0;
-        background: transparent;
-        font-family: Arial, sans-serif;
-    }
+﻿<button class="glitch-btn" data-text="FREE ALT">
+  FREE ALT
+</button>
+<style>body {
+  background: #0b0f1a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'Orbitron', sans-serif;
+}
 
-    .stats-widget {
-        width: 300px;
-        background: #111;
-        border-radius: 12px;
-        padding: 16px;
-        color: #fff;
-        box-shadow: 0 0 15px rgba(0,0,0,0.6);
-    }
+.glitch-btn {
+  position: relative;
+  padding: 18px 48px;
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: #eaffff;
+  background: linear-gradient(180deg, #1fc8ff, #0a84ff);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  box-shadow:
+    0 0 10px #1fc8ff,
+    0 0 20px #1fc8ff,
+    inset 0 0 10px rgba(255,255,255,0.4);
+  animation: pulse 2s infinite;
+  overflow: hidden;
+}
 
-    .title {
-        text-align: center;
-        font-weight: bold;
-        margin-bottom: 12px;
-        color: #ff0000;
-    }
+/* Glow pulse */
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px #1fc8ff; }
+  50% { box-shadow: 0 0 25px #1fc8ff; }
+  100% { box-shadow: 0 0 10px #1fc8ff; }
+}
 
-    .stat {
-        display: flex;
-        justify-content: space-between;
-        margin: 8px 0;
-        font-size: 15px;
-    }
+/* Glitch layers */
+.glitch-btn::before,
+.glitch-btn::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.8;
+}
 
-    .label {
-        color: #aaa;
-    }
+.glitch-btn::before {
+  color: #00ffff;
+  animation: glitch1 2.5s infinite;
+}
 
-    .value {
-        font-weight: bold;
-    }
+.glitch-btn::after {
+  color: #ffffff;
+  animation: glitch2 3s infinite;
+}
 
-    .channel-link {
-        margin-top: 12px;
-        text-align: center;
-    }
+@keyframes glitch1 {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
 
-    .channel-link a {
-        color: #ff0000;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 14px;
-    }
+@keyframes glitch2 {
+  0% { transform: translate(0); }
+  25% { transform: translate(2px, -1px); }
+  50% { transform: translate(-1px, 2px); }
+  75% { transform: translate(1px, 1px); }
+  100% { transform: translate(0); }
+}
 
-    .channel-link a:hover {
-        text-decoration: underline;
-    }
+.glitch-btn:hover {
+  box-shadow:
+    0 0 15px #4fe8ff,
+    0 0 35px #4fe8ff,
+    inset 0 0 12px rgba(255,255,255,0.6);
+  transform: scale(1.05);
+}
 </style>
-</head>
-<body>
-
-<div class="stats-widget">
-    <div class="title">📊 KANAL İSTATİSTİKLERİ</div>
-
-    <div class="stat">
-        <span class="label">👤 Aboneler</span>
-        <span class="value" id="subs">---</span>
-    </div>
-
-    <div class="stat">
-        <span class="label">👁️ Görüntülenme</span>
-        <span class="value" id="views">---</span>
-    </div>
-
-    <div class="stat">
-        <span class="label">🎥 Videolar</span>
-        <span class="value" id="videos">---</span>
-    </div>
-
-    <!-- KANAL LİNKİ -->
-    <div class="channel-link">
-        <a href="CHANNEL_URL" target="_blank" rel="noopener noreferrer">
-            🔗 Kanalı Ziyaret Et
-        </a>
-    </div>
-</div>
-
-<script>
-const API_KEY = "API_KEYİNİ_BURAYA_YAZ";
-const CHANNEL_ID = "KANAL_ID";
-
-fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`)
-    .then(res => res.json())
-    .then(data => {
-        const stats = data.items[0].statistics;
-        document.getElementById("subs").innerText =
-            Number(stats.subscriberCount).toLocaleString("tr-TR");
-        document.getElementById("views").innerText =
-            Number(stats.viewCount).toLocaleString("tr-TR");
-        document.getElementById("videos").innerText =
-            Number(stats.videoCount).toLocaleString("tr-TR");
-    })
-    .catch(err => console.error(err));
-</script>
-
-</body>
-</html>
