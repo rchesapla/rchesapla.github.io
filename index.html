@@ -202,7 +202,7 @@ setInterval(getSubscriberCount, 10000);
 <div class="row my-1">
 <span class="labelbaşlık">RC Kul. Adı:</span>
 <div class="input-container">
-<input id="box"
+<input id="type"
 ng-model="userSearchText"
 typeahead-wait-ms="300"
 uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
@@ -218,7 +218,7 @@ class="- - -"/>
 <div class="row my-1">
 <span class="labelbaşlık">Lig seç:</span>
 <div class="input-container">
-<select id="box" class="- - -" ng-model="formData.league" ng-options="league.name for league in leagues" ng-change="updateLeagueDetails()" ng-disabled="isLoadedUser">
+<select id="type" class="- - -" ng-model="formData.league" ng-options="league.name for league in leagues" ng-change="updateLeagueDetails()" ng-disabled="isLoadedUser">
 <option value="">
           <span class="icon" aria-hidden="true">
             <img src="https://cdn-icons-png.flaticon.com/128/3774/3774901.png" style="width: 30px; height: 30px; border-radius: 50%; vertical-align: middle; margin-right: 8px;"></span>
@@ -232,7 +232,7 @@ class="- - -"/>
 <div class="row my-1">
 <span class="labelbaşlık">Kripto seç:</span>
 <div class="input-container">
-<select id="box" id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="- - -">
+<select id="type" id="currency" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()" class="- - -">
 <option value="">Hepsini göster</option>
 </select>
 </div>
@@ -241,8 +241,8 @@ class="- - -"/>
 <div class="row">
 <span class="labelbaşlık">Ağ gücü:</span>
 <div class="input-container">
-<input id="box" id="networkPower" ng-model="formData.networkPower" type="number" name="inputNetworkPower" class="- - -" placeholder="Ağ gücünü giriniz..." disabled>
-<select id="box" id="networkUnit" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')" class="- - -" disabled>
+<input id="type" id="networkPower" ng-model="formData.networkPower" type="number" name="inputNetworkPower" class="- - -" placeholder="Ağ gücünü giriniz..." disabled>
+<select id="type" id="networkUnit" ng-model="formData.networkUnit" ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')" class="- - -" disabled>
 <option ng-repeat="unit in networkUnits">{{unit}}</option>
 </select>
 </div>
@@ -252,8 +252,8 @@ class="- - -"/>
 <div class="row my-1">
 <span class="labelbaşlık">Kazım gücü:</span>
 <div class="input-container">
-<input id="box" type="number" id="power" ng-model="formData.power" class="- - -" placeholder="Kazım gücünü giriniz..." ng-disabled="isLoadedUser" />
-<select id="box" id="unit" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')" class="- - -" ng-disabled="isLoadedUser">
+<input id="type" type="number" id="power" ng-model="formData.power" class="- - -" placeholder="Kazım gücünü giriniz..." ng-disabled="isLoadedUser" />
+<select id="type" id="unit" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')" class="- - -" ng-disabled="isLoadedUser">
 </select>
 </div>
 </div>
@@ -263,7 +263,7 @@ class="- - -"/>
 <div class="row my-1">
 <span class="labelbaşlık">Blok ödülü:</span>
 <div class="input-container">
-<input id="box" type="number" id="blockSize" ng-model="formData.blockSize" class="- - -" placeholder="Blok ödülünü giriniz..." disabled>
+<input id="type" type="number" id="blockSize" ng-model="formData.blockSize" class="- - -" placeholder="Blok ödülünü giriniz..." disabled>
 </div>
 </div>
 </div>
@@ -272,8 +272,8 @@ class="- - -"/>
 <div class="row my-1">
 <span class="labelbaşlık">Blok süresi:</span>
 <div class="input-container">
-<input id="box" type="number" id="blockTime" ng-model="formData.blockTime" class="- - -" placeholder="Blok süresini giriniz..." disabled>
-<select id="box" id="timeUnit" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')" class="- - -" disabled>
+<input id="type" type="number" id="blockTime" ng-model="formData.blockTime" class="- - -" placeholder="Blok süresini giriniz..." disabled>
+<select id="type" id="timeUnit" ng-model="formData.timeUnit" ng-change="updateTimeUnit('{{formData.timeUnit}}')" class="- - -" disabled>
 <option value="seconds">Saniye</option>
 <option value="minutes">Dakika</option>
 </select>
