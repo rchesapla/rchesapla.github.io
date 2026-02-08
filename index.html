@@ -158,46 +158,7 @@ setInterval(getSubscriberCount, 10000);
 <div class="col-12 col-md-10">
 <!--===============================================================================================-->
 <center>
-<div class="stats-widget">
-    <div class="title">📊 YOUTUBE KANAL İSTATİSTİKLERİ</div>
 
-    <div class="stat">
-        <span class="label">👤 Aboneler</span>
-        <span class="value" id="subs">---</span>
-    </div>
-
-    <div class="stat">
-        <span class="label">👁️ Görüntülenme</span>
-        <span class="value" id="views">---</span>
-    </div>
-
-    <div class="stat">
-        <span class="label">🎥 Videolar</span>
-        <span class="value" id="videos">---</span>
-    </div>
-	    <!-- KANAL LİNKİ -->
-    <div class="channel-link">
-        <a href="https://www.youtube.com/@fatihcelik" target="_blank" rel="noopener noreferrer">
-            🔗 Kanalı Ziyaret Et
-        </a>
-    </div>
-</div>
-
-<script>
-
-fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`)
-    .then(res => res.json())
-    .then(data => {
-        const stats = data.items[0].statistics;
-        document.getElementById("subs").innerText =
-            Number(stats.subscriberCount).toLocaleString("tr-TR");
-        document.getElementById("views").innerText =
-            Number(stats.viewCount).toLocaleString("tr-TR");
-        document.getElementById("videos").innerText =
-            Number(stats.videoCount).toLocaleString("tr-TR");
-    })
-    .catch(err => console.error(err));
-</script>
 </center>
 <!--===============================================================================================-->
 <div class="row">
@@ -325,7 +286,46 @@ class="- - -"/>
 <!--===============================================================================================-->
 <center>
 
+<div class="stats-widget">
+    <div class="title">📊 YOUTUBE KANAL İSTATİSTİKLERİ</div>
 
+    <div class="stat">
+        <span class="label">👤 Aboneler</span>
+        <span class="value" id="subs">---</span>
+    </div>
+
+    <div class="stat">
+        <span class="label">👁️ Görüntülenme</span>
+        <span class="value" id="views">---</span>
+    </div>
+
+    <div class="stat">
+        <span class="label">🎥 Videolar</span>
+        <span class="value" id="videos">---</span>
+    </div>
+	    <!-- KANAL LİNKİ -->
+    <div class="channel-link">
+        <a href="https://www.youtube.com/@fatihcelik" target="_blank" rel="noopener noreferrer">
+            🔗 Kanalı Ziyaret Et
+        </a>
+    </div>
+</div>
+
+<script>
+
+fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`)
+    .then(res => res.json())
+    .then(data => {
+        const stats = data.items[0].statistics;
+        document.getElementById("subs").innerText =
+            Number(stats.subscriberCount).toLocaleString("tr-TR");
+        document.getElementById("views").innerText =
+            Number(stats.viewCount).toLocaleString("tr-TR");
+        document.getElementById("videos").innerText =
+            Number(stats.videoCount).toLocaleString("tr-TR");
+    })
+    .catch(err => console.error(err));
+</script>
 
 </center>
 <!--===============================================================================================-->
@@ -1122,31 +1122,6 @@ color: white;
 <!--===============================================================================================-->
 </div>
 <!--===============================================================================================-->
-<style type='text/css'>
-.stickywrap{width:100%;margin:auto;text-align:center;float:none;overflow:hidden;display:scroll;position:fixed;bottom:0;z-index:9999}
-.stickyzone{text-align:center;display:block;max-width:970px;height:auto;overflow:hidden;margin:auto}
-.stickyzone img{max-width:100%;height:auto;vertical-align:middle}
-.stickyclose{cursor:pointer;text-align:center}
-</style>
-<script type='text/javascript'>
-$(document).ready(function({$(&#39;img#closed&#39;).click(function(){$(&#39;#bl_banner&#39;).hide(90);});});
-</script>
-<div id='stickyb' class='stickywrap'>
-<div><a id='close-stickyb' onclick='document.getElementById(&apos;stickyb&apos;).style.display = &apos;none&apos;;'><img alt='close' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhE2xMAe38IAZmzuuGAGhDQzvDHe0jqb3_uzhxALm_b6rEfYQIfkfExLVk7q3splHS-5UO-VrbCgUTzlZHSyAmuF8ORVNZjtc4Ugpa2cyAuRnwzkp7fR7dCjUuVlgi_oFpS2q-1w-ZA68IH3X9es9Y10M_1hqmYXvyweQpI2szy890OUFTQDPAFIOyE/s1600/sevenclose.png' title='Close this ad' class='stickyclose'/></a></div>
-<!--===============================================================================================-->
-<div class='stickyzone'>
-<a href='#' title='Resmi website orijinal reklam!'><img alt='Advertising banners here' src='img/gif/standard.gif'/></a>
-</div>
-<!--===============================================================================================-->
-</div>
-<!--===============================================================================================-->
-
-<script>
-function toggleSidebar() {
-document.getElementById('sidebar').classList.toggle('active');
-}
-</script>
-
 <footer class="footer">
 <div class="container">
 <div class="bottom">

@@ -9,7 +9,7 @@
 /* YT ABONE ŞABLON */
 
     .stats-widget {
-        width: 300px;
+        width: 100%;
         background: #2f3045 !important;
         border-radius: 12px;
         padding: 16px;
