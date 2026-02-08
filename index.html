@@ -146,7 +146,6 @@ getSubscriberCount();
 // 10 saniyede bir güncelle (canlıya yakın)
 setInterval(getSubscriberCount, 10000);
 </script>
-
 <div class="main-content">
 <section class="container">
 <div class="row">
@@ -159,7 +158,46 @@ setInterval(getSubscriberCount, 10000);
 <div class="col-12 col-md-10">
 <!--===============================================================================================-->
 <center>
+<div class="stats-widget">
+    <div class="title">📊 YOUTUBE KANAL İSTATİSTİKLERİ</div>
 
+    <div class="stat">
+        <span class="label">👤 Aboneler</span>
+        <span class="value" id="subs">---</span>
+    </div>
+
+    <div class="stat">
+        <span class="label">👁️ Görüntülenme</span>
+        <span class="value" id="views">---</span>
+    </div>
+
+    <div class="stat">
+        <span class="label">🎥 Videolar</span>
+        <span class="value" id="videos">---</span>
+    </div>
+	    <!-- KANAL LİNKİ -->
+    <div class="channel-link">
+        <a href="https://www.youtube.com/@fatihcelik" target="_blank" rel="noopener noreferrer">
+            🔗 Kanalı Ziyaret Et
+        </a>
+    </div>
+</div>
+
+<script>
+
+fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`)
+    .then(res => res.json())
+    .then(data => {
+        const stats = data.items[0].statistics;
+        document.getElementById("subs").innerText =
+            Number(stats.subscriberCount).toLocaleString("tr-TR");
+        document.getElementById("views").innerText =
+            Number(stats.viewCount).toLocaleString("tr-TR");
+        document.getElementById("videos").innerText =
+            Number(stats.videoCount).toLocaleString("tr-TR");
+    })
+    .catch(err => console.error(err));
+</script>
 </center>
 <!--===============================================================================================-->
 <div class="row">
