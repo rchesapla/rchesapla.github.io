@@ -606,13 +606,13 @@ fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANN
 
   <div style="padding:15px;">
       <label style="color:white;">💵 Yatırım Miktarı ($)</label>
-      <input type="number" id="investmentInput" value="100"
+      <input type="number" id="investmentInput" value="100" id="type"
              style="width:150px; padding:5px; margin-left:10px;">
       <span id="roiResult" style="color:#00e5ff; margin-left:20px;"></span>
   </div>
 
   <div id="earningsChart" style="height:420px;"></div>
-  <div id="roiChart" style="height:320px; margin-top:30px;"></div>
+  <div id="roiChart" style=" margin-top:30px;"></div>
 </div>
 
 
@@ -698,44 +698,6 @@ function drawAdvancedCharts() {
                 data: [dailyTRY, weeklyTRY, monthlyTRY, yearlyTRY]
             }
         ]
-    });
-
-    // ROI Gün Grafiği (kümülatif kazanç simülasyonu)
-    const days = [];
-    const cumulative = [];
-
-    if (dailyUSD > 0) {
-        let total = 0;
-        for (let i = 1; i <= Math.ceil(roiDays); i++) {
-            total += dailyUSD;
-            days.push(i);
-            cumulative.push(total);
-        }
-    }
-
-    roiChart.setOption({
-        backgroundColor: '#0f1630',
-        tooltip: { trigger: 'axis' },
-        title: {
-            text: '📈 ROI Günlük Kümülatif Kazanç',
-            textStyle: { color: '#00e5ff' }
-        },
-        xAxis: {
-            type: 'category',
-            data: days,
-            axisLabel: { color: '#fff' }
-        },
-        yAxis: {
-            type: 'value',
-            axisLabel: { color: '#fff' }
-        },
-        series: [{
-            type: 'line',
-            smooth: true,
-            data: cumulative,
-            areaStyle: {},
-            animationDuration: 1500
-        }]
     });
 }
 
