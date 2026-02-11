@@ -600,12 +600,21 @@ fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANN
 </tbody>
 </table>
 
-<!-- GELİŞMİŞ KAZANÇ PANELİ -->
+<!-- GELİŞMİŞ KAZANÇ & ROI PANELİ -->
 <div ng-if="formData.currency" class="card-fc my-3">
   <div class="card-header">📊 GELİŞMİŞ KAZANÇ & ROI ANALİZİ</div>
+
+  <div style="padding:15px;">
+      <label style="color:white;">💵 Yatırım Miktarı ($)</label>
+      <input type="number" id="investmentInput" value="100"
+             style="width:150px; padding:5px; margin-left:10px;">
+      <span id="roiResult" style="color:#00e5ff; margin-left:20px;"></span>
+  </div>
+
   <div id="earningsChart" style="height:420px;"></div>
   <div id="roiChart" style="height:320px; margin-top:30px;"></div>
 </div>
+
 
 <script>
 let earningsChart;
@@ -621,6 +630,11 @@ function drawAdvancedCharts() {
     const chartDom = document.getElementById('earningsChart');
     const roiDom = document.getElementById('roiChart');
     if (!chartDom || !roiDom) return;
+
+    const investmentInput = document.getElementById("investmentInput");
+    const roiResult = document.getElementById("roiResult");
+
+    const investment = parseFloat(investmentInput.value) || 0;
 
     const coinName = scope.formData.currency.name;
 
@@ -639,11 +653,14 @@ function drawAdvancedCharts() {
     const monthlyTRY = scope.calculateEarnings('month', 'try');
     const yearlyTRY = scope.calculateEarnings('year', 'try');
 
-    // ROI Hesabı (Örnek yatırım: 100$)
-    const investment = 100;
-    const roiDays = investment / dailyUSD;
-    const roiWeeks = investment / weeklyUSD;
-    const roiMonths = investment / monthlyUSD;
+    // ✅ GERÇEK ROI GÜN HESABI
+    let roiDays = 0;
+    if (dailyUSD > 0 && investment > 0) {
+        roiDays = investment / dailyUSD;
+        roiResult.innerHTML = `🧠 ROI: <b>${roiDays.toFixed(1)} gün</b>`;
+    } else {
+        roiResult.innerHTML = "";
+    }
 
     if (!earningsChart) earningsChart = echarts.init(chartDom);
     if (!roiChart) roiChart = echarts.init(roiDom);
@@ -683,31 +700,41 @@ function drawAdvancedCharts() {
         ]
     });
 
+    // ROI Gün Grafiği (kümülatif kazanç simülasyonu)
+    const days = [];
+    const cumulative = [];
+
+    if (dailyUSD > 0) {
+        let total = 0;
+        for (let i = 1; i <= Math.ceil(roiDays); i++) {
+            total += dailyUSD;
+            days.push(i);
+            cumulative.push(total);
+        }
+    }
+
     roiChart.setOption({
         backgroundColor: '#0f1630',
         tooltip: { trigger: 'axis' },
         title: {
-            text: 'ROI (100$ Yatırım Geri Dönüş Süresi)',
+            text: '📈 ROI Günlük Kümülatif Kazanç',
             textStyle: { color: '#00e5ff' }
         },
         xAxis: {
             type: 'category',
-            data: ['Günlük ROI', 'Haftalık ROI', 'Aylık ROI'],
+            data: days,
             axisLabel: { color: '#fff' }
         },
         yAxis: {
             type: 'value',
-            name: 'Geri Dönüş Süresi',
             axisLabel: { color: '#fff' }
         },
         series: [{
-            type: 'bar',
-            data: [
-                roiDays.toFixed(2),
-                roiWeeks.toFixed(2),
-                roiMonths.toFixed(2)
-            ],
-            animationDuration: 1200
+            type: 'line',
+            smooth: true,
+            data: cumulative,
+            areaStyle: {},
+            animationDuration: 1500
         }]
     });
 }
@@ -719,6 +746,7 @@ window.addEventListener('resize', function () {
     if (roiChart) roiChart.resize();
 });
 </script>
+
 
 
 </div>
