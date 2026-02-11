@@ -105,7 +105,8 @@ font-weight: bolder;
 /* SELECT AYARLARI */
 
 #type,
-#category_id {
+#category_id,
+#investmentInput {
   display: block;
   width: 300px;
   margin: 0 auto;

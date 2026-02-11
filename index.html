@@ -604,11 +604,10 @@ fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANN
 <div ng-if="formData.currency" class="card-fc my-3">
   <div class="card-header">📊 GELİŞMİŞ KAZANÇ & ROI ANALİZİ</div>
 
-  <div style="padding:15px;">
+  <div style="text-align: center">
       <label style="color:white;">💵 Yatırım Miktarı ($)</label>
-      <input type="number" id="investmentInput" value="100" id="type"
-             style="width:150px; padding:5px; margin-left:10px;">
-      <span id="roiResult" style="color:#00e5ff; margin-left:20px;"></span>
+      <input type="number" id="investmentInput" value="100"/>
+      <span id="roiResult" style="color:#00e5ff;"></span>
   </div>
 
   <div id="earningsChart" style="height:420px;"></div>
