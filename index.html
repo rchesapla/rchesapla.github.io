@@ -285,53 +285,6 @@ class="- - -"/>
 </div>
 <!--===============================================================================================-->
 <center>
-
-<!-- KAZANÇ GRAFİĞİ -->
-<div ng-if="formData.currency" class="card-fc my-3">
-  <div class="card-header">📈 KAZANÇ GRAFİĞİ</div>
-  <div id="earningsChart" style="height:400px;"></div>
-</div>
-
-<script>
-function drawEarningsChart() {
-
-    if (typeof echarts === "undefined") return;
-
-    const chartDom = document.getElementById('earningsChart');
-    if (!chartDom) return;
-
-    const myChart = echarts.init(chartDom);
-
-    const gunluk = angular.element(document.body).scope().calculateEarnings('day', 'usd');
-    const haftalik = angular.element(document.body).scope().calculateEarnings('week', 'usd');
-    const aylik = angular.element(document.body).scope().calculateEarnings('month', 'usd');
-    const yillik = angular.element(document.body).scope().calculateEarnings('year', 'usd');
-
-    const option = {
-        tooltip: {
-            trigger: 'axis'
-        },
-        xAxis: {
-            type: 'category',
-            data: ['Günlük', 'Haftalık', 'Aylık', 'Yıllık']
-        },
-        yAxis: {
-            type: 'value'
-        },
-        series: [{
-            data: [gunluk, haftalik, aylik, yillik],
-            type: 'bar',
-            smooth: true
-        }]
-    };
-
-    myChart.setOption(option);
-}
-
-setInterval(drawEarningsChart, 2000);
-</script>
-
-
 <div class="stats-widget">
     <div class="title">📊 YOUTUBE KANAL İSTATİSTİKLERİ</div>
 
@@ -646,6 +599,52 @@ fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANN
 </tr>
 </tbody>
 </table>
+
+<!-- KAZANÇ GRAFİĞİ -->
+<div ng-if="formData.currency" class="card-fc my-3">
+  <div class="card-header">📈 KAZANÇ GRAFİĞİ</div>
+  <div id="earningsChart" style="height:400px;"></div>
+</div>
+
+<script>
+function drawEarningsChart() {
+
+    if (typeof echarts === "undefined") return;
+
+    const chartDom = document.getElementById('earningsChart');
+    if (!chartDom) return;
+
+    const myChart = echarts.init(chartDom);
+
+    const gunluk = angular.element(document.body).scope().calculateEarnings('day', 'usd');
+    const haftalik = angular.element(document.body).scope().calculateEarnings('week', 'usd');
+    const aylik = angular.element(document.body).scope().calculateEarnings('month', 'usd');
+    const yillik = angular.element(document.body).scope().calculateEarnings('year', 'usd');
+
+    const option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        xAxis: {
+            type: 'category',
+            data: ['Günlük', 'Haftalık', 'Aylık', 'Yıllık']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: [gunluk, haftalik, aylik, yillik],
+            type: 'bar',
+            smooth: true
+        }]
+    };
+
+    myChart.setOption(option);
+}
+
+setInterval(drawEarningsChart, 2000);
+</script>
+
 </div>
 <!--===============================================================================================-->
 <div ng-if="!formData.currency">
