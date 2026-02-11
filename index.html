@@ -612,12 +612,53 @@ fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANN
 
   <div id="earningsChart" style="height:420px;"></div>
   <div id="roiChart" style=" margin-top:30px;"></div>
+  <div id="roiGauge" style="height:400px; margin-top:30px;"></div>
+
 </div>
 
 
 <script>
 let earningsChart;
 let roiChart;
+
+let roiGauge;
+
+function drawROIGauge() {
+
+    const scope = angular.element(document.body).scope();
+    if (!scope || !scope.formData.currency) return;
+
+    const dom = document.getElementById('roiGauge');
+    if (!dom) return;
+
+    if (!roiGauge) roiGauge = echarts.init(dom);
+
+    const investment = parseFloat(document.getElementById("investmentInput").value) || 0;
+    const dailyUSD = scope.calculateEarnings('day', 'usd');
+
+    if (dailyUSD <= 0 || investment <= 0) return;
+
+    const roiDays = (investment / dailyUSD).toFixed(1);
+
+    roiGauge.setOption({
+        backgroundColor: '#0f1630',
+        series: [{
+            type: 'gauge',
+            min: 0,
+            max: 365,
+            detail: { formatter: '{value} Gün', color: '#fff' },
+            data: [{ value: roiDays, name: 'ROI Süresi' }],
+            axisLine: {
+                lineStyle: {
+                    width: 15
+                }
+            }
+        }]
+    });
+}
+
+setInterval(drawROIGauge, 3000);
+
 
 function drawAdvancedCharts() {
 
