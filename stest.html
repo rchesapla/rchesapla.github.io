@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto Mining Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+
+body{
+    margin:0;
+    font-family:'Orbitron',sans-serif;
+    background:linear-gradient(180deg,#0b1c3a,#09162e);
+    color:white;
+}
+
+.navbar{
+    background:#132b55;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    padding:15px;
+    flex-wrap:wrap;
+}
+
+.nav-item{
+    background:#1e3d7a;
+    padding:12px 18px;
+    border-radius:8px;
+    font-size:14px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.nav-item:hover{
+    background:#2c5bb8;
+}
+
+.header{
+    background:#d90f0f;
+    text-align:center;
+    padding:15px;
+    font-size:24px;
+    font-weight:800;
+}
+
+.container{
+    display:flex;
+    gap:20px;
+    padding:30px;
+    flex-wrap:wrap;
+}
+
+.card{
+    background:#1b335f;
+    border-radius:10px;
+    padding:20px;
+    box-shadow:0 0 15px rgba(0,0,0,.5);
+}
+
+.left{
+    flex:1;
+    min-width:350px;
+}
+
+.right{
+    flex:1;
+    min-width:350px;
+}
+
+.card h3{
+    margin-top:0;
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+input, select{
+    background:#0f2448;
+    border:1px solid #345;
+    color:white;
+    padding:8px;
+    border-radius:6px;
+    width:100%;
+    margin-bottom:15px;
+}
+
+.tabs{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.tab{
+    flex:1;
+    text-align:center;
+    background:#294a86;
+    padding:10px;
+    border-radius:6px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.tab:hover{
+    background:#3b6ed3;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13px;
+}
+
+th, td{
+    padding:10px;
+    text-align:center;
+    border-bottom:1px solid #2e4c85;
+}
+
+th{
+    background:#203e77;
+}
+
+tr:hover{
+    background:#274c91;
+}
+
+.footer{
+    text-align:center;
+    padding:15px;
+    font-size:12px;
+    opacity:.6;
+}
+
+@media(max-width:900px){
+    .container{
+        flex-direction:column;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="nav-item">HOME</div>
+    <div class="nav-item">ALL MINERS</div>
+    <div class="nav-item">CURRENT PE</div>
+    <div class="nav-item">EVENT</div>
+    <div class="nav-item">LEADERBOARD</div>
+    <div class="nav-item">CALCULATOR</div>
+    <div class="nav-item">LOGIN</div>
+</div>
+
+<div class="header">CALCULATOR</div>
+
+<div class="container">
+
+    <div class="card left">
+        <h3>Mining Power (EH)</h3>
+        <input type="number" value="74">
+        
+        <h3>Your League</h3>
+        <select>
+            <option>Silver III</option>
+            <option>Gold</option>
+            <option>Platinum</option>
+        </select>
+
+        <table>
+            <tr>
+                <th>Coin</th>
+                <th>Network</th>
+                <th>Block</th>
+                <th>Blocks/Day</th>
+            </tr>
+            <tr>
+                <td>BTC</td>
+                <td>0 ZH/s</td>
+                <td>9</td>
+                <td>144</td>
+            </tr>
+            <tr>
+                <td>ETH</td>
+                <td>0 ZH/s</td>
+                <td>9</td>
+                <td>144</td>
+            </tr>
+            <tr>
+                <td>SOL</td>
+                <td>0 ZH/s</td>
+                <td>9</td>
+                <td>144</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card right">
+        <div class="tabs">
+            <div class="tab">Earn USD</div>
+            <div class="tab">Earn Crypto</div>
+            <div class="tab">Comparison</div>
+        </div>
+
+        <table>
+            <tr>
+                <th>Coin</th>
+                <th>Daily</th>
+                <th>Weekly</th>
+                <th>Monthly</th>
+            </tr>
+            <tr>
+                <td>BTC</td>
+                <td>$0</td>
+                <td>$0</td>
+                <td>$0</td>
+            </tr>
+            <tr>
+                <td>ETH</td>
+                <td>$0</td>
+                <td>$0</td>
+                <td>$0</td>
+            </tr>
+            <tr>
+                <td>SOL</td>
+                <td>$0</td>
+                <td>$0</td>
+                <td>$0</td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+<div class="footer">
+    © 2026 Crypto Mining Calculator UI Clone
+</div>
+
+</body>
+</html>
