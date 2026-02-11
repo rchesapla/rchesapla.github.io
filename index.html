@@ -600,50 +600,126 @@ fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANN
 </tbody>
 </table>
 
-<!-- KAZANÇ GRAFİĞİ -->
+<!-- GELİŞMİŞ KAZANÇ PANELİ -->
 <div ng-if="formData.currency" class="card-fc my-3">
-  <div class="card-header">📈 KAZANÇ GRAFİĞİ</div>
-  <div id="earningsChart" style="height:400px;"></div>
+  <div class="card-header">📊 GELİŞMİŞ KAZANÇ & ROI ANALİZİ</div>
+  <div id="earningsChart" style="height:420px;"></div>
+  <div id="roiChart" style="height:320px; margin-top:30px;"></div>
 </div>
 
 <script>
-function drawEarningsChart() {
+let earningsChart;
+let roiChart;
 
-    if (typeof echarts === "undefined") return;
+function drawAdvancedCharts() {
+
+    if (!window.echarts) return;
+
+    const scope = angular.element(document.body).scope();
+    if (!scope || !scope.formData.currency) return;
 
     const chartDom = document.getElementById('earningsChart');
-    if (!chartDom) return;
+    const roiDom = document.getElementById('roiChart');
+    if (!chartDom || !roiDom) return;
 
-    const myChart = echarts.init(chartDom);
+    const coinName = scope.formData.currency.name;
 
-    const gunluk = angular.element(document.body).scope().calculateEarnings('day', 'usd');
-    const haftalik = angular.element(document.body).scope().calculateEarnings('week', 'usd');
-    const aylik = angular.element(document.body).scope().calculateEarnings('month', 'usd');
-    const yillik = angular.element(document.body).scope().calculateEarnings('year', 'usd');
+    const dailyCoin = scope.calculateEarnings('day', 'amount');
+    const weeklyCoin = scope.calculateEarnings('week', 'amount');
+    const monthlyCoin = scope.calculateEarnings('month', 'amount');
+    const yearlyCoin = scope.calculateEarnings('year', 'amount');
 
-    const option = {
-        tooltip: {
-            trigger: 'axis'
+    const dailyUSD = scope.calculateEarnings('day', 'usd');
+    const weeklyUSD = scope.calculateEarnings('week', 'usd');
+    const monthlyUSD = scope.calculateEarnings('month', 'usd');
+    const yearlyUSD = scope.calculateEarnings('year', 'usd');
+
+    const dailyTRY = scope.calculateEarnings('day', 'try');
+    const weeklyTRY = scope.calculateEarnings('week', 'try');
+    const monthlyTRY = scope.calculateEarnings('month', 'try');
+    const yearlyTRY = scope.calculateEarnings('year', 'try');
+
+    // ROI Hesabı (Örnek yatırım: 100$)
+    const investment = 100;
+    const roiDays = investment / dailyUSD;
+    const roiWeeks = investment / weeklyUSD;
+    const roiMonths = investment / monthlyUSD;
+
+    if (!earningsChart) earningsChart = echarts.init(chartDom);
+    if (!roiChart) roiChart = echarts.init(roiDom);
+
+    earningsChart.setOption({
+        backgroundColor: '#0f1630',
+        tooltip: { trigger: 'axis' },
+        legend: {
+            data: [coinName, 'USD', '₺'],
+            textStyle: { color: '#fff' }
         },
         xAxis: {
             type: 'category',
-            data: ['Günlük', 'Haftalık', 'Aylık', 'Yıllık']
+            data: ['Günlük', 'Haftalık', 'Aylık', 'Yıllık'],
+            axisLabel: { color: '#fff' }
+        },
+        yAxis: { type: 'value', axisLabel: { color: '#fff' } },
+        series: [
+            {
+                name: coinName,
+                type: 'bar',
+                data: [dailyCoin, weeklyCoin, monthlyCoin, yearlyCoin],
+                animationDuration: 1000
+            },
+            {
+                name: 'USD',
+                type: 'line',
+                smooth: true,
+                data: [dailyUSD, weeklyUSD, monthlyUSD, yearlyUSD]
+            },
+            {
+                name: '₺',
+                type: 'line',
+                smooth: true,
+                data: [dailyTRY, weeklyTRY, monthlyTRY, yearlyTRY]
+            }
+        ]
+    });
+
+    roiChart.setOption({
+        backgroundColor: '#0f1630',
+        tooltip: { trigger: 'axis' },
+        title: {
+            text: 'ROI (100$ Yatırım Geri Dönüş Süresi)',
+            textStyle: { color: '#00e5ff' }
+        },
+        xAxis: {
+            type: 'category',
+            data: ['Günlük ROI', 'Haftalık ROI', 'Aylık ROI'],
+            axisLabel: { color: '#fff' }
         },
         yAxis: {
-            type: 'value'
+            type: 'value',
+            name: 'Geri Dönüş Süresi',
+            axisLabel: { color: '#fff' }
         },
         series: [{
-            data: [gunluk, haftalik, aylik, yillik],
             type: 'bar',
-            smooth: true
+            data: [
+                roiDays.toFixed(2),
+                roiWeeks.toFixed(2),
+                roiMonths.toFixed(2)
+            ],
+            animationDuration: 1200
         }]
-    };
-
-    myChart.setOption(option);
+    });
 }
 
-setInterval(drawEarningsChart, 2000);
+setInterval(drawAdvancedCharts, 2000);
+
+window.addEventListener('resize', function () {
+    if (earningsChart) earningsChart.resize();
+    if (roiChart) roiChart.resize();
+});
 </script>
+
 
 </div>
 <!--===============================================================================================-->
