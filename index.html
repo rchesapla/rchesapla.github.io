@@ -612,7 +612,9 @@ fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANN
 
   <div id="earningsChart" style="height:420px;"></div>
   <div id="roiChart" style=" margin-top:30px;"></div>
-  <div id="roiGauge" style="height:400px; margin-top:30px;"></div>
+  <div id="withdrawCountdown" style="margin-top:20px; font-size:20px; color:#00e5ff;"></div>
+  <div id="profitBadge" style="margin-top:20px;"></div>
+
 
 </div>
 
@@ -620,45 +622,51 @@ fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANN
 <script>
 let earningsChart;
 let roiChart;
-
-let roiGauge;
-
-function drawROIGauge() {
+function updateProfitBadge() {
 
     const scope = angular.element(document.body).scope();
     if (!scope || !scope.formData.currency) return;
 
-    const dom = document.getElementById('roiGauge');
-    if (!dom) return;
-
-    if (!roiGauge) roiGauge = echarts.init(dom);
-
-    const investment = parseFloat(document.getElementById("investmentInput").value) || 0;
     const dailyUSD = scope.calculateEarnings('day', 'usd');
+    const badge = document.getElementById("profitBadge");
+
+    if (dailyUSD > 50) {
+        badge.innerHTML = "🚀 ELİT MADENCİ";
+        badge.style.color = "gold";
+    } else if (dailyUSD > 10) {
+        badge.innerHTML = "💎 PROFESYONEL";
+        badge.style.color = "#00e5ff";
+    } else if (dailyUSD > 1) {
+        badge.innerHTML = "⚡ AKTİF MADENCİ";
+        badge.style.color = "lime";
+    } else {
+        badge.innerHTML = "🌱 BAŞLANGIÇ SEVİYESİ";
+        badge.style.color = "gray";
+    }
+}
+
+setInterval(updateProfitBadge, 3000);
+
+function drawWithdrawCountdown() {
+
+    const scope = angular.element(document.body).scope();
+    if (!scope || !scope.formData.currency) return;
+
+    const dailyUSD = scope.calculateEarnings('day', 'usd');
+    const investment = parseFloat(document.getElementById("investmentInput").value) || 0;
 
     if (dailyUSD <= 0 || investment <= 0) return;
 
-    const roiDays = (investment / dailyUSD).toFixed(1);
+    const daysLeft = investment / dailyUSD;
 
-    roiGauge.setOption({
-        backgroundColor: '#0f1630',
-        series: [{
-            type: 'gauge',
-            min: 0,
-            max: 365,
-            detail: { formatter: '{value} Gün', color: '#fff' },
-            data: [{ value: roiDays, name: 'ROI Süresi' }],
-            axisLine: {
-                lineStyle: {
-                    width: 15
-                }
-            }
-        }]
-    });
+    const wholeDays = Math.floor(daysLeft);
+    const hours = Math.floor((daysLeft - wholeDays) * 24);
+
+    document.getElementById("withdrawCountdown").innerHTML =
+        `⏳ Withdraw için kalan süre: <b>${wholeDays} gün ${hours} saat</b>`;
 }
 
-setInterval(drawROIGauge, 3000);
-
+setInterval(drawWithdrawCountdown, 2000);
 
 function drawAdvancedCharts() {
 
