@@ -902,7 +902,7 @@ color: white;
 </tbody>
 </table>
 </div>
-
+<!-- MINER LİSTESİ KODLARI -->
 <div ng-if="formData.showAllMiners" id="minerlistesi">
 
 <article>
@@ -978,74 +978,35 @@ color: white;
 </center>
 <!--===============================================================================================-->
 </article>
-
-
-
-<!--
-<div>
-<label for="currency">Poder mínimo (GH/s)</label><br/>
-<input placeholder="1" class="form-control" ng-model="allMinerMinPowerSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-</div>
-
-<div>
-<label for="currency">Poder máximo (GH/s)</label><br/>
-<input placeholder="999999999999" class="form-control" ng-model="allMinerMaxPowerSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-</div>
-
-<div>
-<label for="currency">Células</label><br/>
-<select class="form-control" ng-model="allMinerCells" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-<option value="all">Todas</option>
-<option value="1">1 Slot</option>
-<option value="2">2 Slots</option>
-</select>
-</div>
-
-<div>
-<label for="currency">Impacto mínimo (GH/s)</label><br/>
-<input placeholder="999999999999" class="form-control" ng-model="allMinerMinImpact" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-</div>
--->
  
 <div ng-if="formData.showAllMiners" class="modern-miner-wrapper">
 
   <div class="modern-miner-header">
-    <h4>🚀 Modern Miner Listesi</h4>
+    <h4>🚀 Modern Miner Listesi (12.02.2026 / Eklendi!)</h4>
     <div class="miner-count">
-      Toplam: {{allMiners.length}} Miner
+      Toplam: {{allMiners.length}} Miner!
     </div>
   </div>
 
   <div class="modern-miner-grid">
 
-    <div class="modern-miner-card"
-     ng-repeat="miner in allMiners 
-     | orderBy:orderByAllMinersField:reverseAllMinersSort 
-     | limitTo:itemsPerPage : (currentPage - 1) * itemsPerPage">
-
-  <!-- Rarity -->
-  <div class="rarity-badge {{miner.rarity}}">
-    {{miner.rarity | uppercase}}
-  </div>
-
-  <!-- Level -->
-  <div class="level-badge level-{{miner.level}}">
-    ⭐ LVL {{miner.level + 1}}
-  </div>
-
-
-	  
-
-      <div class="miner-image">
-        <img src="https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608">
-      </div>
-
-      <div class="miner-name">
-        {{miner.name.en}}
-      </div>
+    <div class="modern-miner-card" ng-repeat="miner in allMiners | orderBy:orderByAllMinersField:reverseAllMinersSort | limitTo:itemsPerPage : (currentPage - 1) * itemsPerPage">
+	<!-- Rarity -->
+	<div class="rarity-badge {{miner.rarity}}">
+		{{miner.rarity | uppercase}}
+	</div>
+	<!-- Level -->
+	<div class="level-badge level-{{miner.level}}">
+		⭐ LVL {{miner.level + 1}}
+	</div>
+	<div class="miner-image">
+		<img src="https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608">
+	</div>
+	<div class="miner-name">
+		{{miner.name.en}}
+	</div>
 
 <div class="miner-stats">
-
   <!-- Güç -->
   <div class="stat-row">
     <span>⚡ Güç</span>
@@ -1054,7 +1015,6 @@ color: white;
       {{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
     </span>
   </div>
-
   <!-- Bonus -->
   <div class="stat-row">
     <span>🎁 Bonus</span>
@@ -1062,7 +1022,6 @@ color: white;
       {{(miner.bonus_power / 100)}}%
     </span>
   </div>
-
   <!-- Oda Durumu -->
   <div class="stat-row">
     <span>🏠 Oda Durumu</span>
@@ -1074,7 +1033,6 @@ color: white;
       {{ miner.already_have ? 'Var' : 'Yok' }}
     </span>
   </div>
-
   <!-- Satış Durumu (Oda durumunun ALTINA eklendi) -->
   <div class="stat-row">
     <span>💰 Market</span>
@@ -1088,13 +1046,9 @@ color: white;
   </div>
 
 </div>
-
-
-
-      <button class="modern-add-btn"
-              ng-click="addMinerToSimulation(miner)">
-        + Listeye Ekle
-      </button>
+	<button class="modern-add-btn" ng-click="addMinerToSimulation(miner)">
+		+ Listeye Ekle
+	</button>
 
     </div>
 
