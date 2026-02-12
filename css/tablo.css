@@ -5,6 +5,7 @@ th{background:#203e77}
 
 .modern-pagination {
   display: flex;
+  text-decoration: none;
   gap: 12px;
   padding: 12px;
   border-radius: 20px;
@@ -34,6 +35,7 @@ th{background:#203e77}
 .modern-pagination a:hover {
   background: rgba(255, 255, 255, 0.1);
   transform: translateY(-3px);
+  text-decoration: none;
   color: gold;
 }
 
