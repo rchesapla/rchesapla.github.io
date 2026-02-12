@@ -13,19 +13,6 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         blockTime: 0,
         timeUnit: 'seconds'
     };
-	
-// Kullanıcı adı girildi mi kontrolü
-$scope.usernameEntered = false;
-
-$scope.$watch('userSearchText', function(newVal) {
-    if (newVal && newVal.length > 2) {
-        $scope.usernameEntered = true;
-    } else {
-        $scope.usernameEntered = false;
-    }
-});
-
-	
     setTimeout(function() {
         document.getElementById('balao2').style.display = "block";
     }, 2000);
