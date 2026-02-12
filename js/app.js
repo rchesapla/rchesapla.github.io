@@ -722,10 +722,6 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         $scope.chosen_mine = $item.name.en;
         $scope.isLoading = false;
         $scope.$apply();
-		setTimeout(function(){
-    window.location.href = "test.html";
-}, 800);
-
     }
 
     $scope.onSelectPlayer = async function($item) {

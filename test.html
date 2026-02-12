@@ -9,6 +9,15 @@
 <link href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
 
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+
+<!-- SENİN APP DOSYALARI -->
+<script src="js/app.js"></script>
+<script src="js/services.js"></script>
+<script src="js/user-miner-service.js"></script>
+<script src="js/miner-service.js"></script>
+
 <style>
 body{
     background:#0b1026;
@@ -16,10 +25,28 @@ body{
     font-family:'Poppins',sans-serif;
 }
 
+.login-box{
+    max-width:400px;
+    margin:100px auto;
+    padding:30px;
+    background:#121a3d;
+    border-radius:15px;
+    box-shadow:0 0 25px rgba(0,255,255,0.2);
+}
+
+.panel-wrapper{
+    animation:fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
 .page-header{
     padding:30px;
     text-align:center;
-    font-size:30px;
+    font-size:28px;
     font-weight:700;
     color:#00f2ff;
 }
@@ -29,7 +56,7 @@ body{
     padding:20px;
     border-radius:15px;
     margin-bottom:25px;
-    box-shadow:0 0 20px rgba(0,242,255,0.15);
+    text-align:center;
 }
 
 .stats-value{
@@ -37,36 +64,39 @@ body{
     font-weight:600;
     color:#00f2ff;
 }
-
-table.dataTable tbody tr{
-    background:#111735;
-}
-
-.dataTables_wrapper .dataTables_filter input{
-    background:#0e1433;
-    color:white;
-    border:1px solid #00f2ff;
-}
-
-.dt-button{
-    background:#00f2ff !important;
-    border:none !important;
-    color:black !important;
-}
 </style>
 </head>
 
-<body ng-controller="MiningController" ng-if="isLoadedUser">
+<body ng-controller="MiningController">
+
+<!-- 🔐 KULLANICI GİRİŞ -->
+<div class="login-box text-center" ng-if="!isLoadedUser">
+    <h4>Rollercoin Kullanıcı Adı</h4>
+
+    <input type="text"
+           ng-model="userSearchText"
+           typeahead-wait-ms="300"
+           uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
+           typeahead-on-select="onSelectPlayer($item)"
+           class="form-control mt-3"
+           placeholder="Örn: FthCLK">
+
+    <div ng-show="loading" class="mt-2">
+        Yükleniyor...
+    </div>
+</div>
 
 
-<div class="container-fluid">
+<!-- 🚀 PRO PANEL -->
+<div class="container-fluid panel-wrapper"
+     ng-if="isLoadedUser">
 
     <div class="page-header">
-        <i class="fa-solid fa-microchip"></i> MADENCİLERİM PRO PANEL
+        MADENCİLERİM PRO PANEL
     </div>
 
-    <!-- İSTATİSTİK PANEL -->
-    <div class="row text-center">
+    <!-- İSTATİSTİK -->
+    <div class="row text-center mb-4">
 
         <div class="col-md-4">
             <div class="stats-box">
@@ -81,15 +111,15 @@ table.dataTable tbody tr{
             <div class="stats-box">
                 <div>Toplam Güç</div>
                 <div class="stats-value">
-                    {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').value.toFixed(2)}}
-                    {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').unit}}
+                    {{chooseBestHashRateUnit(user_data.powerData.miners,'GH/s').value.toFixed(2)}}
+                    {{chooseBestHashRateUnit(user_data.powerData.miners,'GH/s').unit}}
                 </div>
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="stats-box">
-                <div>Bonus Oranı</div>
+                <div>Bonus</div>
                 <div class="stats-value">
                     {{(user_data.powerData.bonus_percent / 100)}}%
                 </div>
@@ -101,22 +131,24 @@ table.dataTable tbody tr{
     <!-- TABLO -->
     <div class="card bg-dark p-3 rounded-4">
 
-        <table id="minerTable" class="table table-dark table-striped table-bordered align-middle">
+        <table id="minerTable"
+               class="table table-dark table-striped table-bordered">
+
             <thead>
                 <tr>
                     <th>Miner</th>
                     <th>Güç</th>
                     <th>Bonus</th>
                     <th>Etki Gücü</th>
-                    <th>Market</th>
                 </tr>
             </thead>
+
             <tbody>
                 <tr ng-repeat="miner in visible_user_miners">
 
                     <td>
-                        <strong>{{miner.name.en}}</strong><br>
-                        <img width="70"
+                        {{miner.name.en}} <br>
+                        <img width="60"
                         src="https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif">
                     </td>
 
@@ -134,49 +166,47 @@ table.dataTable tbody tr{
                         {{miner.removeImpactLegend.unit}}
                     </td>
 
-                    <td>
-                        <button class="btn btn-outline-info btn-sm"
-                                ng-click="openBuyLink(miner)">
-                            <i class="fa fa-store"></i>
-                        </button>
-                    </td>
-
                 </tr>
             </tbody>
-        </table>
 
+        </table>
     </div>
 
 </div>
 
 
-<!-- SCRIPTS -->
+<!-- DATATABLE -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
 <script>
-setTimeout(function(){
-    $('#minerTable').DataTable({
-        pageLength:10,
-        responsive:true,
-        dom:'Bfrtip',
-        buttons:['excel'],
-        language:{
-            search:"Miner Ara:",
-            lengthMenu:"_MENU_ kayıt göster",
-            info:"_TOTAL_ miner bulundu",
-            paginate:{
-                next:"Sonraki",
-                previous:"Önceki"
-            }
+angular.element(document).ready(function () {
+
+    let scope = angular.element(document.body).scope();
+
+    scope.$watch('visible_user_miners', function(newVal) {
+
+        if(newVal && newVal.length > 0){
+
+            setTimeout(function(){
+                if($.fn.DataTable.isDataTable('#minerTable')){
+                    $('#minerTable').DataTable().destroy();
+                }
+
+                $('#minerTable').DataTable({
+                    pageLength:10,
+                    language:{
+                        search:"Miner Ara:",
+                        paginate:{next:"Sonraki",previous:"Önceki"}
+                    }
+                });
+
+            }, 1000);
         }
-    });
-},1500);
+    }, true);
+
+});
 </script>
 
 </body>
