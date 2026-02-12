@@ -49,7 +49,7 @@ angular.element(document).ready(function () {
 
     let scope = angular.element(document.body).scope();
 
-    // Eğer daha önce giriş yapılmışsa direkt yönlendir
+    // Daha önce giriş varsa direkt yönlendir
     let savedUser = localStorage.getItem("rc_username");
     if(savedUser){
         window.location.href = "madencilerim.html?user=" + savedUser;
@@ -59,19 +59,26 @@ angular.element(document).ready(function () {
 
         scope.onSelectPlayer(player);
 
-        setTimeout(function(){
+        // isLoadedUser true olana kadar bekle
+        let checkInterval = setInterval(function(){
 
-            localStorage.setItem("rc_username", player.code);
+            if(scope.isLoadedUser === true){
 
-            window.location.href =
-            "madencilerim.html?user=" + player.code;
+                clearInterval(checkInterval);
 
-        },1000);
+                localStorage.setItem("rc_username", player.code);
+
+                window.location.href =
+                "madencilerim.html?user=" + player.code;
+            }
+
+        }, 200);
 
     };
 
 });
 </script>
+
 
 </body>
 </html>
