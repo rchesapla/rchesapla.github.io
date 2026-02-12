@@ -720,7 +720,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         $scope.isLoading = true;
         $scope.detailed_miners = await MinerService.getDetailedMiner($item);
         $scope.chosen_mine = $item.name.en;
-        $scope.isLoading = false;
+        $scope.isLoading = true;
         $scope.$apply();
     }
 
