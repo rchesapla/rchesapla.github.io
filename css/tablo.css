@@ -2,6 +2,57 @@ table{width:100%;border-collapse:collapse;font-size:14px}
 th,td{padding:10px;text-align:center;border-bottom:1px solid #2e4c85}
 th{background:#203e77}
 
+
+.modern-pagination {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: var(--açıklama);
+  text-align:center;
+}
+
+.modern-pagination a {
+  text-decoration: none;
+  min-width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #e2e8f0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Hover efekti */
+.modern-pagination a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-3px);
+  color: gold;
+}
+
+/* Active page */
+.modern-pagination .active {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+  border-radius: 14px;
+}
+
+/* Prev / Next */
+.nav-btn {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+
 .modern-miner-wrapper {
   padding: 20px;
 }
