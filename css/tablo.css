@@ -1,3 +1,110 @@
 table{width:100%;border-collapse:collapse;font-size:14px}
 th,td{padding:10px;text-align:center;border-bottom:1px solid #2e4c85}
 th{background:#203e77}
+
+.modern-miner-wrapper {
+  padding: 20px;
+}
+
+.modern-miner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.modern-miner-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.modern-miner-card {
+  background: linear-gradient(145deg, #141e42, #0e1530);
+  border-radius: 16px;
+  padding: 18px;
+  position: relative;
+  transition: 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.modern-miner-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 229, 255, 0.25);
+}
+
+.miner-image img {
+  width: 100%;
+  max-height: 120px;
+  object-fit: contain;
+}
+
+.miner-name {
+  margin-top: 10px;
+  font-weight: 600;
+  color: #fff;
+  font-size: 14px;
+}
+
+.miner-stats {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #00e5ff;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.modern-add-btn {
+  margin-top: 12px;
+  width: 100%;
+  background: #00e5ff;
+  border: none;
+  padding: 8px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.modern-add-btn:hover {
+  background: #00bcd4;
+}
+
+.rarity-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 10px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.rarity-badge.common { background:#777; }
+.rarity-badge.uncommon { background:#3fa34d; }
+.rarity-badge.rare { background:#3b82f6; }
+.rarity-badge.epic { background:#a855f7; }
+.rarity-badge.legendary { background:#f59e0b; }
+.rarity-badge.unreal { background:#ff0055; }
+.rarity-badge.legacy { background:#999; }
+
+.level-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Level renkleri */
+.level-0 { background: #6b7280; }      /* Gri */
+.level-1 { background: #3b82f6; }      /* Mavi */
+.level-2 { background: #8b5cf6; }      /* Mor */
+.level-3 { background: #f59e0b; }      /* Altın */
+.level-4 { background: #ef4444; }      /* Kırmızı */
+.level-5 { background: linear-gradient(45deg,#00e5ff,#ff00cc); } /* Neon */

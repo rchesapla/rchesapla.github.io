@@ -998,70 +998,76 @@ color: white;
 </div>
 -->
  
-<div ng-if="formData.showAllMiners">
-<table>
-<thead>
-<h6 class="card-header">Miner Sayısı: {{allMiners.length}} adet!</h6>
-<tr>
-<th style="text-align: center">
-MINER
-</th>
-<th style="text-align: center">
-<a href="#" ng-click="orderByAllMinersField='power'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
-GÜÇ
-</a>
-</th>
-<th style="text-align: center">
-<a href="#" ng-click="orderByAllMinersField='bonus_power'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
-BONUS
-</a>
-</th>
-<th style="text-align: center">
-<a href="#" ng-click="orderByAllMinersField='includeImpactPower'; reverseAllMinersSort = !reverseAllMinersSort; $event.preventDefault();">
-ETKİSİ
-</a>
-</th>
-<th style="text-align: center">
-ETKİLEŞİM
-</th>
-</tr>
-</thead>
-<tbody>
-<tr ng-repeat="miner in allMiners | orderBy:orderByAllMinersField:reverseAllMinersSort | limitTo:itemsPerPage : (currentPage - 1) * itemsPerPage"
-ng-class="{ 'already-have-miner': miner.already_have }" >
-<td style="text-align: center; position: relative;">
-{{miner.name.en}}<br/>
-<img ng-if="miner.level == 0" src='https://rollercoin.com/static/img/storage/rarity_icons/level_1.png?v=1.0.0' style='left: 40px;position: absolute;top: 40px;'/>
-<img ng-if="miner.type === 'old_merge'" src='https://rollercoin.com/static/images/level_star.4ff18517e5e8eed42060..png' style='left: 40px;position: absolute;top: 40px;'/>
-<img ng-if="miner.level > 0 && miner.type !== 'old_merge'" src='https://rollercoin.com/static/img/storage/rarity_icons/level_{{miner.level+1}}.png?v=1.0.0' style='left: 40px;position: absolute;top: 40px;'/>
-<img src='https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608' width="80px" height="auto"/>
-<div ng-if="!miner.is_can_be_sold_on_mp"
-style="
-background-color: red;
-font-size: 13px;
-font-weight: bold;
-color: white;
-">SATILAMAZ</div>
-</td>
-<td style="text-align: center">
-{{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
-</td>
-<td style="text-align: center">
-{{(miner.bonus_power / 100)}}%
-</td>
-<td style="text-align: center">
-{{miner.includeImpactLegend.value.toFixed(2)}} {{miner.includeImpactLegend.unit}}
-</td>
-<td style="text-align: center">
-<p><button class="button" ng-click="addMinerToSimulation(miner)">Listeye Ekle</button></p>
-</td>
-</tr>
-</tbody>
-</table>
-<ul style="text-align: center" uib-pagination first-text="İlk sayfa" previous-text="Önceki" last-text="Son sayfa" next-text="Sonraki sayfa" total-items="allMiners.length" ng-model="currentPage" max-size="5" class="pagination-sm" items-per-page="itemsPerPage" boundary-links="true" num-pages="numPages"></ul>
+<div ng-if="formData.showAllMiners" class="modern-miner-wrapper">
 
+  <div class="modern-miner-header">
+    <h4>🚀 Modern Miner Listesi</h4>
+    <div class="miner-count">
+      Toplam: {{allMiners.length}} Miner
+    </div>
+  </div>
+
+  <div class="modern-miner-grid">
+
+    <div class="modern-miner-card"
+     ng-repeat="miner in allMiners 
+     | orderBy:orderByAllMinersField:reverseAllMinersSort 
+     | limitTo:itemsPerPage : (currentPage - 1) * itemsPerPage">
+
+  <!-- Rarity -->
+  <div class="rarity-badge {{miner.rarity}}">
+    {{miner.rarity | uppercase}}
+  </div>
+
+  <!-- Level -->
+  <div class="level-badge level-{{miner.level}}">
+    ⭐ LVL {{miner.level + 1}}
+  </div>
+
+	  
+
+      <div class="miner-image">
+        <img src="https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608">
+      </div>
+
+      <div class="miner-name">
+        {{miner.name.en}}
+      </div>
+
+      <div class="miner-stats">
+        <div>
+          ⚡ {{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}
+          {{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
+        </div>
+        <div>
+          🎁 {{(miner.bonus_power / 100)}}%
+        </div>
+        <div>
+          💎 {{miner.includeImpactLegend.value.toFixed(2)}} {{miner.includeImpactLegend.unit}}
+        </div>
+      </div>
+
+      <button class="modern-add-btn"
+              ng-click="addMinerToSimulation(miner)">
+        + Listeye Ekle
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="modern-pagination">
+    <ul uib-pagination
+        total-items="allMiners.length"
+        ng-model="currentPage"
+        max-size="5"
+        items-per-page="itemsPerPage"
+        boundary-links="true">
+    </ul>
+  </div>
 
 </div>
+
 </div>
 <!--===============================================================================================-->
 <div ng-if="formData.showMiners">
