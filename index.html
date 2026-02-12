@@ -76,6 +76,68 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!--===============================================================================================-->
 <body ng-controller="MiningController">
 
+<!-- LOADING OVERLAY -->
+<div id="globalLoader">
+  <div class="loader-box">
+    <div class="loader-spinner"></div>
+    <div class="loader-text">Veriler Yükleniyor...</div>
+  </div>
+</div>
+<style>
+#globalLoader {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #0f1630, #111a3a);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loader-box {
+  text-align: center;
+  color: #00e5ff;
+  font-family: 'Poppins', sans-serif;
+}
+
+.loader-spinner {
+  width: 70px;
+  height: 70px;
+  border: 6px solid rgba(0, 229, 255, 0.2);
+  border-top: 6px solid #00e5ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: auto;
+  margin-bottom: 15px;
+}
+
+.loader-text {
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+#globalLoader.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+</style>
+<script>
+window.addEventListener("load", function () {
+    const loader = document.getElementById("globalLoader");
+    loader.classList.add("hide");
+
+    setTimeout(() => {
+        loader.style.display = "none";
+    }, 500);
+});
+</script>
+
+
 <div class="topbar">
 <!-- Sol taraf -->
 <div class="topbar-left">
