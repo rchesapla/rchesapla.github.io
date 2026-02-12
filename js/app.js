@@ -720,6 +720,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         $scope.isLoading = true;
         $scope.detailed_miners = await MinerService.getDetailedMiner($item);
         $scope.chosen_mine = $item.name.en;
+        $scope.isLoading = false;
         $scope.$apply();
     }
 
@@ -886,7 +887,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             updateAllocatedPower(c);
         }
     });
-    $scope.isLoading = true;
+    $scope.isLoading = false;
 
     $scope.$apply();
 

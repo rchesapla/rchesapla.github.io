@@ -2,13 +2,12 @@
 <html lang="tr" ng-app="miningApp">
 <head>
 <meta charset="UTF-8">
-<title>Madencilerim Pro</title>
+<title>Madencilerim</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
 
-<!-- SENİN DOSYALAR -->
 <script src="js/app.js"></script>
 <script src="js/services.js"></script>
 <script src="js/user-miner-service.js"></script>
@@ -19,37 +18,23 @@ body{
     background:#0f1630;
     color:white;
 }
-
 .login-box{
     max-width:400px;
-    margin:100px auto;
+    margin:50px auto;
     padding:30px;
     background:#1b2130;
     border-radius:15px;
 }
-
 .panel{
     padding:30px;
-}
-
-.stat-box{
-    background:#1b2130;
-    padding:20px;
-    border-radius:12px;
-    text-align:center;
-    margin-bottom:20px;
-}
-
-.table-dark{
-    background:#1b2130;
 }
 </style>
 </head>
 
 <body ng-controller="MiningController">
 
-<!-- 🔐 KULLANICI GİRİŞ -->
-<div class="login-box" ng-if="!isLoadedUser">
+<!-- 🔐 KULLANICI GİRİŞ (HER ZAMAN GÖRÜNÜR) -->
+<div class="login-box">
 
     <h4 class="text-center">Rollercoin Kullanıcı Adı</h4>
 
@@ -67,85 +52,14 @@ body{
 
 </div>
 
-<!-- 🚀 PANEL -->
-<div class="container panel" ng-if="isLoadedUser">
+<!-- 🚀 PANEL (SADECE USER YÜKLENİNCE) -->
+<div class="container panel" ng-show="isLoadedUser">
 
     <h2 class="text-center mb-4">MADENCİLERİM</h2>
 
-    <!-- İSTATİSTİK -->
-    <div class="row">
-
-        <div class="col-md-4">
-            <div class="stat-box">
-                <div>Toplam Miner</div>
-                <h4>{{visible_user_miners.length}}</h4>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="stat-box">
-                <div>Toplam Miner Gücü</div>
-                <h4>
-                    {{chooseBestHashRateUnit(user_data.powerData.miners,'GH/s').value.toFixed(2)}}
-                    {{chooseBestHashRateUnit(user_data.powerData.miners,'GH/s').unit}}
-                </h4>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="stat-box">
-                <div>Bonus Oranı</div>
-                <h4>{{(user_data.powerData.bonus_percent / 100)}}%</h4>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- TABLO -->
-    <div class="table-responsive mt-4">
-
-        <table class="table table-dark table-bordered text-center">
-
-            <thead>
-                <tr>
-                    <th>Miner</th>
-                    <th>Güç</th>
-                    <th>Bonus</th>
-                    <th>Etki Gücü</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                <tr ng-repeat="miner in visible_user_miners">
-
-                    <td>
-                        {{miner.name.en}}<br>
-                        <img width="60"
-                        src="https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif">
-                    </td>
-
-                    <td>
-                        {{chooseBestHashRateUnit(miner.power,'GH/s').value.toFixed(2)}}
-                        {{chooseBestHashRateUnit(miner.power,'GH/s').unit}}
-                    </td>
-
-                    <td>
-                        {{(miner.bonus_power / 100)}}%
-                    </td>
-
-                    <td>
-                        {{miner.removeImpactLegend.value.toFixed(2)}}
-                        {{miner.removeImpactLegend.unit}}
-                    </td>
-
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
+    <p class="text-center">
+        Toplam Miner: {{visible_user_miners.length}}
+    </p>
 
 </div>
 
