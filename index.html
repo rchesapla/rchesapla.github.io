@@ -909,13 +909,13 @@ color: white;
 <div class="card-fc my-2 özelfont">
 <h6 class="card-header">MINER LİSTESİ</h6>
 <div class="card-body">
-<div class="şiş">
+<div class="şiş" style="text-align:center">
 <!--===============================================================================================-->
 <div class="row my-1">
-<span class="label">Miner Adı:</span>
+<span class="labelbaşlık">Miner Adı:</span>
 <div class="input-container">
-<input type="text" class="- - -" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Örn: YMCA">
-<select class="- - -" ng-model="allMinersRarity" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<input id="type" type="text" class="- - -" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Örn: YMCA">
+<select id="type" class="- - -" ng-model="allMinersRarity" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
 <option value="all">Hepsi</option>
 <option value="common">Common</option>
 <option value="legacy">Legacy</option>
@@ -929,17 +929,17 @@ color: white;
 </div>
 <!--===============================================================================================-->
 <div class="row my-1">
-<span class="label">Bonus Oranı:</span>
+<span class="labelbaşlık">Bonus Oranı:</span>
 <div>
-<input class="- - -" ng-model="allMinerMinBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/> / 
-<input class="- - -" ng-model="allMinerMaxBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/>
+<input id="type" class="- - -" ng-model="allMinerMinBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/> / 
+<input id="type" class="- - -" ng-model="allMinerMaxBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/>
 </div>
 </div>
 <!--===============================================================================================-->
 <div class="row my-1">
-<span class="label">Mağaza Durumu:</span>
+<span class="labelbaşlık">Mağaza Durumu:</span>
 <div>
-<select class="- - -" ng-model="allMinerNegotiableStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<select id="type" class="- - -" ng-model="allMinerNegotiableStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
 <option value="all">Hepsi</option>
 <option value="inegotiable">Satılamaz</option>
 <option value="negotiable">Satılabilir</option>
@@ -948,9 +948,9 @@ color: white;
 </div>
 <!--===============================================================================================-->
 <div class="row my-1">
-<span class="label">Oda Durumu:</span>
+<span class="labelbaşlık">Oda Durumu:</span>
 <div>
-<select class="- - -" ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<select id="type" class="- - -" ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
 <option value="all">Hepsi</option>
 <option value="mine">Varolan</option>
 <option value="not_mine">Varolmayan</option>
@@ -959,9 +959,9 @@ color: white;
 </div>
 <!--===============================================================================================-->
 <div class="row my-1">
-<span class="label">Hücre Durumu:</span>
+<span class="labelbaşlık">Hücre Durumu:</span>
 <div>
-<select class="- - -" ng-model="allMinerCells" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<select id="type" class="- - -" ng-model="allMinerCells" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
 <option value="all">Hepsi</option>
 <option value="1">1</option>
 <option value="2">2</option>
