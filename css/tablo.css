@@ -108,3 +108,54 @@ th{background:#203e77}
 .level-3 { background: #f59e0b; }      /* Altın */
 .level-4 { background: #ef4444; }      /* Kırmızı */
 .level-5 { background: linear-gradient(45deg,#00e5ff,#ff00cc); } /* Neon */
+
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 4px 0;
+  color: #cbd5ff;
+}
+
+.bonus-value {
+  color: #00e5ff;
+  font-weight: 600;
+}
+
+/* Oda durumu */
+.room-status {
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.room-have {
+  background: rgba(34,197,94,0.2);
+  color: #22c55e;
+}
+
+.room-not-have {
+  background: rgba(239,68,68,0.2);
+  color: #ef4444;
+}
+
+.market-status {
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+/* Satılabilir */
+.sellable {
+  background: rgba(34,197,94,0.15);
+  color: #22c55e;
+}
+
+/* Satılamaz */
+.not-sellable {
+  background: rgba(239,68,68,0.15);
+  color: #ef4444;
+}
