@@ -1069,6 +1069,25 @@ color: white;
       {{(miner.bonus_power / 100)}}%
     </span>
   </div>
+<!-- Bonuslu Toplam Güç -->
+<div class="stat-row total-power-row">
+  <span>🚀 Bonuslu Güç</span>
+  <span class="total-power-value">
+    {{
+      chooseBestHashRateUnit(
+        miner.power * (1 + (miner.bonus_power / 10000)),
+        'GH/s'
+      ).value.toFixed(2)
+    }}
+    {{
+      chooseBestHashRateUnit(
+        miner.power * (1 + (miner.bonus_power / 10000)),
+        'GH/s'
+      ).unit
+    }}
+  </span>
+</div>
+
   <!-- Oda Durumu -->
   <div class="stat-row">
     <span>🏠 Oda Durumu</span>

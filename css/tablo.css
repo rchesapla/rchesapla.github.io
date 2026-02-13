@@ -4,6 +4,18 @@ th{background:#203e77}
 
 /*MADENCİ LİSTELEME ŞABLONU*/
 
+.total-power-row {
+  background: linear-gradient(90deg, #00e5ff22, #00ffcc22);
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.total-power-value {
+  color: #00ffcc;
+  font-weight: bold;
+}
+
+
 .modern-pagination {
   display: flex;
   text-decoration: none;
@@ -100,6 +112,28 @@ th{background:#203e77}
   color: #fff;
   font-size: 14px;
 }
+
+.fancy-name {
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  background: linear-gradient(90deg, #00e5ff, #00ffcc, #8a2be2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  animation: glowPulse 2s infinite alternate;
+}
+
+@keyframes glowPulse {
+  from {
+    text-shadow: 0 0 5px #00e5ff, 0 0 10px #00ffcc;
+  }
+  to {
+    text-shadow: 0 0 15px #00ffcc, 0 0 25px #8a2be2;
+  }
+}
+
 
 .miner-stats {
   margin-top: 10px;
