@@ -1034,10 +1034,24 @@ color: white;
       Toplam: {{allMiners.length}} Miner!
     </div>
   </div>
+  
+  <div style="margin-top:15px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+
+  <select id="type"class="- - -"
+          ng-model="selectedSort"
+          ng-change="changeMinerSort(selectedSort)">
+    <option value="bonus_power">🎁 Bonusa Göre</option>
+    <option value="power">⚡ Güce Göre</option>
+    <option value="total_power">🚀 Bonuslu Güce Göre</option>
+    <option value="name">🔤 İsme Göre</option>
+  </select>
+
+</div>
+
 
   <div class="modern-miner-grid">
 
-    <div class="modern-miner-card" ng-repeat="miner in allMiners | orderBy:orderByAllMinersField:reverseAllMinersSort | limitTo:itemsPerPage : (currentPage - 1) * itemsPerPage">
+    <div class="modern-miner-card" ng-repeat="miner in allMiners | orderBy:getMinerSortValue:reverseAllMinersSort | limitTo:itemsPerPage : (currentPage - 1) * itemsPerPage">
 	<!-- Rarity -->
 	<div class="rarity-badge {{miner.rarity}}">
 		{{miner.rarity | uppercase}}

@@ -3,6 +3,47 @@ var app = angular.module('miningApp', ['ui.bootstrap']);
 app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerService', 'MinerService', 'FirebaseService', '$sce', '$timeout', async function($scope, CurrencyService, UserMinerService, MinerService, FirebaseService, $sce, $timeout) {
     $scope.units = ['GH/s', 'TH/s', 'PH/s', 'EH/s'];
     $scope.networkUnits = ['GH/s', 'TH/s', 'PH/s', 'EH/s', 'ZH/s'];
+	
+$scope.selectedSort = 'bonus_power';
+$scope.reverseAllMinersSort = true;
+
+// Bonuslu toplam güç hesaplama
+$scope.getTotalPower = function(miner) {
+    return miner.power * (1 + (miner.bonus_power / 10000));
+};
+
+// Sıralama değeri döndürme
+$scope.getMinerSortValue = function(miner) {
+
+    if ($scope.selectedSort === 'bonus_power') {
+        return miner.bonus_power;
+    }
+
+    if ($scope.selectedSort === 'power') {
+        return miner.power;
+    }
+
+    if ($scope.selectedSort === 'total_power') {
+        return $scope.getTotalPower(miner);
+    }
+
+    if ($scope.selectedSort === 'name') {
+        return miner.name.en;
+    }
+
+    return miner.bonus_power;
+};
+
+// Dropdown değişince
+$scope.changeMinerSort = function(sortType) {
+    $scope.selectedSort = sortType;
+};
+
+// Artan / Azalan
+$scope.toggleAllMinerSort = function() {
+    $scope.reverseAllMinersSort = !$scope.reverseAllMinersSort;
+};
+
     let default_form = {
         currency: null,
         power: 0,
