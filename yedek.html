@@ -140,6 +140,8 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
           <input type="number"
                  ng-model="formData.power"
                  placeholder="Kazım gücü">
+		<select id="unit" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')" class="- - -" ng-disabled="isLoadedUser">
+</select>
         </div>
 
         <button class="rc-btn-primary"
