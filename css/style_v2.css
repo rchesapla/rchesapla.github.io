@@ -16,6 +16,120 @@ background: #2f3045;
 width: 2px;
 }
 
+/* ========================= */
+/* MINER LIST */
+/* ========================= */
+
+.rc-miner-wrapper {
+  margin-top: 40px;
+}
+
+.rc-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.rc-section-header select {
+  padding: 8px;
+  border-radius: 8px;
+  background: #1a2148;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.rc-miner-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
+  gap: 20px;
+}
+
+.rc-miner-card {
+  background: var(--card);
+  padding: 18px;
+  border-radius: 14px;
+  position: relative;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.rc-miner-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.rc-rarity {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #333;
+}
+
+.rc-miner-image img {
+  width: 90px;
+  margin: 15px auto;
+}
+
+.rc-miner-name {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.rc-miner-stats div {
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.rc-total-power {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.rc-btn-add {
+  margin-top: 12px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: var(--accent);
+  color: black;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.rc-btn-add:hover {
+  transform: scale(1.05);
+}
+
+.rc-pagination {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.rc-btn-secondary {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.rc-btn-secondary:hover {
+  background: var(--accent);
+  color: black;
+}
+
+
 
 .loading-overlay {
 position: fixed;
@@ -288,3 +402,124 @@ margin-left: auto;
 /* Küçük detay: klavye ile erişilebilirlik */
 a, button, input{accent-color:var(--accent)}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+
+
+.rc-wrapper {
+  background: var(--panel);
+  min-height: 100vh;
+  color: var(--text);
+  font-family: 'Poppins', sans-serif;
+}
+
+.rc-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 30px;
+  background: var(--card);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.rc-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.rc-logo img {
+  width: 35px;
+}
+
+.rc-main {
+  display: flex;
+  gap: 25px;
+  padding: 25px;
+}
+
+.rc-sidebar {
+  width: 320px;
+}
+
+.rc-card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 14px;
+}
+
+.rc-input-group {
+  margin-bottom: 15px;
+}
+
+.rc-input-group label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 5px;
+  color: var(--muted);
+}
+
+.rc-input-group input,
+.rc-input-group select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: #1a2148;
+  color: white;
+}
+
+.rc-btn-primary {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: var(--accent);
+  color: black;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.rc-btn-primary:hover {
+  transform: scale(1.03);
+}
+
+.rc-content {
+  flex: 1;
+}
+
+.rc-earnings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 20px;
+}
+
+.rc-earn-card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.rc-earn-card.highlight {
+  border: 2px solid var(--accent);
+}
+
+.rc-earn-card h2 {
+  margin: 10px 0;
+  color: var(--accent);
+}
+
+.rc-coin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 18px;
+}
+
+.rc-coin-card {
+  background: var(--card);
+  padding: 16px;
+  border-radius: 12px;
+}
