@@ -1,0 +1,78 @@
+.rc-topbar-roller {
+  background: linear-gradient(180deg,#0b0f1a,#05070d);
+  border-bottom: 2px solid #00e5ff;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(0,255,255,0.15);
+}
+
+/* SOL TARAF */
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.logo-text {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.topbar-menu {
+  display: flex;
+  gap: 20px;
+}
+
+.menu-item {
+  opacity: 0.7;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.menu-item:hover,
+.menu-item.active {
+  opacity: 1;
+  color: #00e5ff;
+}
+
+/* SAĞ TARAF */
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.power-chip {
+  background: #08121f;
+  border: 1px solid #00e5ff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(0,229,255,0.4);
+}
+
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #0f1725;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+.user-avatar {
+  width: 28px;
+  height: 28px;
+  background: #00e5ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-size: 14px;
+}
