@@ -135,6 +135,24 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
   <!-- ANA İÇERİK -->
   <main class="rc-main">
+<section class="withdrawals-section">
+  <h3>Withdrawal Minimums</h3>
+
+  <table class="withdraw-table">
+    <thead>
+      <tr>
+        <th>Coin</th>
+        <th>Minimum</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="(symbol, info) in withdrawalMinimums">
+        <td>{{symbol}}</td>
+        <td>{{info.amount}} {{info.unit}}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
 
     <!-- SOL PANEL -->
     <aside class="rc-sidebar">

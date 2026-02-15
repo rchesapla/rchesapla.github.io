@@ -4,6 +4,16 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.units = ['GH/s', 'TH/s', 'PH/s', 'EH/s'];
     $scope.networkUnits = ['GH/s', 'TH/s', 'PH/s', 'EH/s', 'ZH/s'];
 	
+	// Minimum withdrawal limits (örnek değerler)
+$scope.withdrawalMinimums = {
+  BTC: { amount: 0.0001, unit: "BTC" },
+  ETH: { amount: 0.008, unit: "ETH" },
+  DOGE: { amount: 90, unit: "DOGE" },
+  BNB: { amount: 0.008, unit: "BNB" },
+  // istersen yeni coinler buraya ekleyebilirsin
+};
+
+	
 	$scope.onlineUsers = 0;
 
 const db = firebase.firestore();
