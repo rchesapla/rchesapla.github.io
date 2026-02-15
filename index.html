@@ -26,7 +26,7 @@ rollercoin kazanç analizi
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://rchesapla.github.io/">
 <meta property="og:image" content="https://rchesapla.github.io/img/logo.png">
-
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=eLUofq-A8-xCQRRIxcouXLonvSPNQvzxpMC4QV0-w_IjZOAXQpei5g3CHFZkdwLMPCgvN8dA3WQsWUzCFhK0q9WGXywlo761n-4e-9pzgE8kJDhZSMpxkBWjfogQVn9h" charset="UTF-8"></script><script src="https://cdn.tailwindcss.com"></script>
 <!--===============================================================================================-->
 <link rel="stylesheet" href="./css/anasablon.css">
 <link rel="stylesheet" href="./css/genelkazanc.css">
@@ -135,24 +135,6 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
   <!-- ANA İÇERİK -->
   <main class="rc-main">
-<section class="withdrawals-section">
-  <h3>Withdrawal Minimums</h3>
-
-  <table class="withdraw-table">
-    <thead>
-      <tr>
-        <th>Coin</th>
-        <th>Minimum</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="(symbol, info) in withdrawalMinimums">
-        <td>{{symbol}}</td>
-        <td>{{info.amount}} {{info.unit}}</td>
-      </tr>
-    </tbody>
-  </table>
-</section>
 
     <!-- SOL PANEL -->
     <aside class="rc-sidebar">
@@ -401,6 +383,9 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
     </div>
 
   </div>
+
+  
+  
 <div ng-if="customMiners.length > 0">
 <div class="modern-gpu-wrapper" ng-if="customMiners.length > 0">
 
@@ -610,7 +595,75 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </div>
 
 </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+                    <div class="rollercoin-card p-6">
+                        <h2 class="text-lg rollercoin-title mb-4 font-bold">KRİPTO FİYATLARI</h2>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse table-fixed">
+                                <colgroup>
+                                    <col style="width: 25%;">
+                                    <col style="width: 37.5%;">
+                                    <col style="width: 37.5%;">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th
+                                            class="text-left py-2 px-3 text-xs font-bold text-cyan-400 uppercase border-b border-gray-600">
+                                            KRİPTO</th>
+                                        <th
+                                            class="text-center py-2 px-3 text-xs font-bold text-cyan-400 uppercase border-b border-gray-600">
+                                            $</th>
+                                        <th
+                                            class="text-center py-2 px-3 text-xs font-bold text-cyan-400 uppercase border-b border-gray-600">
+                                            ₺</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pricesTableBody">
 
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-xs text-gray-400 mt-3 text-center" id="pricesLastUpdate">
+                            Last updated: Loading...
+                        </div>
+                    </div>
+
+                    <div class="rollercoin-card p-6">
+                        <h2 class="text-lg rollercoin-title mb-4 font-bold">PARA ÇEKME GEREKSİNİMLERİ</h2>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse table-fixed">
+                                <colgroup>
+                                    <col style="width: 25%;">
+                                    <col style="width: 25%;">
+                                    <col style="width: 25%;">
+                                    <col style="width: 25%;">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th
+                                            class="text-left py-2 px-3 text-xs font-bold text-cyan-400 uppercase border-b border-gray-600">
+                                            KRİPTO</th>
+                                        <th
+                                            class="text-center py-2 px-3 text-xs font-bold text-cyan-400 uppercase border-b border-gray-600">
+                                            MİKTAR</th>
+                                        <th
+                                            class="text-center py-2 px-3 text-xs font-bold text-cyan-400 uppercase border-b border-gray-600">
+                                            $</th>
+                                        <th
+                                            class="text-center py-2 px-3 text-xs font-bold text-cyan-400 uppercase border-b border-gray-600">
+                                            ₺</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="withdrawalsTableBody">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-xs text-gray-400 mt-3 text-center">
+                            Para çekmek için gereken minimum tutarlar!
+                        </div>
+                    </div>
+                </div>  
     </section>
 
   </main>
@@ -624,6 +677,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
 </footer>
 
+<script src="js/paracekmimi.js"></script>
 </body>
 
 </html>
