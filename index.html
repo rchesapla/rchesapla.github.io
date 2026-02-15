@@ -149,10 +149,29 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
         <div class="rc-input-group">
           <label>Rollercoin Kul. Adı:</label>
           <input type="text"
-                 ng-model="userSearchText"
-                 uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
-                 typeahead-on-select="onSelectPlayer($item)"
-                 placeholder="Örn: FthCLK">
+                 ng-model="userSearchText" 
+                placeholder="Örn: FthCLK" 
+                typeahead-wait-ms="200"
+                uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
+                typeahead-no-results="playerSearchNoResults"
+                typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
+                typeahead-loading="loading"/>
+		<div class="player-no-results" ng-if="playerSearchNoResults">
+			<div class="no-results-icon">
+				🔍
+			</div>
+
+			<h4 class="no-results-title">
+				Oyuncu bulunamadı
+			</h4>
+
+			<p class="no-results-text">
+				Aradığınız kullanıcı mevcut değil.
+				Lütfen farklı bir isim deneyin.
+			</p>
+
+		</div>
+
         </div>
 
         <!-- Lig -->

@@ -3,6 +3,18 @@ var app = angular.module('miningApp', ['ui.bootstrap']);
 app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerService', 'MinerService', 'FirebaseService', '$sce', '$timeout', async function($scope, CurrencyService, UserMinerService, MinerService, FirebaseService, $sce, $timeout) {
     $scope.units = ['GH/s', 'TH/s', 'PH/s', 'EH/s'];
     $scope.networkUnits = ['GH/s', 'TH/s', 'PH/s', 'EH/s', 'ZH/s'];
+	
+	$scope.playerSearchNoResults = false;
+
+$scope.getPlayerByName = function(name) {
+  let results = searchPlayers(name);
+
+  $scope.playerSearchNoResults = results.length === 0;
+
+  return results;
+};
+
+	
 	$scope.visibleItems = 12;
 	$scope.loadMore = function () {
     $scope.visibleItems += 12;
