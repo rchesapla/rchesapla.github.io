@@ -1,4 +1,3 @@
-
 let withdrawalMinimums = {};
 
 async function loadConfig() {
