@@ -34,6 +34,7 @@ rollercoin kazanç analizi
 <link rel="stylesheet" href="./css/tablo.css">
 <link rel="stylesheet" href="./css/fonts.css">
 <link rel="stylesheet" href="./css/minerlistesi.css">
+<link rel="stylesheet" href="./css/yukleniyor.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" href="./css/input.css">
 <link rel="stylesheet" href="./css/button.css">
@@ -103,6 +104,14 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </head>
 <!--===============================================================================================-->
 <body ng-controller="MiningController">
+<!-- LOADER -->
+<div class="rc-loader" ng-show="isLoading">
+  <div class="loader-box">
+    <div class="spinner"></div>
+    <p>Yükleniyor...</p>
+  </div>
+</div>
+
 
 <div class="rc-wrapper">
 
@@ -251,18 +260,6 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </select>
 </div>
 </div>
-  <div style="margin-top:15px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
-
-  <select id="type"class="- - -"
-          ng-model="selectedSort"
-          ng-change="changeMinerSort(selectedSort)">
-    <option value="bonus_power">🎁 Bonusa Göre</option>
-    <option value="power">⚡ Güce Göre</option>
-    <option value="total_power">🚀 Bonuslu Güce Göre</option>
-    <option value="name">🔤 İsme Göre</option>
-  </select>
-
-</div>
 <!--===============================================================================================-->
 </div>
 
@@ -316,15 +313,6 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
           <small>
             ${{calculateEarnings('month','usd')}} •
             {{calculateEarnings('month','try')}}₺
-          </small>
-        </div>
-
-        <div class="rc-earn-card">
-          <span>Yıllık</span>
-          <h2>{{calculateEarnings('year','amount')}}</h2>
-          <small>
-            ${{calculateEarnings('year','usd')}} •
-            {{calculateEarnings('year','try')}}₺
           </small>
         </div>
 
@@ -567,7 +555,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
     </button>
 
     <div class="load-info">
-        {{visibleItems}} / {{allMiners.length}} miner gösteriliyor
+        {{visibleItems}} / {{allMiners.length}}
     </div>
 
 </div>

@@ -3,54 +3,10 @@ var app = angular.module('miningApp', ['ui.bootstrap']);
 app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerService', 'MinerService', 'FirebaseService', '$sce', '$timeout', async function($scope, CurrencyService, UserMinerService, MinerService, FirebaseService, $sce, $timeout) {
     $scope.units = ['GH/s', 'TH/s', 'PH/s', 'EH/s'];
     $scope.networkUnits = ['GH/s', 'TH/s', 'PH/s', 'EH/s', 'ZH/s'];
-	
 	$scope.visibleItems = 12;
-
-$scope.loadMore = function () {
+	$scope.loadMore = function () {
     $scope.visibleItems += 12;
 };
-
-	
-$scope.selectedSort = 'bonus_power';
-$scope.reverseAllMinersSort = true;
-
-// Bonuslu toplam güç hesaplama
-$scope.getTotalPower = function(miner) {
-    return miner.power * (1 + (miner.bonus_power / 10000));
-};
-
-// Sıralama değeri döndürme
-$scope.getMinerSortValue = function(miner) {
-
-    if ($scope.selectedSort === 'bonus_power') {
-        return miner.bonus_power;
-    }
-
-    if ($scope.selectedSort === 'power') {
-        return miner.power;
-    }
-
-    if ($scope.selectedSort === 'total_power') {
-        return $scope.getTotalPower(miner);
-    }
-
-    if ($scope.selectedSort === 'name') {
-        return miner.name.en;
-    }
-
-    return miner.bonus_power;
-};
-
-// Dropdown değişince
-$scope.changeMinerSort = function(sortType) {
-    $scope.selectedSort = sortType;
-};
-
-// Artan / Azalan
-$scope.toggleAllMinerSort = function() {
-    $scope.reverseAllMinersSort = !$scope.reverseAllMinersSort;
-};
-
     let default_form = {
         currency: null,
         power: 0,
@@ -103,142 +59,8 @@ $scope.toggleAllMinerSort = function() {
         }
     }
 
-    $scope.donationValue = 2;
-    $scope.donationCurrency = 'U$';
-    calculateDonation();
-
-    $scope.collections = [
-        {
-            id: 1,
-            name: "Miners of Infinity",
-            miners: [
-                "669fd40b8055d6def342d91a",
-                "669fcfc58055d6def342d1ab",
-                "669fd3b78055d6def342d8bd",
-                "669fd1fd8055d6def342d53d",
-                "669fd3538055d6def342d81c",
-                "669fd35f8055d6def342d865",
-                "669fd1788055d6def342d420",
-                "669fd0e78055d6def342d31c",
-                "669fd08e8055d6def342d2d1",
-                "669fd6a88055d6def342da6b",
-                "66a112918055d6def3474184",
-                "66a112918055d6def347418c"
-            ]
-        },
-        {
-            id: 2,
-            name: "Roller Football League",
-            miners: [
-                "6668980bdddadd0605fdaa2e",
-                "6668963edddadd0605fda7ac",
-                "666896c5dddadd0605fda8bb",
-                "6668973cdddadd0605fda94f",
-                "66689701dddadd0605fda905",
-                "66689684dddadd0605fda7f6",
-                "66689843dddadd0605fdaa78",
-                "666897d2dddadd0605fda9e4",
-                "66689794dddadd0605fda99a",
-                "6668991fdddadd0605fdab24",
-                "6668991fdddadd0605fdab27",
-                "6668991fdddadd0605fdab2d"
-            ]
-        },
-        {
-            id: 3,
-            name: "Music Festival",
-            miners: [
-                "661466bcd6c322a6c7c344ba",
-                "661466e1d6c322a6c7c34504",
-                "661467e8d6c322a6c7c346a7",
-                "6614674ad6c322a6c7c3465b",
-                "6614672ad6c322a6c7c34612",
-                "66146919d6c322a6c7c3488d",
-                "661468f7d6c322a6c7c34844",
-                "66146703d6c322a6c7c3454d",
-                "66146868d6c322a6c7c3476d",
-                "66146973d6c322a6c7c348d8"
-            ]
-        },
-        {
-            id: 4,
-            name: "Interstellar Armada",
-            miners: [
-                "654a1eb4d23e8edde9341e5f",
-                "654a1f91d23e8edde9341eb1",
-                "654a21aed23e8edde93420c9",
-                "654a223cd23e8edde9342146",
-                "654a210cd23e8edde9341fd6",
-                "654a2382d23e8edde934216a",
-                "654a253ad23e8edde9342353",
-                "654a24ced23e8edde934228f",
-                "654a22d9d23e8edde9342158",
-                "654a1e06d23e8edde9341dfe"
-            ]
-        },
-        {
-            id: 5,
-            name: "Yatch Club",
-            miners: [
-                "64c3a0bd31ec0b205c25efd6",
-                "64c39ebd31ec0b205c25ec50",
-                "64c39e7731ec0b205c25ebcd",
-                "64c3a1fa31ec0b205c25f14b",
-                "64c39f5b31ec0b205c25ed8b",
-                "64c3a05a31ec0b205c25ef44",
-                "64c3a15d31ec0b205c25f0f9",
-                "64c3a29131ec0b205c25f1dd",
-                "64c3a23e31ec0b205c25f18f",
-                "64c254c20c6fb1d2237a1391"
-            ]
-        },
-        {
-            id: 6,
-            name: "Ultimate Blaster",
-            miners: [
-                "65affbbf43dcad8f6d0f7a52",
-                "65aff78243dcad8f6d0f79b6",
-                "65affb6d43dcad8f6d0f7a36",
-                "65affd6543dcad8f6d0f7acd",
-                "65affccf43dcad8f6d0f7a94",
-                "65affc7f43dcad8f6d0f7a78",
-                "65affb1e43dcad8f6d0f7a1a",
-                "65aff67743dcad8f6d0f7962",
-                "65affd1843dcad8f6d0f7ab0",
-                "65b0f72543dcad8f6d0fa7ff"
-            ]
-        },
-        {
-            id: 7,
-            name: "Moto Gang Club",
-            miners: [
-                "644bbdd2648294b4642f3695",
-                "644bbece648294b4642f3697",
-                "644bbf0a648294b4642f3698",
-                "644bbe15648294b4642f3696",
-                "644bc010648294b4642f369d",
-                "644bbf6f648294b4642f369a",
-                "644bbf44648294b4642f3699",
-                "644bbfb1648294b4642f369b",
-                "644bbfe6648294b4642f369c",
-                "644bb5de648294b4642f368f",
-                "644bb270648294b4642f368e",
-                "644bb225648294b4642f368d",
-                "644bb671648294b4642f3690"
-
-            ]
-        },
-        {
-            id: 8,
-            name: "Season 14 | Harvest Time!",
-            miners: [
-                '6687ccfc7643815232d6402d', '6687cd307643815232d64077', '6687cd837643815232d640c1', '6687cdc47643815232d64726', '6687c01a7643815232d60217', '6687bf4f7643815232d5f741', '6687cf557643815232d65d5c', '6687cf817643815232d65da6', '6687cfae7643815232d65def', '6687cfd57643815232d65e39', '6687ce4e7643815232d65297', '6687cea87643815232d65882', '6687ced67643815232d65cc8', '6687cefd7643815232d65d11', '6687bde47643815232d5f0c6', '6687be827643815232d5f3c1'
-            ]
-        }
-    ];
-
-    let loaded_user = getUrlParamValue('profil');
-    let loaded_league = getUrlParamValue('lig');
+    let loaded_user = getUrlParamValue('user');
+    let loaded_league = getUrlParamValue('league');
     loaded_user = loaded_user || localStorage.getItem('keep_loaded_user');
 
     let loaded_miners = getUrlParamValue('miners');
@@ -285,8 +107,6 @@ $scope.toggleAllMinerSort = function() {
                 return fiatCurrency === 'amount' ? (earningsPerDay * 7).toFixed(6) : coin.in_game_only ? 0 : (earningsPerDay * 7 * exchangeRates[coin.name][fiatCurrency]).toFixed(2);
             case 'month':
                 return fiatCurrency === 'amount' ? (earningsPerDay * 30).toFixed(6) : coin.in_game_only ? 0 : (earningsPerDay * 30 * exchangeRates[coin.name][fiatCurrency]).toFixed(2);
-            case 'year':
-                return fiatCurrency === 'amount' ? (earningsPerDay * 365).toFixed(6) : coin.in_game_only ? 0 : (earningsPerDay * 365 * exchangeRates[coin.name][fiatCurrency]).toFixed(2);
             default:
                 return 0;
         }
@@ -388,7 +208,7 @@ $scope.toggleAllMinerSort = function() {
         }
 
         if(dias === Number.MAX_SAFE_INTEGER) {
-            return "0";
+            return "Çekim yok";
         }
 
         const diasPorAno = 365;
@@ -404,7 +224,7 @@ $scope.toggleAllMinerSort = function() {
         if (anos > 0) {
             resultado += `${anos} ${anos > 1 ? 'yıl' : 'yıl'}`;
             if (meses > 0 || diasRestantes > 0) {
-                resultado += " ";
+                resultado += ", ";
             }
         }
     
@@ -473,12 +293,12 @@ $scope.toggleAllMinerSort = function() {
     $scope.allMinersRarity = 'all';
     $scope.allMinerPosessionStatus = 'all';
     $scope.allMinerNegotiableStatus = 'all';
-    $scope.allMinerCollectionId = "-1";
     $scope.allMinerCells = "all";
+    $scope.allMinerCollectionId = "-1";
 
 
     //userMinersFilter
-    $scope.userMinersItemsPerPage = 10;
+    $scope.userMinersItemsPerPage = 6;
     $scope.userMinersCurrentPage = 1;
 
     //userInventoryMinersFilter
@@ -768,11 +588,12 @@ $scope.toggleAllMinerSort = function() {
         $scope.isLoading = true;
         $scope.detailed_miners = await MinerService.getDetailedMiner($item);
         $scope.chosen_mine = $item.name.en;
+        $scope.isLoading = false;
         $scope.$apply();
     }
 
     $scope.onSelectPlayer = async function($item) {
-        let  new_url = window.location.pathname+"?profil=" + $item.code;
+        let  new_url = window.location.pathname+"?user=" + $item.code;
         if(loaded_miners) {
             new_url+= '&miners=' + loaded_miners;
         }
@@ -785,12 +606,19 @@ $scope.toggleAllMinerSort = function() {
     }
 
     $scope.openBuyLink = async function(item) {
+        if(!localStorage.getItem('alreadyDonatedMessage')) {
+            localStorage.setItem('alreadyDonatedMessage', 'false');
+            if(confirm('Te ajudei a tomar essa decisão de compra? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
+                window.scrollTo(0, document.body.scrollHeight);
+                return;
+            }
+        }
         window.open(`https://rollercoin.com/marketplace/buy/miner/${item.miner_id}`,'_blank');
     }
 
     $scope.openSellLink = async function(item) {
         if(!localStorage.getItem('alreadyDonatedMessage')) {
-            localStorage.setItem('alreadyDonatedMessage', 'true');
+            localStorage.setItem('alreadyDonatedMessage', 'false');
             if(confirm('Te ajudei a tomar essa decisão de venda? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
                 window.scrollTo(0, document.body.scrollHeight);
                 return;
@@ -800,7 +628,13 @@ $scope.toggleAllMinerSort = function() {
     }
 
     $scope.openBuyCraftLink = async function(id, type) {
-
+        if(!localStorage.getItem('alreadyDonatedMessage')) {
+            localStorage.setItem('alreadyDonatedMessage', 'false');
+            if(confirm('Te ajudei a tomar essa decisão de compra? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
+                window.scrollTo(0, document.body.scrollHeight);
+                return;
+            }
+        }
         window.open(`https://rollercoin.com/marketplace/buy/${type}/${id}`,'_blank');
     }
 
@@ -934,7 +768,7 @@ $scope.toggleAllMinerSort = function() {
             updateAllocatedPower(c);
         }
     });
-    $scope.isLoading = true;
+    $scope.isLoading = false;
 
     $scope.$apply();
 
@@ -980,7 +814,7 @@ $scope.toggleAllMinerSort = function() {
     };
 
     $scope.resetValues = function() {
-        if(confirm("Bütün veriler güncellenecektir onaylıyor musun?")) {
+        if(confirm("Bu, tüm ağ gücünü ve teklif değerlerini yeniden yükleyecek ve biraz zaman alacaktır. Emin misin?")) {
             localStorage.clear();
             location.reload();  
         }
@@ -988,7 +822,7 @@ $scope.toggleAllMinerSort = function() {
 
     $scope.updateLeagueDetails = async function() {
         const selectedLeague = $scope.formData.league;
-        let  new_url = window.location.pathname+"?lig=" + selectedLeague.id;
+        let  new_url = window.location.pathname+"?league=" + selectedLeague.id;
         window.location.href = new_url;
     }
 
@@ -1103,23 +937,14 @@ $scope.toggleAllMinerSort = function() {
         await sleep(500);
         document.getElementById('bestCoinTable').scrollIntoView();
     }
-	
-    $scope.bestBuys = async function() {
-        $scope.currencies?.forEach(c => {
-            c.user_alocated_power = 100
-            updateAllocatedPower(c);
-        });
-        await sleep(500);
-		document.getElementById('minerlistesi').scrollIntoView();
-    }
 
     $scope.bestBuys = async function() {
         $scope.formData.showAllMiners = true;
-        $scope.allMinerNegotiableStatus = 'all';
-        $scope.allMinerPosessionStatus = 'all';
+        $scope.allMinerNegotiableStatus = 'negotiable';
+        $scope.allMinerPosessionStatus = 'not_mine';
         $scope.orderByAllMinersField='supply';
         $scope.reverseAllMinersSort = true;
-        $scope.allMinerMinBonusSearch = 0;
+        $scope.allMinerMinBonusSearch = 2;
         $scope.filterAllMiners($scope.allMinerNameSearch, $scope.allMinersRarity, {min:$scope.allMinerMinBonusSearch, max:$scope.allMinerMaxBonusSearch}, $scope.allMinerNegotiableStatus, $scope.allMinerPosessionStatus, $scope.allMinerCollectionId, $scope.allMinerMinPowerSearch, $scope.allMinerMaxPowerSearch)
         $scope.$apply();
     }
@@ -1169,8 +994,6 @@ $scope.toggleAllMinerSort = function() {
                 return currency === 'amount' ? (earningsPerDay * 7).toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerDay * 7 * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
             case 'month':
                 return currency === 'amount' ? (earningsPerDay * 30).toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerDay * 30 * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
-			case 'year':
-                return currency === 'amount' ? (earningsPerDay * 365).toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerDay * 365 * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
             default:
                 return 0;
         }
