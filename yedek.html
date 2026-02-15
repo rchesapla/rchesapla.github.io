@@ -127,7 +127,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
       <img src="img/logo.png">
       <span class="logo-text">RCHesapla</span>
     </div>
-
+	
   </div>
 
 </header>
@@ -139,11 +139,29 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
     <!-- SOL PANEL -->
     <aside class="rc-sidebar">
+
   <div class="modern-general-header">
     <h4 class="rc-title">ROLLERCOİN BİLGİLERİN</h4>
   </div>
       <div class="rc-card">
-	
+	<div class="rc-clock-advanced">
+
+  <div class="clock-main">
+    <i class="fas fa-clock"></i>
+    <span id="clockTime">--:--:--</span>
+  </div>
+
+  <div class="clock-date" id="clockDate">
+    -- -- ----
+  </div>
+
+  <div class="clock-controls">
+    <button onclick="setClockMode('TR')">TR</button>
+    <button onclick="setClockMode('UTC')">UTC</button>
+    <button onclick="setClockMode('LOCAL')">LOCAL</button>
+  </div>
+
+</div>
         <!-- Kullanıcı -->
         <div class="rc-input-group">
           <label>Rollercoin Kul. Adı:</label>
@@ -205,8 +223,9 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
                 ng-click="resetValues()">
           Verileri Güncelle
         </button>
+		
+		
       </div>
-	  
 <div class="rc-card" ng-if="isLoadedUser">
 
 <div class="checkbox-group">
@@ -684,6 +703,47 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </footer>
 
 <script src="js/paracekmimi.js"></script>
+<script>
+let clockMode = "TR";
+
+function setClockMode(mode) {
+  clockMode = mode;
+  updateClock();
+}
+
+function getTimeZone() {
+  if (clockMode === "TR") return "Europe/Istanbul";
+  if (clockMode === "UTC") return "UTC";
+  return Intl.DateTimeFormat().resolvedOptions().timeZone;
+}
+
+function updateClock() {
+  const now = new Date();
+  const timeZone = getTimeZone();
+
+  const time = new Intl.DateTimeFormat("tr-TR", {
+    timeZone,
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  }).format(now);
+
+  const date = new Intl.DateTimeFormat("tr-TR", {
+    timeZone,
+    weekday: "long",
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  }).format(now);
+
+  document.getElementById("clockTime").textContent = time;
+  document.getElementById("clockDate").textContent = date;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+</script>
+
 </body>
 
 </html>
