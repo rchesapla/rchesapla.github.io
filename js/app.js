@@ -4,6 +4,13 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.units = ['GH/s', 'TH/s', 'PH/s', 'EH/s'];
     $scope.networkUnits = ['GH/s', 'TH/s', 'PH/s', 'EH/s', 'ZH/s'];
 	
+	$scope.visibleItems = 12;
+
+$scope.loadMore = function () {
+    $scope.visibleItems += 12;
+};
+
+	
 $scope.selectedSort = 'bonus_power';
 $scope.reverseAllMinersSort = true;
 

@@ -10,6 +10,7 @@
 <meta name="author" content="Fatih ÇELİK">
 <!--===============================================================================================-->
 <link rel="stylesheet" href="./css/style_v2.css">
+<link rel="stylesheet" href="./css/genelkazanc.css">
 <link rel="stylesheet" href="./css/profil.css">
 <link rel="stylesheet" href="./css/tablo.css">
 <link rel="stylesheet" href="./css/fonts.css">
@@ -17,8 +18,6 @@
 <!--===============================================================================================-->
 <link rel="stylesheet" href="./css/input.css">
 <link rel="stylesheet" href="./css/button.css">
-<link rel="stylesheet" href="./css/solmenu.css">
-<link rel="stylesheet" href="./css/ytsayac.css">
 <link rel="stylesheet" href="./css/checkbox.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" href="./css/benihatirla.css">
@@ -303,96 +302,132 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
 
       <!-- GENEL LİSTE -->
-      <div ng-if="!formData.currency"
-           class="rc-coin-grid">
+<div ng-if="!formData.currency" class="modern-general-wrapper">
 
-        <div class="rc-coin-card"
-             ng-repeat="currency in currencies">
+  <div class="modern-general-header">
+    <h4>🚀 GENEL KAZANÇ İSTATİSTİKLERİ</h4>
+  </div>
 
-          <h4>{{currency.name}}</h4>
+  <div class="modern-general-grid">
 
-          <div>
-            🌐 Ağ:
-            {{chooseBestHashRateUnit(currency.networkPower,'GH/s').value.toFixed(2)}}
-            {{chooseBestHashRateUnit(currency.networkPower,'GH/s').unit}}
+    <div class="modern-coin-card"
+         ng-repeat="currency in currencies | orderBy:orderByField:reverseSort">
+
+      <div class="coin-header">
+        <div class="coin-name">{{currency.name}}</div>
+      </div>
+
+      <div class="coin-stat">
+        <span>🌐 Ağ Gücü</span>
+        <strong>
+        {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').value.toFixed(2)}}
+        {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').unit}}
+        </strong>
+      </div>
+
+      <div class="coin-stat">
+        <span>⛏ Blok</span>
+        <strong>
+          {{currency.blockTime}} sn • {{currency.blockSize}} {{currency.name}}
+        </strong>
+      </div>
+
+      <div class="coin-stat" ng-if="isLoadedUser">
+        <span>💰 Para Çekim</span>
+        <strong>{{formatDays(currency.user_days_to_widthdraw)}}</strong>
+      </div>
+
+    </div>
+
+  </div>
+<div ng-if="customMiners.length > 0">
+<div class="modern-gpu-wrapper" ng-if="customMiners.length > 0">
+
+  <div class="modern-gpu-header">
+    <h4>💻 EKRAN KARTLARI</h4>
+  </div>
+
+  <div class="modern-gpu-grid">
+
+    <div class="modern-gpu-card"
+         ng-repeat="miner in customMiners track by $index">
+
+      <div class="gpu-top">
+
+        <div class="gpu-image">
+          <img src="https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608">
+        </div>
+
+        <div class="gpu-info">
+          <div class="gpu-name">
+            {{miner.name.en}}
           </div>
 
-          <div>
-            ⛏ {{currency.blockSize}} /
-            {{currency.blockTime}}sn
+          <div class="gpu-level">
+            ⭐ LVL {{miner.level + 1}}
           </div>
-
         </div>
 
       </div>
-	  
-	  
-	  
-<div ng-if="customMiners.length > 0">
-<table>
-<thead>
-<tr>
-<th class=" card-header" colspan="5" style="text-align: center">
-EKRAN KARTLARI
-</th>
-</tr>
-<tr class="deneme">
-<th style="text-align: center">
-MINER ADI
-</th>
-<th style="text-align: center">
-SEVİYE
-</th>
-<th style="text-align: center">
-GÜCÜ
-</th>
-<th style="text-align: center">
-BONUS
-</th>
-<th style="text-align: center">
-ETKİLEŞİM
-</th>
-</tr>
-</thead>
-<tbody>
-<tr ng-repeat="miner in customMiners track by $index">
-<td fatihcelik="MINER ADI">
-{{miner.name.en}}
-</td>
-<td fatihcelik="RESİM" style="position: relative;">
-<img ng-if="miner.level == 0" src='https://rollercoin.com/static/img/storage/rarity_icons/level_1.png?v=1.0.0' style='position: absolute;'/>
-<img ng-if="miner.type === 'old_merge'" src='https://rollercoin.com/static/images/level_star.4ff18517e5e8eed42060..png' style='left: 40px;position: absolute;top: 25px;'/>
-<img ng-if="miner.level > 0 && miner.type !== 'old_merge'" src='https://rollercoin.com/static/img/storage/rarity_icons/level_{{miner.level+1}}.png?v=1.0.0' style='left: 40px;position: absolute;top: 25px;'/>
-<img src='https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608' width="80px" height="auto"/>
-<div ng-if="!miner.is_can_be_sold_on_mp"
-style="
-background-color: red;
-font-size: 13px;
-font-weight: bold;
-color: white;
-">SATILAMAZ</div>
-</td>
-<td fatihcelik="GÜÇ">
-{{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
-</td>
-<td fatihcelik="BONUS">
-{{(miner.bonus_power / 100)}}%
-</td>
-<td fatihcelik="ETKİLEŞİM">
-<button class="button" ng-click="removeMinerFromSimulation(miner)">Kaldır!</button><br/>
-<button class="button" ng-click="openBuyLink(miner)">Mağazaya Git</button>
-</td>
-</tr>
-</tbody>
-</table>
+
+      <div class="gpu-stats">
+
+        <div class="stat-row">
+          <span>⚡ Güç</span>
+          <strong>
+            {{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}
+            {{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
+          </strong>
+        </div>
+
+        <div class="stat-row">
+          <span>🎁 Bonus</span>
+          <strong class="bonus">
+            {{(miner.bonus_power / 100)}}%
+          </strong>
+        </div>
+
+        <div class="stat-row">
+          <span>💰 Market</span>
+          <strong ng-class="{
+              'sellable': miner.is_can_be_sold_on_mp,
+              'not-sellable': !miner.is_can_be_sold_on_mp
+          }">
+            {{ miner.is_can_be_sold_on_mp ? 'Satılır' : 'Satılamaz' }}
+          </strong>
+        </div>
+
+      </div>
+
+      <div class="gpu-actions">
+        <button class="btn-remove"
+                ng-click="removeMinerFromSimulation(miner)">
+          ❌ Kaldır
+        </button>
+
+        <button class="btn-shop"
+                ng-click="openBuyLink(miner)">
+          🛒 Mağazaya Git
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
+
+</div>
+
 <!-- MINER LİSTESİ KODLARI -->
 <div ng-if="formData.showAllMiners" id="minerlistesi">
  
 <div ng-if="formData.showAllMiners" class="modern-miner-wrapper">
   <div class="modern-miner-grid">
 
-    <div class="modern-miner-card" ng-repeat="miner in allMiners | orderBy:getMinerSortValue:reverseAllMinersSort | limitTo:itemsPerPage : (currentPage - 1) * itemsPerPage">
+    <div class="modern-miner-card" ng-repeat="miner in allMiners 
+     | orderBy:getMinerSortValue:reverseAllMinersSort 
+     | limitTo:visibleItems">
 	<!-- Rarity -->
 	<div class="rarity-badge {{miner.rarity}}">
 		{{miner.rarity | uppercase}}
@@ -475,16 +510,22 @@ color: white;
 
   </div>
 
-  <div class="modern-pagination">
-    <ul uib-pagination first-text="İlk" previous-text="Önceki" last-text="Son" next-text="Sonraki"
-        total-items="allMiners.length"
-        ng-model="currentPage"
-        max-size="5"
-        items-per-page="itemsPerPage"
-        boundary-links="true">
-    </ul>
-  </div>
+<div class="load-more-wrapper" ng-if="visibleItems < allMiners.length">
 
+    <button class="load-more-btn"
+            ng-click="loadMore()">
+        🚀 Daha Fazla Göster
+    </button>
+
+    <div class="load-info">
+        {{visibleItems}} / {{allMiners.length}} miner gösteriliyor
+    </div>
+
+</div>
+
+
+
+</div>
 
 </div>
 

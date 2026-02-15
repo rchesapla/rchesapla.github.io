@@ -61,3 +61,153 @@
   font-size:14px;
   color:#00ff99;
 }
+
+/*MİNER YÜKLENME ŞABLONU*/
+
+.load-more-wrapper {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.load-more-btn {
+    background: linear-gradient(135deg, #4f46e5, #9333ea);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+}
+
+.load-more-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(147, 51, 234, 0.6);
+}
+
+.load-info {
+    margin-top: 12px;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+    .load-more-btn {
+        width: 100%;
+        padding: 12px;
+    }
+}
+
+/*SEÇİLEN MİNER ŞABLONU*/
+
+.modern-gpu-wrapper {
+    margin-top: 40px;
+}
+
+.modern-gpu-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.modern-gpu-header h4 {
+    color: #ffd700;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.modern-gpu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.modern-gpu-card {
+    background: #1e1e2f;
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+}
+
+.modern-gpu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(79,70,229,0.4);
+}
+
+.gpu-top {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.gpu-image img {
+    width: 70px;
+}
+
+.gpu-name {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.gpu-level {
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+.gpu-stats .stat-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.bonus {
+    color: #00ffcc;
+}
+
+.sellable {
+    color: #00ff88;
+}
+
+.not-sellable {
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+.gpu-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-remove,
+.btn-shop {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.btn-remove {
+    background: #ff4d4d;
+    color: white;
+}
+
+.btn-remove:hover {
+    background: #ff1a1a;
+}
+
+.btn-shop {
+    background: linear-gradient(135deg,#4f46e5,#9333ea);
+    color: white;
+}
+
+.btn-shop:hover {
+    transform: translateY(-2px);
+}
