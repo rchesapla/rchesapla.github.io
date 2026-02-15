@@ -305,7 +305,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div ng-if="!formData.currency" class="modern-general-wrapper">
 
   <div class="modern-general-header">
-    <h4>🚀 GENEL KAZANÇ İSTATİSTİKLERİ</h4>
+    <h4>🚀 GENEL KAZANÇ İSTATİSTİKLERİ 🚀</h4>
   </div>
 
   <div class="modern-general-grid">
@@ -343,8 +343,8 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div ng-if="customMiners.length > 0">
 <div class="modern-gpu-wrapper" ng-if="customMiners.length > 0">
 
-  <div class="modern-gpu-header">
-    <h4>💻 EKRAN KARTLARI</h4>
+  <div class="modern-general-header">
+    <h4>🚀 MINER LİSTEM 🚀</h4>
   </div>
 
   <div class="modern-gpu-grid">
@@ -386,6 +386,23 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
             {{(miner.bonus_power / 100)}}%
           </strong>
         </div>
+		<div class="stat-row">
+          <span>🎁 Bonuslu Güç</span>
+            <span class="total-power-value">
+			{{
+			chooseBestHashRateUnit(
+				miner.power * (1 + (miner.bonus_power / 10000)),
+				'GH/s'
+			).value.toFixed(2)
+			}}
+			{{
+			chooseBestHashRateUnit(
+				miner.power * (1 + (miner.bonus_power / 10000)),
+				'GH/s'
+			).unit
+			}}
+			</span>
+        </div>
 
         <div class="stat-row">
           <span>💰 Market</span>
@@ -402,12 +419,12 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
       <div class="gpu-actions">
         <button class="btn-remove"
                 ng-click="removeMinerFromSimulation(miner)">
-          ❌ Kaldır
+          Kaldır
         </button>
 
         <button class="btn-shop"
                 ng-click="openBuyLink(miner)">
-          🛒 Mağazaya Git
+          Mağazaya Git
         </button>
       </div>
 
@@ -423,8 +440,10 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div ng-if="formData.showAllMiners" id="minerlistesi">
  
 <div ng-if="formData.showAllMiners" class="modern-miner-wrapper">
+  <div class="modern-general-header">
+    <h4>🚀 MINER LİSTESİ 🚀</h4>
+  </div>
   <div class="modern-miner-grid">
-
     <div class="modern-miner-card" ng-repeat="miner in allMiners 
      | orderBy:getMinerSortValue:reverseAllMinersSort 
      | limitTo:visibleItems">
