@@ -34,6 +34,8 @@ rollercoin kazanç analizi
 <link rel="stylesheet" href="./css/tablo.css">
 <link rel="stylesheet" href="./css/fonts.css">
 <link rel="stylesheet" href="./css/minerlistesi.css">
+<link rel="stylesheet" href="./css/ustbar.css">
+<link rel="stylesheet" href="./css/altbar.css">
 <link rel="stylesheet" href="./css/yukleniyor.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" href="./css/input.css">
@@ -116,24 +118,19 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="rc-wrapper">
 
   <!-- ÜST BAR -->
-  <header class="rc-topbar">
-<div class="rc-logo">
-  <img src="img/logo.png" alt="RCHesapla">
-  <span>RCHesapla</span>
-  <small class="brand-sub">• Rollercoin Hesaplama</small>
-</div>
+<header class="rc-topbar rc-topbar-roller">
 
+  <div class="topbar-left">
 
-    <div class="rc-user" ng-if="isLoadedUser">
-      <div class="rc-username">
-        {{user_data.name}}
-      </div>
-      <div class="rc-total-power">
-        {{chooseBestHashRateUnit(user_data.powerData.total,'GH/s').value.toFixed(2)}}
-        {{chooseBestHashRateUnit(user_data.powerData.total,'GH/s').unit}}
-      </div>
+    <div class="rc-logo">
+      <img src="img/logo.png">
+      <span class="logo-text">RCHesapla</span>
     </div>
-  </header>
+
+  </div>
+
+</header>
+
 
 
   <!-- ANA İÇERİK -->
@@ -145,6 +142,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
     <h4 class="rc-title">ROLLERCOİN BİLGİLERİN</h4>
   </div>
       <div class="rc-card">
+	
         <!-- Kullanıcı -->
         <div class="rc-input-group">
           <label>Rollercoin Kul. Adı:</label>
@@ -213,7 +211,13 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="checkbox-group">
   <!--input type="checkbox" id="checkbox1" ng-model="formData.showMiners" name="show_miners"/>
   <label for="checkbox1">Minerlarım</label--!>
-
+<div class="rc-online-widget">
+  <span class="online-dot"></span>
+  <span class="online-text">
+    Aktif Kullanıcı:
+    <strong>{{onlineUsers}}</strong>
+  </span>
+</div>
   <input type="checkbox" id="checkbox2" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners"/>
   <label for="checkbox2">Miner Listesi</label>
 </div>
@@ -594,6 +598,14 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
   </main>
 
 </div>
+<footer class="rc-footer rc-footer-roller">
+
+  <div class="footer-bottom">
+    © 2026 RCHesapla • Rollercoin Hesaplama Aracı
+  </div>
+
+</footer>
+
 </body>
 
 </html>
