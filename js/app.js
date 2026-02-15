@@ -664,35 +664,14 @@ $scope.getPlayerByName = function(name) {
     }
 
     $scope.openBuyLink = async function(item) {
-        if(!localStorage.getItem('alreadyDonatedMessage')) {
-            localStorage.setItem('alreadyDonatedMessage', 'false');
-            if(confirm('Te ajudei a tomar essa decisão de compra? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
-                window.scrollTo(0, document.body.scrollHeight);
-                return;
-            }
-        }
         window.open(`https://rollercoin.com/marketplace/buy/miner/${item.miner_id}`,'_blank');
     }
 
     $scope.openSellLink = async function(item) {
-        if(!localStorage.getItem('alreadyDonatedMessage')) {
-            localStorage.setItem('alreadyDonatedMessage', 'false');
-            if(confirm('Te ajudei a tomar essa decisão de venda? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
-                window.scrollTo(0, document.body.scrollHeight);
-                return;
-            }
-        }
         window.open(`https://rollercoin.com/marketplace/sell/miner/${item.miner_id}`,'_blank');
     }
 
     $scope.openBuyCraftLink = async function(id, type) {
-        if(!localStorage.getItem('alreadyDonatedMessage')) {
-            localStorage.setItem('alreadyDonatedMessage', 'false');
-            if(confirm('Te ajudei a tomar essa decisão de compra? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
-                window.scrollTo(0, document.body.scrollHeight);
-                return;
-            }
-        }
         window.open(`https://rollercoin.com/marketplace/buy/${type}/${id}`,'_blank');
     }
 
