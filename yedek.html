@@ -140,18 +140,118 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
           <input type="number"
                  ng-model="formData.power"
                  placeholder="Kazım gücü">
-		<select id="unit" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')" class="- - -" ng-disabled="isLoadedUser">
-</select>
+		<select id="unit" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')" class="- - -" ng-disabled="isLoadedUser"></select>
         </div>
 
         <button class="rc-btn-primary"
                 ng-click="resetValues()">
           Verileri Güncelle
         </button>
-<div ng-if="isLoadedUser">
+      </div>
+	  
+<div class="rc-card" ng-if="isLoadedUser">
+
+<div class="checkbox-group">
+  <!--input type="checkbox" id="checkbox1" ng-model="formData.showMiners" name="show_miners"/>
+  <label for="checkbox1">Minerlarım</label--!>
+
   <input type="checkbox" id="checkbox2" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners"/>
   <label for="checkbox2">Miner Listesi</label>
 </div>
+
+<article ng-if="formData.showAllMiners">
+<div class="card-fc my-2 özelfont">
+<h6 class="card-header">MINER LİSTESİ</h6>
+<div class="card-body">
+<div class="şiş" style="text-align:center">
+<!--===============================================================================================-->
+<div class="row my-1">
+<span class="labelbaşlık">Miner Adı:</span>
+<div class="input-container">
+<input id="type" type="text" class="- - -" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Örn: YMCA">
+<select id="type" class="- - -" ng-model="allMinersRarity" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<option value="all">Hepsi</option>
+<option value="common">Common</option>
+<option value="legacy">Legacy</option>
+<option value="uncommon">Uncommon</option>
+<option value="rare">Rare</option>
+<option value="epic">Epic</option>
+<option value="legendary">Legendary</option>
+<option value="unreal">Unreal</option>
+</select>
+</div>
+</div>
+<!--===============================================================================================->
+<div class="row my-1">
+<span class="labelbaşlık">Bonus Oranı:</span>
+<div>
+<input id="type" class="- - -" ng-model="allMinerMinBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/> / 
+<input id="type" class="- - -" ng-model="allMinerMaxBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/>
+</div>
+</div>
+<!--===============================================================================================-->
+<div class="row my-1">
+<span class="labelbaşlık">Mağaza Durumu:</span>
+<div>
+<select id="type" class="- - -" ng-model="allMinerNegotiableStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<option value="all">Hepsi</option>
+<option value="inegotiable">Satılamaz</option>
+<option value="negotiable">Satılabilir</option>
+</select>
+</div>
+</div>
+<!--===============================================================================================-->
+<div class="row my-1">
+<span class="labelbaşlık">Oda Durumu:</span>
+<div>
+<select id="type" class="- - -" ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<option value="all">Hepsi</option>
+<option value="mine">Varolan</option>
+<option value="not_mine">Varolmayan</option>
+</select>
+</div>
+</div>
+<!--===============================================================================================-->
+<div class="row my-1">
+<span class="labelbaşlık">Hücre Durumu:</span>
+<div>
+<select id="type" class="- - -" ng-model="allMinerCells" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<option value="all">Hepsi</option>
+<option value="1">1</option>
+<option value="2">2</option>
+</select>
+</div>
+</div>
+  <div style="margin-top:15px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+
+  <select id="type"class="- - -"
+          ng-model="selectedSort"
+          ng-change="changeMinerSort(selectedSort)">
+    <option value="bonus_power">🎁 Bonusa Göre</option>
+    <option value="power">⚡ Güce Göre</option>
+    <option value="total_power">🚀 Bonuslu Güce Göre</option>
+    <option value="name">🔤 İsme Göre</option>
+  </select>
+
+</div>
+<!--===============================================================================================-->
+</div>
+
+  <div class="modern-miner-header">
+    <div class="miner-count">
+      Toplam: {{allMiners.length}} Miner!
+    </div>
+  </div>
+
+</div>
+</div>
+<!--===============================================================================================-->
+<center>
+
+</center>
+<!--===============================================================================================-->
+</article>
+
       </div>
 
     </aside>
@@ -225,6 +325,9 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
         </div>
 
       </div>
+	  
+	  
+	  
 <div ng-if="customMiners.length > 0">
 <table>
 <thead>
@@ -285,104 +388,8 @@ color: white;
 </div>
 <!-- MINER LİSTESİ KODLARI -->
 <div ng-if="formData.showAllMiners" id="minerlistesi">
-
-<article>
-<div class="card-fc my-2 özelfont">
-<h6 class="card-header">MINER LİSTESİ</h6>
-<div class="card-body">
-<div class="şiş" style="text-align:center">
-<!--===============================================================================================-->
-<div class="row my-1">
-<span class="labelbaşlık">Miner Adı:</span>
-<div class="input-container">
-<input id="type" type="text" class="- - -" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Örn: YMCA">
-<select id="type" class="- - -" ng-model="allMinersRarity" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-<option value="all">Hepsi</option>
-<option value="common">Common</option>
-<option value="legacy">Legacy</option>
-<option value="uncommon">Uncommon</option>
-<option value="rare">Rare</option>
-<option value="epic">Epic</option>
-<option value="legendary">Legendary</option>
-<option value="unreal">Unreal</option>
-</select>
-</div>
-</div>
-<!--===============================================================================================->
-<div class="row my-1">
-<span class="labelbaşlık">Bonus Oranı:</span>
-<div>
-<input id="type" class="- - -" ng-model="allMinerMinBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/> / 
-<input id="type" class="- - -" ng-model="allMinerMaxBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/>
-</div>
-</div>
-<!--===============================================================================================-->
-<div class="row my-1">
-<span class="labelbaşlık">Mağaza Durumu:</span>
-<div>
-<select id="type" class="- - -" ng-model="allMinerNegotiableStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-<option value="all">Hepsi</option>
-<option value="inegotiable">Satılamaz</option>
-<option value="negotiable">Satılabilir</option>
-</select>
-</div>
-</div>
-<!--===============================================================================================-->
-<div class="row my-1">
-<span class="labelbaşlık">Oda Durumu:</span>
-<div>
-<select id="type" class="- - -" ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-<option value="all">Hepsi</option>
-<option value="mine">Varolan</option>
-<option value="not_mine">Varolmayan</option>
-</select>
-</div>
-</div>
-<!--===============================================================================================-->
-<div class="row my-1">
-<span class="labelbaşlık">Hücre Durumu:</span>
-<div>
-<select id="type" class="- - -" ng-model="allMinerCells" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-<option value="all">Hepsi</option>
-<option value="1">1</option>
-<option value="2">2</option>
-</select>
-</div>
-</div>
-<!--===============================================================================================-->
-</div>
-</div>
-</div>
-<!--===============================================================================================-->
-<center>
-
-</center>
-<!--===============================================================================================-->
-</article>
  
 <div ng-if="formData.showAllMiners" class="modern-miner-wrapper">
-
-  <div class="modern-miner-header">
-    <h4>🚀 Modern Miner Listesi (12.02.2026 / Eklendi!)</h4>
-    <div class="miner-count">
-      Toplam: {{allMiners.length}} Miner!
-    </div>
-  </div>
-  
-  <div style="margin-top:15px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
-
-  <select id="type"class="- - -"
-          ng-model="selectedSort"
-          ng-change="changeMinerSort(selectedSort)">
-    <option value="bonus_power">🎁 Bonusa Göre</option>
-    <option value="power">⚡ Güce Göre</option>
-    <option value="total_power">🚀 Bonuslu Güce Göre</option>
-    <option value="name">🔤 İsme Göre</option>
-  </select>
-
-</div>
-
-
   <div class="modern-miner-grid">
 
     <div class="modern-miner-card" ng-repeat="miner in allMiners | orderBy:getMinerSortValue:reverseAllMinersSort | limitTo:itemsPerPage : (currentPage - 1) * itemsPerPage">
