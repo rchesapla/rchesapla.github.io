@@ -1,6 +1,129 @@
-table{width:100%;border-collapse:collapse;font-size:14px}
-th,td{padding:10px;text-align:center;border-bottom:1px solid #2e4c85}
-th{background:#203e77}
+.modern-general-wrapper{
+  margin-top:20px;
+}
+
+.modern-general-header{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.modern-general-header h4{
+  color:#00e5ff;
+  font-weight:600;
+  letter-spacing:1px;
+}
+
+.modern-general-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:20px;
+}
+
+.modern-coin-card{
+  background:linear-gradient(145deg,#0f1630,#111a3a);
+  border:1px solid rgba(0,229,255,0.3);
+  border-radius:14px;
+  padding:20px;
+  transition:0.3s;
+  position:relative;
+}
+
+.modern-coin-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 15px rgba(0,229,255,0.4);
+  border-color:#00e5ff;
+}
+
+.coin-header{
+  text-align:center;
+  margin-bottom:15px;
+}
+
+.coin-name{
+  font-size:20px;
+  font-weight:700;
+  color:#00e5ff;
+}
+
+.coin-stat{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:10px;
+  font-size:14px;
+  color:#cfd8ff;
+}
+
+.coin-stat strong{
+  color:#ffffff;
+  font-weight:600;
+}
+
+.modern-earnings-wrapper{
+  margin-top:20px;
+}
+
+.modern-earnings-header{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.modern-earnings-header h4{
+  color:#00e5ff;
+  font-weight:600;
+  letter-spacing:1px;
+}
+
+.coin-rate{
+  margin-top:5px;
+  color:#8fa3ff;
+  font-size:13px;
+}
+
+.modern-earnings-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:20px;
+}
+
+.earning-card{
+  background:linear-gradient(145deg,#0f1630,#111a3a);
+  border:1px solid rgba(0,229,255,0.3);
+  border-radius:14px;
+  padding:20px;
+  text-align:center;
+  transition:0.3s;
+}
+
+.earning-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 0 15px rgba(0,229,255,0.4);
+  border-color:#00e5ff;
+}
+
+.earning-title{
+  font-size:14px;
+  color:#8fa3ff;
+  margin-bottom:10px;
+}
+
+.earning-main{
+  font-size:20px;
+  font-weight:700;
+  color:#00e5ff;
+  margin-bottom:6px;
+}
+
+.earning-sub{
+  font-size:13px;
+  color:#ffffff;
+}
+
+.highlight{
+  border:1px solid #00e5ff;
+  box-shadow:0 0 20px rgba(0,229,255,0.4);
+}
+
+
 
 /*MADENCİ LİSTELEME ŞABLONU*/
 

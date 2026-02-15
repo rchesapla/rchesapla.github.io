@@ -599,195 +599,130 @@ fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANN
 </div>
 <!--===============================================================================================-->
 <div ng-if="formData.currency">
-<table>
-<div class="card-header">COIN KAZANÇ İSTATİSTİKLERİ</div>
-<thead>
-<tr ng-hide="formData.currency.in_game_only" class="deneme">
-<th style="text-align: center" colspan="2">1 {{formData.currency.name}} = ${{exchangeRates[formData.currency.name]['usd']}}</th>
-<th style="text-align: center" colspan="2">1 {{formData.currency.name}} = {{exchangeRates[formData.currency.name]['try']}}₺</th>
-</tr>
-<tr class="deneme">
-<th style="text-align:center;">GÜNLER</th>
-<th style="text-align:center;">COIN</th>
-<th style="text-align:center;" ng-hide="formData.currency.in_game_only">$</th>
-<th style="text-align:center;" ng-hide="formData.currency.in_game_only">₺</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: center">BLOK ÖDÜLÜ</td>
-<td fatihcelik="KAZANÇ">{{calculateEarnings('block', 'amount')}} {{formData.currency.name}}</td>
-<td fatihcelik="$" ng-hide="formData.currency.in_game_only">${{calculateEarnings('block', 'usd')}}</td>
-<td fatihcelik="₺" ng-hide="formData.currency.in_game_only">{{calculateEarnings('block', 'try')}}₺</td>
-</tr>
-<tr>
-<td style="text-align: center">GÜNLÜK</td>
-<td fatihcelik="KAZANÇ">{{calculateEarnings('day', 'amount')}} {{formData.currency.name}}</td>
-<td fatihcelik="$"ng-hide="formData.currency.in_game_only">${{calculateEarnings('day', 'usd')}}</td>
-<td fatihcelik="₺"ng-hide="formData.currency.in_game_only">{{calculateEarnings('day', 'try')}}₺</td>
-</tr>
-<tr>
-<td style="text-align: center">HAFTALIK</td>
-<td fatihcelik="KAZANÇ">{{calculateEarnings('week', 'amount')}} {{formData.currency.name}}</td>
-<td fatihcelik="$"ng-hide="formData.currency.in_game_only">${{calculateEarnings('week', 'usd')}}</td>
-<td fatihcelik="₺"ng-hide="formData.currency.in_game_only">{{calculateEarnings('week', 'try')}}₺</td>
-</tr>
-<tr>
-<td style="text-align: center">AYLIK</td>
-<td fatihcelik="KAZANÇ">{{calculateEarnings('month', 'amount')}} {{formData.currency.name}}</td>
-<td fatihcelik="$"ng-hide="formData.currency.in_game_only">${{calculateEarnings('month', 'usd')}}</td>
-<td fatihcelik="₺"ng-hide="formData.currency.in_game_only">{{calculateEarnings('month', 'try')}}₺</td>
-</tr>
-<tr>
-<td style="text-align: center">YILLIK</td>
-<td fatihcelik="KAZANÇ">{{calculateEarnings('year', 'amount')}} {{formData.currency.name}}</td>
-<td fatihcelik="$"ng-hide="formData.currency.in_game_only">${{calculateEarnings('year', 'usd')}}</td>
-<td fatihcelik="₺"ng-hide="formData.currency.in_game_only">{{calculateEarnings('year', 'try')}}₺</td>
-</tr>
-</tbody>
-</table>
+<div ng-if="formData.currency" class="modern-earnings-wrapper">
 
-<!-- GELİŞMİŞ KAZANÇ & ROI PANELİ -->
-<div ng-if="formData.currency" class="card-fc my-3">
-  <div class="card-header">📊 GELİŞMİŞ KAZANÇ & ROI ANALİZİ</div>
-
-  <div style="text-align: center">
-      <label style="color:white;">💵 YATIRILAN MİKTAR ($)</label>
-      <input type="number" id="investmentInput" value="10"/>
-      <span id="roiResult" style="color:#00e5ff;"></span>
+  <div class="modern-earnings-header">
+    <h4>💰 COIN KAZANÇ İSTATİSTİKLERİ</h4>
+    <div class="coin-rate" ng-hide="formData.currency.in_game_only">
+      1 {{formData.currency.name}} =
+      ${{exchangeRates[formData.currency.name]['usd']}}
+      •
+      {{exchangeRates[formData.currency.name]['try']}}₺
+    </div>
   </div>
 
-  <div id="earningsChart" style="height:420px;"></div>
-  <div id="roiChart" style=" margin-top:30px;"></div>
+  <div class="modern-earnings-grid">
+
+    <!-- BLOK -->
+    <div class="earning-card">
+      <div class="earning-title">⛏ BLOK ÖDÜLÜ</div>
+      <div class="earning-main">
+        {{calculateEarnings('block','amount')}} {{formData.currency.name}}
+      </div>
+      <div class="earning-sub" ng-hide="formData.currency.in_game_only">
+        ${{calculateEarnings('block','usd')}} •
+        {{calculateEarnings('block','try')}}₺
+      </div>
+    </div>
+
+    <!-- GÜNLÜK -->
+    <div class="earning-card highlight">
+      <div class="earning-title">📅 GÜNLÜK</div>
+      <div class="earning-main">
+        {{calculateEarnings('day','amount')}} {{formData.currency.name}}
+      </div>
+      <div class="earning-sub" ng-hide="formData.currency.in_game_only">
+        ${{calculateEarnings('day','usd')}} •
+        {{calculateEarnings('day','try')}}₺
+      </div>
+    </div>
+
+    <!-- HAFTALIK -->
+    <div class="earning-card">
+      <div class="earning-title">🗓 HAFTALIK</div>
+      <div class="earning-main">
+        {{calculateEarnings('week','amount')}} {{formData.currency.name}}
+      </div>
+      <div class="earning-sub" ng-hide="formData.currency.in_game_only">
+        ${{calculateEarnings('week','usd')}} •
+        {{calculateEarnings('week','try')}}₺
+      </div>
+    </div>
+
+    <!-- AYLIK -->
+    <div class="earning-card">
+      <div class="earning-title">📆 AYLIK</div>
+      <div class="earning-main">
+        {{calculateEarnings('month','amount')}} {{formData.currency.name}}
+      </div>
+      <div class="earning-sub" ng-hide="formData.currency.in_game_only">
+        ${{calculateEarnings('month','usd')}} •
+        {{calculateEarnings('month','try')}}₺
+      </div>
+    </div>
+
+    <!-- YILLIK -->
+    <div class="earning-card">
+      <div class="earning-title">📈 YILLIK</div>
+      <div class="earning-main">
+        {{calculateEarnings('year','amount')}} {{formData.currency.name}}
+      </div>
+      <div class="earning-sub" ng-hide="formData.currency.in_game_only">
+        ${{calculateEarnings('year','usd')}} •
+        {{calculateEarnings('year','try')}}₺
+      </div>
+    </div>
+
+  </div>
+
 </div>
 
-
-<script>
-let earningsChart;
-let roiChart;
-
-function drawAdvancedCharts() {
-
-    if (!window.echarts) return;
-
-    const scope = angular.element(document.body).scope();
-    if (!scope || !scope.formData.currency) return;
-
-    const chartDom = document.getElementById('earningsChart');
-    const roiDom = document.getElementById('roiChart');
-    if (!chartDom || !roiDom) return;
-
-    const investmentInput = document.getElementById("investmentInput");
-    const roiResult = document.getElementById("roiResult");
-
-    const investment = parseFloat(investmentInput.value) || 0;
-
-    const coinName = scope.formData.currency.name;
-
-    const dailyCoin = scope.calculateEarnings('day', 'amount');
-    const weeklyCoin = scope.calculateEarnings('week', 'amount');
-    const monthlyCoin = scope.calculateEarnings('month', 'amount');
-    const yearlyCoin = scope.calculateEarnings('year', 'amount');
-
-    const dailyUSD = scope.calculateEarnings('day', 'usd');
-    const weeklyUSD = scope.calculateEarnings('week', 'usd');
-    const monthlyUSD = scope.calculateEarnings('month', 'usd');
-    const yearlyUSD = scope.calculateEarnings('year', 'usd');
-
-    const dailyTRY = scope.calculateEarnings('day', 'try');
-    const weeklyTRY = scope.calculateEarnings('week', 'try');
-    const monthlyTRY = scope.calculateEarnings('month', 'try');
-    const yearlyTRY = scope.calculateEarnings('year', 'try');
-
-    // ✅ GERÇEK ROI GÜN HESABI
-    let roiDays = 0;
-    if (dailyUSD > 0 && investment > 0) {
-        roiDays = investment / dailyUSD;
-        roiResult.innerHTML = `🧠 ROI: <b>${roiDays.toFixed(1)} gün</b>`;
-    } else {
-        roiResult.innerHTML = "";
-    }
-
-    if (!earningsChart) earningsChart = echarts.init(chartDom);
-    if (!roiChart) roiChart = echarts.init(roiDom);
-
-    earningsChart.setOption({
-        backgroundColor: '#0f1630',
-        tooltip: { trigger: 'axis' },
-        legend: {
-            data: [coinName, 'USD', '₺'],
-            textStyle: { color: '#fff' }
-        },
-        xAxis: {
-            type: 'category',
-            data: ['Günlük', 'Haftalık', 'Aylık', 'Yıllık'],
-            axisLabel: { color: '#fff' }
-        },
-        yAxis: { type: 'value', axisLabel: { color: '#fff' } },
-        series: [
-            {
-                name: coinName,
-                type: 'bar',
-                data: [dailyCoin, weeklyCoin, monthlyCoin, yearlyCoin],
-                animationDuration: 1000
-            },
-            {
-                name: '$',
-                type: 'line',
-                smooth: true,
-                data: [dailyUSD, weeklyUSD, monthlyUSD, yearlyUSD]
-            },
-            {
-                name: '₺',
-                type: 'line',
-                smooth: true,
-                data: [dailyTRY, weeklyTRY, monthlyTRY, yearlyTRY]
-            }
-        ]
-    });
-}
-
-setInterval(drawAdvancedCharts, 2000);
-
-window.addEventListener('resize', function () {
-    if (earningsChart) earningsChart.resize();
-    if (roiChart) roiChart.resize();
-});
-</script>
 
 
 
 </div>
 <!--===============================================================================================-->
-<div ng-if="!formData.currency">
-<table style="text-align: center">
-<div class="card-header">GENEL KAZANÇ İSTATİSTİKLERİ</div>
-<thead>
-<tr class="deneme">
-<th style="text-align: center" rowspan="2" colspan="2">
-COIN
-</th>
-<th style="text-align: center" rowspan="2" colspan="2">
-AĞ GÜCÜ
-</th>
-<th style="text-align: center" rowspan="2" colspan="2">
-BLOK ÖDÜLÜ
-</th>
-<th style="text-align: center" rowspan="2" colspan="2">
-PARA ÇEKİMİ
-</th>
-</tr>
-</thead>
-<tbody>
-<tr ng-repeat="currency in currencies | orderBy:orderByField:reverseSort">
-<td fatihcelik="COIN" colspan="2">{{currency.name}}</td>
-<td fatihcelik="AĞ GÜCÜ" colspan="2">{{chooseBestHashRateUnit(currency.networkPower, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').unit}}</td>
-<td fatihcelik="BLOK ÖDÜLÜ" colspan="2">{{currency.blockTime}} sn {{currency.blockSize}} {{currency.name}}</td>
-<td fatihcelik="PARA ÇEKİMİ" colspan="1">{{formatDays(currency.user_days_to_widthdraw)}}</td>
-</tr>
-</tbody>
-</table>
+<div ng-if="!formData.currency" class="modern-general-wrapper">
+
+  <div class="modern-general-header">
+    <h4>🚀 GENEL KAZANÇ İSTATİSTİKLERİ</h4>
+  </div>
+
+  <div class="modern-general-grid">
+
+    <div class="modern-coin-card"
+         ng-repeat="currency in currencies | orderBy:orderByField:reverseSort">
+
+      <div class="coin-header">
+        <div class="coin-name">{{currency.name}}</div>
+      </div>
+
+      <div class="coin-stat">
+        <span>🌐 Ağ Gücü</span>
+        <strong>
+        {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').value.toFixed(2)}}
+        {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').unit}}
+        </strong>
+      </div>
+
+      <div class="coin-stat">
+        <span>⛏ Blok</span>
+        <strong>
+          {{currency.blockTime}} sn • {{currency.blockSize}} {{currency.name}}
+        </strong>
+      </div>
+
+      <div class="coin-stat">
+        <span>💰 Para Çekim</span>
+        <strong>{{formatDays(currency.user_days_to_widthdraw)}}</strong>
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
+
 <!--===============================================================================================-->
 <div ng-if="!formData.currency && getCurrenciesSum('user_alocated_power')> 0">
 <table>
