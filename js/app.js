@@ -4,6 +4,42 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.units = ['GH/s', 'TH/s', 'PH/s', 'EH/s'];
     $scope.networkUnits = ['GH/s', 'TH/s', 'PH/s', 'EH/s', 'ZH/s'];
 	
+	$scope.onlineUsers = 0;
+
+const db = firebase.firestore();
+const presenceRef = db.collection("presence").doc("online");
+
+// kullanıcı giriş
+async function userJoin() {
+  await presenceRef.set({
+    count: firebase.firestore.FieldValue.increment(1)
+  }, { merge: true });
+}
+
+// kullanıcı çıkış
+async function userLeave() {
+  await presenceRef.set({
+    count: firebase.firestore.FieldValue.increment(-1)
+  }, { merge: true });
+}
+
+// sayfa açılınca +
+userJoin();
+
+// sayfa kapanınca -
+window.addEventListener("beforeunload", userLeave);
+
+// realtime dinle
+presenceRef.onSnapshot(doc => {
+  if (doc.exists) {
+    $scope.$apply(() => {
+      $scope.onlineUsers = doc.data().count || 0;
+    });
+  }
+});
+
+	
+	
 	$scope.playerSearchNoResults = false;
 
 $scope.getPlayerByName = function(name) {

@@ -145,6 +145,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
     <h4 class="rc-title">ROLLERCOİN BİLGİLERİN</h4>
   </div>
       <div class="rc-card">
+	
         <!-- Kullanıcı -->
         <div class="rc-input-group">
           <label>Rollercoin Kul. Adı:</label>
@@ -213,7 +214,13 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <div class="checkbox-group">
   <!--input type="checkbox" id="checkbox1" ng-model="formData.showMiners" name="show_miners"/>
   <label for="checkbox1">Minerlarım</label--!>
-
+<div class="rc-online-widget">
+  <span class="online-dot"></span>
+  <span class="online-text">
+    Aktif Kullanıcı:
+    <strong>{{onlineUsers}}</strong>
+  </span>
+</div>
   <input type="checkbox" id="checkbox2" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners"/>
   <label for="checkbox2">Miner Listesi</label>
 </div>
