@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="./css/profil.css">
 <link rel="stylesheet" href="./css/tablo.css">
 <link rel="stylesheet" href="./css/fonts.css">
+<link rel="stylesheet" href="./css/minerlistesi.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" href="./css/input.css">
 <link rel="stylesheet" href="./css/button.css">
@@ -145,7 +146,10 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
                 ng-click="resetValues()">
           Verileri Güncelle
         </button>
-
+<div ng-if="isLoadedUser">
+  <input type="checkbox" id="checkbox2" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners"/>
+  <label for="checkbox2">Miner Listesi</label>
+</div>
       </div>
 
     </aside>
@@ -219,6 +223,263 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
         </div>
 
       </div>
+<div ng-if="customMiners.length > 0">
+<table>
+<thead>
+<tr>
+<th class=" card-header" colspan="5" style="text-align: center">
+EKRAN KARTLARI
+</th>
+</tr>
+<tr class="deneme">
+<th style="text-align: center">
+MINER ADI
+</th>
+<th style="text-align: center">
+SEVİYE
+</th>
+<th style="text-align: center">
+GÜCÜ
+</th>
+<th style="text-align: center">
+BONUS
+</th>
+<th style="text-align: center">
+ETKİLEŞİM
+</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="miner in customMiners track by $index">
+<td fatihcelik="MINER ADI">
+{{miner.name.en}}
+</td>
+<td fatihcelik="RESİM" style="position: relative;">
+<img ng-if="miner.level == 0" src='https://rollercoin.com/static/img/storage/rarity_icons/level_1.png?v=1.0.0' style='position: absolute;'/>
+<img ng-if="miner.type === 'old_merge'" src='https://rollercoin.com/static/images/level_star.4ff18517e5e8eed42060..png' style='left: 40px;position: absolute;top: 25px;'/>
+<img ng-if="miner.level > 0 && miner.type !== 'old_merge'" src='https://rollercoin.com/static/img/storage/rarity_icons/level_{{miner.level+1}}.png?v=1.0.0' style='left: 40px;position: absolute;top: 25px;'/>
+<img src='https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608' width="80px" height="auto"/>
+<div ng-if="!miner.is_can_be_sold_on_mp"
+style="
+background-color: red;
+font-size: 13px;
+font-weight: bold;
+color: white;
+">SATILAMAZ</div>
+</td>
+<td fatihcelik="GÜÇ">
+{{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
+</td>
+<td fatihcelik="BONUS">
+{{(miner.bonus_power / 100)}}%
+</td>
+<td fatihcelik="ETKİLEŞİM">
+<button class="button" ng-click="removeMinerFromSimulation(miner)">Kaldır!</button><br/>
+<button class="button" ng-click="openBuyLink(miner)">Mağazaya Git</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- MINER LİSTESİ KODLARI -->
+<div ng-if="formData.showAllMiners" id="minerlistesi">
+
+<article>
+<div class="card-fc my-2 özelfont">
+<h6 class="card-header">MINER LİSTESİ</h6>
+<div class="card-body">
+<div class="şiş" style="text-align:center">
+<!--===============================================================================================-->
+<div class="row my-1">
+<span class="labelbaşlık">Miner Adı:</span>
+<div class="input-container">
+<input id="type" type="text" class="- - -" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Örn: YMCA">
+<select id="type" class="- - -" ng-model="allMinersRarity" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<option value="all">Hepsi</option>
+<option value="common">Common</option>
+<option value="legacy">Legacy</option>
+<option value="uncommon">Uncommon</option>
+<option value="rare">Rare</option>
+<option value="epic">Epic</option>
+<option value="legendary">Legendary</option>
+<option value="unreal">Unreal</option>
+</select>
+</div>
+</div>
+<!--===============================================================================================->
+<div class="row my-1">
+<span class="labelbaşlık">Bonus Oranı:</span>
+<div>
+<input id="type" class="- - -" ng-model="allMinerMinBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/> / 
+<input id="type" class="- - -" ng-model="allMinerMaxBonusSearch" type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)"/>
+</div>
+</div>
+<!--===============================================================================================-->
+<div class="row my-1">
+<span class="labelbaşlık">Mağaza Durumu:</span>
+<div>
+<select id="type" class="- - -" ng-model="allMinerNegotiableStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<option value="all">Hepsi</option>
+<option value="inegotiable">Satılamaz</option>
+<option value="negotiable">Satılabilir</option>
+</select>
+</div>
+</div>
+<!--===============================================================================================-->
+<div class="row my-1">
+<span class="labelbaşlık">Oda Durumu:</span>
+<div>
+<select id="type" class="- - -" ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<option value="all">Hepsi</option>
+<option value="mine">Varolan</option>
+<option value="not_mine">Varolmayan</option>
+</select>
+</div>
+</div>
+<!--===============================================================================================-->
+<div class="row my-1">
+<span class="labelbaşlık">Hücre Durumu:</span>
+<div>
+<select id="type" class="- - -" ng-model="allMinerCells" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+<option value="all">Hepsi</option>
+<option value="1">1</option>
+<option value="2">2</option>
+</select>
+</div>
+</div>
+<!--===============================================================================================-->
+</div>
+</div>
+</div>
+<!--===============================================================================================-->
+<center>
+
+</center>
+<!--===============================================================================================-->
+</article>
+ 
+<div ng-if="formData.showAllMiners" class="modern-miner-wrapper">
+
+  <div class="modern-miner-header">
+    <h4>🚀 Modern Miner Listesi (12.02.2026 / Eklendi!)</h4>
+    <div class="miner-count">
+      Toplam: {{allMiners.length}} Miner!
+    </div>
+  </div>
+  
+  <div style="margin-top:15px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+
+  <select id="type"class="- - -"
+          ng-model="selectedSort"
+          ng-change="changeMinerSort(selectedSort)">
+    <option value="bonus_power">🎁 Bonusa Göre</option>
+    <option value="power">⚡ Güce Göre</option>
+    <option value="total_power">🚀 Bonuslu Güce Göre</option>
+    <option value="name">🔤 İsme Göre</option>
+  </select>
+
+</div>
+
+
+  <div class="modern-miner-grid">
+
+    <div class="modern-miner-card" ng-repeat="miner in allMiners | orderBy:getMinerSortValue:reverseAllMinersSort | limitTo:itemsPerPage : (currentPage - 1) * itemsPerPage">
+	<!-- Rarity -->
+	<div class="rarity-badge {{miner.rarity}}">
+		{{miner.rarity | uppercase}}
+	</div>
+	<!-- Level -->
+	<div class="level-badge level-{{miner.level}}">
+		⭐ LVL {{miner.level + 1}}
+	</div>
+	<div class="miner-image">
+		<img src="https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608">
+	</div>
+	<div class="miner-name">
+		{{miner.name.en}}
+	</div>
+
+<div class="miner-stats">
+  <!-- Güç -->
+  <div class="stat-row">
+    <span>⚡ Güç</span>
+    <span>
+      {{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}
+      {{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
+    </span>
+  </div>
+  <!-- Bonus -->
+  <div class="stat-row">
+    <span>🎁 Bonus</span>
+    <span class="bonus-value">
+      {{(miner.bonus_power / 100)}}%
+    </span>
+  </div>
+<!-- Bonuslu Toplam Güç -->
+<div class="stat-row total-power-row">
+  <span>🚀 Bonuslu Güç</span>
+  <span class="total-power-value">
+    {{
+      chooseBestHashRateUnit(
+        miner.power * (1 + (miner.bonus_power / 10000)),
+        'GH/s'
+      ).value.toFixed(2)
+    }}
+    {{
+      chooseBestHashRateUnit(
+        miner.power * (1 + (miner.bonus_power / 10000)),
+        'GH/s'
+      ).unit
+    }}
+  </span>
+</div>
+
+  <!-- Oda Durumu -->
+  <div class="stat-row">
+    <span>🏠 Oda Durumu</span>
+    <span class="room-status"
+          ng-class="{
+            'room-have': miner.already_have,
+            'room-not-have': !miner.already_have
+          }">
+      {{ miner.already_have ? 'Var' : 'Yok' }}
+    </span>
+  </div>
+  <!-- Satış Durumu (Oda durumunun ALTINA eklendi) -->
+  <div class="stat-row">
+    <span>💰 Market</span>
+    <span class="market-status"
+          ng-class="{
+            'sellable': miner.is_can_be_sold_on_mp,
+            'not-sellable': !miner.is_can_be_sold_on_mp
+          }">
+      {{ miner.is_can_be_sold_on_mp ? 'Satılır' : 'Satılamaz' }}
+    </span>
+  </div>
+
+</div>
+	<button class="modern-add-btn" ng-click="addMinerToSimulation(miner)">
+		+ Listeye Ekle
+	</button>
+
+    </div>
+
+  </div>
+
+  <div class="modern-pagination">
+    <ul uib-pagination first-text="İlk" previous-text="Önceki" last-text="Son" next-text="Sonraki"
+        total-items="allMiners.length"
+        ng-model="currentPage"
+        max-size="5"
+        items-per-page="itemsPerPage"
+        boundary-links="true">
+    </ul>
+  </div>
+
+
+</div>
+
+</div>
 
     </section>
 
