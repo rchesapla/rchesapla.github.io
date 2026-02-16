@@ -604,8 +604,9 @@ a, button, input{accent-color:var(--accent)}
   text-align: center;
 }
 
-.rc-earn-card.highlight {
-  border: 2px solid var(--accent);
+.rc-earn-card .highlight {
+  border: 2px solid red;
+  color: red;
 }
 
 .rc-earn-card h2 {
