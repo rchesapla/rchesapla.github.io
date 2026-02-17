@@ -11,48 +11,12 @@ margin: 0 auto;
 margin-top: 350px;
 }
 
-/* ===== ONLINE USERS WIDGET ===== */
-
-.rc-online-widget {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-
-  padding: 8px 14px;
-  border-radius: 20px;
-text-align:center;
-  background: rgba(0, 255, 213, 0.08);
-  border: 1px solid rgba(0, 255, 213, 0.35);
-
-  color: #00ffd5;
-  font-weight: 600;
-  font-size: 14px;
-width: 100%;
-  box-shadow: 0 0 12px rgba(0,255,213,0.25);
-}
-
-.online-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #00ff88;
-
-  box-shadow: 0 0 8px #00ff88;
-text-align:center;
-  animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-  0% { opacity: 0.6; }
-  50% { opacity: 1; }
-  100% { opacity: 0.6; }
-}
 
 
 /* ===== RC SPECIAL H4 TITLE ===== */
 
 .rc-title {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--genelfont);
   font-weight: 700;
   font-size: 26px;
   text-align: center;

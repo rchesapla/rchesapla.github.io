@@ -1,25 +1,20 @@
 var app = angular.module('miningApp', ['ui.bootstrap']);
 
 app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerService', 'MinerService', 'FirebaseService', '$sce', '$timeout', async function($scope, CurrencyService, UserMinerService, MinerService, FirebaseService, $sce, $timeout) {
-    $scope.units = ['GH/s', 'TH/s', 'PH/s', 'EH/s'];
-    $scope.networkUnits = ['GH/s', 'TH/s', 'PH/s', 'EH/s', 'ZH/s'];
-	
-	
+	//////////////////////////////
 	$scope.playerSearchNoResults = false;
-
-$scope.getPlayerByName = function(name) {
-  let results = searchPlayers(name);
-
-  $scope.playerSearchNoResults = results.length === 0;
-
-  return results;
-};
-
-	
+	$scope.getPlayerByName = function(name) {
+	let results = searchPlayers(name);
+	$scope.playerSearchNoResults = results.length === 0;
+	return results;
+	};
 	$scope.visibleItems = 12;
 	$scope.loadMore = function () {
     $scope.visibleItems += 12;
-};
+	};
+	//////////////////////////////
+    $scope.units = ['GH/s', 'TH/s', 'PH/s', 'EH/s'];
+    $scope.networkUnits = ['GH/s', 'TH/s', 'PH/s', 'EH/s', 'ZH/s'];
     let default_form = {
         currency: null,
         power: 0,
@@ -72,6 +67,140 @@ $scope.getPlayerByName = function(name) {
         }
     }
 
+    $scope.donationValue = 2;
+    $scope.donationCurrency = 'U$';
+    calculateDonation();
+
+    $scope.collections = [
+        {
+            id: 1,
+            name: "Miners of Infinity",
+            miners: [
+                "669fd40b8055d6def342d91a",
+                "669fcfc58055d6def342d1ab",
+                "669fd3b78055d6def342d8bd",
+                "669fd1fd8055d6def342d53d",
+                "669fd3538055d6def342d81c",
+                "669fd35f8055d6def342d865",
+                "669fd1788055d6def342d420",
+                "669fd0e78055d6def342d31c",
+                "669fd08e8055d6def342d2d1",
+                "669fd6a88055d6def342da6b",
+                "66a112918055d6def3474184",
+                "66a112918055d6def347418c"
+            ]
+        },
+        {
+            id: 2,
+            name: "Roller Football League",
+            miners: [
+                "6668980bdddadd0605fdaa2e",
+                "6668963edddadd0605fda7ac",
+                "666896c5dddadd0605fda8bb",
+                "6668973cdddadd0605fda94f",
+                "66689701dddadd0605fda905",
+                "66689684dddadd0605fda7f6",
+                "66689843dddadd0605fdaa78",
+                "666897d2dddadd0605fda9e4",
+                "66689794dddadd0605fda99a",
+                "6668991fdddadd0605fdab24",
+                "6668991fdddadd0605fdab27",
+                "6668991fdddadd0605fdab2d"
+            ]
+        },
+        {
+            id: 3,
+            name: "Music Festival",
+            miners: [
+                "661466bcd6c322a6c7c344ba",
+                "661466e1d6c322a6c7c34504",
+                "661467e8d6c322a6c7c346a7",
+                "6614674ad6c322a6c7c3465b",
+                "6614672ad6c322a6c7c34612",
+                "66146919d6c322a6c7c3488d",
+                "661468f7d6c322a6c7c34844",
+                "66146703d6c322a6c7c3454d",
+                "66146868d6c322a6c7c3476d",
+                "66146973d6c322a6c7c348d8"
+            ]
+        },
+        {
+            id: 4,
+            name: "Interstellar Armada",
+            miners: [
+                "654a1eb4d23e8edde9341e5f",
+                "654a1f91d23e8edde9341eb1",
+                "654a21aed23e8edde93420c9",
+                "654a223cd23e8edde9342146",
+                "654a210cd23e8edde9341fd6",
+                "654a2382d23e8edde934216a",
+                "654a253ad23e8edde9342353",
+                "654a24ced23e8edde934228f",
+                "654a22d9d23e8edde9342158",
+                "654a1e06d23e8edde9341dfe"
+            ]
+        },
+        {
+            id: 5,
+            name: "Yatch Club",
+            miners: [
+                "64c3a0bd31ec0b205c25efd6",
+                "64c39ebd31ec0b205c25ec50",
+                "64c39e7731ec0b205c25ebcd",
+                "64c3a1fa31ec0b205c25f14b",
+                "64c39f5b31ec0b205c25ed8b",
+                "64c3a05a31ec0b205c25ef44",
+                "64c3a15d31ec0b205c25f0f9",
+                "64c3a29131ec0b205c25f1dd",
+                "64c3a23e31ec0b205c25f18f",
+                "64c254c20c6fb1d2237a1391"
+            ]
+        },
+        {
+            id: 6,
+            name: "Ultimate Blaster",
+            miners: [
+                "65affbbf43dcad8f6d0f7a52",
+                "65aff78243dcad8f6d0f79b6",
+                "65affb6d43dcad8f6d0f7a36",
+                "65affd6543dcad8f6d0f7acd",
+                "65affccf43dcad8f6d0f7a94",
+                "65affc7f43dcad8f6d0f7a78",
+                "65affb1e43dcad8f6d0f7a1a",
+                "65aff67743dcad8f6d0f7962",
+                "65affd1843dcad8f6d0f7ab0",
+                "65b0f72543dcad8f6d0fa7ff"
+            ]
+        },
+        {
+            id: 7,
+            name: "Moto Gang Club",
+            miners: [
+                "644bbdd2648294b4642f3695",
+                "644bbece648294b4642f3697",
+                "644bbf0a648294b4642f3698",
+                "644bbe15648294b4642f3696",
+                "644bc010648294b4642f369d",
+                "644bbf6f648294b4642f369a",
+                "644bbf44648294b4642f3699",
+                "644bbfb1648294b4642f369b",
+                "644bbfe6648294b4642f369c",
+                "644bb5de648294b4642f368f",
+                "644bb270648294b4642f368e",
+                "644bb225648294b4642f368d",
+                "644bb671648294b4642f3690"
+
+            ]
+        },
+        {
+            id: 8,
+            name: "Season 14 | Harvest Time!",
+            miners: [
+                '6687ccfc7643815232d6402d', '6687cd307643815232d64077', '6687cd837643815232d640c1', '6687cdc47643815232d64726', '6687c01a7643815232d60217', '6687bf4f7643815232d5f741', '6687cf557643815232d65d5c', '6687cf817643815232d65da6', '6687cfae7643815232d65def', '6687cfd57643815232d65e39', '6687ce4e7643815232d65297', '6687cea87643815232d65882', '6687ced67643815232d65cc8', '6687cefd7643815232d65d11', '6687bde47643815232d5f0c6', '6687be827643815232d5f3c1'
+            ]
+        }
+    ];
+
     let loaded_user = getUrlParamValue('user');
     let loaded_league = getUrlParamValue('league');
     loaded_user = loaded_user || localStorage.getItem('keep_loaded_user');
@@ -80,7 +209,7 @@ $scope.getPlayerByName = function(name) {
 
     function calculateDonation() {
         if(!isNaN($scope.donationValue) && $scope.donationCurrency) {
-            const currency = $scope.donationCurrency === 'U$' ? 'usd' : 'try';
+            const currency = $scope.donationCurrency === 'U$' ? 'usd' : 'brl';
             $scope.donationInBnb = ($scope.donationValue / exchangeRates['BNB'][currency])
             $scope.donationInMatic = ($scope.donationValue / exchangeRates['MATIC'][currency])
             $scope.donationInEth = ($scope.donationValue / exchangeRates['ETH'][currency])
@@ -217,11 +346,11 @@ $scope.getPlayerByName = function(name) {
 
     const formatDays = (dias) => {
         if(!dias) {
-            return "0";
+            return "0 dia";
         }
 
         if(dias === Number.MAX_SAFE_INTEGER) {
-            return "Çekim yok";
+            return "Sem Saque";
         }
 
         const diasPorAno = 365;
@@ -235,21 +364,21 @@ $scope.getPlayerByName = function(name) {
         let resultado = "";
     
         if (anos > 0) {
-            resultado += `${anos} ${anos > 1 ? 'yıl' : 'yıl'}`;
+            resultado += `${anos} ${anos > 1 ? 'anos' : 'ano'}`;
             if (meses > 0 || diasRestantes > 0) {
                 resultado += ", ";
             }
         }
     
         if (meses > 0) {
-            resultado += `${meses} ${meses > 1 ? 'ay' : 'ay'}`;
+            resultado += `${meses} ${meses > 1 ? 'meses' : 'mês'}`;
             if (diasRestantes > 0) {
-                resultado += " ";
+                resultado += " e ";
             }
         }
     
         if (diasRestantes > 0) {
-            resultado += `${diasRestantes} ${diasRestantes > 1 ? 'gün' : 'gün'}`;
+            resultado += `${diasRestantes} ${diasRestantes > 1 ? 'dias' : 'dia'}`;
         }
         return resultado;
     }
@@ -267,7 +396,7 @@ $scope.getPlayerByName = function(name) {
     $scope.$watch('formData.power', function(newvalue) {
         if(!$scope.formData.currency && typeof newvalue !== 'undefined') {
             $scope.currencies?.forEach(c => {
-                c.user_block_farm_try =  calculateCoinFarm(newvalue, $scope.formData.unit, c, 'try');
+                c.user_block_farm_brl =  calculateCoinFarm(newvalue, $scope.formData.unit, c, 'brl');
                 c.user_block_farm_usd =  calculateCoinFarm(newvalue, $scope.formData.unit, c, 'usd');
                 c.user_block_farm_token =  calculateCoinFarm(newvalue, $scope.formData.unit, c, 'amount');
                 c.user_days_to_widthdraw = calculateDaysUntilWithdraw(convertHashrate(newvalue,  $scope.formData.unit, 'GH/s'),c);
@@ -306,7 +435,6 @@ $scope.getPlayerByName = function(name) {
     $scope.allMinersRarity = 'all';
     $scope.allMinerPosessionStatus = 'all';
     $scope.allMinerNegotiableStatus = 'all';
-    $scope.allMinerCells = "all";
     $scope.allMinerCollectionId = "-1";
 
 
@@ -619,14 +747,35 @@ $scope.getPlayerByName = function(name) {
     }
 
     $scope.openBuyLink = async function(item) {
+        if(!localStorage.getItem('alreadyDonatedMessage')) {
+            localStorage.setItem('alreadyDonatedMessage', 'true');
+            if(confirm('Te ajudei a tomar essa decisão de compra? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
+                window.scrollTo(0, document.body.scrollHeight);
+                return;
+            }
+        }
         window.open(`https://rollercoin.com/marketplace/buy/miner/${item.miner_id}`,'_blank');
     }
 
     $scope.openSellLink = async function(item) {
+        if(!localStorage.getItem('alreadyDonatedMessage')) {
+            localStorage.setItem('alreadyDonatedMessage', 'true');
+            if(confirm('Te ajudei a tomar essa decisão de venda? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
+                window.scrollTo(0, document.body.scrollHeight);
+                return;
+            }
+        }
         window.open(`https://rollercoin.com/marketplace/sell/miner/${item.miner_id}`,'_blank');
     }
 
     $scope.openBuyCraftLink = async function(id, type) {
+        if(!localStorage.getItem('alreadyDonatedMessage')) {
+            localStorage.setItem('alreadyDonatedMessage', 'true');
+            if(confirm('Te ajudei a tomar essa decisão de compra? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
+                window.scrollTo(0, document.body.scrollHeight);
+                return;
+            }
+        }
         window.open(`https://rollercoin.com/marketplace/buy/${type}/${id}`,'_blank');
     }
 
@@ -748,9 +897,9 @@ $scope.getPlayerByName = function(name) {
     $scope.loaded_league = $scope.leagues.filter(l => l.id == $scope.loaded_league)[0].id ?? $scope.leagues[0].id;
     $scope.currencies = await CurrencyService.getDetailedCurrenciesByLeague($scope.loaded_league);
     $scope.currencies?.forEach(c => {
-        c.block_value_in_try = c.in_game_only ? 0 : exchangeCoin(c.blockSize, c.name, 'try');
+        c.block_value_in_brl = c.in_game_only ? 0 : exchangeCoin(c.blockSize, c.name, 'brl');
         c.block_value_in_usd = c.in_game_only ? 0 : exchangeCoin(c.blockSize, c.name, 'usd');
-        c.user_block_farm_try = 0;
+        c.user_block_farm_brl = 0;
         c.user_block_farm_usd = 0;
         c.user_block_farm_token = 0;
         c.user_days_to_widthdraw = c.disabled_withdraw ? Number.MAX_SAFE_INTEGER : 0;
@@ -806,7 +955,7 @@ $scope.getPlayerByName = function(name) {
     };
 
     $scope.resetValues = function() {
-        if(confirm("Bu, tüm ağ gücünü ve teklif değerlerini yeniden yükleyecek ve biraz zaman alacaktır. Emin misin?")) {
+        if(confirm("Isso irá recarregar todos os valores de poder de rede e cotação e demorará algum tempo. Tem certeza?")) {
             localStorage.clear();
             location.reload();  
         }
@@ -865,13 +1014,13 @@ $scope.getPlayerByName = function(name) {
             const percentual_user_alocated_power = getPercentualPower(user_alocated_power);
             currency.user_alocated_power_value = percentual_user_alocated_power;
             currency.user_alocated_power_day_profit_in_usd = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'usd'));
-            currency.user_alocated_power_day_profit_in_try = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'try'));
+            currency.user_alocated_power_day_profit_in_brl = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'brl'));
             currency.user_alocated_power_day_profit_in_cripto = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'amount'));
             currency.user_alocated_power_week_profit_in_usd = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'usd'));
-            currency.user_alocated_power_week_profit_in_try = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'try'));
+            currency.user_alocated_power_week_profit_in_brl = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'brl'));
             currency.user_alocated_power_week_profit_in_cripto = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'amount'));
             currency.user_alocated_power_month_profit_in_usd = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'usd'));
-            currency.user_alocated_power_month_profit_in_try = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'try'));
+            currency.user_alocated_power_month_profit_in_brl = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'brl'));
             currency.user_alocated_power_month_profit_in_cripto = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'amount'));
             setParamValue(currency.name.toLowerCase(), user_alocated_power);
         }else {

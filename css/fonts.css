@@ -1,40 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@100..900&family=Cutive+Mono&family=Russo+One&family=Tektur:wght@400..900&family=WDXL+Lubrifont+TC&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Braah+One&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 
 /*
-Bitcount Grid Double
-Cutive Mono
-Russo One
-WDXL Lubrifont TC
-Tektur
-Rubik Wet Paint
 Quantico
 */
 
 :root {
-  --siteadı: Rubik Wet Paint, sans-serif;
-  --açıklama: Tektur, sans-serif;
-  --labelbaşlık: Quantico, sans-serif;
-  --card-header: Russo One, sans-serif;
-  --card-body: Tektur, sans-serif;
-  --tablo: Tektur, sans-serif;
-  --yukleniyor: Rubik Wet Paint, sans-serif;
+  --genelfont: Braah One, sans-serif;
+  --minerlistem: Quantico, sans-serif;
 }
-.siteadı {
-	font-family: var(--siteadı);
-	font-size: 20px;
-	color: yellow;
-	}
+body{
+	font-family: var(--genelfont) !important;
+}
 .açıklama {
 	font: 15px var(--açıklama);
 	}
+.loader-box {
+	font-family: var(--genelfont);
+	font-size: 18px !important;
+	}
 .card-header {
-	font-family: var(--card-header);
+	font-family: var(--genelfont);
 	font-size: 18px !important;
 	}
 .card-body {
-	font-family: var(--card-body);
+	font-family: var(--genelfont);
 	font-size: 15px !important;
 	}
 .labelbaşlık {
