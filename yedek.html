@@ -78,19 +78,6 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </head>
 <!--===============================================================================================-->
 <body ng-controller="MiningController">
-
-<div id="adblockWarning" class="adblock-overlay">
-  <div class="adblock-box">
-    <h2>🚫 Reklam Engelleyici Tespit Edildi</h2>
-    <p>
-      Siteyi desteklemek için lütfen reklam engelleyicinizi kapatın.
-      Aksi halde bazı özellikler düzgün çalışmayabilir.
-    </p>
-    <button onclick="hideAdblockWarning()">Anladım</button>
-  </div>
-</div>
-
-
 <!-- LOADER -->
 <div class="rc-loader" ng-show="isLoading">
   <div class="loader-box">
@@ -643,27 +630,6 @@ function updateClock() {
 
 setInterval(updateClock, 1000);
 updateClock();
-</script>
-<script>
-function detectAdblock() {
-  const bait = document.createElement("div");
-  bait.className = "adsbox ad-banner ad-unit";
-  bait.style.height = "1px";
-  document.body.appendChild(bait);
-
-  setTimeout(() => {
-    if (bait.offsetHeight === 0) {
-      document.getElementById("adblockWarning").style.display = "flex";
-    }
-    bait.remove();
-  }, 100);
-}
-
-function hideAdblockWarning() {
-  document.getElementById("adblockWarning").style.display = "none";
-}
-
-window.addEventListener("load", detectAdblock);
 </script>
 
 </body>
