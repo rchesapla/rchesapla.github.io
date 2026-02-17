@@ -9,9 +9,6 @@ Quantico
   --genelfont: Braah One, sans-serif;
   --minerlistem: Quantico, sans-serif;
 }
-body{
-	font-family: var(--genelfont) !important;
-}
 .açıklama {
 	font: 15px var(--açıklama);
 	}

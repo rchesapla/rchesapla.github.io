@@ -1,3 +1,55 @@
+/* ===== RC SPECIAL H4 TITLE ===== */
+
+.rc-title {
+  font-family: var(--genelfont);
+  font-weight: 700;
+  font-size: 26px;
+  text-align: center;
+  margin: 30px 0;
+  position: relative;
+
+  background: linear-gradient(90deg, #6c4cff, #b84dff, #00ffd5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    0 0 8px rgba(108, 76, 255, 0.4),
+    0 0 16px rgba(184, 77, 255, 0.3);
+}
+
+/* Alt çizgi animasyonu */
+
+.rc-title::after {
+  content: "";
+  display: block;
+  width: 120px;
+  height: 3px;
+  margin: 12px auto 0;
+
+  background: linear-gradient(90deg, #6c4cff, #00ffd5);
+  border-radius: 3px;
+
+  animation: rcLineGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes rcLineGlow {
+  from {
+    box-shadow: 0 0 5px #6c4cff;
+  }
+  to {
+    box-shadow: 0 0 18px #00ffd5;
+  }
+}
+
+/* Mobil uyum */
+
+@media (max-width: 768px) {
+  .rc-title {
+    font-size: 20px;
+  }
+}
+
+
 /* =======================
    MINER LIST
 ======================= */
@@ -104,6 +156,7 @@
 
 .modern-gpu-wrapper {
     margin-top: 40px;
+	font-family: var(--minerlistem) !important;
 }
 
 .modern-gpu-header {
@@ -129,8 +182,6 @@
     padding: 18px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.4);
     transition: all 0.3s ease;
-	font-family: var(--minerlistem);
-	
 }
 
 .modern-gpu-card:hover {
@@ -183,7 +234,6 @@
     margin-top: 15px;
     display: flex;
     gap: 10px;
-font-family: var(--minerlistem);
 }
 
 .btn-remove,

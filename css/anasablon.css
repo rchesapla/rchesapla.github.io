@@ -1,200 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap');
-/* TABLO YAZI TİPİ DEĞİŞTİRME */
-@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nosifer&family=Nova+Square&display=swap'); /*BODY FONT ALANI*/
-
-#chart {
-width: 30%;
-height: 250px;
-margin: 0 auto;
-margin-top: 350px;
-}
-
-
-
-/* ===== RC SPECIAL H4 TITLE ===== */
-
-.rc-title {
-  font-family: var(--genelfont);
-  font-weight: 700;
-  font-size: 26px;
-  text-align: center;
-  margin: 30px 0;
-  position: relative;
-
-  background: linear-gradient(90deg, #6c4cff, #b84dff, #00ffd5);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  text-shadow:
-    0 0 8px rgba(108, 76, 255, 0.4),
-    0 0 16px rgba(184, 77, 255, 0.3);
-}
-
-/* Alt çizgi animasyonu */
-
-.rc-title::after {
-  content: "";
-  display: block;
-  width: 120px;
-  height: 3px;
-  margin: 12px auto 0;
-
-  background: linear-gradient(90deg, #6c4cff, #00ffd5);
-  border-radius: 3px;
-
-  animation: rcLineGlow 2s ease-in-out infinite alternate;
-}
-
-@keyframes rcLineGlow {
-  from {
-    box-shadow: 0 0 5px #6c4cff;
-  }
-  to {
-    box-shadow: 0 0 18px #00ffd5;
-  }
-}
-
-/* Mobil uyum */
-
-@media (max-width: 768px) {
-  .rc-title {
-    font-size: 20px;
-  }
-}
-
-
-.brand-sub {
-    font-size: 12px;
-    opacity: 0.7;
-    margin-left: 8px;
-}
-.seo-hidden {
-    position: absolute;
-    left: -9999px;
-}
-
-
 ::-webkit-scrollbar {
 background: #2f3045;
 width: 2px;
 }
-
-/* ========================= */
-/* MINER LIST */
-/* ========================= */
-
-.rc-miner-wrapper {
-  margin-top: 40px;
+::-webkit-scrollbar-thumb {
+background: red;
+	animation: animated-border 1.5s infinite;
 }
-
-.rc-section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.rc-section-header select {
-  padding: 8px;
-  border-radius: 8px;
-  background: #1a2148;
-  color: white;
-  border: 1px solid rgba(255,255,255,0.1);
-}
-
-.rc-miner-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
-  gap: 20px;
-}
-
-.rc-miner-card {
-  background: var(--card);
-  padding: 18px;
-  border-radius: 14px;
-  position: relative;
-  text-align: center;
-  transition: 0.3s;
-}
-
-.rc-miner-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-}
-
-.rc-rarity {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  font-size: 11px;
-  padding: 4px 8px;
-  border-radius: 6px;
-  background: #333;
-}
-
-.rc-miner-image img {
-  width: 90px;
-  margin: 15px auto;
-}
-
-.rc-miner-name {
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.rc-miner-stats div {
-  font-size: 13px;
-  margin-bottom: 5px;
-}
-
-.rc-total-power {
-  color: var(--accent);
-  font-weight: 600;
-}
-
-.rc-btn-add {
-  margin-top: 12px;
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  background: var(--accent);
-  color: black;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.rc-btn-add:hover {
-  transform: scale(1.05);
-}
-
-.rc-pagination {
-  margin-top: 30px;
-  text-align: center;
-}
-
-.rc-btn-secondary {
-  width: 100%;
-  padding: 12px;
-  margin-top: 12px;
-  border-radius: 10px;
-  border: 1px solid var(--accent);
-  background: transparent;
-  color: var(--accent);
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.rc-btn-secondary:hover {
-  background: var(--accent);
-  color: black;
-}
-
-
 
 .loading-overlay {
 position: fixed;
@@ -211,50 +22,10 @@ z-index: 9999;
 color: red;
 }
 
-::-webkit-scrollbar-thumb {
-background: red;
-	animation: animated-border 1.5s infinite;
-}
-
-@keyframes pulse {
-0% {
-transform: scale(1);
-}
-50% {
-transform: scale(1.1);
-}
-100% {
-transform: scale(1);
-}
-}
-
-#message {
-font-size: 24px;
-animation: slideUp 2s forwards;
-}
-@keyframes slideUp {
-0% { opacity: 0; transform: translateY(50px); }
-100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pulse {
-0% {
-transform: scale(1);
-}
-50% {
-transform: scale(1.1);
-}
-100% {
-transform: scale(1);
-}
-}
-
-
-
 .card-body {
 background: #0E1119; /* background: #151414; */
 color: #ffdc00;
-font-family: var(--açıklama);
+font-family: var(--minerlistem);
 }
 
 .card-fc {
@@ -262,6 +33,7 @@ width: 100%;
 color: white;
 background: #2f3045; /* background: #151414; */
 border-radius: 5px 5px 5px 5px;
+font-family: var(--minerlistem);
 }
 
 .card-header {
@@ -271,6 +43,7 @@ border-left: 2px solid red;
 border-right: 2px solid red;
 background: #2f3045 !important;
 text-align:center;
+font-family: var(--minerlistem);
 }
 
 .card-body2 {
@@ -281,6 +54,7 @@ font-family: var(--açıklama);
 body {
 	text-decoration:none;
 	background: #181928 !important; /* background: #151414; */
+font-family: var(--minerlistem);
 }
 
 /* font-family: 'Russo One', sans-serif; */
@@ -512,6 +286,7 @@ a, button, input{accent-color:var(--accent)}
   background: var(--card);
   padding: 20px;
   border-radius: 14px;
+  font-family: var(--minerlistem);
 }
 
 .rc-input-group {
@@ -553,6 +328,7 @@ a, button, input{accent-color:var(--accent)}
 
 .rc-content {
   flex: 1;
+  font-family: var(--minerlistem) !important;
 }
 
 .rc-earnings-grid {
