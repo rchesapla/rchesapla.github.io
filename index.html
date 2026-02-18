@@ -365,7 +365,8 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
         <div class="stat-row">
           <span>💰 Market</span>
-          <strong ng-class="{
+          <strong  class="market-status" 
+				ng-class="{
               'sellable': miner.is_can_be_sold_on_mp,
               'not-sellable': !miner.is_can_be_sold_on_mp
           }">
