@@ -194,7 +194,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
     </div>
 
-    <div class="rc-input-group">
+    <div class="rc-input-group" ng-if="formData.currency">
       <label>Yatırım Tutarı ($)</label>
       <input type="number"
            ng-model="formData.investment"
@@ -238,7 +238,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
     </h2>
 
     <small>
-      ≈ {{calculateROI().months}} ay
+      {{calculateROI().months}} ay
     </small>
 
   </div>
