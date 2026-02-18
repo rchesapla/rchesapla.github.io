@@ -509,23 +509,23 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
     </span>
   </div>
 <!-- Bonuslu Toplam Güç -->
-<div class="stat-row total-power-row">
-  <span>Bonuslu Güç</span>
-  <span class="total-power-value">
-    {{
-      chooseBestHashRateUnit(
-        miner.power * (1 + (miner.bonus_power / 10000)),
-        'GH/s'
-      ).value.toFixed(2)
-    }}
-    {{
-      chooseBestHashRateUnit(
-        miner.power * (1 + (miner.bonus_power / 10000)),
-        'GH/s'
-      ).unit
-    }}
-  </span>
-</div>
+<div class="stat-row">
+          <span>🎁 Bonuslu Güç</span>
+            <span class="total-power-value">
+			{{
+			chooseBestHashRateUnit(
+				miner.power * (1 + (miner.bonus_power / 10000)),
+				'GH/s'
+			).value.toFixed(2)
+			}}
+			{{
+			chooseBestHashRateUnit(
+				miner.power * (1 + (miner.bonus_power / 10000)),
+				'GH/s'
+			).unit
+			}}
+			</span>
+        </div>
 
   <!-- Oda Durumu -->
   <div class="stat-row">
