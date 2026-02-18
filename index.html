@@ -268,7 +268,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
       </div>
 
       <div class="coin-stat">
-        <span>🌐 Ağ Gücü</span>
+        <span>Ağ Gücü</span>
         <strong>
         {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').value.toFixed(2)}}
         {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').unit}}
@@ -276,12 +276,18 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
       </div>
 
       <div class="coin-stat">
-        <span>⛏ Blok</span>
+        <span>Blok Süresi</span>
         <strong>
-          {{currency.blockTime}} sn • {{currency.blockSize}} {{currency.name}}
+          {{currency.blockTime}} sn
         </strong>
       </div>
 
+      <div class="coin-stat">
+        <span>Blok Ödülü</span>
+        <strong>
+		{{currency.blockSize}} {{currency.name}}
+        </strong>
+      </div>
       <!--div class="coin-stat">
         <span>💰 Para Çekim</span>
         <strong>{{formatDays(currency.user_days_to_widthdraw)}}</strong>
