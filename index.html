@@ -74,6 +74,8 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <script src="js/services.js"></script>
 <script src="js/user-miner-service.js"></script>
 <script src="js/miner-service.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
 <!--===============================================================================================-->
 </head>
 <!--===============================================================================================-->
@@ -227,6 +229,15 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
   <div class="modern-general-header" ng-if="formData.currency">
     <h4 class="rc-title">{{formData.currency.name}}</h4>
   </div>
+
+<div style="text-align:right; margin-bottom:10px;">
+  <button class="rc-btn-primary" onclick="takeScreenshot()">
+    📸 Paylaşılabilir Görüntü Oluştur
+  </button>
+</div>
+
+
+
       <!-- COIN SEÇİLİYSE -->
       <div ng-if="formData.currency" class="rc-earnings-grid">
 
@@ -596,6 +607,77 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
   </div>
 
 </footer>
+
+<script>
+async function takeScreenshot() {
+
+  const element = document.querySelector('.rc-content');
+
+  // Kullanıcı adını Angular modelden al
+  const usernameInput = document.querySelector('input[ng-model="userSearchText"]');
+  const username = usernameInput && usernameInput.value 
+      ? usernameInput.value 
+      : "Misafir";
+
+  // Tarih saat oluştur
+  const now = new Date();
+  const formattedDate = now.toLocaleString("tr-TR");
+
+  // Geçici üst bilgi alanı oluştur
+  const header = document.createElement("div");
+  header.style.padding = "15px";
+  header.style.background = "#0f172a";
+  header.style.color = "white";
+  header.style.fontSize = "14px";
+  header.style.textAlign = "center";
+  header.style.borderBottom = "1px solid #334155";
+  header.innerHTML = `
+    <strong>RCHesapla Kazanç Analizi</strong><br>
+    👤 Kullanıcı: ${username} <br>
+    📅 ${formattedDate}
+  `;
+
+  element.prepend(header);
+
+  const canvas = await html2canvas(element, {
+    backgroundColor: "#0f172a",
+    scale: 2,
+    useCORS: true
+  });
+
+  header.remove();
+
+  canvas.toBlob(async function(blob) {
+
+    // 📱 Mobil paylaşım desteği
+    if (navigator.share && navigator.canShare) {
+
+      const file = new File([blob], "rchesapla-analiz.png", {
+        type: "image/png"
+      });
+
+      if (navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          title: "RCHesapla Kazanç Analizi",
+          text: "Kazım gücü analizim 👇",
+          files: [file]
+        });
+        return;
+      }
+    }
+
+    // 💻 Desktop fallback (indir)
+    const link = document.createElement('a');
+    link.download = "rchesapla-analiz.png";
+    link.href = URL.createObjectURL(blob);
+    link.click();
+
+  });
+}
+</script>
+
+
+
 <script>
 let clockMode = "TR";
 
