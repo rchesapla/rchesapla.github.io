@@ -200,3 +200,99 @@ font-family: var(--minerlistem);
   padding: 16px;
   border-radius: 12px;
 }
+
+
+/* ============================= */
+/* MOBİL RESPONSIVE rc-content   */
+/* ============================= */
+
+@media (max-width: 768px) {
+
+  /* Ana layout: sidebar + content alt alta */
+  .rc-main {
+    flex-direction: column;
+  }
+
+  .rc-sidebar {
+    width: 100%;
+    order: 1;
+  }
+
+  .rc-content {
+    width: 100%;
+    order: 2;
+    padding: 10px;
+  }
+
+  /* Kazanç kartları: tek sütun */
+  .rc-earnings-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  /* Genel coin grid */
+  .modern-general-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  /* Miner kart grid */
+  .modern-gpu-grid,
+  .modern-miner-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Filtreler mobilde alt alta */
+  .filter-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .filter-item {
+    width: 100%;
+  }
+
+  /* Kart iç padding küçült */
+  .modern-coin-card,
+  .modern-gpu-card,
+  .modern-miner-card,
+  .rc-earn-card {
+    padding: 12px;
+  }
+
+  /* Büyük başlıkları küçült */
+  .rc-title {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  /* Butonlar full width */
+  .rc-btn-primary,
+  .modern-add-btn,
+  .btn-remove,
+  .btn-shop {
+    width: 100%;
+  }
+}
+
+/* Küçük telefonlar */
+@media (max-width: 480px) {
+
+  .rc-content {
+    padding: 6px;
+  }
+
+  .rc-earn-card h2 {
+    font-size: 18px;
+  }
+
+  .gpu-name,
+  .miner-name {
+    font-size: 14px;
+  }
+
+  .stat-row {
+    font-size: 12px;
+  }
+}
