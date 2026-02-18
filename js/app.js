@@ -435,6 +435,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.allMinersRarity = 'all';
     $scope.allMinerPosessionStatus = 'all';
     $scope.allMinerNegotiableStatus = 'all';
+    $scope.allMinerCells = 'all';
     $scope.allMinerCollectionId = "-1";
 
 
