@@ -253,6 +253,28 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
                 return 0;
         }
     };
+$scope.calculateROI = function () {
+
+  if (!$scope.formData.investment || !$scope.formData.currency) {
+    return { days: 0, months: 0 };
+  }
+
+  // Günlük USD kazancı al
+  const dailyUSD = parseFloat(
+    $scope.calculateEarnings('day', 'usd')
+  );
+
+  if (!dailyUSD || dailyUSD <= 0) {
+    return { days: 0, months: 0 };
+  }
+
+  const days = $scope.formData.investment / dailyUSD;
+
+  return {
+    days: Math.ceil(days),
+    months: (days / 30).toFixed(1)
+  };
+};
 
     const removeFirstMatch = (array, condition) => array.splice(array.findIndex(condition), 1)[0];
 

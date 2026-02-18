@@ -194,6 +194,13 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
     </div>
 
+    <div class="rc-input-group">
+      <label>Yatırım Tutarı ($)</label>
+      <input type="number"
+           ng-model="formData.investment"
+           placeholder="Örn: 150">
+    </div>
+
   </div>
 
   <button class="rc-btn-primary"
@@ -219,8 +226,30 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
   <div class="modern-general-header" ng-if="formData.currency">
     <h4 class="rc-title">{{formData.currency.name}}</h4>
   </div>
+    <div class="rc-input-group">
+    <label>Toplam Yatırım ($)</label>
+    <input type="number"
+           ng-model="formData.investment"
+           placeholder="Örn: 150">
+  </div>
       <!-- COIN SEÇİLİYSE -->
       <div ng-if="formData.currency" class="rc-earnings-grid">
+
+  <div class="rc-earn-card highlight" ng-if="formData.investment">
+
+    <span>ROI Süresi</span>
+
+    <h2>
+      {{calculateROI().days}} gün
+    </h2>
+
+    <small>
+      ≈ {{calculateROI().months}} ay
+    </small>
+
+  </div>
+	  
+	  
         <div class="rc-earn-card highlight">
           <span>Günlük</span>
           <h2>{{calculateEarnings('day','amount')}}</h2>
