@@ -178,7 +178,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
       <select ng-model="formData.currency"
                   ng-options="currency.name for currency in currencies"
                   ng-change="updateCurrencyDetails()">
-            <option value="">Hepsini göster</option>
+            <option value="">Hepsini gösterni göster</option>
           </select>
     </div>
 
@@ -412,9 +412,9 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
     </div>
 
     <div class="filter-item">
-      <label>Seviye</label>
+      <label>Seviye:</label>
       <select ng-model="allMinersRarity" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-<option value="all">Hepsi</option>
+<option value="all">Hepsini göster</option>
 <option value="common">Common</option>
 <option value="legacy">Legacy</option>
 <option value="uncommon">Uncommon</option>
@@ -428,7 +428,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
     <div class="filter-item">
       <label>Mağaza</label>
       <select ng-model="allMinerNegotiableStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-<option value="all">Hepsi</option>
+<option value="all">Hepsini göster</option>
 <option value="inegotiable">Satılamaz</option>
 <option value="negotiable">Satılabilir</option>
 </select>
@@ -437,7 +437,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
     <div class="filter-item">
       <label>Oda</label>
 <select ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-<option value="all">Hepsi</option>
+<option value="all">Hepsini göster</option>
 <option value="mine">Var</option>
 <option value="not_mine">Yok</option>
 </select>
