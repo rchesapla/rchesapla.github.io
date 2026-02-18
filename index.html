@@ -133,10 +133,14 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
   </div>
 
 </div>
-        <!-- Kullanıcı -->
-        <div class="rc-input-group">
-          <label>RC Kul. Adı:</label>
-          <input type="text"
+
+<div class="rc-horizontal-form">
+
+  <div class="rc-form-grid">
+
+    <div class="rc-input-group">
+      <label>RC Kul. Adı</label>
+      <input  type="text"
                  ng-model="userSearchText" 
                 placeholder="Örn: FthCLK" 
                 typeahead-wait-ms="200"
@@ -159,45 +163,43 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 			</p>
 
 		</div>
+    </div>
 
-        </div>
-
-        <!-- Lig -->
-        <div class="rc-input-group">
-          <label>Lig:</label>
-          <select ng-model="formData.league"
+    <div class="rc-input-group">
+      <label>Lig</label>
+      <select ng-model="formData.league"
                   ng-options="league.name for league in leagues"
                   ng-change="updateLeagueDetails()">
           </select>
-        </div>
+    </div>
 
-        <!-- Coin -->
-        <div class="rc-input-group">
-          <label>Kripto:</label>
-          <select ng-model="formData.currency"
+    <div class="rc-input-group">
+      <label>Kripto</label>
+      <select ng-model="formData.currency"
                   ng-options="currency.name for currency in currencies"
                   ng-change="updateCurrencyDetails()">
             <option value="">Hepsi</option>
           </select>
-        </div>
+    </div>
 
-        <!-- Güç -->
-        <div class="rc-input-group">
-          <label>Kazım Gücü:</label>
-          <input type="number"
+    <div class="rc-input-group power-group">
+      <label>Kazım Gücü</label>
+
+      <div class="power-row">
+        <input type="number"
                  ng-model="formData.power"
                  placeholder="Kazım gücü">
 		<select id="unit" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')" class="- - -" ng-disabled="isLoadedUser"></select>
-        </div>
-
-        <button class="rc-btn-primary"
-                ng-click="resetValues()">
-          Verileri Güncelle
-        </button>
-		
-		
       </div>
-<div class="rc-card" ng-if="isLoadedUser">
+
+    </div>
+
+  </div>
+
+  <button class="rc-btn-primary"
+          ng-click="resetValues()">
+    Verileri Güncelle
+  </button>
 
 <div class="checkbox-group">
   <!--input type="checkbox" id="checkbox1" ng-model="formData.showMiners" name="show_miners"/>
@@ -206,7 +208,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
   <label for="checkbox2">Miner Listesi</label>
 </div>
 
-
+</div>
       </div>
 
     </aside>
@@ -221,7 +223,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
       <div ng-if="formData.currency" class="rc-earnings-grid">
         <div class="rc-earn-card highlight">
           <span>Günlük</span>
-          <h2>{{calculateEarnings('day','amount')}} {{formData.currency.name}}</h2>
+          <h2>{{calculateEarnings('day','amount')}}</h2>
           <small>
             ${{calculateEarnings('day','usd')}} •
             {{calculateEarnings('day','try')}}₺
@@ -230,7 +232,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
         <div class="rc-earn-card highlight">
           <span>Haftalık</span>
-          <h2>{{calculateEarnings('week','amount')}} {{formData.currency.name}}</h2>
+          <h2>{{calculateEarnings('week','amount')}}</h2>
           <small>
             ${{calculateEarnings('week','usd')}} •
             {{calculateEarnings('week','try')}}₺
@@ -239,7 +241,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
         <div class="rc-earn-card highlight">
           <span>Aylık</span>
-          <h2>{{calculateEarnings('month','amount')}} {{formData.currency.name}}</h2>
+          <h2>{{calculateEarnings('month','amount')}}</h2>
           <small>
             ${{calculateEarnings('month','usd')}} •
             {{calculateEarnings('month','try')}}₺
