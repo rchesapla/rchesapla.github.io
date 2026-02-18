@@ -265,3 +265,64 @@
 .btn-shop:hover {
     transform: translateY(-2px);
 }
+
+
+
+
+
+
+.modern-filter-horizontal {
+  background: linear-gradient(180deg, #0b1220, #070c16);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.08);
+  border: 1px solid rgba(0,255,255,0.15);
+  margin-bottom: 20px;
+}
+
+.filter-title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: #ffd400;
+  margin-bottom: 15px;
+}
+
+.filter-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+.filter-item label {
+  display: block;
+  margin-bottom: 5px;
+  color: #8fb3ff;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.filter-item input,
+.filter-item select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  background: #101a2f;
+  border: 1px solid #1f2e4a;
+  color: #e6f1ff;
+  outline: none;
+  transition: 0.2s;
+}
+
+.filter-item input:focus,
+.filter-item select:focus {
+  border-color: #00eaff;
+  box-shadow: 0 0 8px rgba(0,234,255,0.4);
+}
+
+.filter-footer {
+  text-align: right;
+  margin-top: 12px;
+  font-weight: bold;
+  color: #ffffff;
+}
