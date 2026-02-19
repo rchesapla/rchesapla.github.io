@@ -244,9 +244,19 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
         <option value="U$">USD</option>
       </select>
     </div>
+	
+	<div class="rc-input-group">
+  <label>Kripto Seç</label>
+  <select ng-model="selectedWallet"
+          ng-options="wallet.symbol as wallet.symbol for wallet in walletList"
+          ng-change="updateSelectedWallet()">
+  </select>
+</div>
+
 
     <div class="donation-results">
       <div>DOGE: {{donationInDOGE | number:5}}</div>
+      <div>TRON: {{donationInTRX | number:5}}</div>
     </div>
 
     <button class="rc-btn-primary"

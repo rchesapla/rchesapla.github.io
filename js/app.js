@@ -2,13 +2,30 @@ var app = angular.module('miningApp', ['ui.bootstrap']);
 
 app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerService', 'MinerService', 'FirebaseService', '$sce', '$timeout', async function($scope, CurrencyService, UserMinerService, MinerService, FirebaseService, $sce, $timeout) {
 	
-	$scope.walletAddress = "DPJhvJDuNhwJS1o7Dv9xLs2jtJ5jzwJ8Vn";
 
+// CÜZDAN LİSTESİ
+$scope.walletList = [
+    { symbol: "DOGE", address: "DPJhvJDuNhwJS1o7Dv9xLs2jtJ5jzwJ8Vn" },
+    { symbol: "TRON", address: "TCuNR7VN7LNZuBAitHSiWAVJt5EdBX3HzW" }
+];
+
+// Varsayılan seçim
+$scope.selectedWallet = "DOGE";
+$scope.currentWalletAddress = $scope.walletList[0].address;
+
+// Seçim değişince adres güncelle
+$scope.updateSelectedWallet = function () {
+    const found = $scope.walletList.find(w => w.symbol === $scope.selectedWallet);
+    $scope.currentWalletAddress = found ? found.address : "";
+};
+
+// Kopyalama fonksiyonu
 $scope.copyWallet = function() {
-    navigator.clipboard.writeText($scope.walletAddress).then(function() {
+    navigator.clipboard.writeText($scope.currentWalletAddress).then(function() {
         alert("Cüzdan adresi kopyalandı!");
     });
 };
+
 
 	
 	//////////////////////////////
@@ -216,17 +233,6 @@ $scope.copyWallet = function() {
     loaded_user = loaded_user || localStorage.getItem('keep_loaded_user');
 
     let loaded_miners = getUrlParamValue('miners');
-
-    function calculateDonation() {
-        if(!isNaN($scope.donationValue) && $scope.donationCurrency) {
-            const currency = $scope.donationCurrency === 'U$' ? 'usd' : 'try';
-            $scope.donationInBnb = ($scope.donationValue / exchangeRates['BNB'][currency])
-            $scope.donationInDOGE = ($scope.donationValue / exchangeRates['DOGE'][currency])
-            $scope.donationInEth = ($scope.donationValue / exchangeRates['ETH'][currency])
-        }
-    }
-
-    $scope.calculateDonation = calculateDonation;
 
     
     const convertHashrate = (value, fromUnit, toUnit) => {
@@ -1039,6 +1045,17 @@ $scope.calculateROI = function () {
             setParamValue(currency.name.toLowerCase());
         }
     };
+	
+	    function calculateDonation() {
+        if(!isNaN($scope.donationValue) && $scope.donationCurrency) {
+            const currency = $scope.donationCurrency === 'U$' ? 'usd' : 'try';
+            $scope.donationInTRX = ($scope.donationValue / exchangeRates['TRX'][currency])
+            $scope.donationInDOGE = ($scope.donationValue / exchangeRates['DOGE'][currency])
+            $scope.donationInEth = ($scope.donationValue / exchangeRates['ETH'][currency])
+        }
+    }
+
+    $scope.calculateDonation = calculateDonation;
 
     async function donate(network) {
             if (typeof window.ethereum !== 'undefined') {
@@ -1046,7 +1063,7 @@ $scope.calculateROI = function () {
                     await window.ethereum.request({ method: 'eth_requestAccounts' });
                     const web3 = new Web3(window.ethereum);
                     const chainId = network === 'BSC' ? '0x38' : '0x89';
-                    const donation = network === 'BSC' ? $scope.donationInBnb.toFixed(18) : $scope.donationInDOGE.toFixed(18)
+                    const donation = network === 'BSC' ? $scope.donationInTRX.toFixed(18) : $scope.donationInDOGE.toFixed(18)
                     await window.ethereum.request({
                         method: 'wallet_switchEthereumChain',
                         params: [{ chainId: chainId }],
