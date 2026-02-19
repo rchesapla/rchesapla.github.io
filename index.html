@@ -592,9 +592,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
 
   <div class="modern-miner-grid">
-    <div class="modern-miner-card" ng-repeat="miner in allMiners 
-     | orderBy:getMinerSortValue:reverseAllMinersSort 
-     | limitTo:visibleItems">
+    <div class="modern-miner-card" ng-repeat="miner in allMiners | orderBy:'power':true | limitTo:visibleItems">
 	<!-- Rarity -->
 	<div class="rarity-badge {{miner.rarity}}">
 		{{miner.rarity | uppercase}}
