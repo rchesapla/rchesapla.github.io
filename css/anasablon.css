@@ -374,6 +374,7 @@ font-family: var(--minerlistem);
     backdrop-filter: blur(10px);
     margin-top: 6px;
     overflow: hidden;
+	text-decoration:none;
 }
 
 /* Liste elemanları */
