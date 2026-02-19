@@ -260,6 +260,14 @@ $scope.getMinerCollection = function(minerId){
 				'6687bde47643815232d5f0c6', 
 				'6687be827643815232d5f3c1'
             ]
+        },
+        {
+            id: 9,
+            name: "Test Aşaması",
+            miners: [
+                '66f1bed1e0dd3530daa2e342',
+				'64ec953822c75110b9b0989c'
+            ]
         }
     ];
 
