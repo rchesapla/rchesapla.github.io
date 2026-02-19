@@ -1,7 +1,19 @@
 var app = angular.module('miningApp', ['ui.bootstrap']);
 
 app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerService', 'MinerService', 'FirebaseService', '$sce', '$timeout', async function($scope, CurrencyService, UserMinerService, MinerService, FirebaseService, $sce, $timeout) {
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // CÜZDAN LİSTESİ
 $scope.walletList = [
