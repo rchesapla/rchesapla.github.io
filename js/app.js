@@ -109,6 +109,14 @@ $scope.copyWallet = function() {
     $scope.donationValue = 2;
     $scope.donationCurrency = 'U$';
     calculateDonation();
+$scope.getMinerCollection = function(minerId){
+    for (let col of $scope.collections){
+        if (col.miners.includes(minerId)){
+            return col;
+        }
+    }
+    return null;
+};
 
     $scope.collections = [
         {
@@ -233,9 +241,24 @@ $scope.copyWallet = function() {
         },
         {
             id: 8,
-            name: "Season 14 | Harvest Time!",
+            name: "Sezon 14 - Hasat Zamanı!",
             miners: [
-                '6687ccfc7643815232d6402d', '6687cd307643815232d64077', '6687cd837643815232d640c1', '6687cdc47643815232d64726', '6687c01a7643815232d60217', '6687bf4f7643815232d5f741', '6687cf557643815232d65d5c', '6687cf817643815232d65da6', '6687cfae7643815232d65def', '6687cfd57643815232d65e39', '6687ce4e7643815232d65297', '6687cea87643815232d65882', '6687ced67643815232d65cc8', '6687cefd7643815232d65d11', '6687bde47643815232d5f0c6', '6687be827643815232d5f3c1'
+                '6687ccfc7643815232d6402d', 
+				'6687cd307643815232d64077', 
+				'6687cd837643815232d640c1', 
+				'6687cdc47643815232d64726', 
+				'6687c01a7643815232d60217', 
+				'6687bf4f7643815232d5f741', 
+				'6687cf557643815232d65d5c', 
+				'6687cf817643815232d65da6', 
+				'6687cfae7643815232d65def', 
+				'6687cfd57643815232d65e39', 
+				'6687ce4e7643815232d65297', 
+				'6687cea87643815232d65882', 
+				'6687ced67643815232d65cc8', 
+				'6687cefd7643815232d65d11', 
+				'6687bde47643815232d5f0c6', 
+				'6687be827643815232d5f3c1'
             ]
         }
     ];
@@ -486,7 +509,7 @@ $scope.calculateROI = function () {
     $scope.allMinerPosessionStatus = 'all';
     $scope.allMinerNegotiableStatus = 'all';
     $scope.allMinerCells = 'all';
-    $scope.allMinerCollectionId = "-1";
+    $scope.allMinerCollectionId = "all";
 
 
     //userMinersFilter
