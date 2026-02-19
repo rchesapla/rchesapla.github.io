@@ -220,6 +220,43 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
 </div>
       </div>
+<!-- DONATION BOX -->
+<div class="rc-card donation-box">
+
+  <div class="modern-general-header">
+    <h4 class="rc-title">DESTEK OL</h4>
+  </div>
+
+  <div class="donation-content">
+
+    <div class="rc-input-group">
+      <label>Bağış Tutarı</label>
+      <input type="number"
+             ng-model="donationValue"
+             ng-change="calculateDonation()"
+             min="1">
+    </div>
+
+    <div class="rc-input-group">
+      <label>Para Birimi</label>
+      <select ng-model="donationCurrency"
+              ng-change="calculateDonation()">
+        <option value="U$">USD</option>
+      </select>
+    </div>
+
+    <div class="donation-results">
+      <div>DOGE: {{donationInDOGE | number:5}}</div>
+    </div>
+
+    <button class="rc-btn-primary"
+            ng-click="copyWallet()">
+      📋 Cüzdan Adresini Kopyala
+    </button>
+
+  </div>
+
+</div>
 
     </aside>
 

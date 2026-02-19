@@ -1,6 +1,16 @@
 var app = angular.module('miningApp', ['ui.bootstrap']);
 
 app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerService', 'MinerService', 'FirebaseService', '$sce', '$timeout', async function($scope, CurrencyService, UserMinerService, MinerService, FirebaseService, $sce, $timeout) {
+	
+	$scope.walletAddress = "DPJhvJDuNhwJS1o7Dv9xLs2jtJ5jzwJ8Vn";
+
+$scope.copyWallet = function() {
+    navigator.clipboard.writeText($scope.walletAddress).then(function() {
+        alert("Cüzdan adresi kopyalandı!");
+    });
+};
+
+	
 	//////////////////////////////
 	$scope.playerSearchNoResults = false;
 	$scope.getPlayerByName = function(name) {
@@ -211,7 +221,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         if(!isNaN($scope.donationValue) && $scope.donationCurrency) {
             const currency = $scope.donationCurrency === 'U$' ? 'usd' : 'try';
             $scope.donationInBnb = ($scope.donationValue / exchangeRates['BNB'][currency])
-            $scope.donationInMatic = ($scope.donationValue / exchangeRates['MATIC'][currency])
+            $scope.donationInDOGE = ($scope.donationValue / exchangeRates['DOGE'][currency])
             $scope.donationInEth = ($scope.donationValue / exchangeRates['ETH'][currency])
         }
     }
@@ -1036,7 +1046,7 @@ $scope.calculateROI = function () {
                     await window.ethereum.request({ method: 'eth_requestAccounts' });
                     const web3 = new Web3(window.ethereum);
                     const chainId = network === 'BSC' ? '0x38' : '0x89';
-                    const donation = network === 'BSC' ? $scope.donationInBnb.toFixed(18) : $scope.donationInMatic.toFixed(18)
+                    const donation = network === 'BSC' ? $scope.donationInBnb.toFixed(18) : $scope.donationInDOGE.toFixed(18)
                     await window.ethereum.request({
                         method: 'wallet_switchEthereumChain',
                         params: [{ chainId: chainId }],

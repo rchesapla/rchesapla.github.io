@@ -57,3 +57,21 @@
   color:#ffffff;
   font-weight:600;
 }
+
+
+
+.donation-box {
+    margin-top: 20px;
+}
+
+.donation-results {
+    background: #0f172a;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.donation-results div {
+    margin: 4px 0;
+}
