@@ -121,19 +121,43 @@ $scope.getMinerCollection = function(minerId){
     $scope.collections = [
         {
             id: 1,
-            name: "Önerilen Miner",
+            name: "Paket 1",
             miners: [
-                "67a3d5a379efd774f15e1556",
-                "65dc7fedd68c8ab1d87f1e0e",
-                "66f1bed1e0dd3530daa2e342",
-                "64ec953822c75110b9b0989c",
-                "64ec953822c75110b9b0989c",
-                "64ec953822c75110b9b0989c"
+                '650aa78a48ee2c2ada9617b7',
+				'650b227648ee2c2ada9653c3',
+				'650b227648ee2c2ada9653cd',
+				'650b227648ee2c2ada9653d7',
+				'650b227648ee2c2ada9653e1',
+				'650b227648ee2c2ada9653eb'
+            ]
+        },
+		{
+            id: 2,
+            name: "Paket 2",
+            miners: [
+                '64b67b7ffe26e622585a5ea3',
+				'64b69567410d986d42ec183f',
+				'64b69568410d986d42ec1850',
+				'64b69569410d986d42ec185e',
+				'64b6956a410d986d42ec186c',
+				'64b6956a410d986d42ec187a'
+            ]
+        },
+		{
+            id: 3,
+            name: "Paket 3",
+            miners: [
+                '6398e9e195b70ff678b1e565',
+				'6399c3641c483a58f70e9bd2',
+				'6399c3651c483a58f70e9be0',
+				'6399c3661c483a58f70e9bee',
+				'6399c3671c483a58f70e9bfc',
+				'6399c3681c483a58f70e9c0a'
             ]
         },
         {
             id: 999,
-            name: "Test Aşaması",
+            name: "Test Aşaması Hypnofrogo",
             miners: [
                 '66f1bed1e0dd3530daa2e342',
 				'64ec953822c75110b9b0989c'
