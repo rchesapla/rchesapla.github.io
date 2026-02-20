@@ -333,9 +333,6 @@ if (totalPower >= 100000000000)
   $scope.user_data.achievements.push({ title: "100 EH/s Güç", icon: "🔥" });
 
 // Miner başarıları
-if (minerCount >= 10)
-  $scope.user_data.achievements.push({ title: "10 Miner Sahibi", icon: "⛏️" });
-
 if (minerCount >= 50)
   $scope.user_data.achievements.push({ title: "50 Miner Sahibi", icon: "⛏️" });
 
