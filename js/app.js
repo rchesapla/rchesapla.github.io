@@ -300,6 +300,58 @@ $scope.calculateROI = function () {
     if(typeof loaded_user === 'string' && loaded_user !== '') {
         try{
             $scope.user_data = await UserMinerService.getAllUserDataByNick(loaded_user);
+			
+			$scope.user_data.achievements = [];
+
+const totalPower = $scope.user_data.powerData.total;
+const minerCount = $scope.user_data.roomData.miners.length;
+const rackCount = $scope.user_data.roomData.racks.length;
+
+// Güç başarıları
+if (totalPower >= 1000)
+  $scope.user_data.achievements.push({ title: "1 TH/s Güç", icon: "⚡" });
+
+if (totalPower >= 1000000)
+  $scope.user_data.achievements.push({ title: "1 PH/s Güç", icon: "🔥" });
+
+if (totalPower >= 100000000)
+  $scope.user_data.achievements.push({ title: "100 PH/s Güç", icon: "🔥" });
+
+if (totalPower >= 750000000)
+  $scope.user_data.achievements.push({ title: "750 PH/s Güç", icon: "🔥" });
+
+if (totalPower >= 1000000000)
+  $scope.user_data.achievements.push({ title: "1 EH/s Güç", icon: "🔥" });
+
+if (totalPower >= 10000000000)
+  $scope.user_data.achievements.push({ title: "10 EH/s Güç", icon: "🔥" });
+
+if (totalPower >= 50000000000)
+  $scope.user_data.achievements.push({ title: "50 EH/s Güç", icon: "🔥" });
+
+if (totalPower >= 100000000000)
+  $scope.user_data.achievements.push({ title: "100 EH/s Güç", icon: "🔥" });
+
+// Miner başarıları
+if (minerCount >= 10)
+  $scope.user_data.achievements.push({ title: "10 Miner Sahibi", icon: "⛏️" });
+
+if (minerCount >= 50)
+  $scope.user_data.achievements.push({ title: "50 Miner Sahibi", icon: "⛏️" });
+
+if (minerCount >= 150)
+  $scope.user_data.achievements.push({ title: "150 Miner Sahibi", icon: "⛏️" });
+
+if (minerCount >= 350)
+  $scope.user_data.achievements.push({ title: "350 Miner Sahibi", icon: "⛏️" });
+
+if (minerCount >= 522)
+  $scope.user_data.achievements.push({ title: "522 Miner Sahibi", icon: "🏆" });
+
+// Rack başarıları
+if (rackCount >= 66)
+  $scope.user_data.achievements.push({ title: "66 Raf Sahibi!", icon: "🗄️" });
+			
             const all_miners = await MinerService.getAllMinersByFilter(); 
             $scope.user_miners =  $scope.user_data.roomData.miners.map(m => ({...all_miners.find(m2 => m.miner_id === m2.miner_id), rdid: uuidv4()}));
             let miners_locations = $scope.user_data.roomData.miners.slice();

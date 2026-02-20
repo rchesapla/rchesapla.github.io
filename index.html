@@ -222,6 +222,21 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
   <label for="checkbox1">Minerlarım</label--!>
   <input type="checkbox" id="checkbox2" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners"/>
   <label for="checkbox2">Miner Listesi</label>
+  
+<div class="rc-card" ng-if="user_data.achievements.length">
+  <div class="modern-general-header">
+    <h4 class="rc-title">Başarımlar</h4>
+  </div>
+
+  <div class="achievements-list">
+    <div class="achievement-item"
+         ng-repeat="a in user_data.achievements">
+      <span class="icon">{{a.icon}}</span>
+      <span class="title">{{a.title}}</span>
+    </div>
+  </div>
+</div>
+  
 </div>
 
 </div>
