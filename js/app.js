@@ -167,6 +167,18 @@ $scope.getMinerCollection = function(minerId){
 				'631f78bd8238ed283a2332d7'
             ]
         },
+		{
+            id: 5,
+            name: "Paket 5",
+            miners: [
+                '668fe85f7643815232ebaaa7',
+				'668fe85f7643815232ebaaaa',
+				'668fe85f7643815232ebaab0',
+				'668fe85f7643815232ebaab6',
+				'668fe85f7643815232ebaabc',
+				'668fe85f7643815232ebaac2'
+            ]
+        },
         {
             id: 999,
             name: "Test Aşaması Hypnofrogo",
