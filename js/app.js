@@ -342,10 +342,13 @@ if (minerCount >= 50)
 if (minerCount >= 150)
   $scope.user_data.achievements.push({ title: "150 Miner Sahibi", icon: "⛏️" });
 
+if (minerCount >= 250)
+  $scope.user_data.achievements.push({ title: "250 Miner Sahibi", icon: "⛏️" });
+
 if (minerCount >= 350)
   $scope.user_data.achievements.push({ title: "350 Miner Sahibi", icon: "⛏️" });
 
-if (minerCount >= 522)
+if (minerCount >= 500)
   $scope.user_data.achievements.push({ title: "522 Miner Sahibi", icon: "🏆" });
 
 // Rack başarıları
