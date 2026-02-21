@@ -202,6 +202,30 @@ $scope.getMinerCollection = function(minerId){
 				'631f79888238ed283a233c2f',
 				'631f79898238ed283a233c3c'
             ]
+        },
+		{
+            id: 8,
+            name: "Paket 8 (8blessed)",
+            miners: [
+                '6231c296a258d58160cdf676',
+				'631f7b018238ed283a234d8d',
+				'631f7b028238ed283a234d9a',
+				'631f7b038238ed283a234da7',
+				'631f7b048238ed283a234db4',
+				'631f7b058238ed283a234dc1'
+            ]
+        },
+		{
+            id: 9,
+            name: "Paket 9 (The Nirvana)",
+            miners: [
+                '650995b748ee2c2ada95fd44',
+				'6752bbe3368cdcf089ff11f4',
+				'6752bbe3368cdcf089ff11fc',
+				'6752bbe3368cdcf089ff1204',
+				'6752bbe3368cdcf089ff120c',
+				'6752bbe3368cdcf089ff1214'
+            ]
         }
     ];
 
