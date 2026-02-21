@@ -190,6 +190,18 @@ $scope.getMinerCollection = function(minerId){
 				'631f787a8238ed283a232fbe',
 				'631f787b8238ed283a232fcb'
             ]
+        },
+		{
+            id: 7,
+            name: "Paket 7 (Azure Dragon)",
+            miners: [
+                '61f9356a8b46ce688939024e',
+				'631f79858238ed283a233c08',
+				'631f79868238ed283a233c15',
+				'631f79878238ed283a233c22',
+				'631f79888238ed283a233c2f',
+				'631f79898238ed283a233c3c'
+            ]
         }
     ];
 
