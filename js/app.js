@@ -121,7 +121,7 @@ $scope.getMinerCollection = function(minerId){
     $scope.collections = [
         {
             id: 1,
-            name: "Paket 1",
+            name: "Paket 1 (Hamster's Enemy)",
             miners: [
                 '650aa78a48ee2c2ada9617b7',
 				'650b227648ee2c2ada9653c3',
@@ -133,7 +133,7 @@ $scope.getMinerCollection = function(minerId){
         },
 		{
             id: 2,
-            name: "Paket 2",
+            name: "Paket 2 (Hypnofrogo)",
             miners: [
                 '64b67b7ffe26e622585a5ea3',
 				'64b69567410d986d42ec183f',
@@ -145,7 +145,7 @@ $scope.getMinerCollection = function(minerId){
         },
 		{
             id: 3,
-            name: "Paket 3",
+            name: "Paket 3 (Queen of Spin)",
             miners: [
                 '6398e9e195b70ff678b1e565',
 				'6399c3641c483a58f70e9bd2',
@@ -157,7 +157,7 @@ $scope.getMinerCollection = function(minerId){
         },
 		{
             id: 4,
-            name: "Paket 4",
+            name: "Paket 4 (Shifter)",
             miners: [
                 '61532146db5008102f9f77ef',
 				'631f78b98238ed283a2332a3',
@@ -169,7 +169,7 @@ $scope.getMinerCollection = function(minerId){
         },
 		{
             id: 5,
-            name: "Paket 5",
+            name: "Paket 5 (MechaFlyTrap)",
             miners: [
                 '668fe85f7643815232ebaaa7',
 				'668fe85f7643815232ebaaaa',
@@ -179,12 +179,16 @@ $scope.getMinerCollection = function(minerId){
 				'668fe85f7643815232ebaac2'
             ]
         },
-        {
-            id: 999,
-            name: "Test Aşaması Hypnofrogo",
+		{
+            id: 6,
+            name: "Paket 6 (DJ Roller)",
             miners: [
-                '66f1bed1e0dd3530daa2e342',
-				'64ec953822c75110b9b0989c'
+                '61532146db5008102f9f77f0',
+				'631f78778238ed283a232f97',
+				'631f78788238ed283a232fa4',
+				'631f78798238ed283a232fb1',
+				'631f787a8238ed283a232fbe',
+				'631f787b8238ed283a232fcb'
             ]
         }
     ];

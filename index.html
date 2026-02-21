@@ -401,7 +401,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
 
       <!-- GENEL LİSTE -->
-<div ng-if="!formData.currency" class="modern-gpu-wrapper">
+<div ng-if="!formData.currency && !formData.showAllMiners" class="modern-gpu-wrapper">
 
   <div class="modern-general-header">
     <h4 class="rc-title">GENEL KAZANÇ İSTATİSTİKLERİ</h4>
@@ -446,8 +446,8 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
   </div>
 
-  
-  
+</div>
+
 <div ng-if="customMiners.length > 0">
 <div class="modern-gpu-wrapper" ng-if="customMiners.length > 0">
 
@@ -627,10 +627,10 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 	<div class="miner-name">
 		{{miner.name.en}}
 	</div>
-	<div class="collection-badge"
+	<!--div class="collection-badge"
      ng-if="getMinerCollection(miner.miner_id)">
     📦 {{getMinerCollection(miner.miner_id).name}}
-</div>
+</div--!>
 
 
 <div class="miner-stats">
@@ -722,7 +722,6 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
 </div>
 
-</div>
     </section>
 
   </main>
