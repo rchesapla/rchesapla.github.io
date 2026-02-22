@@ -84,22 +84,6 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </head>
 <!--===============================================================================================-->
 <body ng-controller="MiningController">
-
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-
-<div id="loginBox" style="position:fixed;inset:0;background:#020617;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;color:white">
-
-<h2>Siteye girmek için Google ile giriş yap</h2>
-
-<div id="g_id_onload"
-     data-client_id="970218813287-nmu3bn0jkae8sik26a6h88298pekibmc.apps.googleusercontent.com"
-     data-callback="handleCredentialResponse">
-</div>
-
-<div class="g_id_signin"></div>
-
-</div>
-
 <!--===============================================================================================-->
 <amp-auto-ads type="adsense" data-ad-client="ca-pub-6469916074236350"></amp-auto-ads>
 <!--===============================================================================================-->
@@ -814,49 +798,6 @@ function updateClock() {
 
 setInterval(updateClock, 1000);
 updateClock();
-</script>
-<script>
-const API_KEY = "AIzaSyBRyH1_qHbSOYlNPFaq1OCJp6cTRwrmMzs";
-const CHANNEL_ID = "UCiS4gfhe4kmmgXB4Wny43kQ";
-
-async function handleCredentialResponse(response){
-
-  const token = response.credential;
-
-  const res = await fetch(
-    "https://www.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50",
-    {
-      headers:{
-        Authorization: "Bearer " + token
-      }
-    }
-  );
-
-  const data = await res.json();
-
-  let subscribed = false;
-
-  if(data.items){
-    subscribed = data.items.some(
-      sub => sub.snippet.resourceId.channelId === CHANNEL_ID
-    );
-  }
-
-  if(subscribed){
-    document.getElementById("loginBox").style.display="none";
-    localStorage.setItem("verifiedSub","yes");
-  }
-  else{
-    alert("Siteye girmek için kanala abone olmalısın.");
-    window.open("https://youtube.com/channel/"+CHANNEL_ID);
-  }
-}
-
-window.onload = ()=>{
-  if(localStorage.getItem("verifiedSub")==="yes"){
-    document.getElementById("loginBox").style.display="none";
-  }
-}
 </script>
 
 </body>
