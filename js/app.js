@@ -226,6 +226,18 @@ $scope.getMinerCollection = function(minerId){
 				'6752bbe3368cdcf089ff120c',
 				'6752bbe3368cdcf089ff1214'
             ]
+        },
+		{
+            id: 10,
+            name: "Paket 10 (Not-A-Loose-Cannon)",
+            miners: [
+                '631b5617a775e04d9a28543f',
+				'631f7b378238ed283a235017',
+				'631f7b388238ed283a235024',
+				'631f7b398238ed283a235031',
+				'631f7b3a8238ed283a23503e',
+				'631f7b3b8238ed283a23504b'
+            ]
         }
     ];
 
