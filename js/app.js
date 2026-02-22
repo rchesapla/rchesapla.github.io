@@ -238,6 +238,16 @@ $scope.getMinerCollection = function(minerId){
 				'631f7b3a8238ed283a23503e',
 				'631f7b3b8238ed283a23504b'
             ]
+        },
+		{
+            id: 1000,
+            name: "Özel Seçimler",
+            miners: [
+                '68cd7473bedeb9a12ef65406',
+				'68cd7473bedeb9a12ef65409',
+				'68cd7473bedeb9a12ef6540f',
+				'6810b85d672b78a8fb968ac3'
+            ]
         }
     ];
 
