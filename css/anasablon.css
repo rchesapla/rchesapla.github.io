@@ -405,7 +405,90 @@ font-family: var(--minerlistem);
 
 
 
+.table-container{
+  padding:18px;
+  border-radius:18px;
+  background:#020617;
+  border:1px solid #1e293b;
+}
 
+.table-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.table-refresh-btn{
+  background:#0ea5e9;
+  border:none;
+  padding:8px 14px;
+  border-radius:10px;
+  color:white;
+  font-size:13px;
+  transition:.2s;
+}
+
+.table-refresh-btn:hover{
+  background:#0284c7;
+  transform:translateY(-1px);
+}
+
+.table-scroll{
+  overflow:auto;
+  max-height:420px;
+}
+
+/* scroll bar */
+.table-scroll::-webkit-scrollbar{
+  width:8px;
+  height:8px;
+}
+.table-scroll::-webkit-scrollbar-thumb{
+  background:#1e293b;
+  border-radius:10px;
+}
+
+/* table */
+.rc-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px;
+}
+
+.rc-table thead{
+  position:sticky;
+  top:0;
+  background:#020617;
+  z-index:2;
+}
+
+.rc-table th{
+  padding:12px;
+  text-align:left;
+  border-bottom:1px solid #1e293b;
+  color:#94a3b8;
+}
+
+.rc-table td{
+  padding:12px;
+  border-bottom:1px solid #0f172a;
+}
+
+.rc-table tbody tr{
+  transition:.15s;
+}
+
+.rc-table tbody tr:hover{
+  background:#020617;
+  transform:scale(1.01);
+}
+
+/* best coin highlight */
+.best-row{
+  background:linear-gradient(90deg,#064e3b,#022c22);
+  border-left:4px solid #22c55e;
+}
 
 
 

@@ -15,31 +15,31 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
 
 
-// CÜZDAN LİSTESİ
-$scope.walletList = [
-    { symbol: "DOGE", address: "DPJhvJDuNhwJS1o7Dv9xLs2jtJ5jzwJ8Vn" },
-    { symbol: "TRON", address: "TCuNR7VN7LNZuBAitHSiWAVJt5EdBX3HzW" }
-];
-
-// Varsayılan seçim
-$scope.selectedWallet = "DOGE";
-$scope.currentWalletAddress = $scope.walletList[0].address;
-
-// Seçim değişince adres güncelle
-$scope.updateSelectedWallet = function () {
-    const found = $scope.walletList.find(w => w.symbol === $scope.selectedWallet);
-    $scope.currentWalletAddress = found ? found.address : "";
-};
-
-// Kopyalama fonksiyonu
-$scope.copyWallet = function() {
-    navigator.clipboard.writeText($scope.currentWalletAddress).then(function() {
-        alert("Cüzdan adresi kopyalandı!");
-    });
-};
 
 
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	//////////////////////////////
 	$scope.playerSearchNoResults = false;
 	$scope.getPlayerByName = function(name) {

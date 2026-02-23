@@ -212,31 +212,20 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
   </div>
 
-  <button class="rc-btn-primary"
-          ng-click="resetValues()">
+  <button class="rc-btn-primary" ng-click="resetValues()">
     Verileri Güncelle
   </button>
 
 <div class="checkbox-group" ng-if="user_data">
   <!--input type="checkbox" id="checkbox1" ng-model="formData.showMiners" name="show_miners"/>
   <label for="checkbox1">Minerlarım</label--!>
+  
+  <button class="rc-btn-primary" ng-if="!formData.currency && !formData.showAllMiners" ng-click="calculateAllCoins()">
+    En İyi Kazanç
+  </button>
+  
   <input type="checkbox" id="checkbox2" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners"/>
   <label for="checkbox2">Miner Listesi</label>
-  
-<!--div class="rc-card" ng-if="user_data.achievements.length">
-  <div class="modern-general-header">
-    <h4 class="rc-title">Başarımlar</h4>
-  </div>
-
-  <div class="achievements-list">
-    <div class="achievement-item"
-         ng-repeat="a in user_data.achievements">
-      <span class="icon">{{a.icon}}</span>
-      <span class="title">{{a.title}}</span>
-    </div>
-  </div>
-</div--!>
-  
 </div>
 
 </div>
@@ -249,10 +238,10 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
     <section class="rc-content">
 	
 	<!-- SITE INTRODUCTION -->
-<div class="rc-card site-intro" ng-if="!formData.currency && !formData.showAllMiners">
+<div class="rc-card site-intro" ng-if="!formData.currency && !formData.showAllMiners && !hasAnyAllocatedPower()">
 
   <div class="modern-general-header">
-    <h4 class="rc-title">RCHesapla Nedir?</h4>
+    <h4 class="rc-title">RCHESAPLA NEDİR?</h4>
   </div>
 
   <div class="intro-content">
@@ -297,15 +286,6 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
   <div class="modern-general-header" ng-if="formData.currency">
     <h4 class="rc-title">{{formData.currency.name}}</h4>
   </div>
-
-<div style="text-align:right; margin-bottom:10px;" ng-if="formData.currency">
-  <button class="rc-btn-primary" onclick="takeScreenshot()">
-    Ekran Görüntüsü Al
-  </button>
-</div>
-
-
-
       <!-- COIN SEÇİLİYSE -->
       <div ng-if="formData.currency" class="rc-earnings-grid">
 
@@ -353,9 +333,8 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
       </div>
 
-
       <!-- GENEL LİSTE -->
-<div ng-if="!formData.currency && !formData.showAllMiners" class="modern-gpu-wrapper">
+<div ng-if="!formData.currency && !formData.showAllMiners && !hasAnyAllocatedPower()" class="modern-gpu-wrapper">
 
   <div class="modern-general-header">
     <h4 class="rc-title">GENEL KAZANÇ İSTATİSTİKLERİ</h4>
@@ -391,6 +370,77 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 		{{currency.blockSize}} {{currency.name}}
         </strong>
       </div>
+      <!--div class="coin-stat">
+        <span>💰 Para Çekim</span>
+        <strong>{{formatDays(currency.user_days_to_widthdraw)}}</strong>
+      </div--!>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div ng-if="hasAnyAllocatedPower()" class="modern-gpu-wrapper">
+
+  <div class="modern-general-header">
+    <h4 class="rc-title">EN İYİ KAZANÇ LİSTESİ</h4>
+    <button class="table-refresh-btn" ng-click="resetAlocatedPower()">
+      Listeyi Kapat
+    </button>
+  </div>
+
+  <div class="modern-general-grid">
+
+    <div class="modern-coin-card"
+         ng-repeat="currency in currencies | orderBy:orderByField:reverseSort">
+
+      <div class="coin-header">
+        <div class="coin-name">{{currency.name}}</div>
+      </div>
+
+      <div class="coin-stat">
+        <span>Günlük USD</span>
+        <strong>
+        ${{currency.user_alocated_power_day_profit_in_usd}}
+        </strong>
+      </div>
+	  
+	  <div class="coin-stat">
+        <span>Günlük TL</span>
+        <strong>
+        {{currency.user_alocated_power_day_profit_in_try}}₺
+        </strong>
+      </div>
+
+      <div class="coin-stat">
+        <span>Haftalık USD</span>
+        <strong>
+        ${{currency.user_alocated_power_week_profit_in_usd}}
+        </strong>
+      </div>
+	  
+	  <div class="coin-stat">
+        <span>Haftalık TL</span>
+        <strong>
+        {{currency.user_alocated_power_week_profit_in_try}}₺
+        </strong>
+      </div>
+
+      <div class="coin-stat">
+        <span>Aylık USD</span>
+        <strong>
+        ${{currency.user_alocated_power_month_profit_in_usd}}
+        </strong>
+      </div>
+	  
+	  <div class="coin-stat">
+        <span>Aylık TL</span>
+        <strong>
+        {{currency.user_alocated_power_month_profit_in_try}}₺
+        </strong>
+      </div>
+
       <!--div class="coin-stat">
         <span>💰 Para Çekim</span>
         <strong>{{formatDays(currency.user_days_to_widthdraw)}}</strong>
