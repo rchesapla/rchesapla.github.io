@@ -212,18 +212,19 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
   </div>
 
+<div class="checkbox-group" ng-if="user_data">
   <button class="rc-btn-primary" ng-click="resetValues()">
     Verileri Güncelle
   </button>
+</div>
 
 <div class="checkbox-group" ng-if="user_data">
-  <!--input type="checkbox" id="checkbox1" ng-model="formData.showMiners" name="show_miners"/>
-  <label for="checkbox1">Minerlarım</label--!>
-  
   <button class="rc-btn-primary" ng-if="!formData.currency && !formData.showAllMiners" ng-click="calculateAllCoins()">
     En İyi Kazanç
   </button>
-  
+</div>
+
+<div class="checkbox-group" ng-if="user_data">
   <input type="checkbox" id="checkbox2" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners"/>
   <label for="checkbox2">Miner Listesi</label>
 </div>
