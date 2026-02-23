@@ -190,6 +190,29 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
             <option value="">Hepsini göster</option>
           </select>
     </div>
+	
+	<div class="rc-input-group power-group">
+      <label>Ağ Gücü</label>
+
+      <div class="power-row">
+        <input type="number"
+                 ng-model="formData.networkPower"
+                 placeholder="Ağ gücü" disabled />
+		<select id="unit" ng-model="formData.networkUnit" disabled ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')">
+		<option ng-repeat="unit in networkUnits">{{unit}}</option>
+		</select>
+      </div>
+
+    </div>
+
+    <div class="rc-input-group power-group">
+      <label>Blok Ödülü</label>
+
+      <div class="power-row">
+                            <input type="text" id="blockSize" ng-model="formData.blockSize" disabled>
+      </div>
+
+    </div>
 
     <div class="rc-input-group power-group">
       <label>Kazım Gücü</label>
@@ -212,7 +235,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
   </div>
 
-<div class="checkbox-group" ng-if="user_data">
+<div class="checkbox-group">
   <button class="rc-btn-primary" ng-click="resetValues()">
     Verileri Güncelle
   </button>
