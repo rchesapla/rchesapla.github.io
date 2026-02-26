@@ -212,16 +212,24 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
   </div>
 
-<div class="checkbox-group">
-  <button class="rc-btn-primary" ng-click="resetValues()">
-    Verileri Güncelle
+<div class="checkbox-group modern-btn-group">
+  
+  <button class="rc-modern-btn update-btn" ng-click="resetValues()">
+    <i class="fas fa-sync-alt"></i>
+    <span>Verileri Güncelle</span>
   </button>
+
 </div>
 
-<div class="checkbox-group" ng-if="user_data">
-  <button class="rc-btn-primary" ng-if="!formData.currency && !formData.showAllMiners" ng-click="calculateAllCoins()">
-    En İyi Kazanç
+<div class="checkbox-group modern-btn-group" ng-if="user_data">
+  
+  <button class="rc-modern-btn profit-btn"
+          ng-if="!formData.currency && !formData.showAllMiners"
+          ng-click="calculateAllCoins()">
+    <i class="fas fa-chart-line"></i>
+    <span>En İyi Kazanç</span>
   </button>
+
 </div>
 
 <div class="checkbox-group" ng-if="user_data">
