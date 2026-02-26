@@ -293,7 +293,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 	
 	
   <div class="modern-general-header" ng-if="formData.currency">
-    <h4 class="rc-title">{{formData.currency.name}}</h4>
+    <h4 class="rc-title">1 {{formData.currency.name}} = {{exchangeRates[formData.currency.name]['try']}}₺</h4>
   </div>
       <!-- COIN SEÇİLİYSE -->
       <div ng-if="formData.currency" class="rc-earnings-grid">
