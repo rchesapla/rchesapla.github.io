@@ -376,7 +376,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
       <div class="coin-stat">
         <span>Blok Ödülü</span>
         <strong>
-		{{currency.blockSize}} {{currency.name}}
+		{{currency.blockSize}}
         </strong>
       </div>
       <!--div class="coin-stat">
@@ -401,8 +401,8 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
   <div class="modern-general-grid">
 
-    <div class="modern-coin-card"
-         ng-repeat="currency in currencies | orderBy:orderByField:reverseSort">
+    <div class="modern-coin-card" ng-repeat="currency in currencies | orderBy:orderByField:reverseSort"
+     ng-if="currency.networkPower && currency.networkPower > 0">
 
       <div class="coin-header">
         <div class="coin-name">{{currency.name}}</div>
