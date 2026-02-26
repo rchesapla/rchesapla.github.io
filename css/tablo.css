@@ -263,6 +263,12 @@
   color: #fff;
 }
 
+.eniyikazancaciklama {
+  text-align:center;
+  font-size: 11px;
+  color: #fff;
+}
+
 /* Level renkleri */
 .level-0 { background: #6b7280; }      /* Gri */
 .level-1 { background: #3b82f6; }      /* Mavi */
