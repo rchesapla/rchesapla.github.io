@@ -40,7 +40,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
 
 
-	//////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 	$scope.playerSearchNoResults = false;
 	$scope.getPlayerByName = function(name) {
 	let results = searchPlayers(name);
