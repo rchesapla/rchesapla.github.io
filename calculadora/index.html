@@ -3,51 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RKFox - Calculadora de Farm</title>
+    <title>RCHesapla - Kişisel Kazım Gücünü Hesapla!</title>
     <link rel="stylesheet" href="styles5.css">
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="contador.js"></script>
 </head>
 <body>
       <div class="container">
-        <div class="ref1">
-            <!-- Start rollercoin.com code -->
-            <a href="https://rollercoin.com/?r=kyluudij">
-                <img src="https://static.rollercoin.com/static/img/ref/gen2/w320h50.png" alt="Rollercoin Referral">
-            </a>
-            <!-- End rollercoin.com code -->
-        </div>
-        <div class="profile">
-            <a href="https://rk-fox.github.io/">
-                <img src="/images/profile.png" alt="Foto de Perfil" class="profile-pic">
-            </a>
-        </div>
-        <div class="banner">
-            <a href="https://rk-fox.github.io/">
-                <img src="/images/banner.png" alt="Banner" class="banner-img">
-            </a>
-        </div>
-        <!-- Toggle Switch -->
-        <label class="switch">
-            <input type="checkbox" id="toggle-dark-mode">
-            <span class="slider"></span>
-        </label>
 
           <div class="calc">
-            <h1>Calculadora de Farm</h1><br>
             
             <form id="craft-form">
                 <table class="form-table">
-                    <th colspan="3">Dados do Usuário</th>
+                    <th colspan="3">Kullanıcı Bilgileri</th>
                     <tr>
                     </tr>
                     <tr>
-                        <td><label for="linkSala">Link do Perfil:</label></td>
-                        <td><input type="text" id="linkSala" placeholder="Link do Perfil"></td>
+                        <td><label for="linkSala">Profil kullanıcı adı:</label></td>
+                        <td><input type="text" id="linkSala" placeholder="Örnek: FthCLK"></td>
                     </tr>
                 </table>
                 
-                <button type="button" onclick="calcular()">CALCULAR FARM</button>
+                <button type="button" onclick="calcular()">Verileri Getir</button>
 
             </form>
 
@@ -56,9 +33,9 @@
                     <thead>
                         <tr>
                             <th style="width: 25%;">Avatar</th>
-                            <th style="width: 25%;">Nome</th>
-                            <th style="width: 25%;">Poder</th>
-                            <th style="width: 25%;">Liga</th>
+                            <th style="width: 25%;">Adı</th>
+                            <th style="width: 25%;">Gücü</th>
+                            <th style="width: 25%;">Lig</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,16 +53,16 @@
                 <table id="resultado-tabela">
                     <thead>
                         <tr>
-                            <th rowspan="2">TOKEN</th>
-                            <th rowspan="2">TEMPO</th>
-                            <th rowspan="2">RECOMPENSA</th>
-                            <th colspan="3">FARM</th> <!-- Adicionei um ID específico para o cabeçalho FARM pai -->
-                            <th rowspan="2">SAQUE</th> <!-- Adicionei um ID para o cabeçalho SAQUE principal -->
+                            <th rowspan="2">KRİPTO</th>
+                            <th rowspan="2">SÜRE</th>
+                            <th rowspan="2">BLOK ÖDÜLÜ</th>
+                            <th colspan="3">KAZANÇLAR</th> <!-- Adicionei um ID específico para o cabeçalho FARM pai -->
+                            <th rowspan="2">PARA ÇEKİMİ</th> <!-- Adicionei um ID para o cabeçalho SAQUE principal -->
                         </tr>
                         <tr>
-                            <th>BLOCO</th> <!-- ID para o sub-cabeçalho BLOCO -->
-                            <th>DIA</th>     <!-- ID para o sub-cabeçalho DIA -->
-                            <th>MÊS</th>     <!-- ID para o sub-cabeçalho MÊS -->
+                            <th>BENİM ÖDÜL</th> <!-- ID para o sub-cabeçalho BLOCO -->
+                            <th>GÜNLÜK</th>     <!-- ID para o sub-cabeçalho DIA -->
+                            <th>AYLIK</th>     <!-- ID para o sub-cabeçalho MÊS -->
                         </tr>
                     </thead>
                     <tbody>
@@ -210,18 +187,7 @@
                 </table>
             </div>
         </div>
-  
-        <div class="ref">
-            <!-- Start rollercoin.com code -->
-            <a href="https://rollercoin.com/?r=kyluudij">
-                <img src="https://static.rollercoin.com/static/img/ref/gen2/w320h50.png" alt="Rollercoin Referral">
-            </a>
-            <!-- End rollercoin.com code -->
-        </div>
 
-        <div class="email">
-            <h4>Contato Profissional: <a href="mailto:canalrkfox@gmail.com">canalrkfox@gmail.com</a></h4>
-        </div>
     </div>
 
     <script src="calculadora.js"></script>
