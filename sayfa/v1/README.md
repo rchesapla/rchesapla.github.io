@@ -1,1 +1,0 @@
-# fatihcelikofficial.github.io
