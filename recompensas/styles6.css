@@ -1,0 +1,362 @@
+/* Reset some basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Modo Claro (padrão) */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 20px; /* Adiciona espaçamento para o conteúdo */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+    text-align: center;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Estilo para profile e banner */
+.profile, .banner {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Estilo para a imagem de perfil */
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 30%;
+    object-fit: cover;
+}
+
+/* Estilo para o banner */
+.banner-img {
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+    border-radius: 10px;
+}
+
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+
+/* Estilos para o campo de entrada personalizado */
+.input-custom {
+    width: 70px;
+    border: 0px;
+    background-color: #fff; /* Cor de fundo da célula */
+    color: #000; /* Cor do texto para combinar com o fundo da célula */
+    text-align: center;
+    box-sizing: border-box;
+}
+
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Estilo para os resultados */
+.result {
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+.calc {
+    padding: 15px;
+}
+
+
+.calc h1 {
+    text-align: center;
+    margin-bottom: 5px;
+    color: #007bff;
+}
+
+
+.calc h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+/* Estilo para a tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Estilo para a tabela do formulário sem bordas */
+.form-table {
+    width: 100%;
+    border: 0px solid #333;
+    border-collapse: collapse;
+    margin-bottom: 20px; /* Espaço inferior para separar da próxima seção */
+}
+
+.form-table td {
+    padding: 10px;
+    vertical-align: middle;
+}
+
+
+.form-table label {
+    display: block;
+    font-weight: bold;
+}
+
+
+/* Estilo adicional para a linha de cabeçalho */
+.form-table th {
+    text-align: center;
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold
+    padding: 10px;
+    vertical-align: middle;
+}
+
+
+/* Modo Escuro */
+body.dark-mode {
+    background-color: #1e1e1e;
+    color: #ddd;
+}
+
+
+body.dark-mode .container {
+    background: #333333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+
+body.dark-mode button {
+    background-color: #0056b3;
+}
+
+body.dark-mode button:hover {
+    background-color: #003d80;
+}
+
+
+body.dark-mode .calc h1 {
+    color: #007BFF;
+}
+
+
+body.dark-mode .calc h3 {
+    color: #ddd;
+}
+
+body.dark-mode table {
+    border-color: #555;
+}
+
+body.dark-mode th {
+    background-color: #0056b3;
+}
+
+body.dark-mode .form-table td {
+    border: 0px solid #333;
+}
+
+body.dark-mode .input-custom {
+    background-color: #333333;
+    border: 0px solid #333333;
+    color: #ddd;
+}
+
+
+/* Estilo para o toggle switch */
+.switch {
+    display: block;
+    margin: 20px auto; /* Centraliza o switch horizontalmente e adiciona margem */
+    width: 60px;
+    height: 34px;
+    position: relative; /* Removido para centralização */
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #fff;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+    background-color: #000;
+}
+
+        /* Adicione o estilo para garantir que os radio buttons estejam centralizados e em linha */
+.radio-buttons {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+.radio-buttons label {
+    margin: 0 10px;
+}
+
+
+/* Estilo para referências e email */
+.ref, .email {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.email h4 {
+    margin-top: 10px;
+}
+
+.email a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.email a:hover {
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .profile-pic {
+        width: 100px;
+        height: 100px;
+    }
+
+    .banner-img {
+        max-width: 100%;
+    }
+
+    input[type="number"], button {
+        width: 100%;
+    }
+
+    table {
+        font-size: 12px;
+        overflow-x: auto; /* Permite rolagem horizontal se necessário */
+    }
+
+/* Esconde colunas específicas em telas menores */
+    @media only screen and (max-width: 480px) {
+        #dataTable th:nth-child(5),
+        #dataTable td:nth-child(5),
+        #dataTable th:nth-child(6),
+        #dataTable td:nth-child(6),
+        #dataTable th:nth-child(7),
+        #dataTable td:nth-child(7),
+        #dataTable th:nth-child(8),
+        #dataTable td:nth-child(8) {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-pic {
+        width: 80px;
+        height: 80px;
+    }
+
+    .banner-img {
+        max-width: 100%;
+    }
+
+    input[type="number"], button {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    table {
+        font-size: 10px;
+        overflow-x: auto; /* Permite rolagem horizontal se necessário */
+    }
+
+/* Esconde colunas específicas em telas menores */
+    @media only screen and (max-width: 768px) {
+        #dataTable th:nth-child(5),
+        #dataTable td:nth-child(5),
+        #dataTable th:nth-child(6),
+        #dataTable td:nth-child(6),
+        #dataTable th:nth-child(7),
+        #dataTable td:nth-child(7),
+        #dataTable th:nth-child(8),
+        #dataTable td:nth-child(8) {
+            display: none;
+        }
+    }
+}
