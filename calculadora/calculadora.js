@@ -14,10 +14,10 @@ function applyMobileTableLayout() {
     // Array para armazenar a nova ordem de colunas e seus cabeçalhos para mobile
     // [original_td_index, 'Novo Cabeçalho']
     const mobileColumns = [
-        { tdIndex: 0, headerText: 'TOKEN' }, // TOKEN
-        { tdIndex: 1, headerText: 'TEMPO' }, // TEMPO
-        { tdIndex: 4, headerText: 'DIA' },   // DIA (índice 4 na tabela original)
-        { tdIndex: 6, headerText: 'SAQUE' }  // SAQUE (índice 6 na tabela original)
+        { tdIndex: 0, headerText: 'KRİPTO' }, // TOKEN
+        { tdIndex: 1, headerText: 'SÜRE' }, // TEMPO
+        { tdIndex: 4, headerText: 'GÜNLÜK' },   // DIA (índice 4 na tabela original)
+        { tdIndex: 6, headerText: 'PARA ÇEKİMİ' }  // SAQUE (índice 6 na tabela original)
     ];
 
     // Criar um novo thead para a tabela mobile
