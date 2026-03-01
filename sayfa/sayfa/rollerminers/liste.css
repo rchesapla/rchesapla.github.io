@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+:root {
+  --accentOne: red;
+  --accentTwo: #2f3045;
+  --accentThree: #D2BD76;
+  --background: #181928;
+  --backgroundTwo: darkblue;
+  --text: #8984b1;
+  
+  --başlık: Oranienbaum, serif;
+  --body: Open Sans, sans serif;
+}
+body { margin:0px!important;background-color:var(--background);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+a { text-decoration:none!important; }
+.musour { display:grid;height:100vh;width:100vw;grid-template-columns:280px auto;overflow-y:hidden; }
+.musour-left { padding:20px;color:var(--text);font-size:12px;display:flex;height:calc(100vh - 100px);flex-direction:column; }
+.musour-title { font:40px var(--başlık);line-height:40px;padding-top:3px; }
+.musour-title div { font-size:99px;margin-left:-2px;line-height:80px;color:var(--accentOne); }
+.musour-title-2 { background:linear-gradient(to bottom left,var(--accentOne),var(--accentTwo));line-height:10px;padding:14px 0px 16px 4px;text-align:center;color:var(--background);letter-spacing:4.2px;border-radius:10px;margin:15px 0px 30px 0px;cursor:pointer;transition:.3s all; 
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+.musour-title-2:hover { transform:scale(1.05);opacity:.8; }
+.musour-blurb { text-align:justify;line-height:18px; }
+.musour-filters { margin-top:5px;flex-grow:1;overflow:auto; }
+.musour-filters::-webkit-scrollbar-thumb { border-left:solid 15px var(--background);background:linear-gradient(to bottom,var(--accentOne),var(--accentTwo)); }
+.musour-filters::-webkit-scrollbar { width:2px; }
+.musour-filters div { display:flex;flex-direction:column;font-size:15px; }
+.musour-filters h1 { background-color:var(--backgroundTwo);font:700 12px var(--body);line-height:10px;padding:14px 0px 16px 4px;text-align:center;color:var(--text);letter-spacing:4.2px;border-radius:10px;margin:20px 0px;line-height:12px; }
+.musour-filters button { margin-top:0px;border:none;background:transparent;text-align:left;padding:0px;cursor:pointer;font:12px var(--body);color:var(--text);line-height:20px;transition:.3s all; }
+.musour-filters .is-checked { font-weight:700!important; }
+.musour-filters button::before { content:'+';color:var(--accentOne);padding-right:10px; }
+.musour-filters button:hover { color:var(--accentOne); }
+
+.musour-color { flex-direction:row!important;flex-wrap:wrap;justify-content:center;gap:8px; }
+.musour-color button { height:20px;width:20px;background:linear-gradient(to bottom left,var(--accentOne),var(--accentTwo));border-radius:3px; }
+.musour-color .red { background:#B45758!important; }
+.musour-color .orange { background:#AE8657!important; }
+.musour-color .yellow { background:#AAA95F!important; }
+.musour-color .green { background:#5C916B!important; }
+.musour-color .blue { background:#6599B0!important; }
+.musour-color .purple { background:#8564AD!important; }
+.musour-color .pink { background:#B9619D!important; }
+.musour-color .brown { background:#735E45!important; }
+.musour-color .black { background:#555555!important; }
+.musour-color .gray { background:#bbbbbb!important; }
+.musour-color .white { background:var(--backgroundTwo)!important; }
+.musour-color button::before { display:none; }
+
+
+.musour-right { background:var(--backgroundTwo);background:linear-gradient(to bottom left,var(--accentOne),var(--accentTwo));border-radius:20px 0px 0px 0px;padding:20px;min-width:825px;box-shadow: 0px 0px 20px rgba(44,44,44,.1);box-shadow:none; }
+.musour-right .grid { max-height:calc(108vh - 108px);overflow:auto; }
+.musour-right .grid::-webkit-scrollbar-thumb { background-color:var(--background);border-radius:5px; }
+.musour-right .grid::-webkit-scrollbar { width:10px; }
+.musour-icon { background-color:var(--background);padding:10px;border-radius:15px;width:100px;margin:0px 25px 25px 0px;box-shadow: 5px 5px 10px -3px;height:160px;transform:scale(1);transition:.3s all; }
+.musour-icon img { height:auto;width:100px;border-radius:5px 5px 0px 0px;margin-bottom:0px!important;display:block;filter:grayscale(75%) contrast(100%);opacity:1;transition:.3s all; }
+.musour-icon div { border-radius:0px 0px 10px 10px;background-color:var(--backgroundTwo);padding:5px;font:12px var(--body);color:var(--text);line-height:13px;height:65px;display:flex;flex-direction:column;justify-content:center;border: 3px dotted #ff6550; }
+.musour-icon div b { display:block;font-style:normal!important;color:var(--accentOne);font-size:11px; }
+.musour-icon:hover { transform:scale(1); }
+.musour-icon:hover img { opacity:1;filter:grayscale(0%) contrast(100%)!important; }
+
+.musour-blurb2 { text-align:center;line-height:20px;font:13px var(--title); }
+.musour-icon b2 {font-style:bold!important;color:var(--accentOne2);font-size:11px; }
+
+/* SEVİYELİ MİNER AYARLARI */
+.güç {
+	background-image: url(https://rollercoin.com/static/images/lightning.9aeb20686a6436fa05cd..svg);
+	background-repeat: no-repeat; 
+}
+
+.bonus {
+	background-image: url(https://rollercoin.com/static/images/arrow_top_cyan.0c480b8075fed9b13159..svg);
+	background-repeat: no-repeat;
+}
+
+.yildiz {
+	background-image: url(https://rollercoin.com/static/images/level_star.4ff18517e5e8eed42060..png);
+	background-repeat: no-repeat;
+}
+
+.s1 {
+	background-image: url(https://rollercoin.com/static/img/storage/rarity_icons/level_1.png);
+	background-repeat: no-repeat;
+}
+
+.s2 {
+	background-image: url(https://rollercoin.com/static/img/storage/rarity_icons/level_2.png);
+	background-repeat: no-repeat;
+}
+.s3 {
+	background-image: url(https://rollercoin.com/static/img/storage/rarity_icons/level_3.png);
+	background-repeat: no-repeat;
+}
+.s4 {
+	background-image: url(https://rollercoin.com/static/img/storage/rarity_icons/level_4.png);
+	background-repeat: no-repeat;
+}
+.s5 {
+	background-image: url(https://rollercoin.com/static/img/storage/rarity_icons/level_5.png);
+	background-repeat: no-repeat;
+}
+.s6 {
+	background-image: url(https://rollercoin.com/static/img/storage/rarity_icons/level_6.png);
+	background-repeat: no-repeat;
+}
+/* SEVİYELİ MİNER AYARLARI */
