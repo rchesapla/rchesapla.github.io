@@ -17,6 +17,7 @@ color:white;
 font-family:'Inter',sans-serif;
 }
 
+/* SIDEBAR */
 .sidebar{
 position:fixed;
 height:100vh;
@@ -24,6 +25,7 @@ width:240px;
 background:#020617;
 border-right:1px solid #1e293b;
 padding:20px;
+transition:0.3s;
 }
 
 .sidebar h4{
@@ -45,11 +47,21 @@ background:#1e293b;
 color:white;
 }
 
+/* MAIN AREA */
 .main{
 margin-left:240px;
 padding:30px;
+transition:0.3s;
 }
 
+/* MOBILE NAV */
+.mobile-nav{
+display:none;
+background:#020617;
+border-bottom:1px solid #1e293b;
+}
+
+/* CARDS */
 .card{
 background:#020617;
 border:1px solid #1e293b;
@@ -65,6 +77,7 @@ font-size:22px;
 font-weight:600;
 }
 
+/* FORM */
 .form-control,.form-select{
 background:#020617;
 border:1px solid #334155;
@@ -78,6 +91,7 @@ background:#020617;
 color:white;
 }
 
+/* BUTTON */
 .btn-primary{
 background:#3b82f6;
 border:none;
@@ -87,6 +101,7 @@ border:none;
 background:#2563eb;
 }
 
+/* TABLE */
 .table{
 color:white;
 }
@@ -95,8 +110,37 @@ color:white;
 background:#020617;
 }
 
-.topbar{
-margin-bottom:25px;
+/* RESPONSIVE */
+@media (max-width: 992px){
+
+.sidebar{
+left:-240px;
+}
+
+.sidebar.active{
+left:0;
+}
+
+.main{
+margin-left:0;
+padding:20px;
+}
+
+.mobile-nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 16px;
+}
+
+.stat-card{
+padding:15px;
+}
+
+.stat-value{
+font-size:18px;
+}
+
 }
 
 </style>
@@ -104,7 +148,16 @@ margin-bottom:25px;
 
 <body onload="calculateGoalPower(), blockAmount()">
 
-<div class="sidebar">
+<!-- MOBILE NAV -->
+<div class="mobile-nav">
+<button class="btn btn-dark" onclick="toggleSidebar()">
+<i class="bi bi-list"></i>
+</button>
+<span class="fw-bold">RCHesapla</span>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
 <h4>RCHesapla</h4>
 <a href="#"><i class="bi bi-speedometer2"></i> Dashboard</a>
 <a href="./sayfa/hakkimizda/"><i class="bi bi-info-circle"></i> Hakkımızda</a>
@@ -115,35 +168,36 @@ margin-bottom:25px;
 
 <div class="main">
 
-<div class="topbar d-flex justify-content-between align-items-center">
+<div class="d-flex justify-content-between align-items-center mb-4">
 <h3>Crypto Mining Calculator</h3>
-<span class="text-secondary">RollerCoin Kazanç Tahmini</span>
+<span class="text-secondary d-none d-md-block">RollerCoin Kazanç Tahmini</span>
 </div>
 
-<div class="row g-4 mb-4">
+<!-- STAT CARDS -->
+<div class="row g-3 mb-4">
 
-<div class="col-md-3">
+<div class="col-6 col-md-3">
 <div class="card stat-card">
 <div class="text-secondary">Beklenen</div>
 <div class="stat-value" id="exp_reward"></div>
 </div>
 </div>
 
-<div class="col-md-3">
+<div class="col-6 col-md-3">
 <div class="card stat-card">
 <div class="text-secondary">Günlük</div>
 <div class="stat-value" id="daily"></div>
 </div>
 </div>
 
-<div class="col-md-3">
+<div class="col-6 col-md-3">
 <div class="card stat-card">
 <div class="text-secondary">Haftalık</div>
 <div class="stat-value" id="weekly"></div>
 </div>
 </div>
 
-<div class="col-md-3">
+<div class="col-6 col-md-3">
 <div class="card stat-card">
 <div class="text-secondary">Aylık</div>
 <div class="stat-value" id="monthly"></div>
@@ -152,6 +206,7 @@ margin-bottom:25px;
 
 </div>
 
+<!-- CONTENT -->
 <div class="row g-4">
 
 <div class="col-lg-5">
@@ -231,7 +286,9 @@ margin-bottom:25px;
 
 <h5 class="mb-4">Detaylı Kazanç Tablosu</h5>
 
+<div class="table-responsive">
 Yakında!
+</div>
 
 </div>
 
@@ -245,6 +302,15 @@ Yakında!
 </footer>
 
 </div>
+
+<script>
+
+function toggleSidebar(){
+const sidebar = document.getElementById('sidebar');
+sidebar.classList.toggle('active');
+}
+
+</script>
 
 <script src="js/rchesaplama.js"></script>
 <script src="js/haftalikodul.js"></script>
