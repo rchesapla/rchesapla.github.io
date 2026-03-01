@@ -124,12 +124,12 @@ const hojeUTC = new Date().toISOString().slice(0, 10);
 // ============================================================================
 
 /**
- * Busca os preços atuais das criptomoedas em USD e BRL.
- * @returns {Promise<Object>} Um objeto com os preços. Ex: { BTC: { usd: 50000, brl: 250000 } }
+ * Busca os preços atuais das criptomoedas em USD e try.
+ * @returns {Promise<Object>} Um objeto com os preços. Ex: { BTC: { usd: 50000, try: 250000 } }
  */
 async function getCryptoPrices() {
   const ids = Object.values(coinGeckoIds).join(',');
-  const url = `https://summer-night-03c0.rk-foxx-159.workers.dev/?https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd,brl`;
+  const url = `https://summer-night-03c0.rk-foxx-159.workers.dev/?https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd,try`;
   const prices = {};
   try {
     const res = await fetch(url);
@@ -137,7 +137,7 @@ async function getCryptoPrices() {
     const data = await res.json();
     for (const [symbol, id] of Object.entries(coinGeckoIds)) {
       if (data[id]) {
-        prices[symbol] = { usd: data[id].usd, brl: data[id].brl };
+        prices[symbol] = { usd: data[id].usd, try: data[id].try };
       }
     }
     console.log("Cotações carregadas:", prices);
@@ -245,7 +245,7 @@ function setText(id, text) {
   el.innerText = text ?? "-";
 }
 
-/** Define o conteúdo de uma célula com valores de cripto, USD e BRL. */
+/** Define o conteúdo de uma célula com valores de cripto, USD e try. */
 function setComplexCell(id, cryptoValue, decimals, moeda, cryptoPrices) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -257,10 +257,10 @@ function setComplexCell(id, cryptoValue, decimals, moeda, cryptoPrices) {
   if (!prices) { el.innerHTML = cryptoFormatted; return; }
 
   const usdValue = cryptoValue * prices.usd;
-  const brlValue = cryptoValue * prices.brl;
+  const tryValue = cryptoValue * prices.try;
   const usdFormatted = usdValue.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-  const brlFormatted = brlValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-  el.innerHTML = `${cryptoFormatted}<br>${usdFormatted}<br>${brlFormatted}`;
+  const tryFormatted = tryValue.toLocaleString('tr-TR', { style: 'currency', currency: 'try' });
+  el.innerHTML = `${cryptoFormatted}<br>${usdFormatted}<br>${tryFormatted}`;
 }
 
 // ============================================================================
@@ -274,7 +274,7 @@ async function calcular() {
   const linkSala = document.getElementById("linkSala").value.trim();
   if (linkSala === "") { alert("Preencha o link da sala!"); return; }
 
-  document.getElementById('nome').innerText = "Carregando...";
+  document.getElementById('nome').innerText = "Yükleniyor...";
   document.getElementById('avatar').style.display = 'none';
 
   try {
@@ -344,7 +344,7 @@ function atualizarTabela(poderAtual, cryptoPrices) {
     if (!["RLT", "RST", "HMT", "ALGO"].includes(moeda)) {
       if (isFinite(minimo) && minimo > 0 && fblk > 0 && isFinite(tempoSec) && tempoSec > 0) {
         const dias = ((minimo / fblk) * (tempoSec / 60)) / 1440;
-        saqueTexto = `${dias.toFixed(2).replace('.', ',')} dias`;
+        saqueTexto = `${dias.toFixed(2).replace('.', ',')} gün`;
       } else {
         saqueTexto = "-";
       }
