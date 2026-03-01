@@ -329,6 +329,7 @@ font-family: var(--minerlistem);
 }
 
 .intro-content {
+	text-align:center;
     padding: 15px;
     font-size: 14px;
     line-height: 1.6;
