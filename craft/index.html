@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RKFox - Calculadora de Craft</title>
+    <link rel="stylesheet" href="styles5.css">
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="contador.js"></script>
+</head>
+    <script>(function(d,z,s){s.src='https://'+d+'/401/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('gizokraijaw.net',7666746,document.createElement('script'))</script>
+<body>
+    <div class="container">
+        <div class="ref1">
+            <!-- Start rollercoin.com code -->
+            <a href="https://rollercoin.com/?r=kyluudij">
+                <img src="https://static.rollercoin.com/static/img/ref/gen2/w320h50.png" alt="Rollercoin Referral">
+            </a>
+            <!-- End rollercoin.com code -->
+        </div>
+        <div class="profile">
+            <a href="https://rk-fox.github.io/">
+                <img src="/images/profile.png" alt="Foto de Perfil" class="profile-pic">
+            </a>
+        </div>
+        <div class="banner">
+            <a href="https://rk-fox.github.io/">
+                <img src="/images/banner.png" alt="Banner" class="banner-img">
+            </a>
+        </div>
+        <!-- Toggle Switch -->
+        <label class="switch">
+            <input type="checkbox" id="toggle-dark-mode">
+            <span class="slider"></span>
+        </label>
+
+        <div class="calc">
+            <h1>Calculadora de Craft</h1><br>
+            
+            <form id="craft-form">
+                <table class="form-table">
+                    <th colspan="2">Dados do Evento</th>
+                    <tr>
+                        <td><label for="xp-desejado">XP Desejado:</label></td>
+                        <td><input type="number" id="xp-desejado" value="0" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="xp-rlt-craft">XP/RLT Craft:</label></td>
+                        <td><input type="number" id="xp-rlt-craft" value="0" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="xp-rlt-market">XP/RLT Market:</label></td>
+                        <td><input type="number" id="xp-rlt-market" value="0" required></td>
+                    </tr>
+                </table>
+                <table class="form-table">    
+                    <th colspan="4">Receita do Craft</th>
+                <tr>
+                    <td><label for="quantidade-miner1">Quantidade de Miners:</label></td>
+                    <td><input type="number" id="quantidade-miner1" value="0" required></td>
+                    <td><label for="preco-miner1">Preço das Miners:</label></td>
+                    <td><input type="number" id="preco-miner1" value="0" required></td>
+                </tr>
+                <tr>
+                    <td><label for="quantidade-craft1">Quantidade de Peças:</label></td>
+                    <td><input type="number" id="quantidade-craft1" value="0" required></td>
+                    <td><label for="preco-peca-craft1">Preço das Peças:</label></td>
+                    <td><input type="number" id="preco-peca-craft1" value="0" required></td>
+                </tr>
+                <tr>
+                    <td><label for="preco-craft1">Preço do Craft:</label></td>
+                    <td><input type="number" id="preco-craft1" value="0" required></td>
+                    <td><label for="preco-speed1">Preço do Speed-Up:</label></td>
+                    <td><input type="number" id="preco-speed1" value="0" required></td>
+                </tr>
+            <!-- Linha final com uma célula mesclada -->
+                <tr>
+                    <td></td>
+                    <td><label for="cash1">Preço de Venda do Craft:</label></td>
+                    <td><input type="number" id="cash1" value="0" required></td>
+                    <td></td>
+                </tr>
+                </table>
+                
+                <button type="button" onclick="calcular()">Calcular</button>
+            </form>
+
+            <div class="result">
+                <table id="resultado-tabela">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">Multi</th>
+                            <th style="width: 20%;">Quantidade</th>
+                            <th style="width: 20%;">Custo</th>
+                            <th style="width: 20%;">Venda</th>
+                            <th style="width: 20%;">Saldo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- As linhas da tabela serão geradas aqui pelo JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="ref">
+            <!-- Start rollercoin.com code -->
+            <a href="https://rollercoin.com/?r=kyluudij">
+                <img src="https://static.rollercoin.com/static/img/ref/gen2/w320h50.png" alt="Rollercoin Referral">
+            </a>
+            <!-- End rollercoin.com code -->
+        </div>
+
+        <div class="email">
+            <h4>Contato Profissional: <a href="mailto:canalrkfox@gmail.com">canalrkfox@gmail.com</a></h4>
+        </div>
+    </div>
+
+    <script src="craft.js"></script>
+    <script src="script2.js"></script>
+</body>
+</html>

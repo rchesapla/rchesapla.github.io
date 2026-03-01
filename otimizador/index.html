@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rack de Itens</title>
+    <style>
+        /* Estilo do contêiner do rack */
+        .card-rack-item {
+            position: relative;
+            width: 124px;
+            height: 220px;
+            background-image: url('https://static.rollercoin.com/static/img/game/inventory/racks/66fa99512d94b5111cd82dd5.png?v=1.2.5');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Posição do conteúdo dentro do rack */
+        .miners-block-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            display: flex;
+            flex-wrap: wrap;
+            width: 124px;
+            height: 220px;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+        }
+
+        /* Estilo dos mineradores dentro do rack */
+        .miner-img-wrapper {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .miner-item-1cell {
+            /*width: 100px;*/
+            width: 50px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .miner-item-2cells {
+            /*width: 100px;*/
+            width: 50px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* Posições absolutas para cada minerador */
+        .miner-img-wrapper:nth-child(1) { top: 48px; left: 37px; }
+        .miner-img-wrapper:nth-child(2) { top: 157px; left: 62px; }
+        .miner-img-wrapper:nth-child(3) { top: 157px; left: 10px; }
+        .miner-img-wrapper:nth-child(4) { top: -5px; left: 37px; }
+        .miner-img-wrapper:nth-child(5) { top: 101px; left: 37px; }
+
+        /* Ícones de configuração do rack */
+        .card-setting-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .card-setting-icon {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card-rack-item rack-item first-room">
+    <div class="miners-block-wrapper">
+        <!-- Mineradores com posição absoluta -->
+        <div class="miner-img-wrapper">
+            <img class="miner-item-2cells" src="https://static.rollercoin.com/static/img/market/miners/rolleradmingauntlet.gif?v=1.2.1" alt="Miner 1">
+        </div>
+        <div class="miner-img-wrapper">
+            <img class="miner-item-1cell" src="https://static.rollercoin.com/static/img/market/miners/roller_alttoken.gif?v=1.2.1" alt="Miner 2">
+        </div>
+        <div class="miner-img-wrapper">
+            <img class="miner-item-1cell" src="https://static.rollercoin.com/static/img/market/miners/roller_alttoken.gif?v=1.2.1" alt="Miner 3">
+        </div>
+        <div class="miner-img-wrapper">
+            <img class="miner-item-2cells" src="https://static.rollercoin.com/static/img/market/miners/totally_black.gif?v=1.2.1" alt="Miner 4">
+        </div>
+        <div class="miner-img-wrapper">
+            <img class="miner-item-2cells" src="https://static.rollercoin.com/static/img/market/miners/hamnapping.gif?v=1.2.1" alt="Miner 5">
+        </div>
+    </div>
+    
+    <!-- Ícone de configuração -->
+    <button type="button" class="card-setting-btn btn btn-secondary">
+        <div class="card-setting-icon-block">
+            <img src="https://productionassets.rollercoin.com/main-app/2dafbcfe97d2245e7cdce274b4b9608b/assets/img/DMrzH7qUSZiyGO5QNMOr2.svg" alt="Setting icon" class="card-setting-icon">
+        </div>
+    </button>
+</div>
+
+</body>
+</html>
