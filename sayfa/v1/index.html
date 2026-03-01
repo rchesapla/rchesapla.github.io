@@ -16,28 +16,18 @@
 <style>
 
 :root{
---bg:#020617;
---card:#020617;
---border:#1e293b;
---text:#ffffff;
---muted:#94a3b8;
---accent:#3b82f6;
-}
-
-.light-mode{
---bg:#f1f5f9;
+--bg:#f8fafc;
 --card:#ffffff;
---border:#e2e8f0;
---text:#0f172a;
---muted:#475569;
---accent:#2563eb;
+--border:#e5e7eb;
+--text:#1f2937;
+--muted:#6b7280;
+--accent:#3b82f6;
 }
 
 body{
 background:var(--bg);
 color:var(--text);
 font-family:'Inter',sans-serif;
-transition:0.25s;
 }
 
 .card{
@@ -72,9 +62,8 @@ cursor:pointer;
 }
 
 .stat-card:hover{
-transform:translateY(-4px);
+transform:translateY(-3px);
 border-color:var(--accent);
-box-shadow:0 0 10px rgba(59,130,246,0.3);
 }
 
 .stat-value{
@@ -91,8 +80,6 @@ color:var(--text);
 .form-control:focus{
 border-color:var(--accent);
 box-shadow:none;
-background:var(--card);
-color:var(--text);
 }
 
 .btn-primary{
@@ -119,10 +106,6 @@ font-size:13px;
 <div class="logo-box">RC</div>
 <h5 class="m-0">RCHesapla</h5>
 </div>
-
-<button class="btn btn-outline-secondary" onclick="toggleTheme()">
-<i class="bi bi-circle-half"></i>
-</button>
 
 </div>
 
@@ -162,7 +145,7 @@ font-size:13px;
 
 <div class="row g-4">
 
-<div class="col-lg-5">
+<div class="col-lg-6">
 
 <div class="card p-4">
 
@@ -236,21 +219,9 @@ font-size:13px;
 <span class="input-group-text">DK</span>
 </div>
 
-<button class="btn btn-primary w-100" onclick="calculateGoalPower(),updateChart()">
+<button class="btn btn-primary w-100" onclick="calculateGoalPower();">
 <i class="bi bi-cpu"></i> Hesapla
 </button>
-
-</div>
-
-</div>
-
-<div class="col-lg-7">
-
-<div class="card p-4">
-
-<h5 class="mb-4">Kazanç Grafiği</h5>
-
-<canvas id="earnChart"></canvas>
 
 </div>
 
@@ -259,46 +230,13 @@ font-size:13px;
 </div>
 
 <footer class="text-center mt-5">
-
 <p>Bu site RollerCoin ile resmi bağlantılı değildir.</p>
 <p>© 2026 RCHesapla</p>
-
 </footer>
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
-
-function toggleTheme(){
-document.body.classList.toggle('light-mode')
-}
-
-let chart;
-
-function updateChart(){
-
-const daily=parseFloat(document.getElementById('daily').innerText)||0
-const weekly=parseFloat(document.getElementById('weekly').innerText)||0
-const monthly=parseFloat(document.getElementById('monthly').innerText)||0
-
-const ctx=document.getElementById('earnChart')
-
-if(chart) chart.destroy()
-
-chart=new Chart(ctx,{
-type:'bar',
-data:{
-labels:['Günlük','Haftalık','Aylık'],
-datasets:[{
-label:'Kazanç',
-data:[daily,weekly,monthly]
-}]
-}
-})
-
-}
 
 async function loadPrices(){
 
