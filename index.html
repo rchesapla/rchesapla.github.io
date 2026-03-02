@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Geri Sayım</title>
+<title>RollerCoin Geri Sayım</title>
 
 <style>
 body{
-    font-family: Arial, sans-serif;
-    background:#0f172a;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: radial-gradient(circle at top,#0b1220,#020617);
     color:white;
     display:flex;
     justify-content:center;
@@ -19,41 +19,79 @@ body{
 
 .container{
     text-align:center;
+    background:#0f172a;
+    padding:40px;
+    border-radius:16px;
+    box-shadow:0 0 40px rgba(0,255,170,0.15);
+}
+
+h1{
+    margin:0;
+    font-size:28px;
+    color:#22c55e;
+    letter-spacing:1px;
+}
+
+.subtitle{
+    opacity:0.7;
+    margin-top:6px;
+    font-size:14px;
 }
 
 .timer{
     display:flex;
-    gap:15px;
+    gap:18px;
     flex-wrap:wrap;
     justify-content:center;
-    margin-top:20px;
+    margin-top:30px;
 }
 
 .box{
-    background:#1e293b;
-    padding:20px;
-    border-radius:10px;
-    min-width:70px;
+    background:#020617;
+    border:1px solid #1e293b;
+    padding:22px;
+    border-radius:12px;
+    min-width:90px;
+    box-shadow:0 0 20px rgba(34,197,94,0.15);
 }
 
 .number{
-    font-size:32px;
+    font-size:34px;
     font-weight:bold;
+    color:#4ade80;
 }
 
 .label{
     font-size:12px;
-    opacity:0.7;
+    opacity:0.6;
+    margin-top:4px;
+}
+
+.footer{
+    margin-top:25px;
+    font-size:13px;
+    opacity:0.6;
 }
 
 @media(max-width:600px){
-    .number{
-        font-size:24px;
-    }
-    .box{
-        padding:15px;
-        min-width:60px;
-    }
+
+.container{
+    padding:25px;
+}
+
+.number{
+    font-size:26px;
+}
+
+.box{
+    padding:16px;
+    min-width:70px;
+}
+
+h1{
+    font-size:22px;
+}
+
 }
 </style>
 </head>
@@ -63,6 +101,7 @@ body{
 <div class="container">
 
 <div class="timer">
+
 <div class="box">
 <div id="days" class="number">0</div>
 <div class="label">Gün</div>
@@ -82,6 +121,7 @@ body{
 <div id="seconds" class="number">0</div>
 <div class="label">Saniye</div>
 </div>
+
 </div>
 
 </div>
