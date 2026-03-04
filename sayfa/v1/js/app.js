@@ -86,7 +86,7 @@ function updateLeagueModeButton() {
     if (leagueMode === 'manual' && manualLeagueName) {
         modeText.textContent = 'MANUAL';
     } else {
-        modeText.textContent = 'AUTO LEAGUE';
+        modeText.textContent = 'Otomatik Lig Aktif';
     }
 }
 
