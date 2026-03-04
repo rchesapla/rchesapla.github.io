@@ -831,7 +831,7 @@ function updatePricesTable() {
     if (lastUpdateElement && pricesLastUpdated > 0) {
         const date = new Date(pricesLastUpdated);
         const timeString = date.toLocaleTimeString();
-        lastUpdateElement.innerHTML = `Last updated: ${timeString} | <span class="text-cyan-400">Data from CoinGecko API</span>`;
+        lastUpdateElement.innerHTML = `Güncelleme durumu: ${timeString} | <span class="text-cyan-400">Data from CoinGecko API</span>`;
     }
 }
 
