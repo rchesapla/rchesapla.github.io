@@ -453,10 +453,7 @@ function updateLeagueBadge(leagueName, leagueClass) {
     try {
         const badge = document.getElementById('leagueBadge');
         const imagePath = getLeagueImagePath(leagueName);
-        badge.innerHTML = `
-            YOUR LEAGUE: ${leagueName}
-            <img src="${imagePath}" alt="${leagueName}" class="inline-block w-6 h-6 ml-2" onerror="this.style.display='none';">
-            `;
+        badge.innerHTML = `${leagueName}<img src="${imagePath}" alt="${leagueName}" class="inline-block w-6 h-6 ml-2" onerror="this.style.display='none';">`;
         badge.className = `league-badge ${leagueClass} inline-block`;
     } catch (e) {
 
@@ -637,7 +634,7 @@ function displayEarnings() {
                 <td class="p-4 font-bold" colspan="7">
                     <div class="text-center">
                         <span class="earnings-number" style="color: white;">
-                            TOTAL: ${formatNetworkPower(totalNetworkGH)}
+                            TOPLAM: ${formatNetworkPower(totalNetworkGH)}
                         </span>
                     </div>
                 </td>
@@ -894,7 +891,7 @@ function updateWithdrawalsTable() {
                 <span class="price-value">$${usdValue > 0 ? formatNumber(usdValue, null, false, 'usd') : 'N/A'}</span>
             </td>
             <td class="py-2 px-3 text-center">
-                <span class="price-value">${tryValue > 0 ? '€' + formatNumber(tryValue, null, false, 'try') : 'N/A'}</span>
+                <span class="price-value">${tryValue > 0 ? formatNumber(tryValue, null, false, 'try') + '₺' : 'N/A'}</span>
             </td>
         `;
 
@@ -914,7 +911,7 @@ function updateWithdrawalsTable() {
                 </div>
             </td>
             <td class="py-2 px-3 text-center coming-soon-withdrawal" colspan="3">
-                Withdrawable Soon
+                Çekim kapalı!
             </td>
         `;
 
@@ -1022,7 +1019,7 @@ function updateAutoLeagueDisplay() {
     autoLeagueIcon.src = detectedLeagueImage;
     autoLeagueIcon.alt = detectedLeague.name;
 
-    autoLeagueText.innerHTML = `Currently: <span class="text-cyan-300 font-semibold">${detectedLeague.name}</span> · Auto-detected by power`;
+    autoLeagueText.innerHTML = `Liginiz: <span class="text-cyan-300 font-semibold">${detectedLeague.name}</span>  Otomatik olarak algılandı!`;
 }
 
 
@@ -1181,7 +1178,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         const noData = document.getElementById('noDataMessage');
         if (noData) {
             noData.style.display = 'block';
-            noData.textContent = 'Error (JSON).';
+            noData.textContent = 'Bilgiler alınamadı bu yüzden bu mesajı görüyorsun sen oradaki!';
         }
     }
 });
