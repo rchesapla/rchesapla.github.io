@@ -318,7 +318,7 @@ function formatNetworkPower(totalGH) {
 function calculateWithdrawalTime(dailyEarning, minWithdrawal) {
     try {
         if (!dailyEarning || !minWithdrawal || dailyEarning <= 0 || minWithdrawal <= 0) {
-            return 'N/A';
+            return 'X';
         }
 
         const hoursNeeded = (minWithdrawal / dailyEarning) * 24;
@@ -348,7 +348,7 @@ function calculateWithdrawalTime(dailyEarning, minWithdrawal) {
         if (days <= 30) return { text: timeText, class: 'medium' };
         return { text: timeText, class: 'long' };
     } catch (e) {
-        return { text: 'N/A', class: 'medium' };
+        return { text: 'X', class: 'medium' };
     }
 }
 
@@ -548,23 +548,23 @@ function displayEarnings() {
                     weeklyDisplay = `$${formatNumber(earningsPerWeek * usdPrice, null, false, 'usd')}`;
                     monthlyDisplay = `$${formatNumber(earningsPerMonth * usdPrice, null, false, 'usd')}`;
                 } else {
-                    perBlockDisplay = dailyDisplay = weeklyDisplay = monthlyDisplay = 'N/A';
+                    perBlockDisplay = dailyDisplay = weeklyDisplay = monthlyDisplay = 'X';
                 }
             } else {
                 if (cryptoPrices[crypto]?.try && cryptoPrices[crypto].try > 0) {
                     const tryPrice = cryptoPrices[crypto].try;
-                    perBlockDisplay = `€${formatNumber(earningsPerBlock * tryPrice, null, false, 'try')}`;
-                    dailyDisplay = `€${formatNumber(earningsPerDay * tryPrice, null, false, 'try')}`;
-                    weeklyDisplay = `€${formatNumber(earningsPerWeek * tryPrice, null, false, 'try')}`;
-                    monthlyDisplay = `€${formatNumber(earningsPerMonth * tryPrice, null, false, 'try')}`;
+                    perBlockDisplay = `${formatNumber(earningsPerBlock * tryPrice, null, false, 'try')}₺`;
+                    dailyDisplay = `${formatNumber(earningsPerDay * tryPrice, null, false, 'try')}₺`;
+                    weeklyDisplay = `${formatNumber(earningsPerWeek * tryPrice, null, false, 'try')}₺`;
+                    monthlyDisplay = `${formatNumber(earningsPerMonth * tryPrice, null, false, 'try')}₺`;
                 } else if (cryptoPrices[crypto]?.usd && cryptoPrices[crypto].usd > 0 && tryToUsdRate > 0) {
                     const tryPrice = cryptoPrices[crypto].usd / tryToUsdRate;
-                    perBlockDisplay = `€${formatNumber(earningsPerBlock * tryPrice, null, false, 'try')}`;
-                    dailyDisplay = `€${formatNumber(earningsPerDay * tryPrice, null, false, 'try')}`;
-                    weeklyDisplay = `€${formatNumber(earningsPerWeek * tryPrice, null, false, 'try')}`;
-                    monthlyDisplay = `€${formatNumber(earningsPerMonth * tryPrice, null, false, 'try')}`;
+                    perBlockDisplay = `${formatNumber(earningsPerBlock * tryPrice, null, false, 'try')}₺`;
+                    dailyDisplay = `${formatNumber(earningsPerDay * tryPrice, null, false, 'try')}₺`;
+                    weeklyDisplay = `${formatNumber(earningsPerWeek * tryPrice, null, false, 'try')}₺`;
+                    monthlyDisplay = `${formatNumber(earningsPerMonth * tryPrice, null, false, 'try')}₺`;
                 } else {
-                    perBlockDisplay = dailyDisplay = weeklyDisplay = monthlyDisplay = 'N/A';
+                    perBlockDisplay = dailyDisplay = weeklyDisplay = monthlyDisplay = 'X';
                 }
             }
 
@@ -572,7 +572,7 @@ function displayEarnings() {
                 const wt = calculateWithdrawalTime(earningsPerDay, withdrawalMinimums[crypto]);
                 withdrawalDisplay = `<span class="withdrawal-time ${wt.class}">${wt.text}</span>`;
             } else {
-                withdrawalDisplay = '<span class="text-gray-500">N/A</span>';
+                withdrawalDisplay = '<span class="text-gray-500">X</span>';
             }
 
             const row = document.createElement('tr');
@@ -818,10 +818,10 @@ function updatePricesTable() {
                 </div>
             </td>
             <td class="py-2 px-3 text-center">
-                <span class="price-value">$${usdPrice ? formatNumber(usdPrice, null, false, 'usd') : 'N/A'}</span>
+                <span class="price-value">$${usdPrice ? formatNumber(usdPrice, null, false, 'usd') : 'X'}</span>
             </td>
             <td class="py-2 px-3 text-center">
-                <span class="price-value">€${tryPrice ? formatNumber(tryPrice, null, false, 'try') : 'N/A'}</span>
+                <span class="price-value">€${tryPrice ? formatNumber(tryPrice, null, false, 'try') : 'X'}</span>
             </td>
         `;
 
@@ -891,10 +891,10 @@ function updateWithdrawalsTable() {
                 <span class="withdrawal-value">${formatCryptoAmount(minAmount, crypto)}</span>
             </td>
             <td class="py-2 px-3 text-center">
-                <span class="price-value">$${usdValue > 0 ? formatNumber(usdValue, null, false, 'usd') : 'N/A'}</span>
+                <span class="price-value">$${usdValue > 0 ? formatNumber(usdValue, null, false, 'usd') : 'X'}</span>
             </td>
             <td class="py-2 px-3 text-center">
-                <span class="price-value">${tryValue > 0 ? '€' + formatNumber(tryValue, null, false, 'try') : 'N/A'}</span>
+                <span class="price-value">${tryValue > 0 ? '€' + formatNumber(tryValue, null, false, 'try') : 'X'}</span>
             </td>
         `;
 
