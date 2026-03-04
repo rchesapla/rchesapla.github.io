@@ -318,7 +318,7 @@ function formatNetworkPower(totalGH) {
 function calculateWithdrawalTime(dailyEarning, minWithdrawal) {
     try {
         if (!dailyEarning || !minWithdrawal || dailyEarning <= 0 || minWithdrawal <= 0) {
-            return 'X';
+            return 'N/A';
         }
 
         const hoursNeeded = (minWithdrawal / dailyEarning) * 24;
@@ -348,7 +348,7 @@ function calculateWithdrawalTime(dailyEarning, minWithdrawal) {
         if (days <= 30) return { text: timeText, class: 'medium' };
         return { text: timeText, class: 'long' };
     } catch (e) {
-        return { text: 'X', class: 'medium' };
+        return { text: 'N/A', class: 'medium' };
     }
 }
 
@@ -548,7 +548,7 @@ function displayEarnings() {
                     weeklyDisplay = `$${formatNumber(earningsPerWeek * usdPrice, null, false, 'usd')}`;
                     monthlyDisplay = `$${formatNumber(earningsPerMonth * usdPrice, null, false, 'usd')}`;
                 } else {
-                    perBlockDisplay = dailyDisplay = weeklyDisplay = monthlyDisplay = 'X';
+                    perBlockDisplay = dailyDisplay = weeklyDisplay = monthlyDisplay = 'N/A';
                 }
             } else {
                 if (cryptoPrices[crypto]?.try && cryptoPrices[crypto].try > 0) {
@@ -564,7 +564,7 @@ function displayEarnings() {
                     weeklyDisplay = `${formatNumber(earningsPerWeek * tryPrice, null, false, 'try')}₺`;
                     monthlyDisplay = `${formatNumber(earningsPerMonth * tryPrice, null, false, 'try')}₺`;
                 } else {
-                    perBlockDisplay = dailyDisplay = weeklyDisplay = monthlyDisplay = 'X';
+                    perBlockDisplay = dailyDisplay = weeklyDisplay = monthlyDisplay = 'N/A';
                 }
             }
 
@@ -572,7 +572,7 @@ function displayEarnings() {
                 const wt = calculateWithdrawalTime(earningsPerDay, withdrawalMinimums[crypto]);
                 withdrawalDisplay = `<span class="withdrawal-time ${wt.class}">${wt.text}</span>`;
             } else {
-                withdrawalDisplay = '<span class="text-gray-500">X</span>';
+                withdrawalDisplay = '<span class="text-gray-500">N/A</span>';
             }
 
             const row = document.createElement('tr');
@@ -734,6 +734,61 @@ function getCryptoNetworkUrl(crypto) {
     return `https://rollercoin.com/network-power/${crypto.toLowerCase()}`;
 }
 
+function initializeSecretButton() {
+    const secretButton = document.getElementById('secretButton');
+    const secretOverlay = document.getElementById('secretOverlay');
+    const countdown = document.getElementById('countdown');
+
+    if (secretButton && secretOverlay && countdown) {
+        const audio = new Audio('secret.mp3');
+        audio.preload = 'auto';
+
+        let countdownInterval = null;
+
+        secretButton.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            secretOverlay.classList.remove('hidden');
+
+            audio.currentTime = 0;
+            audio.play().catch(error => {
+
+            });
+
+            let count = 3;
+            countdown.textContent = count;
+
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+            }
+
+            countdownInterval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    countdown.textContent = count;
+                } else {
+                    clearInterval(countdownInterval);
+                    countdownInterval = null;
+                    window.open('https://minaryganar.com/', '_blank');
+                    secretOverlay.classList.add('hidden');
+                }
+            }, 1000);
+        });
+
+        secretOverlay.addEventListener('click', function (e) {
+            if (e.target === secretOverlay) {
+                if (countdownInterval) {
+                    clearInterval(countdownInterval);
+                    countdownInterval = null;
+                }
+
+                secretOverlay.classList.add('hidden');
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        });
+    }
+}
 
 function updatePricesTable() {
     const tableBody = document.getElementById('pricesTableBody');
@@ -763,10 +818,10 @@ function updatePricesTable() {
                 </div>
             </td>
             <td class="py-2 px-3 text-center">
-                <span class="price-value">$${usdPrice ? formatNumber(usdPrice, null, false, 'usd') : 'X'}</span>
+                <span class="price-value">$${usdPrice ? formatNumber(usdPrice, null, false, 'usd') : 'N/A'}</span>
             </td>
             <td class="py-2 px-3 text-center">
-                <span class="price-value">€${tryPrice ? formatNumber(tryPrice, null, false, 'try') : 'X'}</span>
+                <span class="price-value">€${tryPrice ? formatNumber(tryPrice, null, false, 'try') : 'N/A'}</span>
             </td>
         `;
 
@@ -836,10 +891,10 @@ function updateWithdrawalsTable() {
                 <span class="withdrawal-value">${formatCryptoAmount(minAmount, crypto)}</span>
             </td>
             <td class="py-2 px-3 text-center">
-                <span class="price-value">$${usdValue > 0 ? formatNumber(usdValue, null, false, 'usd') : 'X'}</span>
+                <span class="price-value">$${usdValue > 0 ? formatNumber(usdValue, null, false, 'usd') : 'N/A'}</span>
             </td>
             <td class="py-2 px-3 text-center">
-                <span class="price-value">${tryValue > 0 ? '€' + formatNumber(tryValue, null, false, 'try') : 'X'}</span>
+                <span class="price-value">${tryValue > 0 ? '€' + formatNumber(tryValue, null, false, 'try') : 'N/A'}</span>
             </td>
         `;
 
