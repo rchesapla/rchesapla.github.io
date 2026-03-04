@@ -9,7 +9,7 @@ async function loadConfig() {
     const [leaguesRes, rewardsRes, blocksRes, minRes] = await Promise.all([
         fetch('data/leagues.json'),
         fetch('https://iamyahyr.github.io/rollercoin-league-calculator/data/leagueRewards.json'),
-        fetch('data/blockTimes.json'),
+        fetch('https://iamyahyr.github.io/rollercoin-league-calculator/data/blockTimes.json'),
         fetch('data/withdrawalMinimums.json')
     ]);
 
