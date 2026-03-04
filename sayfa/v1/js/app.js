@@ -588,7 +588,6 @@ function displayEarnings() {
                 <td class="p-4"><div class="earnings-number" style="color: white; text-align: center;">${networkDisplay}</div></td>
                 <td class="p-4">
                 <div class="crypto-cell">
-                    <img src="crypto_icons/${crypto.toLowerCase()}.png" alt="${info.name}" class="crypto-icon" onerror="this.style.display='none';">
                     <span class="font-bold" style="color: ${info.color.replace('[', '').replace(']', '')};">${info.name}</span>${coinBadge}
                 </div>
                 </td>
