@@ -734,61 +734,6 @@ function getCryptoNetworkUrl(crypto) {
     return `https://rollercoin.com/network-power/${crypto.toLowerCase()}`;
 }
 
-function initializeSecretButton() {
-    const secretButton = document.getElementById('secretButton');
-    const secretOverlay = document.getElementById('secretOverlay');
-    const countdown = document.getElementById('countdown');
-
-    if (secretButton && secretOverlay && countdown) {
-        const audio = new Audio('secret.mp3');
-        audio.preload = 'auto';
-
-        let countdownInterval = null;
-
-        secretButton.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            secretOverlay.classList.remove('hidden');
-
-            audio.currentTime = 0;
-            audio.play().catch(error => {
-
-            });
-
-            let count = 3;
-            countdown.textContent = count;
-
-            if (countdownInterval) {
-                clearInterval(countdownInterval);
-            }
-
-            countdownInterval = setInterval(() => {
-                count--;
-                if (count > 0) {
-                    countdown.textContent = count;
-                } else {
-                    clearInterval(countdownInterval);
-                    countdownInterval = null;
-                    window.open('https://minaryganar.com/', '_blank');
-                    secretOverlay.classList.add('hidden');
-                }
-            }, 1000);
-        });
-
-        secretOverlay.addEventListener('click', function (e) {
-            if (e.target === secretOverlay) {
-                if (countdownInterval) {
-                    clearInterval(countdownInterval);
-                    countdownInterval = null;
-                }
-
-                secretOverlay.classList.add('hidden');
-                audio.pause();
-                audio.currentTime = 0;
-            }
-        });
-    }
-}
 
 function updatePricesTable() {
     const tableBody = document.getElementById('pricesTableBody');
