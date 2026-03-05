@@ -34,17 +34,17 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
 
                     <div class="rollercoin-card p-6">
-                        <h2 class="text-lg rollercoin-title mb-3 font-bold">MINING POWER</h2>
+                        <h2 class="text-lg rollercoin-title mb-3 font-bold">KAZIM GÜCÜ</h2>
 
                         <div class="flex gap-4 items-end mb-4">
                             <div class="flex-1">
-                                <label class="block rollercoin-label mb-2">Power:</label>
+                                <label class="block rollercoin-label mb-2">Güç:</label>
                                 <input type="number" id="miningPower" placeholder="1.500"
                                     class="w-full rollercoin-input" step="0.001" />
                             </div>
 
                             <div class="w-24">
-                                <label class="block rollercoin-label mb-2">Unit:</label>
+                                <label class="block rollercoin-label mb-2">Birim:</label>
                                 <select id="powerUnit" class="w-full rollercoin-select">
                                     <option value="GH">GH/s</option>
                                     <option value="PH">PH/s</option>
@@ -74,7 +74,7 @@
 
                     <div class="rollercoin-card p-6 flex flex-col">
                         <h2 class="text-lg rollercoin-title mb-3 font-bold">
-                            NETWORK DATA
+                            AĞ VERİLERİ
                         </h2>
                         <label class="block rollercoin-label mb-2">Ağ gücünü yapıştır:</label>
                         <textarea id="networkData"
@@ -91,12 +91,12 @@
 
                 <div class="rollercoin-card p-6 mb-6">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-                        <h2 class="text-xl rollercoin-title font-bold">EARNINGS TABLE</h2>
+                        <h2 class="text-xl rollercoin-title font-bold">KAZANÇ TABLOSU</h2>
 
                         <div class="flex flex-col sm:flex-row gap-4">
 
                             <div class="currency-toggle-group">
-                                <button id="btnCrypto" class="currency-toggle-btn active">COINS</button>
+                                <button id="btnCrypto" class="currency-toggle-btn active">KRİPTO</button>
                                 <button id="btnUSD" class="currency-toggle-btn">USD</button>
                                 <button id="btntry" class="currency-toggle-btn">TRY</button>
                             </div>
@@ -122,13 +122,13 @@
                         <table class="rollercoin-table">
                             <thead>
                                 <tr>
-                                    <th class="w-32">NETWORK</th>
-                                    <th class="w-32">COIN</th>
-                                    <th class="w-28">PER BLOCK</th>
-                                    <th class="w-28">DAILY</th>
-                                    <th class="w-28">WEEKLY</th>
-                                    <th class="w-28">MONTHLY</th>
-                                    <th class="w-24" id="withdrawalHeader">MIN. WITH.</th>
+                                    <th class="w-32">AĞ GÜCÜ</th>
+                                    <th class="w-32">KRİPTO</th>
+                                    <th class="w-28">BLOK ÖDÜLÜ</th>
+                                    <th class="w-28">GÜNLÜK</th>
+                                    <th class="w-28">HAFTALIK</th>
+                                    <th class="w-28">AYLIK</th>
+                                    <th class="w-24" id="withdrawalHeader">PARA ÇEKİM</th>
                                 </tr>
                             </thead>
                             <tbody id="earningsTableBody">
