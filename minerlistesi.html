@@ -173,24 +173,24 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 		</div>
     </div>
 
-    <!--div class="rc-input-group">
+    <div class="rc-input-group">
       <label>Lig</label>
       <select ng-model="formData.league"
                   ng-options="league.name for league in leagues"
                   ng-change="updateLeagueDetails()" ng-disabled="isLoadedUser">
           </select>
-    </div-->
+    </div>
 
-    <!--div class="rc-input-group">
+    <div class="rc-input-group">
       <label>Kripto</label>
       <select ng-model="formData.currency"
                   ng-options="currency.name for currency in currencies"
                   ng-change="updateCurrencyDetails()">
             <option value="">Hepsini göster</option>
           </select>
-    </div-->
+    </div>
 
-    <!--div class="rc-input-group power-group">
+    <div class="rc-input-group power-group">
       <label>Kazım Gücü</label>
 
       <div class="power-row">
@@ -207,7 +207,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
       <input type="number"
            ng-model="formData.investment"
            placeholder="Örn: 150">
-    </div-->
+    </div>
 
   </div>
 
@@ -220,7 +220,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
 </div>
 
-<!--div class="checkbox-group modern-btn-group" ng-if="user_data">
+<div class="checkbox-group modern-btn-group" ng-if="user_data">
   
   <button class="rc-modern-btn profit-btn"
           ng-if="!formData.currency && !formData.showAllMiners"
@@ -229,7 +229,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
     <span>En İyi Kazanç</span>
   </button>
 
-</div-->
+</div>
 
 <div class="checkbox-group" ng-if="user_data">
   <input type="checkbox" id="checkbox2" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners"/>
@@ -296,7 +296,22 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
   </div>
       <!-- COIN SEÇİLİYSE -->
       <div ng-if="formData.currency" class="rc-earnings-grid">
-	
+
+  <div class="rc-earn-card highlight" ng-if="formData.investment">
+
+    <span>ROI Süresi</span>
+
+    <h2>
+      {{calculateROI().days}} gün
+    </h2>
+
+    <small>
+      {{calculateROI().months}} ay
+    </small>
+
+  </div>
+	  
+	  
         <div class="rc-earn-card highlight">
           <span>Günlük</span>
           <h2>{{calculateEarnings('day','amount')}}</h2>
@@ -327,7 +342,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
       </div>
 
       <!-- GENEL LİSTE -->
-<!--div ng-if="!formData.currency && !formData.showAllMiners && !hasAnyAllocatedPower()" class="modern-gpu-wrapper">
+<div ng-if="!formData.currency && !formData.showAllMiners && !hasAnyAllocatedPower()" class="modern-gpu-wrapper">
 
   <div class="modern-general-header">
     <h4 class="rc-title">GENEL KAZANÇ İSTATİSTİKLERİ</h4>
@@ -363,12 +378,16 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 		{{currency.blockSize}}
         </strong>
       </div>
+      <!--div class="coin-stat">
+        <span>💰 Para Çekim</span>
+        <strong>{{formatDays(currency.user_days_to_widthdraw)}}</strong>
+      </div--!>
 
     </div>
 
   </div>
 
-</div-->
+</div>
 
 <div ng-if="hasAnyAllocatedPower()" class="modern-gpu-wrapper">
 
@@ -537,7 +556,7 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 <!-- MINER LİSTESİ KODLARI -->
 <div ng-if="formData.showAllMiners" id="minerlistesi">
  
-<div class="modern-miner-wrapper">
+<div ng-if="formData.showAllMiners" class="modern-miner-wrapper">
   <div class="modern-general-header">
     <h4 class="rc-title">MINER LİSTESİ</h4>
   </div>
