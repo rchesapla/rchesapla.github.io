@@ -1,24 +1,125 @@
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RCHesapla - Site Kapalı!</title>
-	<link rel="shortcut icon" href="img/logov2.png" type="image/x-icon">
-    <link rel="stylesheet" href="sablon.css" />
-    <script
-      src="https://kit.fontawesome.com/66aa7c98b3.js"
-      crossorigin="anonymous"
-    ></script>
-  </head>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RollerCoin Calculator</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#0f172a,#020617);
+color:white;
+text-align:center;
+}
+
+.container{
+background:#111827;
+padding:50px;
+border-radius:15px;
+width:90%;
+max-width:420px;
+box-shadow:0 0 40px rgba(0,0,0,0.7);
+}
+
+.logo{
+font-size:30px;
+font-weight:bold;
+margin-bottom:10px;
+color:#22c55e;
+}
+
+.desc{
+color:#9ca3af;
+margin-bottom:25px;
+}
+
+.timer{
+font-size:22px;
+margin-bottom:25px;
+color:#22c55e;
+}
+
+button{
+padding:14px 30px;
+border:none;
+border-radius:8px;
+font-size:16px;
+background:#22c55e;
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:#16a34a;
+transform:scale(1.05);
+}
+
+.footer{
+margin-top:25px;
+font-size:13px;
+color:#6b7280;
+}
+
+</style>
+</head>
+
 <body>
-	<section class="container">
-		<div class="tittle">
-			<h2>SİTE KAPANDI</h2>
-		</div>
-		<div class="subtitle">
-			<h3>Bu sayfa şuan için kapalı durumdadır!</h3>
-		</div>
-	</section>
+
+<div class="container">
+
+<div class="logo">RollerCoin Calculator</div>
+
+<div class="desc">
+Kazanç hesaplama sayfasına yönlendiriliyorsunuz
+</div>
+
+<div class="timer">
+Yönlendirme: <span id="count">5</span> saniye
+</div>
+
+<button onclick="go()">Hemen Git</button>
+
+<div class="footer">
+Powered by Calculator Tool
+</div>
+
+</div>
+
+<script>
+
+let time = 5;
+let countdown = document.getElementById("count");
+
+let timer = setInterval(function(){
+
+time--;
+countdown.innerText = time;
+
+if(time <= 0){
+clearInterval(timer);
+go();
+}
+
+},1000);
+
+function go(){
+window.location.href="https://rollercoincalculator.app/tr";
+}
+
+</script>
+
 </body>
 </html>
