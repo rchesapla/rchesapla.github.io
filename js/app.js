@@ -18,28 +18,6 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /////////////////////////////////////////////////////////////////////////
 	$scope.playerSearchNoResults = false;
 	$scope.getPlayerByName = function(name) {
@@ -51,7 +29,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 	$scope.loadMore = function () {
     $scope.visibleItems += 12;
 	};
-	//////////////////////////////
+/////////////////////////////////////////////////////////////////////////
     $scope.units = ['GH/s', 'TH/s', 'PH/s', 'EH/s'];
     $scope.networkUnits = ['GH/s', 'TH/s', 'PH/s', 'EH/s', 'ZH/s'];
     let default_form = {
@@ -109,144 +87,133 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.donationValue = 2;
     $scope.donationCurrency = 'U$';
     calculateDonation();
-$scope.getMinerCollection = function(minerId){
-    for (let col of $scope.collections){
-        if (col.miners.includes(minerId)){
-            return col;
-        }
-    }
-    return null;
-};
 
     $scope.collections = [
         {
             id: 1,
-            name: "Paket 1 (Hamster's Enemy)",
+            name: "Miners of Infinity",
             miners: [
-                '650aa78a48ee2c2ada9617b7',
-				'650b227648ee2c2ada9653c3',
-				'650b227648ee2c2ada9653cd',
-				'650b227648ee2c2ada9653d7',
-				'650b227648ee2c2ada9653e1',
-				'650b227648ee2c2ada9653eb'
+                "669fd40b8055d6def342d91a",
+                "669fcfc58055d6def342d1ab",
+                "669fd3b78055d6def342d8bd",
+                "669fd1fd8055d6def342d53d",
+                "669fd3538055d6def342d81c",
+                "669fd35f8055d6def342d865",
+                "669fd1788055d6def342d420",
+                "669fd0e78055d6def342d31c",
+                "669fd08e8055d6def342d2d1",
+                "669fd6a88055d6def342da6b",
+                "66a112918055d6def3474184",
+                "66a112918055d6def347418c"
             ]
         },
-		{
+        {
             id: 2,
-            name: "Paket 2 (Hypnofrogo)",
+            name: "Roller Football League",
             miners: [
-                '64b67b7ffe26e622585a5ea3',
-				'64b69567410d986d42ec183f',
-				'64b69568410d986d42ec1850',
-				'64b69569410d986d42ec185e',
-				'64b6956a410d986d42ec186c',
-				'64b6956a410d986d42ec187a'
+                "6668980bdddadd0605fdaa2e",
+                "6668963edddadd0605fda7ac",
+                "666896c5dddadd0605fda8bb",
+                "6668973cdddadd0605fda94f",
+                "66689701dddadd0605fda905",
+                "66689684dddadd0605fda7f6",
+                "66689843dddadd0605fdaa78",
+                "666897d2dddadd0605fda9e4",
+                "66689794dddadd0605fda99a",
+                "6668991fdddadd0605fdab24",
+                "6668991fdddadd0605fdab27",
+                "6668991fdddadd0605fdab2d"
             ]
         },
-		{
+        {
             id: 3,
-            name: "Paket 3 (Queen of Spin)",
+            name: "Music Festival",
             miners: [
-                '6398e9e195b70ff678b1e565',
-				'6399c3641c483a58f70e9bd2',
-				'6399c3651c483a58f70e9be0',
-				'6399c3661c483a58f70e9bee',
-				'6399c3671c483a58f70e9bfc',
-				'6399c3681c483a58f70e9c0a'
+                "661466bcd6c322a6c7c344ba",
+                "661466e1d6c322a6c7c34504",
+                "661467e8d6c322a6c7c346a7",
+                "6614674ad6c322a6c7c3465b",
+                "6614672ad6c322a6c7c34612",
+                "66146919d6c322a6c7c3488d",
+                "661468f7d6c322a6c7c34844",
+                "66146703d6c322a6c7c3454d",
+                "66146868d6c322a6c7c3476d",
+                "66146973d6c322a6c7c348d8"
             ]
         },
-		{
+        {
             id: 4,
-            name: "Paket 4 (Shifter)",
+            name: "Interstellar Armada",
             miners: [
-                '61532146db5008102f9f77ef',
-				'631f78b98238ed283a2332a3',
-				'631f78ba8238ed283a2332b0',
-				'631f78bb8238ed283a2332bd',
-				'631f78bc8238ed283a2332ca',
-				'631f78bd8238ed283a2332d7'
+                "654a1eb4d23e8edde9341e5f",
+                "654a1f91d23e8edde9341eb1",
+                "654a21aed23e8edde93420c9",
+                "654a223cd23e8edde9342146",
+                "654a210cd23e8edde9341fd6",
+                "654a2382d23e8edde934216a",
+                "654a253ad23e8edde9342353",
+                "654a24ced23e8edde934228f",
+                "654a22d9d23e8edde9342158",
+                "654a1e06d23e8edde9341dfe"
             ]
         },
-		{
+        {
             id: 5,
-            name: "Paket 5 (MechaFlyTrap)",
+            name: "Yatch Club",
             miners: [
-                '668fe85f7643815232ebaaa7',
-				'668fe85f7643815232ebaaaa',
-				'668fe85f7643815232ebaab0',
-				'668fe85f7643815232ebaab6',
-				'668fe85f7643815232ebaabc',
-				'668fe85f7643815232ebaac2'
+                "64c3a0bd31ec0b205c25efd6",
+                "64c39ebd31ec0b205c25ec50",
+                "64c39e7731ec0b205c25ebcd",
+                "64c3a1fa31ec0b205c25f14b",
+                "64c39f5b31ec0b205c25ed8b",
+                "64c3a05a31ec0b205c25ef44",
+                "64c3a15d31ec0b205c25f0f9",
+                "64c3a29131ec0b205c25f1dd",
+                "64c3a23e31ec0b205c25f18f",
+                "64c254c20c6fb1d2237a1391"
             ]
         },
-		{
+        {
             id: 6,
-            name: "Paket 6 (DJ Roller)",
+            name: "Ultimate Blaster",
             miners: [
-                '61532146db5008102f9f77f0',
-				'631f78778238ed283a232f97',
-				'631f78788238ed283a232fa4',
-				'631f78798238ed283a232fb1',
-				'631f787a8238ed283a232fbe',
-				'631f787b8238ed283a232fcb'
+                "65affbbf43dcad8f6d0f7a52",
+                "65aff78243dcad8f6d0f79b6",
+                "65affb6d43dcad8f6d0f7a36",
+                "65affd6543dcad8f6d0f7acd",
+                "65affccf43dcad8f6d0f7a94",
+                "65affc7f43dcad8f6d0f7a78",
+                "65affb1e43dcad8f6d0f7a1a",
+                "65aff67743dcad8f6d0f7962",
+                "65affd1843dcad8f6d0f7ab0",
+                "65b0f72543dcad8f6d0fa7ff"
             ]
         },
-		{
+        {
             id: 7,
-            name: "Paket 7 (Azure Dragon)",
+            name: "Moto Gang Club",
             miners: [
-                '61f9356a8b46ce688939024e',
-				'631f79858238ed283a233c08',
-				'631f79868238ed283a233c15',
-				'631f79878238ed283a233c22',
-				'631f79888238ed283a233c2f',
-				'631f79898238ed283a233c3c'
+                "644bbdd2648294b4642f3695",
+                "644bbece648294b4642f3697",
+                "644bbf0a648294b4642f3698",
+                "644bbe15648294b4642f3696",
+                "644bc010648294b4642f369d",
+                "644bbf6f648294b4642f369a",
+                "644bbf44648294b4642f3699",
+                "644bbfb1648294b4642f369b",
+                "644bbfe6648294b4642f369c",
+                "644bb5de648294b4642f368f",
+                "644bb270648294b4642f368e",
+                "644bb225648294b4642f368d",
+                "644bb671648294b4642f3690"
+
             ]
         },
-		{
+        {
             id: 8,
-            name: "Paket 8 (8blessed)",
+            name: "Season 14 | Harvest Time!",
             miners: [
-                '6231c296a258d58160cdf676',
-				'631f7b018238ed283a234d8d',
-				'631f7b028238ed283a234d9a',
-				'631f7b038238ed283a234da7',
-				'631f7b048238ed283a234db4',
-				'631f7b058238ed283a234dc1'
-            ]
-        },
-		{
-            id: 9,
-            name: "Paket 9 (The Nirvana)",
-            miners: [
-                '650995b748ee2c2ada95fd44',
-				'6752bbe3368cdcf089ff11f4',
-				'6752bbe3368cdcf089ff11fc',
-				'6752bbe3368cdcf089ff1204',
-				'6752bbe3368cdcf089ff120c',
-				'6752bbe3368cdcf089ff1214'
-            ]
-        },
-		{
-            id: 10,
-            name: "Paket 10 (Not-A-Loose-Cannon)",
-            miners: [
-                '631b5617a775e04d9a28543f',
-				'631f7b378238ed283a235017',
-				'631f7b388238ed283a235024',
-				'631f7b398238ed283a235031',
-				'631f7b3a8238ed283a23503e',
-				'631f7b3b8238ed283a23504b'
-            ]
-        },
-		{
-            id: 1000,
-            name: "Özel Seçimler",
-            miners: [
-                '68cd7473bedeb9a12ef65406',
-				'68cd7473bedeb9a12ef65409',
-				'68cd7473bedeb9a12ef6540f',
-				'6810b85d672b78a8fb968ac3'
+                '6687ccfc7643815232d6402d', '6687cd307643815232d64077', '6687cd837643815232d640c1', '6687cdc47643815232d64726', '6687c01a7643815232d60217', '6687bf4f7643815232d5f741', '6687cf557643815232d65d5c', '6687cf817643815232d65da6', '6687cfae7643815232d65def', '6687cfd57643815232d65e39', '6687ce4e7643815232d65297', '6687cea87643815232d65882', '6687ced67643815232d65cc8', '6687cefd7643815232d65d11', '6687bde47643815232d5f0c6', '6687be827643815232d5f3c1'
             ]
         }
     ];
@@ -256,6 +223,17 @@ $scope.getMinerCollection = function(minerId){
     loaded_user = loaded_user || localStorage.getItem('keep_loaded_user');
 
     let loaded_miners = getUrlParamValue('miners');
+
+    function calculateDonation() {
+        if(!isNaN($scope.donationValue) && $scope.donationCurrency) {
+            const currency = $scope.donationCurrency === 'U$' ? 'usd' : 'brl';
+            $scope.donationInBnb = ($scope.donationValue / exchangeRates['BNB'][currency])
+            $scope.donationInMatic = ($scope.donationValue / exchangeRates['MATIC'][currency])
+            $scope.donationInEth = ($scope.donationValue / exchangeRates['ETH'][currency])
+        }
+    }
+
+    $scope.calculateDonation = calculateDonation;
 
     
     const convertHashrate = (value, fromUnit, toUnit) => {
@@ -292,28 +270,6 @@ $scope.getMinerCollection = function(minerId){
                 return 0;
         }
     };
-$scope.calculateROI = function () {
-
-  if (!$scope.formData.investment || !$scope.formData.currency) {
-    return { days: 0, months: 0 };
-  }
-
-  // Günlük USD kazancı al
-  const dailyUSD = parseFloat(
-    $scope.calculateEarnings('day', 'usd')
-  );
-
-  if (!dailyUSD || dailyUSD <= 0) {
-    return { days: 0, months: 0 };
-  }
-
-  const days = $scope.formData.investment / dailyUSD;
-
-  return {
-    days: Math.ceil(days),
-    months: (days / 30).toFixed(1)
-  };
-};
 
     const removeFirstMatch = (array, condition) => array.splice(array.findIndex(condition), 1)[0];
 
@@ -362,58 +318,6 @@ $scope.calculateROI = function () {
     if(typeof loaded_user === 'string' && loaded_user !== '') {
         try{
             $scope.user_data = await UserMinerService.getAllUserDataByNick(loaded_user);
-			
-			$scope.user_data.achievements = [];
-
-const totalPower = $scope.user_data.powerData.total;
-const minerCount = $scope.user_data.roomData.miners.length;
-const rackCount = $scope.user_data.roomData.racks.length;
-
-// Güç başarıları
-if (totalPower >= 1000)
-  $scope.user_data.achievements.push({ title: "1 TH/s Güç", icon: "⚡" });
-
-if (totalPower >= 1000000)
-  $scope.user_data.achievements.push({ title: "1 PH/s Güç", icon: "🔥" });
-
-if (totalPower >= 100000000)
-  $scope.user_data.achievements.push({ title: "100 PH/s Güç", icon: "🔥" });
-
-if (totalPower >= 750000000)
-  $scope.user_data.achievements.push({ title: "750 PH/s Güç", icon: "🔥" });
-
-if (totalPower >= 1000000000)
-  $scope.user_data.achievements.push({ title: "1 EH/s Güç", icon: "🔥" });
-
-if (totalPower >= 10000000000)
-  $scope.user_data.achievements.push({ title: "10 EH/s Güç", icon: "🔥" });
-
-if (totalPower >= 50000000000)
-  $scope.user_data.achievements.push({ title: "50 EH/s Güç", icon: "🔥" });
-
-if (totalPower >= 100000000000)
-  $scope.user_data.achievements.push({ title: "100 EH/s Güç", icon: "🔥" });
-
-// Miner başarıları
-if (minerCount >= 50)
-  $scope.user_data.achievements.push({ title: "50 Miner Sahibi", icon: "⛏️" });
-
-if (minerCount >= 150)
-  $scope.user_data.achievements.push({ title: "150 Miner Sahibi", icon: "⛏️" });
-
-if (minerCount >= 250)
-  $scope.user_data.achievements.push({ title: "250 Miner Sahibi", icon: "⛏️" });
-
-if (minerCount >= 350)
-  $scope.user_data.achievements.push({ title: "350 Miner Sahibi", icon: "⛏️" });
-
-if (minerCount >= 500)
-  $scope.user_data.achievements.push({ title: "522 Miner Sahibi", icon: "🏆" });
-
-// Rack başarıları
-if (rackCount >= 66)
-  $scope.user_data.achievements.push({ title: "66 Raf Sahibi!", icon: "🗄️" });
-			
             const all_miners = await MinerService.getAllMinersByFilter(); 
             $scope.user_miners =  $scope.user_data.roomData.miners.map(m => ({...all_miners.find(m2 => m.miner_id === m2.miner_id), rdid: uuidv4()}));
             let miners_locations = $scope.user_data.roomData.miners.slice();
@@ -509,7 +413,7 @@ if (rackCount >= 66)
     $scope.$watch('formData.power', function(newvalue) {
         if(!$scope.formData.currency && typeof newvalue !== 'undefined') {
             $scope.currencies?.forEach(c => {
-                c.user_block_farm_try =  calculateCoinFarm(newvalue, $scope.formData.unit, c, 'try');
+                c.user_block_farm_brl =  calculateCoinFarm(newvalue, $scope.formData.unit, c, 'brl');
                 c.user_block_farm_usd =  calculateCoinFarm(newvalue, $scope.formData.unit, c, 'usd');
                 c.user_block_farm_token =  calculateCoinFarm(newvalue, $scope.formData.unit, c, 'amount');
                 c.user_days_to_widthdraw = calculateDaysUntilWithdraw(convertHashrate(newvalue,  $scope.formData.unit, 'GH/s'),c);
@@ -548,8 +452,7 @@ if (rackCount >= 66)
     $scope.allMinersRarity = 'all';
     $scope.allMinerPosessionStatus = 'all';
     $scope.allMinerNegotiableStatus = 'all';
-    $scope.allMinerCells = 'all';
-    $scope.allMinerCollectionId = "all";
+    $scope.allMinerCollectionId = "-1";
 
 
     //userMinersFilter
@@ -861,14 +764,35 @@ if (rackCount >= 66)
     }
 
     $scope.openBuyLink = async function(item) {
+        if(!localStorage.getItem('alreadyDonatedMessage')) {
+            localStorage.setItem('alreadyDonatedMessage', 'true');
+            if(confirm('Te ajudei a tomar essa decisão de compra? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
+                window.scrollTo(0, document.body.scrollHeight);
+                return;
+            }
+        }
         window.open(`https://rollercoin.com/marketplace/buy/miner/${item.miner_id}`,'_blank');
     }
 
     $scope.openSellLink = async function(item) {
+        if(!localStorage.getItem('alreadyDonatedMessage')) {
+            localStorage.setItem('alreadyDonatedMessage', 'true');
+            if(confirm('Te ajudei a tomar essa decisão de venda? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
+                window.scrollTo(0, document.body.scrollHeight);
+                return;
+            }
+        }
         window.open(`https://rollercoin.com/marketplace/sell/miner/${item.miner_id}`,'_blank');
     }
 
     $scope.openBuyCraftLink = async function(id, type) {
+        if(!localStorage.getItem('alreadyDonatedMessage')) {
+            localStorage.setItem('alreadyDonatedMessage', 'true');
+            if(confirm('Te ajudei a tomar essa decisão de compra? Considere fazer uma contribuição para manter o desenvolvimento desse projeto')) {
+                window.scrollTo(0, document.body.scrollHeight);
+                return;
+            }
+        }
         window.open(`https://rollercoin.com/marketplace/buy/${type}/${id}`,'_blank');
     }
 
@@ -990,9 +914,9 @@ if (rackCount >= 66)
     $scope.loaded_league = $scope.leagues.filter(l => l.id == $scope.loaded_league)[0].id ?? $scope.leagues[0].id;
     $scope.currencies = await CurrencyService.getDetailedCurrenciesByLeague($scope.loaded_league);
     $scope.currencies?.forEach(c => {
-        c.block_value_in_try = c.in_game_only ? 0 : exchangeCoin(c.blockSize, c.name, 'try');
+        c.block_value_in_brl = c.in_game_only ? 0 : exchangeCoin(c.blockSize, c.name, 'brl');
         c.block_value_in_usd = c.in_game_only ? 0 : exchangeCoin(c.blockSize, c.name, 'usd');
-        c.user_block_farm_try = 0;
+        c.user_block_farm_brl = 0;
         c.user_block_farm_usd = 0;
         c.user_block_farm_token = 0;
         c.user_days_to_widthdraw = c.disabled_withdraw ? Number.MAX_SAFE_INTEGER : 0;
@@ -1048,7 +972,7 @@ if (rackCount >= 66)
     };
 
     $scope.resetValues = function() {
-        if(confirm("Bu, tüm ağ gücünü ve teklif değerlerini yeniden yükleyecek ve biraz zaman alacaktır. Emin misin?")) {
+        if(confirm("Isso irá recarregar todos os valores de poder de rede e cotação e demorará algum tempo. Tem certeza?")) {
             localStorage.clear();
             location.reload();  
         }
@@ -1107,30 +1031,19 @@ if (rackCount >= 66)
             const percentual_user_alocated_power = getPercentualPower(user_alocated_power);
             currency.user_alocated_power_value = percentual_user_alocated_power;
             currency.user_alocated_power_day_profit_in_usd = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'usd'));
-            currency.user_alocated_power_day_profit_in_try = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'try'));
+            currency.user_alocated_power_day_profit_in_brl = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'brl'));
             currency.user_alocated_power_day_profit_in_cripto = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'amount'));
             currency.user_alocated_power_week_profit_in_usd = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'usd'));
-            currency.user_alocated_power_week_profit_in_try = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'try'));
+            currency.user_alocated_power_week_profit_in_brl = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'brl'));
             currency.user_alocated_power_week_profit_in_cripto = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'amount'));
             currency.user_alocated_power_month_profit_in_usd = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'usd'));
-            currency.user_alocated_power_month_profit_in_try = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'try'));
+            currency.user_alocated_power_month_profit_in_brl = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'brl'));
             currency.user_alocated_power_month_profit_in_cripto = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'amount'));
             setParamValue(currency.name.toLowerCase(), user_alocated_power);
         }else {
             setParamValue(currency.name.toLowerCase());
         }
     };
-	
-	    function calculateDonation() {
-        if(!isNaN($scope.donationValue) && $scope.donationCurrency) {
-            const currency = $scope.donationCurrency === 'U$' ? 'usd' : 'try';
-            $scope.donationInTRX = ($scope.donationValue / exchangeRates['TRX'][currency])
-            $scope.donationInDOGE = ($scope.donationValue / exchangeRates['DOGE'][currency])
-            $scope.donationInEth = ($scope.donationValue / exchangeRates['ETH'][currency])
-        }
-    }
-
-    $scope.calculateDonation = calculateDonation;
 
     async function donate(network) {
             if (typeof window.ethereum !== 'undefined') {
@@ -1138,7 +1051,7 @@ if (rackCount >= 66)
                     await window.ethereum.request({ method: 'eth_requestAccounts' });
                     const web3 = new Web3(window.ethereum);
                     const chainId = network === 'BSC' ? '0x38' : '0x89';
-                    const donation = network === 'BSC' ? $scope.donationInTRX.toFixed(18) : $scope.donationInDOGE.toFixed(18)
+                    const donation = network === 'BSC' ? $scope.donationInBnb.toFixed(18) : $scope.donationInMatic.toFixed(18)
                     await window.ethereum.request({
                         method: 'wallet_switchEthereumChain',
                         params: [{ chainId: chainId }],
