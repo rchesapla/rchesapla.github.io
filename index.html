@@ -92,6 +92,8 @@ Yönlendirme: <span id="count">5</span> saniye
 
 <button onclick="go()">Hemen Git</button>
 
+<button onclick="minerlistesi()">Hemen Git</button>
+
 <div class="footer">
 Powered by Calculator Tool
 </div>
@@ -100,7 +102,7 @@ Powered by Calculator Tool
 
 <script>
 
-let time = 5;
+let time = 60;
 let countdown = document.getElementById("count");
 
 let timer = setInterval(function(){
@@ -116,6 +118,10 @@ go();
 },1000);
 
 function go(){
+window.location.href="https://rollercoincalculator.app/tr";
+}
+
+function minerlistesi(){
 window.location.href="https://rollercoincalculator.app/tr";
 }
 
