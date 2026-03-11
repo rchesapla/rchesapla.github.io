@@ -129,6 +129,7 @@ servicex.service('FirebaseService', ['$http', '$q', function($http, $q) {
                     blockSize: c.blockSize,
                     blockTime: c.blockTime,
                     block_value_in_brl: c.block_value_in_brl,
+					block_value_in_try: c.block_value_in_try,
                     block_value_in_usd: c.block_value_in_usd,
                     disabled_withdraw: c.disabled_withdraw,
                     min_to_withdraw: c.min_to_withdraw,
@@ -136,6 +137,7 @@ servicex.service('FirebaseService', ['$http', '$q', function($http, $q) {
                 })),
                 totalPower: currencies.map(c => c.networkPower).reduce((acc, num) => acc + num, 0),
                 totalBrlValuePerBlock: currencies.map(c => c.block_value_in_brl).reduce((acc, num) => acc + num, 0),
+				totalTryValuePerBlock: currencies.map(c => c.block_value_in_try).reduce((acc, num) => acc + num, 0),
                 totalUsdValuePerBlock: currencies.map(c => c.block_value_in_usd).reduce((acc, num) => acc + num, 0)
             });
         }
