@@ -91,129 +91,127 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.collections = [
         {
             id: 1,
-            name: "Miners of Infinity",
+            name: "Paket 1 (Hamster's Enemy)",
             miners: [
-                "669fd40b8055d6def342d91a",
-                "669fcfc58055d6def342d1ab",
-                "669fd3b78055d6def342d8bd",
-                "669fd1fd8055d6def342d53d",
-                "669fd3538055d6def342d81c",
-                "669fd35f8055d6def342d865",
-                "669fd1788055d6def342d420",
-                "669fd0e78055d6def342d31c",
-                "669fd08e8055d6def342d2d1",
-                "669fd6a88055d6def342da6b",
-                "66a112918055d6def3474184",
-                "66a112918055d6def347418c"
+                '650aa78a48ee2c2ada9617b7',
+				'650b227648ee2c2ada9653c3',
+				'650b227648ee2c2ada9653cd',
+				'650b227648ee2c2ada9653d7',
+				'650b227648ee2c2ada9653e1',
+				'650b227648ee2c2ada9653eb'
             ]
         },
-        {
+		{
             id: 2,
-            name: "Roller Football League",
+            name: "Paket 2 (Hypnofrogo)",
             miners: [
-                "6668980bdddadd0605fdaa2e",
-                "6668963edddadd0605fda7ac",
-                "666896c5dddadd0605fda8bb",
-                "6668973cdddadd0605fda94f",
-                "66689701dddadd0605fda905",
-                "66689684dddadd0605fda7f6",
-                "66689843dddadd0605fdaa78",
-                "666897d2dddadd0605fda9e4",
-                "66689794dddadd0605fda99a",
-                "6668991fdddadd0605fdab24",
-                "6668991fdddadd0605fdab27",
-                "6668991fdddadd0605fdab2d"
+                '64b67b7ffe26e622585a5ea3',
+				'64b69567410d986d42ec183f',
+				'64b69568410d986d42ec1850',
+				'64b69569410d986d42ec185e',
+				'64b6956a410d986d42ec186c',
+				'64b6956a410d986d42ec187a'
             ]
         },
-        {
+		{
             id: 3,
-            name: "Music Festival",
+            name: "Paket 3 (Queen of Spin)",
             miners: [
-                "661466bcd6c322a6c7c344ba",
-                "661466e1d6c322a6c7c34504",
-                "661467e8d6c322a6c7c346a7",
-                "6614674ad6c322a6c7c3465b",
-                "6614672ad6c322a6c7c34612",
-                "66146919d6c322a6c7c3488d",
-                "661468f7d6c322a6c7c34844",
-                "66146703d6c322a6c7c3454d",
-                "66146868d6c322a6c7c3476d",
-                "66146973d6c322a6c7c348d8"
+                '6398e9e195b70ff678b1e565',
+				'6399c3641c483a58f70e9bd2',
+				'6399c3651c483a58f70e9be0',
+				'6399c3661c483a58f70e9bee',
+				'6399c3671c483a58f70e9bfc',
+				'6399c3681c483a58f70e9c0a'
             ]
         },
-        {
+		{
             id: 4,
-            name: "Interstellar Armada",
+            name: "Paket 4 (Shifter)",
             miners: [
-                "654a1eb4d23e8edde9341e5f",
-                "654a1f91d23e8edde9341eb1",
-                "654a21aed23e8edde93420c9",
-                "654a223cd23e8edde9342146",
-                "654a210cd23e8edde9341fd6",
-                "654a2382d23e8edde934216a",
-                "654a253ad23e8edde9342353",
-                "654a24ced23e8edde934228f",
-                "654a22d9d23e8edde9342158",
-                "654a1e06d23e8edde9341dfe"
+                '61532146db5008102f9f77ef',
+				'631f78b98238ed283a2332a3',
+				'631f78ba8238ed283a2332b0',
+				'631f78bb8238ed283a2332bd',
+				'631f78bc8238ed283a2332ca',
+				'631f78bd8238ed283a2332d7'
             ]
         },
-        {
+		{
             id: 5,
-            name: "Yatch Club",
+            name: "Paket 5 (MechaFlyTrap)",
             miners: [
-                "64c3a0bd31ec0b205c25efd6",
-                "64c39ebd31ec0b205c25ec50",
-                "64c39e7731ec0b205c25ebcd",
-                "64c3a1fa31ec0b205c25f14b",
-                "64c39f5b31ec0b205c25ed8b",
-                "64c3a05a31ec0b205c25ef44",
-                "64c3a15d31ec0b205c25f0f9",
-                "64c3a29131ec0b205c25f1dd",
-                "64c3a23e31ec0b205c25f18f",
-                "64c254c20c6fb1d2237a1391"
+                '668fe85f7643815232ebaaa7',
+				'668fe85f7643815232ebaaaa',
+				'668fe85f7643815232ebaab0',
+				'668fe85f7643815232ebaab6',
+				'668fe85f7643815232ebaabc',
+				'668fe85f7643815232ebaac2'
             ]
         },
-        {
+		{
             id: 6,
-            name: "Ultimate Blaster",
+            name: "Paket 6 (DJ Roller)",
             miners: [
-                "65affbbf43dcad8f6d0f7a52",
-                "65aff78243dcad8f6d0f79b6",
-                "65affb6d43dcad8f6d0f7a36",
-                "65affd6543dcad8f6d0f7acd",
-                "65affccf43dcad8f6d0f7a94",
-                "65affc7f43dcad8f6d0f7a78",
-                "65affb1e43dcad8f6d0f7a1a",
-                "65aff67743dcad8f6d0f7962",
-                "65affd1843dcad8f6d0f7ab0",
-                "65b0f72543dcad8f6d0fa7ff"
+                '61532146db5008102f9f77f0',
+				'631f78778238ed283a232f97',
+				'631f78788238ed283a232fa4',
+				'631f78798238ed283a232fb1',
+				'631f787a8238ed283a232fbe',
+				'631f787b8238ed283a232fcb'
             ]
         },
-        {
+		{
             id: 7,
-            name: "Moto Gang Club",
+            name: "Paket 7 (Azure Dragon)",
             miners: [
-                "644bbdd2648294b4642f3695",
-                "644bbece648294b4642f3697",
-                "644bbf0a648294b4642f3698",
-                "644bbe15648294b4642f3696",
-                "644bc010648294b4642f369d",
-                "644bbf6f648294b4642f369a",
-                "644bbf44648294b4642f3699",
-                "644bbfb1648294b4642f369b",
-                "644bbfe6648294b4642f369c",
-                "644bb5de648294b4642f368f",
-                "644bb270648294b4642f368e",
-                "644bb225648294b4642f368d",
-                "644bb671648294b4642f3690"
-
+                '61f9356a8b46ce688939024e',
+				'631f79858238ed283a233c08',
+				'631f79868238ed283a233c15',
+				'631f79878238ed283a233c22',
+				'631f79888238ed283a233c2f',
+				'631f79898238ed283a233c3c'
             ]
         },
-        {
+		{
             id: 8,
-            name: "Season 14 | Harvest Time!",
+            name: "Paket 8 (8blessed)",
             miners: [
-                '6687ccfc7643815232d6402d', '6687cd307643815232d64077', '6687cd837643815232d640c1', '6687cdc47643815232d64726', '6687c01a7643815232d60217', '6687bf4f7643815232d5f741', '6687cf557643815232d65d5c', '6687cf817643815232d65da6', '6687cfae7643815232d65def', '6687cfd57643815232d65e39', '6687ce4e7643815232d65297', '6687cea87643815232d65882', '6687ced67643815232d65cc8', '6687cefd7643815232d65d11', '6687bde47643815232d5f0c6', '6687be827643815232d5f3c1'
+                '6231c296a258d58160cdf676',
+				'631f7b018238ed283a234d8d',
+				'631f7b028238ed283a234d9a',
+				'631f7b038238ed283a234da7',
+				'631f7b048238ed283a234db4',
+				'631f7b058238ed283a234dc1'
+            ]
+        },
+		{
+            id: 9,
+            name: "Paket 9 (The Nirvana)",
+            miners: [
+                '650995b748ee2c2ada95fd44','6752bbe3368cdcf089ff11f4','6752bbe3368cdcf089ff11fc','6752bbe3368cdcf089ff1204','6752bbe3368cdcf089ff120c','6752bbe3368cdcf089ff1214'
+            ]
+        },
+		{
+            id: 10,
+            name: "Paket 10 (Not-A-Loose-Cannon)",
+            miners: [
+                '631b5617a775e04d9a28543f',
+				'631f7b378238ed283a235017',
+				'631f7b388238ed283a235024',
+				'631f7b398238ed283a235031',
+				'631f7b3a8238ed283a23503e',
+				'631f7b3b8238ed283a23504b'
+            ]
+        },
+		{
+            id: 1000,
+            name: "Özel Seçimler",
+            miners: [
+                '68cd7473bedeb9a12ef65406',
+				'68cd7473bedeb9a12ef65409',
+				'68cd7473bedeb9a12ef6540f',
+				'6810b85d672b78a8fb968ac3'
             ]
         }
     ];
@@ -452,7 +450,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.allMinersRarity = 'all';
     $scope.allMinerPosessionStatus = 'all';
     $scope.allMinerNegotiableStatus = 'all';
-    $scope.allMinerCollectionId = "-1";
+    $scope.allMinerCollectionId = "all";
 
 
     //userMinersFilter
