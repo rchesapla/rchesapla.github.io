@@ -914,7 +914,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.loaded_league = $scope.leagues.filter(l => l.id == $scope.loaded_league)[0].id ?? $scope.leagues[0].id;
     $scope.currencies = await CurrencyService.getDetailedCurrenciesByLeague($scope.loaded_league);
     $scope.currencies?.forEach(c => {
-        c.block_value_in_brl = c.in_game_only ? 0 : exchangeCoin(c.blockSize, c.name, 'brl');
+        c.block_value_in_try = c.in_game_only ? 0 : exchangeCoin(c.blockSize, c.name, 'brl');
         c.block_value_in_usd = c.in_game_only ? 0 : exchangeCoin(c.blockSize, c.name, 'usd');
         c.user_block_farm_brl = 0;
         c.user_block_farm_usd = 0;
@@ -1031,13 +1031,13 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             const percentual_user_alocated_power = getPercentualPower(user_alocated_power);
             currency.user_alocated_power_value = percentual_user_alocated_power;
             currency.user_alocated_power_day_profit_in_usd = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'usd'));
-            currency.user_alocated_power_day_profit_in_brl = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'brl'));
+            currency.user_alocated_power_day_profit_in_try = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'try'));
             currency.user_alocated_power_day_profit_in_cripto = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'day', currency, 'amount'));
             currency.user_alocated_power_week_profit_in_usd = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'usd'));
-            currency.user_alocated_power_week_profit_in_brl = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'brl'));
+            currency.user_alocated_power_week_profit_in_try = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'try'));
             currency.user_alocated_power_week_profit_in_cripto = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'week', currency, 'amount'));
             currency.user_alocated_power_month_profit_in_usd = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'usd'));
-            currency.user_alocated_power_month_profit_in_brl = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'brl'));
+            currency.user_alocated_power_month_profit_in_try = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'try'));
             currency.user_alocated_power_month_profit_in_cripto = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'amount'));
             setParamValue(currency.name.toLowerCase(), user_alocated_power);
         }else {

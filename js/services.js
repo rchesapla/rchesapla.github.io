@@ -127,63 +127,63 @@ service_app.service('CurrencyService', ['$http', '$q', 'FirebaseService', functi
         return [
             {
                 "id": "68af01ce48490927df92d687",
-                "name": "Bronz I" 
+                "name": "Bronze I" 
             },
             {
                 "id": "68af01ce48490927df92d686",
-                "name": "Bronz II" 
+                "name": "Bronze II" 
             },
             {
                 "id": "68af01ce48490927df92d685",
-                "name": "Bronz III" 
+                "name": "Bronze III" 
             },
             {
                 "id": "68af01ce48490927df92d684",
-                "name": "Gümüş I" 
+                "name": "Silver I" 
             },
             {
                 "id": "68af01ce48490927df92d683",
-                "name": "Gümüş II" 
+                "name": "Silver II" 
             },
             {
                 "id": "68af01ce48490927df92d682",
-                "name": "Gümüş III" 
+                "name": "Silver III" 
             },
             {
                 "id": "68af01ce48490927df92d681",
-                "name": "Altın I" 
+                "name": "Gold I" 
             },
             {
                 "id": "68af01ce48490927df92d680",
-                "name": "Altın II" 
+                "name": "Gold II" 
             },
             {
                 "id": "68af01ce48490927df92d67f",
-                "name": "Altın III" 
+                "name": "Gold III" 
             },
             {
                 "id": "68af01ce48490927df92d67e",
-                "name": "Platin I" 
+                "name": "Platinum I" 
             },
             {
                 "id": "68af01ce48490927df92d67d",
-                "name": "Platin II" 
+                "name": "Platinum II" 
             },
             {
                 "id": "68af01ce48490927df92d67c",
-                "name": "Platin III" 
+                "name": "Platinum III" 
             },
             {
                 "id": "68af01ce48490927df92d67b",
-                "name": "Elmas I" 
+                "name": "Diamond I" 
             },
             {
                 "id": "68af01ce48490927df92d67a",
-                "name": "Elmas II" 
+                "name": "Diamond II" 
             },
             {
                 "id": "68af01ce48490927df92d679",
-                "name": "Elmas III" 
+                "name": "Diamond III" 
             }
         ];
     }
@@ -196,7 +196,7 @@ service_app.service('CurrencyService', ['$http', '$q', 'FirebaseService', functi
         const currencies =
             [
                 {
-                    name: 'MATIC', coingecko_id : 'polygon-ecosystem-token'
+                    name: 'MATIC', coingecko_id : 'matic-network'
                 },
                 {
                     name: 'BNB', coingecko_id : 'binancecoin'
@@ -223,11 +223,11 @@ service_app.service('CurrencyService', ['$http', '$q', 'FirebaseService', functi
                     name: 'XRP', coingecko_id : 'ripple'
                 },
                 {
-                    name: 'ALGO', coingecko_id : 'algorand'
+                    name: 'ALGO', coingecko_id: 'algorand'
                 }
             ];
 
-        return $http.get(`https://api.coingecko.com/api/v3/simple/price?ids=${currencies.map(c => c.coingecko_id).join()}&vs_currencies=usd,try`).then(response => {
+        return $http.get(`https://api.coingecko.com/api/v3/simple/price?ids=${currencies.map(c => c.coingecko_id).join()}&vs_currencies=usd,brl`).then(response => {
             if (response.status === 200) { 
                 var result = response.data;
                 currencies.forEach(c => {
