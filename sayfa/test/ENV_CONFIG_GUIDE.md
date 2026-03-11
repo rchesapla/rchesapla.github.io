@@ -8,7 +8,7 @@
 1. `.env.development` dosyasını açın
 2. `VITE_API_URL` değerini değiştirin:
    ```env
-   VITE_API_URL=https://localhost:7080
+   VITE_API_URL=https://localhost:5174
    ```
 3. Kaydedin
 4. Dev server'ı yeniden başlatın: `npm run dev`
