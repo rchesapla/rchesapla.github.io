@@ -111,7 +111,6 @@
         button:active { transform: scale(0.98); }
         button:disabled { background: #00441b; color: #00772e; cursor: not-allowed; }
 
-        /* Screenshot Butonu Özel Stili */
         .ss-btn {
             background: transparent;
             border: 1px solid var(--neon-green);
@@ -151,7 +150,7 @@
             display: none;
             border-top: 2px dashed #00441b;
             padding: 20px 10px;
-            background: var(--dark-bg); /* SS alırken netlik için eklendi */
+            background: var(--dark-bg);
             border-radius: 10px;
         }
 
@@ -336,22 +335,55 @@
         }
         setInterval(drawMatrix, 50);
 
-        // Hesaplama Logic
-        const inputs = document.querySelectorAll('input');
+        // --- HAFIZA VE HESAPLAMA MANTIĞI ---
+        const inputs = document.querySelectorAll('input, select');
         const calcBtn = document.getElementById('calcBtn');
+        const units = { gh: 0.001, th: 1, ph: 1000, eh: 1000000, zh: 1000000000 };
+
+        // Değerleri Kaydetme Fonksiyonu
+        function saveToLocal() {
+            const data = {
+                fiatSelect: document.getElementById('fiatSelect').value,
+                coinSelect: document.getElementById('coinSelect').value,
+                myPower: document.getElementById('myPower').value,
+                myUnit: document.getElementById('myUnit').value,
+                netPower: document.getElementById('netPower').value,
+                netUnit: document.getElementById('netUnit').value,
+                reward: document.getElementById('reward').value,
+                blockTime: document.getElementById('blockTime').value
+            };
+            localStorage.setItem('rc_calc_pro_data', JSON.stringify(data));
+        }
+
+        // Değerleri Geri Yükleme Fonksiyonu
+        function loadFromLocal() {
+            const savedData = localStorage.getItem('rc_calc_pro_data');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                Object.keys(data).forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.value = data[id];
+                });
+                checkInputs();
+            }
+        }
 
         function checkInputs() {
             let valid = true;
-            inputs.forEach(i => { if(!i.value || i.value <= 0) valid = false; });
+            document.querySelectorAll('input').forEach(i => { 
+                if(!i.value || i.value <= 0) valid = false; 
+            });
             calcBtn.disabled = !valid;
+            saveToLocal(); // Her değişiklikte kaydet
         }
-        inputs.forEach(i => i.addEventListener('input', checkInputs));
 
-        const units = { gh: 0.001, th: 1, ph: 1000, eh: 1000000, zh: 1000000000 };
+        // Event Listeners
+        inputs.forEach(i => i.addEventListener('input', checkInputs));
+        window.addEventListener('load', loadFromLocal);
 
         async function fetchPrice(coinId, fiat) {
             try {
-                if(coinId === 'tether' || coinId === 'rollertoken') {
+                if(coinId === 'tether' || coinId === 'rollertoken' || coinId === 'seasontoken') {
                     if(fiat === 'try') {
                         const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=try`);
                         const data = await res.json();
@@ -410,32 +442,26 @@
             }, 600);
         }
 
-        // --- EKRAN GÖRÜNTÜSÜ FONKSİYONU ---
         async function takeScreenshot() {
             const element = document.getElementById('results');
             const ssBtn = document.getElementById('screenshotBtn');
-            
-            // Butonu görüntüde çıkmaması için gizle
             ssBtn.style.visibility = 'hidden';
 
             try {
                 const canvas = await html2canvas(element, {
                     backgroundColor: '#000800',
-                    scale: 2, // Yüksek kalite
+                    scale: 2,
                     logging: false,
-                    useCORS: true // API görselleri varsa sorun çıkmaması için
+                    useCORS: true
                 });
-                
                 const image = canvas.toDataURL("image/png");
                 const link = document.createElement('a');
-                link.download = `RC-Pro-Result-${Date.now()}.png`;
+                link.download = `RC-Result-${Date.now()}.png`;
                 link.href = image;
                 link.click();
             } catch (err) {
                 alert("Görüntü oluşturulamadı!");
-                console.error(err);
             } finally {
-                // Butonu geri getir
                 ssBtn.style.visibility = 'visible';
             }
         }
