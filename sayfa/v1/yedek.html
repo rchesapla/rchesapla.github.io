@@ -6,7 +6,8 @@
     <title>RC CALCULATOR PRO | Matrix Edition</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">	
+    <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root {
             --neon-green: #00ff41;
@@ -110,7 +111,17 @@
         button:active { transform: scale(0.98); }
         button:disabled { background: #00441b; color: #00772e; cursor: not-allowed; }
 
-        /* --- LOADER STYLE --- */
+        /* Screenshot Butonu Özel Stili */
+        .ss-btn {
+            background: transparent;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            height: 45px;
+            font-size: 0.8rem;
+            margin-top: 15px;
+        }
+        .ss-btn:hover { background: rgba(0, 255, 65, 0.1); }
+
         .loader-container {
             display: none;
             text-align: center;
@@ -134,13 +145,14 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-        /* --------------------- */
 
         .results {
             margin-top: 25px;
             display: none;
             border-top: 2px dashed #00441b;
-            padding-top: 20px;
+            padding: 20px 10px;
+            background: var(--dark-bg); /* SS alırken netlik için eklendi */
+            border-radius: 10px;
         }
 
         .price-badge {
@@ -286,6 +298,7 @@
                     <span id="mesFiat" class="val-fiat"></span>
                 </div>
             </div>
+            <button id="screenshotBtn" class="ss-btn" onclick="takeScreenshot()">GÖRÜNTÜYÜ KAYDET (.PNG)</button>
         </div>
 
         <div class="nota">
@@ -295,6 +308,7 @@
     </div>
 
     <script>
+        // Matrix Background Script
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
         let width, height, columns, drops;
@@ -322,6 +336,7 @@
         }
         setInterval(drawMatrix, 50);
 
+        // Hesaplama Logic
         const inputs = document.querySelectorAll('input');
         const calcBtn = document.getElementById('calcBtn');
 
@@ -355,7 +370,6 @@
             const results = document.getElementById('results');
             const btn = document.getElementById('calcBtn');
 
-            // UI Reset
             results.style.display = 'none';
             loader.style.display = 'block';
             btn.disabled = true;
@@ -384,17 +398,46 @@
             document.getElementById('mes').textContent = ganMes.toFixed(8);
 
             if (price) {
-                document.getElementById('priceDisplay').textContent = `Piyasa: 1 ${coinId.toUpperCase()} = ${symbol}${price.toLocaleString()}`;
+                document.getElementById('priceDisplay').textContent = `1 ${coinId.toUpperCase()} = ${symbol}${price.toLocaleString()}`;
                 document.getElementById('diaFiat').textContent = `${symbol}${(ganDia * price).toFixed(2)}`;
                 document.getElementById('mesFiat').textContent = `${symbol}${(ganMes * price).toFixed(2)}`;
             }
 
-            // UI Finalize
             setTimeout(() => {
                 loader.style.display = 'none';
                 results.style.display = 'block';
                 btn.disabled = false;
-            }, 600); // Küçük bir gecikme akıcılığı artırır
+            }, 600);
+        }
+
+        // --- EKRAN GÖRÜNTÜSÜ FONKSİYONU ---
+        async function takeScreenshot() {
+            const element = document.getElementById('results');
+            const ssBtn = document.getElementById('screenshotBtn');
+            
+            // Butonu görüntüde çıkmaması için gizle
+            ssBtn.style.visibility = 'hidden';
+
+            try {
+                const canvas = await html2canvas(element, {
+                    backgroundColor: '#000800',
+                    scale: 2, // Yüksek kalite
+                    logging: false,
+                    useCORS: true // API görselleri varsa sorun çıkmaması için
+                });
+                
+                const image = canvas.toDataURL("image/png");
+                const link = document.createElement('a');
+                link.download = `RC-Pro-Result-${Date.now()}.png`;
+                link.href = image;
+                link.click();
+            } catch (err) {
+                alert("Görüntü oluşturulamadı!");
+                console.error(err);
+            } finally {
+                // Butonu geri getir
+                ssBtn.style.visibility = 'visible';
+            }
         }
     </script>
 </body>
