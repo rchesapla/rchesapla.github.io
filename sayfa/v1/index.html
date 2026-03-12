@@ -4,21 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RC CALCULATOR PRO | Matrix Edition</title>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">	
-<!----------------------------------------------------------------------------------------------------------------->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">	
     <style>
         :root {
             --neon-green: #00ff41;
@@ -30,7 +18,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-			font-family: "Quantico", sans-serif;
+            font-family: "Quantico", sans-serif;
             background: var(--dark-bg);
             color: var(--neon-green);
             min-height: 100vh;
@@ -72,16 +60,8 @@
             box-shadow: var(--border-glow);
         }
 
-        /* Form Düzeni */
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .grid-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
+        .input-group { margin-bottom: 20px; }
+        .grid-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
         label {
             display: block;
@@ -94,7 +74,7 @@
 
         input, select {
             width: 100%;
-            height: 50px; /* Mobil için ideal yükseklik */
+            height: 50px;
             background: rgba(0, 40, 20, 0.6);
             border: 1px solid #00aa2f;
             border-radius: 8px;
@@ -110,12 +90,8 @@
             box-shadow: 0 0 10px rgba(0, 255, 65, 0.4);
         }
 
-        .power-input-container {
-            display: flex;
-            gap: 10px;
-        }
+        .power-input-container { display: flex; gap: 10px; }
 
-        /* Butonlar */
         button {
             width: 100%;
             height: 60px;
@@ -134,7 +110,32 @@
         button:active { transform: scale(0.98); }
         button:disabled { background: #00441b; color: #00772e; cursor: not-allowed; }
 
-        /* Sonuç Paneli */
+        /* --- LOADER STYLE --- */
+        .loader-container {
+            display: none;
+            text-align: center;
+            padding: 30px 0;
+        }
+        .matrix-loader {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(0, 255, 65, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--neon-green);
+            animation: spin 0.8s linear infinite;
+            filter: drop-shadow(0 0 5px var(--neon-green));
+        }
+        .loading-text {
+            font-size: 0.7rem;
+            margin-top: 12px;
+            letter-spacing: 3px;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        /* --------------------- */
+
         .results {
             margin-top: 25px;
             display: none;
@@ -175,12 +176,10 @@
             margin-top: 20px;
         }
 
-        /* Mobil Uyumluluk Ayarları */
         @media (max-width: 480px) {
             h1 { font-size: 1.4rem; }
             .container { padding: 15px; }
             .grid-row { grid-template-columns: 1fr; gap: 0; }
-            .val-crypto { font-size: 0.95rem; }
         }
     </style>
 </head>
@@ -204,19 +203,19 @@
             <div class="input-group">
                 <label>Kazılacak Coin</label>
                 <select id="coinSelect">
-            <option value="rollertoken">RLT (RollerToken)</option>
-            <option value="seasontoken">RST (SeasonToken)</option>
-            <option value="bitcoin">BTC (Bitcoin)</option>
-            <option value="litecoin">LTC (Litecoin)</option>
-            <option value="binancecoin">BNB (Binance Coin)</option>
-            <option value="polygon-ecosystem-token">POL (Polygon)</option>
-            <option value="ripple">XRP (Ripple)</option>
-            <option value="dogecoin">DOGE (Dogecoin)</option>
-            <option value="ethereum">ETH (Ethereum)</option>
-            <option value="tether">USDT (Tether)</option>
-            <option value="solana">SOL (Solana)</option>
-            <option value="tron">TRX (Tron)</option>
-            <option value="algorand">ALGO (Algorand)</option>
+                    <option value="rollertoken">RLT (RollerToken)</option>
+                    <option value="seasontoken">RST (SeasonToken)</option>
+                    <option value="bitcoin">BTC (Bitcoin)</option>
+                    <option value="litecoin">LTC (Litecoin)</option>
+                    <option value="binancecoin">BNB (Binance Coin)</option>
+                    <option value="polygon-ecosystem-token">POL (Polygon)</option>
+                    <option value="ripple">XRP (Ripple)</option>
+                    <option value="dogecoin">DOGE (Dogecoin)</option>
+                    <option value="ethereum">ETH (Ethereum)</option>
+                    <option value="tether">USDT (Tether)</option>
+                    <option value="solana">SOL (Solana)</option>
+                    <option value="tron">TRX (Tron)</option>
+                    <option value="algorand">ALGO (Algorand)</option>
                 </select>
             </div>
         </div>
@@ -262,9 +261,13 @@
 
         <button id="calcBtn" onclick="calcular()" disabled>HESAPLA</button>
 
+        <div id="loader" class="loader-container">
+            <div class="matrix-loader"></div>
+            <div class="loading-text">SISTEM ANALIZ EDILIYOR...</div>
+        </div>
+
         <div id="results" class="results">
             <div id="priceDisplay" class="price-badge">Fiyatlar Yükleniyor...</div>
-            
             <div class="result-card">
                 <span>Blok Başı</span>
                 <span id="porBloque" class="val-crypto">-</span>
@@ -292,7 +295,6 @@
     </div>
 
     <script>
-        // Optimize Edilmiş Matrix Efekti
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
         let width, height, columns, drops;
@@ -320,7 +322,6 @@
         }
         setInterval(drawMatrix, 50);
 
-        // Hesaplama Mantığı (Geliştirilmiş)
         const inputs = document.querySelectorAll('input');
         const calcBtn = document.getElementById('calcBtn');
 
@@ -350,6 +351,15 @@
         }
 
         async function calcular() {
+            const loader = document.getElementById('loader');
+            const results = document.getElementById('results');
+            const btn = document.getElementById('calcBtn');
+
+            // UI Reset
+            results.style.display = 'none';
+            loader.style.display = 'block';
+            btn.disabled = true;
+
             const myP = parseFloat(document.getElementById('myPower').value);
             const myU = document.getElementById('myUnit').value;
             const netP = parseFloat(document.getElementById('netPower').value);
@@ -363,24 +373,28 @@
             const netTH = netP * units[netU];
             const porBloque = (myTH / netTH) * reward;
             const blocksDay = 1440 / bTime;
-
             const ganDia = porBloque * blocksDay;
             const ganMes = ganDia * 30;
+
+            const price = await fetchPrice(coinId, fiat);
+            const symbol = fiat === 'try' ? '₺' : '$';
 
             document.getElementById('porBloque').textContent = porBloque.toFixed(8);
             document.getElementById('dia').textContent = ganDia.toFixed(8);
             document.getElementById('mes').textContent = ganMes.toFixed(8);
-
-            document.getElementById('results').style.display = 'block';
-            
-            const price = await fetchPrice(coinId, fiat);
-            const symbol = fiat === 'try' ? '₺' : '$';
 
             if (price) {
                 document.getElementById('priceDisplay').textContent = `Piyasa: 1 ${coinId.toUpperCase()} = ${symbol}${price.toLocaleString()}`;
                 document.getElementById('diaFiat').textContent = `${symbol}${(ganDia * price).toFixed(2)}`;
                 document.getElementById('mesFiat').textContent = `${symbol}${(ganMes * price).toFixed(2)}`;
             }
+
+            // UI Finalize
+            setTimeout(() => {
+                loader.style.display = 'none';
+                results.style.display = 'block';
+                btn.disabled = false;
+            }, 600); // Küçük bir gecikme akıcılığı artırır
         }
     </script>
 </body>
