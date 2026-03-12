@@ -163,13 +163,13 @@ rollercoin kazanç analizi
 		</div>
     </div>
 
-    <div class="rc-input-group">
+    <!--div class="rc-input-group">
       <label>Lig</label>
       <select ng-model="formData.league"
                   ng-options="league.name for league in leagues"
                   ng-change="updateLeagueDetails()" ng-disabled="isLoadedUser">
           </select>
-    </div>
+    </div-->
 
     <!--div class="rc-input-group">
       <label>Kripto</label>
@@ -180,7 +180,7 @@ rollercoin kazanç analizi
           </select>
     </div-->
 
-    <div class="rc-input-group power-group">
+    <!--div class="rc-input-group power-group">
       <label>Kazım Gücü</label>
 
       <div class="power-row">
@@ -190,7 +190,7 @@ rollercoin kazanç analizi
 		<select id="unit" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')" class="- - -" ng-disabled="isLoadedUser"></select>
       </div>
 
-    </div>
+    </div-->
 
   </div>
 
@@ -310,7 +310,7 @@ rollercoin kazanç analizi
       </div>
 
       <!-- GENEL LİSTE -->
-<div ng-if="!formData.currency && !formData.showAllMiners && !hasAnyAllocatedPower()" class="modern-gpu-wrapper">
+<!--div ng-if="!formData.currency && !formData.showAllMiners && !hasAnyAllocatedPower()" class="modern-gpu-wrapper">
 
   <div class="modern-general-header">
     <h4 class="rc-title">ROLLERCOIN GENEL İSTATİSTİKLER</h4>
@@ -346,16 +346,12 @@ rollercoin kazanç analizi
 		{{currency.blockSize}}
         </strong>
       </div>
-      <!--div class="coin-stat">
-        <span>💰 Para Çekim</span>
-        <strong>{{formatDays(currency.user_days_to_widthdraw)}}</strong>
-      </div--!>
 
     </div>
 
   </div>
 
-</div>
+</div-->
 
 <div ng-if="customMiners.length > 0">
 <div class="modern-gpu-wrapper" ng-if="customMiners.length > 0">
