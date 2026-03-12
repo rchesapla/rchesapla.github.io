@@ -81,6 +81,7 @@
             box-shadow: 0 0 12px rgba(0, 255, 65, 0.5);
         }
 
+        /* HESAPLA BUTONU STİLLERİ */
         button {
             width: 100%;
             padding: 18px;
@@ -95,10 +96,19 @@
             margin-top: 10px;
         }
 
-        button:hover {
+        button:hover:not(:disabled) {
             background: #00ff9d;
             transform: scale(1.02);
             box-shadow: 0 0 25px rgba(0, 255, 65, 0.8);
+        }
+
+        /* BUTON KAPALIYKEN GÖRÜNÜM */
+        button:disabled {
+            background: #00441b;
+            color: #00772e;
+            cursor: not-allowed;
+            opacity: 0.6;
+            transform: none;
         }
 
         .results {
@@ -174,7 +184,7 @@
 
         <label>KAZIM GÜCÜ (MY POWER):</label>
         <div style="display: flex; gap: 5px;">
-            <input type="number" id="myPower" placeholder="250" step="0.01">
+            <input type="number" id="myPower" placeholder="Örn: 250" step="0.01">
             <select id="myUnit" style="width: 100px;">
                 <option value="th">TH/s</option>
                 <option value="gh">GH/s</option>
@@ -186,7 +196,7 @@
 
         <label>AĞ GÜCÜ (NETWORK):</label>
         <div style="display: flex; gap: 5px;">
-            <input type="number" id="netPower" placeholder="650" step="0.01">
+            <input type="number" id="netPower" placeholder="Örn: 650" step="0.01">
             <select id="netUnit" style="width: 100px;">
                 <option value="th">TH/s</option>
                 <option value="gh">GH/s</option>
@@ -197,12 +207,12 @@
         </div>
 
         <label>BLOK ÖDÜLÜ (REWARD):</label>
-        <input type="number" id="reward" placeholder="3.125" step="0.00000001">
+        <input type="number" id="reward" placeholder="Örn: 3.125" step="0.00000001">
 
-        <label>BLOK SÜRESİ (10 DAKİKA/MİNUTE):</label>
+        <label>BLOK SÜRESİ (DAKİKA):</label>
         <input type="number" id="blockTime" value="10" step="0.1">
 
-        <button onclick="calcular()">HESAPLA</button>
+        <button id="calcBtn" onclick="calcular()" disabled>HESAPLA</button>
 
         <div id="results" class="results">
             <div id="priceDisplay" class="price-info">Veriler hazırlanıyor...</div>
@@ -260,27 +270,43 @@
         }
         setInterval(drawMatrix, 50);
 
+        // --- GİRİŞ KONTROLÜ MANTIĞI ---
+        const inputs = document.querySelectorAll('#myPower, #netPower, #reward, #blockTime');
+        const calcBtn = document.getElementById('calcBtn');
+
+        function checkInputs() {
+            let allFilled = true;
+            inputs.forEach(input => {
+                // Eğer alan boşsa veya 0'dan küçük/eşitse (blok süresi hariç mantıksal kontrol)
+                if (!input.value || parseFloat(input.value) <= 0) {
+                    allFilled = false;
+                }
+            });
+            calcBtn.disabled = !allFilled;
+        }
+
+        // Her tuş basımında kontrol et
+        inputs.forEach(input => {
+            input.addEventListener('input', checkInputs);
+        });
+        // ------------------------------
+
         const units = { gh: 0.001, th: 1, ph: 1000, eh: 1000000, zh: 1000000000 };
 
         async function fetchPrice(coinId, fiat) {
             try {
-                // RLT ve USDT için baz fiyat 1 USD'dir
                 let basePriceInUsd = 1.00;
-                
                 if(coinId !== 'tether' && coinId !== 'rollertoken') {
                     const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=usd`);
                     const data = await response.json();
                     basePriceInUsd = data[coinId].usd;
                 }
-
-                // Eğer TRY seçiliyse dolar kurunu al ve çarp
                 if (fiat === 'try') {
                     const rateResponse = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=try`);
                     const rateData = await rateResponse.json();
                     const usdToTry = rateData.tether.try;
                     return basePriceInUsd * usdToTry;
                 }
-
                 return basePriceInUsd;
             } catch (e) {
                 console.error("Fiyat/Kur hatası:", e);
@@ -297,11 +323,6 @@
             const bTime = parseFloat(document.getElementById('blockTime').value) || 10;
             const coinId = document.getElementById('coinSelect').value;
             const fiat = document.getElementById('fiatSelect').value;
-
-            if (myP <= 0 || netP <= 0 || reward <= 0) {
-                alert('Değerleri kontrol edin!');
-                return;
-            }
 
             const myTH = myP * units[myU];
             const netTH = netP * units[netU];
@@ -320,13 +341,15 @@
             document.getElementById('mes').textContent = ganMes.toFixed(8);
             document.getElementById('ano').textContent = ganAno.toFixed(8);
 
+            document.getElementById('results').style.display = 'block';
             document.getElementById('priceDisplay').textContent = "Kur verileri güncelleniyor...";
+            
             const fiatPrice = await fetchPrice(coinId, fiat);
             const symbol = fiat === 'try' ? '₺' : '$';
 
             if (fiatPrice) {
                 let coinLabel = coinId === 'rollertoken' ? 'RLT' : coinId.replace('-network','').toUpperCase();
-                document.getElementById('priceDisplay').textContent = `1 ${coinLabel} ≈ ${symbol}${fiatPrice.toLocaleString()}`;
+                document.getElementById('priceDisplay').textContent = `1 ${coinLabel} ≈ ${symbol}${fiatPrice.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
                 
                 const formatFiat = (val) => ` (${symbol}${(val * fiatPrice).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})})`;
                 
@@ -336,7 +359,6 @@
                 document.getElementById('anoFiat').textContent = formatFiat(ganAno);
             }
 
-            document.getElementById('results').style.display = 'block';
             document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
         }
     </script>
