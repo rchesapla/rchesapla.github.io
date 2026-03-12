@@ -384,7 +384,7 @@
             document.getElementById('mes').textContent = ganMes.toFixed(8);
 
             if (price) {
-                document.getElementById('priceDisplay').textContent = `Piyasa: 1 ${coinId.toUpperCase()} = ${symbol}${price.toLocaleString()}`;
+                document.getElementById('priceDisplay').textContent = `1 ${coinId.toUpperCase()} = ${symbol}${price.toLocaleString()}`;
                 document.getElementById('diaFiat').textContent = `${symbol}${(ganDia * price).toFixed(2)}`;
                 document.getElementById('mesFiat').textContent = `${symbol}${(ganMes * price).toFixed(2)}`;
             }
