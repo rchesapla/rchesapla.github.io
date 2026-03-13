@@ -205,12 +205,13 @@
         app.controller('MiningController', ['$scope', 'UserMinerService', '$timeout', function($scope, UserMinerService, $timeout) {
             $scope.calcData = {
                 fiat: 'usd', coin: 'rollertoken', myPower: 100, myUnit: 'th',
-                netPower: 700, netUnit: 'eh', reward: 0.88, blockTime: 10
+                netPower: 700, netUnit: 'eh', reward: 0.66, blockTime: 10
             };
 
             const coinDefaults = {
-                "rollertoken": 0.88, "seasontoken": 66, "bitcoin": 0.0000041,
-                "litecoin": 0.0023, "binancecoin": 0.00035, "dogecoin": 3.84, "ethereum": 0.00021
+                "rollertoken": 0.66, "seasontoken": 66, "bitcoin": 0.0000041,
+                "litecoin": 0.0023, "binancecoin": 0.00035, "polygon-ecosystem-token": 2.29, "ripple": 0.16, "dogecoin": 3.84,
+				"ethereum": 0.00021, "tether": 0.274038, "solana": 1, "algorand": 1111
             };
 
             $scope.updateAutomaticData = () => {
