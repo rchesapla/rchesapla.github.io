@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" ng-app="miningApp">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -7,7 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
     <style>
         :root {
             --neon-green: #00ff41;
@@ -15,9 +17,7 @@
             --glass-bg: rgba(0, 20, 10, 0.9);
             --border-glow: 0 0 15px rgba(0, 255, 65, 0.3);
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
         body {
             font-family: "Quantico", sans-serif;
             background: var(--dark-bg);
@@ -26,175 +26,47 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
-
-        canvas#matrix {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.3;
-        }
-
-        .header {
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        h1 {
-            font-size: 1.8rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 10px var(--neon-green);
-        }
-
+        canvas#matrix { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.3; }
+        .header { text-align: center; padding: 30px 20px; }
+        h1 { font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; text-shadow: 0 0 10px var(--neon-green); }
         .container {
-            width: 95%;
-            max-width: 600px;
-            margin: 0 auto 50px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--neon-green);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: var(--border-glow);
+            width: 95%; max-width: 600px; margin: 0 auto 50px;
+            background: var(--glass-bg); backdrop-filter: blur(15px);
+            border: 1px solid var(--neon-green); border-radius: 15px;
+            padding: 25px; box-shadow: var(--border-glow);
         }
-
-        .input-group { margin-bottom: 20px; }
+        .input-group { margin-bottom: 15px; }
         .grid-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-
-        label {
-            display: block;
-            font-size: 0.75rem;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            color: #00ff9d;
-            letter-spacing: 1px;
-        }
-
+        label { display: block; font-size: 0.7rem; margin-bottom: 5px; text-transform: uppercase; color: #00ff9d; }
         input, select {
-            width: 100%;
-            height: 50px;
-            background: rgba(0, 40, 20, 0.6);
-            border: 1px solid #00aa2f;
-            border-radius: 8px;
-            color: #fff;
-            padding: 0 15px;
-            font-size: 1rem;
-            transition: 0.3s;
+            width: 100%; height: 45px; background: rgba(0, 40, 20, 0.6);
+            border: 1px solid #00aa2f; border-radius: 8px; color: #fff;
+            padding: 0 15px; font-size: 0.9rem; transition: 0.3s;
         }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: var(--neon-green);
-            box-shadow: 0 0 10px rgba(0, 255, 65, 0.4);
-        }
-
-        .power-input-container { display: flex; gap: 10px; }
-
+        input:focus { outline: none; border-color: var(--neon-green); box-shadow: 0 0 10px rgba(0, 255, 65, 0.4); }
+        .api-section { border: 1px solid #00441b; padding: 15px; border-radius: 10px; margin-bottom: 20px; background: rgba(0, 255, 65, 0.03); }
         button {
-            width: 100%;
-            height: 60px;
-            background: var(--neon-green);
-            color: #000;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 900;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: 0.3s;
-            margin-top: 10px;
+            width: 100%; height: 50px; background: var(--neon-green); color: #000;
+            border: none; border-radius: 8px; font-size: 1rem; font-weight: 900;
+            cursor: pointer; text-transform: uppercase; margin-top: 10px;
         }
-
-        button:active { transform: scale(0.98); }
         button:disabled { background: #00441b; color: #00772e; cursor: not-allowed; }
-
-        .ss-btn {
-            background: transparent;
-            border: 1px solid var(--neon-green);
-            color: var(--neon-green);
-            height: 45px;
-            font-size: 0.8rem;
-            margin-top: 15px;
-        }
-        .ss-btn:hover { background: rgba(0, 255, 65, 0.1); }
-
-        .loader-container {
-            display: none;
-            text-align: center;
-            padding: 30px 0;
-        }
+        .api-btn { background: transparent; border: 1px solid #00ff9d; color: #00ff9d; height: 40px; }
+        .loader-container { display: none; text-align: center; padding: 20px 0; }
         .matrix-loader {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(0, 255, 65, 0.1);
-            border-radius: 50%;
-            border-top-color: var(--neon-green);
-            animation: spin 0.8s linear infinite;
-            filter: drop-shadow(0 0 5px var(--neon-green));
-        }
-        .loading-text {
-            font-size: 0.7rem;
-            margin-top: 12px;
-            letter-spacing: 3px;
-            animation: pulse 1.5s infinite;
+            display: inline-block; width: 30px; height: 30px; border: 3px solid rgba(0, 255, 65, 0.1);
+            border-radius: 50%; border-top-color: var(--neon-green); animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-        .results {
-            margin-top: 25px;
-            display: none;
-            border-top: 2px dashed #00441b;
-            padding: 20px 10px;
-            background: var(--dark-bg);
-            border-radius: 10px;
-        }
-
-        .price-badge {
-            background: #ffcc00;
-            color: #000;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 20px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .result-card {
-            background: rgba(0, 255, 65, 0.05);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .val-crypto { color: var(--neon-green); font-weight: bold; font-size: 1.1rem; }
-        .val-fiat { color: #888; font-size: 0.8rem; display: block; }
-
-        .nota {
-            font-size: 0.7rem;
-            text-align: center;
-            opacity: 0.6;
-            margin-top: 20px;
-        }
-
-        @media (max-width: 480px) {
-            h1 { font-size: 1.4rem; }
-            .container { padding: 15px; }
-            .grid-row { grid-template-columns: 1fr; gap: 0; }
-        }
+        .results { margin-top: 20px; display: none; border-top: 2px dashed #00441b; padding-top: 20px; }
+        .price-badge { background: #ffcc00; color: #000; padding: 5px; border-radius: 5px; font-size: 0.8rem; text-align: center; margin-bottom: 15px; }
+        .result-card { background: rgba(0, 255, 65, 0.05); padding: 12px; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .val-crypto { color: var(--neon-green); font-weight: bold; }
+        .val-fiat { color: #888; font-size: 0.75rem; display: block; text-align: right; }
+        @media (max-width: 480px) { .grid-row { grid-template-columns: 1fr; gap: 0; } }
     </style>
 </head>
-<body>
+<body ng-controller="MiningController">
 
     <canvas id="matrix"></canvas>
 
@@ -203,17 +75,25 @@
     </div>
 
     <div class="container">
+        <div class="api-section">
+            <label>ROLLERCOIN NICKNAME</label>
+            <input type="text" ng-model="userNick" placeholder="Kullanıcı adını yazın...">
+            <button class="api-btn" ng-click="fetchUserData()" ng-disabled="loadingApi">
+                {{ loadingApi ? 'BAĞLANTI KURULUYOR...' : 'PROFİL GÜCÜNÜ ÇEK' }}
+            </button>
+        </div>
+
         <div class="grid-row">
             <div class="input-group">
                 <label>PARA BİRİMİ</label>
-                <select id="fiatSelect">
+                <select ng-model="calcData.fiat">
                     <option value="usd">USD ($)</option>
                     <option value="try">TRY (₺)</option>
                 </select>
             </div>
             <div class="input-group">
                 <label>KRİPTO</label>
-                <select id="coinSelect">
+                <select ng-model="calcData.coin" ng-change="updateAutomaticData()">
                     <option value="rollertoken">RLT (RollerToken)</option>
                     <option value="seasontoken">RST (SeasonToken)</option>
                     <option value="bitcoin">BTC (Bitcoin)</option>
@@ -232,12 +112,11 @@
         </div>
 
         <div class="input-group">
-            <label>Kazım Gücü (My Power)</label>
-            <div class="power-input-container">
-                <input type="number" id="myPower" placeholder="250" step="0.01">
-                <select id="myUnit" style="width: 100px;">
+            <label>Kişisel Gücün (My Power)</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="number" ng-model="calcData.myPower" step="0.001">
+                <select ng-model="calcData.myUnit">
                     <option value="th">TH/s</option>
-                    <option value="gh">GH/s</option>
                     <option value="ph">PH/s</option>
                     <option value="eh">EH/s</option>
                     <option value="zh">ZH/s</option>
@@ -246,14 +125,13 @@
         </div>
 
         <div class="input-group">
-            <label>Ağ Gücü (Network)</label>
-            <div class="power-input-container">
-                <input type="number" id="netPower" placeholder="650" step="0.01">
-                <select id="netUnit" style="width: 100px;">
+            <label>Ağ Gücü (Network Power)</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="number" ng-model="calcData.netPower" step="0.001">
+                <select ng-model="calcData.netUnit">
                     <option value="th">TH/s</option>
-                    <option value="gh">GH/s</option>
                     <option value="ph">PH/s</option>
-                    <option value="eh" selected>EH/s</option>
+                    <option value="eh">EH/s</option>
                     <option value="zh">ZH/s</option>
                 </select>
             </div>
@@ -262,209 +140,168 @@
         <div class="grid-row">
             <div class="input-group">
                 <label>Blok Ödülü</label>
-                <input type="number" id="reward" placeholder="3.125" step="0.00000001">
+                <input type="number" ng-model="calcData.reward" step="0.00000001">
             </div>
             <div class="input-group">
                 <label>Süre (Dakika)</label>
-                <input type="number" id="blockTime" value="10" step="0.1">
+                <input type="number" ng-model="calcData.blockTime" step="0.1">
             </div>
         </div>
 
-        <button id="calcBtn" onclick="calcular()" disabled>HESAPLA</button>
+        <button ng-click="calcular()">HESAPLA</button>
 
         <div id="loader" class="loader-container">
             <div class="matrix-loader"></div>
-            <div class="loading-text">SISTEM ANALIZ EDILIYOR...</div>
+            <p style="font-size: 0.7rem; margin-top: 10px;">HESAPLANIYOR...</p>
         </div>
 
         <div id="results" class="results">
-            <div id="priceDisplay" class="price-badge">Fiyatlar Yükleniyor...</div>
+            <div class="price-badge" id="priceDisplay">Fiyatlar güncelleniyor...</div>
             <div class="result-card">
-                <span>Blok ödülün</span>
+                <span>Blok Başına:</span>
                 <span id="porBloque" class="val-crypto">-</span>
             </div>
             <div class="result-card">
-                <span>Günlük</span>
-                <div style="text-align: right;">
+                <span>Günlük Kazanç:</span>
+                <div>
                     <span id="dia" class="val-crypto">-</span>
                     <span id="diaFiat" class="val-fiat"></span>
                 </div>
             </div>
             <div class="result-card">
-                <span>Aylık (30/Gün)</span>
-                <div style="text-align: right;">
+                <span>Aylık Kazanç:</span>
+                <div>
                     <span id="mes" class="val-crypto">-</span>
                     <span id="mesFiat" class="val-fiat"></span>
                 </div>
             </div>
-            <button id="screenshotBtn" class="ss-btn" onclick="takeScreenshot()">GÖRÜNTÜYÜ KAYDET (.PNG)</button>
-        </div>
-
-        <div class="nota">
-            * Veriler CoinGecko üzerinden anlık çekilir.<br>
-            RollerCoin simülasyonu için güncel ağ verilerini giriniz.
         </div>
     </div>
 
     <script>
-        // Matrix Background Script
+        const app = angular.module('miningApp', []);
+
+        app.service('UserMinerService', ['$http', function($http) {
+            this.getAllUserDataByNick = async function(nick) {
+                const proxy = "https://morning-thunder-0ce3.wminerrc.workers.dev/?";
+                const apiUser = `https://rollercoin.com/api/profile/public-user-profile-data/${nick}`;
+                
+                try {
+                    const resUser = await $http.get(proxy + encodeURIComponent(apiUser));
+                    if(!resUser.data.data) throw "Kullanıcı Yok";
+                    
+                    const userId = resUser.data.data.avatar_id;
+                    const apiPower = `https://rollercoin.com/api/profile/user-power-data/${userId}`;
+                    const resPower = await $http.get(proxy + encodeURIComponent(apiPower));
+                    
+                    return resPower.data.data;
+                } catch(e) { throw e; }
+            };
+        }]);
+
+        app.controller('MiningController', ['$scope', 'UserMinerService', '$timeout', function($scope, UserMinerService, $timeout) {
+            $scope.calcData = {
+                fiat: 'usd', coin: 'rollertoken', myPower: 100, myUnit: 'th',
+                netPower: 700, netUnit: 'eh', reward: 0.88, blockTime: 10
+            };
+
+            const coinDefaults = {
+                "rollertoken": 0.88, "seasontoken": 66, "bitcoin": 0.0000041,
+                "litecoin": 0.0023, "binancecoin": 0.00035, "dogecoin": 3.84, "ethereum": 0.00021
+            };
+
+            $scope.updateAutomaticData = () => {
+                $scope.calcData.reward = coinDefaults[$scope.calcData.coin] || 0.1;
+            };
+
+            $scope.fetchUserData = async function() {
+                $scope.loadingApi = true;
+                try {
+                    const data = await UserMinerService.getAllUserDataByNick($scope.userNick);
+                    
+                    // API'den gelen veriyi önce TH/s'ye normalize edelim
+                    // API bazen ham hash (10^12) bazen GH (10^3) dönebiliyor. 
+                    // Genel RollerCoin API standartı GH/s üzerindendir (10^9).
+                    let rawPowerGH = parseFloat(data.current_power); 
+                    let thValue = rawPowerGH / 1000; // GH -> TH
+
+                    // OTOMATİK BİRİM SEÇİCİ (Threshold bazlı)
+                    if (thValue >= 1000000000) {
+                        $scope.calcData.myPower = parseFloat((thValue / 1000000000).toFixed(4));
+                        $scope.calcData.myUnit = 'zh';
+                    } else if (thValue >= 1000000) {
+                        $scope.calcData.myPower = parseFloat((thValue / 1000000).toFixed(4));
+                        $scope.calcData.myUnit = 'eh';
+                    } else if (thValue >= 1000) {
+                        $scope.calcData.myPower = parseFloat((thValue / 1000).toFixed(4));
+                        $scope.calcData.myUnit = 'ph';
+                    } else {
+                        $scope.calcData.myPower = parseFloat(thValue.toFixed(4));
+                        $scope.calcData.myUnit = 'th';
+                    }
+
+                    $scope.$apply(); // Angular view güncellemesi
+                    alert("Güç verisi başarıyla çekildi ve birim (" + $scope.calcData.myUnit.toUpperCase() + ") olarak ayarlandı.");
+                } catch(e) {
+                    alert("Hata: Veri çekilemedi. Nickname yanlış olabilir veya proxy sunucusu yanıt vermiyor.");
+                } finally {
+                    $scope.loadingApi = false;
+                    $scope.$apply();
+                }
+            };
+
+            $scope.calcular = async function() {
+                document.getElementById('loader').style.display = 'block';
+                document.getElementById('results').style.display = 'none';
+
+                const units = { th: 1, ph: 1000, eh: 1000000, zh: 1000000000 };
+                const myTH = $scope.calcData.myPower * units[$scope.calcData.myUnit];
+                const netTH = $scope.calcData.netPower * units[$scope.calcData.netUnit];
+                
+                const porBloque = (myTH / netTH) * $scope.calcData.reward;
+                const daily = porBloque * (1440 / $scope.calcData.blockTime);
+                
+                const coin = ($scope.calcData.coin === 'rollertoken' || $scope.calcData.coin === 'seasontoken') ? 'tether' : $scope.calcData.coin;
+                
+                try {
+                    const priceRes = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coin}&vs_currencies=usd,try`);
+                    const priceData = await priceRes.json();
+                    const currentPrice = priceData[coin][$scope.calcData.fiat];
+
+                    $timeout(() => {
+                        document.getElementById('porBloque').innerText = porBloque.toFixed(10);
+                        document.getElementById('dia').innerText = daily.toFixed(8);
+                        document.getElementById('mes').innerText = (daily * 30).toFixed(8);
+                        
+                        const sym = $scope.calcData.fiat === 'try' ? '₺' : '$';
+                        document.getElementById('priceDisplay').innerText = `1 ${$scope.calcData.coin.toUpperCase()} = ${sym}${currentPrice}`;
+                        document.getElementById('diaFiat').innerText = `${sym}${(daily * currentPrice).toFixed(2)}`;
+                        document.getElementById('mesFiat').innerText = `${sym}${(daily * 30 * currentPrice).toFixed(2)}`;
+
+                        document.getElementById('loader').style.display = 'none';
+                        document.getElementById('results').style.display = 'block';
+                    }, 500);
+                } catch(e) {
+                    document.getElementById('loader').style.display = 'none';
+                    alert("Fiyat verisi alınamadı.");
+                }
+            };
+        }]);
+
+        // Matrix Background
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
-        let width, height, columns, drops;
-
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            columns = Math.floor(width / 20);
-            drops = Array(columns).fill(1);
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 8, 0, 0.1)';
-            ctx.fillRect(0, 0, width, height);
-            ctx.fillStyle = '#00ff41';
-            ctx.font = '15px monospace';
-            for (let i = 0; i < drops.length; i++) {
-                const text = Math.floor(Math.random() * 2);
-                ctx.fillText(text, i * 20, drops[i] * 20);
-                if (drops[i] * 20 > height && Math.random() > 0.975) drops[i] = 0;
+        let w = canvas.width = window.innerWidth, h = canvas.height = window.innerHeight;
+        let cols = Math.floor(w / 20), drops = Array(cols).fill(1);
+        setInterval(() => {
+            ctx.fillStyle = 'rgba(0, 8, 0, 0.1)'; ctx.fillRect(0, 0, w, h);
+            ctx.fillStyle = '#00ff41'; ctx.font = '15px monospace';
+            for(let i=0; i<drops.length; i++) {
+                ctx.fillText(Math.floor(Math.random()*2), i*20, drops[i]*20);
+                if(drops[i]*20 > h && Math.random() > 0.975) drops[i] = 0;
                 drops[i]++;
             }
-        }
-        setInterval(drawMatrix, 50);
-
-        // --- HAFIZA VE HESAPLAMA MANTIĞI ---
-        const inputs = document.querySelectorAll('input, select');
-        const calcBtn = document.getElementById('calcBtn');
-        const units = { gh: 0.001, th: 1, ph: 1000, eh: 1000000, zh: 1000000000 };
-
-        // Değerleri Kaydetme Fonksiyonu
-        function saveToLocal() {
-            const data = {
-                fiatSelect: document.getElementById('fiatSelect').value,
-                coinSelect: document.getElementById('coinSelect').value,
-                myPower: document.getElementById('myPower').value,
-                myUnit: document.getElementById('myUnit').value,
-                netPower: document.getElementById('netPower').value,
-                netUnit: document.getElementById('netUnit').value,
-                reward: document.getElementById('reward').value,
-                blockTime: document.getElementById('blockTime').value
-            };
-            localStorage.setItem('rc_calc_pro_data', JSON.stringify(data));
-        }
-
-        // Değerleri Geri Yükleme Fonksiyonu
-        function loadFromLocal() {
-            const savedData = localStorage.getItem('rc_calc_pro_data');
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                Object.keys(data).forEach(id => {
-                    const el = document.getElementById(id);
-                    if (el) el.value = data[id];
-                });
-                checkInputs();
-            }
-        }
-
-        function checkInputs() {
-            let valid = true;
-            document.querySelectorAll('input').forEach(i => { 
-                if(!i.value || i.value <= 0) valid = false; 
-            });
-            calcBtn.disabled = !valid;
-            saveToLocal(); // Her değişiklikte kaydet
-        }
-
-        // Event Listeners
-        inputs.forEach(i => i.addEventListener('input', checkInputs));
-        window.addEventListener('load', loadFromLocal);
-
-        async function fetchPrice(coinId, fiat) {
-            try {
-                if(coinId === 'tether' || coinId === 'rollertoken' || coinId === 'seasontoken') {
-                    if(fiat === 'try') {
-                        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=try`);
-                        const data = await res.json();
-                        return data.tether.try;
-                    }
-                    return 1.00;
-                }
-                const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=usd,try`);
-                const data = await res.json();
-                return data[coinId][fiat];
-            } catch (e) { return null; }
-        }
-
-        async function calcular() {
-            const loader = document.getElementById('loader');
-            const results = document.getElementById('results');
-            const btn = document.getElementById('calcBtn');
-
-            results.style.display = 'none';
-            loader.style.display = 'block';
-            btn.disabled = true;
-
-            const myP = parseFloat(document.getElementById('myPower').value);
-            const myU = document.getElementById('myUnit').value;
-            const netP = parseFloat(document.getElementById('netPower').value);
-            const netU = document.getElementById('netUnit').value;
-            const reward = parseFloat(document.getElementById('reward').value);
-            const bTime = parseFloat(document.getElementById('blockTime').value);
-            const coinId = document.getElementById('coinSelect').value;
-            const fiat = document.getElementById('fiatSelect').value;
-
-            const myTH = myP * units[myU];
-            const netTH = netP * units[netU];
-            const porBloque = (myTH / netTH) * reward;
-            const blocksDay = 1440 / bTime;
-            const ganDia = porBloque * blocksDay;
-            const ganMes = ganDia * 30;
-
-            const price = await fetchPrice(coinId, fiat);
-            const symbol = fiat === 'try' ? '₺' : '$';
-
-            document.getElementById('porBloque').textContent = porBloque.toFixed(8);
-            document.getElementById('dia').textContent = ganDia.toFixed(8);
-            document.getElementById('mes').textContent = ganMes.toFixed(8);
-
-            if (price) {
-                document.getElementById('priceDisplay').textContent = `1 ${coinId.toUpperCase()} = ${symbol}${price.toLocaleString()}`;
-                document.getElementById('diaFiat').textContent = `${symbol}${(ganDia * price).toFixed(2)}`;
-                document.getElementById('mesFiat').textContent = `${symbol}${(ganMes * price).toFixed(2)}`;
-            }
-
-            setTimeout(() => {
-                loader.style.display = 'none';
-                results.style.display = 'block';
-                btn.disabled = false;
-            }, 600);
-        }
-
-        async function takeScreenshot() {
-            const element = document.getElementById('results');
-            const ssBtn = document.getElementById('screenshotBtn');
-            ssBtn.style.visibility = 'hidden';
-
-            try {
-                const canvas = await html2canvas(element, {
-                    backgroundColor: '#000800',
-                    scale: 2,
-                    logging: false,
-                    useCORS: true
-                });
-                const image = canvas.toDataURL("image/png");
-                const link = document.createElement('a');
-                link.download = `RC-Result-${Date.now()}.png`;
-                link.href = image;
-                link.click();
-            } catch (err) {
-                alert("Görüntü oluşturulamadı!");
-            } finally {
-                ssBtn.style.visibility = 'visible';
-            }
-        }
+        }, 50);
     </script>
 </body>
 </html>
