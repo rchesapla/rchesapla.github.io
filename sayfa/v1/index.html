@@ -65,12 +65,12 @@
         .val-fiat { color: #888; font-size: 0.75rem; display: block; text-align: right; }
         .access-denied { text-align: center; padding: 20px; border: 1px dashed #00441b; border-radius: 10px; color: #00772e; font-size: 0.8rem; }
         
-        /* Çekim Limiti Ek Stilleri */
         .limit-info { margin-top: 15px; padding: 12px; border: 1px solid #00441b; border-radius: 8px; background: rgba(0, 255, 65, 0.02); }
         .limit-text { font-size: 0.75rem; display: flex; justify-content: space-between; margin-bottom: 8px; }
         .progress-container { width: 100%; height: 12px; background: #001a0a; border-radius: 6px; overflow: hidden; border: 1px solid #00441b; position: relative; }
         .progress-bar { height: 100%; background: linear-gradient(90deg, #00441b, var(--neon-green)); width: 0%; transition: width 1.2s cubic-bezier(0.1, 0.7, 1.0, 0.1); box-shadow: 0 0 10px var(--neon-green); }
         
+        .time-badge { font-size: 0.7rem; color: #ffcc00; margin-top: 5px; font-weight: bold; text-align: center; display: block; }
         @media (max-width: 480px) { .grid-row { grid-template-columns: 1fr; gap: 0; } }
     </style>
 </head>
@@ -197,6 +197,7 @@
                     <div class="progress-container">
                         <div id="progressBar" class="progress-bar"></div>
                     </div>
+                    <span id="timeToWithdraw" class="time-badge"></span>
                     <p id="limitNote" style="font-size: 0.6rem; color: #00ff9d; margin-top: 8px; text-align: center; opacity: 0.8;">
                         Hedefe ulaşma durumu analiz ediliyor...
                     </p>
@@ -234,17 +235,22 @@
             $scope.isAuthorized = false;
             
             $scope.calcData = {
-                fiat: 'usd', coin: 'rollertoken', myPower: 0, myUnit: 'th',
-                netPower: 0, netUnit: 'eh', reward: 0.88, blockTime: 10
+                fiat: 'usd', 
+                coin: 'rollertoken', 
+                myPower: 0, 
+                myUnit: 'th',
+                netPower: parseFloat(localStorage.getItem('rc_netPower')) || 0, 
+                netUnit: localStorage.getItem('rc_netUnit') || 'eh', 
+                reward: 0.88, 
+                blockTime: 10
             };
 
             const coinDefaults = {
                 "rollertoken": 0.88, "seasontoken": 66, "bitcoin": 0.0000041,
                 "litecoin": 0.0023, "binancecoin": 0.00035, "polygon-ecosystem-token": 2.29, "ripple": 0.16, "dogecoin": 3.84,
-                "ethereum": 0.00021, "tether": 0.274038, "solana": 1, "algorand": 1111
+                "ethereum": 0.00021, "tether": 0.274038, "solana": 1, "algorand": 1111, "tron": 60
             };
 
-            // RollerCoin Güncel Minimum Çekim Limitleri
             const withdrawLimits = {
                 "bitcoin": 0.00085,
                 "ethereum": 0.014,
@@ -298,6 +304,9 @@
             };
 
             $scope.calcular = async function() {
+                localStorage.setItem('rc_netPower', $scope.calcData.netPower);
+                localStorage.setItem('rc_netUnit', $scope.calcData.netUnit);
+
                 document.getElementById('loader').style.display = 'block';
                 document.getElementById('results').style.display = 'none';
 
@@ -331,21 +340,39 @@
                         document.getElementById('diaFiat').innerText = `${sym}${(daily * currentPrice).toFixed(2)}`;
                         document.getElementById('mesFiat').innerText = `${sym}${(monthly * currentPrice).toFixed(2)}`;
 
-                        // Çekim Limiti Mantığı
                         const limit = withdrawLimits[$scope.calcData.coin];
                         const limitText = document.getElementById('minLimit');
                         const progressBar = document.getElementById('progressBar');
                         const limitNote = document.getElementById('limitNote');
+                        const timeBadge = document.getElementById('timeToWithdraw');
 
                         if (limit > 0) {
                             limitText.innerText = `${limit} ${$scope.calcData.coin.toUpperCase()}`;
                             const percent = Math.min((monthly / limit) * 100, 100).toFixed(1);
                             progressBar.style.width = percent + '%';
-                            limitNote.innerText = `Aylık kazancınızla çekim limitinin %${percent} kadarına ulaşıyorsunuz.`;
+                            
+                            // ZAMAN HESAPLAMA MANTIĞI
+                            if (daily > 0) {
+                                const totalDays = limit / daily;
+                                const years = Math.floor(totalDays / 365);
+                                const months = Math.floor((totalDays % 365) / 30);
+                                const days = Math.floor(totalDays % 30);
+                                
+                                let timeStr = "Tahmini Süre: ";
+                                if(years > 0) timeStr += `${years} Yıl `;
+                                if(months > 0) timeStr += `${months} Ay `;
+                                if(days > 0 || timeStr === "Tahmini Süre: ") timeStr += `${days} Gün`;
+                                
+                                timeBadge.innerText = timeStr;
+                                limitNote.innerText = `Aylık kazancınızla çekim limitinin %${percent} kadarına ulaşıyorsunuz.`;
+                            } else {
+                                timeBadge.innerText = "Kazanç çok düşük, süre hesaplanamadı.";
+                            }
                         } else {
                             limitText.innerText = "Çekilemez";
                             progressBar.style.width = '0%';
-                            limitNote.innerText = "RLT ve RST birimleri oyun içi paradır, çekim yapılamaz. | USDT çekimler kapalıdır!";
+                            timeBadge.innerText = "";
+                            limitNote.innerText = "RLT ve RST birimleri oyun içi paradır, çekim yapılamaz.";
                         }
 
                         document.getElementById('loader').style.display = 'none';
