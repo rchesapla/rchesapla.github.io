@@ -3,16 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<!--------------------------------------------------------------------------------------------->
-    <title>RC CALCULATOR PRO | Matrix Edition</title>
-	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-<!--------------------------------------------------------------------------------------------->
+    <title>RC CALCULATOR PRO | Access Restricted</title>
+    <link rel="shortcut icon" type="image/x-icon" href="icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-<!--------------------------------------------------------------------------------------------->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-<!--------------------------------------------------------------------------------------------->
     <style>
         :root {
             --neon-green: #00ff41;
@@ -37,6 +33,7 @@
             background: var(--glass-bg); backdrop-filter: blur(15px);
             border: 1px solid var(--neon-green); border-radius: 15px;
             padding: 25px; box-shadow: var(--border-glow);
+            transition: all 0.5s ease;
         }
         .input-group { margin-bottom: 15px; }
         .grid-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
@@ -66,6 +63,7 @@
         .result-card { background: rgba(0, 255, 65, 0.05); padding: 12px; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
         .val-crypto { color: var(--neon-green); font-weight: bold; }
         .val-fiat { color: #888; font-size: 0.75rem; display: block; text-align: right; }
+        .access-denied { text-align: center; padding: 20px; border: 1px dashed #00441b; border-radius: 10px; color: #00772e; font-size: 0.8rem; }
         @media (max-width: 480px) { .grid-row { grid-template-columns: 1fr; gap: 0; } }
     </style>
 </head>
@@ -79,105 +77,112 @@
 
     <div class="container">
         <div class="api-section">
-            <label>ROLLERCOIN NICKNAME</label>
-            <input type="text" ng-model="userNick" placeholder="Kullanıcı adını yazın...">
-            <button class="api-btn" ng-click="fetchUserData()" ng-disabled="loadingApi">
-                {{ loadingApi ? 'BAĞLANTI KURULUYOR...' : 'PROFİL GÜCÜNÜ ÇEK' }}
+            <label>SİSTEM GİRİŞİ: ROLLERCOIN KULLANICI ADI</label>
+            <input type="text" ng-model="userNick" placeholder="Örnek: FthCLK" ng-disabled="isAuthorized">
+            <button class="api-btn" ng-click="fetchUserData()" ng-disabled="loadingApi || !userNick || isAuthorized">
+                {{ isAuthorized ? 'SİSTEM AKTİF' : (loadingApi ? 'BAĞLANTI KURULUYOR...' : 'ERİŞİM İZNİ AL') }}
             </button>
+            <p ng-if="isAuthorized" style="font-size: 0.6rem; margin-top: 5px; color: #888; text-align: center;">✓ Kullanıcı doğrulandı. Hesaplama paneli açıldı.</p>
         </div>
 
-        <div class="grid-row">
-            <div class="input-group">
-                <label>PARA BİRİMİ</label>
-                <select ng-model="calcData.fiat">
-                    <option value="usd">USD ($)</option>
-                    <option value="try">TRY (₺)</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>KRİPTO</label>
-                <select ng-model="calcData.coin" ng-change="updateAutomaticData()">
-                    <option value="rollertoken">RLT (RollerToken)</option>
-                    <option value="seasontoken">RST (SeasonToken)</option>
-                    <option value="bitcoin">BTC (Bitcoin)</option>
-                    <option value="litecoin">LTC (Litecoin)</option>
-                    <option value="binancecoin">BNB (Binance Coin)</option>
-                    <option value="polygon-ecosystem-token">POL (Polygon)</option>
-                    <option value="ripple">XRP (Ripple)</option>
-                    <option value="dogecoin">DOGE (Dogecoin)</option>
-                    <option value="ethereum">ETH (Ethereum)</option>
-                    <option value="tether">USDT (Tether)</option>
-                    <option value="solana">SOL (Solana)</option>
-                    <option value="tron">TRX (Tron)</option>
-                    <option value="algorand">ALGO (Algorand)</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="input-group">
-            <label>Kişisel Gücün (My Power)</label>
-            <div style="display: flex; gap: 10px;">
-                <input type="number" ng-model="calcData.myPower" step="0.001">
-                <select ng-model="calcData.myUnit">
-                    <option value="th">TH/s</option>
-                    <option value="ph">PH/s</option>
-                    <option value="eh">EH/s</option>
-                    <option value="zh">ZH/s</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="input-group">
-            <label>Ağ Gücü (Network Power)</label>
-            <div style="display: flex; gap: 10px;">
-                <input type="number" ng-model="calcData.netPower" step="0.001">
-                <select ng-model="calcData.netUnit">
-                    <option value="th">TH/s</option>
-                    <option value="ph">PH/s</option>
-                    <option value="eh">EH/s</option>
-                    <option value="zh">ZH/s</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="grid-row">
-            <div class="input-group">
-                <label>Blok Ödülü</label>
-                <input type="number" ng-model="calcData.reward" step="0.00000001">
-            </div>
-            <div class="input-group">
-                <label>Süre (Dakika)</label>
-                <input type="number" ng-model="calcData.blockTime" step="0.1">
-            </div>
-        </div>
-
-        <button ng-click="calcular()">HESAPLA</button>
-
-        <div id="loader" class="loader-container">
-            <div class="matrix-loader"></div>
-            <p style="font-size: 0.7rem; margin-top: 10px;">HESAPLANIYOR...</p>
-        </div>
-
-        <div id="results" class="results">
-            <div class="price-badge" id="priceDisplay">Fiyatlar güncelleniyor...</div>
-            <div class="result-card">
-                <span>Blok Başına:</span>
-                <span id="porBloque" class="val-crypto">-</span>
-            </div>
-            <div class="result-card">
-                <span>Günlük Kazanç:</span>
-                <div>
-                    <span id="dia" class="val-crypto">-</span>
-                    <span id="diaFiat" class="val-fiat"></span>
+        <div ng-if="isAuthorized">
+            <div class="grid-row">
+                <div class="input-group">
+                    <label>PARA BİRİMİ</label>
+                    <select ng-model="calcData.fiat">
+                        <option value="usd">USD ($)</option>
+                        <option value="try">TRY (₺)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>KRİPTO</label>
+                    <select ng-model="calcData.coin" ng-change="updateAutomaticData()">
+                        <option value="rollertoken">RLT (RollerToken)</option>
+                        <option value="seasontoken">RST (SeasonToken)</option>
+                        <option value="bitcoin">BTC (Bitcoin)</option>
+                        <option value="litecoin">LTC (Litecoin)</option>
+                        <option value="binancecoin">BNB (Binance Coin)</option>
+                        <option value="polygon-ecosystem-token">POL (Polygon)</option>
+                        <option value="ripple">XRP (Ripple)</option>
+                        <option value="dogecoin">DOGE (Dogecoin)</option>
+                        <option value="ethereum">ETH (Ethereum)</option>
+                        <option value="tether">USDT (Tether)</option>
+                        <option value="solana">SOL (Solana)</option>
+                        <option value="tron">TRX (Tron)</option>
+                        <option value="algorand">ALGO (Algorand)</option>
+                    </select>
                 </div>
             </div>
-            <div class="result-card">
-                <span>Aylık Kazanç:</span>
-                <div>
-                    <span id="mes" class="val-crypto">-</span>
-                    <span id="mesFiat" class="val-fiat"></span>
+
+            <div class="input-group">
+                <label>Kişisel Gücün (My Power)</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" ng-model="calcData.myPower" step="0.001">
+                    <select ng-model="calcData.myUnit">
+                        <option value="th">TH/s</option>
+                        <option value="ph">PH/s</option>
+                        <option value="eh">EH/s</option>
+                        <option value="zh">ZH/s</option>
+                    </select>
                 </div>
             </div>
+
+            <div class="input-group">
+                <label>Ağ Gücü (Network Power)</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" ng-model="calcData.netPower" step="0.001">
+                    <select ng-model="calcData.netUnit">
+                        <option value="th">TH/s</option>
+                        <option value="ph">PH/s</option>
+                        <option value="eh">EH/s</option>
+                        <option value="zh">ZH/s</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid-row">
+                <div class="input-group">
+                    <label>Blok Ödülü</label>
+                    <input type="number" ng-model="calcData.reward" step="0.00000001">
+                </div>
+                <div class="input-group">
+                    <label>Süre (Dakika)</label>
+                    <input type="number" ng-model="calcData.blockTime" step="0.1">
+                </div>
+            </div>
+
+            <button ng-click="calcular()">HESAPLA</button>
+
+            <div id="loader" class="loader-container">
+                <div class="matrix-loader"></div>
+                <p style="font-size: 0.7rem; margin-top: 10px;">VERI ISLENIYOR...</p>
+            </div>
+
+            <div id="results" class="results">
+                <div class="price-badge" id="priceDisplay">Fiyatlar güncelleniyor...</div>
+                <div class="result-card">
+                    <span>Blok Başına:</span>
+                    <span id="porBloque" class="val-crypto">-</span>
+                </div>
+                <div class="result-card">
+                    <span>Günlük Kazanç:</span>
+                    <div>
+                        <span id="dia" class="val-crypto">-</span>
+                        <span id="diaFiat" class="val-fiat"></span>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <span>Aylık Kazanç:</span>
+                    <div>
+                        <span id="mes" class="val-crypto">-</span>
+                        <span id="mesFiat" class="val-fiat"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="!isAuthorized" class="access-denied">
+            <p>HESAPLAMA ARACINI AKTIF ETMEK ICIN <br> KULLANICI ADIN ILE BAGLANTI KURMALISINIZ.</p>
         </div>
     </div>
 
@@ -203,6 +208,8 @@
         }]);
 
         app.controller('MiningController', ['$scope', 'UserMinerService', '$timeout', function($scope, UserMinerService, $timeout) {
+            $scope.isAuthorized = false; // Başlangıçta kapalı
+            
             $scope.calcData = {
                 fiat: 'usd', coin: 'rollertoken', myPower: 0, myUnit: 'th',
                 netPower: 0, netUnit: 'eh', reward: 0.88, blockTime: 10
@@ -211,7 +218,7 @@
             const coinDefaults = {
                 "rollertoken": 0.88, "seasontoken": 66, "bitcoin": 0.0000041,
                 "litecoin": 0.0023, "binancecoin": 0.00035, "polygon-ecosystem-token": 2.29, "ripple": 0.16, "dogecoin": 3.84,
-				"ethereum": 0.00021, "tether": 0.274038, "solana": 1, "algorand": 1111
+                "ethereum": 0.00021, "tether": 0.274038, "solana": 1, "algorand": 1111
             };
 
             $scope.updateAutomaticData = () => {
@@ -219,17 +226,14 @@
             };
 
             $scope.fetchUserData = async function() {
+                if(!$scope.userNick) return;
                 $scope.loadingApi = true;
                 try {
                     const data = await UserMinerService.getAllUserDataByNick($scope.userNick);
                     
-                    // API'den gelen veriyi önce TH/s'ye normalize edelim
-                    // API bazen ham hash (10^12) bazen GH (10^3) dönebiliyor. 
-                    // Genel RollerCoin API standartı GH/s üzerindendir (10^9).
                     let rawPowerGH = parseFloat(data.current_power); 
-                    let thValue = rawPowerGH / 1000; // GH -> TH
+                    let thValue = rawPowerGH / 1000;
 
-                    // OTOMATİK BİRİM SEÇİCİ (Threshold bazlı)
                     if (thValue >= 1000000000) {
                         $scope.calcData.myPower = parseFloat((thValue / 1000000000).toFixed(4));
                         $scope.calcData.myUnit = 'zh';
@@ -244,10 +248,10 @@
                         $scope.calcData.myUnit = 'th';
                     }
 
-                    $scope.$apply(); // Angular view güncellemesi
-                    alert("Güç verisi başarıyla çekildi ve birim (" + $scope.calcData.myUnit.toUpperCase() + ") olarak ayarlandı.");
+                    $scope.isAuthorized = true; // KİLİDİ AÇ
+                    $scope.$apply();
                 } catch(e) {
-                    alert("Hata: Veri çekilemedi. Nickname yanlış olabilir veya proxy sunucusu yanıt vermiyor.");
+                    alert("Hata: Kullanıcı bulunamadı veya API hatası.");
                 } finally {
                     $scope.loadingApi = false;
                     $scope.$apply();
@@ -262,9 +266,14 @@
                 const myTH = $scope.calcData.myPower * units[$scope.calcData.myUnit];
                 const netTH = $scope.calcData.netPower * units[$scope.calcData.netUnit];
                 
+                if(!netTH || netTH <= 0) {
+                    alert("Lütfen Ağ Gücü değerini girin.");
+                    document.getElementById('loader').style.display = 'none';
+                    return;
+                }
+
                 const porBloque = (myTH / netTH) * $scope.calcData.reward;
                 const daily = porBloque * (1440 / $scope.calcData.blockTime);
-                
                 const coin = ($scope.calcData.coin === 'rollertoken' || $scope.calcData.coin === 'seasontoken') ? 'tether' : $scope.calcData.coin;
                 
                 try {
