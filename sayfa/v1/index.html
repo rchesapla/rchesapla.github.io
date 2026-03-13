@@ -189,7 +189,7 @@
                     </div>
                 </div>
 
-                <div class="limit-info">
+                <div id="withdrawSection" class="limit-info">
                     <div class="limit-text">
                         <span>Minimum Çekim Limiti:</span>
                         <span id="minLimit" class="val-crypto">-</span>
@@ -340,39 +340,46 @@
                         document.getElementById('diaFiat').innerText = `${sym}${(daily * currentPrice).toFixed(2)}`;
                         document.getElementById('mesFiat').innerText = `${sym}${(monthly * currentPrice).toFixed(2)}`;
 
-                        const limit = withdrawLimits[$scope.calcData.coin];
-                        const limitText = document.getElementById('minLimit');
-                        const progressBar = document.getElementById('progressBar');
-                        const limitNote = document.getElementById('limitNote');
-                        const timeBadge = document.getElementById('timeToWithdraw');
-
-                        if (limit > 0) {
-                            limitText.innerText = `${limit} ${$scope.calcData.coin.toUpperCase()}`;
-                            const percent = Math.min((monthly / limit) * 100, 100).toFixed(1);
-                            progressBar.style.width = percent + '%';
-                            
-                            // ZAMAN HESAPLAMA MANTIĞI
-                            if (daily > 0) {
-                                const totalDays = limit / daily;
-                                const years = Math.floor(totalDays / 365);
-                                const months = Math.floor((totalDays % 365) / 30);
-                                const days = Math.floor(totalDays % 30);
-                                
-                                let timeStr = "Tahmini Süre: ";
-                                if(years > 0) timeStr += `${years} Yıl `;
-                                if(months > 0) timeStr += `${months} Ay `;
-                                if(days > 0 || timeStr === "Tahmini Süre: ") timeStr += `${days} Gün`;
-                                
-                                timeBadge.innerText = timeStr;
-                                limitNote.innerText = `Aylık kazancınızla çekim limitinin %${percent} kadarına ulaşıyorsunuz.`;
-                            } else {
-                                timeBadge.innerText = "Kazanç çok düşük, süre hesaplanamadı.";
-                            }
+                        // ÇEKİM BÖLÜMÜ GÖSTERME/GİZLEME KONTROLÜ
+                        const withdrawSection = document.getElementById('withdrawSection');
+                        if ($scope.calcData.coin === 'rollertoken' || $scope.calcData.coin === 'seasontoken') {
+                            withdrawSection.style.display = 'none';
                         } else {
-                            limitText.innerText = "Çekilemez";
-                            progressBar.style.width = '0%';
-                            timeBadge.innerText = "";
-                            limitNote.innerText = "RLT ve RST birimleri oyun içi paradır, çekim yapılamaz.";
+                            withdrawSection.style.display = 'block';
+                            
+                            const limit = withdrawLimits[$scope.calcData.coin];
+                            const limitText = document.getElementById('minLimit');
+                            const progressBar = document.getElementById('progressBar');
+                            const limitNote = document.getElementById('limitNote');
+                            const timeBadge = document.getElementById('timeToWithdraw');
+
+                            if (limit > 0) {
+                                limitText.innerText = `${limit} ${$scope.calcData.coin.toUpperCase()}`;
+                                const percent = Math.min((monthly / limit) * 100, 100).toFixed(1);
+                                progressBar.style.width = percent + '%';
+                                
+                                if (daily > 0) {
+                                    const totalDays = limit / daily;
+                                    const years = Math.floor(totalDays / 365);
+                                    const months = Math.floor((totalDays % 365) / 30);
+                                    const days = Math.floor(totalDays % 30);
+                                    
+                                    let timeStr = "Tahmini Süre: ";
+                                    if(years > 0) timeStr += `${years} Yıl `;
+                                    if(months > 0) timeStr += `${months} Ay `;
+                                    if(days > 0 || timeStr === "Tahmini Süre: ") timeStr += `${days} Gün`;
+                                    
+                                    timeBadge.innerText = timeStr;
+                                    limitNote.innerText = `Aylık kazancınızla çekim limitinin %${percent} kadarına ulaşıyorsunuz.`;
+                                } else {
+                                    timeBadge.innerText = "Kazanç çok düşük, süre hesaplanamadı.";
+                                }
+                            } else {
+                                limitText.innerText = "Limit Bilgisi Yok";
+                                progressBar.style.width = '0%';
+                                timeBadge.innerText = "";
+                                limitNote.innerText = "Bu birim için çekim limiti verisi bulunamadı.";
+                            }
                         }
 
                         document.getElementById('loader').style.display = 'none';
