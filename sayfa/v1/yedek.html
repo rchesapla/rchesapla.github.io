@@ -77,10 +77,10 @@
 
     <div class="container">
         <div class="api-section">
-            <label>SISTEM GIRIŞI: ROLLERCOIN NICKNAME</label>
-            <input type="text" ng-model="userNick" placeholder="Kullanıcı adını yazın..." ng-disabled="isAuthorized">
+            <label>SİSTEM GİRİŞİ: ROLLERCOIN KULLANICI ADI</label>
+            <input type="text" ng-model="userNick" placeholder="Örnek: FthCLK" ng-disabled="isAuthorized">
             <button class="api-btn" ng-click="fetchUserData()" ng-disabled="loadingApi || !userNick || isAuthorized">
-                {{ isAuthorized ? 'SISTEM AKTIF' : (loadingApi ? 'BAGLANTI KURULUYOR...' : 'ERISIM IZNINI AL') }}
+                {{ isAuthorized ? 'SİSTEM AKTİF' : (loadingApi ? 'BAĞLANTI KURULUYOR...' : 'ERİŞİM İZNİ AL') }}
             </button>
             <p ng-if="isAuthorized" style="font-size: 0.6rem; margin-top: 5px; color: #888; text-align: center;">✓ Kullanıcı doğrulandı. Hesaplama paneli açıldı.</p>
         </div>
@@ -182,7 +182,7 @@
         </div>
 
         <div ng-if="!isAuthorized" class="access-denied">
-            <p>HESAPLAMA ARACINI AKTIF ETMEK ICIN <br> NICKNAME ILE BAGLANTI KURMALISINIZ.</p>
+            <p>HESAPLAMA ARACINI AKTIF ETMEK ICIN <br> KULLANICI ADIN ILE BAGLANTI KURMALISINIZ.</p>
         </div>
     </div>
 
