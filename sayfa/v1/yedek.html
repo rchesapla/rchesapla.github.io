@@ -30,7 +30,6 @@
             min-height: 100vh;
         }
 
-        /* --- POPUP LOADER CSS --- */
         .loading-popup {
             position: fixed;
             top: 0;
@@ -69,7 +68,6 @@
             letter-spacing: 2px;
             text-transform: uppercase;
         }
-        /* ----------------------- */
 
         .navbar {
             background: rgba(15, 23, 42, 0.8);
@@ -464,7 +462,7 @@
             };
 
             $scope.calcular = async function() {
-                $scope.loadingApi = true; // Hesaplama sırasında da loader gösterelim
+                $scope.loadingApi = true; 
                 localStorage.setItem('rc_user_calculations', (parseInt(localStorage.getItem('rc_user_calculations')) || 0) + 1);
                 $scope.totalCalculations++;
                 const units = { th: 1, ph: 1000, eh: 1000000 };
@@ -474,8 +472,10 @@
                 const daily = porBloque * (1440 / $scope.calcData.blockTime);
                 const cgMap = { 'RLT':'tether','RST':'tether','BTC':'bitcoin','ETH':'ethereum','BNB':'binancecoin','MATIC':'polygon-ecosystem-token','LTC':'litecoin','DOGE':'dogecoin','SOL':'solana','TRX':'tron','XRP':'ripple','USDT':'tether','ALGO':'algorand' };
                 const coinKey = cgMap[$scope.calcData.coin] || 'tether';
+                
                 try {
                     const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinKey}&vs_currencies=usd,try`);
+                    if (!res.ok) throw new Error("API Limit");
                     const prices = await res.json();
                     const price = prices[coinKey][$scope.calcData.fiat];
                     $timeout(() => {
@@ -493,7 +493,17 @@
                         document.getElementById('results').style.display = 'block';
                         $scope.loadingApi = false;
                     }, 100);
-                } catch(e) { $scope.loadingApi = false; alert("Fiyat hatası."); }
+                } catch(e) { 
+                    // Fiyat hatası durumunda bildirim ver ve tekrarla
+                    $timeout(() => {
+                        document.getElementById('results').style.display = 'block';
+                        document.getElementById('priceDisplay').innerHTML = '<span style="color:#ff4444">Fiyat hatası! 3sn içinde tekrar deneniyor...</span>';
+                    });
+                    
+                    $timeout(() => {
+                        $scope.calcular(); 
+                    }, 3000);
+                }
             };
         }]);
 
