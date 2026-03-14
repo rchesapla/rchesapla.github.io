@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RC CALCULATOR PRO - AUTO LEAGUE</title>
+    <title>RCHESAPLA PRO - OTOMATİK SİSTEM 2026</title>
     <link rel="shortcut icon" type="image/x-icon" href="icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -135,6 +135,23 @@
         .power-input-group { display: grid; grid-template-columns: 2fr 1fr; gap: 10px; }
         canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.15; }
         .manual-reward-box { background: rgba(255, 204, 0, 0.1); border: 1px solid var(--reward-gold); padding: 15px; border-radius: 10px; margin-bottom: 20px; }
+
+        .history-tag {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .history-tag:hover { background: rgba(56, 189, 248, 0.2); border-color: var(--primary); }
+        .history-del { color: #ff4444; font-weight: bold; padding: 0 4px; border-radius: 4px; }
+        .history-del:hover { background: rgba(255, 68, 68, 0.2); }
     </style>
 </head>
 <body ng-controller="MiningController">
@@ -154,6 +171,14 @@
                 <button class="btn-main" style="width: auto; padding: 0 20px;" ng-click="fetchUserData()" ng-disabled="loadingApi || !userNick || isAuthorized">
                     {{ isAuthorized ? 'AKTİF' : (loadingApi ? '...' : 'SİSTEMİ AKTİF ET') }}
                 </button>
+            </div>
+
+            <div ng-if="userHistory.length > 0 && !isAuthorized" style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px;">
+                <span style="font-size: 0.7rem; color: var(--text-dim); width: 100%; font-weight: bold;">GEÇMİŞTEN HIZLI HESAPLA:</span>
+                <div ng-repeat="nick in userHistory track by $index" class="history-tag">
+                    <span ng-click="quickFetch(nick)" style="font-weight: 600;">{{nick}}</span>
+                    <span class="history-del" ng-click="removeFromHistory($index)">×</span>
+                </div>
             </div>
 
             <div class="stats-box">
@@ -279,7 +304,6 @@
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -340,19 +364,28 @@
                 const apiUser = `https://rollercoin.com/api/profile/public-user-profile-data/${nick}`;
                 const resUser = await $http.get(proxy + encodeURIComponent(apiUser));
                 if(!resUser.data.data) throw "Kullanıcı Yok";
-                
                 const resPower = await $http.get(proxy + encodeURIComponent(`https://rollercoin.com/api/profile/user-power-data/${resUser.data.data.avatar_id}`));
-                
-                // Güç verisi ve Lig ID bilgisini birlikte döndürüyoruz
-                return {
-                    powerData: resPower.data.data,
-                    leagueId: resUser.data.data.league_id
-                };
+                return { powerData: resPower.data.data, leagueId: resUser.data.data.league_id };
             };
         }]);
 
         serviceApp.controller('MiningController', ['$scope', 'UserMinerService', 'CurrencyService', '$timeout', 
         function($scope, UserMinerService, CurrencyService, $timeout) {
+            
+            // GEÇMİŞ YÖNETİMİ
+            $scope.userHistory = JSON.parse(localStorage.getItem('rc_user_history')) || [];
+            
+            // Hızlı Hesaplama Fonksiyonu
+            $scope.quickFetch = function(nick) {
+                $scope.userNick = nick;
+                $scope.fetchUserData();
+            };
+
+            $scope.removeFromHistory = function(index) {
+                $scope.userHistory.splice(index, 1);
+                localStorage.setItem('rc_user_history', JSON.stringify($scope.userHistory));
+            };
+
             $scope.totalCalculations = 1420 + (parseInt(localStorage.getItem('rc_user_calculations')) || 0);
             $scope.isAuthorized = false; $scope.loadingLeague = false; $scope.liveData = []; $scope.lastUpdate = "Otomatik";
             $scope.leagues = CurrencyService.getLeagues();
@@ -385,18 +418,19 @@
                 $scope.loadingApi = true;
                 try {
                     const response = await UserMinerService.getAllUserDataByNick($scope.userNick);
-                    const powerData = response.powerData;
                     
-                    // Güç Hesaplama
+                    if (!$scope.userHistory.includes($scope.userNick)) {
+                        $scope.userHistory.push($scope.userNick);
+                        localStorage.setItem('rc_user_history', JSON.stringify($scope.userHistory));
+                    }
+
+                    const powerData = response.powerData;
                     let th = parseFloat(powerData.current_power) / 1000;
                     if (th >= 1000000) { $scope.calcData.myPower = parseFloat((th/1000000).toFixed(2)); $scope.calcData.myUnit = 'eh'; }
                     else if (th >= 1000) { $scope.calcData.myPower = parseFloat((th/1000).toFixed(2)); $scope.calcData.myUnit = 'ph'; }
                     else { $scope.calcData.myPower = Math.round(th); $scope.calcData.myUnit = 'th'; }
 
-                    // LİG SEVİYESİNİ OTOMATİK SEÇ
-                    if(response.leagueId) {
-                        $scope.calcData.leagueId = response.leagueId;
-                    }
+                    if(response.leagueId) { $scope.calcData.leagueId = response.leagueId; }
 
                     $scope.isAuthorized = true; 
                     await $scope.updateLeagueData();
