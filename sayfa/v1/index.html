@@ -167,7 +167,7 @@
         <div class="card">
             <div class="card-title">● SİSTEM ERİŞİMİ</div>
             <div style="display: flex; gap: 10px;">
-                <input type="text" ng-model="userNick" placeholder="RC kul. adı: FthCLK" ng-disabled="isAuthorized">
+                <input type="text" ng-model="userNick" placeholder="Rollercoin Kullanıcı Adı" ng-disabled="isAuthorized">
                 <button class="btn-main" style="width: auto; padding: 0 20px;" ng-click="fetchUserData()" ng-disabled="loadingApi || !userNick || isAuthorized">
                     {{ isAuthorized ? 'AKTİF' : (loadingApi ? '...' : 'SİSTEMİ AKTİF ET') }}
                 </button>
