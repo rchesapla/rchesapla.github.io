@@ -269,7 +269,7 @@
                 </div>
 
                 <div class="manual-reward-box">
-                    <label style="color: var(--reward-gold);">BLOK ÖDÜLÜ (GÜNCEL: {{lastUpdate}})</label>
+                    <label style="color: var(--reward-gold);">BLOK ÖDÜLÜ ({{lastUpdate}})</label>
                     <div style="display: flex; gap: 10px; align-items: center;">
                         <input type="number" ng-model="calcData.reward" step="0.00000001" style="border-color: var(--reward-gold);">
                         <span style="font-weight: 800; color: var(--reward-gold);">{{calcData.coin}}</span>
@@ -437,7 +437,7 @@
                     $scope.calcData.reward = coin.blockSize;
                     $scope.calcData.netPower = parseFloat((coin.networkPower / 1000000000).toFixed(4));
                     $scope.calcData.blockTime = coin.blockTime / 60;
-                    $scope.lastUpdate = "Sistemden Çekildi";
+                    $scope.lastUpdate = " Güncellendi ";
                 }
             };
 
