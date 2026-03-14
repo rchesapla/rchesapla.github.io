@@ -2,209 +2,191 @@
 <html lang="tr" ng-app="miningApp">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RC MINER TRACKER - 2026</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RC MINER HUB PRO - 2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <style>
         :root {
-            --primary: #00ff88;
-            --bg-dark: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
-            --text-dim: #94a3b8;
-            --accent: #38bdf8;
-            --rare: #3b82f6;
-            --epic: #a855f7;
-            --legendary: #eab308;
-            --unreal: #ef4444;
+            --primary: #00ff88; --bg-dark: #0f172a; --card-bg: #1e293b;
+            --text-main: #f8fafc; --text-dim: #94a3b8; --accent: #38bdf8;
+            --market-orange: #ff9f43;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            background-image: radial-gradient(circle at top right, #1e293b, #0f172a);
-            min-height: 100vh;
+        body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; padding-bottom: 50px; }
+
+        .nav-tabs {
+            display: flex; justify-content: center; gap: 10px; padding: 20px;
+            background: rgba(15, 23, 42, 0.9); position: sticky; top: 0; z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-
-        .navbar {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 1rem; text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+        .tab-btn {
+            background: #1e293b; border: 1px solid #334155; color: white;
+            padding: 10px 25px; border-radius: 30px; cursor: pointer; font-weight: 600; transition: 0.3s;
         }
+        .tab-btn.active { background: var(--primary); color: #000; border-color: var(--primary); }
 
-        .navbar h1 { font-size: 1.1rem; letter-spacing: 2px; color: var(--primary); font-weight: 800; }
-        .wrapper { max-width: 1000px; margin: 20px auto; padding: 0 15px; }
+        .wrapper { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
 
-        .search-card {
-            background: var(--card-bg);
-            border-radius: 16px; padding: 20px;
-            margin-bottom: 20px;
-            display: flex; gap: 10px;
-            border: 1px solid rgba(255,255,255,0.05);
+        .search-container {
+            background: var(--card-bg); padding: 15px; border-radius: 16px;
+            margin: 20px 0; display: flex; gap: 10px; border: 1px solid rgba(255,255,255,0.05);
         }
+        input { flex: 1; background: #0f172a; border: 1px solid #334155; padding: 12px; border-radius: 10px; color: white; outline: none; }
+        input:focus { border-color: var(--primary); }
 
-        input {
-            flex: 1; background: #0f172a; border: 1px solid #334155;
-            padding: 12px 16px; border-radius: 10px; color: white;
-        }
-
-        .btn-fetch {
-            background: var(--primary); color: #000; border: none;
-            padding: 0 25px; border-radius: 10px; font-weight: 800; cursor: pointer;
-        }
-
-        /* Madenci Kartları Tasarımı */
-        .miner-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 15px;
-        }
-
+        .miner-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
         .miner-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 15px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.2s;
-            position: relative;
-            overflow: hidden;
+            background: var(--card-bg); border-radius: 14px; padding: 15px;
+            border: 1px solid rgba(255,255,255,0.05); text-align: center;
+            display: flex; flex-direction: column; transition: 0.3s;
         }
+        .miner-card:hover { transform: translateY(-5px); border-color: var(--primary); }
 
-        .miner-card:hover { transform: translateY(-3px); border-color: var(--primary); }
+        .miner-img-wrap {
+            background: #0f172a; border-radius: 10px; padding: 15px;
+            margin-bottom: 12px; height: 120px; display: flex; align-items: center; justify-content: center;
+        }
+        .miner-img { max-width: 140px; height: auto; image-rendering: pixelated; }
 
-        .miner-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+        .miner-name { font-weight: 800; font-size: 0.95rem; margin-bottom: 8px; color: var(--text-main); height: 40px; display: flex; align-items: center; justify-content: center; }
         
-        .miner-name { font-weight: 700; font-size: 0.9rem; color: var(--text-main); line-height: 1.2; max-width: 70%; }
-        
-        .level-badge {
-            font-size: 0.65rem; padding: 2px 6px; border-radius: 4px;
-            font-weight: 800; text-transform: uppercase;
+        .badge { font-size: 0.7rem; padding: 4px 10px; border-radius: 6px; font-weight: 800; margin-bottom: 12px; display: inline-block; text-transform: uppercase; }
+        .lvl-common { background: #64748b; } .lvl-rare { background: #3b82f6; } .lvl-legendary { background: #eab308; color: #000; }
+
+        .stats-row {
+            display: grid; grid-template-columns: 1fr 1fr; background: rgba(0,0,0,0.3);
+            padding: 10px; border-radius: 10px; margin-bottom: 15px; font-size: 0.85rem;
         }
+        .pwr-val { color: var(--accent); font-family: 'JetBrains Mono'; display: block; }
+        .bn-val { color: var(--primary); font-weight: bold; display: block; }
 
-        /* Seviye Renkleri */
-        .lvl-common { background: #64748b; color: white; }
-        .lvl-uncommon { background: #22c55e; color: white; }
-        .lvl-rare { background: var(--rare); color: white; }
-        .lvl-epic { background: var(--epic); color: white; }
-        .lvl-legendary { background: var(--legendary); color: black; }
-        .lvl-unreal { background: var(--unreal); color: white; }
-
-        .miner-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            margin-top: 15px;
-            padding-top: 10px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+        /* Market Linki Butonu */
+        .market-link {
+            background: transparent; border: 1px solid var(--market-orange); color: var(--market-orange);
+            text-decoration: none; padding: 10px; border-radius: 8px; font-size: 0.8rem;
+            font-weight: 700; transition: 0.3s; margin-top: auto;
         }
+        .market-link:hover { background: var(--market-orange); color: #000; }
 
-        .stat-box { display: flex; flex-direction: column; }
-        .stat-label { font-size: 0.65rem; color: var(--text-dim); text-transform: uppercase; }
-        .stat-value { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; font-weight: 600; }
-        .pwr-color { color: var(--accent); }
-        .bonus-color { color: var(--primary); }
-
-        .loading-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15,23,42,0.8); display: flex; align-items: center; justify-content: center; z-index: 1000;
-        }
+        .loading { text-align: center; color: var(--primary); padding: 40px; font-weight: 800; letter-spacing: 2px; }
     </style>
 </head>
-<body ng-controller="MinerController">
+<body ng-controller="MainController">
 
-    <div class="loading-overlay" ng-if="isLoading">
-        <div style="color: var(--primary); font-weight: 800; letter-spacing: 2px;">VERİLER YÜKLENİYOR...</div>
+    <div class="nav-tabs">
+        <button class="tab-btn" ng-class="{'active': activeTab === 'inv'}" ng-click="activeTab = 'inv'">🎒 ENVANTER ANALİZİ</button>
+        <button class="tab-btn" ng-class="{'active': activeTab === 'shop'}" ng-click="activeTab = 'shop'">🏪 MAĞAZA REHBERİ</button>
     </div>
 
-    <nav class="navbar">
-        <h1>ROLLERCOIN MINER INVENTORY</h1>
-    </nav>
-
     <div class="wrapper">
-        <div class="search-card">
-            <input type="text" ng-model="userNick" placeholder="Kullanıcı Adı Girin (Örn: FthCLK)">
-            <button class="btn-fetch" ng-click="fetchMiners()" ng-disabled="!userNick || isLoading">GETİR</button>
-        </div>
-
-        <div ng-if="miners.length > 0">
-            <div style="margin-bottom: 15px; font-size: 0.8rem; color: var(--text-dim);">
-                Toplam Madenci: <span style="color: var(--primary)">{{miners.length}}</span>
+        
+        <div ng-show="activeTab === 'inv'">
+            <div class="search-container">
+                <input type="text" ng-model="userNick" placeholder="RC Kullanıcı Adı Girin...">
+                <button class="tab-btn active" ng-click="fetchInventory()">VERİLERİ ÇEK</button>
             </div>
-            
-            <div class="miner-grid">
-                <div class="miner-card" ng-repeat="miner in miners">
-                    <div class="miner-header">
-                        <div class="miner-name">{{miner.name}}</div>
-                        <span class="level-badge lvl-{{miner.level_label.toLowerCase()}}">{{miner.level_label}}</span>
+
+            <div class="loading" ng-if="isLoading">API SORGULANIYOR...</div>
+
+            <div class="miner-grid" ng-if="!isLoading">
+                <div class="miner-card" ng-repeat="m in inventory">
+                    <div class="miner-img-wrap">
+                        <img ng-src="https://static.rollercoin.com/static/img/market/miners/{{m.item_id}}.png" 
+                             class="miner-img" 
+                             onerror="this.src='https://static.rollercoin.com/static/img/market/miners/placeholder.png'">
                     </div>
                     
-                    <div class="miner-stats">
-                        <div class="stat-box">
-                            <span class="stat-label">Güç</span>
-                            <span class="stat-value pwr-color">{{miner.power}} GH/s</span>
+                    <div class="miner-name">{{m.name}}</div>
+                    <div><span class="badge lvl-{{m.level_label.toLowerCase()}}">{{m.level_label}}</span></div>
+                    
+                    <div class="stats-row">
+                        <div>
+                            <small style="font-size: 0.6rem; color: var(--text-dim)">GÜÇ</small>
+                            <span class="pwr-val">{{m.power}} GH/s</span>
                         </div>
-                        <div class="stat-box" style="text-align: right;">
-                            <span class="stat-label">Bonus</span>
-                            <span class="stat-value bonus-color">+{{miner.bonus_power / 100}}%</span>
+                        <div>
+                            <small style="font-size: 0.6rem; color: var(--text-dim)">BONUS</small>
+                            <span class="bn-val">+{{m.bonus_power / 100}}%</span>
                         </div>
                     </div>
+
+                    <a ng-href="https://rollercoin.com/marketplace/buy/miners?search={{m.name}}" 
+                       target="_blank" 
+                       class="market-link">
+                       🛒 MAĞAZADA GÖR
+                    </a>
                 </div>
             </div>
         </div>
 
-        <div class="card" ng-if="miners.length === 0 && !isLoading" style="text-align: center; padding: 40px; color: var(--text-dim); background: var(--card-bg); border-radius: 16px;">
-            Madencileri listelemek için bir kullanıcı adı sorgulayın.
+        <div ng-show="activeTab === 'shop'">
+            <div class="search-container">
+                <input type="text" ng-model="shopSearch" placeholder="Model veya ID ile filtrele...">
+            </div>
+            <div class="miner-grid">
+                <div class="miner-card" ng-repeat="m in allMiners | filter:shopSearch">
+                    <div class="miner-img-wrap">
+                        <img ng-src="https://static.rollercoin.com/static/img/market/miners/{{m.miner_id}}.png" class="miner-img">
+                    </div>
+                    <div class="miner-name">{{m.name}}</div>
+                    <span class="badge lvl-{{m.level_label.toLowerCase()}}">{{m.level_label}}</span>
+                    <div class="stats-row">
+                        <span class="pwr-val">{{m.power}} GH/s</span>
+                        <span class="bn-val">+{{m.bonus_power / 100}}%</span>
+                    </div>
+                    <a ng-href="https://rollercoin.com/marketplace/buy/miners/{{m.miner_id}}" target="_blank" class="market-link">🛒 MARKETTE ARA</a>
+                </div>
+            </div>
         </div>
+
     </div>
 
     <script>
         const app = angular.module('miningApp', []);
 
-        app.controller('MinerController', ['$scope', '$http', function($scope, $http) {
+        app.controller('MainController', ['$scope', '$http', function($scope, $http) {
             const proxy = "https://morning-thunder-0ce3.wminerrc.workers.dev/?";
-            const miner_levels = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Unreal'];
+            const levels = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Unreal'];
             
-            $scope.miners = [];
+            $scope.activeTab = 'inv';
+            $scope.inventory = [];
             $scope.isLoading = false;
 
-            $scope.fetchMiners = async function() {
+            $scope.fetchInventory = async function() {
+                if(!$scope.userNick) return;
                 $scope.isLoading = true;
-                $scope.miners = [];
-                
                 try {
-                    // 1. Kullanıcı Profili
+                    // Kullanıcı bilgilerini al
                     const uUrl = encodeURIComponent(`https://rollercoin.com/api/profile/public-user-profile-data/${$scope.userNick}`);
                     const userRes = await $http.get(proxy + uUrl);
-                    
-                    if(userRes.data.error !== "") throw "Kullanıcı bulunamadı!";
                     const avatarId = userRes.data.data.avatar_id;
 
-                    // 2. Oda/Miner Konfigürasyonu
+                    // Oda konfigürasyonunu (Madencileri) al
                     const rUrl = encodeURIComponent(`https://rollercoin.com/api/game/room-config/${avatarId}`);
                     const roomRes = await $http.get(proxy + rUrl);
 
-                    if(roomRes.data.data && roomRes.data.data.miners) {
-                        $scope.$apply(() => {
-                            $scope.miners = roomRes.data.data.miners.map(m => {
-                                return {
-                                    name: m.name,
-                                    power: m.power,
-                                    bonus_power: m.bonus_power,
-                                    level_label: miner_levels[m.level] || 'Basic'
-                                };
-                            });
+                    $scope.$apply(() => {
+                        $scope.inventory = roomRes.data.data.miners.map(m => {
+                            m.level_label = levels[m.level] || 'Basic';
+                            return m;
                         });
-                    }
-
-                } catch (e) {
-                    alert("Hata oluştu: " + e);
-                } finally {
-                    $scope.$apply(() => { $scope.isLoading = false; });
+                        $scope.isLoading = false;
+                    });
+                } catch(e) {
+                    alert("Hata: Kullanıcı verisi çekilemedi.");
+                    $scope.isLoading = false;
+                    $scope.$apply();
                 }
             };
+
+            // Örnek Mağaza Verisi
+            $scope.allMiners = [
+                { name: "Gold Digger", miner_id: "gold_digger", power: 150, bonus_power: 0, level_label: "Common" },
+                { name: "El Monstro", miner_id: "el_monstro", power: 110000, bonus_power: 100, level_label: "Legendary" },
+                { name: "The RollerMillion", miner_id: "the_rollermillion", power: 1000000, bonus_power: 500, level_label: "Unreal" }
+            ];
         }]);
     </script>
 </body>
