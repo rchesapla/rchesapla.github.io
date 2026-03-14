@@ -120,18 +120,61 @@
             text-transform: uppercase;
         }
 
-        .navbar {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 1rem;
-            text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+.navbar {
+    background: rgba(7, 11, 20, 0.95); /* Footer ile aynı koyu ton */
+    backdrop-filter: blur(15px);
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 2px solid rgba(0, 255, 136, 0.3); /* Footer vurgusuyla uyumlu */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
 
-        .navbar h1 { font-size: 1.2rem; letter-spacing: 2px; color: var(--primary); font-weight: 800; }
+.nav-container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    color: var(--primary); /* Neon yeşil */
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.active-users {
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: var(--primary);
+    font-family: 'JetBrains Mono', monospace; /* Teknik font kullanımı */
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--primary);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); opacity: 0.7; }
+    70% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.7; }
+}
         .wrapper { max-width: 800px; margin: 20px auto; padding: 0 15px; }
 
         .card {
@@ -339,9 +382,9 @@ footer {
 
     <canvas id="matrix"></canvas>
 
-    <nav class="navbar">
-        <h1>RC CALCULATOR PRO</h1>
-    </nav>
+<nav class="navbar">
+    <span class="footer-logo" style="margin-bottom: 0;">RC CALCULATOR PRO</span>
+</nav>
 
     <div class="wrapper">
         
