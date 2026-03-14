@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RC CALCULATOR PRO | Live Stats</title>
+    <title>RC CALCULATOR PRO - AUTO LEAGUE</title>
     <link rel="shortcut icon" type="image/x-icon" href="icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -251,34 +251,34 @@
                 </div>
             </div>
 
-        <div class="card" ng-if="isAuthorized && liveData.length > 0">
-            <div class="card-title">
-                ● CANLI KRİPTO KAZANÇLARI
-                <span class="loading-overlay" ng-click="updateLeagueData()">
-                    {{ loadingLeague ? 'GÜNCELLENİYOR...' : '🔄 VERİYİ GÜNCELLE' }}
-                </span>
+            <div class="card" ng-if="isAuthorized && liveData.length > 0">
+                <div class="card-title">
+                    ● CANLI KRİPTO KAZANÇLARI
+                    <span class="loading-overlay" ng-click="updateLeagueData()">
+                        {{ loadingLeague ? 'GÜNCELLENİYOR...' : '🔄 VERİYİ GÜNCELLE' }}
+                    </span>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="live-table">
+                        <thead>
+                            <tr>
+                                <th>COIN</th>
+                                <th>AĞ GÜCÜ (EH/s)</th>
+                                <th>BLOK ÖDÜLÜ</th>
+                                <th>SÜRE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in liveData">
+                                <td class="coin-name">{{item.name}}</td>
+                                <td class="stats-val">{{(item.networkPower / 1000000000).toFixed(2)}}</td>
+                                <td class="reward-val">{{item.blockSize.toFixed(4)}}</td>
+                                <td>{{(item.blockTime / 60).toFixed(1)}} dk</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div style="overflow-x: auto;">
-                <table class="live-table">
-                    <thead>
-                        <tr>
-                            <th>COIN</th>
-                            <th>AĞ GÜCÜ (EH/s)</th>
-                            <th>BLOK ÖDÜLÜ</th>
-                            <th>SÜRE</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="item in liveData">
-                            <td class="coin-name">{{item.name}}</td>
-                            <td class="stats-val">{{(item.networkPower / 1000000000).toFixed(2)}}</td>
-                            <td class="reward-val">{{item.blockSize.toFixed(4)}}</td>
-                            <td>{{(item.blockTime / 60).toFixed(1)}} dk</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
 
         </div>
     </div>
@@ -340,8 +340,14 @@
                 const apiUser = `https://rollercoin.com/api/profile/public-user-profile-data/${nick}`;
                 const resUser = await $http.get(proxy + encodeURIComponent(apiUser));
                 if(!resUser.data.data) throw "Kullanıcı Yok";
+                
                 const resPower = await $http.get(proxy + encodeURIComponent(`https://rollercoin.com/api/profile/user-power-data/${resUser.data.data.avatar_id}`));
-                return resPower.data.data;
+                
+                // Güç verisi ve Lig ID bilgisini birlikte döndürüyoruz
+                return {
+                    powerData: resPower.data.data,
+                    leagueId: resUser.data.data.league_id
+                };
             };
         }]);
 
@@ -354,12 +360,12 @@
 
             $scope.updateLeagueData = async function() {
                 if (!$scope.calcData.leagueId) return;
-                const isForce = $scope.isAuthorized; // Zaten aktifse ve tıklandıysa zorla yenile
+                const isForce = $scope.isAuthorized; 
                 $scope.loadingLeague = true;
                 try {
                     const data = await CurrencyService.getDetailedCurrenciesByLeague($scope.calcData.leagueId, isForce);
                     $timeout(() => { $scope.liveData = data; $scope.updateFromLiveData(); });
-                } catch (e) { alert("Veri hatası."); }
+                } catch (e) { console.error(e); }
                 finally { $scope.loadingLeague = false; $scope.$apply(); }
             };
 
@@ -378,12 +384,22 @@
                 if(!$scope.userNick) return;
                 $scope.loadingApi = true;
                 try {
-                    const data = await UserMinerService.getAllUserDataByNick($scope.userNick);
-                    let th = parseFloat(data.current_power) / 1000;
+                    const response = await UserMinerService.getAllUserDataByNick($scope.userNick);
+                    const powerData = response.powerData;
+                    
+                    // Güç Hesaplama
+                    let th = parseFloat(powerData.current_power) / 1000;
                     if (th >= 1000000) { $scope.calcData.myPower = parseFloat((th/1000000).toFixed(2)); $scope.calcData.myUnit = 'eh'; }
                     else if (th >= 1000) { $scope.calcData.myPower = parseFloat((th/1000).toFixed(2)); $scope.calcData.myUnit = 'ph'; }
                     else { $scope.calcData.myPower = Math.round(th); $scope.calcData.myUnit = 'th'; }
-                    $scope.isAuthorized = true; await $scope.updateLeagueData();
+
+                    // LİG SEVİYESİNİ OTOMATİK SEÇ
+                    if(response.leagueId) {
+                        $scope.calcData.leagueId = response.leagueId;
+                    }
+
+                    $scope.isAuthorized = true; 
+                    await $scope.updateLeagueData();
                 } catch(e) { alert("Kullanıcı bulunamadı."); }
                 finally { $scope.loadingApi = false; $scope.$apply(); }
             };
@@ -420,6 +436,7 @@
             };
         }]);
 
+        // Matrix Background
         const canvas = document.getElementById('matrix'), ctx = canvas.getContext('2d');
         let w = canvas.width = window.innerWidth, h = canvas.height = window.innerHeight, cols = Math.floor(w/20), drops = Array(cols).fill(1);
         setInterval(() => {
