@@ -9,6 +9,57 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <style>
+
+
+/* --- Sayfa Kenar Çubuğu (Scrollbar) Özelleştirme --- */
+/* Tarayıcı genelindeki kaydırma çubuğunun genişliği */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* Kaydırma çubuğu yolu (arka planı) */
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+/* Kaydırma çubuğu tutamacı (hareket eden kısım) */
+::-webkit-scrollbar-thumb {
+    background: #334155; /* Slate-700 rengi */
+    border-radius: 10px;
+    border: 2px solid var(--bg-dark); /* Kenarlardan boşluk bırakır */
+}
+
+/* Tutamaç üzerine gelince renk değişimi */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary); /* Neon yeşil */
+    box-shadow: 0 0 10px var(--primary);
+}
+
+/* --- Mobil ve Masaüstü Kenar Boşluk Ayarları --- */
+.wrapper {
+    /* Mevcut koda ek olarak: */
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+@media (max-width: 600px) {
+    .wrapper {
+        padding-left: 12px;
+        padding-right: 12px;
+        margin-top: 10px;
+    }
+    
+    .card {
+        padding: 16px; /* Mobilde kart iç boşluğunu daraltarak yer kazanalım */
+    }
+}
+
+/* Tablo taşıyıcı (Table Responsive) çubuğunu da özelleştir */
+.live-table::-webkit-scrollbar {
+    height: 4px;
+}
+
         :root {
             --primary: #00ff88;
             --primary-dark: #00cc6e;
