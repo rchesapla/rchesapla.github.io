@@ -136,6 +136,22 @@
             border-radius: 10px;
             margin-bottom: 20px;
         }
+
+        /* Canlı Veri Rozeti */
+        .live-status {
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: #ff0055;
+            color: white;
+            margin-left: 10px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
     </style>
 </head>
 <body ng-controller="MiningController">
@@ -151,9 +167,9 @@
         <div class="card">
             <div class="card-title">● SİSTEM ERİŞİMİ</div>
             <div style="display: flex; gap: 10px;">
-                <input type="text" ng-model="userNick" placeholder="Rollercoin Kullanıcı Adı" ng-disabled="isAuthorized">
+                <input type="text" ng-model="userNick" placeholder="RC kul. adı: FthCLK" ng-disabled="isAuthorized">
                 <button class="btn-main" style="width: auto; padding: 0 20px;" ng-click="fetchUserData()" ng-disabled="loadingApi || !userNick || isAuthorized">
-                    {{ isAuthorized ? 'AKTİF' : (loadingApi ? '...' : 'BAĞLAN') }}
+                    {{ isAuthorized ? 'AKTİF' : (loadingApi ? '...' : 'SİSTEMİ AKTİF ET') }}
                 </button>
             </div>
         </div>
@@ -161,7 +177,7 @@
         <div ng-if="isAuthorized">
             
             <div class="card">
-                <div class="card-title">● HESAPLAMA AYARLARI</div>
+                <div class="card-title">● HESAPLAMA AYARLARI <span class="live-status" ng-if="isLive">CANLI BAĞLANTI AKTİF</span></div>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                     <div class="input-box">
@@ -192,12 +208,12 @@
                 </div>
 
                 <div class="manual-reward-box">
-                    <label style="color: var(--reward-gold);">BLOK ÖDÜLÜ (MANUEL DÜZENLEME)</label>
+                    <label style="color: var(--reward-gold);">BLOK ÖDÜLÜ (GÜNCEL: {{lastUpdate}})</label>
                     <div style="display: flex; gap: 10px; align-items: center;">
                         <input type="number" ng-model="calcData.reward" step="0.00000001" style="border-color: var(--reward-gold);">
                         <span style="font-weight: 800; color: var(--reward-gold);">{{calcData.coin.toUpperCase()}}</span>
                     </div>
-                    <small style="color: var(--text-dim); font-size: 0.7rem; display: block; margin-top: 5px;">* Coin değiştiğinde bu değer otomatik güncellenir, isterseniz elle değiştirebilirsiniz.</small>
+                    <small style="color: var(--text-dim); font-size: 0.7rem; display: block; margin-top: 5px;" ng-if="calcData.coin == 'tether'">* USDT değeri RollerCoin'den canlı olarak çekilmektedir.</small>
                 </div>
 
                 <div class="input-box">
@@ -278,8 +294,10 @@
             };
         }]);
 
-        app.controller('MiningController', ['$scope', 'UserMinerService', '$timeout', function($scope, UserMinerService, $timeout) {
+        app.controller('MiningController', ['$scope', 'UserMinerService', '$timeout', '$http', function($scope, UserMinerService, $timeout, $http) {
             $scope.isAuthorized = false;
+            $scope.isLive = false;
+            $scope.lastUpdate = "Otomatik";
             $scope.calcData = {
                 fiat: 'usd', coin: 'rollertoken', myPower: 0, myUnit: 'th',
                 netPower: parseFloat(localStorage.getItem('rc_netPower')) || 0, 
@@ -293,9 +311,34 @@
                 "ethereum": 0.00021, "tether": 0.274038, "solana": 1, "algorand": 1111, "tron": 60
             };
 
+            // --- CANLI VERİ ÇEKME FONKSİYONU ---
+            $scope.fetchLiveReward = async function() {
+                // Sadece USDT seçiliyse canlı veri çek
+                if($scope.calcData.coin !== 'tether') return;
+
+                try {
+                    const response = await fetch('http://localhost:3000/get-raw-reward');
+                    const data = await response.json();
+                    if(data.success) {
+                        $timeout(() => {
+                            $scope.calcData.reward = parseFloat(data.reward);
+                            $scope.isLive = true;
+                            $scope.lastUpdate = data.time;
+                        });
+                    }
+                } catch (e) {
+                    console.warn("Canlı veri sunucusuna bağlanılamadı. Varsayılan değerler kullanılıyor.");
+                    $scope.isLive = false;
+                }
+            };
+
             $scope.updateAutomaticData = () => { 
                 $scope.calcData.reward = coinDefaults[$scope.calcData.coin] || 0.1; 
+                if($scope.calcData.coin === 'tether') $scope.fetchLiveReward();
             };
+
+            // Her 2 dakikada bir canlı veriyi tazele
+            setInterval($scope.fetchLiveReward, 120000);
 
             $scope.fetchUserData = async function() {
                 if(!$scope.userNick) return;
@@ -307,6 +350,8 @@
                     else if (thValue >= 1000) { $scope.calcData.myPower = parseFloat((thValue / 1000).toFixed(2)); $scope.calcData.myUnit = 'ph'; }
                     else { $scope.calcData.myPower = Math.round(thValue); $scope.calcData.myUnit = 'th'; }
                     $scope.isAuthorized = true;
+                    // Giriş yapınca USDT seçiliyse canlı veriyi tetikle
+                    $scope.fetchLiveReward();
                 } catch(e) { alert("Hata: Kullanıcı bulunamadı."); }
                 finally { $scope.loadingApi = false; $scope.$apply(); }
             };
@@ -321,7 +366,6 @@
                 
                 if(!netTH || netTH <= 0) { alert("Ağ gücü giriniz."); return; }
 
-                // Hesaplama artık ng-model="calcData.reward" üzerinden manuel değeri alır
                 const porBloque = (myTH / netTH) * $scope.calcData.reward;
                 const daily = porBloque * (1440 / $scope.calcData.blockTime);
                 
@@ -346,7 +390,7 @@
                         document.getElementById('priceDisplay').innerText = `1 ${$scope.calcData.coin.toUpperCase()} ≈ ${sym}${currentPrice.toFixed(4)}`;
                         document.getElementById('results').style.display = 'block';
                     }, 100);
-                } catch(e) { alert("Veri çekilemedi."); }
+                } catch(e) { alert("Fiyat verisi çekilemedi. (Biraz bekleyin sayfayı tekrar yükler misin?)"); }
             };
         }]);
 
