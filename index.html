@@ -30,6 +30,47 @@
             min-height: 100vh;
         }
 
+        /* --- POPUP LOADER CSS --- */
+        .loading-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            backdrop-filter: blur(5px);
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(0, 255, 136, 0.1);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        /* ----------------------- */
+
         .navbar {
             background: rgba(15, 23, 42, 0.8);
             backdrop-filter: blur(10px);
@@ -42,7 +83,6 @@
         }
 
         .navbar h1 { font-size: 1.2rem; letter-spacing: 2px; color: var(--primary); font-weight: 800; }
-
         .wrapper { max-width: 800px; margin: 20px auto; padding: 0 15px; }
 
         .card {
@@ -117,7 +157,6 @@
             user-select: none;
             transition: all 0.2s;
         }
-        .loading-overlay:hover { color: var(--accent); border-color: var(--accent); }
 
         .live-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.8rem; }
         .live-table th { color: var(--text-dim); text-align: left; padding: 8px; border-bottom: 1px solid #334155; }
@@ -149,12 +188,14 @@
             align-items: center;
             gap: 8px;
         }
-        .history-tag:hover { background: rgba(56, 189, 248, 0.2); border-color: var(--primary); }
-        .history-del { color: #ff4444; font-weight: bold; padding: 0 4px; border-radius: 4px; }
-        .history-del:hover { background: rgba(255, 68, 68, 0.2); }
     </style>
 </head>
 <body ng-controller="MiningController">
+
+    <div class="loading-popup" ng-if="loadingApi || loadingLeague">
+        <div class="spinner"></div>
+        <div class="loading-text">Sistem Bağlantısı Kuruluyor...</div>
+    </div>
 
     <canvas id="matrix"></canvas>
 
@@ -169,7 +210,7 @@
             <div style="display: flex; gap: 10px;">
                 <input type="text" ng-model="userNick" placeholder="Rollercoin Kullanıcı Adı" ng-disabled="isAuthorized">
                 <button class="btn-main" style="width: auto; padding: 0 20px;" ng-click="fetchUserData()" ng-disabled="loadingApi || !userNick || isAuthorized">
-                    {{ isAuthorized ? 'AKTİF' : (loadingApi ? '...' : 'SİSTEMİ AKTİF ET') }}
+                    {{ isAuthorized ? 'SİSTEM AKTİF' : 'ERİŞİMİ BAŞLAT' }}
                 </button>
             </div>
 
@@ -177,7 +218,7 @@
                 <span style="font-size: 0.7rem; color: var(--text-dim); width: 100%; font-weight: bold;">GEÇMİŞTEN HIZLI HESAPLA:</span>
                 <div ng-repeat="nick in userHistory track by $index" class="history-tag">
                     <span ng-click="quickFetch(nick)" style="font-weight: 600;">{{nick}}</span>
-                    <span class="history-del" ng-click="removeFromHistory($index)">×</span>
+                    <span class="history-del" ng-click="removeFromHistory($index)" style="color: #ff4444; font-weight: bold; padding-left: 5px;">×</span>
                 </div>
             </div>
 
@@ -279,9 +320,7 @@
             <div class="card" ng-if="isAuthorized && liveData.length > 0">
                 <div class="card-title">
                     ● CANLI KRİPTO KAZANÇLARI
-                    <span class="loading-overlay" ng-click="updateLeagueData()">
-                        {{ loadingLeague ? 'GÜNCELLENİYOR...' : '🔄 VERİYİ GÜNCELLE' }}
-                    </span>
+                    <span class="loading-overlay" ng-click="updateLeagueData()">🔄 VERİYİ GÜNCELLE</span>
                 </div>
                 <div style="overflow-x: auto;">
                     <table class="live-table">
@@ -372,31 +411,21 @@
         serviceApp.controller('MiningController', ['$scope', 'UserMinerService', 'CurrencyService', '$timeout', 
         function($scope, UserMinerService, CurrencyService, $timeout) {
             
-            // GEÇMİŞ YÖNETİMİ
             $scope.userHistory = JSON.parse(localStorage.getItem('rc_user_history')) || [];
-            
-            // Hızlı Hesaplama Fonksiyonu
-            $scope.quickFetch = function(nick) {
-                $scope.userNick = nick;
-                $scope.fetchUserData();
-            };
-
-            $scope.removeFromHistory = function(index) {
-                $scope.userHistory.splice(index, 1);
-                localStorage.setItem('rc_user_history', JSON.stringify($scope.userHistory));
-            };
-
             $scope.totalCalculations = 1420 + (parseInt(localStorage.getItem('rc_user_calculations')) || 0);
-            $scope.isAuthorized = false; $scope.loadingLeague = false; $scope.liveData = []; $scope.lastUpdate = "Otomatik";
+            $scope.isAuthorized = false; $scope.loadingLeague = false; $scope.loadingApi = false;
+            $scope.liveData = []; $scope.lastUpdate = "Otomatik";
             $scope.leagues = CurrencyService.getLeagues();
             $scope.calcData = { fiat: 'usd', coin: 'RLT', leagueId: '68af01ce48490927df92d687', myPower: 0, myUnit: 'th', netPower: 0, netUnit: 'eh', reward: 0.88, blockTime: 10 };
 
+            $scope.quickFetch = (nick) => { $scope.userNick = nick; $scope.fetchUserData(); };
+            $scope.removeFromHistory = (idx) => { $scope.userHistory.splice(idx, 1); localStorage.setItem('rc_user_history', JSON.stringify($scope.userHistory)); };
+
             $scope.updateLeagueData = async function() {
                 if (!$scope.calcData.leagueId) return;
-                const isForce = $scope.isAuthorized; 
                 $scope.loadingLeague = true;
                 try {
-                    const data = await CurrencyService.getDetailedCurrenciesByLeague($scope.calcData.leagueId, isForce);
+                    const data = await CurrencyService.getDetailedCurrenciesByLeague($scope.calcData.leagueId, true);
                     $timeout(() => { $scope.liveData = data; $scope.updateFromLiveData(); });
                 } catch (e) { console.error(e); }
                 finally { $scope.loadingLeague = false; $scope.$apply(); }
@@ -407,7 +436,6 @@
                 if (coin) {
                     $scope.calcData.reward = coin.blockSize;
                     $scope.calcData.netPower = parseFloat((coin.networkPower / 1000000000).toFixed(4));
-                    $scope.calcData.netUnit = 'eh';
                     $scope.calcData.blockTime = coin.blockTime / 60;
                     $scope.lastUpdate = "Sistemden Çekildi";
                 }
@@ -418,12 +446,10 @@
                 $scope.loadingApi = true;
                 try {
                     const response = await UserMinerService.getAllUserDataByNick($scope.userNick);
-                    
                     if (!$scope.userHistory.includes($scope.userNick)) {
                         $scope.userHistory.push($scope.userNick);
                         localStorage.setItem('rc_user_history', JSON.stringify($scope.userHistory));
                     }
-
                     const powerData = response.powerData;
                     let th = parseFloat(powerData.current_power) / 1000;
                     if (th >= 1000000) { $scope.calcData.myPower = parseFloat((th/1000000).toFixed(2)); $scope.calcData.myUnit = 'eh'; }
@@ -431,7 +457,6 @@
                     else { $scope.calcData.myPower = Math.round(th); $scope.calcData.myUnit = 'th'; }
 
                     if(response.leagueId) { $scope.calcData.leagueId = response.leagueId; }
-
                     $scope.isAuthorized = true; 
                     await $scope.updateLeagueData();
                 } catch(e) { alert("Kullanıcı bulunamadı."); }
@@ -439,6 +464,7 @@
             };
 
             $scope.calcular = async function() {
+                $scope.loadingApi = true; // Hesaplama sırasında da loader gösterelim
                 localStorage.setItem('rc_user_calculations', (parseInt(localStorage.getItem('rc_user_calculations')) || 0) + 1);
                 $scope.totalCalculations++;
                 const units = { th: 1, ph: 1000, eh: 1000000 };
@@ -465,12 +491,12 @@
                         document.getElementById('yilFiat').innerText = `${s}${(daily * 365 * price).toFixed(2)}`;
                         document.getElementById('priceDisplay').innerText = `1 ${$scope.calcData.coin} ≈ ${s}${price.toFixed(4)}`;
                         document.getElementById('results').style.display = 'block';
+                        $scope.loadingApi = false;
                     }, 100);
-                } catch(e) { alert("Fiyat hatası."); }
+                } catch(e) { $scope.loadingApi = false; alert("Fiyat hatası."); }
             };
         }]);
 
-        // Matrix Background
         const canvas = document.getElementById('matrix'), ctx = canvas.getContext('2d');
         let w = canvas.width = window.innerWidth, h = canvas.height = window.innerHeight, cols = Math.floor(w/20), drops = Array(cols).fill(1);
         setInterval(() => {
