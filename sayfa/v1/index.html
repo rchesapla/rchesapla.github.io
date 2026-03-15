@@ -529,9 +529,11 @@ footer {
                 <div class="power-input-group">
                     <input type="number" ng-model="calcData.myPower">
                     <select ng-model="calcData.myUnit">
+                        <option value="gh">GH/s</option>
                         <option value="th">TH/s</option>
                         <option value="ph">PH/s</option>
                         <option value="eh">EH/s</option>
+                        <option value="zh">ZH/s</option>
                     </select>
                 </div>
             </div>
@@ -541,9 +543,11 @@ footer {
                 <div class="power-input-group">
                     <input type="number" ng-model="calcData.netPower">
                     <select ng-model="calcData.netUnit">
-                        <option value="eh">EH/s</option>
-                        <option value="ph">PH/s</option>
+                        <option value="gh">GH/s</option>
                         <option value="th">TH/s</option>
+                        <option value="ph">PH/s</option>
+                        <option value="eh">EH/s</option>
+                        <option value="zh">ZH/s</option>
                     </select>
                 </div>
             </div>
@@ -717,15 +721,33 @@ footer {
             };
 
             $scope.updateFromLiveData = () => {
-                const coin = $scope.liveData.find(c => c.balance_key === $scope.calcData.coin || c.name === $scope.calcData.coin);
-                if (coin) {
-                    $scope.calcData.reward = coin.blockSize;
-                    $scope.calcData.netPower = parseFloat((coin.networkPower / 1000000000).toFixed(4));
-                    $scope.calcData.blockTime = coin.blockTime / 60;
-                    $scope.lastUpdate = " Güncellendi ";
-                }
-            };
+    const coin = $scope.liveData.find(c => c.balance_key === $scope.calcData.coin || c.name === $scope.calcData.coin);
+    if (coin) {
+        $scope.calcData.reward = coin.blockSize;
+        $scope.calcData.blockTime = coin.blockTime / 60;
+        
+        // Ham ağ gücü (Sistemden Gh/s cinsinden gelebilir veya TH)
+        // RollerCoin API genellikle ham değeri büyük gönderir.
+        let rawNetPower = coin.networkPower; // Örn: 1.000.000.000 (1 EH)
+        
+        // Birim Otomatik Seçme Mantığı
+        if (rawNetPower >= 1000000000000) { // Zettahash sınırı
+            $scope.calcData.netPower = parseFloat((rawNetPower / 1000000000000).toFixed(4));
+            $scope.calcData.netUnit = 'zh';
+        } else if (rawNetPower >= 1000000000) { // Exahash sınırı
+            $scope.calcData.netPower = parseFloat((rawNetPower / 1000000000).toFixed(4));
+            $scope.calcData.netUnit = 'eh';
+        } else if (rawNetPower >= 1000000) { // Petahash sınırı
+            $scope.calcData.netPower = parseFloat((rawNetPower / 1000000).toFixed(4));
+            $scope.calcData.netUnit = 'ph';
+        } else {
+            $scope.calcData.netPower = parseFloat((rawNetPower / 1000).toFixed(4));
+            $scope.calcData.netUnit = 'th';
+        }
 
+        $scope.lastUpdate = " Güncellendi ";
+    }
+};
             $scope.fetchUserData = async function() {
                 if(!$scope.userNick) return;
                 $scope.loadingApi = true;
@@ -752,7 +774,7 @@ footer {
                 $scope.loadingApi = true; 
                 localStorage.setItem('rc_user_calculations', (parseInt(localStorage.getItem('rc_user_calculations')) || 0) + 1);
                 $scope.totalCalculations++;
-                const units = { th: 1, ph: 1000, eh: 1000000 };
+                const units = { gh: 0.001, th: 1, ph: 1000, eh: 1000000, zh: 1000000000 };
                 const myTH = $scope.calcData.myPower * units[$scope.calcData.myUnit];
                 const netTH = $scope.calcData.netPower * units[$scope.calcData.netUnit];
                 const porBloque = (myTH / netTH) * $scope.calcData.reward;
