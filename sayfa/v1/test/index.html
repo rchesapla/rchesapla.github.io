@@ -170,9 +170,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="miner in allMiners | filter:{name: {en: minerSearchText}}" 
-                    style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                   <td style="text-align: center; position: relative;">
+                <tr ng-repeat="miner in allMiners | orderBy:orderByAllMinersField:reverseAllMinersSort | limitTo:  itemsPerPage : (currentPage - 1) * itemsPerPage"  
+                                ng-class="{ 'already-have-miner': miner.already_have }" >
+                                <td style="text-align: center; position: relative;">
                                     {{miner.name.en}}<br/>
                                     <img ng-if="miner.level == 0" src='https://rollercoin.com/static/img/storage/rarity_icons/level_1.png?v=1.0.0' style='left: 40px;position: absolute;top: 40px;'/>
                                     <img ng-if="miner.type === 'old_merge'" src='https://rollercoin.com/static/images/level_star.4ff18517e5e8eed42060..png' style='left: 40px;position: absolute;top: 40px;'/>
@@ -180,16 +180,42 @@
                                     <img src='https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608' width="80px" height="auto"/>
                                     <div ng-if="!miner.is_can_be_sold_on_mp"
                                         style="
-                                        height: 10px;
-                                        width: 100px;
                                         background-color: red;
                                         font-size: 0.6em;
                                         font-weight: bold;
-                                        margin-left: 8%;
                                         color: white;
-                                    ">INEGOCIAVEL</div>
+                                    ">SATILAMAZ</div>
                                 </td>
-                    <td style="padding: 10px; text-align: center;">{{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}</td>
+                                <td style="text-align: center">
+                                    <p ng-repeat="item in miner.craft_items">
+                                        <span ng-if="item.component_type === 'mutation_components'"><img width="20" height="20" src="https://static.rollercoin.com/static/img/storage/mutation_components/{{item._id}}.png?v=1.0.1"/> {{item.count}} <i style="font-size:10px;margin-left:2px" ng-click="openBuyCraftLink(item._id, 'mutation_component')" class="fas fa-external-link-alt"></i></span>
+                                        <span ng-if="item.component_type === 'miners'"><img width="20" height="20" src="https://rollercoin.com/static/images/basic_miner.39e37c9f62068115758b..svg"/> {{item.count}} <i style="font-size:10px;margin-left:2px" ng-click="openBuyCraftLink(item._id, 'miner')" class="fas fa-external-link-alt"></i></span>
+                                    </p>
+                                    <p>
+                                        {{miner.recipe_cost}} RLT
+                                    </p>
+                                    <p ng-repeat="item in miner.old_craft_items">
+                                        <span ng-if="item.component_type === 'mutation_components'"><img width="20" height="20" src="https://static.rollercoin.com/static/img/storage/mutation_components/{{item._id}}.png?v=1.0.1"/> <s>{{item.count}}</s> <i style="font-size:10px;margin-left:2px" ng-click="openBuyCraftLink(item._id, 'mutation_component')" class="fas fa-external-link-alt"></i></span>
+                                    </p>
+                                    <p>
+                                        <s>{{miner.old_recipe_cost}} RLT</s>
+                                    </p>
+                                </td>
+                                <td style="text-align: center">
+                                    {{miner.craft_cost_diff}}%
+                                </td>
+                                <td style="text-align: center">
+                                    {{miner.supply}}
+                                </td>
+                                <td style="text-align: center">
+                                    {{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
+                                </td>
+                                <td style="text-align: center">
+                                    {{(miner.bonus_power / 100)}}%
+                                </td>
+                                <td style="text-align: center">
+                                    {{miner.includeImpactLegend.value.toFixed(2)}} {{miner.includeImpactLegend.unit}}
+                                </td>
                     <td style="padding: 10px; text-align: center;">
                         <button class="btn-main" style="padding: 5px 10px; font-size: 0.7rem;" ng-click="openBuyLink(miner)">MAĞAZAYA GİT</button>
                     </td>
