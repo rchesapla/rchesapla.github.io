@@ -438,11 +438,11 @@
 
             <div ng-if="formData.showAllMiners" class="col-md-8 table-container">
                 <div class="form-group col-md-4">
-                    <label for="currency">Nome</label>
+                    <label for="currency">MINER ADI</label>
                     <input type="text" class="form-control" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Buscar miner...">
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="currency">Raridade</label><br/>
+                    <label for="currency">SEVİYE DURUMU</label><br/>
                     <select class="form-control" ng-model="allMinersRarity" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
                         <option value="all">Hepsi</option>
                         <option value="common">Common</option>
@@ -463,11 +463,11 @@
                     </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="currency">Tenho em sala</label><br/>
+                    <label for="currency">ODA DURUMU</label><br/>
                     <select class="form-control" ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
                         <option value="all">Hepsi</option>
-                        <option value="mine">Somente as minhas</option>
-                        <option value="not_mine">Somente novas</option>
+                        <option value="mine">Var</option>
+                        <option value="not_mine">Yok</option>
                     </select>
                 </div>
                
@@ -476,50 +476,26 @@
                         <thead>
                             <tr>
                                 <th colspan="8" style="text-align: center">
-                                    Miners encontradas: {{allMiners.length}}
+                                    TOPLAM {{allMiners.length}} BULUNMAKTA!
                                 </th>
                             </tr>
                             <tr>
                                 <th style="text-align: center">
-                                    Nome
+                                    MINER ADI
                                 </th>
                                 <th style="text-align: center">
                                     <a href="#" ng-click="orderByAllMinersField='power'; reverseAllMinersSort = !reverseAllMinersSort  ; $event.preventDefault();">
                                         KENDİ GÜCÜ
-                                        <span ng-show="orderByAllMinersField == 'power'">
-                                            <span ng-show="!reverseMinersSort">
-                                                <i class="fa fa-fw fa-sort-asc"></i>
-                                            </span>
-                                            <span ng-show="reverseMinersSort">
-                                                <i class="fa fa-fw fa-sort-desc"></i>
-                                            </span>
-                                        </span>
                                     </a>
                                 </th>
                                 <th style="text-align: center">
                                     <a href="#" ng-click="orderByAllMinersField='bonus_power'; reverseAllMinersSort = !reverseAllMinersSort  ; $event.preventDefault();">
                                         BONUS
-                                        <span ng-show="orderByAllMinersField == 'bonus_power'">
-                                            <span ng-show="!reverseMinersSort">
-                                                <i class="fa fa-fw fa-sort-asc"></i>
-                                            </span>
-                                            <span ng-show="reverseMinersSort">
-                                                <i class="fa fa-fw fa-sort-desc"></i>
-                                            </span>
-                                        </span>
                                     </a>
                                 </th>
                                 <th style="text-align: center">
                                     <a href="#" ng-click="orderByAllMinersField='includeImpactPower'; reverseAllMinersSort = !reverseAllMinersSort  ; $event.preventDefault();">
                                         TOPLAM GÜCÜ
-                                        <span ng-show="orderByAllMinersField == 'includeImpactPower'">
-                                            <span ng-show="!reverseMinersSort">
-                                                <i class="fa fa-fw fa-sort-asc"></i>
-                                            </span>
-                                            <span ng-show="reverseMinersSort">
-                                                <i class="fa fa-fw fa-sort-desc"></i>
-                                            </span>
-                                        </span>
                                     </a>
                                 </th>
                                 <th style="text-align: center">
