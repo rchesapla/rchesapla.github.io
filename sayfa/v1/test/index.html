@@ -91,6 +91,71 @@
         
         /* Matris Arkaplan Efekti */
         canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.15; }
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+/* Rollercoin Tarzı Sayfalama */
+.pagination {
+    display: flex !important;
+    list-style: none;
+    padding: 0;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace; /* Daha teknolojik bir font */
+}
+
+.pagination li a {
+    background: #1e293b !important; /* Kart arka planı ile uyumlu */
+    color: var(--primary) !important; /* Neon yeşil */
+    border: 2px solid var(--primary) !important;
+    padding: 8px 14px;
+    text-decoration: none;
+    font-weight: 800;
+    border-radius: 4px; /* Hafif yuvarlatılmış ama keskin */
+    transition: all 0.2s ease;
+    box-shadow: 0 0 5px rgba(0, 255, 136, 0.2);
+}
+
+.pagination li a:hover {
+    background: var(--primary) !important;
+    color: #000 !important;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
+    transform: translateY(-2px);
+}
+
+.pagination li.active a {
+    background: var(--primary) !important;
+    color: #000 !important;
+    border-color: #fff !important;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.8);
+}
+
+.pagination li.disabled a {
+    opacity: 0.3;
+    cursor: not-allowed;
+    border-color: var(--text-dim) !important;
+    color: var(--text-dim) !important;
+}
+
+/* Sayfa numaraları arasındaki boşluklar için */
+.pagination .pagination-page, 
+.pagination .pagination-prev, 
+.pagination .pagination-next {
+    cursor: pointer;
+}
     </style>
 </head>
 <body ng-controller="MiningController">
@@ -147,9 +212,9 @@
     </div>
 	
                 <div class="form-group col-md-4">
-                    <label for="currency">Raridade</label><br/>
+                    <label for="currency">SEVİYE DURUMU</label><br/>
                     <select class="form-control" ng-model="allMinersRarity" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-                        <option value="all">Todas</option>
+                        <option value="all">Hepsi</option>
                         <option value="common">Common</option>
                         <option value="legacy">Legacy</option>
                         <option value="uncommon">Uncommon</option>
@@ -159,13 +224,33 @@
                         <option value="unreal">Unreal</option>
                     </select>
                 </div>
+				
+				                <div class="form-group col-md-4">
+                    <label for="currency">Negociável</label><br/>
+                    <select class="form-control" ng-model="allMinerNegotiableStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+                        <option value="all">Hepsi</option>
+                        <option value="inegotiable">Satılamaz</option>
+                        <option value="negotiable">Satılır</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="currency">Tenho em sala</label><br/>
+                    <select class="form-control" ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+                        <option value="all">Hepsi</option>
+                        <option value="mine">Somente as minhas</option>
+                        <option value="not_mine">Somente novas</option>
+                    </select>
+                </div>
 
     <div style="overflow-x: auto;">
         <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
             <thead>
                 <tr style="border-bottom: 1px solid var(--primary);">
-                    <th style="padding: 10px; text-align: left;">MINER</th>
-                    <th style="padding: 10px;">GÜÇ</th>
+                    <th style="padding: 10px;">MINER ADI</th>
+                    <th style="padding: 10px;">TEDARİK</th>
+                    <th style="padding: 10px;">GÜCÜ</th>
+                    <th style="padding: 10px;">BONUS</th>
+                    <th style="padding: 10px;">BONUSLU GÜCÜ</th>
                     <th style="padding: 10px;">ETKİLEŞİM</th>
                 </tr>
             </thead>
@@ -185,24 +270,6 @@
                                         font-weight: bold;
                                         color: white;
                                     ">SATILAMAZ</div>
-                                </td>
-                                <td style="text-align: center">
-                                    <p ng-repeat="item in miner.craft_items">
-                                        <span ng-if="item.component_type === 'mutation_components'"><img width="20" height="20" src="https://static.rollercoin.com/static/img/storage/mutation_components/{{item._id}}.png?v=1.0.1"/> {{item.count}} <i style="font-size:10px;margin-left:2px" ng-click="openBuyCraftLink(item._id, 'mutation_component')" class="fas fa-external-link-alt"></i></span>
-                                        <span ng-if="item.component_type === 'miners'"><img width="20" height="20" src="https://rollercoin.com/static/images/basic_miner.39e37c9f62068115758b..svg"/> {{item.count}} <i style="font-size:10px;margin-left:2px" ng-click="openBuyCraftLink(item._id, 'miner')" class="fas fa-external-link-alt"></i></span>
-                                    </p>
-                                    <p>
-                                        {{miner.recipe_cost}} RLT
-                                    </p>
-                                    <p ng-repeat="item in miner.old_craft_items">
-                                        <span ng-if="item.component_type === 'mutation_components'"><img width="20" height="20" src="https://static.rollercoin.com/static/img/storage/mutation_components/{{item._id}}.png?v=1.0.1"/> <s>{{item.count}}</s> <i style="font-size:10px;margin-left:2px" ng-click="openBuyCraftLink(item._id, 'mutation_component')" class="fas fa-external-link-alt"></i></span>
-                                    </p>
-                                    <p>
-                                        <s>{{miner.old_recipe_cost}} RLT</s>
-                                    </p>
-                                </td>
-                                <td style="text-align: center">
-                                    {{miner.craft_cost_diff}}%
                                 </td>
                                 <td style="text-align: center">
                                     {{miner.supply}}
@@ -228,6 +295,7 @@
                 </tr>
             </tbody>
         </table>
+<ul uib-pagination first-text="İlk" previous-text="Önceki" last-text="Son" next-text="Sonraki" total-items="allMiners.length" ng-model="currentPage" max-size="5" items-per-page="itemsPerPage" boundary-links="true" num-pages="numPages"></ul>
     </div>
 </div>
     </div>
