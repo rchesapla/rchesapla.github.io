@@ -28,130 +28,302 @@
     <script src="user-miner-service.js"></script>
     <script src="miner-service.js"></script>
 <style>
-    /* --- Modern Temel Ayarlar --- */
+    /* RollerCoin Renk Paleti */
     :root {
-        --dark-bg: #0f172a;
-        --card-bg: #1e293b;
-        --accent: #38bdf8;
-        --accent-purple: #8b5cf6;
-        --text-color: #f1f5f9;
-        --border: rgba(255, 255, 255, 0.1);
-        --danger: #ef4444;
+        --rc-dark-blue: #0f0a24;
+        --rc-panel-bg: #1a143d;
+        --rc-accent-pink: #ff00ff;
+        --rc-accent-cyan: #00d2ff;
+        --rc-gold: #f39c12;
+        --rc-green: #2ecc71;
+        --text-color: #e0e0e0;
+        --pixel-border: 2px solid rgba(255, 255, 255, 0.1);
     }
 
     body {
-        background-color: var(--dark-bg) !important;
+        background: radial-gradient(circle, #1a143d 0%, #0f0a24 100%) !important;
         color: var(--text-color);
-        font-family: 'Poppins', 'Roboto', sans-serif;
-        padding-top: 20px;
+        font-family: 'Poppins', sans-serif;
+        padding-bottom: 50px;
     }
 
-    /* --- Div Kaplama (Wrapper) Ayarları --- */
-    .container {
-        max-width: 1200px;
-    }
-
-    /* Divleri modern panellere dönüştürür */
+    /* --- Panel ve Kart Yapısı (Div Ayarları) --- */
     .well, .panel, [style*="border: 1px solid black"] {
-        background: var(--card-bg) !important;
-        border: 1px solid var(--border) !important;
-        border-radius: 12px !important;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4) !important;
+        background: var(--rc-panel-bg) !important;
+        border: var(--pixel-border) !important;
+        border-radius: 10px !important;
+        box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.3) !important;
         padding: 20px !important;
-        margin-bottom: 25px !important;
+        margin-bottom: 20px !important;
+        color: white !important;
     }
 
-    /* --- Tablo Düzenlemeleri --- */
-    .table-responsive {
-        border: none !important;
-    }
-
-    table {
-        background: transparent !important;
-        border-collapse: separate !important;
-        border-spacing: 0 8px !important;
-    }
-
-    table thead th {
-        border-bottom: 2px solid var(--accent) !important;
-        color: var(--accent);
+    /* Başlıklar */
+    h1, h2, h3, h4 {
+        color: var(--rc-accent-cyan);
         text-transform: uppercase;
-        font-size: 0.85em;
+        font-weight: 700;
         letter-spacing: 1px;
+        text-shadow: 2px 2px var(--rc-dark-blue);
     }
 
-    table tbody tr {
-        background: rgba(255, 255, 255, 0.03) !important;
-        transition: transform 0.2s ease;
+    /* --- RollerCoin Tarzı Tablo --- */
+    .table-responsive { border: none; }
+    
+    .table {
+        background: rgba(15, 10, 36, 0.5) !important;
+        border-radius: 8px;
     }
 
-    table tbody tr:hover {
-        background: rgba(255, 255, 255, 0.08) !important;
-        transform: scale(1.005);
+    .table thead th {
+        background: rgba(0, 210, 255, 0.1);
+        color: var(--rc-accent-cyan);
+        border-bottom: 2px solid var(--rc-accent-cyan) !important;
+        text-align: center;
     }
 
-    table td {
+    .table tbody tr {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        transition: 0.3s;
+    }
+
+    .table tbody tr:hover {
+        background: rgba(255, 0, 255, 0.05) !important;
+    }
+
+    /* --- Butonlar (Neon Etkisi) --- */
+    button, .btn-primary {
+        background: linear-gradient(180deg, #00d2ff 0%, #008eb0 100%) !important;
         border: none !important;
-        vertical-align: middle !important;
-        padding: 12px !important;
-    }
-
-    /* --- Buton Tasarımları --- */
-    button, .btn {
-        background: linear-gradient(135deg, var(--accent), var(--accent-purple)) !important;
-        border: none !important;
+        border-bottom: 4px solid #005a70 !important;
         color: white !important;
-        border-radius: 8px !important;
-        font-weight: 600 !important;
-        padding: 8px 20px !important;
-        transition: all 0.3s ease !important;
-        text-transform: capitalize;
+        font-weight: bold !important;
+        text-transform: uppercase;
+        padding: 10px 20px !important;
+        border-radius: 5px !important;
+        transition: all 0.1s ease;
     }
 
-    button:hover {
-        opacity: 0.9;
-        box-shadow: 0 0 15px rgba(56, 189, 248, 0.4) !important;
+    button:active {
+        transform: translateY(2px);
+        border-bottom: 2px solid #005a70 !important;
     }
 
-    /* --- Input Alanları --- */
+    /* "Adicionar" veya Pozitif Butonlar için Yeşil Varyant */
+    [ng-click*="add"], [ng-click*="Add"] {
+        background: linear-gradient(180deg, #2ecc71 0%, #27ae60 100%) !important;
+        border-bottom: 4px solid #1e8449 !important;
+    }
+
+    /* --- Giriş Alanları (Inputs) --- */
     input[type="text"], input[type="number"], select {
-        background-color: #0f172a !important;
-        border: 1px solid var(--border) !important;
-        color: white !important;
-        border-radius: 6px !important;
-        padding: 8px !important;
-    }
-
-    /* --- Miner Kartı ve INEGOCIAVEL Etiketi --- */
-    [style*="background-color: red"] { /* INEGOCIAVEL yazısı için */
-        background-color: var(--danger) !important;
+        background: #0f0a24 !important;
+        border: 2px solid var(--rc-accent-cyan) !important;
+        color: #fff !important;
         border-radius: 4px !important;
-        margin: 5px auto !important;
-        padding: 2px 8px !important;
+    }
+
+    /* --- Inegociavel Etiketi --- */
+    [style*="background-color: red"] {
+        background: var(--rc-accent-pink) !important;
+        box-shadow: 0 0 10px var(--rc-accent-pink);
+        border-radius: 3px !important;
+        padding: 2px 5px !important;
+        margin-left: 0 !important;
         display: inline-block !important;
-        position: static !important; /* Ortalamayı kolaylaştırır */
-        font-size: 0.7em !important;
+        font-size: 10px !important;
     }
 
-    .img-circle {
-        border: 2px solid var(--accent);
-        padding: 2px;
+    /* Miner Resimleri İçin Parlama */
+    img[src*="miners"] {
+        filter: drop-shadow(0 0 5px rgba(0, 210, 255, 0.3));
     }
 
-    /* Responsive ayar */
-    @media (max-width: 768px) {
-        .col-md-3, .col-md-9 {
-            width: 100% !important;
-            padding: 10px !important;
-        }
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: var(--rc-dark-blue); }
+    ::-webkit-scrollbar-thumb { background: var(--rc-accent-cyan); border-radius: 5px; }
+</style>
+
+<style>
+    /* --- RollerCoin Tarzı Modern Inputlar --- */
+    input[type="text"], input[type="number"] {
+        background: #0f0a24 !important;
+        border: 2px solid #2d245d !important;
+        color: #00d2ff !important;
+        border-radius: 8px !important;
+        padding: 12px !important;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+        transition: all 0.3s ease;
+    }
+
+    input:focus {
+        border-color: #00d2ff !important;
+        box-shadow: 0 0 10px rgba(0, 210, 255, 0.4) !important;
+        outline: none;
+    }
+
+    /* --- Özel Checkbox Tasarımı (Toggle Switch) --- */
+    .rc-checkbox-container {
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+        margin: 10px;
+    }
+
+    /* Gizli orijinal checkbox */
+    .rc-checkbox-container input {
+        display: none;
+    }
+
+    /* Özel Toggle Arka Planı */
+    .checkmark {
+        width: 45px;
+        height: 22px;
+        background: #2d245d;
+        border-radius: 15px;
+        position: relative;
+        margin-right: 10px;
+        transition: 0.4s;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Hareket eden yuvarlak */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        background: #fff;
+        border-radius: 50%;
+        top: 2px;
+        left: 3px;
+        transition: 0.4s;
+        box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    }
+
+    /* Seçili (Checked) Durumu */
+    .rc-checkbox-container input:checked + .checkmark {
+        background: linear-gradient(90deg, #ff00ff, #8b5cf6);
+    }
+
+    .rc-checkbox-container input:checked + .checkmark:after {
+        left: 24px;
+        background: #fff;
+    }
+
+    .rc-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #e0e0e0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* --- Seçenek Kartları (Opsiyonel) --- */
+    .option-card {
+        background: rgba(45, 36, 93, 0.4);
+        border: 1px solid #3d347d;
+        padding: 10px 15px;
+        border-radius: 10px;
+        display: inline-block;
+        transition: 0.3s;
+    }
+    
+    .option-card:hover {
+        background: rgba(45, 36, 93, 0.8);
+        border-color: #00d2ff;
     }
 </style>
+
+<style>
+/* --- Mobil Uyumluluk Ayarları --- */
+@media (max-width: 768px) {
+    /* Tablo iskeletini serbest bırak */
+    .table-responsive {
+        border: none !important;
+        overflow-x: hidden; /* Yatay kaydırmayı kapatıyoruz çünkü kart sistemine geçiyoruz */
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    /* Başlıkları gizle (verilerin yanında etiket olarak göstereceğiz) */
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    /* Her satırı bir kart yap */
+    tr {
+        background: #1a143d !important;
+        margin-bottom: 15px !important;
+        border: 1px solid rgba(0, 210, 255, 0.2) !important;
+        border-radius: 12px !important;
+        padding: 10px !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    /* Hücreleri yan yana içerik-etiket şeklinde diz */
+    td {
+        border: none !important;
+        position: relative;
+        padding-left: 50% !important; /* Etiket için boşluk bırak */
+        text-align: right !important; /* Değerleri sağa yasla */
+        min-height: 40px;
+        display: flex !important;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    /* Etiketleri (Soldaki başlıklar) ekle */
+    td:before {
+        position: absolute;
+        left: 15px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        color: #00d2ff; /* Rollercoin Mavisi */
+        content: attr(data-label); /* HTML'de data-label varsa onu çeker */
+    }
+
+    /* Özel Durum: Görsel olan hücreyi ortala */
+    td:first-child {
+        padding-left: 15px !important;
+        justify-content: center !important;
+        background: rgba(0,0,0,0.2);
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+    
+    td:first-child:before {
+        content: ""; /* Görselin yanında başlık olmasın */
+    }
+
+    /* Butonları tam genişlik yap */
+    button {
+        width: 100% !important;
+        margin-top: 10px;
+    }
+}
+</style>
+
 </head>
 <body ng-controller="MiningController">
-    <header>
-        <img src="https://avatars.rollercoin.com/static/avatars/thumbnails/58/63eea2b3a8c681f515df3b79.png?v=1768121550300" style="height:50px;width:50px;margin-right:15px;">
-        <h1>RCMINER PAZAAR</h1>
-    </header>
+<div class="container-fluid" style="background: rgba(0,0,0,0.5); border-bottom: 2px solid var(--rc-accent-cyan); margin-bottom: 20px; padding: 10px;">
+    <div class="container">
+        <h2 style="margin: 0; display: inline-block;">RCMINER <span style="color: var(--rc-accent-pink);">PAZAAR</span></h2>
+        <span class="pull-right" style="color: var(--rc-gold); font-weight: bold; margin-top: 10px;">
+            <i class="fa fa-bolt"></i> CALCULADORA PREMIUM
+        </span>
+    </div>
+</div>
     
     <div class="container">
         <div class="row">
@@ -185,18 +357,21 @@
             <div ng-if="user_data" class="col-md-8 table-container">
                 <h3>Calculando ganhos para {{user_data.name}}</h3>
                 <fieldset>
-                    <div>
-                        <input type="checkbox" ng-model="formData.showMiners" name="show_miners"/>
-                        <label for="scales">Exibir miners</label>
-                        <input type="checkbox" ng-model="formData.showRacks" name="show_miners" />
-                        <label for="scales">Exibir racks</label>
-                        <input type="checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners" />
-                        <label for="scales">Simular aquisições</label>
-                        <input type="checkbox" ng-model="formData.showUserStatistics" ng-change="showStatistics()" name="show_statistics" />
-                        <label for="scales">Mostrar estatísticas</label>
-                        <input type="checkbox" ng-model="formData.showInventory" name="show_inventory" />
-                        <label for="show_inventory">Carregar inventário</label>
-                    </div>
+				<div class="option-card">
+    <label class="rc-checkbox-container">
+        <input type="checkbox" ng-model="formData.showMiners">
+        <span class="checkmark"></span>
+        <span class="rc-label">Miners Göster</span>
+    </label>
+</div>
+
+<div class="option-card">
+    <label class="rc-checkbox-container">
+        <input type="checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners" >
+        <span class="checkmark"></span>
+        <span class="rc-label">Simülasyon Modu</span>
+    </label>
+</div>
                 </fieldset>
             </div>
 
