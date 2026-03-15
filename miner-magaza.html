@@ -230,6 +230,96 @@
 
 
 
+
+/* Footer Styles */
+/* Sayfanın tüm yüksekliği kaplamasını sağla */
+html, body {
+    height: 100%;
+}
+
+/* Body'yi esnek (flex) yap ve içeriği dikey hizala */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Ana içerik alanının (wrapper) boşluğu doldurmasını sağla */
+.wrapper {
+    flex: 1 0 auto; /* Bu satır footer'ı aşağı iter */
+    max-width: 800px; 
+    margin: 20px auto; 
+    padding: 0 15px;
+    width: 100%;
+}
+
+/* Footer stilini güncelle */
+footer {
+    flex-shrink: 0; /* Footer'ın sıkışmasını engeller */
+    margin-top: 50px;
+    padding: 40px 0;
+    background: rgba(7, 11, 20, 0.95); /* Biraz daha koyulaştırıldı */
+    border-top: 1px solid rgba(0, 255, 136, 0.2);
+    text-align: center;
+}
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .footer-logo {
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .footer-text {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            font-size: 0.75rem;
+            color: #475569;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .version-tag {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--primary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            margin-left: 5px;
+        }
     </style>
 </head>
 <body ng-controller="MiningController">
@@ -262,7 +352,7 @@
     <div style="color: var(--accent); font-weight: 700; margin-bottom: 15px;">🛒 MINER MAĞAZASI | ({{allMiners.length}} adet)</div>
     
     <div style="margin-bottom: 15px;">
-        <input type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Örn: FthCLK">
+        <input type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Örn: YMCA">
     </div>
 	
 <div class="filter-group-container">
@@ -323,7 +413,6 @@
                                     <div ng-if="!miner.is_can_be_sold_on_mp"
                                         style="
                                         background-color: red;
-                                        font-size: 0.6em;
                                         font-weight: bold;
                                         color: white;
                                     ">SATILAMAZ</div>
@@ -357,9 +446,25 @@
 </div>
     </div>
 
-    <footer>
-        <div style="color: var(--text-dim); font-size: 0.8rem; text-align: center; padding: 20px;">
-            © 2026 RCHESAPLA PRO <span style="color: var(--primary);">v4.0</span>
+<footer>
+        <div class="footer-content">
+            <span class="footer-logo">RCHesapla PRO</span>
+            <p class="footer-text">RollerCoin madencilik hesaplamaları için geliştirilmiş en kapsamlı ve güncel araç setidir.</p>
+            
+            <div class="footer-links">
+                <a href="#">🌐 Web Sitesi</a>
+                <a href="#">📢 Telegram</a>
+                <a href="#">🐦 Twitter</a>
+                <a href="#">🛠 Destek</a>
+            </div>
+
+            <div class="copyright">
+                © 2026 RCHESAPLA PRO <span class="version-tag">v4.0.2-Stable</span>
+                <br>
+                <small style="margin-top: 10px; display: block; opacity: 0.5;">
+                    Bu site RollerCoin ile resmi bir bağa sahip değildir. Veriler API üzerinden anlık çekilir.
+                </small>
+            </div>
         </div>
     </footer>
 
