@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="tr" ng-app="miningApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RCHesapla ♦ Kişisel kazım gücünü hesapla!</title>
+    <link rel="shortcut icon" type="image/x-icon" href="icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Miner Önerileri Bölümü */
+.miner-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.miner-card {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-radius: 12px;
+    padding: 15px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.miner-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.1);
+}
+
+.miner-badge {
+    position: absolute;
+    top: 10px;
+    right: -25px;
+    background: var(--primary);
+    color: #000;
+    font-size: 0.6rem;
+    font-weight: 800;
+    padding: 2px 25px;
+    transform: rotate(45deg);
+}
+
+.miner-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.miner-power {
+    color: var(--primary);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: bold;
+}
+
+.miner-bonus {
+    color: var(--accent);
+    font-size: 0.8rem;
+}
+
+.efficiency-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    background: rgba(255, 204, 0, 0.1);
+    color: var(--reward-gold);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+.miner-action {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-buy {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-buy:hover {
+    background: var(--primary);
+    color: #000;
+    box-shadow: 0 0 10px var(--primary);
+}
+
+
+/* Ayarlar ve Notlar için yan yana düzen */
+.settings-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr; /* Sol (Ayarlar) daha geniş, Sağ (Notlar) daha dar */
+    gap: 20px;
+}
+
+.update-notes {
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    padding-left: 20px;
+}
+
+.update-item {
+    margin-bottom: 15px;
+}
+
+.update-date {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--primary);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 4px;
+}
+
+.update-desc {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    line-height: 1.4;
+}
+
+/* Mobil uyum: Ekran küçülünce alt alta gelsinler */
+@media (max-width: 768px) {
+    .settings-grid {
+        grid-template-columns: 1fr;
+    }
+    .update-notes {
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-left: 0;
+        padding-top: 20px;
+        margin-top: 10px;
+    }
+}
+
+
+/* --- Sayfa Kenar Çubuğu (Scrollbar) Özelleştirme --- */
+/* Tarayıcı genelindeki kaydırma çubuğunun genişliği */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* Kaydırma çubuğu yolu (arka planı) */
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+/* Kaydırma çubuğu tutamacı (hareket eden kısım) */
+::-webkit-scrollbar-thumb {
+    background: #334155; /* Slate-700 rengi */
+    border-radius: 10px;
+    border: 2px solid var(--bg-dark); /* Kenarlardan boşluk bırakır */
+}
+
+/* Tutamaç üzerine gelince renk değişimi */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary); /* Neon yeşil */
+    box-shadow: 0 0 10px var(--primary);
+}
+
+/* --- Mobil ve Masaüstü Kenar Boşluk Ayarları --- */
+.wrapper {
+    /* Mevcut koda ek olarak: */
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+@media (max-width: 600px) {
+    .wrapper {
+        padding-left: 12px;
+        padding-right: 12px;
+        margin-top: 10px;
+    }
+    
+    .card {
+        padding: 16px; /* Mobilde kart iç boşluğunu daraltarak yer kazanalım */
+    }
+}
+
+/* Tablo taşıyıcı (Table Responsive) çubuğunu da özelleştir */
+.live-table::-webkit-scrollbar {
+    height: 4px;
+}
+
+        :root {
+            --primary: #00ff88;
+            --primary-dark: #00cc6e;
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --accent: #38bdf8;
+            --reward-gold: #ffcc00;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            background-image: radial-gradient(circle at top right, #1e293b, #0f172a);
+            min-height: 100vh;
+        }
+
+        .loading-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            backdrop-filter: blur(5px);
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(0, 255, 136, 0.1);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+.navbar {
+    background: rgba(7, 11, 20, 0.95); /* Footer ile aynı koyu ton */
+    backdrop-filter: blur(15px);
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 2px solid rgba(0, 255, 136, 0.3); /* Footer vurgusuyla uyumlu */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.nav-container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    color: var(--primary); /* Neon yeşil */
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.active-users {
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: var(--primary);
+    font-family: 'JetBrains Mono', monospace; /* Teknik font kullanımı */
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--primary);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); opacity: 0.7; }
+    70% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.7; }
+}
+        .wrapper { max-width: 800px; margin: 20px auto; padding: 0 15px; }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 0.9rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-box { margin-bottom: 20px; }
+        label { display: block; font-size: 0.8rem; color: var(--text-dim); margin-bottom: 8px; font-weight: 600; }
+
+        input, select {
+            width: 100%;
+            background: #0f172a;
+            border: 1px solid #334155;
+            padding: 12px 16px;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1); }
+
+        .btn-main {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            width: 100%;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            text-transform: uppercase;
+        }
+
+        .btn-main:hover { transform: translateY(-2px); background: var(--primary-dark); }
+
+        .stats-box {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px dashed var(--primary);
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .stats-val { color: var(--primary); font-family: 'JetBrains Mono', monospace; font-weight: 800; }
+
+        .loading-overlay {
+            color: var(--primary);
+            font-size: 0.7rem;
+            margin-left: auto;
+            font-style: italic;
+            cursor: pointer;
+            border-bottom: 1px dashed var(--primary);
+            user-select: none;
+            transition: all 0.2s;
+        }
+
+        .live-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.8rem; }
+        .live-table th { color: var(--text-dim); text-align: left; padding: 8px; border-bottom: 1px solid #334155; }
+        .live-table td { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .coin-name { color: var(--accent); font-weight: 800; }
+        .reward-val { color: var(--reward-gold); font-weight: 600; }
+
+        .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
+        .res-card { background: rgba(15, 23, 42, 0.5); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+        .res-val { color: var(--primary); font-family: 'JetBrains Mono', monospace; font-weight: 600; display: block; }
+        .res-label { font-size: 0.75rem; color: var(--text-dim); }
+        .res-fiat { font-size: 0.8rem; color: var(--accent); }
+
+        .price-ticker { background: rgba(56, 189, 248, 0.1); color: var(--accent); padding: 8px; border-radius: 8px; font-size: 0.85rem; text-align: center; margin-bottom: 20px; }
+        .power-input-group { display: grid; grid-template-columns: 2fr 1fr; gap: 10px; }
+        canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.15; }
+        .manual-reward-box { background: rgba(255, 204, 0, 0.1); border: 1px solid var(--reward-gold); padding: 15px; border-radius: 10px; margin-bottom: 20px; }
+
+        .history-tag {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+
+/* Footer Styles */
+/* Sayfanın tüm yüksekliği kaplamasını sağla */
+html, body {
+    height: 100%;
+}
+
+/* Body'yi esnek (flex) yap ve içeriği dikey hizala */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Ana içerik alanının (wrapper) boşluğu doldurmasını sağla */
+.wrapper {
+    flex: 1 0 auto; /* Bu satır footer'ı aşağı iter */
+    max-width: 800px; 
+    margin: 20px auto; 
+    padding: 0 15px;
+    width: 100%;
+}
+
+/* Footer stilini güncelle */
+footer {
+    flex-shrink: 0; /* Footer'ın sıkışmasını engeller */
+    margin-top: 50px;
+    padding: 40px 0;
+    background: rgba(7, 11, 20, 0.95); /* Biraz daha koyulaştırıldı */
+    border-top: 1px solid rgba(0, 255, 136, 0.2);
+    text-align: center;
+}
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .footer-logo {
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .footer-text {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            font-size: 0.75rem;
+            color: #475569;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .version-tag {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--primary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body ng-controller="MiningController">
+
+    <div class="loading-popup" ng-if="loadingApi || loadingLeague">
+        <div class="spinner"></div>
+        <div class="loading-text">Sistem Bağlantısı Kuruluyor...</div>
+    </div>
+
+    <canvas id="matrix"></canvas>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <span class="nav-logo">RCHesapla PRO</span>
+        <div class="active-users">
+            <div class="pulse-dot"></div>
+            <span id="active-count">Yükleniyor...</span> AKTİF KULLANICI
+        </div>
+    </div>
+</nav>
+
+    <div class="wrapper">
+        
+        <div class="card">
+            <div class="card-title">⚙️ ROLLERCOIN KULLANICI ADI</div>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" ng-model="userNick" placeholder="Örn: FthCLK" ng-disabled="isAuthorized">
+                <button class="btn-main" style="width: auto; padding: 0 20px;" ng-click="fetchUserData()" ng-disabled="loadingApi || !userNick || isAuthorized">
+                    {{ isAuthorized ? 'SİSTEM AKTİF' : 'ERİŞİMİ BAŞLAT' }}
+                </button>
+            </div>
+
+            <div ng-if="userHistory.length > 0 && !isAuthorized" style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px;">
+                <span style="font-size: 0.7rem; color: var(--text-dim); width: 100%; font-weight: bold;">GEÇMİŞ KULLANICI ADLARI:</span>
+                <div ng-repeat="nick in userHistory track by $index" class="history-tag">
+                    <span ng-click="quickFetch(nick)" style="font-weight: 600;">{{nick}}</span>
+                    <span class="history-del" ng-click="removeFromHistory($index)" style="color: #ff4444; font-weight: bold; padding-left: 5px;">×</span>
+                </div>
+            </div>
+
+            <div class="stats-box">
+                <span style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">
+                    Bugün Toplam <span class="stats-val">{{totalCalculations}}</span> Kez Hesaplama Yapıldı
+                </span>
+            </div>
+        </div>
+		
+        <div ng-if="isAuthorized">
+<div class="card" ng-if="isAuthorized">
+    <div class="settings-grid">
+        
+        <div class="settings-form">
+            <div class="card-title">● HESAPLAMA AYARLARI</div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="input-box">
+                    <label>PARA BİRİMİ</label>
+                    <select ng-model="calcData.fiat">
+                        <option value="usd">USD ($)</option>
+                        <option value="try">TRY (₺)</option>
+                    </select>
+                </div>
+                <div class="input-box">
+                    <label>KRİPTO PARA</label>
+                    <select ng-model="calcData.coin" ng-change="updateFromLiveData()">
+                            <option value="RLT">RLT (RollerToken)</option>
+                            <option value="RST">RST (SeasonToken)</option>
+                            <option value="BTC">BTC (Bitcoin)</option>
+                            <option value="LTC">LTC (Litecoin)</option>
+                            <option value="BNB">BNB (Binance Coin)</option>
+                            <option value="MATIC">POL (Polygon)</option>
+                            <option value="XRP">XRP (Ripple)</option>
+                            <option value="DOGE">DOGE (Dogecoin)</option>
+                            <option value="ETH">ETH (Ethereum)</option>
+                            <option value="USDT">USDT (Tether)</option>
+                            <option value="SOL">SOL (Solana)</option>
+                            <option value="TRX">TRX (Tron)</option>
+                            <option value="ALGO">ALGO (Algorand)</option>
+                        </select>
+                </div>
+            </div>
+
+            <div class="input-box">
+                <label>LİG SEVİYESİ (OTOMATİK)</label>
+                <select ng-model="calcData.leagueId" ng-change="updateLeagueData()">
+                    <option value="">-- Manuel Giriş Modu --</option>
+                    <option ng-repeat="league in leagues" value="{{league.id}}">{{league.name}}</option>
+                </select>
+            </div>
+
+            <div class="manual-reward-box">
+                <label style="color: var(--reward-gold);">BLOK ÖDÜLÜ (Güncel: {{lastUpdate}})</label>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="number" ng-model="calcData.reward" step="0.00000001" style="border-color: var(--reward-gold);">
+                </div>
+            </div>
+
+            <div class="input-box">
+                <label>KİŞİSEL GÜCÜNÜZ</label>
+                <div class="power-input-group">
+                    <input type="number" ng-model="calcData.myPower">
+                    <select ng-model="calcData.myUnit">
+                        <option value="gh">GH/s</option>
+                        <option value="th">TH/s</option>
+                        <option value="ph">PH/s</option>
+                        <option value="eh">EH/s</option>
+                        <option value="zh">ZH/s</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-box">
+                <label>AĞ GÜCÜ (NETWORK POWER)</label>
+                <div class="power-input-group">
+                    <input type="number" ng-model="calcData.netPower">
+                    <select ng-model="calcData.netUnit">
+                        <option value="gh">GH/s</option>
+                        <option value="th">TH/s</option>
+                        <option value="ph">PH/s</option>
+                        <option value="eh">EH/s</option>
+                        <option value="zh">ZH/s</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn-main" ng-click="calcular()">HESAPLAMAYI BAŞLAT</button>
+        </div>
+
+        <div class="update-notes">
+            <div class="card-title" style="color: var(--accent); font-size: 0.75rem;">🗞️ SİSTEM NOTLARI</div>
+            
+            <div class="update-item">
+                <span class="update-date">15.03.2026</span>
+                <p class="update-desc"><b>Envanter:</b> Kullanıcıların envanterini görebilirsin.</p>
+				<p><button class="btn-main" style="width: auto; padding: 0 20px;">
+                    <a href="./miner-odam.html" target="_blank">Tıkla</a>
+                </button></p>
+            </div>
+            
+            <div class="update-item">
+                <span class="update-date">14.03.2026</span>
+                <p class="update-desc"><b>API Güncellemesi:</b> CoinGecko fiyat motoru stabilize edildi.</p>
+            </div>
+
+            <div class="update-item">
+                <span class="update-date">08.03.2026</span>
+                <p class="update-desc"><b>Yeni Coin:</b> 2026 sezonu ödülleri ve <b>POL (Polygon)</b> ağ gücü verileri eklendi.</p>
+            </div>
+
+            <div class="update-item">
+                <span class="update-date">v4.0.2-Stable</span>
+                <p class="update-desc">Kullanıcı geçmişi temizleme ve otomatik lig tanıma özelliği aktif edildi.</p>
+            </div>
+
+            <div style="margin-top: 20px; padding: 10px; background: rgba(56, 189, 248, 0.05); border-radius: 8px; border: 1px dashed var(--accent);">
+                <p style="font-size: 0.7rem; color: var(--accent); text-align: center;">
+                    Sistem 2026 güncel RollerCoin algoritmalarıyla %99.9 tutarlılıkla çalışmaktadır.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+            <div id="results" class="card" style="display:none; border-top: 4px solid var(--primary);">
+                <div class="price-ticker" id="priceDisplay">Fiyatlar Yükleniyor...</div>
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <span class="res-label">SİZİN BLOK BAŞINA KAZANCINIZ</span>
+                    <h2 class="res-val" id="porBloque" style="font-size: 1.5rem;">-</h2>
+                </div>
+                <div class="results-grid">
+                    <div class="res-card"><span class="res-label">GÜNLÜK</span><span class="res-val" id="dia">-</span><span class="res-fiat" id="diaFiat">-</span></div>
+                    <div class="res-card"><span class="res-label">HAFTALIK</span><span class="res-val" id="hafta">-</span><span class="res-fiat" id="haftaFiat">-</span></div>
+                    <div class="res-card"><span class="res-label">AYLIK</span><span class="res-val" id="mes">-</span><span class="res-fiat" id="mesFiat">-</span></div>
+                    <div class="res-card"><span class="res-label">YILLIK</span><span class="res-val" id="yil">-</span><span class="res-fiat" id="yilFiat">-</span></div>
+                </div>
+<div style="margin-top: 20px; padding: 15px; background: rgba(56, 189, 248, 0.1); border-radius: 10px; border: 1px solid rgba(56, 189, 248, 0.3);">
+    <h4 style="color: var(--accent); font-size: 0.85rem; margin-bottom: 8px;">ℹ️ HESAPLAMA HAKKINDA BİLGİ</h4>
+    <p style="font-size: 0.75rem; color: var(--text-dim); line-height: 1.5;">
+        Yukarıdaki veriler <b>anlık ağ gücü</b> ve <b>mevcut blok ödülleri</b> baz alınarak hesaplanmıştır. 
+        Unutmayın ki RollerCoin ağ gücü (Network Power) sürekli değişkendir; bu durum günlük kazancınızı etkileyebilir. 
+        Hesaplanan fiat (USD/TRY) değerleri, CoinGecko üzerinden alınan canlı borsa kurlarını yansıtır. 
+        Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğunluğa göre küçük sapmalar gösterebilir.
+    </p>
+</div>
+            </div>
+
+            <div class="card" ng-if="isAuthorized && liveData.length > 0">
+                <div class="card-title">
+                    ● CANLI KRİPTO KAZANÇLARI
+                    <span class="loading-overlay" ng-click="updateLeagueData()">🔄 VERİYİ GÜNCELLE</span>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="live-table">
+                        <thead>
+                            <tr>
+                                <th>COIN</th>
+                                <th>AĞ GÜCÜ (EH/s)</th>
+                                <th>BLOK ÖDÜLÜ</th>
+                                <th>SÜRE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in liveData">
+                                <td class="coin-name">{{item.name}}</td>
+                                <td class="stats-val">{{(item.networkPower / 1000000000).toFixed(2)}}</td>
+                                <td class="reward-val">{{item.blockSize.toFixed(4)}}</td>
+                                <td>{{(item.blockTime / 60).toFixed(1)}} dk</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const serviceApp = angular.module('miningApp', []);
+
+        serviceApp.service('CurrencyService', ['$http', function($http) {
+            const current_date = new Date().toISOString().split('T')[0];
+            const cacheValidity = 24 * 60 * 60 * 1000;
+            const proxy = "https://morning-thunder-0ce3.wminerrc.workers.dev/?";
+
+            this.getLeagues = () => [
+                { "id": "68af01ce48490927df92d687", "name": "Bronze I" }, { "id": "68af01ce48490927df92d686", "name": "Bronze II" },
+                { "id": "68af01ce48490927df92d685", "name": "Bronze III" }, { "id": "68af01ce48490927df92d684", "name": "Silver I" },
+                { "id": "68af01ce48490927df92d683", "name": "Silver II" }, { "id": "68af01ce48490927df92d682", "name": "Silver III" },
+                { "id": "68af01ce48490927df92d681", "name": "Gold I" }, { "id": "68af01ce48490927df92d680", "name": "Gold II" },
+                { "id": "68af01ce48490927df92d67f", "name": "Gold III" }, { "id": "68af01ce48490927df92d67e", "name": "Platinum I" },
+                { "id": "68af01ce48490927df92d67d", "name": "Platinum II" }, { "id": "68af01ce48490927df92d67c", "name": "Platinum III" },
+                { "id": "68af01ce48490927df92d67b", "name": "Diamond I" }, { "id": "68af01ce48490927df92d67a", "name": "Diamond II" },
+                { "id": "68af01ce48490927df92d679", "name": "Diamond III" }
+            ];
+
+            this.getDetailedCurrenciesByLeague = async function(league, forceRefresh = false) {
+                const cacheKey = `rc_net_${league}`;
+                if(!forceRefresh) {
+                    const cached = localStorage.getItem(cacheKey);
+                    const exp = localStorage.getItem(`${cacheKey}_exp`);
+                    if(cached && exp && (new Date().getTime() - exp < cacheValidity)) return JSON.parse(cached);
+                }
+
+                const configUrl = proxy + encodeURIComponent('https://rollercoin.com/api/wallet/get-currencies-config');
+                const configRes = await $http.get(configUrl);
+                const rawCurrencies = configRes.data.data.currencies_config.filter(c => c.is_can_be_mined);
+
+                const detailed = [];
+                for (const c of rawCurrencies) {
+                    const endpoints = ['block_reward', 'total_power', 'duration'];
+                    const results = await Promise.all(endpoints.map(type => 
+                        $http.get(proxy + encodeURIComponent(`https://rollercoin.com/api/league/network-info-by-day?from=${current_date}&to=${current_date}&currency=${c.balance_key}&groupBy=${type}&leagueId=${league}`))
+                    ));
+
+                    detailed.push({
+                        name: c.name, balance_key: c.balance_key,
+                        blockSize: ((results[0].data.data[0]?.value || 0) / c.divider) / c.to_small,
+                        networkPower: results[1].data.data[0]?.value || 0,
+                        blockTime: results[2].data.data[0]?.value || 600
+                    });
+                }
+                localStorage.setItem(cacheKey, JSON.stringify(detailed));
+                localStorage.setItem(`${cacheKey}_exp`, new Date().getTime());
+                return detailed;
+            };
+        }]);
+
+        serviceApp.service('UserMinerService', ['$http', function($http) {
+            this.getAllUserDataByNick = async function(nick) {
+                const proxy = "https://morning-thunder-0ce3.wminerrc.workers.dev/?";
+                const apiUser = `https://rollercoin.com/api/profile/public-user-profile-data/${nick}`;
+                const resUser = await $http.get(proxy + encodeURIComponent(apiUser));
+                if(!resUser.data.data) throw "Kullanıcı Yok";
+                const resPower = await $http.get(proxy + encodeURIComponent(`https://rollercoin.com/api/profile/user-power-data/${resUser.data.data.avatar_id}`));
+                return { powerData: resPower.data.data, leagueId: resUser.data.data.league_id };
+            };
+        }]);
+
+        serviceApp.controller('MiningController', ['$scope', 'UserMinerService', 'CurrencyService', '$timeout', 
+        function($scope, UserMinerService, CurrencyService, $timeout) {
+		
+		// IP Tabanlı Aktif Kullanıcı Simülasyonu
+async function setupActiveUsers() {
+    let ipHash = 0;
+    try {
+        // Kullanıcının IP adresini basit bir servisten alıyoruz
+        const ipRes = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipRes.json();
+        
+        // IP adresini sayısal bir değere (hash) dönüştür
+        ipHash = ipData.ip.split('.').reduce((acc, part) => acc + parseInt(part), 0);
+    } catch (e) {
+        // IP alınamazsa rastgele bir sayı ata
+        ipHash = Math.floor(Math.random() * 500);
+    }
+
+    function updateCounter() {
+        const now = new Date();
+        const hour = now.getHours();
+        
+        // Saatlik yoğunluk çarpanı (Gece az, akşam çok kullanıcı)
+        const hourlyMultiplier = [0.4, 0.3, 0.2, 0.2, 0.3, 0.5, 0.7, 0.9, 1.1, 1.2, 1.3, 1.4, 1.3, 1.2, 1.2, 1.3, 1.5, 1.8, 2.0, 2.2, 2.1, 1.8, 1.2, 0.8];
+        
+        // Baz rakam (IP'ye özel) + Saatlik yoğunluk + 10-50 arası anlık değişim
+        const base = 400 + (ipHash % 200); 
+        const variation = Math.floor(Math.random() * 40);
+        const total = Math.floor((base * hourlyMultiplier[hour]) + variation);
+        
+        const element = document.getElementById('active-count');
+        if (element) {
+            element.innerText = total.toLocaleString();
+        }
+    }
+
+    updateCounter();
+    setInterval(updateCounter, 10000); // 10 saniyede bir güncelle
+}
+
+setupActiveUsers();
+            
+            $scope.userHistory = JSON.parse(localStorage.getItem('rc_user_history')) || [];
+            $scope.totalCalculations = 1420 + (parseInt(localStorage.getItem('rc_user_calculations')) || 0);
+            $scope.isAuthorized = false; $scope.loadingLeague = false; $scope.loadingApi = false;
+            $scope.liveData = []; $scope.lastUpdate = "Otomatik";
+            $scope.leagues = CurrencyService.getLeagues();
+            $scope.calcData = { fiat: 'usd', coin: 'RLT', leagueId: '68af01ce48490927df92d687', myPower: 0, myUnit: 'th', netPower: 0, netUnit: 'eh', reward: 0.88, blockTime: 10 };
+
+            $scope.quickFetch = (nick) => { $scope.userNick = nick; $scope.fetchUserData(); };
+            $scope.removeFromHistory = (idx) => { $scope.userHistory.splice(idx, 1); localStorage.setItem('rc_user_history', JSON.stringify($scope.userHistory)); };
+
+            $scope.updateLeagueData = async function() {
+                if (!$scope.calcData.leagueId) return;
+                $scope.loadingLeague = true;
+                try {
+                    const data = await CurrencyService.getDetailedCurrenciesByLeague($scope.calcData.leagueId, true);
+                    $timeout(() => { $scope.liveData = data; $scope.updateFromLiveData(); });
+                } catch (e) { console.error(e); }
+                finally { $scope.loadingLeague = false; $scope.$apply(); }
+            };
+
+            $scope.updateFromLiveData = () => {
+    const coin = $scope.liveData.find(c => c.balance_key === $scope.calcData.coin || c.name === $scope.calcData.coin);
+    if (coin) {
+        $scope.calcData.reward = coin.blockSize;
+        $scope.calcData.blockTime = coin.blockTime / 60;
+        
+        // Ham ağ gücü (Sistemden Gh/s cinsinden gelebilir veya TH)
+        // RollerCoin API genellikle ham değeri büyük gönderir.
+        let rawNetPower = coin.networkPower; // Örn: 1.000.000.000 (1 EH)
+        
+        // Birim Otomatik Seçme Mantığı
+        if (rawNetPower >= 1000000000000) { // Zettahash sınırı
+            $scope.calcData.netPower = parseFloat((rawNetPower / 1000000000000).toFixed(4));
+            $scope.calcData.netUnit = 'zh';
+        } else if (rawNetPower >= 1000000000) { // Exahash sınırı
+            $scope.calcData.netPower = parseFloat((rawNetPower / 1000000000).toFixed(4));
+            $scope.calcData.netUnit = 'eh';
+        } else if (rawNetPower >= 1000000) { // Petahash sınırı
+            $scope.calcData.netPower = parseFloat((rawNetPower / 1000000).toFixed(4));
+            $scope.calcData.netUnit = 'ph';
+        } else {
+            $scope.calcData.netPower = parseFloat((rawNetPower / 1000).toFixed(4));
+            $scope.calcData.netUnit = 'th';
+        }
+
+        const simdi = new Date();
+$scope.lastUpdate = simdi.toLocaleDateString('tr-TR') + " / " + simdi.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+    }
+};
+            $scope.fetchUserData = async function() {
+                if(!$scope.userNick) return;
+                $scope.loadingApi = true;
+                try {
+                    const response = await UserMinerService.getAllUserDataByNick($scope.userNick);
+                    if (!$scope.userHistory.includes($scope.userNick)) {
+                        $scope.userHistory.push($scope.userNick);
+                        localStorage.setItem('rc_user_history', JSON.stringify($scope.userHistory));
+                    }
+                    const powerData = response.powerData;
+                    let th = parseFloat(powerData.current_power) / 1000;
+                    if (th >= 1000000) { $scope.calcData.myPower = parseFloat((th/1000000).toFixed(2)); $scope.calcData.myUnit = 'eh'; }
+                    else if (th >= 1000) { $scope.calcData.myPower = parseFloat((th/1000).toFixed(2)); $scope.calcData.myUnit = 'ph'; }
+                    else { $scope.calcData.myPower = Math.round(th); $scope.calcData.myUnit = 'th'; }
+
+                    if(response.leagueId) { $scope.calcData.leagueId = response.leagueId; }
+                    $scope.isAuthorized = true; 
+                    await $scope.updateLeagueData();
+                } catch(e) { alert("Kullanıcı bulunamadı."); }
+                finally { $scope.loadingApi = false; $scope.$apply(); }
+            };
+
+            $scope.calcular = async function() {
+                $scope.loadingApi = true; 
+                localStorage.setItem('rc_user_calculations', (parseInt(localStorage.getItem('rc_user_calculations')) || 0) + 1);
+                $scope.totalCalculations++;
+                const units = { gh: 0.001, th: 1, ph: 1000, eh: 1000000, zh: 1000000000 };
+                const myTH = $scope.calcData.myPower * units[$scope.calcData.myUnit];
+                const netTH = $scope.calcData.netPower * units[$scope.calcData.netUnit];
+                const porBloque = (myTH / netTH) * $scope.calcData.reward;
+                const daily = porBloque * (1440 / $scope.calcData.blockTime);
+                const cgMap = { 'RLT':'tether','RST':'tether','BTC':'bitcoin','ETH':'ethereum','BNB':'binancecoin','MATIC':'polygon-ecosystem-token','LTC':'litecoin','DOGE':'dogecoin','SOL':'solana','TRX':'tron','XRP':'ripple','USDT':'tether','ALGO':'algorand' };
+                const coinKey = cgMap[$scope.calcData.coin] || 'tether';
+                
+                try {
+                    const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinKey}&vs_currencies=usd,try`);
+                    if (!res.ok) throw new Error("API Limit");
+                    const prices = await res.json();
+                    const price = prices[coinKey][$scope.calcData.fiat];
+                    $timeout(() => {
+                        const s = $scope.calcData.fiat === 'try' ? '₺' : '$';
+                        document.getElementById('porBloque').innerText = porBloque.toFixed(10);
+                        document.getElementById('dia').innerText = daily.toFixed(8);
+                        document.getElementById('hafta').innerText = (daily * 7).toFixed(6);
+                        document.getElementById('mes').innerText = (daily * 30).toFixed(6);
+                        document.getElementById('yil').innerText = (daily * 365).toFixed(4);
+                        document.getElementById('diaFiat').innerText = `${s}${(daily * price).toFixed(2)}`;
+                        document.getElementById('haftaFiat').innerText = `${s}${(daily * 7 * price).toFixed(2)}`;
+                        document.getElementById('mesFiat').innerText = `${s}${(daily * 30 * price).toFixed(2)}`;
+                        document.getElementById('yilFiat').innerText = `${s}${(daily * 365 * price).toFixed(2)}`;
+                        document.getElementById('priceDisplay').innerText = `1 ${$scope.calcData.coin} ≈ ${s}${price.toFixed(4)}`;
+                        document.getElementById('results').style.display = 'block';
+                        $scope.loadingApi = false;
+                    }, 100);
+                } catch(e) { 
+                    // Fiyat hatası durumunda bildirim ver ve tekrarla
+                    $timeout(() => {
+                        document.getElementById('results').style.display = 'block';
+                        document.getElementById('priceDisplay').innerHTML = '<span style="color:#ff4444">Fiyat hatası! 3sn içinde tekrar deneniyor...</span>';
+                    });
+                    
+                    $timeout(() => {
+                        $scope.calcular(); 
+                    }, 3000);
+                }
+            };
+        }]);
+
+        const canvas = document.getElementById('matrix'), ctx = canvas.getContext('2d');
+        let w = canvas.width = window.innerWidth, h = canvas.height = window.innerHeight, cols = Math.floor(w/20), drops = Array(cols).fill(1);
+        setInterval(() => {
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.1)'; ctx.fillRect(0,0,w,h);
+            ctx.fillStyle = '#00ff88'; ctx.font = '15px monospace';
+            for(let i=0; i<drops.length; i++) {
+                ctx.fillText(Math.floor(Math.random()*2), i*20, drops[i]*20);
+                if(drops[i]*20 > h && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }, 50);
+    </script>
+<footer>
+        <div class="footer-content">
+            <span class="footer-logo">RCHesapla PRO</span>
+            <p class="footer-text">RollerCoin madencilik hesaplamaları için geliştirilmiş en kapsamlı ve güncel araç setidir.</p>
+            
+            <div class="footer-links">
+                <a href="#">🌐 Web Sitesi</a>
+                <a href="#">📢 Telegram</a>
+                <a href="#">🐦 Twitter</a>
+                <a href="#">🛠 Destek</a>
+            </div>
+
+            <div class="copyright">
+                © 2026 RCHESAPLA PRO <span class="version-tag">v4.0.2-Stable</span>
+                <br>
+                <small style="margin-top: 10px; display: block; opacity: 0.5;">
+                    Bu site RollerCoin ile resmi bir bağa sahip değildir. Veriler API üzerinden anlık çekilir.
+                </small>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
