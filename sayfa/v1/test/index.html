@@ -484,35 +484,9 @@
                                     Nome
                                 </th>
                                 <th style="text-align: center">
-                                    <a href="#" ng-click="orderByAllMinersField='recipe_cost'; reverseAllMinersSort = !reverseAllMinersSort  ; $event.preventDefault();">
-                                        Receita
-                                        <span ng-show="orderByAllMinersField == 'recipe_cost'">
-                                            <span ng-show="!reverseMinersSort">
-                                                <i class="fa fa-fw fa-sort-asc"></i>
-                                            </span>
-                                            <span ng-show="reverseMinersSort">
-                                                <i class="fa fa-fw fa-sort-desc"></i>
-                                            </span>
-                                        </span>
-                                    </a>
-                                </th>
-                                <th style="text-align: center">
                                     <a href="#" ng-click="orderByAllMinersField='craft_cost_diff'; reverseAllMinersSort = !reverseAllMinersSort  ; $event.preventDefault();">
                                         Desconto merge (%)
                                         <span ng-show="orderByAllMinersField == 'craft_cost_diff'">
-                                            <span ng-show="!reverseMinersSort">
-                                                <i class="fa fa-fw fa-sort-asc"></i>
-                                            </span>
-                                            <span ng-show="reverseMinersSort">
-                                                <i class="fa fa-fw fa-sort-desc"></i>
-                                            </span>
-                                        </span>
-                                    </a>
-                                </th>
-                                <th style="text-align: center">
-                                    <a href="#" ng-click="orderByAllMinersField='supply'; reverseAllMinersSort = !reverseAllMinersSort  ; $event.preventDefault();">
-                                        Supply
-                                        <span ng-show="orderByAllMinersField == 'supply'">
                                             <span ng-show="!reverseMinersSort">
                                                 <i class="fa fa-fw fa-sort-asc"></i>
                                             </span>
@@ -577,35 +551,15 @@
                                     <img src='https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608' width="80px" height="auto"/>
                                     <div ng-if="!miner.is_can_be_sold_on_mp"
                                         style="
-                                        height: 10px;
-                                        width: 100px;
                                         background-color: red;
                                         font-size: 0.6em;
                                         font-weight: bold;
                                         margin-left: 8%;
                                         color: white;
-                                    ">INEGOCIAVEL</div>
-                                </td>
-                                <td style="text-align: center">
-                                    <p ng-repeat="item in miner.craft_items">
-                                        <span ng-if="item.component_type === 'mutation_components'"><img width="20" height="20" src="https://static.rollercoin.com/static/img/storage/mutation_components/{{item._id}}.png?v=1.0.1"/> {{item.count}} <i style="font-size:10px;margin-left:2px" ng-click="openBuyCraftLink(item._id, 'mutation_component')" class="fas fa-external-link-alt"></i></span>
-                                        <span ng-if="item.component_type === 'miners'"><img width="20" height="20" src="https://rollercoin.com/static/images/basic_miner.39e37c9f62068115758b..svg"/> {{item.count}} <i style="font-size:10px;margin-left:2px" ng-click="openBuyCraftLink(item._id, 'miner')" class="fas fa-external-link-alt"></i></span>
-                                    </p>
-                                    <p>
-                                        {{miner.recipe_cost}} RLT
-                                    </p>
-                                    <p ng-repeat="item in miner.old_craft_items">
-                                        <span ng-if="item.component_type === 'mutation_components'"><img width="20" height="20" src="https://static.rollercoin.com/static/img/storage/mutation_components/{{item._id}}.png?v=1.0.1"/> <s>{{item.count}}</s> <i style="font-size:10px;margin-left:2px" ng-click="openBuyCraftLink(item._id, 'mutation_component')" class="fas fa-external-link-alt"></i></span>
-                                    </p>
-                                    <p>
-                                        <s>{{miner.old_recipe_cost}} RLT</s>
-                                    </p>
+                                    ">SATILAMAZ</div>
                                 </td>
                                 <td style="text-align: center">
                                     {{miner.craft_cost_diff}}%
-                                </td>
-                                <td style="text-align: center">
-                                    {{miner.supply}}
                                 </td>
                                 <td style="text-align: center">
                                     {{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
