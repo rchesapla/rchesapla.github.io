@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Rollercoin | Wminer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
@@ -26,7 +27,221 @@
     <script src="services.js"></script>
     <script src="user-miner-service.js"></script>
     <script src="miner-service.js"></script>
+    <style>
 
+        .balao {
+            position: fixed;
+            bottom: 10px; /* Define a distância do fundo da página */
+            right: 10px;  /* Define a distância do lado direito da página */
+            width: 500px; /* Defina uma largura adequada para o balão */
+            height: auto; /* Permita que a altura seja ajustada automaticamente conforme o conteúdo */
+            background-color: green;
+            color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            text-align: center;
+            z-index: 999;
+        }
+
+        .balao p {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .balao a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px;
+        }
+        #balao2{
+            bottom: 100px;
+            width: 266px;
+            height: 96px;
+            background: url(../images/tap.png);
+        }
+
+        #balao2 p{
+            vertical-align: middle;
+            margin-top: 10px;
+            background-color: rgba(255, 255, 255, 0.6);
+            color: #000000;
+        }
+
+        .fechar {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            cursor: pointer;
+        }
+        #chart {
+            width: 30%;
+            height: 250px;
+            margin: 0 auto;
+            margin-top: 350px;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .already-have-miner {
+            background-color: rgba(0,0,0,0.2);
+        }
+        .removed-have-miner {
+            background-color: rgba(252, 79, 79, 0.2);
+        }
+        .autocomplete-container {
+            padding: 20px;
+        }
+        body {
+            --font-family-sans-serif: pixelSC,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            background: linear-gradient(90deg, rgba(255,25,147,0.55) 0%, rgba(2,199,251,0.73) 100%);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            font-size:1.5em;
+            min-height: 100vh;
+            font-family: var(--font-family-sans-serif);
+        }
+        @font-face {
+            font-family: pixelSC;
+            src: url('fonts/PixelOperatorSC.ttf');
+            font-display: swap;
+        }
+        .container {
+            flex: 1;
+            margin-top: 20px;
+        }
+        .form-inline .form-group {
+            margin-right: 10px;
+        }
+        header, footer {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #000;
+            padding: 10px 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+        header h1, footer p {
+            margin: 0;
+            align-self: center;
+        }
+        .currency-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+        .table-bordered {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        .table-container {
+            text-align: center;
+        }
+        .form-control {
+            width: calc(100% - 20px);
+            display: inline-block;
+        }
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            color: white;
+            font-size: 24px;
+        }
+        .invalid {
+            border-color: red;
+        }
+        .wrong-value {
+            color:red;
+        }
+        .best-coin:not([disabled]) {
+            background-color: gold;
+            font-weight: bolder;
+            animation: pulse 2s infinite ease-in-out;
+        }
+        .best-coin[disabled] {
+            background-color: #d7d0a7;
+            font-weight: bolder;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        tbody.allocated-farm tr:first-child {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        #message {
+            font-size: 24px;
+            animation: slideUp 2s forwards;
+        }
+
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .modal {
+    text-align: center;
+    display:block;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    max-width: 80%;
+    max-height: 80%;
+    overflow: auto;
+    margin-left: 10%;
+    margin-top: 5%;
+  }
+/* 
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  } */
+    </style>
 </head>
 <body ng-controller="MiningController">
     <header>
@@ -36,97 +251,8 @@
     
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-xs-offset-2">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th style="text-align: center" colspan="2">
-                                Task bônus do dia {{dailyBonus.date}}
-                            </th>
-                        </tr>
-                        <tr>
-                            <th style="text-align: center">
-                                Quest
-                            </th>
-                            <th style="text-align: center">
-                                Recompensas
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="task in dailyBonus.task">
-                            <td style="text-align: center">
-                                {{task.quest}}
-                            </td>
-                            <td style="text-align: center">
-                                <ul style="list-style: none;">
-                                    <li ng-repeat="reward in dailyBonus.task[0].rewards">{{ reward }}</li>
-                                </ul>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-            </div>
-        </div>
-        <div class="row">
             <div class="col-md-4">
                 <form name="miningForm">
-                    <div class="form-group">
-                        <label for="currency">Liga</label>
-                        <select id="currency" class="form-control" ng-disabled="isLoadedUser" ng-model="formData.league" ng-options="league.name for league in leagues" ng-change="updateLeagueDetails()">
-                            <option value="">Selecione uma liga</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="currency">Moeda a Minerar</label>
-                        <select id="currency" class="form-control" ng-model="formData.currency" ng-options="currency.name for currency in currencies" ng-change="updateCurrencyDetails()">
-                            <option value="">Selecione uma moeda</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="networkPower">Poder da Rede</label>
-                        <div class="form-inline">
-                            <input type="number" id="networkPower" class="form-control" ng-model="formData.networkPower" disabled>
-                            <select id="networkUnit" class="form-control" ng-model="formData.networkUnit" disabled ng-change="updateNetworkPowerUnit('{{formData.networkUnit}}')">
-                                <option ng-repeat="unit in networkUnits">{{unit}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="power">Seu Poder</label>
-                        <div class="form-inline">
-                            <input type="text" id="power" ng-disabled="isLoadedUser" class="form-control" ng-model="formData.power">
-                            <select id="unit" class="form-control" ng-disabled="isLoadedUser" ng-model="formData.unit" ng-options="unit for unit in units" ng-change="updatePowerUnit('{{formData.unit}}')"></select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="blockSize">Tamanho do Bloco</label>
-                        <div class="form-inline">
-                            <input type="text" id="blockSize" class="form-control" ng-model="formData.blockSize" disabled>
-                            <input type="text" id="blockSizeCurrency" class="form-control" value="{{formData.currency.name}} por bloco" disabled>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="blockTime">Tempo do Bloco</label>
-                        <div class="form-inline">
-                            <input type="number" id="blockTime" class="form-control" ng-model="formData.blockTime" disabled>
-                            <select id="timeUnit" class="form-control" ng-model="formData.timeUnit" disabled ng-change="updateTimeUnit('{{formData.timeUnit}}')">
-                                <option value="seconds">Segundos</option>
-                                <option value="minutes">Minutos</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-inline">
-                            <button class="best-coin animated-button" ng-disabled="!formData.power || formData.currency" ng-click="calculateAllCoins()"><i class="fa-solid fa-coins"></i> Calcular melhor moeda</button>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-inline">
-                            <button class="best-coin animated-button" ng-disabled="!isLoadedUser" ng-click="bestBuys()"><i class="fas fa-shopping-cart"></i> Melhores aquisições</button>
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label for="blockTime">Carregar jogador</label>
                         <div class="form-inline">
@@ -168,167 +294,6 @@
                         <label for="show_inventory">Carregar inventário</label>
                     </div>
                 </fieldset>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th style="text-align: center">
-                                Usuário
-                            </th>
-                            <th style="text-align: center">
-                                Avatar
-                            </th>
-                            <th style="text-align: center">
-                                Poder de jogos
-                            </th>
-                            <th style="text-align: center">
-                                Poder de miners
-                            </th>
-                            <th style="text-align: center">
-                                Poder de racks
-                            </th>
-                            <th style="text-align: center">
-                                Poder temporário
-                            </th>
-                            <th style="text-align: center">
-                                Total de poder de mineração
-                            </th>
-                            <th style="text-align: center">
-                                Bônus de coleção
-                            </th>
-                            <th style="text-align: center">
-                                Salas liberadas
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="text-align: center">
-                                {{user_data.name}}
-                            </td>
-                            <td style="text-align: center">
-                                <img src="https://avatars.rollercoin.com/static/avatars/thumbnails/48/{{user_data.avatar_id}}.png?v=1652150400524" style="width: 30px; height: 30px; border-radius: 50%; vertical-align: middle; margin-right: 8px;">
-                            </td>
-                            <td style="text-align: center">
-                                {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').unit}}
-                            </td>
-                            <td ng-if="user_data.newPowerData && user_data.newPowerData.new_power > 0" style="text-align: center">
-                                <s>{{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').unit}}</s></br>
-                                {{chooseBestHashRateUnit(user_data.newPowerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.miners, 'GH/s').unit}}<br>
-                                <i class="fa-solid fa-arrow-up"></i> {{chooseBestHashRateUnit(user_data.newPowerData.new_power, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.new_power, 'GH/s').unit}}<br>
-                            </td>
-                            <td ng-if="user_data.newPowerData && user_data.newPowerData.new_power < 0" style="text-align: center">
-                                <s>{{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').unit}}</s></br>
-                                {{chooseBestHashRateUnit(user_data.newPowerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.miners, 'GH/s').unit}}<br>
-                                <i class="fa-solid fa-arrow-down"></i> {{chooseBestHashRateUnit(user_data.newPowerData.new_power, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.new_power, 'GH/s').unit}}<br>
-                            </td>
-                            <td ng-if="!user_data.newPowerData || !user_data.newPowerData.new_power" style="text-align: center">
-                                {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.miners, 'GH/s').unit}}
-                            </td>
-                            <td style="text-align: center">
-                                {{chooseBestHashRateUnit(user_data.powerData.racks, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.racks, 'GH/s').unit}}
-                            </td>
-                            <td style="text-align: center">
-                                {{chooseBestHashRateUnit(user_data.powerData.temp, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.temp, 'GH/s').unit}}
-                            </td>
-                            <td ng-if="!user_data.newPowerData || !user_data.newPowerData.new_total" style="text-align: center">
-                                {{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').unit}}
-                            </td>
-                            <td ng-if="user_data.newPowerData && user_data.newPowerData.new_total > 0" style="text-align: center">
-                                <s>{{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').unit}}</s></br>
-                                {{chooseBestHashRateUnit(user_data.newPowerData.total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.total, 'GH/s').unit}}<br>
-                                <i class="fa-solid fa-arrow-up"></i> {{chooseBestHashRateUnit(user_data.newPowerData.new_total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.new_total, 'GH/s').unit}} ({{(user_data.newPowerData.new_total_percent.toFixed(2))}}%)
-                            </td>
-                            <td ng-if="user_data.newPowerData && user_data.newPowerData.new_total < 0" style="text-align: center">
-                                <s>{{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.total, 'GH/s').unit}}</s></br>
-                                {{chooseBestHashRateUnit(user_data.newPowerData.total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.total, 'GH/s').unit}}<br>
-                                <i class="fa-solid fa-arrow-down"></i> {{chooseBestHashRateUnit(user_data.newPowerData.new_total, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.newPowerData.new_total, 'GH/s').unit}} ({{(user_data.newPowerData.new_total_percent.toFixed(2))}}%)
-                            </td>
-                            <td ng-if="user_data.newPowerData && user_data.newPowerData.new_bonus_percent > 0" style="text-align: center">
-                                <s>{{(user_data.powerData.bonus_percent / 100)}}%</s></br>
-                                {{(user_data.newPowerData.bonus_percent / 100)}}%<br>
-                                <i class="fa-solid fa-arrow-up"></i> {{(user_data.newPowerData.new_bonus_percent / 100)}}%
-                            </td>
-                            <td ng-if="!user_data.newPowerData || !user_data.newPowerData.new_bonus_percent" style="text-align: center">
-                                {{(user_data.powerData.bonus_percent / 100)}}%
-                            </td>
-                            <td ng-if="user_data.newPowerData && user_data.newPowerData.new_bonus_percent < 0" style="text-align: center">
-                                <s>{{(user_data.powerData.bonus_percent / 100)}}%</s></br>
-                                {{(user_data.newPowerData.bonus_percent / 100)}}%<br>
-                                <i class="fa-solid fa-arrow-down"></i> {{(user_data.newPowerData.new_bonus_percent / 100)}}%
-                            </td>
-                            <td style="text-align: center">
-                                {{user_data.roomData.rooms.length}}/4 salas<br/>
-                                <span ng-class="{'wrong-value': user_data.occupied_racks_cells  > user_data.all_racks_cells}">{{user_data.occupied_racks_cells}}</span>/{{user_data.all_racks_cells}} células ocupadas<br/>
-                                {{user_data.all_racks}}/{{user_data.all_racks_space}} racks alocados
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div ng-if="formData.showRacks" class="col-md-8 table-container">
-                <h3>Racks de {{user_data.name}}</h3>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th style="text-align: center">
-                                <a href="#" ng-click="orderByRacksField='name'; reverseRacksSort = !reverseRacksSort">
-                                    Nome
-                                    <span ng-show="orderByRacksField == 'name'">
-                                        <span ng-show="!reverseRacksSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseRacksSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center">
-                                Imagem
-                            </th>
-                            <th style="text-align: center">
-                                <a href="#" ng-click="orderByRacksField='bonus'; reverseRacksSort = !reverseRacksSort">
-                                    Bônus
-                                    <span ng-show="orderByRacksField == 'bonus'">
-                                        <span ng-show="!reverseRacksSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseRacksSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center">
-                                <a href="#" ng-click="orderByRacksField='cells'; reverseRacksSort = !reverseRacksSort">
-                                    Células
-                                    <span ng-show="orderByRacksField == 'cells'">
-                                        <span ng-show="!reverseRacksSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseRacksSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="rack in user_data.roomData.racks | orderBy:orderByRacksField:reverseRacksSort">
-                            <td>
-                                <span ng-show="$first">
-                                    <i style="color:#b7b706" class="fa-solid fa-crown"></i>
-                                </span>
-                                {{rack.name}}
-                            </td>
-                            <td><img style="width:25%;height:25%" src="https://static.rollercoin.com/static/img/market/racks/{{rack.rack_id}}.png?v=1.0.3"/></td>
-                            <td>{{rack.bonus/100}}%</td>
-                            <td>{{rack.cells}}</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
 
             <div ng-if="customMiners.length > 0" class="col-md-8 table-container">
@@ -1072,388 +1037,6 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-
-            <div class="col-md-8 table-container">
-                <h3>Resultados</h3>
-                <table ng-if="formData.currency" class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th style="text-align: center" colspan="4">
-                                Cálculo de mineração em {{formData.currency.name}}
-                                <img style="width: 30px;height: 30px;margin: 5px;" ng-if="formData.currency" ng-src="{{formData.currency.image}}" alt="{{formData.currency.name}} logo" class="currency-icon">
-                            </th>
-                        </tr>
-                        <tr ng-hide="formData.currency.in_game_only">
-                            <th style="text-align: center" colspan="2">
-                                1 {{formData.currency.name}} = ${{exchangeRates[formData.currency.name]['usd']}}
-                            </th>
-                            <th style="text-align: center" colspan="2">
-                                1 {{formData.currency.name}} = R${{exchangeRates[formData.currency.name]['brl']}}
-                            </th>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center;">Tempo</th>
-                            <th style="text-align:center;">Moeda</th>
-                            <th style="text-align:center;" ng-hide="formData.currency.in_game_only">Dólar</th>
-                            <th style="text-align:center;" ng-hide="formData.currency.in_game_only">Real</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Ganho por Bloco</td>
-                            <td>{{calculateEarnings('block', 'amount')}} {{formData.currency.name}}</td>
-                            <td ng-hide="formData.currency.in_game_only">${{calculateEarnings('block', 'usd')}}</td>
-                            <td ng-hide="formData.currency.in_game_only">R${{calculateEarnings('block', 'brl')}}</td>
-                        </tr>
-                        <tr>
-                            <td>Ganho Diário</td>
-                            <td>{{calculateEarnings('day', 'amount')}} {{formData.currency.name}}</td>
-                            <td ng-hide="formData.currency.in_game_only">${{calculateEarnings('day', 'usd')}}</td>
-                            <td ng-hide="formData.currency.in_game_only">R${{calculateEarnings('day', 'brl')}}</td>
-                        </tr>
-                        <tr>
-                            <td>Ganho Semanal</td>
-                            <td>{{calculateEarnings('week', 'amount')}} {{formData.currency.name}}</td>
-                            <td ng-hide="formData.currency.in_game_only">${{calculateEarnings('week', 'usd')}}</td>
-                            <td ng-hide="formData.currency.in_game_only">R${{calculateEarnings('week', 'brl')}}</td>
-                        </tr>
-                        <tr>
-                            <td>Ganho Mensal</td>
-                            <td>{{calculateEarnings('month', 'amount')}} {{formData.currency.name}}</td>
-                            <td ng-hide="formData.currency.in_game_only">${{calculateEarnings('month', 'usd')}}</td>
-                            <td ng-hide="formData.currency.in_game_only">R${{calculateEarnings('month', 'brl')}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <form name="myForm">
-                <table ng-if="!formData.currency" class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th style="text-align: center" colspan="19">
-                                Informações gerais
-                            </th>
-                        </tr>
-                        <tr>
-                            <th style="text-align: center" rowspan="2" colspan="2">
-                                Moeda
-                            </th>
-                            <th style="text-align: center" rowspan="2" colspan="2">
-                                <a href="#" ng-click="orderByField='networkPower'; reverseSort = !reverseSort">
-                                    Poder da rede 
-                                    <span ng-show="orderByField == 'networkPower'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" rowspan="2" colspan="2">
-                                Tamanho do bloco
-                            </th>
-                            <th style="text-align: center" colspan="4">
-                                Valor por bloco
-                            </th>
-                            <th style="text-align: center" colspan="9">
-                                Meu Farm por bloco 
-                                <span title="Preencha seu poder para calcular o Farm">
-                                    <i style="color:rgb(83, 83, 243)" class="fa fa-info-circle"></i>
-                                </span>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByField='block_value_in_usd'; reverseSort = !reverseSort">
-                                    USD 
-                                    <span ng-show="orderByField == 'block_value_in_usd'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByField='block_value_in_brl'; reverseSort = !reverseSort">
-                                    BRL 
-                                    <span ng-show="orderByField == 'block_value_in_brl'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByField='user_block_farm_token'; reverseSort = !reverseSort">
-                                    CRIPTO 
-                                    <span ng-show="orderByField == 'user_block_farm_token'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByField='user_block_farm_brl'; reverseSort = !reverseSort">
-                                    BRL 
-                                    <span ng-show="orderByField == 'user_block_farm_brl'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByField='user_block_farm_usd'; reverseSort = !reverseSort">
-                                    USD 
-                                    <span ng-show="orderByField == 'user_block_farm_usd'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByField='user_days_to_widthdraw'; reverseSort = !reverseSort">
-                                    Saque mínimo 
-                                    <span ng-show="orderByField == 'user_days_to_widthdraw'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" colspan="2">
-                                <div ng-if="hasAnyAllocatedPower()">
-                                    <button ng-click="resetAlocatedPower()"><i class="fa fa-trash"></i></button><br/>
-                                </div>
-                                %
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                            <tr ng-repeat="currency in currencies | orderBy:orderByField:reverseSort">
-                                <td colspan="2">
-                                    <span ng-show="$first">
-                                        <i style="color:#b7b706" class="fa-solid fa-crown"></i>
-                                    </span>
-                                    {{currency.name}}
-                                </td>
-                                <td colspan="2">{{chooseBestHashRateUnit(currency.networkPower, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.networkPower, 'GH/s').unit}}</td>
-                                <td colspan="2">{{currency.blockSize}} {{currency.name}} a cada {{currency.blockTime}} segundos</td>
-                                <td colspan="2">${{currency.block_value_in_usd}}</td>
-                                <td colspan="2">R${{currency.block_value_in_brl}}</td>
-                                <td colspan="2">{{currency.user_block_farm_token}} {{currency.name}}</td>
-                                <td colspan="2">R${{currency.user_block_farm_brl}}</td>
-                                <td colspan="2">${{currency.user_block_farm_usd}}</td>
-                                <td colspan="2">{{formatDays(currency.user_days_to_widthdraw)}}</td>
-                                <td colspan="2"><input type="text" ng-disabled="!formData.power" name="input{{$index}}" id="power" class="form-control" ng-model="currency.user_alocated_power" ng-change="updateAllocatedPower(currency)" style="width:45px"></td>
-                            </tr>
-                    </tbody>
-                </table>
-                </form>
-            </div>
-            <div class="col-md-8 table-container">
-                <table ng-if="!formData.currency && getCurrenciesSum('user_alocated_power')  > 0" class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th style="text-align: center" colspan="22">
-                                Minha mineração <span ng-class="{'wrong-value': getCurrenciesSum('user_alocated_power')  > 100}">{{getCurrenciesSum('user_alocated_power')}}</span>/100%
-                            </th>
-                        </tr>
-                        <tr>
-                            <th style="text-align: center" rowspan="2" colspan="2">
-                                Moeda
-                            </th>
-                            <th style="text-align: center" rowspan="2" colspan="2">
-                                Poder alocado
-                            </th>
-                            <th style="text-align: center" colspan="6">
-                                Farm diário
-                            </th>
-                            <th style="text-align: center" colspan="6">
-                                Farm semanal
-                            </th>
-                            <th style="text-align: center" colspan="6">
-                                Farm mensal
-                            </th>
-                        </tr>
-                        <tr>
-                            <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_day_profit_in_usd'; reverseSort = !reverseSort; $event.preventDefault();">
-                                    USD
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_day_profit_in_usd'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_day_profit_in_brl'; reverseSort = !reverseSort; $event.preventDefault();">
-                                    BRL
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_day_profit_in_brl'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_day_profit_in_cripto'; reverseSort = !reverseSort; $event.preventDefault();">
-                                    CRIPTO
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_day_profit_in_cripto'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_week_profit_in_usd'; reverseSort = !reverseSort; $event.preventDefault();">
-                                    USD
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_usd'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_week_profit_in_brl'; reverseSort = !reverseSort; $event.preventDefault();">
-                                    BRL
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_brl'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_week_profit_in_cripto'; reverseSort = !reverseSort; $event.preventDefault();">
-                                    CRIPTO
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_week_profit_in_cripto'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_month_profit_in_usd'; reverseSort = !reverseSort; $event.preventDefault();">
-                                    USD
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_usd'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_month_profit_in_brl'; reverseSort = !reverseSort; $event.preventDefault();">
-                                    BRL
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_brl'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                            <th style="text-align: center" colspan="2">
-                                <a href="#" ng-click="orderByFarmField='user_alocated_power_month_profit_in_cripto'; reverseSort = !reverseSort; $event.preventDefault();">
-                                    CRIPTO
-                                    <span ng-show="orderByFarmField == 'user_alocated_power_month_profit_in_cripto'">
-                                        <span ng-show="!reverseSort">
-                                            <i class="fa fa-fw fa-sort-asc"></i>
-                                        </span>
-                                        <span ng-show="reverseSort">
-                                            <i class="fa fa-fw fa-sort-desc"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="allocated-farm">
-                            <tr ng-repeat="currency in filteredCurrencies = (currencies | filter:filterFn | orderBy:orderByFarmField:reverseSort)">
-                                <td colspan="2">
-                                    <span ng-show="$first" id="bestCoinTable">
-                                        <i style="color:#b7b706" class="fa-solid fa-crown"></i>
-                                    </span>
-                                    {{currency.name}}
-                                </td>
-                                <td colspan="2">{{chooseBestHashRateUnit(currency.user_alocated_power_value, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(currency.user_alocated_power_value, 'GH/s').unit}}</td>
-                                <td colspan="2">${{currency.user_alocated_power_day_profit_in_usd}}</td>
-                                <td colspan="2">R${{currency.user_alocated_power_day_profit_in_brl}}</td>
-                                <td colspan="2">{{currency.user_alocated_power_day_profit_in_cripto}} {{currency.name}}</td>
-                                <td colspan="2">${{currency.user_alocated_power_week_profit_in_usd}}</td>
-                                <td colspan="2">R${{currency.user_alocated_power_week_profit_in_brl}}</td>
-                                <td colspan="2">{{currency.user_alocated_power_week_profit_in_cripto}} {{currency.name}}</td>
-                                <td colspan="2">${{currency.user_alocated_power_month_profit_in_usd}}</td>
-                                <td colspan="2">R${{currency.user_alocated_power_month_profit_in_brl}}</td>
-                                <td colspan="2">{{currency.user_alocated_power_month_profit_in_cripto}} {{currency.name}}</td>
-                            </tr>
-                    </tbody>
-                    <tfoot ng-show="filteredCurrencies.length">
-                        <tr style="background-color:rgba(255,255,255,0.7)">
-                            <th scope="row" colspan="2">Total</th>
-                            <td colspan="2">{{chooseBestHashRateUnit(getCurrenciesSum('user_alocated_power_value'), 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(getCurrenciesSum('user_alocated_power_value'), 'GH/s').unit}}</td>
-                            <td colspan="2">U${{getCurrenciesSum('user_alocated_power_day_profit_in_usd').toFixed(2)}}</td>
-                            <td colspan="2">R${{getCurrenciesSum('user_alocated_power_day_profit_in_brl').toFixed(2)}}</td>
-                            <td colspan="2">-</td>
-                            <td colspan="2">U${{getCurrenciesSum('user_alocated_power_week_profit_in_usd').toFixed(2)}}</td>
-                            <td colspan="2">R${{getCurrenciesSum('user_alocated_power_week_profit_in_brl').toFixed(2)}}</td>
-                            <td colspan="2">-</td>
-                            <td colspan="2">U${{getCurrenciesSum('user_alocated_power_month_profit_in_usd').toFixed(2)}}</td>
-                            <td colspan="2">R${{getCurrenciesSum('user_alocated_power_month_profit_in_brl').toFixed(2)}}</td>
-                            <td colspan="2">-</td>
-                        </tr>
-                    </tfoot>
-                </table>
             </div>
         </div>
     </div>
