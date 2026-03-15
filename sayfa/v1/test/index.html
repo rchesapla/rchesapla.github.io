@@ -1041,109 +1041,26 @@
         </div>
     </div>
     <div style="text-align: center;">
-        <button ng-click="resetValues()">↻ Resetar valores</button>
-    </div>
-    <br/>
-    <br/>
-    <br/>
-
-    <div class="col-md-8 col-xs-offset-2 table-container">
-
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th colspan="3" style="text-align: center">
-                        Usuários consultados recentemente
-                    </th>
-                </tr>
-                <tr>
-                    <th style="text-align: center">
-                        Usuário
-                    </th>
-                    <th style="text-align: center">
-                        Consultado em
-                    </th>
-                    <th style="text-align: center">
-                        Total de consultas
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                    <tr ng-repeat="user in recentUsers">
-                        <td>{{user.name}}</td>
-                        <td>{{user.timeAgo}}</td>
-                        <td>{{user.searchCount}}</td>
-                    </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3">Ferramenta da comunidade para a comunidade ❤️</td>
-                </tr>
-            </tfoot>
-        </table>
+        <button ng-click="resetValues()">↻ Yüklenmediyse Tıkla</button>
     </div>
 
 
-    <div style="
-    background-color: white;
-    width: 40%;
-    min-width:800px;
-    margin-left: 30%;
-    height: 100px;
-    display: flex;
-">
-        <img style="width: 14%;" src="images/dev-working.gif">
-<div style="
-    margin-top: 15px;
-    width: 130px;
-">Quer pagar um café para o desenvolvedor dessa calculadora?
-</div><div style="
-    margin-top: 35px;
-    margin-left: 40px;
-">
-<label>Valor</label>
-    <input type="text" ng-model="donationValue" 
-    ng-change="calculateDonation()"
-    style="
-    width: 60px;
-    align-content: right;
-"><select
-    ng-model="donationCurrency"
-    ng-change="calculateDonation()"
-     style="
-    margin-left: 4px;
-    align-content: right;
-    width: 50px;
-    height: 28px;
-"><option>U$</option><option>R$</option></select>
 
-</div>
 
-<div style="
-    margin-top: 35px;
-    margin-left: 40px;
-">
-    <button ng-click="donate('BSC')">Doar {{donationInBnb.toFixed(3)}} BNB</button>
-</div>
-<div style="
-    margin-top: 35px;
-    margin-left: 40px;
-">
-    <button ng-click="donate('POLYGON')">Doar {{donationInMatic.toFixed(3)}} Matic</button>
-</div>
 
-    </div>
 
-    </div>
 
-    <p style="text-align: center;">Você também pode doar diretamente em: <b>0x57721770F5Ea06B79ECe6996D653BAC413667Fa2</b></p>
-    <footer>
-        <p>&copy; 2024 Calculadora de Mineração Wminer. Desenvolvida pela e para a comunidade.</p>
-    </footer>
 
-    <div id="balao2" class="balao">
-        <span class="fechar" onclick="document.getElementById('balao2').style.display = 'none';">X</span>
-        <p>A calculadora da comunidade continua atualizada! Que tal doar um cafézinho?</p></a>
-    </div>
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>
