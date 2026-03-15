@@ -591,14 +591,20 @@ footer {
                 </button>
             </div>
 			
-<div ng-if="isAuthorized" style="margin-top: 15px; display: flex; gap: 10px; animation: fadeIn 0.5s;">
+<div ng-if="isAuthorized" style="margin-top: 15px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; animation: fadeIn 0.5s;">
     <a ng-href="https://rollercoin.com/p/{{userNick}}" target="_blank" class="btn-main" 
-       style="background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent); color: var(--accent); text-decoration: none; flex: 1; text-align: center; font-size: 0.8rem;">
-		PROFİLİ GÖRÜNTÜLE
+       style="background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent); color: var(--accent); text-decoration: none; text-align: center; font-size: 0.75rem; padding: 12px 5px;">
+        PROFİLİ GÖRÜNTÜLE
     </a>
+    
     <a href="./miner-odam.html" target="_blank" class="btn-main" 
-       style="flex: 1; text-align: center; font-size: 0.8rem;">
-		MADENCİ ODASINA GİT
+       style="text-align: center; font-size: 0.75rem; padding: 12px 5px;">
+        MADENCİ ODASINA GİT
+    </a>
+
+    <a href="./miner-magaza.html" target="_blank" class="btn-main" 
+       style="background: #ffcc00; color: #000; text-align: center; font-size: 0.75rem; padding: 12px 5px;">
+		MAĞAZAYA GİT
     </a>
 </div>
 
