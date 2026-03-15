@@ -524,6 +524,35 @@ footer {
             font-size: 0.7rem;
             margin-left: 5px;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.highlight-row {
+    background: rgba(0, 255, 136, 0.1);
+    border-left: 3px solid var(--primary);
+}
+
+.efficiency-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    background: rgba(255, 204, 0, 0.1);
+    color: var(--reward-gold);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-top: 5px;
+}
     </style>
 </head>
 <body ng-controller="MiningController">
@@ -717,6 +746,37 @@ footer {
         Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğunluğa göre küçük sapmalar gösterebilir.
     </p>
 </div>
+
+<div class="card" ng-if="isAuthorized" style="border-top: 4px solid var(--accent); margin-top: 20px;">
+    <div class="card-title">💰 ROI (YATIRIM DÖNÜŞÜ) HESAPLA</div>
+    <div class="input-box">
+        <label>MADENCİ / PARÇA MALİYETİ ({{calcData.coin}} Cinsinden)</label>
+        <div style="display: flex; gap: 10px;">
+            <input type="number" ng-model="roiData.cost" placeholder="Örn: 99.50" step="0.01">
+            <button class="btn-main" style="width: auto; padding: 0 20px; background: var(--accent);" ng-click="calculateROI()">
+                ROI HESAPLA
+            </button>
+        </div>
+    </div>
+
+    <div id="roiResult" ng-if="roiData.days > 0" style="animation: fadeIn 0.5s;">
+        <div class="stats-box" style="border-color: var(--accent); background: rgba(56, 189, 248, 0.05);">
+            <div class="results-grid" style="margin-top: 0;">
+                <div class="res-card">
+                    <span class="res-label">AMORTİ SÜRESİ</span>
+                    <span class="res-val" style="color: var(--accent);">{{roiData.days}} Gün</span>
+                </div>
+                <div class="res-card">
+                    <span class="res-label">AYLIK GETİRİ (ROI %)</span>
+                    <span class="res-val" style="color: var(--primary);">%{{roiData.monthlyPercent}}</span>
+                </div>
+            </div>
+            <p style="font-size: 0.7rem; color: var(--text-dim); margin-top: 10px;">
+                * Mevcut kazancınız sabit kalırsa, bu madenci <b>{{roiData.years}} yıl {{roiData.remainingDays}} günde</b> kendini öder.
+            </p>
+        </div>
+    </div>
+</div>
             </div>
 
             <div class="card" ng-if="isAuthorized && liveData.length > 0">
@@ -745,6 +805,9 @@ footer {
                     </table>
                 </div>
             </div>
+			
+			
+			
         </div>
     </div>
 
@@ -813,6 +876,45 @@ footer {
         serviceApp.controller('MiningController', ['$scope', 'UserMinerService', 'CurrencyService', '$timeout', 
         function($scope, UserMinerService, CurrencyService, $timeout) {
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+$scope.leaderboard = [];
+
+$scope.getLeaderboard = async function() {
+    const proxy = "https://morning-thunder-0ce3.wminerrc.workers.dev/?";
+    const leaderboardUrl = proxy + encodeURIComponent('https://rollercoin.com/api/leaderboard/get-top-players?limit=10');
+    
+    try {
+        const res = await $http.get(leaderboardUrl);
+        if(res.data && res.data.data) {
+            $scope.leaderboard = res.data.data.map(player => ({
+                name: player.name,
+                power: (player.total_power / 1000000000).toFixed(3) + " EH/s",
+                league: player.league_name || "Pro Miner"
+            }));
+            $scope.$apply();
+        }
+    } catch (e) {
+        console.error("Liderlik tablosu yüklenemedi", e);
+    }
+};
+
+// fetchUserData içinde başarılı girişten sonra çağırın
+// await $scope.getLeaderboard();
+		
+		
 		// IP Tabanlı Aktif Kullanıcı Simülasyonu
 async function setupActiveUsers() {
     let ipHash = 0;
@@ -877,6 +979,41 @@ setupActiveUsers();
     if (coin) {
         $scope.calcData.reward = coin.blockSize;
         $scope.calcData.blockTime = coin.blockTime / 60;
+		
+		// ROI Veri Modeli
+$scope.roiData = {
+    cost: 0,
+    days: 0,
+    monthlyPercent: 0,
+    years: 0,
+    remainingDays: 0
+};
+
+$scope.calculateROI = function() {
+    // Önce güncel kazancı hesapla (eğer hesaplanmadıysa)
+    const dailyIncome = parseFloat(document.getElementById('dia').innerText);
+    
+    if (!dailyIncome || dailyIncome <= 0) {
+        alert("Lütfen önce yukarıdaki 'HESAPLAMAYI BAŞLAT' butonu ile günlük kazancınızı hesaplayın.");
+        return;
+    }
+
+    if (!$scope.roiData.cost || $scope.roiData.cost <= 0) {
+        alert("Lütfen geçerli bir madenci maliyeti girin.");
+        return;
+    }
+
+    // ROI Hesaplama (Maliyet / Günlük Kazanç)
+    const totalDays = $scope.roiData.cost / dailyIncome;
+    
+    $scope.roiData.days = Math.ceil(totalDays);
+    $scope.roiData.years = Math.floor(totalDays / 365);
+    $scope.roiData.remainingDays = Math.floor(totalDays % 365);
+    
+    // Aylık ROI Yüzdesi: ((Aylık Kazanç) / Maliyet) * 100
+    const monthlyIncome = dailyIncome * 30;
+    $scope.roiData.monthlyPercent = ((monthlyIncome / $scope.roiData.cost) * 100).toFixed(2);
+};
         
         // Ham ağ gücü (Sistemden Gh/s cinsinden gelebilir veya TH)
         // RollerCoin API genellikle ham değeri büyük gönderir.
