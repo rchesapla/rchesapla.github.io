@@ -26,58 +26,58 @@ service_app.factory('retryInterceptor', function($q, $injector, $timeout) {
             return $q.reject(response);
         }
     };
-  });
+});
 
-  service_app.factory('cacheInterceptor', function($q, $injector) {
+service_app.factory('cacheInterceptor', function($q, $injector) {
     const cacheKeyPrefix = 'http_cache_';
     const cacheDuration = 24 * 60 * 60 * 1000; // 1 dia em milissegundos
 
     function getCacheKey(url) {
-      return cacheKeyPrefix + SparkMD5.hash(url);
+        return cacheKeyPrefix + SparkMD5.hash(url);
     }
 
     function isCacheValid(cacheEntry) {
-      if (!cacheEntry) return false;
-      const currentTime = new Date().getTime();
-      return currentTime - cacheEntry.timestamp < cacheDuration;
+        if (!cacheEntry) return false;
+        const currentTime = new Date().getTime();
+        return currentTime - cacheEntry.timestamp < cacheDuration;
     }
 
     return {
-      request: function(config) {
-        const cacheKey = getCacheKey(config.url);
-        const cachedResponse = JSON.parse(localStorage.getItem(cacheKey));
+        request: function(config) {
+            const cacheKey = getCacheKey(config.url);
+            const cachedResponse = JSON.parse(localStorage.getItem(cacheKey));
 
-        if (isCacheValid(cachedResponse)) {
-          config.status = 200;
-          config.config = config;
-          config.data = cachedResponse.data;
-          cached = true;
-          return $q.resolve(config);
+            if (isCacheValid(cachedResponse)) {
+                config.status = 200;
+                config.config = config;
+                config.data = cachedResponse.data;
+                cached = true;
+                return $q.resolve(config);
+            }
+            
+            return config;
+        },
+        response: function(response) {
+            const cacheKey = getCacheKey(response.config.url);
+            const cacheEntry = {
+                data: response.data,
+                timestamp: new Date().getTime()
+            };
+
+            localStorage.setItem(cacheKey, JSON.stringify(cacheEntry));
+
+            return response;
         }
-        
-        return config;
-      },
-      response: function(response) {
-        const cacheKey = getCacheKey(response.config.url);
-        const cacheEntry = {
-          data: response.data,
-          timestamp: new Date().getTime()
-        };
-
-        localStorage.setItem(cacheKey, JSON.stringify(cacheEntry));
-
-        return response;
-      }
     };
-  });
+});
 
+service_app.config(function($httpProvider) {
+    $httpProvider.interceptors.push('cacheInterceptor');
+    $httpProvider.interceptors.push('retryInterceptor');
+});
 
-    service_app.config(function($httpProvider) {
-        $httpProvider.interceptors.push('cacheInterceptor');
-        $httpProvider.interceptors.push('retryInterceptor');
-    });
-
-service_app.service('CurrencyService', ['$http', '$q', 'FirebaseService', function($http, $q, FirebaseService) {
+// FirebaseService bağımlılığı kaldırıldı
+service_app.service('CurrencyService', ['$http', '$q', function($http, $q) {
 
     const current_date = new Date().toISOString().split('T')[0];
 
@@ -125,107 +125,40 @@ service_app.service('CurrencyService', ['$http', '$q', 'FirebaseService', functi
 
     this.getLeagues = function() {
         return [
-            {
-                "id": "68af01ce48490927df92d687",
-                "name": "Bronze I" 
-            },
-            {
-                "id": "68af01ce48490927df92d686",
-                "name": "Bronze II" 
-            },
-            {
-                "id": "68af01ce48490927df92d685",
-                "name": "Bronze III" 
-            },
-            {
-                "id": "68af01ce48490927df92d684",
-                "name": "Silver I" 
-            },
-            {
-                "id": "68af01ce48490927df92d683",
-                "name": "Silver II" 
-            },
-            {
-                "id": "68af01ce48490927df92d682",
-                "name": "Silver III" 
-            },
-            {
-                "id": "68af01ce48490927df92d681",
-                "name": "Gold I" 
-            },
-            {
-                "id": "68af01ce48490927df92d680",
-                "name": "Gold II" 
-            },
-            {
-                "id": "68af01ce48490927df92d67f",
-                "name": "Gold III" 
-            },
-            {
-                "id": "68af01ce48490927df92d67e",
-                "name": "Platinum I" 
-            },
-            {
-                "id": "68af01ce48490927df92d67d",
-                "name": "Platinum II" 
-            },
-            {
-                "id": "68af01ce48490927df92d67c",
-                "name": "Platinum III" 
-            },
-            {
-                "id": "68af01ce48490927df92d67b",
-                "name": "Diamond I" 
-            },
-            {
-                "id": "68af01ce48490927df92d67a",
-                "name": "Diamond II" 
-            },
-            {
-                "id": "68af01ce48490927df92d679",
-                "name": "Diamond III" 
-            }
+            { "id": "68af01ce48490927df92d687", "name": "Bronze I" },
+            { "id": "68af01ce48490927df92d686", "name": "Bronze II" },
+            { "id": "68af01ce48490927df92d685", "name": "Bronze III" },
+            { "id": "68af01ce48490927df92d684", "name": "Silver I" },
+            { "id": "68af01ce48490927df92d683", "name": "Silver II" },
+            { "id": "68af01ce48490927df92d682", "name": "Silver III" },
+            { "id": "68af01ce48490927df92d681", "name": "Gold I" },
+            { "id": "68af01ce48490927df92d680", "name": "Gold II" },
+            { "id": "68af01ce48490927df92d67f", "name": "Gold III" },
+            { "id": "68af01ce48490927df92d67e", "name": "Platinum I" },
+            { "id": "68af01ce48490927df92d67d", "name": "Platinum II" },
+            { "id": "68af01ce48490927df92d67c", "name": "Platinum III" },
+            { "id": "68af01ce48490927df92d67b", "name": "Diamond I" },
+            { "id": "68af01ce48490927df92d67a", "name": "Diamond II" },
+            { "id": "68af01ce48490927df92d679", "name": "Diamond III" }
         ];
     }
 
-    
     var getCurrenciesPrices = async function() {
         const cache_key = 'exchange_history';
         var cached = getCache(cache_key);
         if(cached) return cached;
-        const currencies =
-            [
-                {
-                    name: 'MATIC', coingecko_id : 'matic-network'
-                },
-                {
-                    name: 'BNB', coingecko_id : 'binancecoin'
-                },
-                {
-                    name: 'LTC', coingecko_id : 'litecoin'
-                },
-                {
-                    name: 'SOL', coingecko_id : 'solana'
-                },
-                {
-                    name: 'ETH', coingecko_id : 'ethereum'
-                },
-                {
-                    name: 'TRX', coingecko_id : 'tron'
-                },
-                {
-                    name: 'BTC', coingecko_id : 'bitcoin'
-                },
-                {
-                    name: 'DOGE', coingecko_id : 'dogecoin'
-                },
-                {
-                    name: 'XRP', coingecko_id : 'ripple'
-                },
-                {
-                    name: 'ALGO', coingecko_id: 'algorand'
-                }
-            ];
+        const currencies = [
+            { name: 'MATIC', coingecko_id : 'matic-network' },
+            { name: 'BNB', coingecko_id : 'binancecoin' },
+            { name: 'LTC', coingecko_id : 'litecoin' },
+            { name: 'SOL', coingecko_id : 'solana' },
+            { name: 'ETH', coingecko_id : 'ethereum' },
+            { name: 'TRX', coingecko_id : 'tron' },
+            { name: 'BTC', coingecko_id : 'bitcoin' },
+            { name: 'DOGE', coingecko_id : 'dogecoin' },
+            { name: 'XRP', coingecko_id : 'ripple' },
+            { name: 'ALGO', coingecko_id: 'algorand' }
+        ];
 
         return $http.get(`https://api.coingecko.com/api/v3/simple/price?ids=${currencies.map(c => c.coingecko_id).join()}&vs_currencies=usd,brl`).then(response => {
             if (response.status === 200) { 
@@ -257,28 +190,8 @@ service_app.service('CurrencyService', ['$http', '$q', 'FirebaseService', functi
         });
     };
 
-    var getBlockSizeByCurrency = async function(currency) {
-        const search = `https://rollercoin.com/api/mining/network-info-by-day?from=${current_date}&to=${current_date}&currency=${currency}&groupBy=block_reward`;
-        return $http.get(`https://morning-thunder-0ce3.wminerrc.workers.dev/?${encodeURIComponent(search)}`).then(response => {
-            if (response.status === 200) { 
-                const result = response.data;
-                return result.data[0]?.value ?? 0;
-            }
-        });
-    };
-
     var getBlockSizeByCurrencyAndLeague = async function(currency, leagueId) {
         const search = `https://rollercoin.com/api/league/network-info-by-day?from=${current_date}&to=${current_date}&currency=${currency}&groupBy=block_reward&leagueId=${leagueId}`;
-        return $http.get(`https://morning-thunder-0ce3.wminerrc.workers.dev/?${encodeURIComponent(search)}`).then(response => {
-            if (response.status === 200) { 
-                const result = response.data;
-                return result.data[0]?.value ?? 0;
-            }
-        });
-    };
-
-    var getNetworkPowerByCurrency = async function(currency) {
-        const search = `https://rollercoin.com/api/mining/network-info-by-day?from=${current_date}&to=${current_date}&currency=${currency}&groupBy=total_power`;
         return $http.get(`https://morning-thunder-0ce3.wminerrc.workers.dev/?${encodeURIComponent(search)}`).then(response => {
             if (response.status === 200) { 
                 const result = response.data;
@@ -296,16 +209,6 @@ service_app.service('CurrencyService', ['$http', '$q', 'FirebaseService', functi
             }
         });
     }; 
-
-    var getBlockTimeByCurrency = async function(currency) {
-        const search = `https://rollercoin.com/api/mining/network-info-by-day?from=${current_date}&to=${current_date}&currency=${currency}&groupBy=duration`;
-        return $http.get(`https://morning-thunder-0ce3.wminerrc.workers.dev/?${encodeURIComponent(search)}`).then(response => {
-            if (response.status === 200) { 
-                const result = response.data;
-                return result.data[0]?.value ?? 0;
-            }
-        });
-    };
 
     var getBlockTimeByCurrencyAndLeague = async function(currency, leagueId) {
         const search = `https://rollercoin.com/api/league/network-info-by-day?from=${current_date}&to=${current_date}&currency=${currency}&groupBy=duration&leagueId=${leagueId}`;
@@ -337,7 +240,7 @@ service_app.service('CurrencyService', ['$http', '$q', 'FirebaseService', functi
             detailedCurrencies.push(currency);
         }
         setCache(detailedCurrencies, cache_key);
-        FirebaseService.persistNetworkPower(detailedCurrencies);
+        // FirebaseService.persistNetworkPower(detailedCurrencies); -> Kaldırıldı
         return detailedCurrencies;
     };
 
@@ -358,7 +261,7 @@ service_app.service('CurrencyService', ['$http', '$q', 'FirebaseService', functi
             detailedCurrencies.push(currency);
         }
         setCache(detailedCurrencies, cache_key);
-        FirebaseService.persistNetworkPower(detailedCurrencies);
+        // FirebaseService.persistNetworkPower(detailedCurrencies); -> Kaldırıldı
         return detailedCurrencies;
     };
 
