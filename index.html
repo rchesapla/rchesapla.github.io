@@ -21,7 +21,10 @@
 
 
 
-
+#yt-subs {
+    color: var(--primary);
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
 
 
 /* Miner Önerileri Bölümü */
@@ -785,7 +788,36 @@ footer {
     </div>
 </div>
             </div>
+<div class="card">
+    <div class="card-title">
+        <span class="pulse-dot"></span> 📺 YOUTUBE KANAL İSTATİSTİKLERİ
+    </div>
+    
+    <div class="settings-grid">
+        <div class="stats-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px;">
+            <div class="input-box">
+                <label>ABONE SAYISI</label>
+                <div id="yt-subs" class="miner-power" style="font-size: 1.5rem;">Yükleniyor...</div>
+            </div>
+            <div class="input-box">
+                <label>TOPLAM İZLENME</label>
+                <div id="yt-views" class="miner-power" style="font-size: 1.5rem;">-</div>
+            </div>
+            <div class="input-box">
+                <label>VİDEO SAYISI</label>
+                <div id="yt-videos" class="miner-power" style="font-size: 1.5rem;">-</div>
+            </div>
+        </div>
 
+        <div class="update-notes">
+            <div class="update-item">
+                <span class="update-date">CANLI VERİ</span>
+                <p class="update-desc">Veriler YouTube API aracılığıyla her 60 saniyede bir otomatik güncellenir.</p>
+                <a href="https://www.youtube.com/@fatihcelik" target="_blank" class="btn-buy" style="margin-top:10px; display:block;">Kanala Git</a>
+            </div>
+        </div>
+    </div>
+</div>
             <div class="card" ng-if="isAuthorized && liveData.length > 0">
                 <div class="card-title">
                     ● CANLI KRİPTO KAZANÇLARI
@@ -824,7 +856,33 @@ footer {
 	
 	
 	
-	
+const YT_CONFIG = {
+    apiKey: 'AIzaSyBRyH1_qHbSOYlNPFaq1OCJp6cTRwrmMzs', // Google Cloud Console'dan alacağınız API anahtarı
+    channelId: 'UCiS4gfhe4kmmgXB4Wny43kQ', // Kanal ID'niz (UC... ile başlayan)
+    refreshInterval: 60000 // 1 dakikada bir güncelleme
+};
+
+function fetchYouTubeStats() {
+    const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${YT_CONFIG.channelId}&key=${YT_CONFIG.apiKey}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data.items && data.items.length > 0) {
+                const stats = data.items[0].statistics;
+                
+                // Sayıları formatlayarak yazdır (örn: 1.250.000)
+                document.getElementById('yt-subs').innerText = Number(stats.subscriberCount).toLocaleString('tr-TR');
+                document.getElementById('yt-views').innerText = Number(stats.viewCount).toLocaleString('tr-TR');
+                document.getElementById('yt-videos').innerText = Number(stats.videoCount).toLocaleString('tr-TR');
+            }
+        })
+        .catch(err => console.error("YouTube API Hatası:", err));
+}
+
+// İlk yüklemede çalıştır ve aralığa bağla
+fetchYouTubeStats();
+setInterval(fetchYouTubeStats, YT_CONFIG.refreshInterval);	
 	
 // Gerçek Zamanlı Sistem Saati Fonksiyonu
 function startSystemClock() {
