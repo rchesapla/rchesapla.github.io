@@ -567,9 +567,15 @@ footer {
 <nav class="navbar">
     <div class="nav-container">
         <span class="nav-logo">RCHesapla PRO</span>
-        <div class="active-users">
-            <div class="pulse-dot"></div>
-            <span id="active-count">Yükleniyor...</span> AKTİF KULLANICI
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <div class="active-users" style="border-color: var(--accent); color: var(--accent);">
+                <span id="system-clock">00:00:00</span>
+            </div>
+            
+            <div class="active-users">
+                <div class="pulse-dot"></div>
+                <span id="active-count">Yükleniyor...</span> AKTİF KULLANICI
+            </div>
         </div>
     </div>
 </nav>
@@ -812,6 +818,34 @@ footer {
     </div>
 
     <script>
+	
+	
+	
+	
+	
+	
+	
+// Gerçek Zamanlı Sistem Saati Fonksiyonu
+function startSystemClock() {
+    function updateTime() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('tr-TR', { 
+            hour12: false, 
+            hour: '2-digit', 
+            minute: '2-digit', 
+            second: '2-digit' 
+        });
+        const clockElement = document.getElementById('system-clock');
+        if (clockElement) {
+            clockElement.innerText = timeString;
+        }
+    }
+    updateTime();
+    setInterval(updateTime, 1000); // Her saniye güncelle
+}
+
+startSystemClock(); // Saati başlat
+	
         const serviceApp = angular.module('miningApp', []);
 
         serviceApp.service('CurrencyService', ['$http', function($http) {
