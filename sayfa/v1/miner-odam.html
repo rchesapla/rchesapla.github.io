@@ -313,85 +313,119 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap-tpls.min.js"></script>
 
-    <script>
-        var app = angular.module('miningApp', ['ui.bootstrap']);
+<script>
+    var app = angular.module('miningApp', ['ui.bootstrap']);
 
-        app.service('UserMinerService', ['$http', function($http) {
-            const proxy = "https://morning-thunder-0ce3.wminerrc.workers.dev/?";
-            const levels = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Unreal'];
+    // --- GELİŞMİŞ MINERSERVICE ---
+    app.service('UserMinerService', ['$http', '$q', function($http, $q) {
+        const proxy = "https://morning-thunder-0ce3.wminerrc.workers.dev/?";
+        const levels = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Unreal'];
 
-            this.fetchData = async function(nick) {
+        this.fetchData = async function(nick) {
+            try {
+                // 1. Kullanıcı Profil Bilgisini Al (Avatar ID için)
                 const userUrl = encodeURIComponent(`https://rollercoin.com/api/profile/public-user-profile-data/${nick}`);
                 const userResp = await $http.get(proxy + userUrl);
-                const user = userResp.data.data;
-                if(!user) throw new Error("OPERATÖR BULUNAMADI.");
+                
+                if (!userResp.data || !userResp.data.data) {
+                    throw new Error("OYUNCU BULUNAMADI: Nick hatalı olabilir.");
+                }
 
+                const user = userResp.data.data;
+
+                // 2. Odaya Göre Madenci Listesini Al
                 const roomUrl = encodeURIComponent(`https://rollercoin.com/api/game/room-config/${user.avatar_id}`);
                 const roomResp = await $http.get(proxy + roomUrl);
-                const miners = roomResp.data.data.miners;
+                
+                if (!roomResp.data || !roomResp.data.data) {
+                    throw new Error("ODA VERİSİ ALINAMADI.");
+                }
 
+                let miners = roomResp.data.data.miners;
+
+                // 3. Verileri İşle (Seviye etiketleri ve ekstra bilgiler)
                 miners.forEach(m => {
                     m.level_label = levels[m.level] || 'Basic';
+                    // Gücü sayısal formata zorla (sıralama hatası olmaması için)
+                    m.power = parseFloat(m.power);
                 });
-                return miners;
-            };
-        }]);
 
-        app.controller('MiningController', ['$scope', 'UserMinerService', function($scope, UserMinerService) {
-            $scope.allMiners = [];
-            $scope.sortField = 'power';
-            $scope.reverseSort = true;
-            $scope.userMinersCurrentPage = 1;
-            $scope.userMinersItemsPerPage = 12;
+                return {
+                    userData: user,
+                    miners: miners
+                };
+            } catch (error) {
+                console.error("MinerService Hatası:", error);
+                throw error;
+            }
+        };
+    }]);
 
-            $scope.searchPlayer = async function(nick) {
-                if(!nick) return;
-                $scope.isLoading = true;
-                $scope.errorMsg = null;
+    // --- CONTROLLER GÜNCELLEMESİ ---
+    app.controller('MiningController', ['$scope', 'UserMinerService', function($scope, UserMinerService) {
+        $scope.allMiners = [];
+        $scope.sortField = 'power';
+        $scope.reverseSort = true;
+        $scope.userMinersCurrentPage = 1;
+        $scope.userMinersItemsPerPage = 12;
+        $scope.searchHistory = JSON.parse(localStorage.getItem('rc_search_history') || '[]');
+
+        $scope.searchPlayer = async function(nick) {
+            if(!nick) return;
+            
+            $scope.isLoading = true;
+            $scope.errorMsg = null;
+            $scope.allMiners = []; // Önceki sonuçları temizle
+
+            try {
+                const result = await UserMinerService.fetchData(nick);
                 
-                try {
-                    const data = await UserMinerService.fetchData(nick);
-                    $scope.allMiners = data;
-                    if($scope.allMiners.length > 0) {
-                        $scope.bestMiner = $scope.allMiners.reduce((p, c) => (p.power > c.power) ? p : c);
-                    }
-                } catch (e) {
-                    $scope.errorMsg = e.message || "BAĞLANTI HATASI";
-                    $scope.allMiners = [];
-                } finally {
-                    $scope.isLoading = false;
-                    $scope.$apply();
+                $scope.allMiners = result.miners;
+                $scope.currentUser = result.userData;
+                
+                if($scope.allMiners.length > 0) {
+                    // En güçlü madenciyi bul
+                    $scope.bestMiner = $scope.allMiners.reduce((p, c) => (p.power > c.power) ? p : c);
+                    // Başarılı aramayı geçmişe ekle
+                    $scope.addToHistory(nick);
+                } else {
+                    $scope.errorMsg = "Bu oyuncunun odasında madenci bulunamadı.";
                 }
-            };
-// Controller içine eklenecek değişken ve fonksiyonlar
-$scope.searchHistory = JSON.parse(localStorage.getItem('rc_search_history') || '[]');
 
-$scope.addToHistory = function(nick) {
-    let history = $scope.searchHistory;
-    // Eğer isim zaten varsa listeden çıkar (başa taşımak için)
-    const index = history.indexOf(nick);
-    if (index > -1) history.splice(index, 1);
-    
-    history.unshift(nick); // En başa ekle
-    if (history.length > 10) history.pop(); // Maksimum 10 kayıt tut
-    
-    $scope.searchHistory = history;
-    localStorage.setItem('rc_search_history', JSON.stringify(history));
-};
+            } catch (e) {
+                $scope.errorMsg = e.message || "BAĞLANTI HATASI: RollerCoin sunucularına ulaşılamıyor.";
+            } finally {
+                $scope.isLoading = false;
+                $scope.$apply(); // Angular'ı değişikliklerden haberdar et
+            }
+        };
 
-// TEKLİ SİLME FONKSİYONU
-$scope.removeFromHistory = function(nick, event) {
-    event.stopPropagation(); // Kartın tıklama olayını (aramayı) tetiklemesini engeller
-    $scope.searchHistory = $scope.searchHistory.filter(h => h !== nick);
-    localStorage.setItem('rc_search_history', JSON.stringify($scope.searchHistory));
-};
-            $scope.sortBy = function(field) {
-                if($scope.sortField === field) $scope.reverseSort = !$scope.reverseSort;
-                else { $scope.sortField = field; $scope.reverseSort = true; }
-                $scope.userMinersCurrentPage = 1;
-            };
-        }]);
-    </script>
+        // --- YARDIMCI FONKSİYONLAR ---
+        $scope.addToHistory = function(nick) {
+            let history = $scope.searchHistory;
+            const index = history.indexOf(nick);
+            if (index > -1) history.splice(index, 1);
+            
+            history.unshift(nick);
+            if (history.length > 10) history.pop();
+            
+            $scope.searchHistory = history;
+            localStorage.setItem('rc_search_history', JSON.stringify(history));
+        };
+
+        $scope.removeFromHistory = function(nick, event) {
+            event.stopPropagation();
+            $scope.searchHistory = $scope.searchHistory.filter(h => h !== nick);
+            localStorage.setItem('rc_search_history', JSON.stringify($scope.searchHistory));
+        };
+
+        $scope.sortBy = function(field) {
+            if($scope.sortField === field) $scope.reverseSort = !$scope.reverseSort;
+            else { $scope.sortField = field; $scope.reverseSort = true; }
+            $scope.userMinersCurrentPage = 1;
+        };
+    }]);
+</script>
 
     <footer>
         <div class="footer-content">
