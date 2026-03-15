@@ -156,6 +156,82 @@
 .pagination .pagination-next {
     cursor: pointer;
 }
+
+
+
+
+
+
+
+
+
+
+/* Filtre Konteynırı */
+.filter-group-container {
+    display: flex;
+    flex-wrap: wrap; /* Mobilde aşağı kaymasını sağlar */
+    gap: 15px; /* Elemanlar arasındaki boşluk */
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* Her bir filtre öğesi */
+.filter-item {
+    flex: 1; /* Masaüstünde eşit genişlikte yan yana dizilirler */
+    min-width: 200px; /* Mobilde çok daralmaması için minimum genişlik */
+}
+
+.filter-item label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.filter-item select {
+    width: 100%;
+    cursor: pointer;
+    border: 1px solid #334155;
+    background: #0f172a;
+    transition: border-color 0.2s;
+}
+
+.filter-item select:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+/* Mobil için özel ayar (Ekran 600px'den küçükse) */
+@media (max-width: 600px) {
+    .filter-item {
+        flex: 1 1 100%; /* Mobilde her biri tam satır kaplar */
+    }
+    .filter-group-container {
+        gap: 10px;
+    }
+}
+
+/* Checkbox ve Metin Hizalama */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px; /* Kutucuk ve yazı arasındaki boşluk */
+    user-select: none;
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 18px; /* Kutucuk boyutu */
+    height: 18px;
+    cursor: pointer;
+    margin: 0;
+}
+
+
+
+
     </style>
 </head>
 <body ng-controller="MiningController">
@@ -193,54 +269,55 @@
 		
 		
 
-        <div class="card" ng-if="user_data">
-            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                <label>
-                    <input type="checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()"> Mağazayı Göster
-                </label>
-            </div>
-        </div>
+<div class="card" ng-if="user_data">
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <label class="checkbox-container">
+            <input type="checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()"> 
+            <span style="font-weight: 600; color: var(--text-main);">Mağazayı Göster</span>
+        </label>
+    </div>
+</div>
 
 <div class="card" ng-if="formData.showAllMiners">
     <div style="color: var(--accent); font-weight: 700; margin-bottom: 15px;">🛒 MINER MAĞAZASI ({{allMiners.length}} adet)</div>
     
     <div style="margin-bottom: 15px;">
-        <input type="text" 
-               ng-model="minerSearchText" 
-               placeholder="Miner adı ile ara... (Örn: Dragon's Breath)"
-               style="border-color: var(--accent); opacity: 0.8;">
+        <input type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Buscar miner...">
     </div>
 	
-                <div class="form-group col-md-4">
-                    <label for="currency">SEVİYE DURUMU</label><br/>
-                    <select class="form-control" ng-model="allMinersRarity" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-                        <option value="all">Hepsi</option>
-                        <option value="common">Common</option>
-                        <option value="legacy">Legacy</option>
-                        <option value="uncommon">Uncommon</option>
-                        <option value="rare">Rare</option>
-                        <option value="epic">Epic</option>
-                        <option value="legendary">Legendary</option>
-                        <option value="unreal">Unreal</option>
-                    </select>
-                </div>
-				
-				                <div class="form-group col-md-4">
-                    <label for="currency">Negociável</label><br/>
-                    <select class="form-control" ng-model="allMinerNegotiableStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-                        <option value="all">Hepsi</option>
-                        <option value="inegotiable">Satılamaz</option>
-                        <option value="negotiable">Satılır</option>
-                    </select>
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="currency">Tenho em sala</label><br/>
-                    <select class="form-control" ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
-                        <option value="all">Hepsi</option>
-                        <option value="mine">Somente as minhas</option>
-                        <option value="not_mine">Somente novas</option>
-                    </select>
-                </div>
+<div class="filter-group-container">
+    <div class="filter-item">
+        <label>SEVİYE DURUMU</label>
+        <select class="form-control" ng-model="allMinersRarity" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+            <option value="all">Hepsi</option>
+            <option value="common">Common</option>
+            <option value="legacy">Legacy</option>
+            <option value="uncommon">Uncommon</option>
+            <option value="rare">Rare</option>
+            <option value="epic">Epic</option>
+            <option value="legendary">Legendary</option>
+            <option value="unreal">Unreal</option>
+        </select>
+    </div>
+
+    <div class="filter-item">
+        <label>MAĞAZA DURUMU</label>
+        <select class="form-control" ng-model="allMinerNegotiableStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+            <option value="all">Hepsi</option>
+            <option value="inegotiable">Satılamaz</option>
+            <option value="negotiable">Satılır</option>
+        </select>
+    </div>
+
+    <div class="filter-item">
+        <label>ODA DURUMU</label>
+        <select class="form-control" ng-model="allMinerPosessionStatus" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+            <option value="all">Hepsi</option>
+            <option value="mine">Var</option>
+            <option value="not_mine">Yok</option>
+        </select>
+    </div>
+</div>
 
     <div style="overflow-x: auto;">
         <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
