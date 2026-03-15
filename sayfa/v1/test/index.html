@@ -374,72 +374,10 @@
                 </fieldset>
             </div>
 
-            <div ng-if="customMiners.length > 0" class="col-md-8 table-container">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th colspan="5" style="text-align: center">
-                                Miners adicionadas
-                            </th>
-                        </tr>
-                        <tr>
-                            <th style="text-align: center">
-                                Nome
-                            </th>
-                            <th style="text-align: center">
-                                Level
-                            </th>
-                            <th style="text-align: center">
-                                Poder
-                            </th>
-                            <th style="text-align: center">
-                                Bônus
-                            </th>
-                            <th style="text-align: center">
-                                Ações
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="miner in customMiners track by $index">
-                            <td style="text-align: center">
-                                {{miner.name.en}}
-                            </td>
-                            <td style="text-align: center; position: relative;">
-                                <img ng-if="miner.level == 0" src='https://rollercoin.com/static/img/storage/rarity_icons/level_1.png?v=1.0.0' style='left: 40px;position: absolute;top: 25px;'/>
-                                <img ng-if="miner.type === 'old_merge'" src='https://rollercoin.com/static/images/level_star.4ff18517e5e8eed42060..png' style='left: 40px;position: absolute;top: 25px;'/>
-                                <img ng-if="miner.level > 0 && miner.type !== 'old_merge'" src='https://rollercoin.com/static/img/storage/rarity_icons/level_{{miner.level+1}}.png?v=1.0.0' style='left: 40px;position: absolute;top: 25px;'/>
-                                <img src='https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608' width="80px" height="auto"/>
-                                <div ng-if="!miner.is_can_be_sold_on_mp"
-                                    style="
-                                    height: 10px;
-                                    width: 100px;
-                                    background-color: red;
-                                    font-size: 0.6em;
-                                    font-weight: bold;
-                                    margin-left: 16%;
-                                    color: white;
-                                ">INEGOCIAVEL</div>
-                            </td>
-                            <td style="text-align: center">
-                                {{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
-                            </td>
-                            <td style="text-align: center">
-                                {{(miner.bonus_power / 100)}}%
-                            </td>
-                            <td style="text-align: center">
-                                <button style="min-width: 80px;margin: 4px;" ng-click="removeMinerFromSimulation(miner)">Remover!</button><br/>
-                                <button style="min-width: 80px;margin: 4px;" ng-click="openBuyLink(miner)">Comprar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
             <div ng-if="formData.showAllMiners" class="col-md-8 table-container">
                 <div class="form-group col-md-4">
                     <label for="currency">MINER ADI</label>
-                    <input type="text" class="form-control" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Buscar miner...">
+                    <input type="text" class="form-control" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Örn: YMCA">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="currency">SEVİYE DURUMU</label><br/>
