@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RCHesapla ♦ Kişisel envanter görüntüleyici!</title>
-    
+    <link rel="shortcut icon" type="image/x-icon" href="icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     
     <style>
         :root {
@@ -217,6 +218,97 @@
 .tag-remove:hover {
     transform: scale(1.3);
 }
+
+
+/* Footer Styles */
+/* Sayfanın tüm yüksekliği kaplamasını sağla */
+html, body {
+    height: 100%;
+}
+
+/* Body'yi esnek (flex) yap ve içeriği dikey hizala */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Ana içerik alanının (wrapper) boşluğu doldurmasını sağla */
+.wrapper {
+    flex: 1 0 auto; /* Bu satır footer'ı aşağı iter */
+    max-width: 800px; 
+    margin: 20px auto; 
+    padding: 0 15px;
+    width: 100%;
+}
+
+/* Footer stilini güncelle */
+footer {
+    flex-shrink: 0; /* Footer'ın sıkışmasını engeller */
+    margin-top: 50px;
+    padding: 40px 0;
+    background: rgba(7, 11, 20, 0.95); /* Biraz daha koyulaştırıldı */
+    border-top: 1px solid rgba(0, 255, 136, 0.2);
+    text-align: center;
+}
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .footer-logo {
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .footer-text {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            font-size: 0.75rem;
+            color: #475569;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .version-tag {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--primary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            margin-left: 5px;
+        }
     </style>
 </head>
 <body ng-controller="MiningController">
@@ -427,10 +519,25 @@
     }]);
 </script>
 
-    <footer>
+<footer>
         <div class="footer-content">
-            <span style="color: var(--primary); font-weight: 800; display: block; margin-bottom: 10px;">RC CALCULATOR PRO</span>
-            <p style="font-size: 0.8rem; color: var(--text-dim);">Envanter Analiz Modülü © 2026 <span class="version-tag">Stable v4.0.2</span></p>
+            <span class="footer-logo">RCHesapla PRO</span>
+            <p class="footer-text">RollerCoin madencilik hesaplamaları için geliştirilmiş en kapsamlı ve güncel araç setidir.</p>
+            
+            <div class="footer-links">
+                <a href="#">🌐 Web Sitesi</a>
+                <a href="#">📢 Telegram</a>
+                <a href="#">🐦 Twitter</a>
+                <a href="#">🛠 Destek</a>
+            </div>
+
+            <div class="copyright">
+                © 2026 RCHESAPLA PRO <span class="version-tag">v4.0.2-Stable</span>
+                <br>
+                <small style="margin-top: 10px; display: block; opacity: 0.5;">
+                    Bu site RollerCoin ile resmi bir bağa sahip değildir. Veriler API üzerinden anlık çekilir.
+                </small>
+            </div>
         </div>
     </footer>
 </body>
