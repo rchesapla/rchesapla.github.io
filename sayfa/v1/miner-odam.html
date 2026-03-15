@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="tr" ng-app="miningApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madenci Analiz Paneli</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body { padding: 20px; background-color: #f0f2f5; font-family: 'Inter', sans-serif; }
+        .card { border: none; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+        
+        /* Modern Sayfalama Tasarımı */
+        .pagination { gap: 6px; }
+        .pagination li a { 
+            border: none !important; border-radius: 10px !important; 
+            color: #5856d6 !important; font-weight: 600; padding: 8px 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.2s;
+        }
+        .pagination li.active a { 
+            background-color: #5856d6 !important; color: white !important; 
+            box-shadow: 0 4px 12px rgba(88, 86, 214, 0.4) !important;
+        }
+        .pagination li a:hover:not(.disabled) { background-color: #e9ecef !important; transform: translateY(-2px); }
+
+        /* Madenci Görseli */
+        .miner-img {
+            width: 50px; height: 50px; object-fit: contain;
+            background: #f8f9fa; border-radius: 8px; padding: 4px;
+        }
+        
+        /* Mağaza Butonu */
+        .btn-market {
+            font-size: 0.8rem; padding: 4px 12px; border-radius: 20px;
+            text-decoration: none; transition: 0.3s;
+            background-color: #fff1e6; color: #f7931a; border: 1px solid #f7931a;
+        }
+        .btn-market:hover { background-color: #f7931a; color: white; }
+
+        .loading-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(255,255,255,0.9); z-index: 9999; display: flex; 
+            flex-direction: column; justify-content: center; align-items: center; 
+        }
+    </style>
+</head>
+<body ng-controller="MiningController">
+
+    <div class="loading-overlay" ng-if="isLoading">
+        <div class="spinner-grow text-primary" role="status"></div>
+        <h5 class="mt-3 text-primary">Veriler Senkronize Ediliyor...</h5>
+    </div>
+
+    <div class="container py-4">
+        <div class="card p-4 mb-4">
+            <div class="row align-items-end">
+                <div class="col-md-5">
+                    <label class="form-label fw-bold">Oyuncu Kullanıcı Adı</label>
+                    <input type="text" class="form-control form-control-lg" ng-model="userNick" placeholder="RollerNick">
+                </div>
+                <div class="col-md-3 text-center">
+                    <label class="form-label d-block fw-bold">Madencileri Listele</label>
+                    <div class="form-check form-switch d-inline-block">
+                        <input class="form-check-input" type="checkbox" style="width: 3em; height: 1.5em;" ng-model="formData.showMiners" ng-change="filterUserMiners()">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-primary btn-lg w-100 shadow-sm" ng-click="searchPlayer(userNick)">Verileri Analiz Et</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card p-4" ng-show="formData.showMiners && visible_user_miners.length > 0">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="mb-0">Envanterdeki Madenciler</h4>
+                <span class="badge bg-soft text-dark border">{{visible_user_miners.length}} Adet</span>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Madenci</th>
+                            <th>Seviye</th>
+                            <th>Güç</th>
+                            <th>Bonus</th>
+                            <th>Market</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="miner in visible_user_miners | limitTo:userMinersItemsPerPage:(userMinersCurrentPage-1)*userMinersItemsPerPage">
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img ng-src="https://static.rollercoin.com/static/img/market/miner/{{miner.miner_id}}.png" 
+                                         onerror="this.src='https://static.rollercoin.com/static/img/market/miners/{{miner.miner_id}}.gif?v=1736782273687'"
+                                         class="miner-img me-3">
+                                    <div>
+                                        <div class="fw-bold">{{miner.name}}</div>
+                                        <small class="text-muted">ID: {{miner.miner_id}}</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="badge rounded-pill bg-info text-dark">{{miner.level_label}}</span></td>
+                            <td>{{miner.power}} GH/s</td>
+                            <td>%{{miner.bonus_power / 100}}</td>
+                            <td>
+                                <a ng-href="https://rollercoin.com/marketplace/buy/miner/{{miner.miner_id}}" 
+                                   target="_blank" class="btn btn-market">
+                                   Mağazada Gör
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-center mt-4">
+                <ul uib-pagination 
+                    total-items="visible_user_miners.length" 
+                    ng-model="userMinersCurrentPage" 
+                    items-per-page="userMinersItemsPerPage"
+                    max-size="5"
+                    boundary-link-numbers="true"
+                    previous-text="&lsaquo;" next-text="&rsaquo;">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap-tpls.min.js"></script>
+
+    <script>
+        var app = angular.module('miningApp', ['ui.bootstrap']);
+
+        app.service('UserMinerService', ['$http', function($http) {
+            const proxy = "https://morning-thunder-0ce3.wminerrc.workers.dev/?";
+            const miner_levels = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Unreal'];
+
+            this.getAllUserDataByNick = async function(nick) {
+                const userUrl = encodeURIComponent(`https://rollercoin.com/api/profile/public-user-profile-data/${nick}`);
+                const userResp = await $http.get(proxy + userUrl);
+                const user = userResp.data.data;
+
+                const roomUrl = encodeURIComponent(`https://rollercoin.com/api/game/room-config/${user.avatar_id}`);
+                const roomResp = await $http.get(proxy + roomUrl);
+                user.roomData = roomResp.data.data;
+
+                user.roomData.miners.forEach(m => {
+                    m.level_label = miner_levels[m.level] || 'Basic';
+                });
+                return user;
+            };
+        }]);
+
+        app.controller('MiningController', ['$scope', 'UserMinerService', function($scope, UserMinerService) {
+            $scope.formData = { showMiners: false };
+            $scope.visible_user_miners = [];
+            $scope.userMinersCurrentPage = 1;
+            $scope.userMinersItemsPerPage = 8;
+
+            $scope.searchPlayer = async function(nick) {
+                if(!nick) return;
+                $scope.isLoading = true;
+                try {
+                    $scope.playerData = await UserMinerService.getAllUserDataByNick(nick);
+                    if($scope.formData.showMiners) $scope.filterUserMiners();
+                } catch (e) {
+                    alert("Oyuncu bulunamadı!");
+                } finally {
+                    $scope.isLoading = false;
+                    $scope.$apply();
+                }
+            };
+
+            $scope.filterUserMiners = function() {
+                if ($scope.formData.showMiners && $scope.playerData) {
+                    $scope.visible_user_miners = $scope.playerData.roomData.miners;
+                } else {
+                    $scope.visible_user_miners = [];
+                }
+            };
+        }]);
+    </script>
+</body>
+</html>
