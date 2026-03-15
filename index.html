@@ -24,7 +24,96 @@
 
 
 
+/* Miner Önerileri Bölümü */
+.miner-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
 
+.miner-card {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-radius: 12px;
+    padding: 15px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.miner-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.1);
+}
+
+.miner-badge {
+    position: absolute;
+    top: 10px;
+    right: -25px;
+    background: var(--primary);
+    color: #000;
+    font-size: 0.6rem;
+    font-weight: 800;
+    padding: 2px 25px;
+    transform: rotate(45deg);
+}
+
+.miner-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.miner-power {
+    color: var(--primary);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: bold;
+}
+
+.miner-bonus {
+    color: var(--accent);
+    font-size: 0.8rem;
+}
+
+.efficiency-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    background: rgba(255, 204, 0, 0.1);
+    color: var(--reward-gold);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+.miner-action {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-buy {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-buy:hover {
+    background: var(--primary);
+    color: #000;
+    box-shadow: 0 0 10px var(--primary);
+}
 
 
 /* Ayarlar ve Notlar için yan yana düzen */
@@ -564,6 +653,14 @@ footer {
             <div class="card-title" style="color: var(--accent); font-size: 0.75rem;">🗞️ SİSTEM NOTLARI</div>
             
             <div class="update-item">
+                <span class="update-date">15.03.2026</span>
+                <p class="update-desc"><b>Envanter:</b> Kullanıcıların envanterini görebilirsin.</p>
+				<p><button class="btn-main" style="width: auto; padding: 0 20px;">
+                    {{ isAuthorized ? 'SİSTEM AKTİF' : 'ERİŞİMİ BAŞLAT' }}
+                </button></p>
+            </div>
+            
+            <div class="update-item">
                 <span class="update-date">14.03.2026</span>
                 <p class="update-desc"><b>API Güncellemesi:</b> CoinGecko fiyat motoru stabilize edildi.</p>
             </div>
@@ -610,6 +707,46 @@ footer {
     </p>
 </div>
             </div>
+<div class="card" ng-if="isAuthorized">
+    <div class="card-title">🚀 STRATEJİK MİNER ÖNERİLERİ (2026 SEZONU)</div>
+    
+    <div class="miner-grid">
+        <div class="miner-card">
+            <div class="miner-badge">F/P KRALI</div>
+            <div style="font-weight: 800; font-size: 0.9rem;">El Monstro 2026</div>
+            <div class="miner-info">
+                <span class="miner-power">1.250 PH/s</span>
+                <span class="miner-bonus">+%3.5</span>
+            </div>
+            <div class="miner-action">
+                <a href="https://rollercoin.com/game/market/miner-details/el-monstro" target="_blank" class="btn-buy">MAĞAZADA GÖR</a>
+            </div>
+        </div>
+
+        <div class="miner-card">
+            <div style="font-weight: 800; font-size: 0.9rem;">Midnight Storm</div>
+            <div class="miner-info">
+                <span class="miner-power">850 TH/s</span>
+                <span class="miner-bonus">+%2.0</span>
+            </div>
+            <div class="miner-action">
+                <a href="https://rollercoin.com/game/market" target="_blank" class="btn-buy">PAZAR ALANINA GİT</a>
+            </div>
+        </div>
+
+        <div class="miner-card">
+            <div class="miner-badge" style="background: var(--accent);">PREMIUM</div>
+            <div style="font-weight: 800; font-size: 0.9rem;">Golden Epoch</div>
+            <div class="miner-info">
+                <span class="miner-power">4.800 PH/s</span>
+                <span class="miner-bonus">+%7.0</span>
+            </div>
+            <div class="miner-action">
+                <a href="https://rollercoin.com/game/market" target="_blank" class="btn-buy">TEKLİFLERİ İNCELE</a>
+            </div>
+        </div>
+    </div>
+</div>
 
             <div class="card" ng-if="isAuthorized && liveData.length > 0">
                 <div class="card-title">
