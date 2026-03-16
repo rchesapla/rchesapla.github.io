@@ -21,10 +21,7 @@
 
 
 
-#yt-subs {
-    color: var(--primary);
-    text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-}
+
 
 
 /* Miner Önerileri Bölümü */
@@ -205,7 +202,6 @@
     
     .card {
         padding: 16px; /* Mobilde kart iç boşluğunu daraltarak yer kazanalım */
-		text-decoration: none;
     }
 }
 
@@ -230,7 +226,6 @@
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
-			text-decoration: none;
             line-height: 1.6;
             background-image: radial-gradient(circle at top right, #1e293b, #0f172a);
             min-height: 100vh;
@@ -379,7 +374,6 @@
             cursor: pointer;
             transition: transform 0.2s, background 0.2s;
             text-transform: uppercase;
-			text-decoration: none;
         }
 
         .btn-main:hover { transform: translateY(-2px); background: var(--primary-dark); }
@@ -527,35 +521,6 @@ footer {
             font-size: 0.7rem;
             margin-left: 5px;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.highlight-row {
-    background: rgba(0, 255, 136, 0.1);
-    border-left: 3px solid var(--primary);
-}
-
-.efficiency-tag {
-    display: inline-block;
-    font-size: 0.65rem;
-    background: rgba(255, 204, 0, 0.1);
-    color: var(--reward-gold);
-    padding: 2px 6px;
-    border-radius: 4px;
-    margin-top: 5px;
-}
     </style>
 </head>
 <body ng-controller="MiningController">
@@ -570,15 +535,9 @@ footer {
 <nav class="navbar">
     <div class="nav-container">
         <span class="nav-logo">RCHesapla PRO</span>
-        <div style="display: flex; gap: 10px; align-items: center;">
-            <div class="active-users" style="border-color: var(--accent); color: var(--accent);">
-                <span id="system-clock">00:00:00</span>
-            </div>
-            
-            <div class="active-users">
-                <div class="pulse-dot"></div>
-                <span id="active-count">Yükleniyor...</span> AKTİF KULLANICI
-            </div>
+        <div class="active-users">
+            <div class="pulse-dot"></div>
+            <span id="active-count">Yükleniyor...</span> AKTİF KULLANICI
         </div>
     </div>
 </nav>
@@ -590,21 +549,9 @@ footer {
             <div style="display: flex; gap: 10px;">
                 <input type="text" ng-model="userNick" placeholder="Örn: FthCLK" ng-disabled="isAuthorized">
                 <button class="btn-main" style="width: auto; padding: 0 20px;" ng-click="fetchUserData()" ng-disabled="loadingApi || !userNick || isAuthorized">
-                    {{ isAuthorized ? 'AKTİF' : 'GETİR' }}
+                    {{ isAuthorized ? 'SİSTEM AKTİF' : 'ERİŞİMİ BAŞLAT' }}
                 </button>
             </div>
-			
-<div ng-if="isAuthorized" style="margin-top: 15px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; animation: fadeIn 0.5s;">
-    <a ng-href="https://rollercoin.com/p/{{userNick}}" target="_blank" class="btn-main" 
-       style="background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent); color: var(--accent); text-decoration: none; text-align: center; font-size: 0.75rem; padding: 12px 5px;">
-        PROFİLİ GÖRÜNTÜLE
-    </a>
-    
-    <a href="./miner-odam.html" target="_blank" class="btn-main" 
-       style="text-align: center; font-size: 0.75rem; padding: 12px 5px;">
-        MADENCİ ODASINA GİT
-    </a>
-</div>
 
             <div ng-if="userHistory.length > 0 && !isAuthorized" style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px;">
                 <span style="font-size: 0.7rem; color: var(--text-dim); width: 100%; font-weight: bold;">GEÇMİŞ KULLANICI ADLARI:</span>
@@ -708,6 +655,9 @@ footer {
             <div class="update-item">
                 <span class="update-date">15.03.2026</span>
                 <p class="update-desc"><b>Envanter:</b> Kullanıcıların envanterini görebilirsin.</p>
+				<p><button class="btn-main" style="width: auto; padding: 0 20px;">
+                    <a href="./miner-odam.html" target="_blank">Tıkla</a>
+                </button></p>
             </div>
             
             <div class="update-item">
@@ -756,68 +706,8 @@ footer {
         Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğunluğa göre küçük sapmalar gösterebilir.
     </p>
 </div>
+            </div>
 
-<div class="card" ng-if="isAuthorized" style="border-top: 4px solid var(--accent); margin-top: 20px;">
-    <div class="card-title">💰 ROI (YATIRIM DÖNÜŞÜ) HESAPLA</div>
-    <div class="input-box">
-        <label>MADENCİ / PARÇA MALİYETİ ({{calcData.coin}} Cinsinden)</label>
-        <div style="display: flex; gap: 10px;">
-            <input type="number" ng-model="roiData.cost" placeholder="Örn: 99.50" step="0.01">
-            <button class="btn-main" style="width: auto; padding: 0 20px; background: var(--accent);" ng-click="calculateROI()">
-                ROI HESAPLA
-            </button>
-        </div>
-    </div>
-
-    <div id="roiResult" ng-if="roiData.days > 0" style="animation: fadeIn 0.5s;">
-        <div class="stats-box" style="border-color: var(--accent); background: rgba(56, 189, 248, 0.05);">
-            <div class="results-grid" style="margin-top: 0;">
-                <div class="res-card">
-                    <span class="res-label">AMORTİ SÜRESİ</span>
-                    <span class="res-val" style="color: var(--accent);">{{roiData.days}} Gün</span>
-                </div>
-                <div class="res-card">
-                    <span class="res-label">AYLIK GETİRİ (ROI %)</span>
-                    <span class="res-val" style="color: var(--primary);">%{{roiData.monthlyPercent}}</span>
-                </div>
-            </div>
-            <p style="font-size: 0.7rem; color: var(--text-dim); margin-top: 10px;">
-                * Mevcut kazancınız sabit kalırsa, bu madenci <b>{{roiData.years}} yıl {{roiData.remainingDays}} günde</b> kendini öder.
-            </p>
-        </div>
-    </div>
-</div>
-            </div>
-<div class="card">
-    <div class="card-title">
-        <span class="pulse-dot"></span> 📺 YOUTUBE KANAL İSTATİSTİKLERİ
-    </div>
-    
-    <div class="settings-grid">
-        <div class="stats-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px;">
-            <div class="input-box">
-                <label>ABONE SAYISI</label>
-                <div id="yt-subs" class="miner-power" style="font-size: 1.5rem;">Yükleniyor...</div>
-            </div>
-            <div class="input-box">
-                <label>TOPLAM İZLENME</label>
-                <div id="yt-views" class="miner-power" style="font-size: 1.5rem;">-</div>
-            </div>
-            <div class="input-box">
-                <label>VİDEO SAYISI</label>
-                <div id="yt-videos" class="miner-power" style="font-size: 1.5rem;">-</div>
-            </div>
-        </div>
-
-        <div class="update-notes">
-            <div class="update-item">
-                <span class="update-date">CANLI VERİ</span>
-                <p class="update-desc">Veriler YouTube API aracılığıyla her 60 saniyede bir otomatik güncellenir.</p>
-                <a href="https://www.youtube.com/@fatihcelik" target="_blank" class="btn-buy" style="margin-top:10px; display:block;">Kanala Git</a>
-            </div>
-        </div>
-    </div>
-</div>
             <div class="card" ng-if="isAuthorized && liveData.length > 0">
                 <div class="card-title">
                     ● CANLI KRİPTO KAZANÇLARI
@@ -844,67 +734,10 @@ footer {
                     </table>
                 </div>
             </div>
-			
-			
-			
         </div>
     </div>
 
     <script>
-	
-	
-	
-	
-	
-const YT_CONFIG = {
-    apiKey: 'AIzaSyBRyH1_qHbSOYlNPFaq1OCJp6cTRwrmMzs', // Google Cloud Console'dan alacağınız API anahtarı
-    channelId: 'UCiS4gfhe4kmmgXB4Wny43kQ', // Kanal ID'niz (UC... ile başlayan)
-    refreshInterval: 60000 // 1 dakikada bir güncelleme
-};
-
-function fetchYouTubeStats() {
-    const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${YT_CONFIG.channelId}&key=${YT_CONFIG.apiKey}`;
-
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            if (data.items && data.items.length > 0) {
-                const stats = data.items[0].statistics;
-                
-                // Sayıları formatlayarak yazdır (örn: 1.250.000)
-                document.getElementById('yt-subs').innerText = Number(stats.subscriberCount).toLocaleString('tr-TR');
-                document.getElementById('yt-views').innerText = Number(stats.viewCount).toLocaleString('tr-TR');
-                document.getElementById('yt-videos').innerText = Number(stats.videoCount).toLocaleString('tr-TR');
-            }
-        })
-        .catch(err => console.error("YouTube API Hatası:", err));
-}
-
-// İlk yüklemede çalıştır ve aralığa bağla
-fetchYouTubeStats();
-setInterval(fetchYouTubeStats, YT_CONFIG.refreshInterval);	
-	
-// Gerçek Zamanlı Sistem Saati Fonksiyonu
-function startSystemClock() {
-    function updateTime() {
-        const now = new Date();
-        const timeString = now.toLocaleTimeString('tr-TR', { 
-            hour12: false, 
-            hour: '2-digit', 
-            minute: '2-digit', 
-            second: '2-digit' 
-        });
-        const clockElement = document.getElementById('system-clock');
-        if (clockElement) {
-            clockElement.innerText = timeString;
-        }
-    }
-    updateTime();
-    setInterval(updateTime, 1000); // Her saniye güncelle
-}
-
-startSystemClock(); // Saati başlat
-	
         const serviceApp = angular.module('miningApp', []);
 
         serviceApp.service('CurrencyService', ['$http', function($http) {
@@ -968,45 +801,6 @@ startSystemClock(); // Saati başlat
 
         serviceApp.controller('MiningController', ['$scope', 'UserMinerService', 'CurrencyService', '$timeout', 
         function($scope, UserMinerService, CurrencyService, $timeout) {
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-$scope.leaderboard = [];
-
-$scope.getLeaderboard = async function() {
-    const proxy = "https://morning-thunder-0ce3.wminerrc.workers.dev/?";
-    const leaderboardUrl = proxy + encodeURIComponent('https://rollercoin.com/api/leaderboard/get-top-players?limit=10');
-    
-    try {
-        const res = await $http.get(leaderboardUrl);
-        if(res.data && res.data.data) {
-            $scope.leaderboard = res.data.data.map(player => ({
-                name: player.name,
-                power: (player.total_power / 1000000000).toFixed(3) + " EH/s",
-                league: player.league_name || "Pro Miner"
-            }));
-            $scope.$apply();
-        }
-    } catch (e) {
-        console.error("Liderlik tablosu yüklenemedi", e);
-    }
-};
-
-// fetchUserData içinde başarılı girişten sonra çağırın
-// await $scope.getLeaderboard();
-		
 		
 		// IP Tabanlı Aktif Kullanıcı Simülasyonu
 async function setupActiveUsers() {
@@ -1072,41 +866,6 @@ setupActiveUsers();
     if (coin) {
         $scope.calcData.reward = coin.blockSize;
         $scope.calcData.blockTime = coin.blockTime / 60;
-		
-		// ROI Veri Modeli
-$scope.roiData = {
-    cost: 0,
-    days: 0,
-    monthlyPercent: 0,
-    years: 0,
-    remainingDays: 0
-};
-
-$scope.calculateROI = function() {
-    // Önce güncel kazancı hesapla (eğer hesaplanmadıysa)
-    const dailyIncome = parseFloat(document.getElementById('dia').innerText);
-    
-    if (!dailyIncome || dailyIncome <= 0) {
-        alert("Lütfen önce yukarıdaki 'HESAPLAMAYI BAŞLAT' butonu ile günlük kazancınızı hesaplayın.");
-        return;
-    }
-
-    if (!$scope.roiData.cost || $scope.roiData.cost <= 0) {
-        alert("Lütfen geçerli bir madenci maliyeti girin.");
-        return;
-    }
-
-    // ROI Hesaplama (Maliyet / Günlük Kazanç)
-    const totalDays = $scope.roiData.cost / dailyIncome;
-    
-    $scope.roiData.days = Math.ceil(totalDays);
-    $scope.roiData.years = Math.floor(totalDays / 365);
-    $scope.roiData.remainingDays = Math.floor(totalDays % 365);
-    
-    // Aylık ROI Yüzdesi: ((Aylık Kazanç) / Maliyet) * 100
-    const monthlyIncome = dailyIncome * 30;
-    $scope.roiData.monthlyPercent = ((monthlyIncome / $scope.roiData.cost) * 100).toFixed(2);
-};
         
         // Ham ağ gücü (Sistemden Gh/s cinsinden gelebilir veya TH)
         // RollerCoin API genellikle ham değeri büyük gönderir.
