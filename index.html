@@ -706,6 +706,23 @@ footer {
         Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğunluğa göre küçük sapmalar gösterebilir.
     </p>
 </div>
+
+
+<div id="roiCard" class="card" style="display: none; background: rgba(255, 204, 0, 0.05); border: 1px dashed var(--reward-gold); margin-bottom: 15px;">
+    <span class="res-label" style="color: var(--reward-gold); font-weight: 800;">💰 AMORTİSMAN (ROI) HESAPLAYICI</span>
+    <div style="display: flex; gap: 15px; align-items: center; margin-top: 10px;">
+        <div style="flex: 1;">
+            <label style="font-size: 0.65rem; color: var(--text-dim);">MİNER MALİYETİ ({{calcData.fiat.toUpperCase()}})</label>
+            <input type="number" ng-model="calcData.minerCost" ng-change="updateROI()" placeholder="Maliyet girin" style="border-color: var(--reward-gold); padding: 8px;">
+        </div>
+        <div style="flex: 1; text-align: center;">
+            <span class="res-label">TAHMİNİ SÜRE</span>
+            <div id="roiResult" class="res-val" style="color: var(--reward-gold); font-size: 1.2rem;">- GÜN</div>
+        </div>
+    </div>
+</div>
+
+
             </div>
 
             <div class="card" ng-if="isAuthorized && liveData.length > 0">
@@ -889,7 +906,27 @@ setupActiveUsers();
         const simdi = new Date();
 $scope.lastUpdate = simdi.toLocaleDateString('tr-TR') + " / " + simdi.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
     }
+	
+$scope.updateROI = function() {
+    const resultEl = document.getElementById('roiResult');
+    if ($scope.calcData.minerCost > 0 && $scope.currentDailyFiat > 0) {
+        const days = Math.ceil($scope.calcData.minerCost / $scope.currentDailyFiat);
+        
+        if (days > 3650) {
+            resultEl.innerText = "10+ YIL";
+        } else if (days > 365) {
+            resultEl.innerText = (days / 365).toFixed(1) + " YIL";
+        } else {
+            resultEl.innerText = days + " GÜN";
+        }
+    } else {
+        resultEl.innerText = "- GÜN";
+    }
 };
+	
+};
+
+
             $scope.fetchUserData = async function() {
                 if(!$scope.userNick) return;
                 $scope.loadingApi = true;
@@ -929,6 +966,18 @@ $scope.lastUpdate = simdi.toLocaleDateString('tr-TR') + " / " + simdi.toLocaleTi
                     if (!res.ok) throw new Error("API Limit");
                     const prices = await res.json();
                     const price = prices[coinKey][$scope.calcData.fiat];
+// ROI Görünürlük ve Filtreleme Kontrolü
+const isCrypto = !['RLT', 'RST'].includes($scope.calcData.coin);
+const hasLeague = $scope.calcData.leagueId !== ""; // Lig seviyesi seçili mi kontrolü
+const roiCard = document.getElementById('roiCard');
+
+if (isCrypto && hasLeague) {
+    roiCard.style.display = 'block';
+    $scope.currentDailyFiat = daily * price; // ROI için günlük kazancı değişkene atar
+    $scope.updateROI(); // Varsa eski değeri günceller
+} else {
+    roiCard.style.display = 'none'; // Şartlar sağlanmazsa (Manuel mod veya RLT/RST) gizle
+}
                     $timeout(() => {
                         const s = $scope.calcData.fiat === 'try' ? '₺' : '$';
                         document.getElementById('porBloque').innerText = porBloque.toFixed(10);
@@ -944,7 +993,8 @@ $scope.lastUpdate = simdi.toLocaleDateString('tr-TR') + " / " + simdi.toLocaleTi
                         document.getElementById('results').style.display = 'block';
                         $scope.loadingApi = false;
                     }, 100);
-                } catch(e) { 
+                }
+				catch(e) { 
                     // Fiyat hatası durumunda bildirim ver ve tekrarla
                     $timeout(() => {
                         document.getElementById('results').style.display = 'block';
