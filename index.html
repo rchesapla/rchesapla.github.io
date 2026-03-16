@@ -812,10 +812,15 @@ footer {
                 👤
                 <div class="online-glow"></div>
             </div>
-            <div class="player-details">
-                <div class="nick">{{userNick}}</div>
-                <span class="rank">ONAYLI</span>
-            </div>
+<div class="player-details">
+    <div class="nick">{{userNick}}</div>
+    <div style="display: flex; gap: 10px; align-items: center;">
+        <span class="rank">ONAYLI</span>
+        <span style="font-size: 0.65rem; color: var(--accent); font-family: 'JetBrains Mono';">
+            📊 {{currentUserCalcs}} kere hesaplandı!
+        </span>
+    </div>
+</div>
         </div>
 
         <div class="action-cluster">
@@ -1090,6 +1095,12 @@ footer {
         function($scope, UserMinerService, CurrencyService, $timeout) {
 		
 		
+		
+// Tüm kullanıcıların verilerini içeren objeyi al
+$scope.allUserStats = JSON.parse(localStorage.getItem('rc_user_stats')) || {};
+$scope.currentUserCalcs = 0;
+		
+		
 $scope.logoutUser = function() {
     // Arayüzü sıfırla
     $scope.isAuthorized = false;
@@ -1212,6 +1223,10 @@ $scope.updateROI = function() {
 
 // Kullanıcı verisinden birimleri otomatik seçme (KİŞİSEL GÜÇ İÇİN)
     $scope.fetchUserData = async function() {
+	
+	// fetchUserData fonksiyonunun içindeki try bloğuna ekle:
+$scope.currentUserCalcs = $scope.allUserStats[$scope.userNick] || 0;
+	
         if(!$scope.userNick) return;
         $scope.loadingApi = true;
         try {
@@ -1261,7 +1276,16 @@ $scope.updateROI = function() {
                 const daily = porBloque * (1440 / $scope.calcData.blockTime);
                 const cgMap = { 'RLT':'tether','RST':'tether','BTC':'bitcoin','ETH':'ethereum','BNB':'binancecoin','MATIC':'polygon-ecosystem-token','LTC':'litecoin','DOGE':'dogecoin','SOL':'solana','TRX':'tron','XRP':'ripple','USDT':'tether','ALGO':'algorand' };
                 const coinKey = cgMap[$scope.calcData.coin] || 'tether';
-                
+
+
+// Kullanıcıya özel sayacı artır
+    $scope.currentUserCalcs++;
+    
+    // Objeyi güncelle ve kaydet
+    $scope.allUserStats[$scope.userNick] = $scope.currentUserCalcs;
+    localStorage.setItem('rc_user_stats', JSON.stringify($scope.allUserStats));
+
+
                 try {
                     const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinKey}&vs_currencies=usd,try`);
                     if (!res.ok) throw new Error("API Limit");
