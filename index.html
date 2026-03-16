@@ -17,11 +17,229 @@
 
 
 
+/* Komuta Merkezi - Oyuncu Kartı Tasarımı */
+.player-command-card {
+    background: radial-gradient(circle at top left, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 1));
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: 20px !important;
+    padding: 0 !important; /* İç padding'i yapılandıracağız */
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(56, 189, 248, 0.1);
+}
+
+.player-card-header {
+    background: rgba(56, 189, 248, 0.1);
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.player-card-body {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.player-identity {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar-neon-frame {
+    width: 60px;
+    height: 60px;
+    background: #0f172a;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+    position: relative;
+}
+
+.online-glow {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 12px;
+    height: 12px;
+    background: var(--primary);
+    border: 2px solid #0f172a;
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--primary);
+}
+
+.player-details .nick {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    margin-bottom: 2px;
+}
+
+.player-details .rank {
+    font-size: 0.65rem;
+    color: var(--primary);
+    font-weight: 800;
+    text-transform: uppercase;
+    background: rgba(0, 255, 136, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.action-cluster {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Modern Cam Butonlar */
+.glass-btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.btn-blue {
+    background: rgba(56, 189, 248, 0.15);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+}
+
+.btn-red {
+    background: rgba(244, 63, 94, 0.1);
+    border: 1px solid #f43f5e;
+    color: #f43f5e;
+}
+
+.glass-btn:hover {
+    filter: brightness(1.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+@media (max-width: 600px) {
+    .player-card-body {
+        flex-direction: column;
+        text-align: center;
+    }
+    .player-identity {
+        flex-direction: column;
+    }
+    .action-cluster {
+        width: 100%;
+    }
+}
 
 
 
+/* Modern & Cyberpunk Giriş Paneli */
+.auth-card-modern {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+    border: 1px solid rgba(0, 255, 136, 0.15);
+    position: relative;
+    overflow: hidden;
+}
 
+.auth-card-modern::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 255, 136, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+}
 
+.input-group-cyber {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cyber-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.cyber-input {
+    width: 100%;
+    background: rgba(7, 11, 20, 0.6) !important;
+    border: 2px solid #1e293b !important;
+    border-radius: 12px !important;
+    padding: 15px 15px 15px 45px !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    color: var(--primary) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.cyber-input:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.2) !important;
+    background: rgba(7, 11, 20, 0.9) !important;
+}
+
+.input-label-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    filter: drop-shadow(0 0 5px var(--primary));
+}
+
+.btn-cyber {
+    background: var(--primary) !important;
+    color: #000 !important;
+    border-radius: 12px !important;
+    padding: 15px 30px !important;
+    font-weight: 900 !important;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 0px #00cc6e;
+    transition: all 0.1s !important;
+}
+
+.btn-cyber:active {
+    transform: translateY(3px) !important;
+    box-shadow: 0 1px 0px #00cc6e;
+}
+
+.btn-cyber:disabled {
+    background: #1e293b !important;
+    color: #475569 !important;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* Mobil Alt Alta Düzen */
+@media (max-width: 600px) {
+    .btn-cyber {
+        width: 100%;
+    }
+}
 
 
 /* Miner Önerileri Bölümü */
@@ -544,29 +762,79 @@ footer {
 
     <div class="wrapper">
         
-        <div class="card">
-            <div class="card-title">⚙️ ROLLERCOIN KULLANICI ADI</div>
-            <div style="display: flex; gap: 10px;">
-                <input type="text" ng-model="userNick" placeholder="Örn: FthCLK" ng-disabled="isAuthorized">
-                <button class="btn-main" style="width: auto; padding: 0 20px;" ng-click="fetchUserData()" ng-disabled="loadingApi || !userNick || isAuthorized">
-                    {{ isAuthorized ? 'SİSTEM AKTİF' : 'ERİŞİMİ BAŞLAT' }}
-                </button>
-            </div>
+<div class="card auth-card-modern" ng-hide="isAuthorized">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <div class="card-title" style="margin-bottom: 0;">
+            <span class="pulse-dot"></span> SİSTEM ERİŞİMİ
+        </div>
+        <span class="version-tag" style="font-size: 0.6rem; opacity: 0.7;">SECURE NODE v4.0</span>
+    </div>
 
-            <div ng-if="userHistory.length > 0 && !isAuthorized" style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px;">
-                <span style="font-size: 0.7rem; color: var(--text-dim); width: 100%; font-weight: bold;">GEÇMİŞ KULLANICI ADLARI:</span>
-                <div ng-repeat="nick in userHistory track by $index" class="history-tag">
-                    <span ng-click="quickFetch(nick)" style="font-weight: 600;">{{nick}}</span>
-                    <span class="history-del" ng-click="removeFromHistory($index)" style="color: #ff4444; font-weight: bold; padding-left: 5px;">×</span>
-                </div>
-            </div>
+    <div class="input-group-cyber">
+        <div class="cyber-input-wrapper">
+            <span class="input-label-icon">🚀</span>
+            <input type="text" 
+                   class="cyber-input" 
+                   ng-model="userNick" 
+                   placeholder="Kullanıcı adınızı yazın..." 
+                   ng-disabled="isAuthorized">
+        </div>
 
-            <div class="stats-box">
-                <span style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">
-                    Bugün Toplam <span class="stats-val">{{totalCalculations}}</span> Kez Hesaplama Yapıldı
-                </span>
+        <button class="btn-main btn-cyber" 
+                ng-click="fetchUserData()" 
+                ng-disabled="loadingApi || !userNick || isAuthorized">
+            <span ng-if="!loadingApi">SİSTEMİ AKTİVE ET</span>
+            <span ng-if="loadingApi">VERİLER ÇEKİLİYOR...</span>
+            <i>⚡</i>
+        </button>
+    </div>
+
+    <div ng-if="userHistory.length > 0" style="margin-top: 20px;">
+        <div style="font-size: 0.6rem; color: var(--text-dim); margin-bottom: 8px; font-weight: bold; letter-spacing: 2px;">SON KAYITLAR</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+            <div ng-repeat="nick in userHistory track by $index" class="history-tag">
+                <span ng-click="quickFetch(nick)">{{nick}}</span>
+                <span class="history-del" ng-click="removeFromHistory($index)">×</span>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="card player-command-card" ng-if="isAuthorized">
+    <div class="player-card-header">
+        <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">OYUNCU KOMUTA MERKEZİ</span>
+        <span class="version-tag" style="margin: 0;">GÜVENLİ</span>
+    </div>
+
+    <div class="player-card-body">
+        <div class="player-identity">
+            <div class="avatar-neon-frame">
+                👤
+                <div class="online-glow"></div>
+            </div>
+            <div class="player-details">
+                <div class="nick">{{userNick}}</div>
+                <span class="rank">ONAYLI</span>
+            </div>
+        </div>
+
+        <div class="action-cluster">
+            <a ng-href="https://rollercoin.com/p/{{userNick}}" target="_blank" class="glass-btn btn-blue">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                </svg>
+                ROLLERCOIN PROFİLİ
+            </a>
+            
+            <button class="glass-btn btn-red" ng-click="logoutUser()">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="M16 17l5-5-5-5M19.8 12H9M10 3H4v18h6"/>
+                </svg>
+                KİMLİĞİ SIFIRLA
+            </button>
+        </div>
+    </div>
+</div>
 		
         <div ng-if="isAuthorized">
 <div class="card" ng-if="isAuthorized">
@@ -756,6 +1024,8 @@ footer {
 
     <script>
         const serviceApp = angular.module('miningApp', []);
+		
+		
 
         serviceApp.service('CurrencyService', ['$http', function($http) {
             const current_date = new Date().toISOString().split('T')[0];
@@ -818,6 +1088,19 @@ footer {
 
         serviceApp.controller('MiningController', ['$scope', 'UserMinerService', 'CurrencyService', '$timeout', 
         function($scope, UserMinerService, CurrencyService, $timeout) {
+		
+		
+$scope.logoutUser = function() {
+    // Arayüzü sıfırla
+    $scope.isAuthorized = false;
+    
+    // Formu temizle ve sonuçları gizle
+    $scope.userNick = ""; 
+    document.getElementById('results').style.display = 'none';
+    
+    // Küçük bir bildirim (isteğe bağlı)
+    console.log("Oturum güvenli bir şekilde kapatıldı.");
+};
 		
 		// IP Tabanlı Aktif Kullanıcı Simülasyonu
 async function setupActiveUsers() {
