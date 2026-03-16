@@ -927,27 +927,45 @@ $scope.updateROI = function() {
 };
 
 
-            $scope.fetchUserData = async function() {
-                if(!$scope.userNick) return;
-                $scope.loadingApi = true;
-                try {
-                    const response = await UserMinerService.getAllUserDataByNick($scope.userNick);
-                    if (!$scope.userHistory.includes($scope.userNick)) {
-                        $scope.userHistory.push($scope.userNick);
-                        localStorage.setItem('rc_user_history', JSON.stringify($scope.userHistory));
-                    }
-                    const powerData = response.powerData;
-                    let th = parseFloat(powerData.current_power) / 1000;
-                    if (th >= 1000000) { $scope.calcData.myPower = parseFloat((th/1000000).toFixed(2)); $scope.calcData.myUnit = 'eh'; }
-                    else if (th >= 1000) { $scope.calcData.myPower = parseFloat((th/1000).toFixed(2)); $scope.calcData.myUnit = 'ph'; }
-                    else { $scope.calcData.myPower = Math.round(th); $scope.calcData.myUnit = 'th'; }
+// Kullanıcı verisinden birimleri otomatik seçme (KİŞİSEL GÜÇ İÇİN)
+    $scope.fetchUserData = async function() {
+        if(!$scope.userNick) return;
+        $scope.loadingApi = true;
+        try {
+            const response = await UserMinerService.getAllUserDataByNick($scope.userNick);
+            
+            // Geçmişe ekle
+            if (!$scope.userHistory.includes($scope.userNick)) {
+                $scope.userHistory.push($scope.userNick);
+                localStorage.setItem('rc_user_history', JSON.stringify($scope.userHistory));
+            }
 
-                    if(response.leagueId) { $scope.calcData.leagueId = response.leagueId; }
-                    $scope.isAuthorized = true; 
-                    await $scope.updateLeagueData();
-                } catch(e) { alert("Kullanıcı bulunamadı."); }
-                finally { $scope.loadingApi = false; $scope.$apply(); }
-            };
+            const powerData = response.powerData;
+            let rawPower = parseFloat(powerData.current_power); // GH/s cinsinden
+
+            if (rawPower >= 1000000000000) { // Zettahash
+                $scope.calcData.myPower = parseFloat((rawPower / 1000000000000).toFixed(2));
+                $scope.calcData.myUnit = 'zh';
+            } else if (rawPower >= 1000000000) { // Exahash
+                $scope.calcData.myPower = parseFloat((rawPower / 1000000000).toFixed(2));
+                $scope.calcData.myUnit = 'eh';
+            } else if (rawPower >= 1000000) { // Petahash
+                $scope.calcData.myPower = parseFloat((rawPower / 1000000).toFixed(2));
+                $scope.calcData.myUnit = 'ph';
+            } else if (rawPower >= 1000) { // Terahash
+                $scope.calcData.myPower = parseFloat((rawPower / 1000).toFixed(2));
+                $scope.calcData.myUnit = 'th';
+            } else { // Gigahash
+                $scope.calcData.myPower = rawPower;
+                $scope.calcData.myUnit = 'gh';
+            }
+
+            if(response.leagueId) { $scope.calcData.leagueId = response.leagueId; }
+            $scope.isAuthorized = true; 
+            await $scope.updateLeagueData();
+        } catch(e) { alert("Kullanıcı bulunamadı."); }
+        finally { $scope.loadingApi = false; $scope.$apply(); }
+    };
 
             $scope.calcular = async function() {
                 $scope.loadingApi = true; 
