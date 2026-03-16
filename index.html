@@ -1034,6 +1034,28 @@ footer {
     </div>
 
     <script>
+	
+// Sağ Tıklama ve F12 Engelleme + Uyarı Mesajı
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    alert("Sistem güvenliği nedeniyle sağ tıklama devre dışı bırakılmıştır.");
+});
+
+document.onkeydown = function(e) {
+    // Engellenecek tuş kombinasyonları
+    const forbiddenKeys = (
+        e.keyCode == 123 || // F12
+        (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || // Ctrl+Shift+I, J, C
+        (e.ctrlKey && e.keyCode == 85) // Ctrl+U
+    );
+
+    if (forbiddenKeys) {
+        alert("Bu işlem sistem yöneticisi tarafından kısıtlanmıştır!");
+        return false;
+    }
+};
+	
+	
         const serviceApp = angular.module('miningApp', []);
 		
 		
