@@ -260,19 +260,18 @@
     <p style="font-size: 0.75rem; color: var(--text-dim); line-height: 1.5;">
         Yukarıdaki veriler <b>anlık ağ gücü</b> ve <b>mevcut blok ödülleri</b> baz alınarak hesaplanmıştır. 
         Unutmayın ki RollerCoin ağ gücü (Network Power) sürekli değişkendir; bu durum günlük kazancınızı etkileyebilir. 
-        Hesaplanan fiat (USD/TRY) değerleri, CoinGecko üzerinden alınan canlı borsa kurlarını yansıtır. 
+        Hesaplanan fiyat (USD/TRY) değerleri, CoinGecko üzerinden alınan canlı borsa kurlarını yansıtır. 
         Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğunluğa göre küçük sapmalar gösterebilir.
     </p>
 </div>
                 </div>
             </div>
-            </div>
-
-
-
-
-<div id="roiCard" class="card" style="display: none; background: rgba(255, 204, 0, 0.05); border: 1px dashed var(--reward-gold); margin-bottom: 15px;">
-    <span class="res-label" style="color: var(--reward-gold); font-weight: 800;">💰 AMORTİSMAN (ROI) HESAPLAYICI</span>
+			
+            <div  id="roiCard" class="card" ng-if="isAuthorized" style="margin-top: 15px">
+                <div class="card-title">
+                    💰 AMORTİSMAN (ROI) HESAPLAYICI
+                </div>
+                <div style="overflow-x: auto;">
     <div style="display: flex; gap: 15px; align-items: center; margin-top: 10px;">
         <div style="flex: 1;">
             <label style="font-size: 0.65rem; color: var(--text-dim);">MİNER MALİYETİ ({{calcData.fiat.toUpperCase()}})</label>
@@ -280,10 +279,12 @@
         </div>
         <div style="flex: 1; text-align: center;">
             <span class="res-label">TAHMİNİ SÜRE</span>
-            <div id="roiResult" class="res-val" style="color: var(--reward-gold); font-size: 1.2rem;">- GÜN</div>
+            <div id="roiResult" class="res-val" style="color: var(--reward-gold); font-size: 1.2rem;">Önce Hesapla</div>
         </div>
     </div>
-</div>
+                </div>
+            </div>
+            </div>
 
 
             <div class="card" ng-if="isAuthorized && liveData.length > 0">
