@@ -324,7 +324,7 @@ $scope.currentUserCalcs = $scope.allUserStats[$scope.userNick] || 0;
                     const prices = await res.json();
                     const price = prices[coinKey][$scope.calcData.fiat];
 // ROI Görünürlük ve Filtreleme Kontrolü
-const isCrypto = !['RLT', 'RST'].includes($scope.calcData.coin);
+const isCrypto = !['RLT', 'RST', 'USDT'].includes($scope.calcData.coin);
 const hasLeague = $scope.calcData.leagueId !== ""; // Lig seviyesi seçili mi kontrolü
 const roiCard = document.getElementById('roiCard');
 
