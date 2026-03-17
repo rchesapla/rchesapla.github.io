@@ -12,6 +12,16 @@
 </head>
 <body ng-controller="MiningController">
 
+
+<div class="error-toast" ng-if="showErrorToast">
+    <span class="toast-icon">⚠️</span>
+    <div>
+        <div style="font-size: 0.9rem;">SİSTEM HATASI</div>
+        <div style="font-size: 0.75rem; opacity: 0.9;">{{errorMessage}}</div>
+    </div>
+    <div class="toast-progress"></div>
+</div>
+
     <div class="loading-popup" ng-if="loadingApi || loadingLeague">
         <div class="spinner"></div>
         <div class="loading-text">Sistem bilgileri yükleniyor</div>
@@ -202,12 +212,6 @@
             <div class="update-item">
                 <span class="update-date">15.03.2026</span>
                 <p class="update-desc"><b>Envanter:</b> Kullanıcıların envanterini görebilirsin.</p>
-				<p><a ng-href="./miner-odam.html" target="_blank" class="glass-btn btn-blue">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-                </svg>
-                MINER LİSTESİ
-            </a></p>
             </div>
             
             <div class="update-item">

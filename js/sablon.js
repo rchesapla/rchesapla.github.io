@@ -84,6 +84,29 @@ document.onkeydown = function(e) {
         function($scope, UserMinerService, CurrencyService, $timeout) {
 		
 		
+
+
+
+
+
+
+
+// Controller'ın en başına hata değişkenlerini ekle
+$scope.showErrorToast = false;
+$scope.errorMessage = "";
+
+// Bildirim gösterme fonksiyonu
+$scope.triggerError = function(msg) {
+    $scope.errorMessage = msg;
+    $scope.showErrorToast = true;
+    
+    // 3 saniye sonra otomatik kapat
+    $timeout(function() {
+        $scope.showErrorToast = false;
+    }, 3000);
+};
+
+
 		
 // Tüm kullanıcıların verilerini içeren objeyi al
 $scope.allUserStats = JSON.parse(localStorage.getItem('rc_user_stats')) || {};
@@ -207,6 +230,26 @@ $scope.updateROI = function() {
     }
 };
 	
+};
+
+
+$scope.fetchUserData = async function() {
+    if(!$scope.userNick) return;
+    $scope.loadingApi = true;
+    try {
+        const response = await UserMinerService.getAllUserDataByNick($scope.userNick);
+        // ... mevcut başarılı kodlar ...
+        
+        $scope.isAuthorized = true; 
+        await $scope.updateLeagueData();
+    } catch(e) {
+        // alert yerine yeni fonksiyonu çağırıyoruz
+        $scope.triggerError("Kullanıcı bulunamadı veya profil gizli!");
+    }
+    finally {
+        $scope.loadingApi = false;
+        $scope.$apply();
+    }
 };
 
 
