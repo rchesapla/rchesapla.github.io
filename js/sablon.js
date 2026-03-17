@@ -19,9 +19,11 @@ document.onkeydown = function(e) {
     }
 };
 	
-	
+//////////////////////////////////////////////////////////////////////////
         const serviceApp = angular.module('miningApp', []);
         serviceApp.service('CurrencyService', ['$http', function($http) {
+//////////////////////////////////////////////////////////////////////////
+
             const current_date = new Date().toISOString().split('T')[0];
             const cacheValidity = 24 * 60 * 60 * 1000;
             const proxy = "https://morning-thunder-0ce3.wminerrc.workers.dev/?";
@@ -68,8 +70,10 @@ document.onkeydown = function(e) {
                 return detailed;
             };
         }]);
-
+//////////////////////////////////////////////////////////////////////////
         serviceApp.service('UserMinerService', ['$http', function($http) {
+//////////////////////////////////////////////////////////////////////////
+
             this.getAllUserDataByNick = async function(nick) {
                 const proxy = "https://morning-thunder-0ce3.wminerrc.workers.dev/?";
                 const apiUser = `https://rollercoin.com/api/profile/public-user-profile-data/${nick}`;
@@ -79,17 +83,10 @@ document.onkeydown = function(e) {
                 return { powerData: resPower.data.data, leagueId: resUser.data.data.league_id };
             };
         }]);
-
+//////////////////////////////////////////////////////////////////////////
         serviceApp.controller('MiningController', ['$scope', 'UserMinerService', 'CurrencyService', '$timeout', 
         function($scope, UserMinerService, CurrencyService, $timeout) {
-		
-		
-
-
-
-
-
-
+//////////////////////////////////////////////////////////////////////////
 
 // Controller'ın en başına hata değişkenlerini ekle
 $scope.showErrorToast = false;
@@ -232,8 +229,9 @@ $scope.updateROI = function() {
 	
 };
 
-
+//////////////////////////////////////////////////////////////////////////
 $scope.fetchUserData = async function() {
+//////////////////////////////////////////////////////////////////////////
     if(!$scope.userNick) return;
     $scope.loadingApi = true;
     try {
@@ -296,8 +294,10 @@ $scope.currentUserCalcs = $scope.allUserStats[$scope.userNick] || 0;
         } catch(e) { alert("Kullanıcı bulunamadı."); }
         finally { $scope.loadingApi = false; $scope.$apply(); }
     };
-
+//////////////////////////////////////////////////////////////////////////
             $scope.calcular = async function() {
+//////////////////////////////////////////////////////////////////////////
+				
                 $scope.loadingApi = true; 
                 localStorage.setItem('rc_user_calculations', (parseInt(localStorage.getItem('rc_user_calculations')) || 0) + 1);
                 $scope.totalCalculations++;
