@@ -790,6 +790,11 @@ footer {
             font-size: 0.7rem;
             margin-left: 5px;
         }
+		
+		
+.search-box { display: flex; gap: 10px; margin-top: 15px; }
+		
+		
     </style>
 </head>
 <body ng-controller="MiningController">
@@ -822,7 +827,7 @@ footer {
     </div>
 
     <div class="input-group-cyber">
-        <div class="cyber-input-wrapper">
+		<div class="search-box">        <div class="cyber-input-wrapper">
             <span class="input-label-icon">🚀</span>
             <input type="text" 
                    class="cyber-input" 
@@ -830,14 +835,13 @@ footer {
                    placeholder="Kullanıcı adınızı yazın..." 
                    ng-disabled="isAuthorized">
         </div>
-
-        <button class="btn-main btn-cyber" 
+    <button class="btn-main btn-cyber" 
                 ng-click="fetchUserData()" 
                 ng-disabled="loadingApi || !userNick || isAuthorized">
             <span ng-if="!loadingApi">SİSTEMİ AKTİVE ET</span>
             <span ng-if="loadingApi">VERİLER ÇEKİLİYOR...</span>
-            <i>⚡</i>
-        </button>
+            <i>⚡</i></button>
+</div>
     </div>
 
     <div ng-if="userHistory.length > 0" class="history-container">
