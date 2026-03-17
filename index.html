@@ -313,36 +313,6 @@
                     </table>
                 </div>
             </div>
-
-<div id="results" class="card" ng-if="isAuthorized" style="display:block; border-top: 4px solid var(--primary);">
-    <div class="price-ticker" id="priceDisplay">Canlı Veri Senkronize Edildi</div>
-    <div style="text-align: center; margin-bottom: 20px;">
-        <span class="res-label">BLOK BAŞINA TAHMİNİ KAZANCINIZ</span>
-        <h2 class="res-val" style="font-size: 1.5rem;">{{calcResults.perBlock || '-'}} {{calcData.coin}}</h2>
-    </div>
-    <div class="results-grid">
-        <div class="res-card">
-            <span class="res-label">GÜNLÜK</span>
-            <span class="res-val">{{calcResults.daily || '-'}}</span>
-            <span class="res-fiat">{{calcResults.dailyFiat || '-'}} {{calcData.fiat.toUpperCase()}}</span>
-        </div>
-        <div class="res-card">
-            <span class="res-label">HAFTALIK</span>
-            <span class="res-val">{{calcResults.weekly || '-'}}</span>
-            <span class="res-fiat">{{calcResults.weeklyFiat || '-'}} {{calcData.fiat.toUpperCase()}}</span>
-        </div>
-        <div class="res-card">
-            <span class="res-label">AYLIK</span>
-            <span class="res-val">{{calcResults.monthly || '-'}}</span>
-            <span class="res-fiat">{{calcResults.monthlyFiat || '-'}} {{calcData.fiat.toUpperCase()}}</span>
-        </div>
-        <div class="res-card">
-            <span class="res-label">YILLIK</span>
-            <span class="res-val">{{calcResults.yearly || '-'}}</span>
-            <span class="res-fiat">{{calcResults.yearlyFiat || '-'}} {{calcData.fiat.toUpperCase()}}</span>
-        </div>
-    </div>
-</div>
 			
 <div class="card" ng-if="isAuthorized">
     <div class="card-title">
@@ -376,7 +346,6 @@
         </p>
     </div>
 </div>
-
         </div>
     </div>
 
