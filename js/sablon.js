@@ -88,20 +88,18 @@ document.onkeydown = function(e) {
         function($scope, UserMinerService, CurrencyService, $timeout) {
 //////////////////////////////////////////////////////////////////////////
 
-// Controller'ın en başına hata değişkenlerini ekle
-$scope.showErrorToast = false;
-$scope.errorMessage = "";
 
-// Bildirim gösterme fonksiyonu
-$scope.triggerError = function(msg) {
-    $scope.errorMessage = msg;
-    $scope.showErrorToast = true;
-    
-    // 3 saniye sonra otomatik kapat
-    $timeout(function() {
-        $scope.showErrorToast = false;
-    }, 3000);
-};
+
+
+
+
+
+
+
+
+
+
+
 
 
 		

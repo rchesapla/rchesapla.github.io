@@ -13,14 +13,9 @@
 <body ng-controller="MiningController">
 
 
-<div class="error-toast" ng-if="showErrorToast">
-    <span class="toast-icon">⚠️</span>
-    <div>
-        <div style="font-size: 0.9rem;">SİSTEM HATASI</div>
-        <div style="font-size: 0.75rem; opacity: 0.9;">{{errorMessage}}</div>
-    </div>
-    <div class="toast-progress"></div>
-</div>
+
+
+
 
     <div class="loading-popup" ng-if="loadingApi || loadingLeague">
         <div class="spinner"></div>
