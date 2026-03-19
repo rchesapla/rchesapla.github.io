@@ -35,35 +35,46 @@
 </nav>
 
 <div class="wrapper">
-
-<div class="card auth-card-modern" ng-hide="isAuthorized">
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-<div class="card-title" style="margin-bottom: 0;">
-<span class="pulse-dot"></span> SİSTEM ERİŞİMİ
-</div>
-<span class="version-tag" style="font-size: 0.6rem; opacity: 0.7;">SECURE NODE v4.0</span>
+<div class="card player-command-card" ng-hide="isAuthorized">
+<div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
+<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">KULLANICI BİLGİLERİ MERKEZİ</span>
 </div>
 
+<div class="player-card-body">
 <div class="input-group-cyber">
 		<div class="search-box"><div class="cyber-input-wrapper">
 <span class="input-label-icon">🚀</span>
 <input type="text" 
    class="cyber-input" 
    ng-model="userNick" 
-   placeholder="Kullanıcı adınızı yazın..." 
+   placeholder="Örn: FthCLK" 
    ng-disabled="isAuthorized">
 </div>
-<button class="btn-main btn-cyber" 
-ng-click="fetchUserData()" 
-ng-disabled="loadingApi || !userNick || isAuthorized">
-<span ng-if="!loadingApi">SİSTEMİ AKTİVE ET</span>
-<span ng-if="loadingApi">VERİLER ÇEKİLİYOR...</span>
-<i>⚡</i></button>
+
 </div>
 </div>
 
+<div class="action-cluster">
+
+<button class="glass-btn btn-blue" 
+ng-click="fetchUserData()" 
+ng-disabled="loadingApi || !userNick || isAuthorized">
+<span ng-if="!loadingApi">GETİR</span>
+<span ng-if="loadingApi">YÜKLENİYOR</span>
+<i>⚡</i></button>
+
+</div>
+</div>
+</div>
+
+<div class="card player-command-card" ng-hide="isAuthorized">
+<div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
+<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">GEÇMİŞ KULLANICI ARAMASI</span>
+</div>
+
+<div class="player-card-body">
+
 <div ng-if="userHistory.length > 0" class="history-container">
-<div class="history-title">SON KAYITLAR</div>
 <div style="display: flex; flex-wrap: wrap; gap: 6px;">
 <div ng-repeat="nick in userHistory track by $index" class="history-tag" >
 <span class="tag-text" ng-click="quickFetch(nick)">{{nick}}</span>
@@ -71,7 +82,10 @@ ng-disabled="loadingApi || !userNick || isAuthorized">
 </div>
 </div>
 </div>
+
 </div>
+</div>
+
 
 <div class="card player-command-card" ng-if="isAuthorized">
 <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
@@ -208,7 +222,7 @@ KİMLİĞİ SIFIRLA
 
 <div class="update-item">
 <span class="update-date">18.03.2026</span>
-<p class="update-desc"><b>Yedek Hesaplama Sitesi:</b> Oyuncu komuta merkezi bölümünden ulaşabilirsin.</p>
+<p class="update-desc"><b>Yedek Hesaplama Sitesi:</b> Sistem notları bölümünden ulaşabilirsin.</p>
 </div>
 
 <div class="update-item">
@@ -320,7 +334,7 @@ Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğ
 <tr ng-repeat="item in liveData | orderBy:'-networkPower'" ng-if="item.networkPower > 0">
 <td class="coin-name">{{item.name}}</td>
 <td class="stats-val">{{formatPower(item.networkPower)}}</td>
-<td class="reward-val">{{item.blockSize.toFixed(4)}}</td>
+<td class="reward-val">{{item.blockSize.toFixed(7)}}</td>
 <td>{{(item.blockTime / 60).toFixed(1)}} dk</td>
 </tr>
 </tbody>
