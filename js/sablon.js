@@ -100,7 +100,23 @@ document.onkeydown = function(e) {
 
 
 
+$scope.formatPower = function(power) {
+    if (!power || power <= 0) return "0.00 GH/s";
 
+    // RollerCoin API'den gelen temel birim genellikle GH/s veya MH/s bazlıdır. 
+    // Tablonuzdaki mevcut bölme işlemine (10^9) göre mantık şu şekildedir:
+    
+    let units = ['GH/s', 'TH/s', 'PH/s', 'EH/s', 'ZH/s'];
+    let unitIndex = 0;
+
+    // Her 1000 katta bir birimi büyüt
+    while (power >= 1000 && unitIndex < units.length - 1) {
+        power /= 1000;
+        unitIndex++;
+    }
+
+    return power.toFixed(2) + " " + units[unitIndex];
+};
 
 		
 // Tüm kullanıcıların verilerini içeren objeyi al
