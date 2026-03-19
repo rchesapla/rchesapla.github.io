@@ -19,7 +19,38 @@
 
 
 
+.nav-clock-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 0 15px;
+    border-left: 1px solid rgba(56, 189, 248, 0.2);
+    border-right: 1px solid rgba(56, 189, 248, 0.2);
+    margin: 0 15px;
+}
 
+.nav-time {
+    color: var(--accent); /* Sitedeki mavi neon renk */
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+.nav-date {
+    color: var(--text-dim);
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Mobilde çok kalabalık olmaması için düzenleme */
+@media (max-width: 768px) {
+    .nav-clock-wrapper {
+        display: none; /* Mobilde gizlemek istersen */
+    }
+}
 
 /* Ana Konteyner: Input ve Butonu Yan Yana Getirir */
 .cyber-search-container {
