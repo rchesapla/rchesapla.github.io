@@ -36,35 +36,29 @@
 
 <div class="wrapper">
 <div class="card player-command-card" ng-hide="isAuthorized">
-<div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
-<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">KULLANICI BİLGİLERİ MERKEZİ</span>
-</div>
+    <div class="player-card-header">
+        <span class="header-subtitle">KULLANICI BİLGİLERİ MERKEZİ</span>
+    </div>
 
-<div class="player-card-body">
-<div class="input-group-cyber">
-		<div class="search-box"><div class="cyber-input-wrapper">
-<span class="input-label-icon">🚀</span>
-<input type="text" 
-   class="cyber-input" 
-   ng-model="userNick" 
-   placeholder="Örn: FthCLK" 
-   ng-disabled="isAuthorized">
-</div>
-
-</div>
-</div>
-
-<div class="action-cluster">
-
-<button class="glass-btn btn-blue" 
-ng-click="fetchUserData()" 
-ng-disabled="loadingApi || !userNick || isAuthorized">
-<span ng-if="!loadingApi">GETİR</span>
-<span ng-if="loadingApi">YÜKLENİYOR</span>
-<i>⚡</i></button>
-
-</div>
-</div>
+    <div class="player-card-body">
+        <div class="cyber-search-container">
+            <div class="cyber-input-wrapper">
+                <input type="text" 
+                       class="cyber-input" 
+                       ng-model="userNick" 
+                       placeholder="Örn: FthCLK" 
+                       ng-disabled="isAuthorized">
+            </div>
+            
+            <button class="glass-btn btn-blue" 
+                    ng-click="fetchUserData()" 
+                    ng-disabled="loadingApi || !userNick || isAuthorized">
+                <span ng-if="!loadingApi">GETİR</span>
+                <span ng-if="loadingApi">YÜKLENİYOR</span>
+                <i style="margin-left: 5px;">⚡</i>
+            </button>
+        </div>
+    </div>
 </div>
 
 <div class="card player-command-card" ng-hide="isAuthorized">
