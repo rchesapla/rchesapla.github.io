@@ -76,14 +76,6 @@
 <div class="card player-command-card" ng-if="isAuthorized">
 <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
     <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">OYUNCU KOMUTA MERKEZİ</span>
-    <div style="display: flex; gap: 8px; align-items: center;">
-        <a ng-href="https://rollercoincalculator.app/" target="_blank" class="glass-btn btn-blue">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-                </svg>
-                YEDEK HESAPLAMA SİTESİ
-            </a>
-    </div>
 </div>
 
     <div class="player-card-body">
@@ -127,12 +119,15 @@
     </div>
 </div>
 		
-        <div ng-if="isAuthorized">
-<div class="card" ng-if="isAuthorized">
+<div class="card player-command-card" ng-if="isAuthorized">
+<div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
+    <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">HESAPLAMA BİLGİLERİ / SİSTEM NOTLARI</span>
+</div>
+
+<div class="player-card-body" ng-if="isAuthorized">
     <div class="settings-grid">
         
         <div class="settings-form">
-            <div class="card-title">● HESAPLAMA AYARLARI</div>
             
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                 <div class="input-box">
@@ -241,10 +236,22 @@
                     Sistem güncel RollerCoin algoritmalarıyla %99.9 tutarlılıkla çalışmaktadır.
                 </p>
             </div>
+    <div style="margin-top: 20px; padding: 10px; background: rgba(56, 189, 248, 0.05); border-radius: 8px; border: 1px dashed var(--accent);">
+        <a ng-href="https://rollercoincalculator.app/" target="_blank" class="glass-btn btn-blue">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                </svg>
+                YEDEK HESAPLAMA SİTESİ
+            </a>
+    </div>
         </div>
 
     </div>
 </div>
+
+</div>
+		
+        <div ng-if="isAuthorized">
 
             <div id="results" class="card" style="display:none; border-top: 4px solid var(--primary);">
                 <div class="price-ticker" id="priceDisplay">Fiyatlar Yükleniyor...</div>
