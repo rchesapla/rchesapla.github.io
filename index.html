@@ -102,7 +102,7 @@ GETİR
     </div>
 </div>
 <!---->
-<div class="card player-command-card">
+<div class="card player-command-card"  ng-hide="isAuthorized">
 <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
 <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">Deneme Amaçlı Bölüm</span>
 </div>
@@ -338,10 +338,30 @@ YEDEK HESAPLAMA SİTESİ
 <div class="res-card"><span class="res-label">AYLIK</span><span class="res-val" id="mes">-</span><span class="res-fiat" id="mesFiat">-</span></div>
 <div class="res-card"><span class="res-label">YILLIK</span><span class="res-val" id="yil">-</span><span class="res-fiat" id="yilFiat">-</span></div>
 </div>
+			
+<div  id="roiCard" class="card" ng-if="isAuthorized" style="margin-top: 15px">
+<div class="card-title">
+💰 AMORTİSMAN (ROI) HESAPLAYICI
+</div>
+<div style="overflow-x: auto;">
+<div style="display: flex; gap: 15px; align-items: center; margin-top: 10px;">
+<div style="flex: 1;">
+<label style="font-size: 0.65rem; color: var(--text-dim);">MİNER MALİYETİ ({{calcData.fiat.toUpperCase()}})</label>
+<input type="number" ng-model="calcData.minerCost" ng-change="updateROI()" placeholder="Maliyet girin" style="border-color: var(--reward-gold); padding: 8px;">
+</div>
+<div style="flex: 1; text-align: center;">
+<span class="res-label">TAHMİNİ SÜRE</span>
+<div id="roiResult" class="res-val" style="color: var(--reward-gold); font-size: 1.2rem;">Önce Hesapla</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 <!---->
 <div class="card player-command-card" ng-if="isAuthorized">
 <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
-<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">Test ALanı</span>
+<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">HESAPLAMA BİLGİLERİ</span>
 </div>
 
 <div class="player-card-body ortala">
@@ -365,32 +385,13 @@ Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğ
     </div>
 </div>
 <!---->
-			
-<div  id="roiCard" class="card" ng-if="isAuthorized" style="margin-top: 15px">
-<div class="card-title">
-💰 AMORTİSMAN (ROI) HESAPLAYICI
-</div>
-<div style="overflow-x: auto;">
-<div style="display: flex; gap: 15px; align-items: center; margin-top: 10px;">
-<div style="flex: 1;">
-<label style="font-size: 0.65rem; color: var(--text-dim);">MİNER MALİYETİ ({{calcData.fiat.toUpperCase()}})</label>
-<input type="number" ng-model="calcData.minerCost" ng-change="updateROI()" placeholder="Maliyet girin" style="border-color: var(--reward-gold); padding: 8px;">
-</div>
-<div style="flex: 1; text-align: center;">
-<span class="res-label">TAHMİNİ SÜRE</span>
-<div id="roiResult" class="res-val" style="color: var(--reward-gold); font-size: 1.2rem;">Önce Hesapla</div>
-</div>
-</div>
-</div>
-</div>
-</div>
 
 
 <div ng-if="isAuthorized && liveData.length > 0">
 
 <div class="card player-command-card">
     <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
-        <span style="font-size: 0.6rem; color: var(--accent); letter-spacing: 2px; font-weight: 800;">● ROLLERCOIN KRİPTO DEĞERLERİ</span>
+        <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">● ROLLERCOIN KRİPTO DEĞERLERİ</span>
 		<span class="loading-overlay" ng-click="updateLeagueData()">🔄 VERİYİ GÜNCELLE</span>
     </div>
 
