@@ -338,12 +338,17 @@ YEDEK HESAPLAMA SİTESİ
 <div class="res-card"><span class="res-label">AYLIK</span><span class="res-val" id="mes">-</span><span class="res-fiat" id="mesFiat">-</span></div>
 <div class="res-card"><span class="res-label">YILLIK</span><span class="res-val" id="yil">-</span><span class="res-fiat" id="yilFiat">-</span></div>
 </div>
-			
-<div  id="roiCard" class="card" ng-if="isAuthorized" style="margin-top: 15px">
-<div class="card-title">
-💰 AMORTİSMAN (ROI) HESAPLAYICI
 </div>
-<div style="overflow-x: auto;">
+
+<!---->
+<div class="card player-command-card" id="roiCard">
+<div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
+<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">ROI (AMORTİ) BİLGİLERİ</span>
+</div>
+
+<div class="player-card-body ortala">
+
+<div style="overflow-x: auto; justify-content:center;">
 <div style="display: flex; gap: 15px; align-items: center; margin-top: 10px;">
 <div style="flex: 1;">
 <label style="font-size: 0.65rem; color: var(--text-dim);">MİNER MALİYETİ ({{calcData.fiat.toUpperCase()}})</label>
@@ -355,9 +360,14 @@ YEDEK HESAPLAMA SİTESİ
 </div>
 </div>
 </div>
-</div>
-</div>
 
+</div>
+    <div style=" padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
+        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
+            <b>💡 Bilgi:</b> ROI sistemi ile yatırdığın ücreti kaç günde geri döneceğini öğrenirsin.
+        </p>
+    </div>
+</div>
 <!---->
 <div class="card player-command-card" ng-if="isAuthorized">
 <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
