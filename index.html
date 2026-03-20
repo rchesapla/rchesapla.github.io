@@ -32,50 +32,59 @@
         <div class="nav-time" id="current-time">00:00:00</div>
         <div class="nav-date" id="current-date">01.01.2026</div>
     </div>
-
-    <div class="active-users">
-        <div class="pulse-dot"></div>
-        <span id="active-count">Yükleniyor...</span> AKTİF KULLANICI
-    </div>
 </div>
 </nav>
 
 <div class="wrapper">
+<!---->
 <div class="card player-command-card" ng-hide="isAuthorized">
 <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
-<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">GEÇMİŞ KULLANICI ARAMASI</span>
+<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">KULLANICI BİLGİLERİ MERKEZİ</span>
 </div>
 
     <div class="player-card-body">
-        <div class="cyber-search-container">
-            <div class="cyber-input-wrapper">
-                <input type="text" 
-                       class="cyber-input" 
-                       ng-model="userNick" 
-                       placeholder="Örn: FthCLK" 
-                       ng-disabled="isAuthorized">
+        <div class="cyber-search-container ortala">
+            <div class="">
+                <input type="text" ng-model="userNick" placeholder="Örn: FthCLK" ng-disabled="isAuthorized">
             </div>
-            
-            <button class="glass-btn btn-blue" 
-                    ng-click="fetchUserData()" 
+			
+<a target="_blank" class="glass-btn btn-blue" ng-click="fetchUserData()" 
                     ng-disabled="loadingApi || !userNick || isAuthorized">
-                <span ng-if="!loadingApi">GETİR</span>
-                <span ng-if="loadingApi">YÜKLENİYOR</span>
-                <i style="margin-left: 5px;">⚡</i>
-            </button>
+GETİR
+</a>
+			
+			
         </div>
     </div>
+<div class="active-users-panel">
+    <div class="status-indicator">
+        <div class="pulse-ring"></div>
+        <div class="pulse-dot"></div>
+    </div>
+    
+    <div class="status-details">
+        <div class="status-label">SİSTEM DURUMU: <span class="status-online">ERİŞİLEBİLİR</span></div>
+        <div class="user-count-wrapper">
+            <span id="active-count" class="count-number">0</span>
+            <span class="count-label">AKTİF</span>
+        </div>
+    </div>
+    
+    <div class="live-wave">
+        <span></span><span></span><span></span>
+    </div>
 </div>
-
+</div>
+<!---->
 <div class="card player-command-card" ng-hide="isAuthorized">
 <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
 <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">GEÇMİŞ KULLANICI ARAMASI</span>
 </div>
 
-<div class="player-card-body">
+<div class="player-card-body ortala">
 
 <div ng-if="userHistory.length > 0" class="history-container">
-<div style="display: flex; flex-wrap: wrap; gap: 6px;">
+<div style="display: flex; flex-wrap: wrap; gap: 5px;">
 <div ng-repeat="nick in userHistory track by $index" class="history-tag" >
 <span class="tag-text" ng-click="quickFetch(nick)">{{nick}}</span>
 <span class="tag-remove" ng-click="removeFromHistory($index)">×</span>
@@ -85,8 +94,7 @@
 
 </div>
 </div>
-
-
+<!---->
 <div class="card player-command-card" ng-if="isAuthorized">
 <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
 <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">OYUNCU KOMUTA MERKEZİ</span>
@@ -132,7 +140,7 @@ KİMLİĞİ SIFIRLA
 </div>
 </div>
 </div>
-		
+<!---->
 <div class="card player-command-card" ng-if="isAuthorized">
 <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
 <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">HESAPLAMA BİLGİLERİ / SİSTEM NOTLARI</span>
@@ -264,9 +272,8 @@ YEDEK HESAPLAMA SİTESİ
 </div>
 
 </div>
-		
+<!---->		
 <div ng-if="isAuthorized">
-
 <div id="results" class="card" style="display:none; border-top: 4px solid var(--primary);">
 <div class="price-ticker" id="priceDisplay">Fiyatlar Yükleniyor...</div>
 <div style="text-align: center; margin-bottom: 20px;">
@@ -349,8 +356,9 @@ Lig durumunuza göre değişkenlik gösterebilir.
 			
 
 </div>
+<!---->
 </div>
-
+<!----><!----><!----><!----><!---->
 <footer>
 <div class="footer-content">
 <span class="footer-logo">RCHesapla PRO</span>

@@ -15,9 +15,123 @@
 
 
 
+/* Ana Panel */
+.active-users-panel {
+    display: flex;
+    align-items: center;
+    background: rgba(10, 25, 41, 0.6);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    padding: 8px 15px;
+    border-radius: 12px;
+    backdrop-filter: blur(5px);
+    gap: 12px;
+	justify-content: center;
+}
 
+/* Hareketli Durum Işığı */
+.status-indicator {
+    position: relative;
+    width: 10px;
+    height: 10px;
+}
 
+.pulse-dot {
+    width: 10px;
+    height: 10px;
+    background: #10b981; /* Canlı Yeşil */
+    border-radius: 50%;
+    box-shadow: 0 0 10px #10b981;
+}
 
+.pulse-ring {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #10b981;
+    border-radius: 50%;
+    top: -10px;
+    left: -10px;
+    animation: status-pulse 2s infinite;
+    opacity: 0;
+}
+
+@keyframes status-pulse {
+    0% { transform: scale(0.4); opacity: 0.8; }
+    100% { transform: scale(1.2); opacity: 0; }
+}
+
+/* Metin Alanları */
+.status-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.status-label {
+    font-size: 0.55rem;
+    color: var(--text-dim);
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.status-online {
+    color: #10b981;
+    text-shadow: 0 0 5px rgba(16, 185, 129, 0.4);
+}
+
+.user-count-wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+	justify-content: center;
+}
+
+.count-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--accent);
+}
+
+.count-label {
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    font-weight: 600;
+}
+
+/* Küçük Dalga Animasyonu */
+.live-wave {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 15px;
+}
+
+.live-wave span {
+    width: 3px;
+    background: var(--accent);
+    animation: wave-rise 1s infinite alternate;
+}
+
+.live-wave span:nth-child(2) { animation-delay: 0.2s; height: 100%; }
+.live-wave span:nth-child(1) { animation-delay: 0.4s; height: 60%; }
+.live-wave span:nth-child(3) { animation-delay: 0.1s; height: 80%; }
+
+@keyframes wave-rise {
+    from { height: 20%; opacity: 0.3; }
+    to { height: 100%; opacity: 1; }
+}
+
+/* Mobil Uyumluluk */
+@media (max-width: 768px) {
+    .active-users-panel {
+        padding: 5px 10px;
+    }
+    .live-wave { display: none; } /* Mobilde alanı daraltmamak için gizle */
+}
+
+.ortala {
+	justify-content:center;
+}
 
 .nav-clock-wrapper {
     display: flex;
@@ -113,11 +227,11 @@
 
 /* Geçmiş Etiketleri Tasarımı */
 .history-container {
-    margin-top: 15px;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     align-items: center;
+	justify-content: center;
 }
 .history-title {
     font-size: 0.75rem;
