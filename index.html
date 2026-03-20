@@ -65,16 +65,17 @@ GETİR
     
     <div class="status-details">
         <div class="status-label">SİSTEM DURUMU: <span class="status-online">ERİŞİLEBİLİR</span></div>
-        <div class="user-count-wrapper">
-            <span id="active-count" class="count-number">0</span>
-            <span class="count-label">AKTİF</span>
-        </div>
     </div>
     
     <div class="live-wave">
         <span></span><span></span><span></span>
     </div>
 </div>
+    <div style=" padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
+        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
+            <b>💡 Bilgi:</b> Rollercoin sitesinde bulunan kullanıcı adını girdiğiniz durumda hesaplama alanı açılacaktır. Örnek: rollercoin.com/p/FthCLK
+        </p>
+    </div>
 </div>
 <!---->
 <div class="card player-command-card" ng-hide="isAuthorized">
@@ -94,6 +95,28 @@ GETİR
 </div>
 
 </div>
+    <div style=" padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
+        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
+            <b>💡 Bilgi:</b> Daha önce girmiş olduğun isimleri bu bölümde bulabilirsin.
+        </p>
+    </div>
+</div>
+<!---->
+<div class="card player-command-card">
+<div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
+<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">Deneme Amaçlı Bölüm</span>
+</div>
+
+<div class="player-card-body ortala">
+
+Fatih ÇELİK
+
+</div>
+    <div style=" padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
+        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
+            <b>💡 Bilgi:</b> - - -
+        </p>
+    </div>
 </div>
 <!---->
 <div class="card player-command-card" ng-if="isAuthorized">
@@ -145,7 +168,7 @@ KİMLİĞİ SIFIRLA
 
 <div class="card player-command-card">
     <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
-        <span style="font-size: 0.6rem; color: var(--accent); letter-spacing: 2px; font-weight: 800;">🚀 YENİ BAŞLAYANLAR İÇİN STRATEJİ REHBERİ</span>
+        <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">YENİ BAŞLAYANLAR İÇİN STRATEJİ REHBERİ</span>
     </div>
 
     <div class="ortala" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
@@ -163,8 +186,8 @@ KİMLİĞİ SIFIRLA
         </div>
     </div>
 
-    <div style="margin-top: 15px; padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
-        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4;">
+    <div style=" padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
+        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
             <b>💡 İpucu:</b> En kârlı coin'i bulmak için aşağıdaki "Kripto Değerleri" tablosundan Blok Süresi en düşük ve Ödülü en yüksek olanları takip edin.
         </p>
     </div>
@@ -315,10 +338,14 @@ YEDEK HESAPLAMA SİTESİ
 <div class="res-card"><span class="res-label">AYLIK</span><span class="res-val" id="mes">-</span><span class="res-fiat" id="mesFiat">-</span></div>
 <div class="res-card"><span class="res-label">YILLIK</span><span class="res-val" id="yil">-</span><span class="res-fiat" id="yilFiat">-</span></div>
 </div>
-<div class="card" ng-if="isAuthorized" style="margin-top: 15px">
-<div class="card-title">
-ℹ️ HESAPLAMA HAKKINDA BİLGİ
+<!---->
+<div class="card player-command-card" ng-if="isAuthorized">
+<div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
+<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">Test ALanı</span>
 </div>
+
+<div class="player-card-body ortala">
+
 <div style="overflow-x: auto;">
 <div style="padding: 15px; background: rgba(56, 189, 248, 0.1); border-radius: 10px; border: 1px solid rgba(56, 189, 248, 0.3);">
 <p style="font-size: 0.75rem; color: var(--text-dim); line-height: 1.5;">
@@ -329,7 +356,15 @@ Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğ
 </p>
 </div>
 </div>
+
 </div>
+    <div style=" padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
+        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
+            <b>💡 Bilgi:</b> En kârlı coin'i bulmak için aşağıdaki "Kripto Değerleri" tablosundan Blok Süresi en düşük ve Ödülü en yüksek olanları takip edin.
+        </p>
+    </div>
+</div>
+<!---->
 			
 <div  id="roiCard" class="card" ng-if="isAuthorized" style="margin-top: 15px">
 <div class="card-title">
