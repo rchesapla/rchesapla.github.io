@@ -36,6 +36,7 @@
 </nav>
 
 <div class="wrapper">
+
 <!---->
 <div class="card player-command-card" ng-hide="isAuthorized">
 <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
@@ -141,6 +142,34 @@ KİMLİĞİ SIFIRLA
 </div>
 </div>
 <!---->
+
+<div class="card player-command-card">
+    <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+        <span style="font-size: 0.6rem; color: var(--accent); letter-spacing: 2px; font-weight: 800;">🚀 YENİ BAŞLAYANLAR İÇİN STRATEJİ REHBERİ</span>
+    </div>
+
+    <div class="ortala" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+        <div class="res-card" style="text-align: left; border-left: 2px solid var(--accent); padding: 10px;">
+            <span class="res-label" style="color: var(--accent);">01. OYUN GÜCÜ</span>
+            <p style="font-size: 0.7rem; color: var(--text-dim); margin-top: 5px;">Ücretsiz güç kazanmak için her gün en az 1-2 saat oyun oynayarak bilgisayar seviyenizi koruyun.</p>
+        </div>
+        <div class="res-card" style="text-align: left; border-left: 2px solid var(--reward-gold); padding: 10px;">
+            <span class="res-label" style="color: var(--reward-gold);">02. BONUS GÜCÜ</span>
+            <p style="font-size: 0.7rem; color: var(--text-dim); margin-top: 5px;">Marketten aldığınız minerların "Bonus %" değerleri, toplam gücünüzü katlayan en önemli unsurdur.</p>
+        </div>
+        <div class="res-card" style="text-align: left; border-left: 2px solid #ff4757; padding: 10px;">
+            <span class="res-label" style="color: #ff4757;">03. RLT YÖNETİMİ</span>
+            <p style="font-size: 0.7rem; color: var(--text-dim); margin-top: 5px;">Kazandığınız RLT'leri doğrudan miner almak yerine, indirimli "Season Pass" etkinlikleri için biriktirin.</p>
+        </div>
+    </div>
+
+    <div style="margin-top: 15px; padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
+        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4;">
+            <b>💡 İpucu:</b> En kârlı coin'i bulmak için aşağıdaki "Kripto Değerleri" tablosundan Blok Süresi en düşük ve Ödülü en yüksek olanları takip edin.
+        </p>
+    </div>
+</div>
+
 <div class="card player-command-card" ng-if="isAuthorized">
 <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
 <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">HESAPLAMA BİLGİLERİ / SİSTEM NOTLARI</span>
@@ -322,12 +351,15 @@ Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğ
 </div>
 
 
-<div class="card" ng-if="isAuthorized && liveData.length > 0">
-<div class="card-title">
-● ROLLERCOIN KRİPTO DEĞERLERİ
-<span class="loading-overlay" ng-click="updateLeagueData()">🔄 VERİYİ GÜNCELLE</span>
-</div>
-<div style="overflow-x: auto;">
+<div ng-if="isAuthorized && liveData.length > 0">
+
+<div class="card player-command-card">
+    <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+        <span style="font-size: 0.6rem; color: var(--accent); letter-spacing: 2px; font-weight: 800;">● ROLLERCOIN KRİPTO DEĞERLERİ</span>
+		<span class="loading-overlay" ng-click="updateLeagueData()">🔄 VERİYİ GÜNCELLE</span>
+    </div>
+
+<div style= "justify-content:center;">
 <table class="live-table">
 <thead>
 <tr>
@@ -351,6 +383,8 @@ Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğ
 <p style="font-size: 0.7rem; color: var(--accent); text-align: center;">
 Lig durumunuza göre değişkenlik gösterebilir.
 </p>
+</div>
+
 </div>
 </div>
 			

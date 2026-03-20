@@ -131,6 +131,7 @@
 
 .ortala {
 	justify-content:center;
+	padding:20px;
 }
 
 .nav-clock-wrapper {
@@ -803,10 +804,9 @@
         .card {
             background: var(--card-bg);
             border-radius: 16px;
-            padding: 24px;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255,255,255,0.05);
-            margin-bottom: 20px;
+            margin: 10px;
         }
 
         .card-title {
@@ -871,9 +871,9 @@
             transition: all 0.2s;
         }
 
-        .live-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.8rem; }
-        .live-table th { color: var(--text-dim); text-align: left; padding: 8px; border-bottom: 1px solid #334155; }
-        .live-table td { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .live-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.8rem; justify-content:center;}
+        .live-table th { color: var(--text-dim); text-align: left; padding: 8px; border-bottom: 1px solid #334155; justify-content:center; }
+        .live-table td { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); justify-content:center; }
         .coin-name { color: var(--accent); font-weight: 800; }
         .reward-val { color: var(--reward-gold); font-weight: 600; }
 
