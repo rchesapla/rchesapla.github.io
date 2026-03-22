@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="tr" ng-app="miningApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RollerROI | Madencilik Hesaplayıcı</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --neon-green: #00ff88;
+            --neon-blue: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* Matrix Arkaplan */
+        #matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid var(--neon-green);
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.15);
+        }
+
+        .logo { font-size: 22px; font-weight: 800; letter-spacing: 2px; }
+        .logo span { color: var(--neon-green); }
+
+        .nav-info { display: flex; gap: 20px; font-size: 0.9em; font-weight: 600; }
+        .active-user { color: var(--neon-green); display: flex; align-items: center; gap: 5px; }
+        .dot { width: 8px; height: 8px; background: var(--neon-green); border-radius: 50%; box-shadow: 0 0 10px var(--neon-green); }
+
+        /* Kartlar */
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-bottom: 4px solid var(--neon-blue);
+        }
+
+        /* Giriş Ekranı */
+        .login-card { max-width: 450px; margin: 60px auto; text-align: center; }
+        .input-group { display: flex; gap: 10px; margin: 20px 0; }
+        
+        input, select {
+            flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #334155;
+            background: #0f172a; color: white; outline: none; transition: 0.3s;
+        }
+        input:focus { border-color: var(--neon-green); }
+
+        button {
+            padding: 12px 24px; border-radius: 8px; border: none;
+            background: var(--neon-green); color: #000; font-weight: bold;
+            cursor: pointer; transition: 0.3s;
+        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4); }
+
+        /* Dashboard Izgarası */
+        .grid { display: grid; grid-template-columns: 350px 1fr; gap: 20px; }
+        @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+
+        .control-item { margin-bottom: 15px; }
+        .control-item label { display: block; font-size: 0.8em; color: var(--text-muted); margin-bottom: 5px; }
+
+        /* Sonuç Paneli */
+        #results { display: none; }
+        .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .price-tag { background: #0f172a; padding: 5px 15px; border-radius: 20px; border: 1px solid var(--neon-blue); font-size: 0.9em; }
+
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .stat-card { background: rgba(15, 23, 42, 0.5); padding: 15px; border-radius: 12px; }
+        .stat-card small { color: var(--text-muted); display: block; margin-bottom: 5px; }
+        .stat-card b { font-size: 1.1em; color: var(--neon-blue); }
+        .stat-card .fiat { display: block; color: var(--neon-green); font-size: 1.3em; margin-top: 5px; }
+
+        /* ROI Kartı */
+        #roiCard {
+            grid-column: 1 / -1; background: rgba(0, 255, 136, 0.05);
+            border: 2px dashed var(--neon-green); text-align: center; padding: 20px;
+        }
+        #roiResult { font-size: 2.5em; font-weight: 900; color: var(--neon-green); text-shadow: 0 0 15px rgba(0, 255, 136, 0.3); }
+
+        .history-tags { margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+        .tag { background: #334155; padding: 4px 10px; border-radius: 5px; font-size: 0.8em; cursor: pointer; }
+        .tag i { margin-left: 5px; color: #ff4444; }
+
+        .footer-info { margin-top: 20px; text-align: right; font-size: 0.8em; color: var(--text-muted); }
+    </style>
+</head>
+<body ng-controller="MiningController">
+
+    <canvas id="matrix"></canvas>
+
+    <div class="container">
+        <header class="navbar">
+            <div class="logo">ROLLER<span>ROI</span></div>
+            <div class="nav-info">
+                <div class="time-box">
+                    <span id="current-date">--.--.----</span> | <span id="current-time">00:00:00</span>
+                </div>
+                <div class="active-user">
+                    <span class="dot"></span> Aktif: <span id="active-count">0</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="card login-card" ng-show="!isAuthorized">
+            <h3>Profil Sorgula</h3>
+            <p style="color:var(--text-muted); font-size: 0.9em;">Hesaplama yapmak için RollerCoin kullanıcı adınızı girin.</p>
+            <div class="input-group">
+                <input type="text" ng-model="userNick" placeholder="Kullanıcı adı...">
+                <button ng-click="fetchUserData()" ng-disabled="loadingApi">
+                    <span ng-show="!loadingApi">Getir</span>
+                    <span ng-show="loadingApi">...</span>
+                </button>
+            </div>
+            <div class="history-tags">
+                <span class="tag" ng-repeat="nick in userHistory" ng-click="quickFetch(nick)">
+                    {{nick}} <i ng-click="removeFromHistory($index); $event.stopPropagation()">×</i>
+                </span>
+            </div>
+        </div>
+
+        <div class="grid" ng-show="isAuthorized">
+            <div class="card">
+                <div class="control-item">
+                    <label>Kazılan Coin</label>
+                    <select ng-model="calcData.coin" ng-change="updateFromLiveData()">
+                        <option value="RLT">RLT</option>
+                        <option value="BTC">BTC</option>
+                        <option value="ETH">ETH</option>
+                        <option value="BNB">BNB</option>
+                        <option value="SOL">SOL</option>
+                        <option value="DOGE">DOGE</option>
+                        <option value="MATIC">MATIC</option>
+                    </select>
+                </div>
+
+                <div class="control-item">
+                    <label>Lig Seviyesi</label>
+                    <select ng-model="calcData.leagueId" ng-options="l.id as l.name for l in leagues" ng-change="updateLeagueData()"></select>
+                </div>
+
+                <div style="display:flex; gap:10px;">
+                    <div class="control-item" style="flex:2;">
+                        <label>Kişisel Güç</label>
+                        <input type="number" ng-model="calcData.myPower">
+                    </div>
+                    <div class="control-item" style="flex:1;">
+                        <label>Birim</label>
+                        <select ng-model="calcData.myUnit">
+                            <option value="gh">GH/s</option>
+                            <option value="th">TH/s</option>
+                            <option value="ph">PH/s</option>
+                            <option value="eh">EH/s</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-item">
+                    <label>Miner Maliyeti ({{calcData.fiat | uppercase}})</label>
+                    <input type="number" ng-model="calcData.minerCost" ng-change="updateROI()" placeholder="Örn: 100">
+                </div>
+
+                <button style="width:100%; margin-top:10px;" ng-click="calcular()" ng-disabled="loadingApi">HESAPLA</button>
+                <button style="width:100%; margin-top:10px; background:#334155; color:white;" ng-click="logoutUser()">OTURUMU KAPAT</button>
+            </div>
+
+            <div class="card" id="results">
+                <div class="results-header">
+                    <h4>Hesaplama Sonuçları</h4>
+                    <div class="price-tag" id="priceDisplay">Yükleniyor...</div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <small>Blok Başına Kazanç</small>
+                        <b id="porBloque">-</b>
+                    </div>
+                    <div class="stat-card">
+                        <small>Günlük Kazanç</small>
+                        <b id="dia">-</b>
+                        <span class="fiat" id="diaFiat">-</span>
+                    </div>
+                    <div class="stat-card">
+                        <small>Haftalık Kazanç</small>
+                        <b id="hafta">-</b>
+                        <span class="fiat" id="haftaFiat">-</span>
+                    </div>
+                    <div class="stat-card">
+                        <small>Aylık Kazanç</small>
+                        <b id="mes">-</b>
+                        <span class="fiat" id="mesFiat">-</span>
+                    </div>
+
+                    <div class="stat-card" id="roiCard">
+                        <small>AMORTİ SÜRESİ (ROI)</small>
+                        <div id="roiResult">-</div>
+                    </div>
+                </div>
+                
+                <div class="footer-info">
+                    Veri Güncelleme: {{lastUpdate}} <br>
+                    Bu profil için toplam hesaplama: {{currentUserCalcs}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://rchesapla.github.io/js/sablon.js"></script>
+</body>
+</html>

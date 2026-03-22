@@ -30,7 +30,7 @@
     
     <div class="nav-clock-wrapper">
         <div class="nav-time" id="current-time">00:00:00</div>
-        <div class="nav-date" id="current-date">01.01.2026</div>
+        <div class="nav-date" id="current-date">23.12.1997</div>
     </div>
 </div>
 </nav>
@@ -49,7 +49,7 @@
                 <input type="text" ng-model="userNick" placeholder="Örn: FthCLK" ng-disabled="isAuthorized">
             </div>
 			
-<a target="_blank" class="glass-btn btn-blue" ng-click="fetchUserData()" 
+<a class="glass-btn btn-blue" ng-click="fetchUserData()" 
                     ng-disabled="loadingApi || !userNick || isAuthorized">
 GETİR
 </a>
@@ -57,20 +57,6 @@ GETİR
 			
         </div>
     </div>
-<div class="active-users-panel">
-    <div class="status-indicator">
-        <div class="pulse-ring"></div>
-        <div class="pulse-dot"></div>
-    </div>
-    
-    <div class="status-details">
-        <div class="status-label">SİSTEM DURUMU: <span class="status-online">ERİŞİLEBİLİR</span></div>
-    </div>
-    
-    <div class="live-wave">
-        <span></span><span></span><span></span>
-    </div>
-</div>
     <div style=" padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
         <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
             <b>💡 Bilgi:</b> Rollercoin sitesinde bulunan kullanıcı adını girdiğiniz durumda hesaplama alanı açılacaktır. Örnek: rollercoin.com/p/FthCLK
@@ -80,7 +66,7 @@ GETİR
 <!---->
 <div class="card player-command-card" ng-hide="isAuthorized">
 <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
-<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">GEÇMİŞ KULLANICI ARAMASI</span>
+<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">GEÇMİŞ KULLANICI LİSTESİ</span>
 </div>
 
 <div class="player-card-body ortala">
@@ -101,7 +87,7 @@ GETİR
         </p>
     </div>
 </div>
-<!---->
+<!----
 <div class="card player-command-card"  ng-hide="isAuthorized">
 <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
 <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">Deneme Amaçlı Bölüm</span>
@@ -166,7 +152,7 @@ KİMLİĞİ SIFIRLA
 </div>
 <!---->
 
-<div class="card player-command-card">
+<div class="card player-command-card" ng-if="isAuthorized">
     <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
         <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">YENİ BAŞLAYANLAR İÇİN STRATEJİ REHBERİ</span>
     </div>
@@ -338,7 +324,6 @@ YEDEK HESAPLAMA SİTESİ
 <div class="res-card"><span class="res-label">AYLIK</span><span class="res-val" id="mes">-</span><span class="res-fiat" id="mesFiat">-</span></div>
 <div class="res-card"><span class="res-label">YILLIK</span><span class="res-val" id="yil">-</span><span class="res-fiat" id="yilFiat">-</span></div>
 </div>
-</div>
 
 <!---->
 <div class="card player-command-card" id="roiCard">
@@ -369,6 +354,9 @@ YEDEK HESAPLAMA SİTESİ
     </div>
 </div>
 <!---->
+
+</div>
+
 <div class="card player-command-card" ng-if="isAuthorized">
 <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
 <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">HESAPLAMA BİLGİLERİ</span>
