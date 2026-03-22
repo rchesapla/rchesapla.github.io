@@ -877,8 +877,8 @@
         .coin-name { color: var(--accent); text-align: center; font-weight: 800; }
         .reward-val { color: var(--reward-gold); text-align: center; font-weight: 600; }
 
-        .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
-        .res-card { background: rgba(15, 23, 42, 0.5); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+        .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; }
+        .res-card { background: rgba(15, 23, 42, 0.5); padding: 10px; border-radius: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.05); margin:10px; }
         .res-val { color: var(--primary); font-family: 'JetBrains Mono', monospace; font-weight: 600; display: block; }
         .res-label { font-size: 0.75rem; color: var(--text-dim); }
         .res-fiat { font-size: 0.8rem; color: var(--accent); }
