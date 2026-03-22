@@ -1,20 +1,7 @@
 var app = angular.module('miningApp', ['ui.bootstrap']);
 
-app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerService', 'MinerService', 'FirebaseService', '$sce', '$timeout', async function($scope, CurrencyService, UserMinerService, MinerService, FirebaseService, $sce, $timeout) {
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerService', 'MinerService', '$sce', '$timeout', async function($scope, CurrencyService, UserMinerService, MinerService, $sce, $timeout) {
+    
     $scope.units = ['GH/s', 'TH/s', 'PH/s', 'EH/s'];
     $scope.networkUnits = ['GH/s', 'TH/s', 'PH/s', 'EH/s', 'ZH/s'];
     let default_form = {
@@ -96,7 +83,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             id: 2,
             name: "Roller Football League",
             miners: [
-                "6668980bdddadd0605fdaa2e",
+                "66668980bdddadd0605fdaa2e",
                 "6668963edddadd0605fda7ac",
                 "666896c5dddadd0605fda8bb",
                 "6668973cdddadd0605fda94f",
@@ -191,7 +178,6 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
                 "644bb270648294b4642f368e",
                 "644bb225648294b4642f368d",
                 "644bb671648294b4642f3690"
-
             ]
         },
         {
@@ -220,7 +206,6 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
     $scope.calculateDonation = calculateDonation;
 
-    
     const convertHashrate = (value, fromUnit, toUnit) => {
         const units = {
             'GH/s': 1,
@@ -233,14 +218,11 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     };
 
     const calculateEarningsWithValues = function(power_in_ghs, timeframe, coin, fiatCurrency) {
-
         let earningsPerBlock = coin.blockSize;
         let blockTimeInSeconds = coin.blockTime;
-
         let userPowerPercentage = power_in_ghs / coin.networkPower;
         earningsPerBlock *= userPowerPercentage;
-
-        let earningsPerDay = earningsPerBlock * (86400 / blockTimeInSeconds); // 86400 seconds in a day
+        let earningsPerDay = earningsPerBlock * (86400 / blockTimeInSeconds);
         
         switch(timeframe) {
             case 'block':
@@ -261,19 +243,15 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     const chooseBestHashRateUnit = (value, fromUnit) => {
         const units = $scope.networkUnits.slice();
         let minusValue = value < 0;
-        if(minusValue) {
-            value = value * -1;
-        }
-        do{
-             let unit =  units.pop();
+        if(minusValue) { value = value * -1; }
+        do {
+             let unit = units.pop();
              let converted_value = convertHashrate(value, fromUnit, unit);
              if(converted_value > 1) {
                  return {value: converted_value, unit: unit};
              }
-        }while(units.length);
-        if(minusValue) {
-            value = value * -1;
-        }
+        } while(units.length);
+        if(minusValue) { value = value * -1; }
         return {value: value, unit: fromUnit};
      };
 
@@ -287,12 +265,11 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
                 legend: chooseBestHashRateUnit(remove_impact, 'GH/s'),
                 impact: remove_impact
             }   
-        }else {
+        } else {
             const added_bonus = $scope.user_miners.filter(m => !m.removed && m.miner_id === miner.miner_id).length == 0 ? parseFloat(miner.bonus_power) : 0;
             let added_power = parseFloat(miner.power);
             let power_after_added = (($scope.user_data.powerData.miners + added_power  + $scope.user_data.powerData.games) * (( $scope.user_data.powerData.bonus_percent + added_bonus) / 10000)) + ($scope.user_data.powerData.miners + added_power) + $scope.user_data.powerData.games + $scope.user_data.powerData.racks + $scope.user_data.powerData.temp
             let add_impact = power_after_added - $scope.user_data.powerData.total 
-
             return { 
                 legend: chooseBestHashRateUnit(add_impact, 'GH/s'),
                 impact: add_impact
@@ -301,7 +278,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     }
 
     if(typeof loaded_user === 'string' && loaded_user !== '') {
-        try{
+        try {
             $scope.user_data = await UserMinerService.getAllUserDataByNick(loaded_user);
             const all_miners = await MinerService.getAllMinersByFilter(); 
             $scope.user_miners =  $scope.user_data.roomData.miners.map(m => ({...all_miners.find(m2 => m.miner_id === m2.miner_id), rdid: uuidv4()}));
@@ -337,7 +314,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             $scope.formData.showInventory = false;
             $scope.isLoadedUser = true;
             loaded_league = $scope.user_data?.league_id;
-        }catch(err) {
+        } catch(err) {
             $scope.playerSearchNoResults = true;
         }
         if(loaded_user !== localStorage.getItem('keep_loaded_user')) {
@@ -347,41 +324,24 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     }
 
     const formatDays = (dias) => {
-        if(!dias) {
-            return "0 dia";
-        }
-
-        if(dias === Number.MAX_SAFE_INTEGER) {
-            return "Sem Saque";
-        }
-
+        if(!dias) return "0 dia";
+        if(dias === Number.MAX_SAFE_INTEGER) return "Sem Saque";
         const diasPorAno = 365;
         const diasPorMes = 30;
-        
         let anos = Math.floor(dias / diasPorAno);
         let diasRestantes = dias % diasPorAno;
         let meses = Math.floor(diasRestantes / diasPorMes);
         diasRestantes = diasRestantes % diasPorMes;
-    
         let resultado = "";
-    
         if (anos > 0) {
             resultado += `${anos} ${anos > 1 ? 'anos' : 'ano'}`;
-            if (meses > 0 || diasRestantes > 0) {
-                resultado += ", ";
-            }
+            if (meses > 0 || diasRestantes > 0) resultado += ", ";
         }
-    
         if (meses > 0) {
             resultado += `${meses} ${meses > 1 ? 'meses' : 'mês'}`;
-            if (diasRestantes > 0) {
-                resultado += " e ";
-            }
+            if (diasRestantes > 0) resultado += " e ";
         }
-    
-        if (diasRestantes > 0) {
-            resultado += `${diasRestantes} ${diasRestantes > 1 ? 'dias' : 'dia'}`;
-        }
+        if (diasRestantes > 0) resultado += `${diasRestantes} ${diasRestantes > 1 ? 'dias' : 'dia'}`;
         return resultado;
     }
 
@@ -394,7 +354,6 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         return alocated_power * (user_power_in_ghs / 100);
     }
 
-
     $scope.$watch('formData.power', function(newvalue) {
         if(!$scope.formData.currency && typeof newvalue !== 'undefined') {
             $scope.currencies?.forEach(c => {
@@ -406,13 +365,11 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             });
             if(newvalue > 0) {
                 $scope.orderByField = 'user_block_farm_usd';
-            }else {
+            } else {
                 $scope.orderByField = 'block_value_in_usd';
             }
         }
     });
-
-    $scope.recentUsers = await FirebaseService.listUsers();
 
     $scope.getMinersByName = async function(name) {
         return await MinerService.getMinersByName(name);
@@ -428,7 +385,6 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
     $scope.itemsPerPage = 15;
     $scope.currentPage = 1;
-
     $scope.allMinerMinBonusSearch = 0;
     $scope.allMinerMaxBonusSearch = 100;
     $scope.allMinerMinBonusRange = 0;
@@ -437,22 +393,16 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.allMinersRarity = 'all';
     $scope.allMinerPosessionStatus = 'all';
     $scope.allMinerNegotiableStatus = 'all';
-
-
-    //userMinersFilter
     $scope.userMinersItemsPerPage = 6;
     $scope.userMinersCurrentPage = 1;
-
-    //userInventoryMinersFilter
     $scope.userInventoryMinersItemsPerPage = 6;
     $scope.userInventoryMinersCurrentPage = 1;
-
     $scope.keepUser = localStorage.getItem('keep_loaded_user') ? true : false;
 
     $scope.updateKeepUser = async function(keepUser) {
         if(keepUser) {
             localStorage.setItem('keep_loaded_user', $scope.userSearchText);
-        }else {
+        } else {
             localStorage.removeItem('keep_loaded_user');
         }
     }
@@ -475,7 +425,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
                 }
             }
             $scope.$apply();
-        }else {
+        } else {
             $scope.visible_user_miners = [];
         }
     }
@@ -499,7 +449,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             });
             if(allMinerPosessionStatus === 'mine') {
                 foundMiners = foundMiners.filter(m => m.already_have);
-            }else if(allMinerPosessionStatus === 'not_mine') {
+            } else if(allMinerPosessionStatus === 'not_mine') {
                 foundMiners = foundMiners.filter(m => !m.already_have);
             }
             if(allMinerMinImpact) {
@@ -508,7 +458,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             $scope.allMiners = foundMiners;
             $scope.currentPage = 1;
             $scope.$apply();
-        }else {
+        } else {
             $scope.lowestMinerName = '';
             $scope.allMiners = [];
         }
@@ -518,61 +468,35 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         const dateRange = data.dateRange;
         const userData = data.user;
         const networkData = data.network;
-    
         const networkPowerByDate = {};
         const userPowerByDate = {};
-    
         networkData.forEach(item => networkPowerByDate[item.queriedAt] = item.totalPower);
         userData.forEach(item => userPowerByDate[item.queriedAt] = item.powerData.total);
-    
         return dateRange.map((date, i) => {
             const networkPower = networkPowerByDate[date] || 0;
             const userPower = userPowerByDate[date] || 0;
-            
-            let networkPowerIncrease = 0;
-            let userPowerIncrease = 0;
-            let networkPowerAbsIncrease = 0;
-            let userPowerAbsIncrease = 0;
-    
+            let networkPowerIncrease = 0; let userPowerIncrease = 0;
+            let networkPowerAbsIncrease = 0; let userPowerAbsIncrease = 0;
             if (i > 0) {
                 const prevDate = dateRange[i - 1];
                 const prevNetworkPower = networkPowerByDate[prevDate] || 0;
                 const prevUserPower = userPowerByDate[prevDate] || 0;
-    
                 networkPowerAbsIncrease = networkPower - prevNetworkPower;
                 userPowerAbsIncrease = userPower - prevUserPower;
-    
-                if (prevNetworkPower !== 0) {
-                    networkPowerIncrease = ((networkPower - prevNetworkPower) / prevNetworkPower).toFixed(3);
-                }
-                if (prevUserPower !== 0) {
-                    userPowerIncrease = ((userPower - prevUserPower) / prevUserPower).toFixed(3);
-                }
+                if (prevNetworkPower !== 0) networkPowerIncrease = ((networkPower - prevNetworkPower) / prevNetworkPower).toFixed(3);
+                if (prevUserPower !== 0) userPowerIncrease = ((userPower - prevUserPower) / prevUserPower).toFixed(3);
             }
-    
-            const resultItem = {
-                date,
-                networkPower,
-                userPower,
-                networkPowerAbsIncrease,
-                userPowerAbsIncrease
-            };
-    
+            const resultItem = { date, networkPower, userPower, networkPowerAbsIncrease, userPowerAbsIncrease };
             if (i > 0) {
                 resultItem.networkPowerIncrease = networkPowerIncrease;
                 resultItem.userPowerIncrease = userPowerIncrease;
             }
-    
             return resultItem;
         });
     }
 
-    $scope.dailyBonus = await FirebaseService.getBonusTask();
-    
-
     $scope.loadUserInventory = async function(inventory) {
-
-        try{
+        try {
             const quantitiesRegex = /(Quantity\:|Qtd\:)(\s*)(\d*)/g;
             const minerRegex = /(.*\n)(.*)(\n\nSet)/g;
             const miners = [];
@@ -580,19 +504,13 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
                 let rarity = match[1];
                 let type = ''; let level = '';
                 if(rarity.toLowerCase().indexOf('rating star') !== -1) {
-                    type = 'old_merge';
-                    level = '';
-                }else {
+                    type = 'old_merge'; level = '';
+                } else {
                     level = rarity.replace(/\D/g,'').replace('\n','');
                     level = isNaN(level) || level == '' ? 0 : parseInt(level)
                 }
-                miners.push({
-                    level: level,
-                    name: match[2],
-                    type: type
-                })
+                miners.push({ level: level, name: match[2], type: type })
             }
-
             let qtdIdx = 0;
             while ((match = quantitiesRegex.exec(inventory)) !== null) {
                 let quantity = match[3];
@@ -604,125 +522,9 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             const all_miners = await MinerService.getAllMinersByFilter(); 
             $scope.visible_user_inventory_miners =  miners.map(m => ({...all_miners.find(m2 => m.name === m2.name.en && (m2.type === m.type || m2.level === m.level)), quantity: m.quantity, rdid: uuidv4()}));
             $scope.$apply();
-        }catch(err) {
+        } catch(err) {
             alert('Erro ao carregar. Siga as instruções corretamente!');
             $scope.visible_user_inventory_miners = [];
-        }
-    }
-
-    $scope.showStatistics = async function() {
-        if($scope.formData.showUserStatistics) {
-            $scope.statistics = await FirebaseService.getUserStatistic($scope.user_data);
-            $scope.statistics = calculatePowerData($scope.statistics);
-            const labels = $scope.statistics.map(s => s.date);
-            const networkGrowth = $scope.statistics.map(s => s.networkPower);
-            const playerGrowth = $scope.statistics.map(s => s.userPower);
-            const chart = echarts.init(document.getElementById('chart'));
-
-            const option = {
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'cross',
-                    },
-                },
-                formatter: function (params) {
-                    if(Array.isArray(params)) {
-                        const day = $scope.statistics.find(s => s.date === params[0]?.name);
-                        const networkPower = chooseBestHashRateUnit(day?.networkPower ?? 0, 'GH/s');
-                        const networkLabel = `${networkPower.value.toFixed(2)} ${networkPower.unit}`
-                        const networkPowerIncrease = chooseBestHashRateUnit(day?.networkPowerAbsIncrease ?? 0, 'GH/s');
-                        const networkPowerIncreaseLabel = `${networkPowerIncrease.value.toFixed(2)} ${networkPowerIncrease.unit}`
-                        const userPower = chooseBestHashRateUnit(day?.userPower ?? 0, 'GH/s');
-                        const userPowerIncrease = chooseBestHashRateUnit(day?.userPowerAbsIncrease ?? 0, 'GH/s');
-                        const userPowerIncreaseLabel = `${userPowerIncrease.value.toFixed(2)} ${userPowerIncrease.unit}`
-                        const userPowerLabel = `${userPower.value.toFixed(2)} ${userPower.unit}`
-                        return `Poder da rede: ${networkLabel}
-                                <br>Seu poder: ${userPowerLabel}
-                                <br>A rede subiu ${networkPowerIncreaseLabel} (${day.networkPowerIncrease} %)
-                                <br>Você subiu ${userPowerIncreaseLabel} (${day.userPowerIncrease} %)
-                                `;
-                    }
-                    return params;
-                },
-                legend: {
-                    data: ['Crescimento da Rede', 'Seu Crescimento como Jogador'],
-                    top: '0%',
-                },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true,
-                },
-                xAxis: {
-                    type: 'category',
-                    data: labels,
-                    axisLabel: {
-                        fontSize: 12,
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: '#333',
-                        },
-                    },
-                },
-                yAxis: {
-                    type: 'value',
-                    axisLabel: {
-                        fontSize: 12,
-                        formatter: function (value) {
-                            const power = chooseBestHashRateUnit(value, 'GH/s');
-                            return `${power.value.toFixed(2)} ${power.unit}`
-                        }
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: '#333',
-                        },
-                    },
-                    splitLine: {
-                        lineStyle: {
-                            type: 'dashed',
-                        },
-                    },
-                },
-                series: [
-                    {
-                        name: 'Crescimento da Rede',
-                        data: networkGrowth,
-                        type: 'line',
-                        smooth: true, // Linha suave
-                        color: '#1E90FF', // Azul
-                        lineStyle: {
-                            width: 3,
-                        },
-                        symbol: 'circle',
-                        symbolSize: 8,
-                    },
-                    {
-                        name: 'Seu Crescimento como Jogador',
-                        data: playerGrowth,
-                        type: 'line',
-                        smooth: true, // Linha suave
-                        color: '#FF6347', // Vermelho
-                        lineStyle: {
-                            width: 3,
-                        },
-                        symbol: 'circle',
-                        symbolSize: 8,
-                    },
-                ],
-            };
-
-            // Exibe o gráfico
-            chart.setOption(option);
-
-
-
-            $scope.$apply();
-        }else {
-            $scope.allMiners = [];
         }
     }
 
@@ -736,9 +538,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
     $scope.onSelectPlayer = async function($item) {
         let  new_url = window.location.pathname+"?user=" + $item.code;
-        if(loaded_miners) {
-            new_url+= '&miners=' + loaded_miners;
-        }
+        if(loaded_miners) new_url+= '&miners=' + loaded_miners;
         window.location.href = new_url;
     }
 
@@ -803,12 +603,6 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
     const calcPercentIncrease = (a, b) => b === 0 ? Infinity : ((a - b) / b) * 100;
 
-    const calculateUserPower = function(increasedMinerPower, increasedMinerBonus) {
-        const new_miners_power = $scope.user_data.powerData.miners + increasedMinerPower;
-        const new_miners_bonus = $scope.user_data.powerData.bonus_percent + increasedMinerBonus;
-        return $scope.user_data.powerData.games + new_miners_power + $scope.user_data.powerData.racks + $scope.user_data.powerData.temp + ( (new_miners_power + $scope.user_data.powerData.games) *  new_miners_bonus / 10000);
-    }
-
     $scope.recalculateUserPower = async function() {
         $scope.customMiners = $scope.customMiners || [];
         if($scope.customMiners.length === 0 && !$scope.user_miners.find(m => m.removed)) {
@@ -853,9 +647,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         const load_these = miners_ids.map(id => all_miners.find(m => m.miner_id === id));
         $scope.customMiners = [];
         load_these.forEach(m =>  $scope.customMiners.push({...m, rdid: uuidv4()}));
-        if(loaded_user) {
-            $scope.recalculateUserPower();
-        }
+        if(loaded_user) $scope.recalculateUserPower();
     }
 
     $scope.getPercentualPower = getPercentualPower;
@@ -863,14 +655,9 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.formatDays = formatDays;
 
     const convertTime = (value, fromUnit, toUnit) => {
-  
-        if (fromUnit === 'minutes' && toUnit === 'seconds') {
-            return value * 60;
-        } else if (fromUnit === 'seconds' && toUnit === 'minutes') {
-            return value / 60;
-        } else {
-            return value;
-        }
+        if (fromUnit === 'minutes' && toUnit === 'seconds') return value * 60;
+        else if (fromUnit === 'seconds' && toUnit === 'minutes') return value / 60;
+        else return value;
     };
       
     function getUniqueListBy(arr, key) {
@@ -911,7 +698,6 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         }
     });
     $scope.isLoading = false;
-
     $scope.$apply();
 
     $scope.updateNetworkPowerUnit = function(oldUnit) {
@@ -937,15 +723,12 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         $scope.$apply();    
     };
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+    function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
     function getRandomInt(min, max) {
-        min = Math.ceil(min);    // Arredonda para cima para garantir que não seja menor que o mínimo
-        max = Math.floor(max);   // Arredonda para baixo para garantir que não seja maior que o máximo
+        min = Math.ceil(min); max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min;
-      }
+    }
 
     $scope.updatePowerUnit = function(oldUnit) {
         $scope.formData.power = convertHashrate($scope.formData.power, oldUnit, $scope.formData.unit);
@@ -956,7 +739,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     };
 
     $scope.resetValues = function() {
-        if(confirm("Isso irá recarregar todos os valores de poder de rede e cotação e demorará algum tempo. Tem certeza?")) {
+        if(confirm("Isso irá recarregar todos os valores de poder de rede e cotação ve demorará algum tempo. Tem certeza?")) {
             localStorage.clear();
             location.reload();  
         }
@@ -977,7 +760,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             $scope.formData.blockSize = selectedCurrency.blockSize;
             $scope.formData.blockTime = selectedCurrency.blockTime;
             $scope.formData.timeUnit = 'seconds';
-        }else {
+        } else {
             $scope.formData.networkPower = 0;
             $scope.formData.networkUnit = $scope.networkUnits[0];
             $scope.formData.blockSize = 0;
@@ -994,18 +777,14 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     };
 
     function calculateDaysUntilWithdraw(power_in_ghs, coin) {
-        if(coin.disabled_withdraw) {
-            return Number.MAX_SAFE_INTEGER;
-        }
-        if(!power_in_ghs) {
-            return 0;
-        }
+        if(coin.disabled_withdraw) return Number.MAX_SAFE_INTEGER;
+        if(!power_in_ghs) return 0;
         let earningsPerBlock = coin.blockSize;
         let blockTimeInSeconds = coin.blockTime;
         let minToWithdraw = coin.min_to_withdraw;
         let userPowerPercentage = power_in_ghs / coin.networkPower;
         earningsPerBlock *= userPowerPercentage;
-        let earningsPerDay = earningsPerBlock * (86400 / blockTimeInSeconds); // 86400 seconds in a day
+        let earningsPerDay = earningsPerBlock * (86400 / blockTimeInSeconds);
         return Math.ceil(minToWithdraw / earningsPerDay);
     };
 
@@ -1024,51 +803,40 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             currency.user_alocated_power_month_profit_in_brl = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'brl'));
             currency.user_alocated_power_month_profit_in_cripto = parseFloat(calculateEarningsWithValues(percentual_user_alocated_power, 'month', currency, 'amount'));
             setParamValue(currency.name.toLowerCase(), user_alocated_power);
-        }else {
+        } else {
             setParamValue(currency.name.toLowerCase());
         }
     };
 
     async function donate(network) {
-            if (typeof window.ethereum !== 'undefined') {
-                try {
-                    await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    const web3 = new Web3(window.ethereum);
-                    const chainId = network === 'BSC' ? '0x38' : '0x89';
-                    const donation = network === 'BSC' ? $scope.donationInBnb.toFixed(18) : $scope.donationInMatic.toFixed(18)
-                    await window.ethereum.request({
-                        method: 'wallet_switchEthereumChain',
-                        params: [{ chainId: chainId }],
-                    });
-                    const toAddress = '0x57721770F5Ea06B79ECe6996D653BAC413667Fa2';
-                    const amountInWei = web3.utils.toWei(''+donation, 'ether');
-                    const accounts = await web3.eth.getAccounts();
-                    const fromAddress = accounts[0];
-                    const transactionParameters = {
-                        to: toAddress,
-                        from: fromAddress,
-                        value: web3.utils.toHex(amountInWei)
-                    };
-                    await window.ethereum.request({
-                        method: 'eth_sendTransaction',
-                        params: [transactionParameters],
-                    });
-                    alert('Doação enviada com sucesso!');
-                } catch (error) {
-                    console.error('Erro ao enviar a doação:', error);
-                    alert('Erro ao enviar a doação. Por favor, tente novamente.');
-                }
-            } else {
-                alert('MetaMask não está instalada. Por favor, instale a MetaMask e tente novamente.');
+        if (typeof window.ethereum !== 'undefined') {
+            try {
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const web3 = new Web3(window.ethereum);
+                const chainId = network === 'BSC' ? '0x38' : '0x89';
+                const donation = network === 'BSC' ? $scope.donationInBnb.toFixed(18) : $scope.donationInMatic.toFixed(18)
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: chainId }],
+                });
+                const toAddress = '0x57721770F5Ea06B79ECe6996D653BAC413667Fa2';
+                const amountInWei = web3.utils.toWei(''+donation, 'ether');
+                const accounts = await web3.eth.getAccounts();
+                const fromAddress = accounts[0];
+                const transactionParameters = { to: toAddress, from: fromAddress, value: web3.utils.toHex(amountInWei) };
+                await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters] });
+                alert('Doação enviada com sucesso!');
+            } catch (error) {
+                console.error('Erro ao enviar a doação:', error);
+                alert('Erro ao enviar a doação. Por favor, tente novamente.');
             }
+        } else {
+            alert('MetaMask não está instalada. Por favor, instale a MetaMask e tente novamente.');
+        }
     }
 
     $scope.donate = donate;
-    
     $scope.updateAllocatedPower = updateAllocatedPower;
-
-
-
     $scope.calculateEarningsWithValues = calculateEarningsWithValues;
 
     $scope.calculateAllCoins = async function() {
@@ -1109,35 +877,20 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         return $sce.trustAsHtml(`${capitalize(ordinalNum(room_location))} sala<br>${ordinalNum(rack_row)} fileira<br>${ordinalNum(rack_column)} rack`);
     }
 
-
     $scope.calculateEarnings = function(timeframe, currency) {
-        if (!$scope.formData.currency || !$scope.formData.blockSize || !$scope.formData.blockTime) {
-            return 0;
-        }
-        
+        if (!$scope.formData.currency || !$scope.formData.blockSize || !$scope.formData.blockTime) return 0;
         let earningsPerBlock = $scope.formData.blockSize;
         let blockTimeInSeconds = $scope.formData.blockTime;
-
-        if ($scope.formData.timeUnit === 'minutes') {
-            blockTimeInSeconds *= 60;
-        }
-
+        if ($scope.formData.timeUnit === 'minutes') blockTimeInSeconds *= 60;
         let userPowerPercentage = convertHashrate($scope.formData.power, $scope.formData.unit, 'GH/s') / convertHashrate($scope.formData.networkPower, $scope.formData.networkUnit,'GH/s');
         earningsPerBlock *= userPowerPercentage;
-
-        let earningsPerDay = earningsPerBlock * (86400 / blockTimeInSeconds); // 86400 seconds in a day
-        
+        let earningsPerDay = earningsPerBlock * (86400 / blockTimeInSeconds);
         switch(timeframe) {
-            case 'block':
-                return currency === 'amount' ? earningsPerBlock.toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerBlock * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
-            case 'day':
-                return currency === 'amount' ? earningsPerDay.toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerDay * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
-            case 'week':
-                return currency === 'amount' ? (earningsPerDay * 7).toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerDay * 7 * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
-            case 'month':
-                return currency === 'amount' ? (earningsPerDay * 30).toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerDay * 30 * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
-            default:
-                return 0;
+            case 'block': return currency === 'amount' ? earningsPerBlock.toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerBlock * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
+            case 'day': return currency === 'amount' ? earningsPerDay.toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerDay * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
+            case 'week': return currency === 'amount' ? (earningsPerDay * 7).toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerDay * 7 * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
+            case 'month': return currency === 'amount' ? (earningsPerDay * 30).toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerDay * 30 * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
+            default: return 0;
         }
     };
 }]);
