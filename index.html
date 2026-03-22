@@ -44,18 +44,37 @@
 </div>
 
     <div class="player-card-body">
-        <div class="cyber-search-container ortala">
-            <div class="">
-                <input type="text" ng-model="userNick" placeholder="Örn: FthCLK" ng-disabled="isAuthorized">
-            </div>
-			
-<a class="glass-btn btn-blue" ng-click="fetchUserData()" 
-                    ng-disabled="loadingApi || !userNick || isAuthorized">
-GETİR
-</a>
-			
-			
-        </div>
+<div class="cyber-search-container ortala" style="position: relative;">
+    <div>
+        <input type="text" ng-model="userNick" placeholder="Örn: FthCLK" ng-disabled="isAuthorized">
+    </div>
+    
+    <a class="glass-btn btn-blue" ng-click="fetchUserData()" 
+       ng-disabled="loadingApi || !userNick || isAuthorized">
+        GETİR
+    </a>
+
+    <div class="help-btn-minimal" onclick="document.getElementById('helpModal').style.display='flex'">
+        ?
+    </div>
+</div>
+
+<div id="helpModal" class="custom-overlay" onclick="this.style.display='none'">
+    <div class="custom-modal" onclick="event.stopPropagation()">
+        <div class="modal-glow-bar"></div>
+        <h3 style="color: var(--accent); font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 1px;">PROFİL ADI NEREDE?</h3>
+        
+        <img src="./img/profil.png" style="width: 100%; border-radius: 8px; border: 1px solid rgba(56, 189, 248, 0.3);">
+        
+        <p style="font-size: 0.7rem; color: #94a3b8; margin: 15px 0; line-height: 1.4;">
+            RollerCoin profil linkinizdeki <b>/p/</b> kısmından sonra gelen kelime sizin kullanıcı adınızdır.
+        </p>
+        
+        <button class="glass-btn btn-blue" style="width: 100%;" onclick="document.getElementById('helpModal').style.display='none'">
+            ANLADIM
+        </button>
+    </div>
+</div>
     </div>
     <div style=" padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
         <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">

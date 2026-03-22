@@ -135,6 +135,17 @@ $scope.getBestCoin = function() {
 
 
 
+
+
+
+// MiningController içine ekleyin
+$scope.showHelpModal = false;
+
+$scope.closeHelp = function() {
+    $scope.showHelpModal = false;
+};
+
+
 $scope.formatPower = function(power) {
     if (!power || power <= 0) return "0.00 GH/s";
 
