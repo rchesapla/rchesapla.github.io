@@ -229,6 +229,69 @@
 
 
 
+/* Typeahead Açılır Menü Konteynırı */
+.dropdown-menu {
+    background: rgba(15, 23, 42, 0.95) !important; /* Koyu lacivert transparan */
+    backdrop-filter: blur(15px); /* Arkaplanı bulandırır */
+    border: 1px solid var(--primary-glow) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
+    margin-top: 5px !important;
+    padding: 8px 0 !important;
+    width: 100%; /* Input genişliğine eşitler */
+    z-index: 1000;
+}
+
+/* Her bir arama sonucu öğesi */
+.dropdown-menu li a {
+    color: var(--text) !important;
+    padding: 10px 20px !important;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    display: block;
+    text-decoration: none;
+}
+
+/* Fare ile üzerine gelindiğinde veya klavye ile seçildiğinde (Active/Hover) */
+.dropdown-menu > .active > a, 
+.dropdown-menu > .active > a:hover, 
+.dropdown-menu > .active > a:focus,
+.dropdown-menu li a:hover {
+    background: linear-gradient(90deg, var(--primary-glow), transparent) !important;
+    color: var(--primary) !important;
+    border-left: 3px solid var(--primary);
+    outline: none;
+}
+
+/* "Sonuç bulunamadı" veya "Yükleniyor" mesajları için stil */
+.uib-typeahead-match {
+    display: flex;
+    align-items: center;
+}
+
+/* Küçük ipucu metinleri (Eğer varsa) */
+.dropdown-menu .small {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    margin-left: 10px;
+}
+
+/* Kaydırma çubuğu (Scrollbar) tasarımı */
+.dropdown-menu::-webkit-scrollbar {
+    width: 6px;
+}
+.dropdown-menu::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 10px;
+}
+.dropdown-menu::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+
+
+
     </style>
 </head>
 <body ng-controller="MiningController">
@@ -241,9 +304,8 @@
 <div class="card">
     <div style="color: var(--primary); font-weight: 700; margin-bottom: 15px;">👤 OYUNCU YÜKLE</div>
     <div style="display: flex; gap: 10px;">
-        <input type="text" placeholder="Örn: FthCLK" ng-model="userSearchText" 
-                                placeholder="Procurar por código..." 
-                                typeahead-wait-ms="1500"
+        <input type="text" placeholder="Örn: FthCLK" ng-model="userSearchText"
+                                typeahead-wait-ms="100"
                                 uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
                                 typeahead-no-results="playerSearchNoResults"
                                 typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
