@@ -1,6 +1,29 @@
 var app = angular.module('miningApp', ['ui.bootstrap']);
 
 app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerService', 'MinerService', '$sce', '$timeout', async function($scope, CurrencyService, UserMinerService, MinerService, $sce, $timeout) {
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+// MiningController içinde tanımlanmalıdır
+$scope.propertyName = 'power'; // Varsayılan sıralama sütunu
+$scope.reverse = true;          // Varsayılan olarak en yüksekten düşüğe
+
+$scope.sortBy = function(propertyName) {
+    $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+    $scope.propertyName = propertyName;
+};
     
     $scope.units = ['GH/s', 'TH/s', 'PH/s', 'EH/s'];
     $scope.networkUnits = ['GH/s', 'TH/s', 'PH/s', 'EH/s', 'ZH/s'];

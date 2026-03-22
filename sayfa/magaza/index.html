@@ -292,6 +292,34 @@
 
 
 
+
+
+
+
+
+th.sortable {
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s;
+}
+
+th.sortable:hover {
+    color: var(--primary);
+}
+
+th.sortable i {
+    font-size: 0.7rem;
+    margin-left: 5px;
+    opacity: 0.5;
+}
+
+/* Sıralama aktifse başlık parlasın */
+th.active-sort {
+    color: var(--primary) !important;
+    text-shadow: 0 0 10px var(--primary-glow);
+}
+
+
     </style>
 </head>
 <body ng-controller="MiningController">
@@ -386,19 +414,25 @@
 
     <div style="overflow-x: auto;">
         <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
-            <thead>
-                <tr style="border-bottom: 1px solid var(--primary);">
-                    <th style="padding: 10px;">MINER ADI</th>
-                    <th style="padding: 10px;">TEDARİK</th>
-                    <th style="padding: 10px;">GÜCÜ</th>
-                    <th style="padding: 10px;">BONUS</th>
-                    <th style="padding: 10px;">BONUSLU GÜCÜ</th>
-                    <th style="padding: 10px;">ETKİLEŞİM</th>
-                </tr>
-            </thead>
+<thead>
+    <tr>
+        <th class="sortable" ng-click="sortBy('name.en')">
+            MINER <span ng-show="propertyName === 'name.en'">{{reverse ? '▼' : '▲'}}</span>
+        </th>
+        <th class="sortable" ng-click="sortBy('power')">
+            GÜÇ <span ng-show="propertyName === 'power'">{{reverse ? '▼' : '▲'}}</span>
+        </th>
+        <th class="sortable" ng-click="sortBy('bonus_power')">
+            BONUS <span ng-show="propertyName === 'bonus_power'">{{reverse ? '▼' : '▲'}}</span>
+        </th>
+        <th class="sortable" ng-click="sortBy('includeImpactLegend.value')">
+            TOPLAM GÜÇ <span ng-show="propertyName === 'includeImpactLegend.value'">{{reverse ? '▼' : '▲'}}</span>
+        </th>
+        <th>EYLEM</th>
+    </tr>
+</thead>
             <tbody>
-                <tr ng-repeat="miner in allMiners | orderBy:orderByAllMinersField:reverseAllMinersSort | limitTo:  itemsPerPage : (currentPage - 1) * itemsPerPage"  
-                                ng-class="{ 'already-have-miner': miner.already_have }" >
+                <tr ng-repeat="miner in allMiners | orderBy:propertyName:reverse | limitTo: itemsPerPage : (currentPage - 1) * itemsPerPage">
                                 <td style="text-align: center; position: relative;">
                                     {{miner.name.en}}<br/>
                                     <img ng-if="miner.level == 0" src='https://rollercoin.com/static/img/storage/rarity_icons/level_1.png?v=1.0.0' style='left: 40px;position: absolute;top: 40px;'/>
@@ -410,9 +444,6 @@
                                         background-color: red;
                                         color: white;
                                     ">SATILAMAZ</div>
-                                </td>
-                                <td style="text-align: center">
-                                    {{miner.supply}}
                                 </td>
                                 <td style="text-align: center">
                                     {{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
