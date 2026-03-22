@@ -41,6 +41,7 @@
 <div class="card player-command-card" ng-hide="isAuthorized">
 <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
 <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">KULLANICI BİLGİLERİ MERKEZİ</span>
+<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;"  onclick="document.getElementById('helpModal').style.display='flex'">Nasıl yaparım ?</span>
 </div>
 
     <div class="player-card-body">
@@ -53,10 +54,6 @@
        ng-disabled="loadingApi || !userNick || isAuthorized">
         GETİR
     </a>
-
-    <div class="help-btn-minimal" onclick="document.getElementById('helpModal').style.display='flex'">
-        ?
-    </div>
 </div>
 
 <div id="helpModal" class="custom-overlay" onclick="this.style.display='none'">
