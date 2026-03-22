@@ -387,39 +387,43 @@ Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğ
 
 <div ng-if="isAuthorized && liveData.length > 0">
 
-<div class="card player-command-card">
+
+<div class="card player-command-card" ng-if="isAuthorized">
     <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
         <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">● ROLLERCOIN KRİPTO DEĞERLERİ</span>
-		<span class="loading-overlay" ng-click="updateLeagueData()">🔄 VERİYİ GÜNCELLE</span>
+        <span class="loading-overlay" ng-click="updateLeagueData()">🔄 VERİYİ GÜNCELLE</span>
     </div>
 
-<div style= "justify-content:center;">
-<table class="live-table">
-<thead>
-<tr>
-<th>COIN</th>
-<th>AĞ GÜCÜ</th>
-<th>BLOK ÖDÜLÜ</th>
-<th>BLOK SÜRESİ</th>
-</tr>
-</thead>
-<tbody>
-<tr ng-repeat="item in liveData | orderBy:'-networkPower'" ng-if="item.networkPower > 0">
-<td class="coin-name">{{item.name}}</td>
-<td class="stats-val">{{formatPower(item.networkPower)}}</td>
-<td class="reward-val">{{item.blockSize.toFixed(7)}}</td>
-<td>{{(item.blockTime / 60).toFixed(1)}} dk</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div style="margin-top: 20px; padding: 10px; background: rgba(56, 189, 248, 0.05); border-radius: 8px; border: 1px dashed var(--accent);">
-<p style="font-size: 0.7rem; color: var(--accent); text-align: center;">
-Lig durumunuza göre değişkenlik gösterebilir.
-</p>
+    <div class="ortala">
+        <div style="overflow-x: auto;">
+            <table class="live-table">
+                <thead>
+                    <tr>
+                        <th>COIN</th>
+                        <th>AĞ GÜCÜ</th>
+                        <th>BLOK ÖDÜLÜ</th>
+                        <th>BLOK SÜRESİ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in liveData | orderBy:'-networkPower'" ng-if="item.networkPower > 0">
+                        <td class="coin-name">{{item.name}}</td>
+                        <td class="stats-val">{{formatPower(item.networkPower)}}</td>
+                        <td class="reward-val">{{item.blockSize.toFixed(7)}}</td>
+                        <td class="reward-val">{{(item.blockTime / 60).toFixed(1)}} dk</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div style="padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
+        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
+            <b>💡 Bilgi:</b> En kârlı coin'i bulmak için yukarıdaki "Kripto Değerleri" tablosundan Blok Süresi en düşük ve Ödülü en yüksek olanları takip edin.
+        </p>
+    </div>
 </div>
 
-</div>
 </div>
 			
 
