@@ -17,7 +17,6 @@
 .help-btn-minimal {
     position: absolute;
     right: 5px;
-    top: -15px;
     background: #0f172a;
     color: var(--accent);
     border: 1px solid var(--accent);
