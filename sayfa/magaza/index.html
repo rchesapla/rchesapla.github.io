@@ -15,15 +15,12 @@
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5"></script>
     <script src="data/basic_miners.js"></script>
     <script src="data/merge_miners.js"></script>
     <script src="data/old/merge_miners.js"></script>
     <script src="data/components.js"></script>
     <script src="app.js"></script>
-    <script src="firebase-db-service.js"></script>
     <script src="services.js"></script>
     <script src="user-miner-service.js"></script>
     <script src="miner-service.js"></script>
@@ -244,7 +241,13 @@
 <div class="card">
     <div style="color: var(--primary); font-weight: 700; margin-bottom: 15px;">👤 OYUNCU YÜKLE</div>
     <div style="display: flex; gap: 10px;">
-        <input type="text" ng-model="userSearchText" placeholder="Örn: FthCLK">
+        <input type="text" placeholder="Örn: FthCLK" ng-model="userSearchText" 
+                                placeholder="Procurar por código..." 
+                                typeahead-wait-ms="1500"
+                                uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
+                                typeahead-no-results="playerSearchNoResults"
+                                typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
+                                typeahead-loading="loading">
         <button class="btn-main" ng-click="onSelectPlayer()">YÜKLE</button>
         <button class="btn-main" style="background: var(--accent);" ng-click="toggleHistory()">GEÇMİŞ</button>
     </div>
@@ -282,7 +285,7 @@
     <div style="color: var(--accent); font-weight: 700; margin-bottom: 15px;">🛒 MINER MAĞAZASI ({{allMiners.length}} adet)</div>
     
     <div style="margin-bottom: 15px;">
-        <input type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Buscar miner...">
+        <input type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Örn: YMCA">
     </div>
 	
 <div class="filter-group-container">
@@ -343,8 +346,6 @@
                                     <div ng-if="!miner.is_can_be_sold_on_mp"
                                         style="
                                         background-color: red;
-                                        font-size: 0.6em;
-                                        font-weight: bold;
                                         color: white;
                                     ">SATILAMAZ</div>
                                 </td>
