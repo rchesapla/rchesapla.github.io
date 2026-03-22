@@ -113,7 +113,17 @@ document.onkeydown = function(e) {
         function($scope, UserMinerService, CurrencyService, $timeout) {
 //////////////////////////////////////////////////////////////////////////
 
+$scope.getBestCoin = function() {
+    if (!$scope.liveData || $scope.liveData.length === 0) return { name: '...' };
 
+    return $scope.liveData.reduce((prev, current) => {
+        // Birim ağ gücü başına düşen ödül miktarını kıyaslar
+        let prevEfficiency = prev.blockSize / prev.networkPower;
+        let currEfficiency = current.blockSize / current.networkPower;
+        
+        return (currEfficiency > prevEfficiency) ? current : prev;
+    });
+};
 
 
 
