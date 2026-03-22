@@ -2,287 +2,270 @@
 <html lang="tr" ng-app="miningApp">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RCHesapla PRO | Geleceğin Madencilik Hesaplayıcısı</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RollerCoin Madencilik Hesaplayıcı v3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     
     <style>
         :root {
-            --neon-blue: #00f2ff;
-            --neon-purple: #bc13fe;
-            --dark-bg: #050505;
-            --card-bg: rgba(20, 20, 25, 0.8);
-            --text-color: #e0e0e0;
-            --border-color: rgba(0, 242, 255, 0.3);
+            --bg-dark: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent: #00ff88;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --danger: #ff4444;
         }
 
-        body {
-            background-color: var(--dark-bg);
-            color: var(--text-color);
-            font-family: 'Rajdhani', sans-serif;
-            margin: 0;
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             overflow-x: hidden;
-            background-image: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #050505 100%);
         }
 
-        /* Arkaplan Animasyonu */
         #matrix {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            opacity: 0.2;
+            position: fixed; top: 0; left: 0; z-index: -1;
+            opacity: 0.15;
         }
 
-        /* Navbar */
-        .navbar {
-            padding: 1rem 5%;
-            background: rgba(0, 0, 0, 0.9);
-            border-bottom: 2px solid var(--neon-blue);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 0 15px var(--border-color);
+        .container {
+            max-width: 1200px; margin: 0 auto; padding: 20px;
         }
 
-        .nav-logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            color: var(--neon-blue);
-            text-shadow: 0 0 10px var(--neon-blue);
+        /* Üst Bar */
+        .header-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--card-bg); backdrop-filter: blur(10px);
+            padding: 15px 25px; border-radius: 12px; margin-bottom: 25px;
+            border-bottom: 2px solid var(--accent);
         }
 
-        .nav-clock-wrapper { text-align: right; }
-        .nav-time { color: var(--neon-purple); font-size: 1.2rem; font-weight: bold; }
-
-        /* Kart Tasarımları */
-        .wrapper { max-width: 1000px; margin: 2rem auto; padding: 0 20px; }
-        
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            padding: 25px;
-            margin-bottom: 30px;
-            position: relative;
-            backdrop-filter: blur(10px);
-            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+        /* Ana Panel */
+        .glass-panel {
+            background: var(--card-bg); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px; padding: 25px; margin-bottom: 20px;
         }
 
-        .card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+        .grid-layout {
+            display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px;
         }
 
-        /* Input Stilleri */
+        @media (max-width: 900px) { .grid-layout { grid-template-columns: 1fr; } }
+
+        /* Form Elemanları */
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-dim); }
         input, select {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--border-color);
-            color: var(--neon-blue);
-            padding: 12px;
-            width: 100%;
-            margin-top: 5px;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.1rem;
+            width: 100%; padding: 12px; border-radius: 8px;
+            background: rgba(15, 23, 42, 0.8); border: 1px solid #334155;
+            color: white; font-family: 'Fira Code', monospace;
         }
+        input:focus { border-color: var(--accent); outline: none; }
 
-        input:focus { outline: none; box-shadow: 0 0 10px var(--neon-blue); }
-
-        .btn-main {
-            background: transparent;
-            border: 2px solid var(--neon-purple);
-            color: var(--neon-purple);
-            padding: 15px;
-            width: 100%;
-            cursor: pointer;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: bold;
-            transition: 0.3s;
-            margin-top: 20px;
-            text-transform: uppercase;
+        .btn {
+            cursor: pointer; padding: 12px 20px; border-radius: 8px; border: none;
+            font-weight: 600; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px;
         }
+        .btn-primary { background: var(--accent); color: #000; width: 100%; justify-content: center; }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
 
-        .btn-main:hover {
-            background: var(--neon-purple);
-            color: white;
-            box-shadow: 0 0 20px var(--neon-purple);
-        }
-
-        .glass-btn {
-            background: rgba(188, 19, 254, 0.1);
-            border: 1px solid var(--neon-purple);
-            color: white;
-            padding: 8px 15px;
-            text-decoration: none;
-            font-size: 0.8rem;
-            display: inline-block;
-            transition: 0.3s;
-        }
-
-        /* Sonuç Paneli */
+        /* Sonuç Kartları */
         .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px;
         }
-
         .res-card {
-            background: rgba(0, 0, 0, 0.4);
-            border-left: 4px solid var(--neon-blue);
-            padding: 15px;
-            text-align: center;
+            background: rgba(15, 23, 42, 0.5); padding: 15px; border-radius: 10px;
+            border-left: 3px solid var(--accent);
+        }
+        .res-val { font-family: 'Fira Code'; font-size: 1.2rem; display: block; margin-top: 5px; }
+
+        /* Profil Özeti */
+        .profile-header {
+            display: flex; align-items: center; gap: 15px; margin-bottom: 20px;
+            padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .status-badge {
+            font-size: 0.7rem; padding: 4px 8px; border-radius: 4px;
+            background: var(--accent); color: #000; text-transform: uppercase;
         }
 
-        .res-val { color: var(--neon-blue); font-size: 1.4rem; font-weight: bold; display: block; }
-        .res-label { font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; }
-
-        /* Loading */
-        .loading-popup {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 9999;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        /* Geçmiş Listesi */
+        .history-item {
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255,255,255,0.05); padding: 8px 12px;
+            border-radius: 6px; margin-bottom: 5px; font-size: 0.85rem;
         }
-        .spinner {
-            width: 50px; height: 50px; border: 5px solid var(--neon-blue);
-            border-top: 5px solid transparent; border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .history-item:hover { background: rgba(0, 255, 136, 0.1); }
 
-        /* Tablo Stili */
-        .live-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        .live-table th { color: var(--neon-purple); text-align: left; padding: 10px; border-bottom: 1px solid var(--border-color); }
-        .live-table td { padding: 12px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-
-        @media (max-width: 768px) {
-            .navbar { flex-direction: column; text-align: center; }
+        .loading-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 1000;
         }
+
+        .roi-card { background: linear-gradient(45deg, #1e293b, #0f172a); border: 1px gold solid !important; }
     </style>
 </head>
 <body ng-controller="MiningController">
 
-    <div class="loading-popup" ng-if="loadingApi || loadingLeague">
-        <div class="spinner"></div>
-        <div class="loading-text" style="color: var(--neon-blue); margin-top: 15px;">SİSTEMLER SENKRONİZE EDİLİYOR...</div>
-    </div>
-
     <canvas id="matrix"></canvas>
 
-    <nav class="navbar">
-        <span class="nav-logo">RCHesapla PRO</span>
-        <div class="nav-clock-wrapper">
-            <div class="nav-time" id="current-time">00:00:00</div>
-            <div class="nav-date" id="current-date">--.--.----</div>
-        </div>
-    </nav>
-
-    <div class="wrapper">
+    <div class="container">
         
-        <div class="card" ng-hide="isAuthorized">
-            <div class="player-card-header">
-                <span style="color: var(--neon-blue); font-weight: bold;">[ VERİ ERİŞİM TERMİNALİ ]</span>
+        <div class="header-bar">
+            <div>
+                <i class="fas fa-microchip" style="color: var(--accent);"></i>
+                <span style="font-weight: 700; letter-spacing: 1px; margin-left: 10px;">WMINER RC</span>
             </div>
-            <div style="margin: 20px 0;">
-                <input type="text" ng-model="userNick" placeholder="Kullanıcı adınızı girin (Örn: FthCLK)" ng-disabled="isAuthorized">
-                <button class="btn-main" ng-click="fetchUserData()" ng-disabled="loadingApi || !userNick">SİSTEME BAĞLAN</button>
-            </div>
-            <p style="font-size: 0.8rem; color: #888; text-align: center;">💡 Rollercoin kullanıcı adınızı girerek kişisel verilerinizi otomatik çekebilirsiniz.</p>
-        </div>
-
-        <div class="card" ng-if="isAuthorized">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
-                <div class="nick" style="font-size: 1.5rem; color: var(--neon-blue);">HAYALET: {{userNick}}</div>
-                <span style="color: #22c55e;">● ÇEVRİMİÇİ</span>
-            </div>
-            <div style="margin-top: 15px; display: flex; gap: 10px;">
-                <a ng-href="https://rollercoin.com/p/{{userNick}}" target="_blank" class="glass-btn">PROFİL GÖRÜNTÜLE</a>
-                <a href="./miner-odam.html" class="glass-btn">ENVANTER ANALİZİ</a>
+            <div style="text-align: right; font-family: 'Fira Code';">
+                <div id="current-time">00:00:00</div>
+                <div id="current-date" style="font-size: 0.8rem; color: var(--text-dim);">01.01.2024</div>
             </div>
         </div>
 
-        <div class="card" ng-if="isAuthorized">
-            <div class="player-card-header" style="color: var(--neon-purple); font-weight: bold;">[ MADENCİLİK PARAMETRELERİ ]</div>
+        <div class="grid-layout">
             
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
-                <div class="input-box">
-                    <label>PARA BİRİMİ</label>
-                    <select ng-model="calcData.fiat">
-                        <option value="usd">USD ($)</option>
-                        <option value="try">TRY (₺)</option>
-                    </select>
+            <div>
+                <div class="glass-panel">
+                    <h3 style="margin-top: 0;"><i class="fas fa-user-circle"></i> Kullanıcı Girişi</h3>
+                    <div class="input-group">
+                        <input type="text" ng-model="userNick" placeholder="RollerCoin Kullanıcı Adı" ng-disabled="isAuthorized">
+                    </div>
+                    <button class="btn btn-primary" ng-click="fetchUserData()" ng-if="!isAuthorized">
+                        <i class="fas fa-search"></i> PROFILI GETIR
+                    </button>
+                    <button class="btn btn-danger" style="background: var(--danger); color: white; width:100%" ng-click="logoutUser()" ng-if="isAuthorized">
+                        <i class="fas fa-sign-out-alt"></i> OTURUMU KAPAT
+                    </button>
+                    
+                    <div style="margin-top: 20px;">
+                        <label>Aktif Kullanıcılar: <span id="active-count" style="color: var(--accent);">0</span></label>
+                        <label>Toplam Sorgulama: <span style="color: var(--accent);">{{totalCalculations}}</span></label>
+                    </div>
                 </div>
-                <div class="input-box">
-                    <label>HEDEF COIN</label>
-                    <select ng-model="calcData.coin" ng-change="updateFromLiveData()">
-                        <option value="RLT">RollerToken (RLT)</option>
-                        <option value="BTC">Bitcoin (BTC)</option>
-                        <option value="ETH">Ethereum (ETH)</option>
-                        <option value="SOL">Solana (SOL)</option>
-                    </select>
-                </div>
-            </div>
 
-            <div class="input-box" style="margin-top: 15px;">
-                <label>KİŞİSEL KAZIM GÜCÜNÜZ</label>
-                <div style="display: flex; gap: 10px;">
-                    <input type="number" ng-model="calcData.myPower" style="flex: 2;">
-                    <select ng-model="calcData.myUnit" style="flex: 1;">
-                        <option value="ph">PH/s</option>
-                        <option value="eh">EH/s</option>
-                    </select>
+                <div class="glass-panel">
+                    <h3><i class="fas fa-history"></i> Son Sorgulananlar</h3>
+                    <div ng-repeat="historyNick in userHistory track by $index" class="history-item">
+                        <span ng-click="quickFetch(historyNick)" style="cursor:pointer">{{historyNick}}</span>
+                        <i class="fas fa-times" ng-click="removeFromHistory($index)" style="color: var(--danger); cursor:pointer"></i>
+                    </div>
                 </div>
             </div>
 
-            <button class="btn-main" ng-click="calcular()">HESAPLAMAYI BAŞLAT</button>
-        </div>
+            <div>
+                <div class="glass-panel" ng-if="isAuthorized">
+                    <div class="profile-header">
+                        <div style="flex-grow: 1;">
+                            <span class="status-badge">Aktif Profil</span>
+                            <h2 style="margin: 5px 0;">{{userNick}}</h2>
+                            <small style="color: var(--text-dim)">
+                                <i class="fas fa-key"></i> Oda Yapılandırma ID: 
+                                <span style="color: var(--accent)">{{userRoomId}}</span>
+                            </small>
+                        </div>
+                        <div style="text-align: right;">
+                            <label>Sorgu Sayısı</label>
+                            <div style="font-size: 1.5rem; color: var(--accent);">{{currentUserCalcs}}</div>
+                        </div>
+                    </div>
 
-        <div id="results" class="card" style="display:none; border-top: 3px solid var(--neon-blue);">
-            <div style="text-align: center; margin-bottom: 20px;">
-                <span class="res-label">BLOK BAŞINA TAHMİNİ KAZANÇ</span>
-                <div class="res-val" id="porBloque" style="font-size: 2rem;">0.00</div>
-            </div>
-            <div class="results-grid">
-                <div class="res-card"><span class="res-label">GÜNLÜK</span><span class="res-val" id="dia">-</span></div>
-                <div class="res-card"><span class="res-label">HAFTALIK</span><span class="res-val" id="hafta">-</span></div>
-                <div class="res-card"><span class="res-label">AYLIK</span><span class="res-val" id="mes">-</span></div>
-                <div class="res-card"><span class="res-label">YILLIK</span><span class="res-val" id="yil">-</span></div>
+                    <div class="grid-layout" style="grid-template-columns: 1fr 1fr;">
+                        <div class="input-group">
+                            <label>Kazılacak Coin</label>
+                            <select ng-model="calcData.coin" ng-change="updateFromLiveData()">
+                                <option value="RLT">RLT (RollerToken)</option>
+                                <option value="BTC">Bitcoin (BTC)</option>
+                                <option value="ETH">Ethereum (ETH)</option>
+                                <option value="BNB">Binance Coin (BNB)</option>
+                                <option value="SOL">Solana (SOL)</option>
+                                <option value="DOGE">Dogecoin (DOGE)</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Lig Seviyesi</label>
+                            <select ng-model="calcData.leagueId" ng-options="l.id as l.name for l in leagues" ng-change="updateLeagueData()">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid-layout" style="grid-template-columns: 1fr 1fr;">
+                        <div class="input-group">
+                            <label>Kişisel Gücünüz</label>
+                            <div style="display: flex; gap: 5px;">
+                                <input type="number" ng-model="calcData.myPower">
+                                <select ng-model="calcData.myUnit" style="width: 80px;">
+                                    <option value="gh">GH/s</option>
+                                    <option value="th">TH/s</option>
+                                    <option value="ph">PH/s</option>
+                                    <option value="eh">EH/s</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>Para Birimi</label>
+                            <select ng-model="calcData.fiat">
+                                <option value="usd">Dolar ($)</option>
+                                <option value="try">Türk Lirası (₺)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" ng-click="calcular()" style="margin-top: 10px;">
+                        <i class="fas fa-calculator"></i> HESAPLA
+                    </button>
+                </div>
+
+                <div id="results" class="glass-panel" style="display: none; border-top: 3px solid var(--accent);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3 style="margin: 0;"><i class="fas fa-chart-line"></i> Tahmini Kazançlar</h3>
+                        <span id="priceDisplay" style="font-size: 0.8rem; background: rgba(0,255,136,0.1); padding: 5px 10px; border-radius: 20px;"></span>
+                    </div>
+
+                    <div class="results-grid">
+                        <div class="res-card">
+                            <label>Blok Başına</label>
+                            <span class="res-val" id="porBloque">0</span>
+                        </div>
+                        <div class="res-card">
+                            <label>Günlük (Fiat)</label>
+                            <span class="res-val" id="diaFiat" style="color: var(--accent);">0</span>
+                        </div>
+                        <div class="res-card">
+                            <label>Günlük Adet</label>
+                            <span class="res-val" id="dia">0</span>
+                        </div>
+                        <div class="res-card">
+                            <label>Aylık Adet</label>
+                            <span class="res-val" id="mes">0</span>
+                        </div>
+                    </div>
+
+                    <div id="roiCard" class="res-card roi-card" style="margin-top: 15px; display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <label>Amorti (ROI) Tahmini</label>
+                                <span class="res-val" id="roiResult" style="color: #ffd700;">-</span>
+                            </div>
+                            <div style="text-align: right;">
+                                <label>Maliyet</label>
+                                <input type="number" ng-model="calcData.minerCost" ng-change="updateROI()" placeholder="Cihaz Fiyatı" style="width: 100px; padding: 5px;">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 15px; font-size: 0.7rem; color: var(--text-dim); text-align: center;">
+                        Son Güncelleme: {{lastUpdate}}
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="card" ng-if="isAuthorized && liveData.length > 0">
-            <div class="player-card-header" style="color: var(--neon-blue);">[ CANLI AĞ VERİLERİ ]</div>
-            <div style="overflow-x: auto;">
-                <table class="live-table">
-                    <thead>
-                        <tr>
-                            <th>COIN</th>
-                            <th>AĞ GÜCÜ</th>
-                            <th>BLOK ÖDÜLÜ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="item in liveData | orderBy:'-networkPower'">
-                            <td style="color: var(--neon-blue); font-weight: bold;">{{item.name}}</td>
-                            <td>{{item.networkPower}}</td>
-                            <td style="color: var(--neon-purple);">{{item.blockSize.toFixed(4)}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
     </div>
 
-    <footer style="text-align: center; padding: 40px; color: #555; border-top: 1px solid #222;">
-        <div style="color: var(--neon-blue); font-family: 'Orbitron';">RCHesapla PRO v4.0.2</div>
-        <p>© 2026 | Madencilik Simülasyon Analitiği</p>
-    </footer>
-
-    <script src="./js/sablon.js"></script>
+    <script src="sablon.js"></script>
 </body>
 </html>
