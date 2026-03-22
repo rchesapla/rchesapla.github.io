@@ -320,6 +320,110 @@ th.active-sort {
 }
 
 
+
+
+
+
+
+
+
+/* Tablo Konteynırı ve Genel Yapı */
+.table-responsive {
+    overflow-x: auto;
+    border-radius: 12px;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px; /* Satırlar arası boşluk */
+    margin-top: -8px;
+}
+
+/* Başlık Stilleri */
+thead th {
+    background-color: transparent;
+    color: var(--text-dim) !important;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    padding: 15px 10px;
+    border-bottom: 2px solid #334155;
+}
+
+/* Satır Stilleri */
+tbody tr {
+    background: rgba(30, 41, 59, 0.5);
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+tbody tr:hover {
+    background: rgba(30, 41, 59, 1);
+    transform: scale(1.005);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+tbody td {
+    padding: 12px;
+    vertical-align: middle;
+    border-top: 1px solid rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+/* Miner Görsel Alanı */
+.miner-image-container {
+    position: relative;
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid rgba(0, 255, 136, 0.1);
+}
+
+.miner-level-badge {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    width: 24px;
+    z-index: 10;
+}
+
+/* Veri Hücreleri */
+.power-text {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.bonus-text {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.total-power-badge {
+    background: rgba(56, 189, 248, 0.1);
+    color: var(--accent);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 800;
+}
+
+/* Satılamaz Rozeti */
+.not-sellable {
+    background: #ef4444;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+
     </style>
 </head>
 <body ng-controller="MiningController">
@@ -417,7 +521,7 @@ th.active-sort {
 <thead>
     <tr>
         <th class="sortable" ng-click="sortBy('name.en')">
-            MINER <span ng-show="propertyName === 'name.en'">{{reverse ? '▼' : '▲'}}</span>
+            MINER
         </th>
         <th class="sortable" ng-click="sortBy('power')">
             GÜÇ <span ng-show="propertyName === 'power'">{{reverse ? '▼' : '▲'}}</span>
@@ -426,38 +530,48 @@ th.active-sort {
             BONUS <span ng-show="propertyName === 'bonus_power'">{{reverse ? '▼' : '▲'}}</span>
         </th>
         <th class="sortable" ng-click="sortBy('includeImpactLegend.value')">
-            TOPLAM GÜÇ <span ng-show="propertyName === 'includeImpactLegend.value'">{{reverse ? '▼' : '▲'}}</span>
+            TOPLAM GÜÇ
         </th>
         <th>EYLEM</th>
     </tr>
 </thead>
             <tbody>
-                <tr ng-repeat="miner in allMiners | orderBy:propertyName:reverse | limitTo: itemsPerPage : (currentPage - 1) * itemsPerPage">
-                                <td style="text-align: center; position: relative;">
-                                    {{miner.name.en}}<br/>
-                                    <img ng-if="miner.level == 0" src='https://rollercoin.com/static/img/storage/rarity_icons/level_1.png?v=1.0.0' style='left: 40px;position: absolute;top: 40px;'/>
-                                    <img ng-if="miner.type === 'old_merge'" src='https://rollercoin.com/static/images/level_star.4ff18517e5e8eed42060..png' style='left: 40px;position: absolute;top: 40px;'/>
-                                    <img ng-if="miner.level > 0 && miner.type !== 'old_merge'" src='https://rollercoin.com/static/img/storage/rarity_icons/level_{{miner.level+1}}.png?v=1.0.0' style='left: 40px;position: absolute;top: 40px;'/>
-                                    <img src='https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608' width="80px" height="auto"/>
-                                    <div ng-if="!miner.is_can_be_sold_on_mp"
-                                        style="
-                                        background-color: red;
-                                        color: white;
-                                    ">SATILAMAZ</div>
-                                </td>
-                                <td style="text-align: center">
-                                    {{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
-                                </td>
-                                <td style="text-align: center">
-                                    {{(miner.bonus_power / 100)}}%
-                                </td>
-                                <td style="text-align: center">
-                                    {{miner.includeImpactLegend.value.toFixed(2)}} {{miner.includeImpactLegend.unit}}
-                                </td>
-                    <td style="padding: 10px; text-align: center;">
-                        <button class="btn-main" style="padding: 5px 10px; font-size: 0.7rem;" ng-click="openBuyLink(miner)">MAĞAZAYA GİT</button>
-                    </td>
-                </tr>
+<tr ng-repeat="miner in allMiners | orderBy:propertyName:reverse | limitTo: itemsPerPage : (currentPage - 1) * itemsPerPage">
+    <td style="min-width: 150px;">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <div class="miner-image-container">
+                <img src='https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif' width="60px">
+                <img class="miner-level-badge" ng-if="miner.level >= 0" 
+                     src='https://rollercoin.com/static/img/storage/rarity_icons/level_{{miner.level+1}}.png'>
+            </div>
+            <div>
+                <div ng-if="!miner.is_can_be_sold_on_mp" class="not-sellable">SATILMAZ</div>
+                <div style="font-weight: 700; font-size: 0.85rem;">{{miner.name.en}}</div>
+            </div>
+        </div>
+    </td>
+
+    <td class="text-center">
+        <span class="power-text">{{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}</span>
+        <small style="color: var(--text-dim)">{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}</small>
+    </td>
+
+    <td class="text-center">
+        <span class="bonus-text">+{{(miner.bonus_power / 100)}}%</span>
+    </td>
+
+    <td class="text-center">
+        <div class="total-power-badge">
+            {{miner.includeImpactLegend.value.toFixed(2)}} {{miner.includeImpactLegend.unit}}
+        </div>
+    </td>
+
+    <td class="text-center">
+        <button class="btn-main" style="padding: 6px 12px; font-size: 0.65rem;" ng-click="openBuyLink(miner)">
+            MARKETE GİT
+        </button>
+    </td>
+</tr>
                 
                 <tr ng-if="(allMiners | filter:{name: {en: minerSearchText}}).length == 0">
                     <td colspan="4" style="text-align: center; padding: 20px; color: var(--text-dim);">
