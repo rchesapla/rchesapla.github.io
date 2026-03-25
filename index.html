@@ -82,29 +82,7 @@
     </div>
 </div>
 <!---->
-<div class="card player-command-card" ng-hide="isAuthorized">
-<div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
-<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">GEÇMİŞ KULLANICI LİSTESİ</span>
-</div>
 
-<div class="player-card-body ortala">
-
-<div ng-if="userHistory.length > 0" class="history-container">
-<div style="display: flex; flex-wrap: wrap; gap: 5px;">
-<div ng-repeat="nick in userHistory track by $index" class="history-tag" >
-<span class="tag-text" ng-click="quickFetch(nick)">{{nick}}</span>
-<span class="tag-remove" ng-click="removeFromHistory($index)">×</span>
-</div>
-</div>
-</div>
-
-</div>
-    <div style=" padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
-        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
-            <b>💡 Bilgi:</b> Daha önce girmiş olduğun isimleri bu bölümde bulabilirsin.
-        </p>
-    </div>
-</div>
 <!----
 <div class="card player-command-card"  ng-hide="isAuthorized">
 <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
