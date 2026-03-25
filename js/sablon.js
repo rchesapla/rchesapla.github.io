@@ -276,6 +276,34 @@ $scope.logoutUser = function() {
     // Küçük bir bildirim (isteğe bağlı)
     console.log("Oturum güvenli bir şekilde kapatıldı.");
 };
+
+$scope.takeScreenshot = function() {
+    // Fotoğrafı çekilecek alanı seç (Örn: #results veya tüm .wrapper)
+    const element = document.getElementById('results');
+    
+    // Geçici olarak loading gösterilebilir
+    $scope.loadingApi = true;
+
+    html2canvas(element, {
+        backgroundColor: "#0f172a", // sablon.css'deki arka plan renginiz
+        scale: 2, // Daha kaliteli görüntü için
+        logging: false,
+        useCORS: true // Dış görseller varsa sorun çıkmaması için
+    }).then(canvas => {
+        // Resmi indirilebilir linke dönüştür
+        const link = document.createElement('a');
+        link.download = 'RCHesapla-Sonuc-' + $scope.userNick + '.png';
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+        
+        $scope.loadingApi = false;
+        $scope.$apply();
+    }).catch(err => {
+        console.error("Ekran görüntüsü alınamadı:", err);
+        $scope.loadingApi = false;
+        $scope.$apply();
+    });
+};
 		
 		// IP Tabanlı Aktif Kullanıcı Simülasyonu
 async function setupActiveUsers() {
