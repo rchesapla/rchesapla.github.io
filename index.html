@@ -56,8 +56,6 @@
     </a>
 </div>
 
-
-
 <div id="helpModal" class="custom-overlay" onclick="this.style.display='none'">
     <div class="custom-modal" onclick="event.stopPropagation()">
         <div class="modal-glow-bar"></div>
@@ -82,7 +80,29 @@
     </div>
 </div>
 <!---->
+<div class="card player-command-card" ng-hide="isAuthorized">
+<div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
+<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">GEÇMİŞ KULLANICI LİSTESİ</span>
+</div>
 
+<div class="player-card-body ortala">
+
+<div ng-if="userHistory.length > 0" class="history-container">
+<div style="display: flex; flex-wrap: wrap; gap: 5px;">
+<div ng-repeat="nick in userHistory track by $index" class="history-tag" >
+<span class="tag-text" ng-click="quickFetch(nick)">{{nick}}</span>
+<span class="tag-remove" ng-click="removeFromHistory($index)">×</span>
+</div>
+</div>
+</div>
+
+</div>
+    <div style=" padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
+        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
+            <b>💡 Bilgi:</b> Daha önce girmiş olduğun isimleri bu bölümde bulabilirsin.
+        </p>
+    </div>
+</div>
 <!----
 <div class="card player-command-card"  ng-hide="isAuthorized">
 <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
@@ -105,17 +125,7 @@ Fatih ÇELİK
 <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
 <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">OYUNCU KOMUTA MERKEZİ</span>
 </div>
-<div ng-if="isAuthorized" style="margin-top: 15px; animation: fadeIn 0.5s ease;">
-    <label style="font-size: 0.6rem; color: var(--accent); letter-spacing: 1px;">🔗 PAYLAŞILABİLİR KALICI LİNK</label>
-    <div style="display: flex; gap: 5px; margin-top: 5px;">
-        <input type="text" value="{{shareLink}}" readonly 
-               style="font-size: 0.7rem; background: rgba(0,0,0,0.3); border: 1px dashed var(--accent); color: var(--text-dim); padding: 5px; flex: 1;">
-        <button class="glass-btn btn-blue" style="padding: 5px 10px; font-size: 0.7rem;" 
-                onclick="this.previousElementSibling.select(); document.execCommand('copy'); alert('Link kopyalandı!')">
-            KOPYALA
-        </button>
-    </div>
-</div>
+
 <div class="player-card-body">
 <div class="history-container">
 <a ng-href="https://rollercoin.com/p/{{userNick}}" target="_blank" class="glass-btn btn-blue">
