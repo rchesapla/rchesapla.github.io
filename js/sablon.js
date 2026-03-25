@@ -138,6 +138,101 @@ $scope.getBestCoin = function() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+// 1. Güncel RollerCoin Minimum Çekim Limitleri
+$scope.minWithdrawLimits = {
+    'BTC': 0.00085,
+    'DOGE': 220,
+    'ETH': 0.014,
+    'BNB': 0.06,
+    'MATIC': 300,
+    'SOL': 0.6,
+    'TRX': 300,
+    'LTC': 5,
+    'USDT': 0,
+    'XRP': 40,
+    'ALGO': 0,
+    'RLT': 0, 
+    'RST': 0
+};
+
+// 2. Güç Birimi Dönüştürücü (Eğer mevcut değilse ekleyin)
+$scope.convertToGh = function(value, unit) {
+    if (!value) return 0;
+    const units = { 'gh': 1, 'th': 1000, 'ph': 1000000, 'eh': 1000000000, 'zh': 1000000000000 };
+    return value * (units[unit.toLowerCase()] || 1);
+};
+
+// 3. Çekim Süresi Hesaplama Mantığı
+// 1. Gerekli değişkenleri tanımlayın
+$scope.userBalances = {}; // Bakiyeleri tutar
+$scope.activeDetail = null; // Hangi menünün açık olduğunu tutar
+
+// 2. Menü açma/kapama fonksiyonu
+$scope.toggleDetail = function(coinName) {
+    if ($scope.activeDetail === coinName) {
+        $scope.activeDetail = null;
+    } else {
+        $scope.activeDetail = coinName;
+    }
+};
+
+// 3. Güncellenmiş Hesaplama Fonksiyonu (Yıl, Ay, Gün formatında)
+$scope.calculateWithdrawTime = function(item) {
+    if (!$scope.calcData || !$scope.calcData.myPower || $scope.calcData.myPower <= 0) {
+        return "Güç Girin";
+    }
+
+    // Güç çevrimi (GH/s bazında)
+    let myPowerGH = $scope.convertToGh($scope.calcData.myPower, $scope.calcData.myUnit);
+    let netPowerGH = item.networkPower; 
+
+    if (!myPowerGH || !netPowerGH || netPowerGH === 0) return "---";
+
+    let blockReward = item.blockSize;
+    let dailyBlocks = 86400 / (item.blockTime || 600);
+    let dailyEarning = (myPowerGH / netPowerGH) * blockReward * dailyBlocks;
+    
+    let minLimit = $scope.minWithdrawLimits[item.name];
+    let currentBalance = $scope.userBalances[item.name] || 0;
+
+    if (!minLimit || minLimit === 0) return "---";
+
+    // Kalan miktar ve süre hesaplama
+    let remainingAmount = minLimit - currentBalance;
+    if (remainingAmount <= 0) return "Çekilebilir!";
+
+    let totalDays = remainingAmount / dailyEarning;
+
+    // Yıl, Ay, Gün formatlama
+    let years = Math.floor(totalDays / 365);
+    let months = Math.floor((totalDays % 365) / 30);
+    let days = Math.floor((totalDays % 365) % 30);
+
+    let result = [];
+    if (years > 0) result.push(years + " Yıl");
+    if (months > 0) result.push(months + " Ay");
+    if (days > 0 || result.length === 0) result.push(days + " Gün");
+
+    return result.join(", ");
+};
+
+
+
+
+
+
+
 // MiningController içine ekleyin
 $scope.showHelpModal = false;
 

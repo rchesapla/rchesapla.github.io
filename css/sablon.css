@@ -928,7 +928,7 @@
             transition: all 0.2s;
         }
 
-        .live-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.8rem; justify-content:center;}
+        .live-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.8rem; justify-content:center; text-align:center;}
         .live-table th { color: var(--text-dim); text-align: center; padding: 8px; border-bottom: 1px solid #334155; justify-content:center; }
         .live-table td { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); justify-content:center; }
         .coin-name { color: var(--accent); text-align: center; font-weight: 800; }

@@ -423,24 +423,42 @@ Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğ
 
     <div class="ortala">
         <div style="overflow-x: auto;">
-            <table class="live-table">
-                <thead>
-                    <tr>
-                        <th>KRİPTO</th>
-                        <th>AĞ GÜCÜ</th>
-                        <th>BLOK ÖDÜLÜ</th>
-                        <th>BLOK SÜRESİ</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="item in liveData | orderBy:'-networkPower'" ng-if="item.networkPower > 0">
-                        <td class="coin-name">{{item.name}}</td>
-                        <td class="stats-val">{{formatPower(item.networkPower)}}</td>
-                        <td class="reward-val">{{item.blockSize.toFixed(7)}}</td>
-                        <td class="reward-val">{{(item.blockTime / 60).toFixed(1)}} dk</td>
-                    </tr>
-                </tbody>
-            </table>
+<table class="live-table">
+    <thead>
+        <tr>
+            <th>KRİPTO</th>
+            <th>AĞ GÜCÜ</th>
+            <th>MİN. ÇEKİM</th>
+            <th>KALAN SÜRE</th>
+            <th>İŞLEM</th>
+        </tr>
+    </thead>
+    <tbody ng-repeat="item in liveData | orderBy:'-networkPower'" ng-if="item.networkPower > 0">
+        <tr ng-click="toggleDetail(item.name)" style="cursor: pointer;">
+            <td class="coin-name">{{item.name}}</td>
+            <td class="stats-val">{{formatPower(item.networkPower)}}</td>
+            <td class="reward-val" style="color: var(--reward-gold);">{{minWithdrawLimits[item.name] || '-'}}</td>
+            <td class="reward-val" style="color: var(--accent); font-weight: bold;">
+                {{calculateWithdrawTime(item)}}
+            </td>
+            <td><span style="font-size: 0.6rem;">{{activeDetail === item.name ? '▲' : '▼'}}</span></td>
+        </tr>
+        <tr ng-if="activeDetail === item.name" style="background: rgba(56, 189, 248, 0.05);">
+            <td colspan="5" style="padding: 15px;">
+                <div style="display: flex; align-items: center; gap: 15px; justify-content: center;">
+                    <label style="font-size: 0.7rem; color: var(--text-dim);">MEVCUT BAKİYENİZ:</label>
+                    <input type="number" ng-model="userBalances[item.name]" 
+                           placeholder="0.000000" 
+                           style="width: 120px; background: rgba(0,0,0,0.3); border: 1px solid var(--accent); color: white; border-radius: 4px; padding: 5px;">
+                    <small style="font-size: 0.6rem; color: var(--text-dim);">
+                        (Bakiye girildikçe süre otomatik güncellenir)
+                    </small>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
         </div>
     </div>
     
