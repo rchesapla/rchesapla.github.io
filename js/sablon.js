@@ -227,6 +227,17 @@ $scope.calculateWithdrawTime = function(item) {
     return result.join(", ");
 };
 
+// Çekim Limiti İlerleme Yüzdesi Hesaplama
+$scope.calculateWithdrawPercent = function(item) {
+    let minLimit = $scope.minWithdrawLimits[item.name];
+    let currentBalance = $scope.userBalances[item.name] || 0;
+
+    if (!minLimit || minLimit === 0) return 0;
+    
+    // Yüzde hesapla (Maksimum %100 olacak şekilde)
+    let percent = (currentBalance / minLimit) * 100;
+    return percent > 100 ? 100 : percent.toFixed(1);
+};
 
 
 

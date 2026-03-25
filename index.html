@@ -427,22 +427,22 @@ Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğ
     <thead>
         <tr>
             <th>KRİPTO</th>
-            <th>AĞ GÜCÜ</th>
             <th>MİN. ÇEKİM</th>
             <th>KALAN SÜRE</th>
             <th>İŞLEM</th>
         </tr>
     </thead>
     <tbody ng-repeat="item in liveData | orderBy:'-networkPower'" ng-if="item.networkPower > 0">
-        <tr ng-click="toggleDetail(item.name)" style="cursor: pointer;">
-            <td class="coin-name">{{item.name}}</td>
-            <td class="stats-val">{{formatPower(item.networkPower)}}</td>
-            <td class="reward-val" style="color: var(--reward-gold);">{{minWithdrawLimits[item.name] || '-'}}</td>
-            <td class="reward-val" style="color: var(--accent); font-weight: bold;">
-                {{calculateWithdrawTime(item)}}
-            </td>
-            <td><span style="font-size: 0.6rem;">{{activeDetail === item.name ? '▲' : '▼'}}</span></td>
-        </tr>
+<tr ng-click="toggleDetail(item.name)" style="cursor: pointer;">
+    <td class="coin-name">{{item.name}}</td>
+    <td class="reward-val" style="color: var(--reward-gold);">{{minWithdrawLimits[item.name] || '-'}}</td>
+    <td class="reward-val">
+        <div style="font-size: 0.7rem; color: var(--accent); margin-bottom: 4px; font-weight: bold;">
+            {{calculateWithdrawTime(item)}}
+        </div>
+    </td>
+    <td><span style="font-size: 0.6rem;">{{activeDetail === item.name ? '▲' : '▼'}}</span></td>
+</tr>
         <tr ng-if="activeDetail === item.name" style="background: rgba(56, 189, 248, 0.05);">
             <td colspan="5" style="padding: 15px;">
                 <div style="display: flex; align-items: center; gap: 15px; justify-content: center;">
@@ -453,6 +453,12 @@ Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğ
                     <small style="font-size: 0.6rem; color: var(--text-dim);">
                         (Bakiye girildikçe süre otomatik güncellenir)
                     </small>
+        <div style="width: 100%; background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden; border: 1px solid rgba(56, 189, 248, 0.2);">
+            <div ng-style="{'width': calculateWithdrawPercent(item) + '%'}" 
+                 style="height: 100%; background: linear-gradient(90deg, #00ff88, var(--accent)); transition: width 0.5s ease-in-out;">
+            </div>
+        </div>
+        <small style="font-size: 0.6rem; color: var(--text-dim);">Tamamlanan: %{{calculateWithdrawPercent(item)}}</small>
                 </div>
             </td>
         </tr>
