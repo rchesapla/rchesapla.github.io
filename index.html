@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <style>@import url(./css/sablon.css)</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body ng-controller="MiningController">
 
@@ -282,9 +281,6 @@ YEDEK HESAPLAMA SİTESİ
 </div>
 <!---->		
 <div ng-if="isAuthorized">
-<button class="glass-btn btn-blue" ng-click="takeScreenshot()" style="margin-bottom: 15px; width: 100%;">
-    📸 SONUÇLARI RESİM OLARAK KAYDET
-</button>
 <div id="results" class="card" style="display:none; border-top: 4px solid var(--primary);">
 <div class="price-ticker" id="priceDisplay">Fiyatlar Yükleniyor...</div>
 <div style="text-align: center; margin-bottom: 20px;">
