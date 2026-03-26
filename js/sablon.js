@@ -264,6 +264,30 @@ $scope.calculateDailyUSD = function(coinItem) {
 };
 
 
+// Seçili satırı takip etmek için
+$scope.selectedCoinDetails = null;
+
+$scope.toggleCoinFiat = function(coinName) {
+    $scope.selectedCoinDetails = ($scope.selectedCoinDetails === coinName) ? null : coinName;
+};
+
+const excludedCoins = ['RST', 'RLT', 'USDT'];
+
+// Tüm coinler tablosu için hesaplama fonksiyonu
+$scope.calculateAllFiats = function(item) {
+    const dailyAmount = $scope.calculateDailyForCoin(item);
+    
+    // Coingecko'dan çekilen global fiyatları kullanıyoruz (Hesapla butonuna basıldığında dolar/tl fiyatı gelir)
+    // Eğer fiyat henüz çekilmediyse veya özel bir kur girmek isterseniz burayı manuel de besleyebiliriz.
+    const usdRate = item.priceUSD || 0; 
+    const tryRate = (item.priceUSD * 36.10) || 0; // Sabit kur veya API'den gelen TRY değeri
+
+    return {
+        usd: (dailyAmount * usdRate).toFixed(4),
+        try: (dailyAmount * tryRate).toFixed(2)
+    };
+};
+
 // MiningController içine ekleyin
 $scope.showHelpModal = false;
 
@@ -549,6 +573,49 @@ if (isCrypto && hasLeague) {
                     }, 3000);
                 }
             };
+			
+// Sayfa açıldığında fiyatları otomatik getiren fonksiyon
+$scope.initPrices = async function() {
+    // API'den fiyatları çekilecek coin listesi
+    const coinIds = 'bitcoin,ethereum,binancecoin,polygon-ecosystem-token,litecoin,dogecoin,solana,tron,ripple,algorand,tether';
+    
+    try {
+        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinIds}&vs_currencies=usd,try`);
+        if (!res.ok) return;
+        const prices = await res.json();
+
+        // liveData içindeki her coine fiyat bilgisini eşle
+        const cgMap = { 
+            'BTC': 'bitcoin', 'ETH': 'ethereum', 'BNB': 'binancecoin', 
+            'MATIC': 'polygon-ecosystem-token', 'LTC': 'litecoin', 
+            'DOGE': 'dogecoin', 'SOL': 'solana', 'TRX': 'tron', 
+            'XRP': 'ripple', 'ALGO': 'algorand', 'USDT': 'tether',
+            'RLT': 'tether', 'RST': 'tether' // RLT ve RST'yi 1$ varsaymak için tether'e bağladık
+        };
+
+        $scope.$apply(() => {
+            $scope.liveData.forEach(item => {
+                const id = cgMap[item.name];
+                if (prices[id]) {
+                    item.priceUSD = prices[id].usd;
+                    item.priceTRY = prices[id].try;
+                }
+            });
+            console.log("Fiyatlar başarıyla güncellendi.");
+        });
+    } catch (e) {
+        console.error("Başlangıç fiyatları alınamadı:", e);
+    }
+};
+
+// Veriler yüklendikten sonra fiyatları çekmesi için izleyici ekle
+$scope.$watch('liveData', function(newVal) {
+    if (newVal && newVal.length > 0 && !$scope.pricesLoaded) {
+        $scope.initPrices();
+        $scope.pricesLoaded = true; // Sadece bir kez çalışması için
+    }
+}, true);
+			
         }]);
 
         const canvas = document.getElementById('matrix'), ctx = canvas.getContext('2d');

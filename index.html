@@ -288,25 +288,38 @@ YEDEK HESAPLAMA SİTESİ
     
     <div class="player-card-body">
         <div style="overflow-x: auto;">
-            <table class="live-table">
-                <thead>
-                    <tr>
-                        <th>COIN</th>
-                        <th>GÜNLÜK KAZANÇ</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="item in liveData | orderBy:'-networkPower'" ng-if="item.networkPower > 0">
-                        <td class="coin-name">
-                            <img ng-src="./img/coins/{{item.name.toLowerCase()}}.png" width="16" style="margin-right:5px; vertical-align:middle;" onerror="this.style.display='none'">
-                            {{item.name}}
-                        </td>
-                        <td class="reward-val" style="color: var(--reward-gold);">
-                            {{ calculateDailyForCoin(item) | number:8 }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+<table class="live-table">
+    <thead>
+        <tr>
+            <th>COIN / MIN.</th>
+            <th style="text-align: right;">GÜNLÜK KAZANÇ</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in liveData | orderBy:'-networkPower'" ng-if="item.networkPower > 0">
+            <td class="coin-name">
+                <div style="display: flex; align-items: center;">
+                    <img ng-src="./img/coins/{{item.name.toLowerCase()}}.png" width="18" style="margin-right:8px;" onerror="this.style.display='none'">
+                    <div>
+                        <div style="font-weight: bold;">{{item.name}}</div>
+                    </div>
+                </div>
+            </td>
+
+            <td class="reward-val" style="text-align: right;">
+                <div style="color: var(--reward-gold); font-weight: bold; font-size: 0.9rem;">
+                    {{ calculateDailyForCoin(item) | number:8 }}
+                </div>
+                
+<div style="font-size: 0.75rem; margin: 2px 0;" ng-if="item.name !== 'RLT' && item.name !== 'RST' && item.name !== 'USDT'">
+    <span style="color: #2ecc71;">$ {{ calculateAllFiats(item).usd }}</span>
+    <span style="color: var(--text-dim); margin: 0 4px;">|</span>
+    <span style="color: #38bdf8;">₺ {{ calculateAllFiats(item).try }}</span>
+</div>
+            </td>
+        </tr>
+    </tbody>
+</table>
         </div>
     </div>
     
