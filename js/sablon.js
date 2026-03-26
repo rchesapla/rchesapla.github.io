@@ -24,26 +24,6 @@ setInterval(updateClock, 1000);
 updateClock(); // Sayfa açıldığında hemen çalıştır
 
 	
-// Sağ Tıklama ve F12 Engelleme + Uyarı Mesajı
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-    alert("Sistem güvenliği nedeniyle sağ tıklama devre dışı bırakılmıştır.");
-});
-
-document.onkeydown = function(e) {
-    // Engellenecek tuş kombinasyonları
-    const forbiddenKeys = (
-        e.keyCode == 123 || // F12
-        (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || // Ctrl+Shift+I, J, C
-        (e.ctrlKey && e.keyCode == 85) // Ctrl+U
-    );
-
-    if (forbiddenKeys) {
-        alert("Bu işlem sistem yöneticisi tarafından kısıtlanmıştır!");
-        return false;
-    }
-};
-	
 //////////////////////////////////////////////////////////////////////////
         const serviceApp = angular.module('miningApp', []);
         serviceApp.service('CurrencyService', ['$http', function($http) {
@@ -241,7 +221,47 @@ $scope.calculateWithdrawPercent = function(item) {
 
 
 
+// --- TÜM COINLER İÇİN OTOMATİK HESAPLAMA FONKSİYONLARI ---
 
+// 1. Belirli bir coin için Günlük Kazanç miktarını hesaplar
+$scope.calculateDailyForCoin = function(coinItem) {
+    if (!$scope.calcData || !$scope.calcData.myPower || $scope.calcData.myPower <= 0) return 0;
+
+    // Kullanıcı gücünü GH/s birimine çevir
+    let myPowerGH = $scope.convertToGh($scope.calcData.myPower, $scope.calcData.myUnit);
+    let netPowerGH = coinItem.networkPower;
+
+    if (!myPowerGH || !netPowerGH || netPowerGH === 0) return 0;
+
+    // Blok ödülü ve günlük blok sayısı
+    let blockReward = coinItem.blockSize;
+    let dailyBlocks = 86400 / (coinItem.blockTime || 600);
+
+    // Günlük kazanç formülü: (Kişisel Güç / Ağ Gücü) * Blok Ödülü * Günlük Blok Sayısı
+    return (myPowerGH / netPowerGH) * blockReward * dailyBlocks;
+};
+
+// 2. Coingecko üzerinden çekilen fiyatlarla USD karşılığını hesaplar
+// Not: Bu fonksiyonun çalışması için fiyat verilerinin liveData içinde veya global bir price listesinde olması gerekir.
+$scope.calculateDailyUSD = function(coinItem) {
+    const dailyAmount = $scope.calculateDailyForCoin(coinItem);
+    if (dailyAmount <= 0) return 0;
+
+    // Fiyat eşleştirme tablosu (calcular fonksiyonundaki cgMap ile uyumlu)
+    const cgMap = { 
+        'RLT': 1, 'RST': 0.01, 'USDT': 1, // Sabit veya tahmin değerler
+        'BTC': 'bitcoin', 'ETH': 'ethereum', 'BNB': 'binancecoin', 
+        'MATIC': 'polygon-ecosystem-token', 'LTC': 'litecoin', 
+        'DOGE': 'dogecoin', 'SOL': 'solana', 'TRX': 'tron', 
+        'XRP': 'ripple', 'ALGO': 'algorand' 
+    };
+
+    // Eğer fiyatlar daha önce çekildiyse (örneğin bir fiyat servisi üzerinden) çarpar.
+    // Şimdilik sistemde fiyatlar anlık çekildiği için 
+    // kullanıcı 'HESAPLAMAYI BAŞLAT' demeden tüm fiyatlar gelmeyebilir.
+    // Bu kısım geliştirilmeye açıktır.
+    return dailyAmount * (coinItem.priceUSD || 0); 
+};
 
 
 // MiningController içine ekleyin

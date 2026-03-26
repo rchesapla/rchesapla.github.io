@@ -279,6 +279,43 @@ YEDEK HESAPLAMA SİTESİ
 </div>
 
 </div>
+
+
+<div class="card player-command-card" ng-if="isAuthorized && liveData.length > 0">
+    <div class="player-card-header">
+        <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">TÜM COINLER İÇİN GÜNLÜK TAHMİNİ KAZANÇ</span>
+    </div>
+    
+    <div class="player-card-body">
+        <div style="overflow-x: auto;">
+            <table class="live-table">
+                <thead>
+                    <tr>
+                        <th>COIN</th>
+                        <th>GÜNLÜK KAZANÇ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in liveData | orderBy:'-networkPower'" ng-if="item.networkPower > 0">
+                        <td class="coin-name">
+                            <img ng-src="./img/coins/{{item.name.toLowerCase()}}.png" width="16" style="margin-right:5px; vertical-align:middle;" onerror="this.style.display='none'">
+                            {{item.name}}
+                        </td>
+                        <td class="reward-val" style="color: var(--reward-gold);">
+                            {{ calculateDailyForCoin(item) | number:8 }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div style="padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
+        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
+            <b>💡 Otomatik Analiz:</b> Bu tablo, mevcut <b>{{calcData.myPower}} {{calcData.myUnit}}</b> gücünüzle hangi coinden günde ne kadar kazanacağınızı anlık olarak gösterir.
+        </p>
+    </div>
+</div>
 <!---->		
 <div ng-if="isAuthorized">
 <div id="results" class="card" style="display:none; border-top: 4px solid var(--primary);">
@@ -429,7 +466,6 @@ Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğ
             <th>KRİPTO</th>
             <th>MİN. ÇEKİM</th>
             <th>KALAN SÜRE</th>
-            <th>İŞLEM</th>
         </tr>
     </thead>
     <tbody ng-repeat="item in liveData | orderBy:'-networkPower'" ng-if="item.networkPower > 0">
@@ -441,27 +477,7 @@ Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğ
             {{calculateWithdrawTime(item)}}
         </div>
     </td>
-    <td><span style="font-size: 0.6rem;">{{activeDetail === item.name ? '▲' : '▼'}}</span></td>
 </tr>
-        <tr ng-if="activeDetail === item.name" style="background: rgba(56, 189, 248, 0.05);">
-            <td colspan="5" style="padding: 15px;">
-                <div style="display: flex; align-items: center; gap: 15px; justify-content: center;">
-                    <label style="font-size: 0.7rem; color: var(--text-dim);">MEVCUT BAKİYENİZ:</label>
-                    <input type="number" ng-model="userBalances[item.name]" 
-                           placeholder="0.000000" 
-                           style="width: 120px; background: rgba(0,0,0,0.3); border: 1px solid var(--accent); color: white; border-radius: 4px; padding: 5px;">
-                    <small style="font-size: 0.6rem; color: var(--text-dim);">
-                        (Bakiye girildikçe süre otomatik güncellenir)
-                    </small>
-        <div style="width: 100%; background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden; border: 1px solid rgba(56, 189, 248, 0.2);">
-            <div ng-style="{'width': calculateWithdrawPercent(item) + '%'}" 
-                 style="height: 100%; background: linear-gradient(90deg, #00ff88, var(--accent)); transition: width 0.5s ease-in-out;">
-            </div>
-        </div>
-        <small style="font-size: 0.6rem; color: var(--text-dim);">Tamamlanan: %{{calculateWithdrawPercent(item)}}</small>
-                </div>
-            </td>
-        </tr>
     </tbody>
 </table>
 
