@@ -10,7 +10,14 @@
 
 
 
+.nav-logo-container img {
+    transition: transform 0.3s ease;
+}
 
+.nav-logo-container:hover img {
+    transform: rotate(10deg) scale(1.1);
+    filter: brightness(1.2);
+}
 
 
 /* Küçük Soru İşareti Butonu */
