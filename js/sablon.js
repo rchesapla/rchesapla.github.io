@@ -3,6 +3,53 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function updateClock() {
     const now = new Date();
     
@@ -127,7 +174,18 @@ $scope.getBestCoin = function() {
 
 
 
-
+$scope.scrollToResults = function() {
+    // Sonuçların görünmesi için Angular'ın DOM'u güncellemesini (ng-if/ng-show) beklemesi gerekebilir.
+    setTimeout(function() {
+        const element = document.getElementById("results");
+        if (element) {
+            element.scrollIntoView({ 
+                behavior: 'smooth', // Yumuşak kaydırma animasyonu
+                block: 'start'      // Sayfanın en üstüne hizalar
+            });
+        }
+    }, 500); // 100ms gecikme, sonuç kartının render edilmesi için yeterlidir.
+};
 
 // 1. Güncel RollerCoin Minimum Çekim Limitleri
 $scope.minWithdrawLimits = {
