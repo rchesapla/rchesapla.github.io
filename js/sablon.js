@@ -169,7 +169,40 @@ $scope.getBestCoin = function() {
 
 
 
+// Hedef Hesaplama Başlangıç
+$scope.userGoal = {
+    coin: 'DOGE',
+    amount: 0
+};
 
+$scope.calculateGoalTime = function() {
+    if (!$scope.userGoal.amount || $scope.userGoal.amount <= 0) return "---";
+    
+    // Seçili coini liveData içinden bul
+    const selectedCoin = $scope.liveData.find(c => c.name === $scope.userGoal.coin);
+    if (!selectedCoin) return "Yükleniyor...";
+
+    // Günlük kazancı mevcut fonksiyonunuzla hesapla
+    const dailyEarning = $scope.calculateDailyForCoin(selectedCoin);
+    
+    if (dailyEarning <= 0) return "Güç Gerekli";
+
+    const totalDays = $scope.userGoal.amount / dailyEarning;
+
+    // Zaman formatlama (Yıl, Ay, Gün)
+    let years = Math.floor(totalDays / 365);
+    let months = Math.floor((totalDays % 365) / 30);
+    let days = Math.floor((totalDays % 365) % 30);
+    let hours = Math.floor((totalDays % 1) * 24);
+
+    let result = [];
+    if (years > 0) result.push(years + " Yıl");
+    if (months > 0) result.push(months + " Ay");
+    if (days > 0) result.push(days + " Gün");
+    if (result.length === 0 || (years === 0 && months === 0 && days < 5)) result.push(hours + " Saat");
+
+    return result.join(", ");
+};
 
 
 
