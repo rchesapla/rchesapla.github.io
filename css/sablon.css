@@ -808,45 +808,100 @@
             text-transform: uppercase;
         }
 
+/* Navbar Ana Gövde */
 .navbar {
-    background: rgba(7, 11, 20, 0.95); /* Footer ile aynı koyu ton */
-    backdrop-filter: blur(15px);
-    padding: 1rem;
-    text-align: center;
-    border-bottom: 2px solid rgba(0, 255, 136, 0.3); /* Footer vurgusuyla uyumlu */
+    background: rgba(7, 11, 20, 0.85);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.2);
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 .nav-container {
-    max-width: 800px;
+    max-width: 1200px; /* Geniş ekranlarda daha iyi yayılım */
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.nav-logo {
-    color: var(--primary); /* Neon yeşil */
-    font-weight: 800;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+/* Logo ve Pro Badge */
+.nav-logo-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.active-users {
-    background: rgba(0, 255, 136, 0.1);
-    border: 1px solid rgba(0, 255, 136, 0.2);
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    color: var(--primary);
-    font-family: 'JetBrains Mono', monospace; /* Teknik font kullanımı */
+.nav-logo-container img {
+    height: 35px;
+    width: auto;
+    filter: drop-shadow(0 0 8px rgba(0, 255, 136, 0.3));
+    transition: transform 0.3s ease;
+}
+
+.nav-logo {
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #fff;
     display: flex;
     align-items: center;
     gap: 6px;
+}
+
+.pro-badge {
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 0.8rem;
+    border: 1px solid var(--primary);
+    padding: 1px 6px;
+    border-radius: 4px;
+    filter: brightness(1.2);
+}
+
+/* Masaüstü Saat Tasarımı (Zaten CSS'inde vardı, optimize edildi) */
+.nav-clock-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(15, 23, 42, 0.5);
+    padding: 5px 20px;
+    border-radius: 10px;
+    border: 1px solid rgba(56, 189, 248, 0.1);
+}
+
+/* Aktif Kullanıcı Paneli */
+.active-users-panel {
+    background: rgba(16, 185, 129, 0.05) !important;
+    border: 1px solid rgba(16, 185, 129, 0.2) !important;
+    padding: 6px 12px !important;
+}
+
+/* Mobil Uyumluluk Dokunuşları */
+@media (max-width: 768px) {
+    .nav-clock-wrapper {
+        display: none; /* Mobilde orta kısmı gizle, karmaşayı önle */
+    }
+    
+    .nav-logo-container img {
+        height: 30px;
+    }
+
+    .nav-logo {
+        font-size: 0.85rem;
+    }
+
+    .active-users-panel {
+        padding: 4px 8px !important;
+    }
+
+    .count-number {
+        font-size: 0.9rem !important;
+    }
 }
 
 .pulse-dot {
