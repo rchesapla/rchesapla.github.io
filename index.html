@@ -288,56 +288,6 @@ YEDEK HESAPLAMA SİTESİ
 </div>
 
 </div>
-
-
-<div class="card player-command-card" ng-if="isAuthorized && liveData.length > 0">
-    <div class="player-card-header">
-        <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">TÜM COINLER İÇİN GÜNLÜK TAHMİNİ KAZANÇ</span>
-    </div>
-    
-    <div class="player-card-body">
-        <div style="overflow-x: auto;">
-<table class="live-table">
-    <thead>
-        <tr>
-            <th>COIN / MIN.</th>
-            <th style="text-align: right;">GÜNLÜK KAZANÇ</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="item in liveData | orderBy:'-networkPower'" ng-if="item.networkPower > 0">
-            <td class="coin-name">
-                <div style="display: flex; align-items: center;">
-                    <img ng-src="./img/coins/{{item.name.toLowerCase()}}.png" width="18" style="margin-right:8px;" onerror="this.style.display='none'">
-                    <div>
-                        <div style="font-weight: bold;">{{item.name}}</div>
-                    </div>
-                </div>
-            </td>
-
-            <td class="reward-val" style="text-align: right;">
-                <div style="color: var(--reward-gold); font-weight: bold; font-size: 0.9rem;">
-                    {{ calculateDailyForCoin(item) | number:8 }}
-                </div>
-                
-<div style="font-size: 0.75rem; margin: 2px 0;" ng-if="item.name !== 'RLT' && item.name !== 'RST' && item.name !== 'USDT'">
-    <span style="color: #2ecc71;">$ {{ calculateAllFiats(item).usd }}</span>
-    <span style="color: var(--text-dim); margin: 0 4px;">|</span>
-    <span style="color: #38bdf8;">₺ {{ calculateAllFiats(item).try }}</span>
-</div>
-            </td>
-        </tr>
-    </tbody>
-</table>
-        </div>
-    </div>
-    
-    <div style="padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
-        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
-            <b>💡 Otomatik Analiz:</b> Bu tablo, mevcut <b>{{calcData.myPower}} {{calcData.myUnit}}</b> gücünüzle hangi coinden günde ne kadar kazanacağınızı anlık olarak gösterir.
-        </p>
-    </div>
-</div>
 <!---->		
 <div ng-if="isAuthorized">
 <div id="results" class="card" style="display:none; border-top: 4px solid var(--primary);">
@@ -466,6 +416,56 @@ Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğ
     <div style="padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
         <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
             <b>💡 Analiz:</b> Algoritma, ağ gücü başına düşen blok ödülünü hesaplayarak en hızlı kazım yapılabilecek birimi seçer.
+        </p>
+    </div>
+</div>
+
+
+<div class="card player-command-card">
+    <div class="player-card-header">
+        <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">TÜM COINLER İÇİN GÜNLÜK TAHMİNİ KAZANÇ</span>
+    </div>
+    
+    <div class="player-card-body">
+        <div style="overflow-x: auto;">
+<table class="live-table">
+    <thead>
+        <tr>
+            <th>KRİPTO</th>
+            <th style="text-align: right;">GÜNLÜK KAZANÇ</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in liveData | orderBy:'-networkPower'" ng-if="item.networkPower > 0">
+            <td class="coin-name">
+                <div style="display: flex; align-items: center;">
+                    <img ng-src="./img/coins/{{item.name.toLowerCase()}}.png" width="18" style="margin-right:8px;" onerror="this.style.display='none'">
+                    <div>
+                        <div style="font-weight: bold;">{{item.name}}</div>
+                    </div>
+                </div>
+            </td>
+
+            <td class="reward-val" style="text-align: right;">
+                <div style="color: var(--reward-gold); font-weight: bold; font-size: 0.9rem;">
+                    {{ calculateDailyForCoin(item) | number:8 }}
+                </div>
+                
+<div style="font-size: 0.75rem; margin: 2px 0;" ng-if="item.name !== 'RLT' && item.name !== 'RST' && item.name !== 'USDT'">
+    <span style="color: #2ecc71;">$ {{ calculateAllFiats(item).usd }}</span>
+    <span style="color: var(--text-dim); margin: 0 4px;">|</span>
+    <span style="color: #38bdf8;">₺ {{ calculateAllFiats(item).try }}</span>
+</div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+        </div>
+    </div>
+    
+    <div style="padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
+        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
+            <b>💡 Otomatik Analiz:</b> Bu tablo, mevcut <b>{{calcData.myPower}} {{calcData.myUnit}}</b> gücünüzle hangi coinden günde ne kadar kazanacağınızı anlık olarak gösterir.
         </p>
     </div>
 </div>
