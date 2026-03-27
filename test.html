@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RollerCoin - Madencilik Paneli</title>
+    <title>RollerStats - Madencilik Paneli</title>
     
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 
@@ -17,6 +17,7 @@
             --accent-green: #00ff88;
             --accent-blue: #38bdf8;
             --danger-red: #ef4444;
+            --nav-bg: rgba(15, 23, 42, 0.9);
         }
 
         body {
@@ -35,13 +36,72 @@
             opacity: 0.1;
         }
 
+        /* --- Yeni Header Stilleri --- */
+        .main-nav {
+            background: var(--nav-bg);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .logo span { color: var(--accent-blue); }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-blue);
+        }
+
+        .btn-contact {
+            background: rgba(56, 189, 248, 0.1);
+            padding: 8px 18px;
+            border-radius: 6px;
+            border: 1px solid var(--accent-blue) !important;
+        }
+
+        /* --- İçerik Alanı --- */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 40px 20px;
+            min-height: 80vh;
         }
 
-        /* Üst Bilgi Çubuğu */
         .header-status {
             display: flex;
             justify-content: space-between;
@@ -54,15 +114,8 @@
             border: 1px solid var(--border-color);
         }
 
-        /* Arama Bölümü */
-        .search-section {
-            margin-bottom: 20px;
-        }
-
-        .input-wrapper {
-            display: flex;
-            gap: 10px;
-        }
+        .search-section { margin-bottom: 20px; }
+        .input-wrapper { display: flex; gap: 10px; }
 
         input[type="text"] {
             flex: 1;
@@ -75,9 +128,7 @@
             font-size: 1rem;
         }
 
-        input[type="text"]:focus {
-            border-color: var(--accent-blue);
-        }
+        input[type="text"]:focus { border-color: var(--accent-blue); }
 
         button.main-btn {
             background: var(--accent-blue);
@@ -90,61 +141,17 @@
             transition: 0.3s;
         }
 
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* Geçmiş Kullanıcı Adları */
-        .history-section {
-            margin-bottom: 25px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .history-title {
-            font-size: 0.75rem;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            width: 100%;
-            margin-bottom: 5px;
-        }
-
+        .history-section { margin-bottom: 25px; display: flex; flex-wrap: wrap; gap: 10px; }
         .history-tag {
             background: rgba(56, 189, 248, 0.1);
             border: 1px solid rgba(56, 189, 248, 0.2);
             padding: 6px 14px;
             border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
             cursor: pointer;
-            transition: 0.2s;
         }
 
-        .history-tag:hover {
-            background: rgba(56, 189, 248, 0.2);
-            border-color: var(--accent-blue);
-        }
-
-        .history-tag span {
-            font-size: 0.85rem;
-            color: var(--accent-blue);
-            font-weight: 500;
-        }
-
-        .remove-hist {
-            color: var(--danger-red);
-            font-weight: bold;
-            font-size: 1.1rem;
-            padding-left: 5px;
-            border-left: 1px solid rgba(255,255,255,0.1);
-        }
-
-        /* Tablo Kartı Tasarımı (Görseldeki ile aynı) */
         .crypto-card {
             background: rgba(15, 23, 42, 0.6);
             border: 1px solid var(--border-color);
@@ -154,120 +161,73 @@
         }
 
         .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             padding: 15px 25px;
             background: rgba(30, 41, 59, 0.5);
             border-bottom: 1px solid var(--border-color);
         }
 
-        .card-header h2 {
-            font-size: 0.9rem;
-            margin: 0;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .table-responsive { overflow-x: auto; }
+        .mining-table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        .mining-table th { padding: 15px 25px; font-size: 0.75rem; color: var(--text-dim); text-align: left; border-bottom: 1px solid var(--border-color); }
+        .mining-table td { padding: 16px 25px; border-bottom: 1px solid rgba(51, 65, 85, 0.3); }
+
+        /* --- Yeni Footer Stilleri --- */
+        .main-footer {
+            margin-top: 60px;
+            background: #0b1120;
+            border-top: 1px solid var(--border-color);
+            padding: 60px 0 20px 0;
         }
 
-        .header-tools {
-            display: flex;
-            gap: 8px;
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 40px 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
         }
 
-        .tool-icon {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border-color);
-            color: var(--text-dim);
-            padding: 5px 8px;
-            border-radius: 6px;
+        .footer-brand h3 { color: var(--text-main); margin-bottom: 15px; }
+        .footer-brand p { color: var(--text-dim); font-size: 0.9rem; line-height: 1.6; max-width: 300px; }
+        
+        .footer-links h4 { color: var(--accent-blue); font-size: 0.85rem; margin-bottom: 20px; text-transform: uppercase; }
+        .footer-links ul { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 0.9rem; transition: 0.2s; }
+        .footer-links a:hover { color: var(--accent-blue); }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            text-align: center;
             font-size: 0.8rem;
-            cursor: pointer;
-        }
-
-        /* Tablo Stilleri */
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        .mining-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            min-width: 800px; /* Mobilde yatay kaydırma için */
-        }
-
-        .mining-table th {
-            padding: 15px 25px;
-            font-size: 0.75rem;
             color: var(--text-dim);
-            text-transform: uppercase;
-            border-bottom: 1px solid var(--border-color);
-            letter-spacing: 0.5px;
-        }
-
-        .mining-table td {
-            padding: 16px 25px;
-            border-bottom: 1px solid rgba(51, 65, 85, 0.3);
-            vertical-align: middle;
-        }
-
-        .mining-table tbody tr:hover {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .coin-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .coin-icon {
-            width: 32px;
-            height: 32px;
-        }
-
-        .coin-name {
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        .power-text {
-            color: var(--text-dim);
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.9rem;
-        }
-
-        .reward-box {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .crypto-amount {
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: var(--text-main);
-        }
-
-        .fiat-amount {
-            color: var(--accent-green);
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-top: 4px;
         }
 
         /* Mobil Düzenlemeler */
         @media (max-width: 768px) {
-            .container { padding: 10px; }
+            .nav-links { display: none; } /* Basitlik için mobilde gizlendi */
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
             .header-status { flex-direction: column; gap: 8px; text-align: center; }
-            .mining-table th, .mining-table td { padding: 12px 15px; }
         }
     </style>
 </head>
 <body ng-controller="MiningController">
 
     <canvas id="matrix"></canvas>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="#" class="logo">⚡ ROLLER<span>STATS</span></a>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Panel</a></li>
+                <li><a href="#">Hesaplayıcı</a></li>
+                <li><a href="#">Sıralama</a></li>
+                <li><a href="#" class="btn-contact">İletişim</a></li>
+            </ul>
+        </div>
+    </nav>
 
     <div class="container">
         <header class="header-status">
@@ -290,16 +250,15 @@
         </section>
 
         <section class="history-section" ng-if="userHistory.length > 0">
-            <div class="history-title">Son Arananlar</div>
             <div class="history-tag" ng-repeat="nick in userHistory" ng-click="quickFetch(nick)">
                 <span>{{nick}}</span>
-                <div class="remove-hist" ng-click="removeFromHistory($index); $event.stopPropagation();">×</div>
+                <span style="color: var(--danger-red); margin-left: 8px" ng-click="removeFromHistory($index); $event.stopPropagation();">×</span>
             </div>
         </section>
 
         <div class="crypto-card">
             <div class="card-header">
-                <h2><span style="color: var(--accent-blue)">🌐</span> KRİPTO PARALAR</h2>
+                <h2 style="font-size: 1rem; margin:0"><span style="color: var(--accent-blue)">🌐</span> KRİPTO PARALAR</h2>
             </div>
 
             <div class="table-responsive">
@@ -316,42 +275,57 @@
                     <tbody>
                         <tr ng-repeat="item in liveData">
                             <td>
-                                <div class="coin-info">
-                                    <img ng-src="https://rollercoin.com/static/images/wallet/{{item.balance_key}}.svg" class="coin-icon" alt="{{item.name}}">
-                                    <span class="coin-name">{{item.name}}</span>
+                                <div style="display:flex; align-items:center; gap:10px;">
+                                    <img ng-src="https://rollercoin.com/static/images/wallet/{{item.balance_key}}.svg" width="30" alt="">
+                                    <span style="font-weight:bold">{{item.name}}</span>
                                 </div>
                             </td>
+                            <td><span style="font-family: monospace; color: var(--text-dim)">{{formatPower(item.networkPower)}}</span></td>
                             <td>
-                                <span class="power-text">{{formatPower(item.networkPower)}}</span>
+                                <div>{{calculateDailyForCoin(item) | number:8}}</div>
+                                <div style="color: var(--accent-green); font-size: 0.8rem">${{calculateAllFiats(item).usd}}</div>
                             </td>
                             <td>
-                                <div class="reward-box">
-                                    <span class="crypto-amount">{{calculateDailyForCoin(item) | number:8}}</span>
-                                    <span class="fiat-amount">${{calculateAllFiats(item).usd}}</span>
-                                </div>
+                                <div>{{(calculateDailyForCoin(item) * 7) | number:8}}</div>
+                                <div style="color: var(--accent-green); font-size: 0.8rem">${{(calculateAllFiats(item).usd * 7).toFixed(2)}}</div>
                             </td>
                             <td>
-                                <div class="reward-box">
-                                    <span class="crypto-amount">{{(calculateDailyForCoin(item) * 7) | number:8}}</span>
-                                    <span class="fiat-amount">${{(calculateAllFiats(item).usd * 7).toFixed(2)}}</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="reward-box">
-                                    <span class="crypto-amount">{{(calculateDailyForCoin(item) * 30) | number:8}}</span>
-                                    <span class="fiat-amount">${{(calculateAllFiats(item).usd * 30).toFixed(2)}}</span>
-                                </div>
+                                <div>{{(calculateDailyForCoin(item) * 30) | number:8}}</div>
+                                <div style="color: var(--accent-green); font-size: 0.8rem">${{(calculateAllFiats(item).usd * 30).toFixed(2)}}</div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            
-            <div style="padding: 15px 25px; font-size: 0.75rem; color: var(--text-dim); border-top: 1px solid var(--border-color); background: rgba(15, 23, 42, 0.4);">
-                Son Güncelleme: {{lastUpdate}} | Veriler RollerCoin API üzerinden anlık alınmaktadır.
-            </div>
         </div>
     </div>
+
+    <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>ROLLERSTATS</h3>
+                <p>RollerCoin ekosistemi için geliştirilmiş, en hızlı ve detaylı kazanç hesaplama aracıdır.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Hızlı Bağlantılar</h4>
+                <ul>
+                    <li><a href="#">API Kaynakları</a></li>
+                    <li><a href="#">Güncelleme Notları</a></li>
+                    <li><a href="#">Destek</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Topluluk</h4>
+                <ul>
+                    <li><a href="#">Discord Sunucusu</a></li>
+                    <li><a href="#">Telegram Grubu</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 RollerStats. Tüm veriler RollerCoin altyapısından alınmaktadır.</p>
+        </div>
+    </footer>
 
     <script src="./js/sablon.js"></script>
 </body>
