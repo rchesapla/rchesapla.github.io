@@ -1,0 +1,29 @@
+/* blockRewards.js
+   Buraya liglere göre coin -> blok ödüllerini koy.
+   Düzenlemek için sadece bu dosyayı değiştir yeterli.
+   Varsayılanlar 0 olarak bırakıldı; kendi değerlerini gir.
+*/
+
+const BLOCK_REWARDS_BY_LEAGUE = {
+  "Bronze I":    { RLT:0.76 , RST:48 , BTC:0.00000201 , LTC:0.0015 },
+  "Bronze II":   { RLT:1.4 , RST:86 , BTC:0.00000411 , LTC:0.00269 , BNB:0.0007 },
+  "Bronze III":  { RLT:1.55, RST:1.55, BTC:1.55, LTC:1.55, BNB:1.55, POL:1.55},
+  "Silver I":    { RLT:0.91 , RST:69 , BTC:0.0000043 , LTC:0.0026 , BNB:0.00044 , POL:3.27 , XRP:0.26 , USDT:0.14287 },
+  "Silver II":   { RLT:1.07 , RST:49.61213 , BTC:0.00000459 , LTC:0.0027 , BNB:0.00043 , POL:2.99 , XRP:0.22 , DOGE:5.56 , USDT:0.195529 },
+  "Silver III":  { RLT:0.88 , RST:66 , BTC:0.0000041 , LTC:0.0023 , BNB:0.00035 , POL:2.29 , XRP:0.16 , DOGE:3.84 , ETH:0.00021 , USDT:0.274038 },
+  "Gold I":      { RLT:0.66 , RST:50 , BTC:0.00000345 , LTC:0.0018 , BNB:0.00026 , POL:1.65 , XRP:0.11 , DOGE:2.5 , ETH:0.00013 , TRX:2.23 , USDT:0.151647 },
+  "Gold II":     { RLT:1.06 , RST:80 , BTC:0.0000036 , LTC:0.0023 , BNB:0.00035 , POL:1.99 , XRP:0.13 , DOGE:2.95 , ETH:0.00014 , TRX:2.5 , SOL:0.0093 , HMT:625  , USDT:0.274038 },
+  "Gold III":    { RLT:2.72 , RST:204 , BTC:0.00001531 , LTC:0.0073 , BNB:0.00111 , POL:6.71 , XRP:0.46 , DOGE:10.47 , ETH:0.00053 , TRX:9.42 , SOL:0.0243 , HMT:1528 , USDT:1 },
+  "Platinum I":  { RLT:4.5 , RST:338 , BTC:0.00003085 , LTC:0.0152 , BNB:0.00238 , POL:14.92 , XRP:1.04 , DOGE:24.7 , ETH:0.00129 , TRX:23.53 , SOL:0.0315 , ALGO:26.9 , HMT:3125 , USDT:2.340383 },
+  "Platinum II": { RLT:2.11 , RST:158 , BTC:0.0000189 , LTC:0.0093 , BNB:0.00151 , POL:9.67 , XRP:0.69 , DOGE:16.88 , ETH:0.0009 , TRX:16.84 , SOL:0.0346 , ALGO:11.2 , HMT:2430  , USDT:1.46274 },
+  "Platinum III":{ RLT:1.21 , RST:91 , BTC:0.00001275 , LTC:0.0064 , BNB:0.00109 , POL:7.16 , XRP:0.53 , DOGE:13.44 , ETH:0.00074 , TRX:14.28 , SOL:0.0368 , ALGO:7.2 , HMT:2084 , USDT:1.316466 },
+  "Diamond I":   { RST:81 , BTC:0.00001242 , LTC:0.0137 , BNB:0.00126 , POL:13.95 , XRP:0.89 , DOGE:14.21 , ETH:0.00068 , TRX:4.41 , SOL:0.0115 , ALGO:16.2 , USDT:1.170192 },
+  "Diamond II":  { RST:45.59218 , BTC:0.0000151 , LTC:0.0167 , BNB:0.00174 , POL:16.96 , XRP:1.08 , DOGE:17.28 , ETH:0.00083 , TRX:5.37 , SOL:0.0133 , ALGO:19.7 , USDT:1.609014 },
+  "Diamond III": { RST:88 , BTC:0.00000102 , LTC:0.00127 , BNB:0.00013 , POL:0.94354 , XRP:0.07015 , DOGE:1.1583 , ETH:0.00006 , TRX:0.43505 , SOL:0.00162 , ALGO:2.04621 , USDT:0.34722 }
+};
+
+
+
+// Örnek: değişiklik yapmak istersen aşağıdaki gibi yap:
+// BLOCK_REWARDS_BY_LEAGUE["Bronze I"].RLT = 10;
+// BLOCK_REWARDS_BY_LEAGUE["Gold II"].BTC = 0.0005;

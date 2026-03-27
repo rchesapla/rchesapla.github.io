@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rollercoin Kazanç Hesaplama</title>
+
+<link rel="stylesheet" href="style.css">
+
+<meta name="description" content="Rollercoin kazanç hesaplama aracı">
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="logo">ROLLERCOIN CALCULATOR</div>
+</header>
+
+<div class="container">
+
+<!-- SOL PANEL -->
+
+<div class="left">
+
+<h2>Veri Girişi</h2>
+
+<textarea id="inputData" placeholder="Örnek:
+RLT
+2.211 Zh/s
+
+rst
+1.333 Zh/s
+"></textarea>
+
+<label><b>Liginizi Seçin</b></label>
+
+<select id="leagueSelect">
+<option value="Bronze I">Bronze I</option>
+<option value="Bronze II">Bronze II</option>
+<option value="Bronze III">Bronze III</option>
+<option value="Silver I">Silver I</option>
+<option value="Silver II">Silver II</option>
+<option value="Silver III">Silver III</option>
+<option value="Gold I">Gold I</option>
+<option value="Gold II">Gold II</option>
+<option value="Gold III">Gold III</option>
+<option value="Platinum I">Platinum I</option>
+<option value="Platinum II">Platinum II</option>
+<option value="Platinum III">Platinum III</option>
+<option value="Diamond I">Diamond I</option>
+<option value="Diamond II">Diamond II</option>
+<option value="Diamond III">Diamond III</option>
+</select>
+
+<label><b>Kendi Gücün</b></label>
+
+<input id="userPower" placeholder="Örn: 5.0">
+
+<div class="buttons">
+<button id="parseBtn">Tabloya Dönüştür</button>
+<button id="calcBtn">Hesapla</button>
+</div>
+
+<div class="resim">
+<img src="image/asd.PNG">
+</div>
+
+<div class="resim">
+<img src="image/1.PNG">
+</div>
+
+<p class="note">
+Tüm coinleri kopyala → veri girişine yapıştır → tabloya dönüştür → gücünü gir → hesapla.
+</p>
+
+</div>
+
+
+<!-- SAĞ PANEL -->
+
+<div class="right">
+
+<h2>Kazanç Tablosu</h2>
+
+<div class="table-wrapper">
+
+<table id="resultTable">
+
+<thead>
+<tr>
+<th>Coin</th>
+<th>Toplam Güç</th>
+<th>Blok Ödülü</th>
+<th>Senin Ödülün</th>
+<th>Günlük Coin</th>
+<th>Çekim</th>
+</tr>
+</thead>
+
+<tbody></tbody>
+
+</table>
+
+</div>
+
+<div id="usdTable"></div>
+
+</div>
+
+</div>
+
+
+<script src="blockRewards.js"></script>
+<script src="calculator1.js"></script>
+
+</body>
+</html>
