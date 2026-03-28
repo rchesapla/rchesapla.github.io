@@ -164,9 +164,39 @@ $scope.getBestCoin = function() {
 
 
 
+$scope.deleteHistoryItem = function(id) {
+    $scope.calcHistory = $scope.calcHistory.filter(item => item.id !== id);
+    localStorage.setItem('rc_calc_records', JSON.stringify($scope.calcHistory));
+    $scope.groupHistoryByMonth();
+};
 
+$scope.clearAllHistory = function() {
+    if(confirm("Tüm hesaplama geçmişiniz silinecek. Emin misiniz?")) {
+        $scope.calcHistory = [];
+        localStorage.setItem('rc_calc_records', JSON.stringify([]));
+        $scope.groupHistoryByMonth();
+    }
+};
 
+$scope.calcHistory = JSON.parse(localStorage.getItem('rc_calc_records')) || [];
+$scope.groupedHistory = {};
 
+// Geçmişi aylara göre gruplama fonksiyonu
+$scope.groupHistoryByMonth = function() {
+    const months = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+    const grouped = {};
+    
+    $scope.calcHistory.forEach(item => {
+        const d = new Date(item.timestamp);
+        const monthYear = months[d.getMonth()] + " " + d.getFullYear();
+        if (!grouped[monthYear]) grouped[monthYear] = [];
+        grouped[monthYear].push(item);
+    });
+    $scope.groupedHistory = grouped;
+};
+
+// Sayfa yüklendiğinde bir kez çalıştır
+$timeout(() => { $scope.groupHistoryByMonth(); });
 
 
 // Hedef Hesaplama Başlangıç
@@ -651,6 +681,23 @@ if (isCrypto && hasLeague) {
                         document.getElementById('results').style.display = 'block';
                         $scope.loadingApi = false;
                     }, 100);
+					
+// ... existing code inside calcular try block ...
+const dailyFiatVal = (daily * price).toFixed(2);
+const record = {
+    id: Date.now(),
+    timestamp: new Date().getTime(),
+    date: new Date().toLocaleDateString('tr-TR'),
+    coin: $scope.calcData.coin,
+    power: $scope.calcData.myPower,
+    unit: $scope.calcData.myUnit,
+    dailyFiat: dailyFiatVal,
+    fiatSymbol: $scope.calcData.fiat === 'try' ? '₺' : '$'
+};
+
+$scope.calcHistory.unshift(record); // En başa ekle
+localStorage.setItem('rc_calc_records', JSON.stringify($scope.calcHistory));
+$scope.groupHistoryByMonth();
                 }
 				catch(e) { 
                     // Fiyat hatası durumunda bildirim ver ve tekrarla

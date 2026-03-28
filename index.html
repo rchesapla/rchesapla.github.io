@@ -169,6 +169,48 @@ KİMLİĞİ SIFIRLA
 </div>
 <!---->
 
+
+<div class="card player-command-card" ng-if="calcHistory.length > 0">
+    <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
+        <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">HESAPLAMA GEÇMİŞİ (AYLIK)</span>
+        <button class="glass-btn btn-red" style="font-size: 0.5rem; padding: 4px 8px;" ng-click="clearAllHistory()">TÜMÜNÜ SİL</button>
+    </div>
+
+    <div class="player-card-body">
+        <div ng-repeat="(month, items) in groupedHistory" style="margin-bottom: 20px;">
+            <div style="color: var(--accent); font-size: 0.8rem; font-weight: 800; border-bottom: 1px solid rgba(56, 189, 248, 0.2); padding-bottom: 5px; margin-bottom: 10px;">
+                {{month | uppercase}}
+            </div>
+            
+            <div style="overflow-x: auto;">
+                <table class="live-table" style="font-size: 0.7rem;">
+                    <thead>
+                        <tr>
+                            <th>Tarih</th>
+                            <th>Coin</th>
+                            <th>Güç</th>
+                            <th>Günlük (Fiyat)</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="record in items track by $index">
+                            <td>{{record.date}}</td>
+                            <td>{{record.coin}}</td>
+                            <td>{{record.power}} {{record.unit}}</td>
+                            <td style="color: var(--reward-gold);">{{record.fiatSymbol}}{{record.dailyFiat}}</td>
+                            <td>
+                                <span style="cursor:pointer; color: #ff4757;" ng-click="deleteHistoryItem(record.id)">[SİL]</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="card player-command-card" ng-if="isAuthorized">
 <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
 <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">HESAPLAMA BİLGİLERİ / SİSTEM NOTLARI</span>
