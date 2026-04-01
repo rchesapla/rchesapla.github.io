@@ -754,6 +754,67 @@ $scope.$watch('liveData', function(newVal) {
     }
 }, true);
 			
+			
+			
+			
+let myChart = null; // Grafik objesini globalde tutalım ki her güncellemede eskisini silelim
+
+$scope.drawChart = function() {
+    const ctx = document.getElementById('networkChart');
+    if (!ctx) return;
+
+    // Verileri hazırla (Ağ gücüne göre büyükten küçüğe sırala)
+    const sortedData = [...$scope.liveData].sort((a, b) => b.networkPower - a.networkPower);
+    const labels = sortedData.map(item => item.name);
+    const dataValues = sortedData.map(item => item.networkPower);
+
+    // Eğer eski bir grafik varsa yok et (Üst üste binmemesi için)
+    if (myChart) {
+        myChart.destroy();
+    }
+
+    myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Ağ Gücü (Ham Birim)',
+                data: dataValues,
+                backgroundColor: 'rgba(56, 189, 248, 0.5)',
+                borderColor: '#38bdf8',
+                borderWidth: 1,
+                borderRadius: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                    ticks: { color: '#94a3b8', font: { size: 10 } }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { color: '#94a3b8', font: { size: 10 } }
+                }
+            },
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+};
+
+// Veriler her güncellendiğinde grafiği de tetikle
+$scope.$watch('liveData', function(newVal) {
+    if (newVal && newVal.length > 0) {
+        $timeout(() => { $scope.drawChart(); }, 500);
+    }
+}, true);
+			
+			
         }]);
 
         const canvas = document.getElementById('matrix'), ctx = canvas.getContext('2d');

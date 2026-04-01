@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>@import url(./css/sablon.css)</style>
 </head>
 <body ng-controller="MiningController">
@@ -168,47 +169,6 @@ KİMLİĞİ SIFIRLA
 </div>
 </div>
 <!---->
-
-
-<div class="card player-command-card" ng-if="calcHistory.length > 0">
-    <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
-        <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">HESAPLAMA GEÇMİŞİ (AYLIK)</span>
-        <button class="glass-btn btn-red" style="font-size: 0.5rem; padding: 4px 8px;" ng-click="clearAllHistory()">TÜMÜNÜ SİL</button>
-    </div>
-
-    <div class="player-card-body">
-        <div ng-repeat="(month, items) in groupedHistory" style="margin-bottom: 20px;">
-            <div style="color: var(--accent); font-size: 0.8rem; font-weight: 800; border-bottom: 1px solid rgba(56, 189, 248, 0.2); padding-bottom: 5px; margin-bottom: 10px;">
-                {{month | uppercase}}
-            </div>
-            
-            <div style="overflow-x: auto;">
-                <table class="live-table" style="font-size: 0.7rem;">
-                    <thead>
-                        <tr>
-                            <th>Tarih</th>
-                            <th>Coin</th>
-                            <th>Güç</th>
-                            <th>Günlük (Fiyat)</th>
-                            <th>İşlem</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="record in items track by $index">
-                            <td>{{record.date}}</td>
-                            <td>{{record.coin}}</td>
-                            <td>{{record.power}} {{record.unit}}</td>
-                            <td style="color: var(--reward-gold);">{{record.fiatSymbol}}{{record.dailyFiat}}</td>
-                            <td>
-                                <span style="cursor:pointer; color: #ff4757;" ng-click="deleteHistoryItem(record.id)">[SİL]</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <div class="card player-command-card" ng-if="isAuthorized">
@@ -432,38 +392,16 @@ Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğ
     </div>
 </div>
 
+
+
 <div class="card player-command-card" ng-if="isAuthorized && liveData.length > 0">
-    <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
-        <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">EN YÜKSEK KAZANÇ POTANSİYELİ</span>
+    <div class="player-card-header">
+        <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">LİG AĞ GÜCÜ DAĞILIMI (GRAFİK)</span>
     </div>
-
-    <div class="player-card-body">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-            <div class="res-card" style="border: 1px solid var(--reward-gold); background: rgba(255, 191, 0, 0.05);">
-                <span class="res-label">EN KÂRLI (LİKİDİTE)</span>
-                <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 5px;">
-                    <span class="res-val" style="color: var(--reward-gold);">{{getBestCoin().name}}</span>
-                </div>
-                <small style="font-size: 0.6rem; color: var(--text-dim);">Düşük Ağ Gücü / Yüksek Ödül</small>
-            </div>
-
-            <div class="res-card" style="border: 1px solid var(--accent); background: rgba(56, 189, 248, 0.05);">
-                <span class="res-label">STABİL BİRİKTİRME</span>
-                <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 5px;">
-                    <span class="res-val" style="color: var(--accent);">RLT</span>
-                </div>
-                <small style="font-size: 0.6rem; color: var(--text-dim);">Market Gelişimi İçin İdeal</small>
-            </div>
-        </div>
-    </div>
-    
-    <div style="padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
-        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
-            <b>💡 Analiz:</b> Algoritma, ağ gücü başına düşen blok ödülünü hesaplayarak en hızlı kazım yapılabilecek birimi seçer.
-        </p>
+    <div class="player-card-body" style="background: rgba(15, 23, 42, 0.5); border-radius: 10px; padding: 15px;">
+        <canvas id="networkChart" style="max-height: 300px;"></canvas>
     </div>
 </div>
-
 
 <div class="card player-command-card">
     <div class="player-card-header">
