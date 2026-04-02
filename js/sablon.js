@@ -159,7 +159,12 @@ $scope.getBestCoin = function() {
 
 
 
-
+// Controller içine ekleyin
+$scope.showCols = {
+    daily: true,
+    weekly: true,
+    monthly: true
+};
 
 // Kullanıcının mevcut lig adını ID üzerinden bulan yardımcı fonksiyon
 $scope.getUserLeagueName = function() {

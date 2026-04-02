@@ -167,6 +167,29 @@
     letter-spacing: 1.5px;
     text-shadow: 0 0 8px var(--accent-purple);
 }
+
+
+
+
+
+
+.toggle-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    padding: 5px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-weight: 800;
+    transition: 0.3s;
+}
+.toggle-btn.active-toggle {
+    background: var(--accent-purple);
+    color: white;
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 10px rgba(129, 140, 248, 0.3);
+}
     </style>
 </head>
 <body ng-controller="MiningController">
@@ -196,14 +219,24 @@
 </div>
         </header>
 
+
+
+
+
         <div class="table-container">
+<div style="margin: 15px; display: flex; gap: 10px; flex-wrap: wrap; justify-content:center">
+    <span style="font-size: 0.8rem; color: var(--text-secondary); align-self: center;">Sütunları Yönet:</span>
+    <button ng-class="{'active-toggle': showCols.daily}" ng-click="showCols.daily = !showCols.daily" class="toggle-btn">GÜNLÜK</button>
+    <button ng-class="{'active-toggle': showCols.weekly}" ng-click="showCols.weekly = !showCols.weekly" class="toggle-btn">HAFTALIK</button>
+    <button ng-class="{'active-toggle': showCols.monthly}" ng-click="showCols.monthly = !showCols.monthly" class="toggle-btn">AYLIK</button>
+</div>
             <table class="custom-table">
                 <thead>
                     <tr>
                         <th>KRİPTO</th>
-                        <th>GÜNLÜK</th>
-                        <th>HAFTALIK</th>
-                        <th>AYLIK</th>
+<th ng-if="showCols.daily">GÜNLÜK</th>
+            <th ng-if="showCols.weekly">HAFTALIK</th>
+            <th ng-if="showCols.monthly">AYLIK</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -217,20 +250,18 @@
                                 </div>
                             </div>
                         </td>
-                        <td>
-                            <span class="val-crypto">{{calculateDailyForCoin(item) | number:8}}</span>
-                            <span class="val-fiat" ng-if="item.name !== 'RLT' && item.name !== 'RST'">${{calculateAllFiats(item).usd}} | {{calculateAllFiats(item).try}}₺</span>
-                        </td>
-                        <td>
-                            <span class="val-crypto">{{(calculateDailyForCoin(item) * 7) | number:6}}</span>
-                            <span class="val-fiat" ng-if="item.name !== 'RLT' && item.name !== 'RST'">${{(calculateAllFiats(item).usd * 7).toFixed(2)}} | {{(calculateAllFiats(item).try * 7).toFixed(2)}}₺</span>
-                        </td>
-                        <td>
-                            <span class="val-crypto">{{(calculateDailyForCoin(item) * 30) | number:4}}</span>
-                            <span class="val-fiat" ng-if="item.name !== 'RLT' && item.name !== 'RST'">
-                                ${{(calculateAllFiats(item).usd * 30).toFixed(2)}} | {{(calculateAllFiats(item).try * 30).toFixed(2)}}₺
-                            </span>
-                        </td>
+<td ng-if="showCols.daily">
+                <span class="val-crypto">{{calculateDailyForCoin(item) | number:8}}</span>
+                <span class="val-fiat" ng-if="item.name !== 'RLT' && item.name !== 'RST'">${{calculateAllFiats(item).usd}} | {{calculateAllFiats(item).try}}₺</span>
+            </td>
+            <td ng-if="showCols.weekly">
+                <span class="val-crypto">{{(calculateDailyForCoin(item) * 7) | number:6}}</span>
+                <span class="val-fiat" ng-if="item.name !== 'RLT' && item.name !== 'RST'">${{(calculateAllFiats(item).usd * 7).toFixed(2)}} | {{(calculateAllFiats(item).try * 7).toFixed(2)}}₺</span>
+            </td>
+            <td ng-if="showCols.monthly">
+                <span class="val-crypto">{{(calculateDailyForCoin(item) * 30) | number:4}}</span>
+                <span class="val-fiat" ng-if="item.name !== 'RLT' && item.name !== 'RST'">${{(calculateAllFiats(item).usd * 30).toFixed(2)}} | {{(calculateAllFiats(item).try * 30).toFixed(2)}}₺</span>
+            </td>
                     </tr>
                 </tbody>
             </table>
