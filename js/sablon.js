@@ -161,7 +161,18 @@ $scope.getBestCoin = function() {
 
 
 
-
+// Kullanıcının mevcut lig adını ID üzerinden bulan yardımcı fonksiyon
+$scope.getUserLeagueName = function() {
+    if (!$scope.calcData.leagueId) return "Yükleniyor...";
+    
+    // CurrencyService içindeki sabit lig listesini al
+    const leagues = CurrencyService.getLeagues();
+    
+    // Kullanıcının ID'sine sahip lig objesini bul
+    const userLeague = leagues.find(l => l.id === $scope.calcData.leagueId);
+    
+    return userLeague ? userLeague.name : "Bilinmeyen Lig";
+};
 
 
 $scope.deleteHistoryItem = function(id) {

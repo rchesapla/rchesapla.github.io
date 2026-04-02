@@ -136,6 +136,37 @@
             .table-container { overflow-x: auto; }
             .dashboard-header { flex-direction: column; align-items: flex-start; }
         }
+/* Lig Bilgisi İçin Modern Tasarım */
+.league-badge {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(129, 140, 248, 0.1), rgba(45, 212, 191, 0.05));
+    border: 1px solid var(--accent-purple);
+    padding: 8px 20px;
+    border-radius: 50px; /* Oval yapı */
+    box-shadow: 0 0 15px rgba(129, 140, 248, 0.2);
+    transition: all 0.3s ease;
+}
+
+.league-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(129, 140, 248, 0.4);
+}
+
+.league-label {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-right: 10px;
+    font-weight: 600;
+}
+
+.league-name {
+    color: #fff;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 8px var(--accent-purple);
+}
     </style>
 </head>
 <body ng-controller="MiningController">
@@ -143,7 +174,7 @@
     <div class="container">
         <header class="dashboard-header">
             <div class="logo-area">
-                <h1>⚡ ROLLER<span>STATS</span> <small style="font-size: 0.5em; opacity: 0.5; vertical-align: middle;">v2.0</small></h1>
+                <h1>ROLLER<span>STATS</span> <small style="font-size: 0.5em; opacity: 0.5; vertical-align: middle;">v2.0</small></h1>
                 <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 5px;">
                     <span id="current-date">23.12.1997</span> • <span id="current-time">00:00:00</span>
                 </div>
@@ -157,6 +188,12 @@
                     </button>
                 </div>
             </div>
+<div class="league-container" ng-if="liveData.length > 0">
+    <div class="league-badge">
+        <span class="league-label">Mevcut Lig</span>
+        <span class="league-name">{{getUserLeagueName()}}</span>
+    </div>
+</div>
         </header>
 
         <div class="table-container">
@@ -170,7 +207,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="row-hover" ng-repeat="item in liveData" >
+                    <tr class="row-hover" ng-repeat="item in liveData" ng-if="item.networkPower > 0">
                         <td>
                             <div class="coin-cell">
                                 <img class="coin-icon" ng-src="https://rollercoin.com/static/img/wallet/{{item.name | lowercase}}.svg">
