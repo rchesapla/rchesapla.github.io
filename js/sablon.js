@@ -159,6 +159,23 @@ $scope.getBestCoin = function() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Controller içine ekleyin
 $scope.showCols = {
     daily: true,
