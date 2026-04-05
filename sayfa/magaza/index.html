@@ -445,29 +445,12 @@ tbody td {
         <button class="btn-main" ng-click="onSelectPlayer()">YÜKLE</button>
         <button class="btn-main" style="background: var(--accent);" ng-click="toggleHistory()">GEÇMİŞ</button>
     </div>
-
-    <div ng-if="showHistory" style="margin-top: 15px; border-top: 1px solid #334155; padding-top: 10px;">
-        <div style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 10px;">Son Arananlar:</div>
-        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-            <span ng-repeat="historyItem in searchHistory track by $index" 
-                  ng-click="loadFromHistory(historyItem)"
-                  style="background: #0f172a; padding: 5px 12px; border-radius: 20px; cursor: pointer; border: 1px solid var(--primary); font-size: 0.8rem;">
-                {{historyItem}}
-            </span>
-            <div ng-if="searchHistory.length == 0" style="font-size: 0.8rem; color: #ff4444;">Henüz geçmiş yok.</div>
-        </div>
-        <button ng-if="searchHistory.length > 0" 
-                ng-click="clearHistory()" 
-                style="background: transparent; border: none; color: #ff4444; font-size: 0.7rem; cursor: pointer; margin-top: 10px;">
-            TEMİZLE
-        </button>
-    </div>
 </div>
 		
 		
 
 <div class="card" ng-if="user_data">
-    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content:center;">
         <label class="checkbox-container">
             <input type="checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()"> 
             <span style="font-weight: 600; color: var(--text-main);">Mağazayı Göster</span>
@@ -520,7 +503,7 @@ tbody td {
         <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
 <thead>
     <tr>
-        <th class="sortable" ng-click="sortBy('name.en')">
+        <th class="sortable">
             MINER
         </th>
         <th class="sortable" ng-click="sortBy('power')">
@@ -529,7 +512,7 @@ tbody td {
         <th class="sortable" ng-click="sortBy('bonus_power')">
             BONUS <span ng-show="propertyName === 'bonus_power'">{{reverse ? '▼' : '▲'}}</span>
         </th>
-        <th class="sortable" ng-click="sortBy('includeImpactLegend.value')">
+        <th class="sortable">
             TOPLAM GÜÇ
         </th>
         <th>EYLEM</th>
