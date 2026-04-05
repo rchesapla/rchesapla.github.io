@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>RCHesapla ♦ Kişisel kazım gücünü hesapla!</title>
+<title>RCMINER PRO</title>
 <link rel="shortcut icon" type="image/x-icon" href="../../img/icon3.png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -429,7 +429,7 @@ tbody td {
 <body ng-controller="MiningController">
 
     <nav class="navbar">
-        <span style="color: var(--primary); font-weight: 800; font-size: 1.2rem;">RCMINER PAZAAR</span>
+        <span style="color: var(--primary); font-weight: 800; font-size: 1.2rem;">RCMINER PRO</span>
     </nav>
 
     <div class="container wrapper">
@@ -442,8 +442,7 @@ tbody td {
                                 typeahead-no-results="playerSearchNoResults"
                                 typeahead-on-select="onSelectPlayer($item, $model, $label, $event)"
                                 typeahead-loading="loading">
-        <button class="btn-main" ng-click="onSelectPlayer()">YÜKLE</button>
-        <button class="btn-main" style="background: var(--accent);" ng-click="toggleHistory()">GEÇMİŞ</button>
+        <button class="btn-main" ng-click="onSelectPlayer()">VERİLERİ GETİR</button>
     </div>
 </div>
 		
@@ -460,10 +459,13 @@ tbody td {
 
 <div class="card" ng-if="formData.showAllMiners">
     <div style="color: var(--accent); font-weight: 700; margin-bottom: 15px;">🛒 MINER MAĞAZASI ({{allMiners.length}} adet)</div>
-    
-    <div style="margin-bottom: 15px;">
+	
+<div class="card">
+    <div style="color: var(--primary); font-weight: 700; margin-bottom: 15px;">MINER ARA</div>
+    <div style="display: flex; gap: 10px;">
         <input type="text" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Örn: YMCA">
     </div>
+</div>
 	
 <div class="filter-group-container">
     <div class="filter-item">
@@ -499,8 +501,8 @@ tbody td {
     </div>
 </div>
 
-    <div style="overflow-x: auto;">
-        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+    <div >
+        <table style="width: 100%; font-size: 0.9rem;">
 <thead>
     <tr>
         <th class="sortable">
