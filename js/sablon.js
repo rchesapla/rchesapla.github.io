@@ -324,7 +324,7 @@ $scope.toggleDetail = function(coinName) {
 // 3. Güncellenmiş Hesaplama Fonksiyonu (Yıl, Ay, Gün formatında)
 $scope.calculateWithdrawTime = function(item) {
     if (!$scope.calcData || !$scope.calcData.myPower || $scope.calcData.myPower <= 0) {
-        return "Güç Girin";
+        return "Gücünüz Yetersiz!";
     }
 
     // Güç çevrimi (GH/s bazında)

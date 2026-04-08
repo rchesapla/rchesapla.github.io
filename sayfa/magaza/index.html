@@ -576,22 +576,5 @@ tbody td {
         </div>
     </footer>
 
-    <canvas id="matrix"></canvas>
-
-    <script>
-        // Yedeks.html'deki Matrix Arkaplan Scripti
-        const canvas = document.getElementById('matrix'), ctx = canvas.getContext('2d');
-        let w = canvas.width = window.innerWidth, h = canvas.height = window.innerHeight;
-        let cols = Math.floor(w/20), drops = Array(cols).fill(1);
-        setInterval(() => {
-            ctx.fillStyle = 'rgba(15, 23, 42, 0.1)'; ctx.fillRect(0,0,w,h);
-            ctx.fillStyle = '#00ff88'; ctx.font = '15px monospace';
-            for(let i=0; i<drops.length; i++) {
-                ctx.fillText(Math.floor(Math.random()*2), i*20, drops[i]*20);
-                if(drops[i]*20 > h && Math.random() > 0.975) drops[i] = 0;
-                drops[i]++;
-            }
-        }, 50);
-    </script>
 </body>
 </html>

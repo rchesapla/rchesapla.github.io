@@ -7,7 +7,51 @@
 
 
 
+.crypto-grid-selector {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
 
+.crypto-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(56, 189, 248, 0.1);
+    border-radius: 12px;
+    padding: 10px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.crypto-item:hover {
+    background: rgba(56, 189, 248, 0.1);
+    transform: translateY(-2px);
+}
+
+.crypto-item.active {
+    background: rgba(56, 189, 248, 0.2);
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+}
+
+.crypto-item img {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 5px;
+}
+
+.crypto-item span {
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--text-dim);
+}
+
+.crypto-item.active span {
+    color: var(--accent);
+}
 
 
 .nav-logo-container img {
