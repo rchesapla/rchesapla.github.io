@@ -1,10 +1,461 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr" ng-app="miningApp">
 <head>
-    <meta http-equiv="refresh" content="0; url=https://rollercoincalculator.app/tr/">
-    <title>Yönlendiriliyorsunuz...</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>RCHesapla ♦ Kişisel kazım gücünü hesapla!</title>
+<link rel="shortcut icon" type="image/x-icon" href="./img/icon3.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>@import url(./css/sablon.css)</style>
 </head>
-<body>
-    <p>Eğer yönlendirme gerçekleşmezse <a href="https://rollercoincalculator.app/tr/">buraya tıklayın</a>.</p>
+<body ng-controller="MiningController">
+<!---->
+
+
+
+
+<!---->
+<div class="loading-popup" ng-if="loadingApi || loadingLeague">
+<img src="./img/icon3.png" alt="Logo" style="height: 300px; width: auto;"> 
+<div class="spinner"></div>
+<div class="loading-text">Sistem bilgileri yükleniyor</div>
+</div>
+<!---->
+
+<!---->
+<canvas id="matrix"></canvas>
+<!---->
+
+<!---->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-logo-group">
+            <div class="nav-logo-container">
+                <img src="./img/icon3.png" alt="Logo">
+            </div>
+            <span class="nav-logo">RCHesapla <span class="pro-badge">PRO</span></span>
+        </div>
+
+        <div class="nav-clock-wrapper">
+            <div class="nav-time" id="current-time">00:00:00</div>
+            <div class="nav-date" id="current-date">23.12.1997</div>
+        </div>
+    </div>
+</nav>
+<!---->
+
+<!---->
+<div class="wrapper">
+<!---->
+
+<!---->
+<div class="card player-command-card" ng-hide="isAuthorized">
+<div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
+<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">KULLANICI BİLGİLERİ MERKEZİ</span>
+<span class="help-btn-minimal" style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;" onclick="document.getElementById('helpModal').style.display='flex'">?</span>
+</div>
+
+    <div class="player-card-body">
+<div class="cyber-search-container ortala" style="position: relative;">
+    <div>
+        <input type="text" ng-model="userNick" placeholder="Örn: FthCLK" ng-disabled="isAuthorized">
+    </div>
+    
+    <a class="glass-btn btn-blue" ng-click="fetchUserData()" 
+       ng-disabled="loadingApi || !userNick || isAuthorized">
+        GETİR
+    </a>
+</div>
+
+<div id="helpModal" class="custom-overlay" onclick="this.style.display='none'">
+    <div class="custom-modal" onclick="event.stopPropagation()">
+        <div class="modal-glow-bar"></div>
+        <h3 style="color: var(--accent); font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 1px;">PROFİL ADI NEREDE?</h3>
+        
+        <img src="./img/profil.png" style="width: 100%; border-radius: 8px; border: 1px solid rgba(56, 189, 248, 0.3);">
+        
+        <p style="font-size: 0.7rem; color: #94a3b8; margin: 15px 0; line-height: 1.4;">
+            RollerCoin profil linkinizdeki <b>/p/</b> kısmından sonra gelen kelime sizin kullanıcı adınızdır.
+        </p>
+        
+        <button class="glass-btn btn-blue" style="width: 100%;" onclick="document.getElementById('helpModal').style.display='none'">
+            ANLADIM
+        </button>
+    </div>
+</div>
+    </div>
+    <div style=" padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
+        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
+            <b>💡 Bilgi:</b> Rollercoin sitesinde bulunan kullanıcı adını girdiğiniz durumda hesaplama alanı açılacaktır. Örnek: rollercoin.com/p/FthCLK
+        </p>
+    </div>
+</div>
+<!---->
+
+<!---->
+<div class="card player-command-card" ng-hide="isAuthorized">
+<div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
+<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">GEÇMİŞ KULLANICI LİSTESİ</span>
+</div>
+
+<div class="player-card-body ortala">
+
+<div ng-if="userHistory.length > 0" class="history-container">
+<div style="display: flex; flex-wrap: wrap; gap: 5px;">
+<div ng-repeat="nick in userHistory track by $index" class="history-tag" >
+<span class="tag-text" ng-click="quickFetch(nick)">{{nick}}</span>
+<span class="tag-remove" ng-click="removeFromHistory($index)">×</span>
+</div>
+</div>
+</div>
+
+</div>
+    <div style=" padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
+        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
+            <b>💡 Bilgi:</b> Daha önce girmiş olduğun isimleri bu bölümde bulabilirsin.
+        </p>
+    </div>
+</div>
+<!----
+<div class="card player-command-card"  ng-hide="isAuthorized">
+<div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
+<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">Deneme Amaçlı Bölüm</span>
+</div>
+
+<div class="player-card-body ortala">
+
+Fatih ÇELİK
+
+</div>
+    <div style=" padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
+        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
+            <b>💡 Bilgi:</b> - - -
+        </p>
+    </div>
+</div>
+<!---->
+
+<!---->
+<div class="card player-command-card" ng-if="isAuthorized">
+<div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
+<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">OYUNCU KOMUTA MERKEZİ</span>
+</div>
+
+<div class="player-card-body">
+<div class="history-container">
+<a ng-href="https://rollercoin.com/p/{{userNick}}" target="_blank" class="glass-btn btn-blue">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+</svg>
+ROLLERCOIN PROFİLİ
+</a>
+<a ng-href="./sayfa/minerlarim" target="_blank" class="glass-btn btn-blue">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+</svg>
+MINER LİSTESİ
+</a>
+<a ng-href="./sayfa/eskisurum/" target="_blank" class="glass-btn btn-blue">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+</svg>
+MINER MAĞAZA
+</a>
+<a ng-href="./sayfa/roi/" target="_blank" class="glass-btn btn-blue">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+</svg>
+ROİ SİSTEMİ
+</a>
+
+<!--button class="glass-btn btn-red" ng-click="logoutUser()">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+<path d="M16 17l5-5-5-5M19.8 12H9M10 3H4v18h6"/>
+</svg>
+KİMLİĞİ SIFIRLA
+</button-->
+</div>
+</div>
+</div>
+<!---->
+
+<!---->
+<div class="card player-command-card" ng-if="isAuthorized">
+<div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
+<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">HESAPLAMA BİLGİLERİ / SİSTEM NOTLARI</span>
+        <span class="loading-overlay" ng-click="updateLeagueData()">🔄 VERİYİ GÜNCELLE</span>
+</div>
+
+<div class="player-card-body" ng-if="isAuthorized">
+<div class="settings-grid">
+
+<div class="settings-form">
+
+<div class="input-box">
+<label>PARA BİRİMİ</label>
+<select ng-model="calcData.fiat">
+<option value="usd">USD ($)</option>
+<option value="try">TRY (₺)</option>
+</select>
+</div>
+
+<div class="input-box">
+    <label>KRİPTO PARA SEÇİMİ</label>
+    <div class="crypto-grid-selector">
+        <div ng-repeat="item in liveData" 
+             class="crypto-item" 
+             ng-class="{'active': calcData.coin === item.name}"
+             ng-click="calcData.coin = item.name; updateFromLiveData()">
+            <img ng-src="https://rollercoin.com/static/img/wallet/{{item.name.toLowerCase()}}.svg" alt="{{item.name}}">
+            {{item.name}}
+        </div>
+    </div>
+</div>
+
+<div class="input-box">
+<label>LİG SEVİYESİ (OTOMATİK)</label>
+<select ng-model="calcData.leagueId" ng-change="updateLeagueData()">
+<option ng-repeat="league in leagues" value="{{league.id}}">{{league.name}}</option>
+</select>
+</div>
+
+<div class="manual-reward-box">
+<label style="color: var(--reward-gold);">BLOK ÖDÜLÜ (Güncel: {{lastUpdate}})</label>
+<div style="display: flex; gap: 10px; align-items: center;">
+<input type="number" ng-model="calcData.reward" step="0.00000001" style="border-color: var(--reward-gold);">
+</div>
+</div>
+
+<div class="input-box">
+<label>KİŞİSEL GÜCÜNÜZ</label>
+<div class="power-input-group">
+<input type="number" ng-model="calcData.myPower">
+<select ng-model="calcData.myUnit">
+<option value="gh">GH/s</option>
+<option value="th">TH/s</option>
+<option value="ph">PH/s</option>
+<option value="eh">EH/s</option>
+<option value="zh">ZH/s</option>
+</select>
+</div>
+</div>
+
+<div class="input-box">
+<label>AĞ GÜCÜ (NETWORK POWER)</label>
+<div class="power-input-group">
+<input type="number" ng-model="calcData.netPower">
+<select ng-model="calcData.netUnit">
+<option value="gh">GH/s</option>
+<option value="th">TH/s</option>
+<option value="ph">PH/s</option>
+<option value="eh">EH/s</option>
+<option value="zh">ZH/s</option>
+</select>
+</div>
+</div>
+
+<button class="btn-main" ng-click="calcular(); scrollToResults()">HESAPLA</button>
+</div>
+
+<div class="update-notes">
+
+<div class="card-title" style="color: var(--accent); font-size: 0.75rem;">🗞️ SİSTEM NOTLARI</div>
+
+<div class="update-item">
+<span class="update-date">23.03.2026</span>
+<p class="update-desc"><b>Minerlarım ve Mağaza:</b> Yeni eklenti web sitemize eklenmiştir.</p>
+</div>
+
+<div class="update-item">
+<span class="update-date">18.03.2026</span>
+<p class="update-desc"><b>Yedek Hesaplama Sitesi:</b> Sistem notları bölümünden ulaşabilirsin.</p>
+</div>
+
+<div class="update-item">
+<span class="update-date">v4.0.2-Stable</span>
+<p class="update-desc">RCHesapla sitemiz yeni tasarımıyla tekrar karşınızdayız.</p>
+</div>
+
+<div style="margin-top: 20px; padding: 10px; background: rgba(56, 189, 248, 0.05); border-radius: 8px; border: 1px dashed var(--accent);">
+<p style="font-size: 0.7rem; color: var(--accent); text-align: center;">
+Sistem güncel RollerCoin algoritmalarıyla %99.9 tutarlılıkla çalışmaktadır.
+</p>
+</div>
+<div style="margin-top: 20px; padding: 10px; background: rgba(56, 189, 248, 0.05); border-radius: 8px; border: 1px dashed var(--accent);">
+<a ng-href="https://rollercoincalculator.app/" target="_blank" class="glass-btn btn-blue">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+</svg>
+YEDEK HESAPLAMA SİTESİ
+</a>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<!---->
+
+<!---->		
+<div ng-if="isAuthorized">
+<div id="results" class="card" style="display:none; border-top: 4px solid var(--primary);">
+<div class="price-ticker" id="priceDisplay">Fiyatlar Yükleniyor...</div>
+<div style="text-align: center; margin-bottom: 20px;">
+<span class="res-label">BLOK BAŞINA KAZANÇ</span>
+<h2 class="res-val" id="porBloque" style="font-size: 1.5rem;">-</h2>
+</div>
+<div class="results-grid">
+<div class="res-card"><span class="res-label">GÜNLÜK</span><span class="res-val" id="dia">-</span><span class="res-fiat" id="diaFiat">-</span></div>
+<div class="res-card"><span class="res-label">HAFTALIK</span><span class="res-val" id="hafta">-</span><span class="res-fiat" id="haftaFiat">-</span></div>
+<div class="res-card"><span class="res-label">AYLIK</span><span class="res-val" id="mes">-</span><span class="res-fiat" id="mesFiat">-</span></div>
+<div class="res-card"><span class="res-label">YILLIK</span><span class="res-val" id="yil">-</span><span class="res-fiat" id="yilFiat">-</span></div>
+</div>
+
+<!---->
+<div class="card player-command-card" id="roiCard">
+<div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
+<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">ROI (AMORTİ) BİLGİLERİ</span>
+</div>
+
+<div class="player-card-body ortala">
+
+<div style="overflow-x: auto; justify-content:center;">
+<div style="display: flex; gap: 15px; align-items: center; justify-content:center;">
+<div style="flex: 1;">
+<label style="font-size: 0.65rem; color: var(--text-dim);">MİNER MALİYETİ ({{calcData.fiat.toUpperCase()}})</label>
+<input type="number" ng-model="calcData.minerCost" ng-change="updateROI()" placeholder="Maliyet girin" style="border-color: var(--reward-gold); padding: 8px;">
+</div>
+<div style="flex: 1; text-align: center;">
+<span class="res-label">TAHMİNİ SÜRE</span>
+<div id="roiResult" class="res-val" style="color: var(--reward-gold); font-size: 1.2rem;">Önce Hesapla</div>
+</div>
+</div>
+</div>
+
+</div>
+    <div style=" padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
+        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
+            <b>💡 Bilgi:</b> ROI sistemi ile yatırdığın ücreti kaç günde geri döneceğini öğrenirsin.
+        </p>
+    </div>
+</div>
+</div>
+<!---->
+
+<!---->
+<div class="card player-command-card">
+<div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
+<span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">HESAPLAMA BİLGİLERİ</span>
+</div>
+<div class="player-card-body ortala">
+<div style="overflow-x: auto;">
+<div style="padding: 15px; background: rgba(56, 189, 248, 0.1); border-radius: 10px; border: 1px solid rgba(56, 189, 248, 0.3);">
+<p style="font-size: 0.75rem; color: var(--text-dim); line-height: 1.5;">
+Yukarıdaki veriler <b>anlık ağ gücü</b> ve <b>mevcut blok ödülleri</b> baz alınarak hesaplanmıştır. 
+Unutmayın ki RollerCoin ağ gücü (Network Power) sürekli değişkendir; bu durum günlük kazancınızı etkileyebilir. 
+Hesaplanan fiyat (USD/TRY) değerleri, CoinGecko üzerinden alınan canlı borsa kurlarını yansıtır. 
+Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğunluğa göre küçük sapmalar gösterebilir.
+</p>
+</div>
+</div>
+
+</div>
+    <div style=" padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
+        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
+            <b>💡 Bilgi:</b> En kârlı coin'i bulmak için aşağıdaki "Kripto Değerleri" tablosundan Blok Süresi en düşük ve Ödülü en yüksek olanları takip edin.
+        </p>
+    </div>
+</div>
+<!---->
+
+<!---->
+<div class="card player-command-card" ng-if="liveData.length > 0">
+    <div class="player-card-header">
+        <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">LİG AĞ GÜCÜ DAĞILIMI (GRAFİK)</span>
+		        <span class="loading-overlay" ng-click="updateLeagueData()">🔄 VERİYİ GÜNCELLE</span>
+    </div>
+    <div class="player-card-body" style="background: rgba(15, 23, 42, 0.5); border-radius: 10px; padding: 15px;">
+        <canvas id="networkChart" style="max-height: 300px;"></canvas>
+    </div>
+</div>
+<!---->
+
+<!---->
+<div class="card player-command-card">
+    <div class="player-card-header" style="display: flex; align-items: center; justify-content: space-between;">
+        <span style="font-size: 0.6rem; color: var(--text-dim); letter-spacing: 2px; font-weight: 800;">ROLLERCOIN MİNİMUM ÇEKİM DEĞERLERİ</span>
+        <span class="loading-overlay" ng-click="updateLeagueData()">🔄 VERİYİ GÜNCELLE</span>
+    </div>
+
+    <div class="ortala">
+        <div style="overflow-x: auto;">
+<table class="live-table">
+    <thead>
+        <tr>
+            <th>KRİPTO</th>
+            <th>MİN. ÇEKİM</th>
+            <th>KALAN SÜRE</th>
+        </tr>
+    </thead>
+    <tbody ng-repeat="item in liveData | orderBy:'-networkPower'" ng-if="item.networkPower > 0">
+<tr >
+    <td class="coin-name">{{item.name}}</td>
+    <td class="reward-val" style="color: var(--reward-gold);">{{minWithdrawLimits[item.name] || '-'}}</td>
+    <td class="reward-val">
+        <div style="font-size: 0.7rem; color: var(--accent); margin-bottom: 4px; font-weight: bold;">
+            {{calculateWithdrawTime(item)}}
+        </div>
+    </td>
+</tr>
+    </tbody>
+</table>
+
+        </div>
+    </div>
+    
+    <div style="padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
+        <p style="font-size: 0.65rem; color: var(--text-dim); line-height: 1.4; text-align:center;">
+            <b>💡 Bilgi:</b> En kârlı coin'i bulmak için yukarıdaki "Kripto Değerleri" tablosundan Blok Süresi en düşük ve Ödülü en yüksek olanları takip edin.
+        </p>
+    </div>
+</div>
+<!---->
+
+<!---->
+</div>
+<!---->
+</div>
+<!----><!----><!----><!----><!---->
+<footer>
+<div class="footer-content">
+<span class="footer-logo">RCHesapla PRO</span>
+<p class="footer-text">RollerCoin madencilik hesaplamaları için geliştirilmiş en kapsamlı ve güncel araç setidir.</p>
+
+<div class="footer-links">
+<a href="#">🌐 Web Sitesi</a>
+<a href="#">📢 Telegram</a>
+<a href="https://t.me/bilgilendiriyor">🛠 Destek</a>
+<a href="https://t.me/rollercointurkiyetr">🛠 Destek 2</a>
+</div>
+
+<div class="copyright">
+© 2026 RCHESAPLA PRO <span class="version-tag">v4.0.2-Stable</span>
+<br>
+<small style="margin-top: 10px; display: block; opacity: 0.5;">
+Bu site RollerCoin ile resmi bir bağa sahip değildir. Veriler API üzerinden anlık çekilir.
+</small>
+</div>
+</div>
+</footer>
+
+
+
+
+
+<script src="./js/sablon.js" ></script>
 </body>
 </html>
