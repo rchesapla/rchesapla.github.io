@@ -19,12 +19,61 @@ const MARKET_DIRECT_PAGE_BATCH_SIZE = 4;
 const MARKET_REQUEST_TIMEOUT_MS = 12000;
 const MARKET_PROBE_TIMEOUT_MS = 6000;
 const MARKET_PAGE_RETRY_LIMIT = 3;
+const MARKET_ATTEMPTS_PREVIEW_LIMIT = 160;
+const MARKET_PROGRESS_INFO_THROTTLE_MS = 180;
 const MARKET_HTTPS_AGENT = new https.Agent({
   keepAlive: true,
   maxSockets: Math.max(MARKET_DIRECT_PAGE_BATCH_SIZE * 2, 8),
   maxFreeSockets: Math.max(MARKET_DIRECT_PAGE_BATCH_SIZE, 4),
 });
 const STARTUP_LOG_PATH = path.join(os.tmpdir(), "roller-coin-calculator-startup.log");
+const marketProgressState = new Map();
+
+function normalizeMarketRefreshMode(value) {
+  return value === "quick" ? "quick" : "full";
+}
+
+function normalizeMarketFetchOptions(options = {}) {
+  const refreshMode = normalizeMarketRefreshMode(options?.refreshMode);
+  const parsedMaxPages = Number(options?.maxPages);
+  const maxPages =
+    Number.isFinite(parsedMaxPages) && parsedMaxPages > 0
+      ? Math.max(1, Math.min(MARKET_MAX_PAGES, Math.floor(parsedMaxPages)))
+      : MARKET_MAX_PAGES;
+
+  return {
+    refreshMode,
+    maxPages,
+    includeAttempts: options?.includeAttempts !== false,
+  };
+}
+
+function finalizeMarketFetchResult(result, options = {}) {
+  const normalizedOptions = normalizeMarketFetchOptions(options);
+  if (!result || typeof result !== "object") {
+    return result;
+  }
+
+  const finalized = {
+    ...result,
+    refreshMode: result.refreshMode || normalizedOptions.refreshMode,
+    maxPages: Number.isFinite(Number(result.maxPages)) ? Number(result.maxPages) : normalizedOptions.maxPages,
+  };
+
+  if (!normalizedOptions.includeAttempts) {
+    delete finalized.attempts;
+  } else if (Array.isArray(finalized.attempts) && finalized.attempts.length > MARKET_ATTEMPTS_PREVIEW_LIMIT) {
+    finalized.attemptCount = finalized.attempts.length;
+    finalized.attempts = [
+      ...finalized.attempts.slice(0, Math.floor(MARKET_ATTEMPTS_PREVIEW_LIMIT * 0.65)),
+      ...finalized.attempts.slice(-(MARKET_ATTEMPTS_PREVIEW_LIMIT - Math.floor(MARKET_ATTEMPTS_PREVIEW_LIMIT * 0.65))),
+    ];
+  } else if (Array.isArray(finalized.attempts)) {
+    finalized.attemptCount = finalized.attempts.length;
+  }
+
+  return finalized;
+}
 
 function writeStartupLog(message, extra = null) {
   const suffix = extra ? ` ${JSON.stringify(extra)}` : "";
@@ -428,9 +477,12 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1100,
     height: 800,
+    show: false,
+    backgroundColor: "#eef3ff",
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
+      backgroundThrottling: false,
     },
   });
 
@@ -448,6 +500,12 @@ function createWindow() {
 
   mainWindow.webContents.on("did-finish-load", () => {
     writeStartupLog("Main window finished loading.");
+  });
+
+  mainWindow.once("ready-to-show", () => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.show();
+    }
   });
 
   mainWindow.webContents.on(
@@ -470,10 +528,84 @@ function createWindow() {
     writeStartupLog("Main window webContents destroyed.");
   });
 
-  mainWindow.loadFile(path.join(__dirname, "index.html")).catch((error) => {
+  const rendererEntryPath = path.join(__dirname, "dist", "renderer", "index.html");
+  if (!fs.existsSync(rendererEntryPath)) {
+    const errorHtml = encodeURIComponent(`
+      <!doctype html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <title>Renderer build missing</title>
+          <style>
+            body {
+              margin: 0;
+              padding: 32px;
+              font-family: Segoe UI, sans-serif;
+              background: #eef3ff;
+              color: #23304f;
+            }
+            .card {
+              max-width: 760px;
+              margin: 0 auto;
+              padding: 24px 28px;
+              border-radius: 18px;
+              background: #fff;
+              box-shadow: 0 12px 40px rgba(34, 58, 119, 0.14);
+            }
+            code {
+              padding: 2px 6px;
+              border-radius: 8px;
+              background: #edf2ff;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="card">
+            <h1>Renderer build was not found</h1>
+            <p>Run <code>npm run build:renderer</code> or start the app with <code>npm start</code>.</p>
+          </div>
+        </body>
+      </html>
+    `);
+    mainWindow.loadURL(`data:text/html;charset=utf-8,${errorHtml}`).catch((error) => {
+      writeStartupLog("loadURL fallback threw an error.", {
+        message: error?.message || String(error),
+      });
+    });
+    return;
+  }
+
+  mainWindow.loadFile(rendererEntryPath).catch((error) => {
     writeStartupLog("loadFile threw an error.", {
       message: error?.message || String(error),
+      rendererEntryPath,
     });
+  });
+}
+
+function createHiddenWorkerWindow(options = {}) {
+  const workerDefaults = {
+    show: false,
+    width: 1180,
+    height: 860,
+    autoHideMenuBar: true,
+    skipTaskbar: true,
+    focusable: false,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+      sandbox: true,
+      partition: ROLLERCOIN_PARTITION,
+    },
+  };
+
+  return new BrowserWindow({
+    ...workerDefaults,
+    ...options,
+    webPreferences: {
+      ...workerDefaults.webPreferences,
+      ...(options.webPreferences || {}),
+    },
   });
 }
 
@@ -516,7 +648,7 @@ function openRollercoinAuthWindow() {
     const authWindow = new BrowserWindow({
       width: 1100,
       height: 800,
-      parent: mainWindow || undefined,
+      show: true,
       autoHideMenuBar: true,
       title: "RollerCoin Login",
       webPreferences: {
@@ -528,6 +660,18 @@ function openRollercoinAuthWindow() {
     });
 
     authWindow.once("closed", async () => {
+      if (mainWindow && !mainWindow.isDestroyed()) {
+        try {
+          if (mainWindow.isMinimized()) {
+            mainWindow.restore();
+          }
+          mainWindow.show();
+          mainWindow.focus();
+        } catch {
+          // Ignore focus restoration issues.
+        }
+      }
+
       try {
         const sessionInfo = await readRollercoinCookies(authSession);
         writeStartupLog("Auth window closed.", {
@@ -637,17 +781,46 @@ function emitMarketProgress(sender, requestId, message, level = "info", extra = 
     return;
   }
 
+  const normalizedLevel = typeof level === "string" ? level : "info";
+  const senderKey =
+    typeof sender.id === "number"
+      ? String(sender.id)
+      : typeof sender.getOSProcessId === "function"
+        ? String(sender.getOSProcessId())
+        : "unknown";
+  const progressKey = `${senderKey}:${requestId || "no-request"}`;
+  const now = Date.now();
+  if (normalizedLevel === "info") {
+    const previous = marketProgressState.get(progressKey);
+    if (previous && now - previous < MARKET_PROGRESS_INFO_THROTTLE_MS) {
+      return;
+    }
+    marketProgressState.set(progressKey, now);
+  }
+
   try {
     sender.send("rollercoin-market-progress", {
       requestId: requestId || null,
-      level,
+      level: normalizedLevel,
       message,
-      timestamp: Date.now(),
+      timestamp: now,
       ...extra,
     });
   } catch {
     // Ignore renderer dispatch errors.
   }
+}
+
+function clearMarketProgressState(sender, requestId) {
+  if (!requestId || !sender) return;
+
+  const senderKey =
+    typeof sender.id === "number"
+      ? String(sender.id)
+      : typeof sender.getOSProcessId === "function"
+        ? String(sender.getOSProcessId())
+        : "unknown";
+  marketProgressState.delete(`${senderKey}:${requestId}`);
 }
 
 function parseMaybeNumber(value) {
@@ -682,6 +855,13 @@ function extractMarketplaceApiBonus(row) {
     getByPath(row, "item.bonus_percent"),
     getByPath(row, "item_info.miner_bonus"),
     getByPath(row, "item_info.percent_bonus"),
+    getByPath(row, "item_info.bonus_percent"),
+    getByPath(row, "miner.miner_bonus"),
+    getByPath(row, "miner.percent_bonus"),
+    getByPath(row, "miner.bonus_percent"),
+    getByPath(row, "sale.miner_bonus"),
+    getByPath(row, "sale.percent_bonus"),
+    getByPath(row, "sale.bonus_percent"),
     getByPath(row, "product.miner_bonus"),
     getByPath(row, "product.percent_bonus"),
     getByPath(row, "product.bonus_percent"),
@@ -694,6 +874,8 @@ function extractMarketplaceApiBonus(row) {
     getByPath(row, "bonus.power_percent"),
     getByPath(row, "item.bonus.power_percent"),
     getByPath(row, "item_info.bonus.power_percent"),
+    getByPath(row, "miner.bonus.power_percent"),
+    getByPath(row, "sale.bonus.power_percent"),
     getByPath(row, "product.bonus.power_percent"),
   ]);
 
@@ -821,8 +1003,9 @@ function buildMarketImageUrlFromFilename(filename, imgVer, templateUrl = "") {
 
 function buildMarketLevelBadgeUrl(level) {
   const numericLevel = Number(level);
-  if (!Number.isFinite(numericLevel) || numericLevel <= 0) return "";
-  return `https://rollercoin.com/static/img/storage/rarity_icons/level_${Math.floor(numericLevel)}.png?v=1.0.0`;
+  if (!Number.isFinite(numericLevel) || numericLevel < 0) return "";
+  const displayLevel = Math.floor(numericLevel) + 1;
+  return `https://rollercoin.com/static/img/storage/rarity_icons/level_${displayLevel}.png?v=1.0.0`;
 }
 
 function getByPath(obj, pathName) {
@@ -1200,6 +1383,58 @@ function normalizeFirstOffer(row) {
   };
 }
 
+function buildMarketplaceOfferIdentityKey(offer) {
+  if (!offer || typeof offer !== "object") return "";
+  const id = offer.id ? String(offer.id) : "";
+  const name = String(offer.name || "").trim().toLowerCase();
+  const price = Number.isFinite(Number(offer.price)) ? Number(offer.price) : "na";
+  const power = Number.isFinite(Number(offer.power)) ? Number(offer.power) : "na";
+  const width = Number.isFinite(Number(offer.width)) ? Math.floor(Number(offer.width)) : "na";
+  const level = Number.isFinite(Number(offer.level)) ? Math.floor(Number(offer.level)) : "na";
+  return id || `${name}:${price}:${power}:${width}:${level}`;
+}
+
+function choosePreferredMarketplaceOffer(existingOffer, nextOffer) {
+  if (!existingOffer) return nextOffer;
+  if (!nextOffer) return existingOffer;
+
+  const existingBonus = Number(existingOffer.bonus_percent) || 0;
+  const nextBonus = Number(nextOffer.bonus_percent) || 0;
+  if (nextBonus !== existingBonus) {
+    return nextBonus > existingBonus ? nextOffer : existingOffer;
+  }
+
+  const existingPrice = Number(existingOffer.price);
+  const nextPrice = Number(nextOffer.price);
+  if (Number.isFinite(nextPrice) && (!Number.isFinite(existingPrice) || nextPrice < existingPrice)) {
+    return nextOffer;
+  }
+
+  const existingHasImage = Boolean(existingOffer.image_url);
+  const nextHasImage = Boolean(nextOffer.image_url);
+  if (nextHasImage && !existingHasImage) {
+    return nextOffer;
+  }
+
+  return existingOffer;
+}
+
+function upsertMarketplaceOffer(offers, offerIndexByKey, offer) {
+  const dedupeKey = buildMarketplaceOfferIdentityKey(offer);
+  if (!dedupeKey) return false;
+
+  const existingIndex = offerIndexByKey.get(dedupeKey);
+  if (!Number.isFinite(existingIndex)) {
+    offerIndexByKey.set(dedupeKey, offers.length);
+    offers.push(offer);
+    return true;
+  }
+
+  const preferredOffer = choosePreferredMarketplaceOffer(offers[existingIndex], offer);
+  offers[existingIndex] = preferredOffer;
+  return preferredOffer === offer;
+}
+
 function buildMarketplaceSaleOrdersUrl(page, profile = {}) {
   const limit =
     Number.isFinite(Number(profile.limit)) && Number(profile.limit) > 0
@@ -1322,18 +1557,10 @@ function buildAuthHeaderVariants(tokenValues = []) {
 }
 
 async function readRollercoinAuthTokenValuesFromSession(authSession) {
-  const worker = new BrowserWindow({
-    show: false,
+  const worker = createHiddenWorkerWindow({
     width: 1180,
     height: 860,
-    autoHideMenuBar: true,
     title: "RollerCoin Token Reader",
-    webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
-      sandbox: true,
-      partition: ROLLERCOIN_PARTITION,
-    },
   });
 
   try {
@@ -1501,9 +1728,11 @@ async function syncCookieHeaderToSession(cookieHeader, targetSession) {
   }
 }
 
-async function fetchMarketMinersViaDirectApi(preferredCookieHeader = "", progress = null) {
+async function fetchMarketMinersViaDirectApi(preferredCookieHeader = "", progress = null, options = {}) {
   const authSession = session.fromPartition(ROLLERCOIN_PARTITION);
   const sessionInfo = await readRollercoinCookies(authSession);
+  const normalizedOptions = normalizeMarketFetchOptions(options);
+  const effectiveMaxPages = normalizedOptions.maxPages;
   const cookieHeader =
     typeof preferredCookieHeader === "string" && preferredCookieHeader.trim()
       ? preferredCookieHeader.trim()
@@ -1512,7 +1741,7 @@ async function fetchMarketMinersViaDirectApi(preferredCookieHeader = "", progres
   const attempts = [];
   if (progress) {
     progress(
-      `Direct market API mode. Session cookies=${sessionInfo.cookieCount}, using cookie source=` +
+      `Direct market API mode (${normalizedOptions.refreshMode}). Session cookies=${sessionInfo.cookieCount}, using cookie source=` +
         `${preferredCookieHeader && preferredCookieHeader.trim() ? "manual-input" : "auth-partition"}.`,
     );
   }
@@ -1626,6 +1855,7 @@ async function fetchMarketMinersViaDirectApi(preferredCookieHeader = "", progres
   }
 
   const marketplaceOffers = [];
+  const marketplaceOfferIndexByKey = new Map();
   const seenOfferKeys = new Set();
   const seenPageFirstKeys = new Set();
   const pageFailureCounts = new Map();
@@ -1689,12 +1919,12 @@ async function fetchMarketMinersViaDirectApi(preferredCookieHeader = "", progres
     return { page, url, error: "Page retry limit exhausted." };
   };
 
-  while (nextPage <= MARKET_MAX_PAGES && !shouldStopPaging) {
+  while (nextPage <= effectiveMaxPages && !shouldStopPaging) {
     const batchStartPage = nextPage;
     const batchPages = [];
     for (
       let page = batchStartPage;
-      page < batchStartPage + pageBatchSize && page <= MARKET_MAX_PAGES;
+      page < batchStartPage + pageBatchSize && page <= effectiveMaxPages;
       page += 1
     ) {
       batchPages.push({ page, url: buildMarketplaceSaleOrdersUrl(page, selectedProfile) });
@@ -1805,7 +2035,7 @@ async function fetchMarketMinersViaDirectApi(preferredCookieHeader = "", progres
         .filter((row) => hasValidNormalizedOffer(row));
       const firstRow = normalizedRows[0] || null;
       const pageFirstKey = firstRow
-        ? `${firstRow.id}:${firstRow.price}:${firstRow.power}:${firstRow.bonus_percent || 0}`
+        ? buildMarketplaceOfferIdentityKey(firstRow)
         : `page-${page}-empty`;
 
       if (seenPageFirstKeys.has(pageFirstKey)) {
@@ -1838,14 +2068,22 @@ async function fetchMarketMinersViaDirectApi(preferredCookieHeader = "", progres
 
       let addedRows = 0;
       normalizedRows.forEach((row) => {
-        const dedupeKey = `${row.id}:${row.price}:${row.power}:${row.bonus_percent || 0}`;
-        if (seenOfferKeys.has(dedupeKey)) return;
-        seenOfferKeys.add(dedupeKey);
-        marketplaceOffers.push({
+        const normalizedRow = {
           ...row,
           source: "marketplace-buy-direct-api",
-        });
-        addedRows += 1;
+        };
+        const dedupeKey = buildMarketplaceOfferIdentityKey(normalizedRow);
+        if (!dedupeKey) return;
+        const existedBefore = seenOfferKeys.has(dedupeKey);
+        seenOfferKeys.add(dedupeKey);
+        const insertedOrImproved = upsertMarketplaceOffer(
+          marketplaceOffers,
+          marketplaceOfferIndexByKey,
+          normalizedRow,
+        );
+        if (!existedBefore || insertedOrImproved) {
+          addedRows += 1;
+        }
       });
 
       pageFailureCounts.delete(page);
@@ -1945,6 +2183,8 @@ async function fetchMarketMinersViaDirectApi(preferredCookieHeader = "", progres
   return {
     success: true,
     endpoint: "https://rollercoin.com/api/marketplace/buy/sale-orders",
+    refreshMode: normalizedOptions.refreshMode,
+    maxPages: effectiveMaxPages,
     mode: "direct-market-api",
     sourcePath: partialSuccessWarning ? "paged-sale-orders-api-partial" : "paged-sale-orders-api",
     sourceScore: marketplaceOffers.length,
@@ -1956,8 +2196,10 @@ async function fetchMarketMinersViaDirectApi(preferredCookieHeader = "", progres
   };
 }
 
-async function fetchMarketMinersViaBrowserSession(preferredCookieHeader = "", progress = null) {
+async function fetchMarketMinersViaBrowserSession(preferredCookieHeader = "", progress = null, options = {}) {
   const authSession = session.fromPartition(ROLLERCOIN_PARTITION);
+  const normalizedOptions = normalizeMarketFetchOptions(options);
+  const effectiveMaxPages = normalizedOptions.maxPages;
   if (typeof preferredCookieHeader === "string" && preferredCookieHeader.trim()) {
     await syncCookieHeaderToSession(preferredCookieHeader, authSession);
   }
@@ -1965,23 +2207,15 @@ async function fetchMarketMinersViaBrowserSession(preferredCookieHeader = "", pr
   const sessionInfo = await readRollercoinCookies(authSession);
   if (progress) {
     progress(
-      `Browser-session API mode. Session cookies=${sessionInfo.cookieCount}, using cookie source=` +
+      `Browser-session API mode (${normalizedOptions.refreshMode}). Session cookies=${sessionInfo.cookieCount}, using cookie source=` +
         `${preferredCookieHeader && preferredCookieHeader.trim() ? "manual-input+partition-sync" : "auth-partition"}.`,
     );
   }
 
-  const worker = new BrowserWindow({
-    show: false,
+  const worker = createHiddenWorkerWindow({
     width: 1180,
     height: 860,
-    autoHideMenuBar: true,
     title: "RollerCoin Market API Worker",
-    webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
-      sandbox: true,
-      partition: ROLLERCOIN_PARTITION,
-    },
   });
 
   try {
@@ -2042,9 +2276,10 @@ async function fetchMarketMinersViaBrowserSession(preferredCookieHeader = "", pr
           await sleep(1200);
 
           const pageLimit = ${MARKET_PAGE_LIMIT};
-          const maxPages = ${MARKET_MAX_PAGES};
+          const maxPages = ${effectiveMaxPages};
           const attempts = [];
           const offers = [];
+          const offerIndexByKey = new Map();
           const seenOfferKeys = new Set();
           const tokenCandidates = [];
           const queryProfiles = [
@@ -2058,6 +2293,58 @@ async function fetchMarketMinersViaBrowserSession(preferredCookieHeader = "", pr
             const matching = images.find((image) => /miner|storage|market/i.test(String(image.src || "")));
             return matching ? String(matching.src || "") : "";
           })();
+
+          const buildOfferIdentityKey = (offer) => {
+            if (!offer || typeof offer !== "object") return "";
+            const id = offer.id ? String(offer.id) : "";
+            const name = String(offer.name || "").trim().toLowerCase();
+            const price = Number.isFinite(Number(offer.price)) ? Number(offer.price) : "na";
+            const power = Number.isFinite(Number(offer.power)) ? Number(offer.power) : "na";
+            const width = Number.isFinite(Number(offer.width)) ? Math.floor(Number(offer.width)) : "na";
+            const level = Number.isFinite(Number(offer.level)) ? Math.floor(Number(offer.level)) : "na";
+            return id || (name + ":" + price + ":" + power + ":" + width + ":" + level);
+          };
+
+          const choosePreferredOffer = (existingOffer, nextOffer) => {
+            if (!existingOffer) return nextOffer;
+            if (!nextOffer) return existingOffer;
+
+            const existingBonus = Number(existingOffer.bonus_percent) || 0;
+            const nextBonus = Number(nextOffer.bonus_percent) || 0;
+            if (nextBonus !== existingBonus) {
+              return nextBonus > existingBonus ? nextOffer : existingOffer;
+            }
+
+            const existingPrice = Number(existingOffer.price);
+            const nextPrice = Number(nextOffer.price);
+            if (Number.isFinite(nextPrice) && (!Number.isFinite(existingPrice) || nextPrice < existingPrice)) {
+              return nextOffer;
+            }
+
+            const existingHasImage = Boolean(existingOffer.image_url);
+            const nextHasImage = Boolean(nextOffer.image_url);
+            if (nextHasImage && !existingHasImage) {
+              return nextOffer;
+            }
+
+            return existingOffer;
+          };
+
+          const upsertOffer = (offersList, offerMap, offer) => {
+            const dedupeKey = buildOfferIdentityKey(offer);
+            if (!dedupeKey) return false;
+
+            const existingIndex = offerMap.get(dedupeKey);
+            if (!Number.isFinite(existingIndex)) {
+              offerMap.set(dedupeKey, offersList.length);
+              offersList.push(offer);
+              return true;
+            }
+
+            const preferredOffer = choosePreferredOffer(offersList[existingIndex], offer);
+            offersList[existingIndex] = preferredOffer;
+            return preferredOffer === offer;
+          };
 
           const fetchWithTimeout = async (url, options, timeoutMs) => {
             const controller = new AbortController();
@@ -2282,6 +2569,13 @@ async function fetchMarketMinersViaBrowserSession(preferredCookieHeader = "", pr
               getByPath(row, "item.bonus_percent"),
               getByPath(row, "item_info.miner_bonus"),
               getByPath(row, "item_info.percent_bonus"),
+              getByPath(row, "item_info.bonus_percent"),
+              getByPath(row, "miner.miner_bonus"),
+              getByPath(row, "miner.percent_bonus"),
+              getByPath(row, "miner.bonus_percent"),
+              getByPath(row, "sale.miner_bonus"),
+              getByPath(row, "sale.percent_bonus"),
+              getByPath(row, "sale.bonus_percent"),
               getByPath(row, "product.miner_bonus"),
               getByPath(row, "product.percent_bonus"),
               getByPath(row, "product.bonus_percent"),
@@ -2290,6 +2584,8 @@ async function fetchMarketMinersViaBrowserSession(preferredCookieHeader = "", pr
               getByPath(row, "bonus.power_percent"),
               getByPath(row, "item.bonus.power_percent"),
               getByPath(row, "item_info.bonus.power_percent"),
+              getByPath(row, "miner.bonus.power_percent"),
+              getByPath(row, "sale.bonus.power_percent"),
               getByPath(row, "product.bonus.power_percent"),
             ]);
             const bonusPercent = Number.isFinite(directBonusPercent)
@@ -2313,6 +2609,11 @@ async function fetchMarketMinersViaBrowserSession(preferredCookieHeader = "", pr
               getByPath(row, "item_info.level") ||
               getByPath(row, "product.level") ||
               null;
+            const buildLevelBadgeUrl = (rawLevel) => {
+              const numericLevel = Number(rawLevel);
+              if (!Number.isFinite(numericLevel) || numericLevel < 0) return "";
+              return "https://rollercoin.com/static/img/storage/rarity_icons/level_" + (Math.floor(numericLevel) + 1) + ".png?v=1.0.0";
+            };
             const buildImageUrlFromFilename = (file, version, template) => {
               if (!file) return "";
               const versions = Number.isFinite(Number(version)) ? ["?v=" + Number(version)] : [""];
@@ -2366,10 +2667,7 @@ async function fetchMarketMinersViaBrowserSession(preferredCookieHeader = "", pr
                 getByPath(row, "item_info.image") ||
                 getByPath(row, "product.image") ||
                 buildImageUrlFromFilename(filename, imgVer, imageTemplateUrl),
-              level_badge_url:
-                Number.isFinite(Number(level)) && Number(level) > 0
-                  ? "https://rollercoin.com/static/img/storage/rarity_icons/level_" + Math.floor(Number(level)) + ".png?v=1.0.0"
-                  : "",
+              level_badge_url: buildLevelBadgeUrl(level),
               source: "marketplace-buy-browser-session-api",
             };
           };
@@ -2770,11 +3068,14 @@ async function fetchMarketMinersViaBrowserSession(preferredCookieHeader = "", pr
 
               let addedRows = 0;
               normalizedRows.forEach((row) => {
-                const dedupeKey = String(row.id) + ":" + String(row.price) + ":" + String(row.power) + ":" + String(row.bonus_percent || 0);
-                if (seenOfferKeys.has(dedupeKey)) return;
+                const dedupeKey = buildOfferIdentityKey(row);
+                if (!dedupeKey) return;
+                const existedBefore = seenOfferKeys.has(dedupeKey);
                 seenOfferKeys.add(dedupeKey);
-                offers.push(row);
-                addedRows += 1;
+                const insertedOrImproved = upsertOffer(offers, offerIndexByKey, row);
+                if (!existedBefore || insertedOrImproved) {
+                  addedRows += 1;
+                }
               });
               pageFailureCounts.delete(page);
               attempts.push({ step: "page-added", page, added: addedRows, totalOffers: offers.length });
@@ -2854,6 +3155,8 @@ async function fetchMarketMinersViaBrowserSession(preferredCookieHeader = "", pr
           return {
             success: true,
             endpoint: "https://rollercoin.com/api/marketplace/buy/sale-orders",
+            refreshMode: ${JSON.stringify(normalizedOptions.refreshMode)},
+            maxPages,
             sourcePath: partialSuccessWarning ? "browser-session-sale-orders-api-partial" : "browser-session-sale-orders-api",
             sourceScore: offers.length,
             selectedQueryProfile: selectedQueryProfile.label,
@@ -3113,14 +3416,39 @@ async function scanMarketplaceBuyFirstOffers(progress = null, options = {}) {
             getByPath(row, "product.power"),
           ]);
 
-          const bonusPercent = firstFiniteNumber([
+          const directBonusPercent = firstFiniteNumber([
+            row.miner_bonus,
             row.percent_bonus,
             row.bonus_percent,
             row.bonus,
+            getByPath(row, "price.miner_bonus"),
+            getByPath(row, "item.miner_bonus"),
             getByPath(row, "item.percent_bonus"),
+            getByPath(row, "item.bonus_percent"),
+            getByPath(row, "item_info.miner_bonus"),
             getByPath(row, "item_info.percent_bonus"),
+            getByPath(row, "item_info.bonus_percent"),
+            getByPath(row, "miner.miner_bonus"),
+            getByPath(row, "miner.percent_bonus"),
+            getByPath(row, "miner.bonus_percent"),
+            getByPath(row, "sale.miner_bonus"),
+            getByPath(row, "sale.percent_bonus"),
+            getByPath(row, "sale.bonus_percent"),
+            getByPath(row, "product.miner_bonus"),
             getByPath(row, "product.percent_bonus"),
+            getByPath(row, "product.bonus_percent"),
           ]);
+          const nestedBonusPercent = firstFiniteNumber([
+            getByPath(row, "bonus.power_percent"),
+            getByPath(row, "item.bonus.power_percent"),
+            getByPath(row, "item_info.bonus.power_percent"),
+            getByPath(row, "miner.bonus.power_percent"),
+            getByPath(row, "sale.bonus.power_percent"),
+            getByPath(row, "product.bonus.power_percent"),
+          ]);
+          const bonusPercent = Number.isFinite(directBonusPercent)
+            ? directBonusPercent / 100
+            : (Number.isFinite(nestedBonusPercent) ? nestedBonusPercent / 100 : 0);
 
           return {
             id: String(id || ""),
@@ -3547,6 +3875,13 @@ async function scanMarketplaceBuyInteractive(progress = null, options = {}) {
           return NaN;
         };
 
+        const parseBonusFromText = (text) => {
+          if (!text) return NaN;
+          const match = String(text).match(/(\\d[\\d\\s.,]*)\\s*%/i);
+          if (!match) return NaN;
+          return parseNumber(match[1]);
+        };
+
         const normalizeImageUrl = (value) => {
           if (!value) return "";
           const src = String(value).trim();
@@ -3711,6 +4046,7 @@ async function scanMarketplaceBuyInteractive(progress = null, options = {}) {
 
             const power = parsePowerFromText(text);
             const price = parsePriceFromText(text);
+            const bonusPercent = parseBonusFromText(text);
             if (!Number.isFinite(power) || !Number.isFinite(price) || power <= 0 || price <= 0) return;
 
             const nameCandidate =
@@ -3733,7 +4069,7 @@ async function scanMarketplaceBuyInteractive(progress = null, options = {}) {
               name,
               price,
               power,
-              bonus_percent: 0,
+              bonus_percent: Number.isFinite(bonusPercent) ? bonusPercent : 0,
               currency: "RLT",
               image_url: pickBestImageFromElement(element),
               source: "marketplace-buy-interactive-dom",
@@ -3880,14 +4216,39 @@ async function scanMarketplaceBuyInteractive(progress = null, options = {}) {
             getByPath(row, "product.power"),
           ]);
 
-          const bonusPercent = firstFinite([
+          const directBonusPercent = firstFinite([
+            row.miner_bonus,
             row.percent_bonus,
             row.bonus_percent,
             row.bonus,
+            getByPath(row, "price.miner_bonus"),
+            getByPath(row, "item.miner_bonus"),
             getByPath(row, "item.percent_bonus"),
+            getByPath(row, "item.bonus_percent"),
+            getByPath(row, "item_info.miner_bonus"),
             getByPath(row, "item_info.percent_bonus"),
+            getByPath(row, "item_info.bonus_percent"),
+            getByPath(row, "miner.miner_bonus"),
+            getByPath(row, "miner.percent_bonus"),
+            getByPath(row, "miner.bonus_percent"),
+            getByPath(row, "sale.miner_bonus"),
+            getByPath(row, "sale.percent_bonus"),
+            getByPath(row, "sale.bonus_percent"),
+            getByPath(row, "product.miner_bonus"),
             getByPath(row, "product.percent_bonus"),
+            getByPath(row, "product.bonus_percent"),
           ]);
+          const nestedBonusPercent = firstFinite([
+            getByPath(row, "bonus.power_percent"),
+            getByPath(row, "item.bonus.power_percent"),
+            getByPath(row, "item_info.bonus.power_percent"),
+            getByPath(row, "miner.bonus.power_percent"),
+            getByPath(row, "sale.bonus.power_percent"),
+            getByPath(row, "product.bonus.power_percent"),
+          ]);
+          const bonusPercent = Number.isFinite(directBonusPercent)
+            ? directBonusPercent / 100
+            : (Number.isFinite(nestedBonusPercent) ? nestedBonusPercent / 100 : 0);
 
           return {
             id: String(id || ""),
@@ -4249,9 +4610,8 @@ async function scanMarketplaceBuyInteractive(progress = null, options = {}) {
       const activePageAfter = parsePositivePage(probe?.activePageAfter);
       cycleOffers.forEach((normalized) => {
         if (!normalized || typeof normalized !== "object") return;
-        const key =
-          normalized.id ||
-          `${normalized.name}:${normalized.price}:${normalized.power}:${normalized.bonus_percent}`;
+        const key = buildMarketplaceOfferIdentityKey(normalized);
+        if (!key) return;
         if (seenFirstOfferKeys.has(key)) return;
         seenFirstOfferKeys.add(key);
         firstOffers.push({
@@ -4382,15 +4742,7 @@ async function scanMarketplaceBuyInteractive(progress = null, options = {}) {
 
 async function captureMarketViaDebugger(endpoints, progress = null) {
   const startedAt = Date.now();
-  const worker = new BrowserWindow({
-    show: false,
-    webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
-      sandbox: true,
-      partition: ROLLERCOIN_PARTITION,
-    },
-  });
+  const worker = createHiddenWorkerWindow({});
 
   const endpointPaths = endpoints
     .map((endpoint) => {
@@ -4553,8 +4905,9 @@ async function captureMarketViaDebugger(endpoints, progress = null) {
 }
 
 async function fetchMarketViaSession(options = {}, progress = null) {
+  const normalizedOptions = normalizeMarketFetchOptions(options);
   if (progress) {
-    progress("Market fetch started. Trying direct market API first.");
+    progress(`Market fetch started in ${normalizedOptions.refreshMode} mode. Trying direct market API first.`);
   }
 
   const cookieHeader =
@@ -4563,7 +4916,10 @@ async function fetchMarketViaSession(options = {}, progress = null) {
       : "";
 
   try {
-    const result = await fetchMarketMinersViaDirectApi(cookieHeader, progress);
+    const result = finalizeMarketFetchResult(
+      await fetchMarketMinersViaDirectApi(cookieHeader, progress, normalizedOptions),
+      normalizedOptions,
+    );
     if (progress) {
       if (result.success) {
         progress(
@@ -4585,7 +4941,10 @@ async function fetchMarketViaSession(options = {}, progress = null) {
       progress("Trying browser-session API as a fallback...", "warn");
     }
 
-    const fallbackResult = await fetchMarketMinersViaBrowserSession(cookieHeader, progress);
+    const fallbackResult = finalizeMarketFetchResult(
+      await fetchMarketMinersViaBrowserSession(cookieHeader, progress, normalizedOptions),
+      normalizedOptions,
+    );
     if (progress) {
       if (fallbackResult.success) {
         progress(
@@ -4604,25 +4963,25 @@ async function fetchMarketViaSession(options = {}, progress = null) {
       return fallbackResult;
     }
     if (!fallbackResult.success && result.error) {
-      return {
+      return finalizeMarketFetchResult({
         ...fallbackResult,
         attempts: [
           ...(Array.isArray(result.attempts) ? result.attempts : []),
           ...(Array.isArray(fallbackResult.attempts) ? fallbackResult.attempts : []),
         ],
         error: `${result.error} | Browser fallback: ${fallbackResult.error || "unknown error"}`,
-      };
+      }, normalizedOptions);
     }
 
-    return fallbackResult;
+    return finalizeMarketFetchResult(fallbackResult, normalizedOptions);
   } catch (error) {
     if (progress) {
       progress(`Market fetch crashed: ${error.message}`, "error");
     }
-    return {
+    return finalizeMarketFetchResult({
       success: false,
       error: `Market fetch failed: ${error.message}`,
-    };
+    }, normalizedOptions);
   }
 }
 
@@ -4633,18 +4992,10 @@ async function probeRollercoinAuthStatus(preferredCookieHeader = "") {
   }
 
   const sessionInfo = await readRollercoinCookies(authSession);
-  const worker = new BrowserWindow({
-    show: false,
+  const worker = createHiddenWorkerWindow({
     width: 1180,
     height: 860,
-    autoHideMenuBar: true,
     title: "RollerCoin Auth Probe",
-    webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
-      sandbox: true,
-      partition: ROLLERCOIN_PARTITION,
-    },
   });
 
   try {
@@ -4994,18 +5345,10 @@ async function fetchRollercoinCurrentPower(preferredCookieHeader = "") {
     }
   }
 
-  const worker = new BrowserWindow({
-    show: false,
+  const worker = createHiddenWorkerWindow({
     width: 1100,
     height: 800,
-    autoHideMenuBar: true,
     title: "RollerCoin Current Power Worker",
-    webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
-      sandbox: true,
-      partition: ROLLERCOIN_PARTITION,
-    },
   });
 
   try {
@@ -5271,18 +5614,10 @@ async function fetchRollercoinRoomConfig(preferredCookieHeader = "", roomConfigR
     }
 
     if (!resolvedProfileId) {
-      const profileWorker = new BrowserWindow({
-        show: false,
+      const profileWorker = createHiddenWorkerWindow({
         width: 1100,
         height: 800,
-        autoHideMenuBar: true,
         title: "RollerCoin Profile Worker",
-        webPreferences: {
-          nodeIntegration: false,
-          contextIsolation: true,
-          sandbox: true,
-          partition: ROLLERCOIN_PARTITION,
-        },
       });
 
       try {
@@ -5538,18 +5873,10 @@ async function fetchRollercoinRoomConfig(preferredCookieHeader = "", roomConfigR
     }
   }
 
-  const worker = new BrowserWindow({
-    show: false,
+  const worker = createHiddenWorkerWindow({
     width: 1100,
     height: 800,
-    autoHideMenuBar: true,
     title: "RollerCoin Room Config Worker",
-    webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
-      sandbox: true,
-      partition: ROLLERCOIN_PARTITION,
-    },
   });
 
   try {
@@ -5848,16 +6175,45 @@ if (hasSingleInstanceLock) {
         payload && typeof payload === "object" && !Array.isArray(payload)
           ? payload.cookieHeader || ""
           : "";
+      const refreshMode =
+        payload && typeof payload === "object" && !Array.isArray(payload)
+          ? payload.refreshMode || "full"
+          : "full";
+      const maxPages =
+        payload && typeof payload === "object" && !Array.isArray(payload)
+          ? payload.maxPages
+          : undefined;
+      const includeAttempts =
+        payload && typeof payload === "object" && !Array.isArray(payload)
+          ? payload.includeAttempts !== false
+          : true;
 
       const progress = (message, level = "info", extra = {}) => {
         emitMarketProgress(event.sender, requestId, message, level, extra);
       };
 
-      progress("Request accepted. Starting market miners loading flow...");
-      return fetchMarketViaSession({ cookieHeader }, progress);
+      progress(
+        `Request accepted. Starting market miners loading flow (${normalizeMarketRefreshMode(refreshMode)} mode)...`,
+      );
+      try {
+        return await fetchMarketViaSession({
+          cookieHeader,
+          refreshMode,
+          maxPages,
+          includeAttempts,
+        }, progress);
+      } finally {
+        clearMarketProgressState(event.sender, requestId);
+      }
     });
     ipcMain.handle("app-updates-check", async () => {
       return triggerAutoUpdateCheck({ manual: true });
+    });
+    ipcMain.handle("app-user-data-path", async () => {
+      return {
+        success: true,
+        path: app.getPath("userData"),
+      };
     });
 
     app.on("activate", () => {
