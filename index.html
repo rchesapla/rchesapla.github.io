@@ -1,10 +1,331 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
-    <meta http-equiv="refresh" content="0; url=https://rollercoincalculator.app/tr/">
-    <title>Yönlendiriliyorsunuz...</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RollerCoin Türkiye | Oyna, Kazan, Hükmet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --accent: #22d3ee;
+            --bg: #030712;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --border: rgba(255, 255, 255, 0.1);
+            --text-main: #f9fafb;
+            --text-dim: #9ca3af;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Arkaplan Efektleri --- */
+        .mesh-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(168, 85, 247, 0.15) 0%, transparent 50%);
+        }
+
+        .blob {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: var(--primary);
+            filter: blur(120px);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.1;
+            animation: move 20s infinite alternate;
+        }
+
+        @keyframes move {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(20%, 20%); }
+        }
+
+        /* --- Navbar --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 0;
+            background: rgba(3, 7, 18, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 12rem 2rem 6rem;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 99px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            color: var(--text-dim);
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+        }
+
+        /* --- Buttons --- */
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-main {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            background: rgba(255,255,255,0.03);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.08);
+        }
+
+        /* --- Bento Grid --- */
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .bento-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            border-radius: 24px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .bento-card.wide { grid-column: span 2; }
+        .bento-card.tall { grid-row: span 2; }
+
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- Footer --- */
+        footer {
+            margin-top: 10rem;
+            padding: 4rem 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            background: rgba(3, 7, 18, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .bento-card.wide { grid-column: span 1; }
+            .nav-links { display: none; }
+        }
+    </style>
 </head>
 <body>
-    <p>Eğer yönlendirme gerçekleşmezse <a href="https://rollercoincalculator.app/tr/">buraya tıklayın</a>.</p>
+
+    <div class="mesh-gradient"></div>
+    <div class="blob"></div>
+
+    <nav>
+        <div class="nav-content">
+            <div class="logo">RollerCoin.TR</div>
+            <ul class="nav-links">
+                <li><a href="#ozellikler">Özellikler</a></li>
+            </ul>
+            <a href="https://rollercoin.com/?r=le7ml8f3" class="btn btn-outline" style="padding: 0.5rem 1.2rem; font-size: 0.9rem;">Giriş Yap</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <span class="badge">🚀 Türkiye'nin En Büyük Madencilik Topluluğu</span>
+        <h1>Oyun Oyna, Madencilik Gücü Kur, <span style="color: var(--primary)">Kripto Kazan.</span></h1>
+        <p>Ekipman masrafı yok, elektrik faturası yok. Sadece yeteneklerinle kendi kripto imparatorluğunu kurmaya hemen başla.</p>
+        
+        <div class="btn-group">
+            <a href="https://rollercoin.com/?r=le7ml8f3" class="btn btn-main">Ücretsiz Başla</a>
+            <a href="https://t.me/bilgilendiriyor" class="btn btn-outline">Telegram'a Katıl</a>
+            <a href="https://t.me/rollercointurkiyetr" class="btn btn-outline">Telegram'a Katıl 2</a>
+            <a href="https://rollercoincalculator.app/tr/" class="btn btn-main">Hesaplama Sitesi</a>
+        </div>
+    </section>
+
+    <div class="section-title">
+        <h2 style="font-size: 2.5rem;">Neden RollerCoin?</h2>
+    </div>
+
+    <div class="bento-grid" id="ozellikler">
+        <div class="bento-card wide">
+            <div class="icon-box">🎮</div>
+            <h3>20+ Mini Oyun</h3>
+            <p style="color: var(--text-dim); margin-top: 1rem;">Arcade oyunları oynayarak geçici mining gücü kazanın. Ne kadar çok oyun, o kadar çok hash rate!</p>
+        </div>
+        <div class="bento-card">
+            <div class="icon-box">💎</div>
+            <h3>Gerçek Kripto</h3>
+            <p style="color: var(--text-dim); margin-top: 1rem;">BTC, ETH, DOGE ve daha fazlası. Tamamen çekilebilir.</p>
+        </div>
+        <div class="bento-card tall">
+            <div class="icon-box">🏗️</div>
+            <h3>Oda Tasarımı</h3>
+            <p style="color: var(--text-dim); margin-top: 1rem;">Kendi sanal veri merkezinizi kurun. Raflarınızı dizin, en güçlü miner'ları yerleştirin ve pasif kazancın keyfini çıkarın. Stratejinizi belirleyin ve rakiplerinizin önüne geçin.</p>
+        </div>
+        <div class="bento-card">
+            <div class="icon-box">📈</div>
+            <h3>Piyasa Sistemi</h3>
+            <p style="color: var(--text-dim); margin-top: 1rem;">Oyuncular arası pazarda ticaret yapın.</p>
+        </div>
+        <div class="bento-card">
+            <div class="icon-box">🛡️</div>
+            <h3>Güvenilir</h3>
+            <p style="color: var(--text-dim); margin-top: 1rem;">Yıllardır ödeme yapan global sistem.</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="logo" style="margin-bottom: 2rem;">RollerCoin Türkiye</div>
+        <p style="color: var(--text-dim); font-size: 0.9rem;">Bu site bir topluluk girişimidir. Yatırım tavsiyesi içermez.</p>
+        <div style="margin-top: 2rem; opacity: 0.5;">© 2026 RollerCoin TR Community</div>
+    </footer>
+
+    <script>
+        // Basit scroll animasyonu
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.style.opacity = "0";
+            card.style.transform = "translateY(20px)";
+            card.style.transition = "0.6s ease-out";
+            observer.observe(card);
+        });
+    </script>
 </body>
 </html>
