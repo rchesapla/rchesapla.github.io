@@ -130,24 +130,10 @@
             </div>
 
             <div class="input-box">
-                <label>KİŞİSEL GÜCÜNÜZ</label>
-                <div class="power-input-group">
-                    <input type="number" ng-model="calcData.myPower">
-                    <select ng-model="calcData.myUnit">
-                        <option value="gh">GH/s</option>
-                        <option value="th">TH/s</option>
-                        <option value="ph">PH/s</option>
-                        <option value="eh">EH/s</option>
-                        <option value="zh">ZH/s</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="input-box">
                 <label>AĞ GÜCÜ (NETWORK POWER)</label>
                 <div class="power-input-group">
-                    <input type="number" ng-model="calcData.netPower">
-                    <select ng-model="calcData.netUnit">
+                    <input type="number" ng-model="calcData.netPower" ng-disabled="isAuthorized">
+                    <select ng-model="calcData.netUnit" ng-disabled="isAuthorized">
                         <option value="gh">GH/s</option>
                         <option value="th">TH/s</option>
                         <option value="ph">PH/s</option>
