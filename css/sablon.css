@@ -23,6 +23,34 @@
 
 
 
+
+
+
+.live-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+.live-table th {
+    text-align: left;
+    font-size: 0.65rem;
+    color: #64748b;
+    padding: 10px;
+    border-bottom: 1px solid #1e293b;
+}
+.live-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+    font-size: 0.8rem;
+}
+.coin-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+}
+
+
 /* Ana Satır Düzeni */
 .settings-row {
     display: flex;
