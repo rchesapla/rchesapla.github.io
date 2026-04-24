@@ -67,7 +67,7 @@
         </div>
 
         <div class="league-section" ng-if="isAuthorized" >
-            <label class="small-label">LİG SEÇİMİ</label>
+            <label class="small-label">LİG DURUMU</label>
             <div class="league-controls">
                 <select ng-model="calcData.leagueId" ng-change="updateLeagueData()" ng-disabled="isAuthorized">
                     <option ng-repeat="league in leagues" value="{{league.id}}">{{league.name}}</option>
