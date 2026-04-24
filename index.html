@@ -46,23 +46,36 @@
 
     <div class="wrapper">
         
-        <div class="card">
-            <div class="card-title">⚙️ ROLLERCOIN KULLANICI ADI</div>
-            <div style="display: flex; gap: 10px;">
-                <input type="text" ng-model="userNick" placeholder="Örn: FthCLK" ng-disabled="isAuthorized">
-                <button class="btn-main" style="width: auto; padding: 0 20px;" ng-click="fetchUserData()" ng-disabled="loadingApi || !userNick || isAuthorized">
-                    {{ isAuthorized ? 'SİSTEM AKTİF' : 'ERİŞİMİ BAŞLAT' }}
+<div class="card">
+    
+    <div class="settings-row">
+        <div class="input-section">
+            <div class="tab-container">
+                <div class="tab-btn active">KULLANICI ADI</div>
+                <div class="tab-btn">GEREKLİ</div>
+            </div>
+            
+            <div class="input-group-wrapper">
+                <div class="input-relative">
+                    <input type="text" ng-model="userNick" placeholder="FthCLK" ng-disabled="isAuthorized">
+                </div>
+                <button class="btn-fetch" ng-click="fetchUserData()" ng-disabled="loadingApi || !userNick || isAuthorized">
+                    <span ng-if="!isAuthorized">🚀 Getir</span>
+                    <span ng-if="isAuthorized">SİSTEM AKTİF</span>
                 </button>
             </div>
+        </div>
 
-            <div ng-if="userHistory.length > 0 && !isAuthorized" style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px;">
-                <span style="font-size: 0.7rem; color: var(--text-dim); width: 100%; font-weight: bold;">GEÇMİŞ KULLANICI ADLARI:</span>
-                <div ng-repeat="nick in userHistory track by $index" class="history-tag">
-                    <span ng-click="quickFetch(nick)" style="font-weight: 600;">{{nick}}</span>
-                    <span class="history-del" ng-click="removeFromHistory($index)" style="color: #ff4444; font-weight: bold; padding-left: 5px;">×</span>
-                </div>
+        <div class="league-section" ng-if="isAuthorized" >
+            <label class="small-label">LİG SEÇİMİ</label>
+            <div class="league-controls">
+                <select ng-model="calcData.leagueId" ng-change="updateLeagueData()" ng-disabled="isAuthorized">
+                    <option ng-repeat="league in leagues" value="{{league.id}}">{{league.name}}</option>
+                </select>
             </div>
         </div>
+    </div>
+</div>
 		
         <div ng-if="isAuthorized">
 <div class="card" ng-if="isAuthorized">
@@ -107,13 +120,6 @@
                             <option value="ALGO">ALGO (Algorand)</option>
                         </select>
                 </div>
-            </div>
-
-            <div class="input-box">
-                <label>LİG SEVİYESİ (OTOMATİK)</label>
-                <select ng-model="calcData.leagueId" ng-change="updateLeagueData()">
-                    <option ng-repeat="league in leagues" value="{{league.id}}">{{league.name}}</option>
-                </select>
             </div>
 
             <div class="manual-reward-box">

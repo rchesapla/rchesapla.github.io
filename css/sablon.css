@@ -3,6 +3,138 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Ana Satır Düzeni */
+.settings-row {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+	justify-content:center;
+}
+
+/* Tab Butonları */
+.tab-container {
+    display: flex;
+    background: #0f172a;
+    padding: 4px;
+    border-radius: 8px;
+    width: fit-content;
+    margin-bottom: 10px;
+}
+
+.tab-btn {
+    padding: 8px 15px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    cursor: pointer;
+    border-radius: 6px;
+    color: #64748b;
+    transition: 0.3s;
+}
+
+.tab-btn.active {
+    background: #7c3aed; /* Görseldeki mor tonu */
+    color: white;
+}
+
+/* Input ve Getir Butonu Yan Yana */
+.input-group-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.input-relative {
+    position: relative;
+    flex: 1;
+}
+
+.input-relative input {
+    width: 100%;
+    background: #0f172a !important;
+    border: 1px solid #1e293b !important;
+    padding-right: 35px !important;
+}
+
+.info-circle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #1e293b;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    cursor: pointer;
+    color: #94a3b8;
+}
+
+/* Getir Butonu */
+.btn-fetch {
+    background: #a855f7;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+}
+
+/* Lig Bölümü */
+.league-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.auto-check {
+    background: #1e293b;
+    padding: 5px 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #94a3b8;
+    border: 1px solid #334155;
+}
+
+.small-label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: #64748b;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+
+
 /* Ayarlar ve Notlar için yan yana düzen */
 .settings-grid {
     display: grid;
