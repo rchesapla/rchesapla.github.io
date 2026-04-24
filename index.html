@@ -235,7 +235,7 @@
             {{item.name}}
         </td>
         <td class="stats-val">{{ formatNetworkPower(item.networkPower) }}</td>
-        <td class="reward-val">{{item.blockSize.toFixed(4)}}</td>
+        <td class="reward-val">{{item.name === 'BTC' ? item.blockSize.toFixed(10) : item.blockSize.toFixed(4)}}</td>
         <td>{{(item.blockTime / 60).toFixed(1)}} dk</td>
     </tr>
 
