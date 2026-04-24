@@ -540,7 +540,7 @@ footer {
 
     <div class="wrapper">
         
-        <div class="card">
+        <div class="card" ng-if="!isAuthorized">
             <div class="card-title">⚙️ ROLLERCOIN KULLANICI ADI</div>
             <div style="display: flex; gap: 10px;">
                 <input type="text" ng-model="userNick" placeholder="Örn: FthCLK" ng-disabled="isAuthorized">
@@ -644,7 +644,7 @@ footer {
             
             <div class="update-item">
                 <span class="update-date">15.03.2026</span>
-                <p class="update-desc"><b>Envanter:</b> Kullanıcıların envanterini görebilirsin.</p>
+                <p class="update-desc"><b>Yedek Site:</b> Kullanıcıların envanterini görebilirsin.</p>
 				<p><button class="btn-main" style="width: auto; padding: 0 20px;">
                     <a href="./miner-odam.html" target="_blank">Tıkla</a>
                 </button></p>
@@ -700,7 +700,7 @@ footer {
 
             <div class="card" ng-if="isAuthorized && liveData.length > 0">
                 <div class="card-title">
-                    ● CANLI KRİPTO KAZANÇLARI
+                    ● ROLLERCOIN KRİPTO CANLI AĞ ORANLARI
                     <span class="loading-overlay" ng-click="updateLeagueData()">🔄 VERİYİ GÜNCELLE</span>
                 </div>
                 <div style="overflow-x: auto;">
@@ -708,7 +708,7 @@ footer {
                         <thead>
                             <tr>
                                 <th>COIN</th>
-                                <th>AĞ GÜCÜ (EH/s)</th>
+                                <th>AĞ GÜCÜ</th>
                                 <th>BLOK ÖDÜLÜ</th>
                                 <th>SÜRE</th>
                             </tr>
