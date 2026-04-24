@@ -50,10 +50,6 @@
     
     <div class="settings-row">
         <div class="input-section">
-            <div class="tab-container">
-                <div class="tab-btn active">KULLANICI ADI</div>
-                <div class="tab-btn">GEREKLİ</div>
-            </div>
             
             <div class="input-group-wrapper">
                 <div class="input-relative">
@@ -67,7 +63,6 @@
         </div>
 
         <div class="league-section" ng-if="isAuthorized" >
-            <label class="small-label">LİG DURUMU</label>
             <div class="league-controls">
                 <select ng-model="calcData.leagueId" ng-change="updateLeagueData()" ng-disabled="isAuthorized">
                     <option ng-repeat="league in leagues" value="{{league.id}}">{{league.name}}</option>
