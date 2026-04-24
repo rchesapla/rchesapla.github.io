@@ -462,7 +462,17 @@ footer {
     <div class="settings-grid">
         
         <div class="settings-form">
-            <div class="card-title">● HESAPLAMA AYARLARI</div>
+            <div class="card-title">● HESAPLAMA AYARLARI
+                    <span class="loading-overlay">
+					
+								<div ng-if="isAuthorized" style=" align-items: center;">
+            <a ng-href="https://rollercoin.com/p/{{userNick}}" target="_blank" 
+               style="color: var(--primary); text-decoration: none; font-family: 'JetBrains Mono', monospace; justify-content:center;">
+               🚀 {{userNick}} (Odayı Görüntüle)
+            </a>
+        </div>
+					
+					</span></div>
             
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                 <div class="input-box">
