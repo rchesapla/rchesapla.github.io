@@ -20,7 +20,12 @@
 
 
 
-
+/* Pasif satırların üzerine gelindiğinde bile sönük kalmasını sağlar */
+tr[style*="opacity: 0.4"]:hover {
+    background: transparent !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
 
 
 
@@ -713,19 +718,33 @@ footer {
                                 <th>SÜRE</th>
                             </tr>
                         </thead>
-                        <tbody>
-<tr ng-repeat="item in liveData">
-<td class="coin-name" style="display: flex; align-items: center; gap: 8px;">
-    <img ng-src="https://rollercoin.com/static/img/wallet/{{item.name.toLowerCase()}}.svg" 
-         style="width: 20px; height: 20px;" 
-         onerror="this.src='img/icon3.png'"> 
-    {{item.name}}
-</td>
-    <td class="stats-val">{{ formatNetworkPower(item.networkPower) }}</td>
-	<td class="reward-val">{{item.blockSize.toFixed(4)}}</td>
-    <td>{{(item.blockTime / 60).toFixed(1)}} dk</td>
-</tr>
-                        </tbody>
+<tbody>
+    <tr ng-repeat="item in liveData | filter: {networkPower: ''} as activeItems" ng-if="item.networkPower > 0">
+        <td class="coin-name" style="display: flex; align-items: center; gap: 8px;">
+            <img ng-src="https://rollercoin.com/static/img/wallet/{{item.name.toLowerCase()}}.svg" style="width: 20px; height: 20px;" onerror="this.src='img/icon3.png'">
+            {{item.name}}
+        </td>
+        <td class="stats-val">{{ formatNetworkPower(item.networkPower) }}</td>
+        <td class="reward-val">{{item.blockSize.toFixed(4)}}</td>
+        <td>{{(item.blockTime / 60).toFixed(1)}} dk</td>
+    </tr>
+
+    <tr ng-if="(liveData | filter:{networkPower:0}).length > 0">
+        <td colspan="4" style="padding: 20px 10px 10px 10px; font-size: 0.7rem; color: #64748b; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">
+            ● Pasif / Ağ Gücü Yok
+        </td>
+    </tr>
+
+    <tr ng-repeat="item in liveData" ng-if="item.networkPower <= 0" style="opacity: 0.4; filter: grayscale(1);">
+        <td class="coin-name" style="display: flex; align-items: center; gap: 8px;">
+            <img ng-src="https://rollercoin.com/static/img/wallet/{{item.name.toLowerCase()}}.svg" style="width: 18px; height: 18px;">
+            {{item.name}}
+        </td>
+        <td style="color: #64748b;">Pasif</td>
+        <td style="color: #64748b;">0.0000</td>
+        <td style="color: #64748b;">-</td>
+    </tr>
+</tbody>
                     </table>
                 </div>
             </div>
