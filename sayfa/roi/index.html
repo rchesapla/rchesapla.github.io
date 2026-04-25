@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>RC Pro | ROI & Network Analiz v2.0</title>
-<link rel="shortcut icon" type="image/x-icon" href="../../img/icon3.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../../img/icon3.png">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <style>
-        :root { --primary: #00ff88; --bg: #0f172a; --card: #1e293b; --text: #f1f5f9; --danger: #ff4757; }
-        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; }
-        .container { max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 380px 1fr; gap: 20px; }
+        :root { --primary: #00ff88; --bg: #0f172a; --card: #1e293b; --text: #f1f5f9; --danger: #ff4757; --accent: #38bdf8; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; overflow-x: hidden; }
+        .container { max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 380px 1fr; gap: 20px; position: relative; z-index: 1; }
         .panel { background: var(--card); border-radius: 15px; padding: 20px; border: 1px solid #334155; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
         
         .input-group { margin-bottom: 15px; }
@@ -24,11 +24,24 @@
         
         .accent { color: var(--primary); font-weight: bold; }
         .roi-box { margin-top: 20px; padding: 20px; border: 1px dashed var(--primary); border-radius: 12px; background: rgba(0,255,136,0.05); text-align: center; }
-        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; justify-content:center; }
-        .stat-item { background: #0f172a; padding: 10px; border-radius: 8px; justify-content:center; }
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .stat-item { background: #0f172a; padding: 10px; border-radius: 8px; border-left: 4px solid var(--primary); }
         
-        #matrix { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.15; }
+        #matrix { position: fixed; top: 0; left: 0; z-index: 0; opacity: 0.15; }
         .badge { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; background: #334155; margin-left: 5px; }
+
+        /* Geçmiş Listesi Stilleri */
+        .history-list { margin-top: 20px; border-top: 1px solid #334155; padding-top: 15px; }
+        .history-item { 
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(15, 23, 42, 0.5); padding: 8px 12px; border-radius: 6px; 
+            margin-bottom: 8px; font-size: 0.85rem; border: 1px solid transparent; transition: 0.2s;
+        }
+        .history-item:hover { border-color: var(--primary); }
+        .history-nick { color: var(--primary); cursor: pointer; font-weight: 600; }
+        .history-date { color: #64748b; font-size: 0.75rem; }
+        .history-delete { color: var(--danger); cursor: pointer; font-weight: bold; padding: 0 5px; }
+        .history-header { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.8rem; color: #94a3b8; }
     </style>
 </head>
 <body ng-controller="MiningController">
@@ -44,13 +57,13 @@
                 <button class="btn" ng-click="fetchUserData()" style="margin-top:10px;">VERİLERİ ÇEK</button>
             </div>
 
-            <div ng-if="isAuthorized">
+            <div ng-if="isAuthorized" style="margin-top:20px;">
                 <div class="input-group">
                     <label>Lig Seçimi:</label>
                     <select ng-model="calcData.leagueId" ng-change="updateNetworkStats()" ng-options="l.id as l.name for l in leagues"></select>
                 </div>
 
-                <div class="stat-item" style="border-left: 4px solid var(--primary);">
+                <div class="stat-item">
                     <label>Güncel Gücünüz:</label>
                     <div class="accent" style="font-size:1.4rem">{{formatPower(rawPower)}}</div>
                 </div>
@@ -61,23 +74,36 @@
                 </div>
 
                 <div class="input-group">
-                    <label>Hesaplama Bazı (Hangi Coin?):</label>
+                    <label>Hesaplama Bazı:</label>
                     <select ng-model="calcData.selectedCoinKey" ng-change="calculateROI()" ng-options="c.balance_key as c.name for c in liveData"></select>
                 </div>
 
                 <div class="roi-box" ng-show="calcData.minerCost > 0">
                     <small>TAHMİNİ GÜNLÜK KAZANÇ</small>
                     <div class="accent" style="font-size:1.5rem;">{{dailyRewardResult | number:8}}</div>
-                    
                     <div class="stat-grid">
-                        <div class="stat-item">
+                        <div class="stat-item" style="border-left-color: var(--accent);">
                             <small>ROI Süresi</small>
                             <div class="accent">{{roiDays > 9999 ? '∞' : (roiDays | number:0)}} Gün</div>
                         </div>
                     </div>
-                    <p style="font-size:0.7rem; color:#94a3b8; margin-top:10px;">*ROI hesabı seçilen coinin anlık ağ gücüne göre yapılır.</p>
                 </div>
             </div>
+
+            <div class="history-list" ng-if="searchHistory.length > 0">
+                <div class="history-header">
+                    <span>🕒 SON SORGULAMALAR</span>
+                    <span ng-click="clearHistory()" style="color:var(--danger); cursor:pointer;">TEMİZLE</span>
+                </div>
+                <div class="history-item" ng-repeat="h in searchHistory | orderBy:'-timestamp' track by $index">
+                    <span class="history-nick" ng-click="loadFromHistory(h.nick)">{{h.nick}}</span>
+                    <div>
+                        <span class="history-date">{{h.date}}</span>
+                        <span class="history-delete" ng-click="removeFromHistory($index)">×</span>
+                    </div>
+                </div>
+            </div>
+			
         </div>
 
         <div class="panel">
@@ -111,57 +137,71 @@
             const proxy = "https://morning-thunder-0ce3.wminerrc.workers.dev/?";
             const current_date = new Date().toISOString().split('T')[0];
 
+            // --- Başlangıç Değerleri ---
+            $scope.searchHistory = JSON.parse(localStorage.getItem('rc_history')) || [];
             $scope.leagues = [
-                { "id": "68af01ce48490927df92d687", "name": "Bronze I" }, { "id": "68af01ce48490927df92d686", "name": "Bronze II" },
-                { "id": "68af01ce48490927df92d685", "name": "Bronze III" }, { "id": "68af01ce48490927df92d684", "name": "Silver I" },
-                { "id": "68af01ce48490927df92d683", "name": "Silver II" }, { "id": "68af01ce48490927df92d682", "name": "Silver III" },
-                { "id": "68af01ce48490927df92d681", "name": "Gold I" }, { "id": "68af01ce48490927df92d680", "name": "Gold II" },
-                { "id": "68af01ce48490927df92d67f", "name": "Gold III" }, { "id": "68af01ce48490927df92d67e", "name": "Platinum I" },
-                { "id": "68af01ce48490927df92d67d", "name": "Platinum II" }, { "id": "68af01ce48490927df92d67c", "name": "Platinum III" },
-                { "id": "68af01ce48490927df92d67b", "name": "Diamond I" }, { "id": "68af01ce48490927df92d67a", "name": "Diamond II" },
-                { "id": "68af01ce48490927df92d679", "name": "Diamond III" }
+                { "id": "68af01ce48490927df92d687", "name": "Bronze I" }, { "id": "68af01ce48490927df92d684", "name": "Silver I" },
+                { "id": "68af01ce48490927df92d681", "name": "Gold I" }, { "id": "68af01ce48490927df92d67e", "name": "Platinum I" }
             ];
-
-            $scope.calcData = { 
-                leagueId: '68af01ce48490927df92d687', 
-                minerCost: 0,
-                selectedCoinKey: 'RLT'
-            };
-            
+            $scope.calcData = { leagueId: '68af01ce48490927df92d687', minerCost: 0, selectedCoinKey: 'RLT' };
             $scope.liveData = [];
             $scope.rawPower = 0;
 
-            // Güç Dönüştürücü (Okunabilirlik için)
-            $scope.formatPower = function(power) {
-                if (!power) return "0.00 GH/s";
-                let units = ['GH/s', 'TH/s', 'PH/s', 'EH/s', 'ZH/s'];
-                let unitIndex = 0;
-                while (power >= 1000 && unitIndex < units.length - 1) {
-                    power /= 1000;
-                    unitIndex++;
-                }
-                return power.toFixed(2) + " " + units[unitIndex];
-            };
-
-            // Verimlilik Hesaplama (1 PH/s başına ne kadar verir?)
-            $scope.calculateEfficiency = function(coin) {
-                const dailyBlocks = 86400 / coin.blockTime;
-                const ph_in_gh = 1000000;
-                return (ph_in_gh / coin.networkPower) * coin.blockSize * dailyBlocks;
-            };
-
-            // ROI Hesaplama Motoru
-            $scope.calculateROI = function() {
-                const coin = $scope.liveData.find(c => c.balance_key === $scope.calcData.selectedCoinKey);
-                if (!coin || !$scope.rawPower) return;
-
-                const dailyBlocks = 86400 / coin.blockTime;
-                // Formül: (Kullanıcı Gücü / Ağ Gücü) * Blok Ödülü * Günlük Blok Sayısı
-                $scope.dailyRewardResult = ($scope.rawPower / coin.networkPower) * coin.blockSize * dailyBlocks;
+            // --- Geçmiş Yönetimi Fonksiyonları ---
+            $scope.saveToHistory = function(nick) {
+                const now = new Date();
+                const timeStr = now.toLocaleDateString('tr-TR') + " " + now.toLocaleTimeString('tr-TR', {hour:'2-digit', minute:'2-digit'});
                 
-                if ($scope.calcData.minerCost > 0 && $scope.dailyRewardResult > 0) {
-                    // Not: RLT 1$ varsayılmıştır. Diğer coinler için kur çarpımı eklenebilir.
-                    $scope.roiDays = $scope.calcData.minerCost / $scope.dailyRewardResult;
+                // Mevcut listede varsa çıkar (başa almak için)
+                $scope.searchHistory = $scope.searchHistory.filter(item => item.nick.toLowerCase() !== nick.toLowerCase());
+                
+                $scope.searchHistory.unshift({
+                    nick: nick,
+                    date: timeStr,
+                    timestamp: now.getTime()
+                });
+
+                if($scope.searchHistory.length > 5) $scope.searchHistory.pop();
+                localStorage.setItem('rc_history', JSON.stringify($scope.searchHistory));
+            };
+
+            $scope.removeFromHistory = function(index) {
+                $scope.searchHistory.splice(index, 1);
+                localStorage.setItem('rc_history', JSON.stringify($scope.searchHistory));
+            };
+
+            $scope.clearHistory = function() {
+                if(confirm("Tüm geçmişi silmek istiyor musunuz?")) {
+                    $scope.searchHistory = [];
+                    localStorage.removeItem('rc_history');
+                }
+            };
+
+            $scope.loadFromHistory = function(nick) {
+                $scope.userNick = nick;
+                $scope.fetchUserData();
+            };
+
+            // --- Veri Çekme Fonksiyonları ---
+            $scope.fetchUserData = async function() {
+                if(!$scope.userNick) return;
+                try {
+                    const userRes = await $http.get(proxy + encodeURIComponent(`https://rollercoin.com/api/profile/public-user-profile-data/${$scope.userNick}`));
+                    if(userRes.data.success === false) throw "User not found";
+                    
+                    const avatarId = userRes.data.data.avatar_id;
+                    const powerRes = await $http.get(proxy + encodeURIComponent(`https://rollercoin.com/api/profile/user-power-data/${avatarId}`));
+                    
+                    $scope.$apply(() => {
+                        $scope.rawPower = parseFloat(powerRes.data.data.current_power);
+                        $scope.calcData.leagueId = userRes.data.data.league_id;
+                        $scope.isAuthorized = true;
+                        $scope.saveToHistory($scope.userNick);
+                    });
+                    
+                    await $scope.updateNetworkStats();
+                } catch(e) { 
+                    alert("Hata: Kullanıcı adı bulunamadı veya API limiti aşıldı."); 
                 }
             };
 
@@ -181,36 +221,44 @@
                         detailed.push({
                             name: c.name,
                             balance_key: c.balance_key,
-                            networkPower: netRes.data.data[0]?.value || 1, // 0'a bölme hatasını önle
+                            networkPower: netRes.data.data[0]?.value || 1,
                             blockSize: ((rewardRes.data.data[0]?.value || 0) / c.divider) / c.to_small,
-                            blockTime: 600 // RC standart blok süresi (sn)
+                            blockTime: 600
                         });
                     }
-                    $scope.liveData = detailed;
-                    $scope.calculateROI();
-                    $scope.$apply();
+                    $scope.$apply(() => {
+                        $scope.liveData = detailed;
+                        $scope.calculateROI();
+                    });
                 } catch (e) { console.error("Ağ verisi hatası", e); }
             };
 
-            $scope.fetchUserData = async function() {
-                if(!$scope.userNick) return;
-                try {
-                    const userRes = await $http.get(proxy + encodeURIComponent(`https://rollercoin.com/api/profile/public-user-profile-data/${$scope.userNick}`));
-                    const avatarId = userRes.data.data.avatar_id;
-                    const powerRes = await $http.get(proxy + encodeURIComponent(`https://rollercoin.com/api/profile/user-power-data/${avatarId}`));
-                    
-                    $scope.rawPower = parseFloat(powerRes.data.data.current_power);
-                    $scope.calcData.leagueId = userRes.data.data.league_id;
-                    $scope.isAuthorized = true;
-                    
-                    await $scope.updateNetworkStats();
-                } catch(e) { alert("Kullanıcı bulunamadı!"); }
+            $scope.calculateROI = function() {
+                const coin = $scope.liveData.find(c => c.balance_key === $scope.calcData.selectedCoinKey);
+                if (!coin || !$scope.rawPower) return;
+                const dailyBlocks = 86400 / coin.blockTime;
+                $scope.dailyRewardResult = ($scope.rawPower / coin.networkPower) * coin.blockSize * dailyBlocks;
+                if ($scope.calcData.minerCost > 0) {
+                    $scope.roiDays = $scope.calcData.minerCost / $scope.dailyRewardResult;
+                }
             };
 
+            $scope.formatPower = function(power) {
+                if (!power) return "0.00 GH/s";
+                let units = ['GH/s', 'TH/s', 'PH/s', 'EH/s'];
+                let unitIndex = 0;
+                while (power >= 1000 && unitIndex < units.length - 1) {
+                    power /= 1000;
+                    unitIndex++;
+                }
+                return power.toFixed(2) + " " + units[unitIndex];
+            };
+
+            // İlk açılışta verileri çek
             $scope.updateNetworkStats();
         }]);
 
-        // Matrix Background
+        // Matrix Background Script (Sabit)
         const canvas = document.getElementById('matrix'), ctx = canvas.getContext('2d');
         let w = canvas.width = window.innerWidth, h = canvas.height = window.innerHeight, drops = Array(Math.floor(w/20)).fill(1);
         function drawMatrix() {
