@@ -24,7 +24,35 @@
 
 
 
+.nav-links {
+    margin-left: auto;
+    margin-right: 20px;
+}
 
+.nav-btn-new {
+    background: var(--primary); /* Mevcut tema renginiz */
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.nav-btn-new:hover {
+    background: var(--accent); /* Hover rengi */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 255, 136, 0.2);
+}
+
+/* Mobil uyum için */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Mobilde çok kalabalık olursa gizle */
+    }
+}
 
 .live-table {
     width: 100%;
@@ -591,7 +619,7 @@ body {
 }
 
 @media (max-width: 600px) {
-    .live-datetime {
+    .active-users {
         display: none; /* Mobilde yer kazanmak için gizlenebilir */
     }
 }
