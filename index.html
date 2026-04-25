@@ -45,7 +45,7 @@
 <!--  --><!--  --><!--  --><!--  --><!--  --><!--  -->
  <div class="wrapper">
 <!--  -->
-<div class="card">
+<div class="card" style="border-top: 4px solid var(--primary);">
 <div class="settings-row">
 <div class="input-section">
 <div class="input-group-wrapper">
@@ -69,7 +69,7 @@
 </div>
 </div>
 <!--  -->
-<div class="card" ng-if="userHistory.length > 0 && !isAuthorized" style="margin-top: 15px; border-left: 4px solid var(--accent);">
+<div class="card" ng-if="userHistory.length > 0 && !isAuthorized"  style="border-top: 4px solid var(--primary);">
 <div class="card-title" style="font-size: 0.8rem; margin-bottom: 15px;">📜 SORGULAMA GEÇMİŞİ</div>
 <div style="display: flex; gap: 10px; align-items: center;">
 <div class="input-box" style="flex: 1; margin-bottom: 0;">
@@ -88,7 +88,7 @@
 </div>
 <!--  --><!--  --><!--  --><!--  --><!--  --><!--  -->
 <div ng-if="isAuthorized">
-<div class="card" ng-if="isAuthorized">
+<div class="card" ng-if="isAuthorized" style="border-top: 4px solid var(--primary);">
 <div class="settings-grid">
 <div class="settings-form">
 <div class="card-title">● HESAPLAMA AYARLARI
@@ -211,7 +211,7 @@ Gerçek kazançlar, oyun içindeki bonus gücünüzün süresine ve ağdaki yoğ
 </div>
 </div>
 <!--  --><!--  --><!--  --><!--  --><!--  --><!--  -->
-<div class="card" ng-if="isAuthorized && liveData.length > 0">
+<div class="card" ng-if="isAuthorized && liveData.length > 0" style="border-top: 4px solid var(--primary);">
 <div class="card-title">
 ● ROLLERCOIN KRİPTO CANLI AĞ ORANLARI
 <span class="loading-overlay" ng-click="updateLeagueData()">🔄 VERİYİ GÜNCELLE</span>
