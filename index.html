@@ -192,7 +192,7 @@ Sistem 2026 güncel RollerCoin algoritmalarıyla %99.9 tutarlılıkla çalışma
 <div id="results" class="card" style="display:none; border-top: 4px solid var(--primary);">
 <div class="price-ticker" id="priceDisplay">Fiyatlar Yükleniyor...</div>
 <div style="text-align: center; margin-bottom: 20px;">
-<span class="res-label">SİZİN BLOK BAŞINA KAZANCINIZ</span>
+<span class="res-label">BLOK BAŞINA ALACAĞIN DEĞER</span>
 <h2 class="res-val" id="porBloque" style="font-size: 1.5rem;">-</h2>
 </div>
 <div class="results-grid">
@@ -385,7 +385,7 @@ $scope.totalCalculations = 1420 + (parseInt(localStorage.getItem('rc_user_calcul
 $scope.isAuthorized = false; $scope.loadingLeague = false; $scope.loadingApi = false;
 $scope.liveData = []; $scope.lastUpdate = "Otomatik";
 $scope.leagues = CurrencyService.getLeagues();
-$scope.calcData = { fiat: 'usd', coin: 'RLT', leagueId: '68af01ce48490927df92d687', myPower: 0, myUnit: 'th', netPower: 0, netUnit: 'eh', reward: 0.88, blockTime: 10 };
+$scope.calcData = { fiat: 'try', coin: 'RLT', leagueId: '68af01ce48490927df92d687', myPower: 0, myUnit: 'th', netPower: 0, netUnit: 'eh', reward: 0.88, blockTime: 10 };
 
 $scope.quickFetch = (nick) => { $scope.userNick = nick; $scope.fetchUserData(); };
 $scope.removeFromHistory = (idx) => { $scope.userHistory.splice(idx, 1); localStorage.setItem('rc_user_history', JSON.stringify($scope.userHistory)); };
