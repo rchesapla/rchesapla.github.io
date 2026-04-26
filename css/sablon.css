@@ -26,7 +26,7 @@
 
 .nav-links {
     margin-left: auto;
-    margin-right: 20px;
+	justify-content: center;
 }
 
 .nav-btn-new {
@@ -39,9 +39,30 @@
     font-size: 0.8rem;
     transition: all 0.3s ease;
     border: 1px solid rgba(255,255,255,0.1);
+	justify-content: center;
+}
+
+.nav-btn-new2 {
+    background: var(--primary); /* Mevcut tema renginiz */
+    color: black;
+	width: 100%;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+	justify-content: center;
 }
 
 .nav-btn-new:hover {
+    background: var(--accent); /* Hover rengi */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 255, 136, 0.2);
+}
+
+.nav-btn-new2:hover {
     background: var(--accent); /* Hover rengi */
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 255, 136, 0.2);
