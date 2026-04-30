@@ -323,7 +323,7 @@
             background-color: var(--bg-dark);
             color: var(--text-main);
             line-height: 1.6;
-            background-image: radial-gradient(circle at top right, #1e293b, #0f172a);
+           
             min-height: 100vh;
         }
 
