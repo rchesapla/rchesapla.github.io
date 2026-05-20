@@ -77,7 +77,7 @@ function formatPower(gh) {
     if (gh >= factor || label === 'GH') {
       const v = gh / factor;
       // até 3 casas, sem zeros à toa
-      const str = v.toLocaleString('en-US', { maximumFractionDigits: 3 });
+      const str = v.toLocaleString('pt-BR', { maximumFractionDigits: 3 });
       return `${str} ${label}/s`;
     }
   }
