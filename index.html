@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="tr-TR">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -385,9 +385,9 @@ body {
 
   <div class="topbar">
     <div class="lang-picker" aria-label="Language selector">
-      <button class="lang-btn is-active" type="button" data-lang="pt-BR"><span class="lang-flag">🇧🇷</span><span>Português</span></button>
-      <button class="lang-btn" type="button" data-lang="en-US"><span class="lang-flag">🇺🇸</span><span>English</span></button>
-      <button class="lang-btn" type="button" data-lang="es-ES"><span class="lang-flag">🇪🇸</span><span>Español</span></button>
+      <button class="lang-btn is-active" type="button" data-lang="tr-TR"><span>Türkçe</span></button>
+      <button class="lang-btn" type="button" data-lang="en-US"><span>English</span></button>
+      <button class="lang-btn" type="button" data-lang="az_AZ"><span>Azerbaycan</span> (Yakında)</button>
     </div>
     <button class="test-badge" type="button" id="test-badge">VERSÃO DE TESTES</button>
   </div>
@@ -821,16 +821,16 @@ const I18N = {
     tierPlatinum: 'Platinum',
     tierDiamond: 'Diamond'
   },
-  'es-ES': {
-    htmlLang: 'es-ES',
-    title: 'RC Booom Calculator',
-    metaDescription: 'Calcula tu poder máximo en RollerCoin y comprueba si subes de liga.',
-    testBadge: 'VERSIÓN DE PRUEBAS',
+  'tr-TR': {
+    htmlLang: 'tr-TR',
+    title: 'RCHesapla - Profil Hesaplayıcı!',
+    metaDescription: 'Rollercoin de maksimum gücünüzü hesaplayın ve ligde yükselip yükselmediğinizi kontrol edin.',
+    testBadge: 'Test Aşaması',
     languageSelector: 'Selector de idioma',
     headerSubtitle: 'Calculadora de poder máximo y liga · RollerCoin',
-    tabNick: 'Por nick / enlace',
-    tabManual: 'Poder manual',
-    nickLabel: 'Nick o enlace del perfil',
+    tabNick: 'Kullanıcı Adı İle',
+    tabManual: 'Manuel Gir',
+    nickLabel: 'Kullanıcı Adını Girin',
     nickPlaceholder: 'escobooom  o  rollercoin.com/p/escobooom',
     calculate: 'Calcular',
     nickHint: 'Pega el nick o el enlace completo del perfil público.',
@@ -936,11 +936,11 @@ const I18N = {
   }
 };
 
-const UI = { lang: 'pt-BR' };
+const UI = { lang: 'tr-TR' };
 
 function t(key, vars) {
-  const dict = I18N[UI.lang] || I18N['pt-BR'];
-  let text = dict[key] != null ? dict[key] : I18N['pt-BR'][key] || key;
+  const dict = I18N[UI.lang] || I18N['tr-TR'];
+  let text = dict[key] != null ? dict[key] : I18N['tr-TR'][key] || key;
   if (vars) {
     Object.keys(vars).forEach(function (name) {
       text = text.replace(new RegExp('\\{' + name + '\\}', 'g'), vars[name]);
