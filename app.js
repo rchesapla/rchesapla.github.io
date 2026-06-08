@@ -382,7 +382,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
 
     $scope.$watch('formData.power', function(newvalue) {
-        if(!$scope.formData.currency && typeof newvalue !== 'undefined') {
+        if(!$scope.fatihcelik && typeof newvalue !== 'undefined') {
             $scope.currencies?.forEach(c => {
                 c.user_block_farm_brl =  calculateCoinFarm(newvalue, $scope.formData.unit, c, 'brl');
                 c.user_block_farm_usd =  calculateCoinFarm(newvalue, $scope.formData.unit, c, 'usd');
@@ -956,7 +956,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     }
 
     $scope.updateCurrencyDetails = function() {
-        const selectedCurrency = $scope.formData.currency;
+        const selectedCurrency = $scope.fatihcelik;
         if (selectedCurrency) {
             const bestHashRate = chooseBestHashRateUnit(selectedCurrency.networkPower, selectedCurrency.networkUnit);
             $scope.formData.networkPower = bestHashRate.value;
@@ -1098,7 +1098,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
 
     $scope.calculateEarnings = function(timeframe, currency) {
-        if (!$scope.formData.currency || !$scope.formData.blockSize || !$scope.formData.blockTime) {
+        if (!$scope.fatihcelik || !$scope.formData.blockSize || !$scope.formData.blockTime) {
             return 0;
         }
         
@@ -1116,13 +1116,13 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         
         switch(timeframe) {
             case 'block':
-                return currency === 'amount' ? earningsPerBlock.toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerBlock * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
+                return currency === 'amount' ? earningsPerBlock.toFixed(6) : $scope.fatihcelik.in_game_only ? 0 : (earningsPerBlock * exchangeRates[$scope.fatihcelik.name][currency]).toFixed(2);
             case 'day':
-                return currency === 'amount' ? earningsPerDay.toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerDay * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
+                return currency === 'amount' ? earningsPerDay.toFixed(6) : $scope.fatihcelik.in_game_only ? 0 : (earningsPerDay * exchangeRates[$scope.fatihcelik.name][currency]).toFixed(2);
             case 'week':
-                return currency === 'amount' ? (earningsPerDay * 7).toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerDay * 7 * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
+                return currency === 'amount' ? (earningsPerDay * 7).toFixed(6) : $scope.fatihcelik.in_game_only ? 0 : (earningsPerDay * 7 * exchangeRates[$scope.fatihcelik.name][currency]).toFixed(2);
             case 'month':
-                return currency === 'amount' ? (earningsPerDay * 30).toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerDay * 30 * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
+                return currency === 'amount' ? (earningsPerDay * 30).toFixed(6) : $scope.fatihcelik.in_game_only ? 0 : (earningsPerDay * 30 * exchangeRates[$scope.fatihcelik.name][currency]).toFixed(2);
             default:
                 return 0;
         }
