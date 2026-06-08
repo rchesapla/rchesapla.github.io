@@ -381,7 +381,7 @@ canvas {
             <div class="col-md-4">
                 <form name="miningForm">
                     <div class="form-group">
-                        <label for="blockTime">Carregar jogador</label>
+                        <label for="blockTime">ROLLERCOIN KULLANICI ADI</label>
                         <div class="form-inline">
                             <input type="text" 
                                 class="form-control" 
@@ -406,19 +406,15 @@ canvas {
             </div>
             
             <div ng-if="user_data" class="col-md-8 table-container">
-                <h3>Calculando ganhos para {{user_data.name}}</h3>
+                <h3>ENTEGRE EDİLEN PROFİL ADI : : {{user_data.name}}</h3>
                 <fieldset>
                     <div>
                         <input type="checkbox" ng-model="formData.showMiners" name="show_miners"/>
-                        <label for="scales">Exibir miners</label>
+                        <label for="scales">MINER LİSTEM</label>
                         <input type="checkbox" ng-model="formData.showRacks" name="show_miners" />
-                        <label for="scales">Exibir racks</label>
+                        <label for="scales">RAFLARIM</label>
                         <input type="checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners" />
-                        <label for="scales">Simular aquisições</label>
-                        <input type="checkbox" ng-model="formData.showUserStatistics" ng-change="showStatistics()" name="show_statistics" />
-                        <label for="scales">Mostrar estatísticas</label>
-                        <input type="checkbox" ng-model="formData.showInventory" name="show_inventory" />
-                        <label for="show_inventory">Carregar inventário</label>
+                        <label for="scales">MAĞAZA</label>
                     </div>
                 </fieldset>
 
