@@ -68,8 +68,6 @@ html {
 body {
     background: var(--primary-gradient);
     color: var(--text-main);
-    font-family: "Audiowide", sans-serif;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     margin: 0;
@@ -411,7 +409,7 @@ canvas {
             </div>
             
             <div ng-if="user_data" class="col-md-8 table-container">
-                <h3>ENTEGRE EDİLEN PROFİL ADI : : {{user_data.name}}</h3>
+                <h3>{{user_data.name}}</h3>
                 <fieldset>
                     <div>
                         <input type="checkbox" ng-model="formData.showMiners" name="show_miners"/>
