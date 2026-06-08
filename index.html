@@ -27,6 +27,12 @@
     <script src="services.js"></script>
     <script src="user-miner-service.js"></script>
     <script src="miner-service.js"></script>
+	
+	
+	
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
     <style>
 /* --- MODERNIZED STYLES --- */
 :root {
@@ -62,8 +68,7 @@ html {
 body {
     background: var(--primary-gradient);
     color: var(--text-main);
-    font-family: var(--font-pixel);
-    font-size: 1.5em;
+    font-family: "Audiowide", sans-serif;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -507,7 +512,7 @@ canvas {
                                         font-weight: bold;
                                         margin-left: 20%;
                                         color: white;
-                                    ">INEGOCIAVEL</div>
+                                    ">SATILMAZ</div>
                                 </td>
                                 <td style="text-align: center">
                                     {{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
@@ -640,14 +645,11 @@ canvas {
                                 <img src='https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608' width="80px" height="auto"/>
                                 <div ng-if="!miner.is_can_be_sold_on_mp"
                                     style="
-                                    height: 10px;
                                     width: 100px;
                                     background-color: red;
-                                    font-size: 0.6em;
                                     font-weight: bold;
-                                    margin-left: 16%;
                                     color: white;
-                                ">INEGOCIAVEL</div>
+                                ">SATILMAZ</div>
                             </td>
                             <td style="text-align: center">
                                 {{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
@@ -849,14 +851,11 @@ canvas {
                                     <img src='https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608' width="80px" height="auto"/>
                                     <div ng-if="!miner.is_can_be_sold_on_mp"
                                         style="
-                                        height: 10px;
                                         width: 100px;
                                         background-color: red;
-                                        font-size: 0.6em;
                                         font-weight: bold;
-                                        margin-left: 8%;
                                         color: white;
-                                    ">INEGOCIAVEL</div>
+                                    ">SATILMAZ</div>
                                 </td>
                                 <td style="text-align: center">
                                     <p ng-repeat="item in miner.craft_items">
@@ -1067,7 +1066,7 @@ canvas {
                                         font-weight: bold;
                                         margin-left: 20%;
                                         color: white;
-                                    ">INEGOCIAVEL</div>
+                                    ">SATILMAZ</div>
                                 </td>
                                 <td style="text-align: center">
                                     {{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
@@ -1213,7 +1212,7 @@ canvas {
                                         font-weight: bold;
                                         margin-left: 27%;
                                         color: white;
-                                    ">INEGOCIAVEL</div>
+                                    ">SATILMAZ</div>
                                 </td>
                                 <td style="text-align: center">
                                     {{miner.supply}}
