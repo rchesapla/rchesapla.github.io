@@ -93,15 +93,15 @@ const I18N = {
     language: "Türkçe"
   },
   es: {
-    title: "RCHesapla - Kişisel Kazım Gücünü Hesapla!",
+    title: "RCHesapla",
     subtitle: "V5",
-    tagline: "Profilinizi yapıştırın. Kazançlarınızı alın. Yazmaya gerek yok, hata yok.",
+    tagline: "Kişisel Kazım Gücünü Hesapla!",
     nav_profile: "PROFIL HESAPLA",
     nav_best: "EN IYI KAZANC",
     nav_season: "SEZON HESAPLA",
     nav_roi: "ROI HESAPLA",
     nav_manual: "MANUEL",
-    profile_label: "RollerCoin - Kullanıcı Adı veya Profil Bağlantısı",
+    profile_label: "Kullanıcı adını girin",
     profile_placeholder: "Örn: FthCLK",
     profile_button: "ANALIZ ET",
     profile_loading: "Veriler alınıyor... | Lütfen bekleyiniz...",
