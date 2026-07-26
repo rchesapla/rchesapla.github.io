@@ -106,7 +106,7 @@ const I18N = {
     profile_button: "ANALIZ ET",
     profile_loading: "Minando tus datos… (la primera carga puede tardar unos segundos)",
     profile_error: "No se pudo cargar este perfil. Revisa el enlace, recarga fuerte (Ctrl+F5) e inténtalo de nuevo.",
-    power_total: "Poder total",
+    power_total: "Toplam Güç",
     power_miners: "Mineros",
     power_bonus: "Bonus",
     power_games: "Juegos",
