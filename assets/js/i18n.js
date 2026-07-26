@@ -90,7 +90,7 @@ const I18N = {
     data_updated: (date) => `Mining data updated: ${date}`,
     made_with: "Made with 🐹 by Deficarlos — free & open source",
     credit: "Inspired by Lmendev's original rollercoin-calculator",
-    language: "Español"
+    language: "Türkçe"
   },
   es: {
     title: "RCHesapla - Kişisel Kazım Gücünü Hesapla!",
@@ -103,7 +103,7 @@ const I18N = {
     nav_manual: "MANUEL",
     profile_label: "URL de perfil de RollerCoin o usuario",
     profile_placeholder: "https://rollercoin.com/p/cryptorell",
-    profile_button: "ANALİZ ET",
+    profile_button: "ANALIZ ET",
     profile_loading: "Minando tus datos… (la primera carga puede tardar unos segundos)",
     profile_error: "No se pudo cargar este perfil. Revisa el enlace, recarga fuerte (Ctrl+F5) e inténtalo de nuevo.",
     power_total: "Poder total",
