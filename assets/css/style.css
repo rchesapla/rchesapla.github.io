@@ -183,12 +183,12 @@ table { border-collapse: collapse; width: 100%; }
   border: none;
   background-color: var(--black-russian);
   padding: 8px 14px;
-  font-size: 11px;
+  font-size: 14px;
   text-align: center;
 }
 .roller-table thead tr:first-child th:first-child { border-radius: 4px 0 0 0; }
 .roller-table thead tr:first-child th:last-child { border-radius: 0 4px 0 0; }
-.roller-table tbody td { padding: 7px 14px; border-bottom: 1px solid var(--rum); font-size: 11px; }
+.roller-table tbody td { padding: 7px 14px; border-bottom: 1px solid var(--rum); font-size: 14px; }
 .roller-table tbody tr.best-row { background: rgba(255, 220, 0, .08); }
 .coin-cell { display: inline-flex; align-items: center; gap: .5rem; }
 .coin-badge {
