@@ -131,6 +131,8 @@ function renderEarnings(rows) {
         <span>${r.ticker}${i === 0 ? ` <span class="best-badge">${t("best_badge")}</span>` : ""}</span></span></td>
       <td>${formatCoin(r.perBlock)}</td>
       <td>${formatCoin(r.perDay)}</td>
+      <td>${formatCoin(r.perWeek)}</td>
+      <td>${formatCoin(r.perMonth)}</td>
       <td>${r.usdDay != null ? formatUsd(r.usdDay) : "—"}</td>
       <td>${r.usdMonth != null ? formatUsd(r.usdMonth) : "—"}</td>`;
     tbody.appendChild(tr);
