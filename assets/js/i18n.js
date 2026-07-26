@@ -94,7 +94,7 @@ const I18N = {
   },
   es: {
     title: "RCHesapla - Kişisel Kazım Gücünü Hesapla!",
-    subtitle: "Edición Inteligente",
+    subtitle: "Profilinizi yapıştırın. Kazançlarınızı alın. Yazmaya gerek yok, hata yok.",
     tagline: "Pega tu perfil. Obtén tus ganancias. Sin escribir, sin errores.",
     nav_profile: "Ganancias del perfil",
     nav_best: "Mejores monedas",
