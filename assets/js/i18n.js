@@ -4,14 +4,14 @@
 const I18N = {
   en: {
     title: "RollerCoin Calculator",
-    subtitle: "Smart Edition",
+    subtitle: "V5",
     tagline: "Paste your profile. Get your earnings. No typing, no mistakes.",
     nav_profile: "Profile Earnings",
     nav_best: "Best Coins",
     nav_season: "Season Pass",
     nav_roi: "ROI / Invest",
     nav_manual: "Manual",
-    profile_label: "RollerCoin profile URL or username",
+    profile_label: "Enter your username",
     profile_placeholder: "Örn: FthCLK",
     profile_button: "Analyze",
     profile_loading: "Mining your data… (first load can take a few seconds)",
