@@ -183,8 +183,8 @@ table { border-collapse: collapse; width: 100%; }
   border: none;
   background-color: var(--black-russian);
   padding: 8px 14px;
-  font-size: 1.05rem;
-  text-align: left;
+  font-size: 11px;
+  text-align: center;
 }
 .roller-table thead tr:first-child th:first-child { border-radius: 4px 0 0 0; }
 .roller-table thead tr:first-child th:last-child { border-radius: 0 4px 0 0; }
