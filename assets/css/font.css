@@ -1,7 +1,9 @@
 /* PixelOperatorSC — public domain pixel font (by javateer),
    served via jsDelivr CDN from the original Lmendev repo. */
 @font-face {
-  font-family: pixelSC;
-  src: url("https://cdn.jsdelivr.net/gh/Lmendev/rollercoin-calculator@main/src/fonts/PixelOperatorSC.ttf") format("truetype");
+  font-family: Audiowide;
+  src: url("https://cdn.jsdelivr.net/gh/Lmendev/rollercoin-calculator@main/src/fonts/Audiowide.ttf") format("truetype");
   font-display: swap;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
