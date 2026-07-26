@@ -175,9 +175,9 @@ const I18N = {
     follow_title: "Sígueme",
     disclaimer_title: "Datos aproximados",
     disclaimer: "Todos los valores mostrados son ESTIMADOS. RollerCoin no publica públicamente el poder de red por liga en vivo, por lo que las ganancias se aproximan con datos de la comunidad y precios de mercado en vivo. Los resultados reales en el juego variarán.",
-    prices_live: "Precios en vivo",
-    prices_cached: (date) => `Precios en caché (${date})`,
-    data_updated: (date) => `Datos de minería actualizados: ${date}`,
+    prices_live: "Canlı Kriptolar",
+    prices_cached: (date) => `Önceki değer (${date})`,
+    data_updated: (date) => `Son güncelleme: ${date}`,
     made_with: "Hecho con 🐹 por Deficarlos — gratis y open source",
     credit: "Inspirado en el rollercoin-calculator original de Lmendev",
     language: "English"
