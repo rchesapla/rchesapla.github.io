@@ -93,7 +93,7 @@ const I18N = {
     language: "Español"
   },
   es: {
-    title: "Calculadora RollerCoin",
+    title: "RCHesapla - Kişisel Kazım Gücünü Hesapla!",
     subtitle: "Edición Inteligente",
     tagline: "Pega tu perfil. Obtén tus ganancias. Sin escribir, sin errores.",
     nav_profile: "Ganancias del perfil",
