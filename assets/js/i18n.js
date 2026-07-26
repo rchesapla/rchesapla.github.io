@@ -110,7 +110,7 @@ const I18N = {
     power_miners: "Miner Gücü",
     power_bonus: "Bonus Gücü",
     power_games: "Oyun Gücü",
-    power_temp: "Geçici / Etkinlik Gücü",
+    power_temp: "Geçici Gücü",
     power_league: "Lig",
     power_registered: "Kayıt tarihi",
     earnings_title: "Ganancias estimadas",
