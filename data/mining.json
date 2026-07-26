@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-07-25",
-  "note": "Approximate community-maintained mining parameters. RollerCoin does not publish per-league network power publicly, so these values are estimates and may drift from in-game values. Coin list refreshed from the live currencies config (2026-07-25). Contributions welcome via PR.",
+  "note": "Yaklaşık topluluk tarafından güncellenen madencilik parametreleri. RollerCoin, lig bazında ağ gücünü kamuya açık şekilde yayınlamaz; bu nedenle bu değerler tahminidir ve oyun içi değerlerden farklılık gösterebilir. Coin listesi, canlı para birimleri yapılandırmasından güncellenmiştir (2026-07-25). Katkılar halkla ilişkiler yoluyla karşılanır.",
   "blocksPerDay": 144,
   "secondsPerBlock": 600,
   "rltUsdPrice": 1.0,

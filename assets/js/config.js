@@ -24,10 +24,10 @@ const CONFIG = {
   ],
   coinGecko: (ids) =>
     `https://api.coingecko.com/api/v3/simple/price?ids=${ids.join(",")}&vs_currencies=usd`,
-  referral: "https://rollercoin.com/?r=jrwrzg8f",
+  referral: "https://rollercoin.com/?r=le7ml8f3",
   donation: {
     label: "EVM (ETH / BSC / Polygon…)",
-    address: "0x95316eE1b9cefB0730683b1313d96D0eC542bB1c",
+    address: "Eklenecektir..",
   },
   socials: {
     youtube: "https://www.youtube.com/@Deficarlos",
