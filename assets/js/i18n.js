@@ -113,7 +113,7 @@ const I18N = {
     power_temp: "Geçici Gücü",
     power_league: "Lig",
     power_registered: "Kayıt tarihi",
-    earnings_title: "Ganancias estimadas",
+    earnings_title: "Tahmini Kazançlar",
     col_coin: "KRIPTO",
     col_block: "BLOK ÖDÜLÜ",
     col_daily: "GÜNLÜK",
