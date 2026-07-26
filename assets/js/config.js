@@ -30,10 +30,10 @@ const CONFIG = {
     address: "Eklenecektir..",
   },
   socials: {
-    youtube: "https://www.youtube.com/@Deficarlos",
-    whatsapp: "https://whatsapp.com/channel/0029Va7k6Ob6buMSjVnmd224",
-    telegram: "https://t.me/CriptoAirdropsTalk",
+    youtube: "https://www.youtube.com/@fatihcelik",
+    whatsapp: "#",
+    telegram: "https://t.me/bilgilendiriyor",
   },
-  repo: "https://github.com/venezuela412/rollercoin-calculator",
+  repo: "https://github.com/rchesapla/rchesapla.github.io",
   referencePowerEH: 1, // 1 EH/s reference for the "best coins" table
 };
