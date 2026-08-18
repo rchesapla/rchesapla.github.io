@@ -1,6 +1,6 @@
 fetchData = function(){
 
-    fetch('https://api.coingecko.com/api/v3/simple/price?ids=matic-network%2Csei-network%2Clitecoin%2Ctron%2Cbitcoin%2Cethereum%2Cdogecoin%2Cbinancecoin%2Ctether%2Cflow%2Csolana&vs_currencies=try', {
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=polygon-ecosystem-token%2Csei-network%2Clitecoin%2Ctron%2Cbitcoin%2Cethereum%2Cdogecoin%2Cbinancecoin%2Ctether%2Cflow%2Csolana&vs_currencies=try', {
       method: 'GET', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ getResults = function(fetch_data){
     dogePrice = fetch_data.dogecoin.try
     ethPrice = fetch_data.ethereum.try
 	bnbPrice = fetch_data.binancecoin.try
-	maticPrice = fetch_data["polygon-ecosystem-token"].try
+	maticPrice = fetch_data["polygon-ecosystem-token"]?.try
 	solPrice = fetch_data.solana.try
 	trxPrice = fetch_data.tron.try
 	ltcPrice = fetch_data.litecoin.try
