@@ -228,6 +228,24 @@ body {
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
 }
 
+/* Select Dropdown */
+.select-box {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  padding: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+}
+
+.select-box option {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
 /* Profil Alanı Yatay Düzet */
 .profile-input-group {
   display: flex;
@@ -275,7 +293,7 @@ body {
   align-items: center;
   gap: 0.5rem;
   flex: 1;
-  min-width: 200px;
+  min-width: 240px;
 }
 
 .input-wrapper {
@@ -283,12 +301,6 @@ body {
   align-items: center;
   gap: 0.4rem;
   width: 100%;
-}
-
-.unit {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  font-weight: bold;
 }
 
 .total-badge {
@@ -403,50 +415,6 @@ td.no-input {
 .gauge-svg {
   width: 160px;
   height: 90px;
-}
-
-.list-item {
-  background: rgba(15, 23, 42, 0.5);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 0.65rem 0.8rem;
-  margin-bottom: 0.6rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.list-item-info {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.coin-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 0.75rem;
-}
-
-.item-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.item-title {
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-.item-sub {
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-  font-family: 'Source Code Pro', monospace;
 }
 
 footer {
@@ -664,22 +632,31 @@ footer {
 					<div id="rcStatus" class="status-msg"></div>
 				</div>
 
-				<!-- Kazım Gücü -->
+				<!-- Kazım Gücü (GH/s, TH/s, PH/s, EH/s, ZH/s Seçenekli) -->
 				<div class="box calc-section">
 					<div class="box-title">
 						Kazım Gücü 
-						<span class="subtitle">1 PH = 1000 TH</span>
+						<span class="subtitle">Birim seçip gücünüzü girin</span>
 					</div>
 					<div class="box-content flex-row align-center gap-10">
 						<div class="input-group">
-							<label for="minerRate">Güç:</label>
+							<label for="minerRateInput">Güç:</label>
 							<div class="input-wrapper">
-								<input id="minerRate" class="input-box" type="number" onchange="calc(), getData('minerRate')">
-								<span class="unit">TH/s</span>
+								<!-- Gizli TH/s değer tutucu (Eski JS fonksiyonlarının bozulmaması için) -->
+								<input id="minerRate" type="hidden" value="0">
+								
+								<input id="minerRateInput" class="input-box" type="number" step="any" placeholder="0" oninput="updateMinerRateTH()">
+								<select id="minerUnitSelect" class="select-box" onchange="updateMinerRateTH()">
+									<option value="GH">GH/s</option>
+									<option value="TH" selected>TH/s</option>
+									<option value="PH">PH/s</option>
+									<option value="EH">EH/s</option>
+									<option value="ZH">ZH/s</option>
+								</select>
 							</div>
 						</div>
 						<div class="total-badge">
-							<span>Toplam:</span>
+							<span>Hesaplanan Güç:</span>
 							<strong id="totalRate">-</strong> TH/s
 						</div>
 					</div>
@@ -1020,6 +997,35 @@ footer {
 	<script src="static/js/activateTab.js"></script>
 	<script src="static/js/calculator_tr.js"></script>
 	<script>
+		// Birim Seçimi ve TH/s Hesaplama Fonksiyonu
+		function updateMinerRateTH() {
+			const val = parseFloat(document.getElementById("minerRateInput").value) || 0;
+			const unit = document.getElementById("minerUnitSelect").value;
+			
+			// TH/s Dönüştürme Oranları
+			const multipliers = {
+				'GH': 0.001,
+				'TH': 1,
+				'PH': 1000,
+				'EH': 1000000,
+				'ZH': 1000000000
+			};
+
+			const totalTH = val * (multipliers[unit] || 1);
+			
+			const hiddenInput = document.getElementById("minerRate");
+			if (hiddenInput) {
+				hiddenInput.value = totalTH;
+			}
+
+			if (typeof calc === "function") {
+				calc();
+			}
+			if (typeof getData === "function") {
+				getData('minerRate');
+			}
+		}
+
 		(function () {
 			if (typeof calc === "function") {
 				calc();
@@ -1096,12 +1102,16 @@ footer {
 
 		  const totalPowerGH = power.current_power || 
 			((power.miners || 0) + (power.bonus || 0) + (power.games || 0) + (power.temp || 0));
+		  
 		  const totalPowerTH = (totalPowerGH / 1000).toFixed(2);
 
-		  const minerRateInput = document.getElementById("minerRate");
-		  if (minerRateInput) {
+		  // Otomatik çekilen gücü TH/s olarak seçip doldur
+		  const minerRateInput = document.getElementById("minerRateInput");
+		  const minerUnitSelect = document.getElementById("minerUnitSelect");
+		  if (minerRateInput && minerUnitSelect) {
 			minerRateInput.value = totalPowerTH;
-			if (typeof getData === "function") getData('minerRate');
+			minerUnitSelect.value = "TH";
+			updateMinerRateTH();
 		  }
 
 		  const leagueTitle = profile.league && profile.league.title && profile.league.title.en;
