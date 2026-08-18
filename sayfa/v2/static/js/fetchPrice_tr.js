@@ -90,6 +90,7 @@ calculate = function(prices){
 		maticPrice = prices[4]
 		solPrice = prices[5]
 		trxPrice = prices[6]
+		ltcPrice = prices[7]
 		
     /////////////////////////////////////////////////
     // BTC CALC 10 MIN
@@ -435,7 +436,55 @@ calculate = function(prices){
         else {
             document.getElementById("yeartrxD").innerText = "₺" + yeartrxD.toFixed(5);
         }
-	
+    // ltc CALC 10 MIN
+    minltc = document.getElementById("minltc").innerHTML;
+    minltcD = Number(minltc) * ltcPrice
+    if (isNaN(minltcD)) {
+        document.getElementById("minltcD").innerText = "∙•●₺●•∙"}
+        else {
+            document.getElementById("minltcD").innerText = "₺" + minltcD.toFixed(5);
+        }
+    // ltc CALC HOUR
+    hourltc = document.getElementById("hourltc").innerHTML;
+    hourltcD = Number(hourltc) * ltcPrice
+    if (isNaN(hourltcD)) {
+        document.getElementById("hourltcD").innerText = "∙•●₺●•∙"}
+        else {
+            document.getElementById("hourltcD").innerText = "₺" + hourltcD.toFixed(5);
+        }
+    // ltc CALC DAY
+    dayltc = document.getElementById("dayltc").innerHTML;
+    dayltcD = Number(dayltc) * ltcPrice
+    if (isNaN(dayltcD)) {
+        document.getElementById("dayltcD").innerText = "∙•●₺●•∙"}
+        else {
+            document.getElementById("dayltcD").innerText = "₺" + dayltcD.toFixed(5);
+        }
+    // ltc CALC WEEK
+    weekltc = document.getElementById("weekltc").innerHTML;
+    weekltcD = Number(weekltc) * ltcPrice
+    if (isNaN(weekltcD)) {
+        document.getElementById("weekltcD").innerText = "∙•●₺●•∙"}
+        else {
+            document.getElementById("weekltcD").innerText = "₺" + weekltcD.toFixed(5);
+        }    
+    // ltc CALC MONTH
+    monthltc = document.getElementById("monthltc").innerHTML;
+    monthltcD = Number(monthltc) * ltcPrice
+    if (isNaN(minltcD)) {
+        document.getElementById("monthltcD").innerText = "∙•●₺●•∙"}
+        else {
+            document.getElementById("monthltcD").innerText = "₺" + monthltcD.toFixed(5);
+        }    
+    // ltc CALC YEAR
+    yearltc = document.getElementById("yearltc").innerHTML;
+    yearltcD = Number(yearltc) * ltcPrice
+    if (isNaN(yearltcD)) {
+        document.getElementById("yearltcD").innerText = "∙•●₺●•∙"}
+        else {
+            document.getElementById("yearltcD").innerText = "₺" + yearltcD.toFixed(5);
+        }
+    /////////////////////////////////////////////////
     }
 
 fetchData()
