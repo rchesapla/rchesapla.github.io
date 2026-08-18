@@ -677,8 +677,10 @@
             bubblyButtons[i].addEventListener("click", animateButton, false);
         }   
     </script>
+
+
 <script>
-  // Proxy ve Endpoint yapılandırması
+  // API & Proxy Yapılandırması
   const API_CONFIG = {
     workerProxy: "https://rc-proxy.deficarlos.workers.dev",
     publicProxies: [
@@ -689,7 +691,7 @@
     powerData: (avatarId) => `https://rollercoin.com/api/profile/user-power-data/${encodeURIComponent(avatarId)}`
   };
 
-  // Kullanıcı adı/link ayrıştırma
+  // Kullanıcı adını ayrıştırma
   function parseUsername(input) {
     if (!input) return null;
     let s = input.trim();
@@ -699,7 +701,7 @@
     return /^[A-Za-z0-9_-]{2,30}$/.test(s) ? s : null;
   }
 
-  // Fallback mekanizmalı API verisi çekme
+  // Fallback mekanizması ile API isteği
   async function fetchWithFallback(url) {
     const attempts = [];
     if (API_CONFIG.workerProxy) {
@@ -721,7 +723,7 @@
     throw new Error("Veri çekilemedi.");
   }
 
-  // Profil ve Güç Bilgilerini Çekip Ekranı Güncelleme
+  // Profil, Kullanıcı Gücü ve Lig/Ağ Güçlerini Güncelleme
   async function fetchUserProfile() {
     const inputVal = document.getElementById("rcUsernameInput").value;
     const username = parseUsername(inputVal);
@@ -734,7 +736,7 @@
     }
 
     statusEl.style.color = "orange";
-    statusEl.textContent = "Veriler yükleniyor...";
+    statusEl.textContent = "Profil ve Ağ güçleri yükleniyor...";
 
     try {
       // 1. Profil Verisi
@@ -747,30 +749,64 @@
       if (!powerRes || !powerRes.success) throw new Error("Güç verisi alınamadı.");
       const power = powerRes.data;
 
-      // Toplam Güç Hesaplama (API birimi: GH/s)
+      // Toplam Kullanıcı Gücü (API birimi: GH/s -> TH/s dönüşümü)
       const totalPowerGH = power.current_power || 
         ((power.miners || 0) + (power.bonus || 0) + (power.games || 0) + (power.temp || 0));
-
-      // GH/s birimini TH/s birimine dönüştürme (1 TH/s = 1000 GH/s)
       const totalPowerTH = (totalPowerGH / 1000).toFixed(2);
 
-      // Güç alanına değeri yaz ve hesaplama fonksiyonunu çalıştır
       const minerRateInput = document.getElementById("minerRate");
       if (minerRateInput) {
         minerRateInput.value = totalPowerTH;
-        if (typeof calc === "function") calc();
         if (typeof getData === "function") getData('minerRate');
       }
 
+      // 3. Lig Verisi ve Ağ Güçlerinin (Network Power) Güncellenmesi
+      const leagueTitle = profile.league && profile.league.title && profile.league.title.en;
+      
+      try {
+        const miningRes = await fetch("data/mining.json?v=3");
+        if (miningRes.ok) {
+          const miningData = await miningRes.json();
+          // mining.json içindeki 'leaguePowerZH' verisinden yararlanma
+          const netPowers = miningData.leaguePowerZH || {};
+
+          // HTML input id'leri ile eşleştirme
+          const inputMapping = {
+            netBtc: netPowers.BTC,
+            netEth: netPowers.ETH,
+            netbnb: netPowers.BNB,
+            netmatic: netPowers.MATIC,
+            netDoge: netPowers.DOGE,
+            netsol: netPowers.SOL,
+            nettrx: netPowers.TRX
+          };
+
+          for (const [inputId, val] of Object.entries(inputMapping)) {
+            const el = document.getElementById(inputId);
+            if (el && val !== undefined) {
+              el.value = val;
+              if (typeof getData === "function") getData(inputId);
+            }
+          }
+        }
+      } catch (e) {
+        console.warn("Lig/Ağ gücü verisi güncellenemedi, varsayılanlar korundu.", e);
+      }
+
+      // Tüm hesaplamaları tetikle
+      if (typeof calc === "function") calc();
+
       statusEl.style.color = "green";
-      statusEl.textContent = `Başarılı! Kullanıcı: ${profile.name} | Toplam Güç: ${(totalPowerGH / 1e6).toFixed(3)} PH/s`;
+      statusEl.textContent = `Başarılı! Kullanıcı: ${profile.name} | Lig: ${leagueTitle || "Varsayılan"} | Güç: ${(totalPowerGH / 1e6).toFixed(3)} PH/s`;
 
     } catch (err) {
       console.error(err);
       statusEl.style.color = "red";
-      statusEl.textContent = "Hata: Kullanıcı verisi çekilemedi veya profil gizli.";
+      statusEl.textContent = "Hata: Kullanıcı verileri çekilemedi veya profil gizli.";
     }
   }
 </script>
+
+
 </body>
 </html>
