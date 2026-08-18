@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RollerCoin Calculator · Smart Edition</title>
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --accent-color: #3b82f6;
+      --accent-hover: #2563eb;
+      --text-color: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #334155;
+      --success-color: #22c55e;
+      --warning-color: #eab308;
+      --error-color: #ef4444;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.5;
+      padding: 20px;
+    }
+
+    .container { max-width: 1000px; margin: 0 auto; }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .badges { display: flex; gap: 10px; font-size: 0.85rem; margin-top: 5px; }
+
+    button {
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+    button:hover { background-color: var(--accent-hover); }
+
+    nav { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; }
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      background: var(--card-bg);
+      white-space: nowrap;
+    }
+    nav a.active { color: white; background: var(--accent-color); }
+
+    .card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 20px;
+    }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 15px; }
+    input, select {
+      background: var(--bg-color);
+      border: 1px solid var(--border-color);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    th, td { padding: 10px; text-align: left; border-bottom: 1px solid var(--border-color); }
+    th { background: rgba(0,0,0,0.2); }
+    
+    .hidden { display: none !important; }
+    .status { margin-top: 10px; font-weight: bold; }
+    .status.loading { color: var(--warning-color); }
+    .status.error { color: var(--error-color); }
+    
+    .coin-badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: #fff;
+    }
+    .best-badge { background: var(--success-color); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
+    .best-row { background: rgba(34, 197, 94, 0.1); }
+    .muted { color: var(--text-muted); }
+    .league-img { height: 24px; vertical-align: middle; }
+    .coin-cell { display: flex; align-items: center; gap: 8px; }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-muted);
+    }
+    .social-links { display: flex; justify-content: center; gap: 15px; margin-top: 10px; }
+    .social-links a { color: var(--accent-color); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>RollerCoin Calculator</h1>
+        <div class="badges">
+          <span id="priceBadge"></span>
+          <span id="miningBadge"></span>
+        </div>
+      </div>
+      <button id="langToggle">Language</button>
+    </header>
+
+    <nav>
+      <a href="#" data-tab="tabProfile" class="active" data-i18n="tab_profile">Profile Analysis</a>
+      <a href="#" data-tab="tabBest" data-i18n="tab_best">Best Coins</a>
+      <a href="#" data-tab="tabSeason" data-i18n="tab_season">Season Pass</a>
+      <a href="#" data-tab="tabRoi" data-i18n="tab_roi">ROI / Invest</a>
+      <a href="#" data-tab="tabManual" data-i18n="tab_manual">Manual Calc</a>
+    </nav>
+
+    <main>
+      <!-- TAB 1: PROFILE ANALYSIS -->
+      <section id="tabProfile">
+        <div class="card">
+          <div class="form-group">
+            <label for="profileInput" data-i18n="profile_label">Profile Username or Link:</label>
+            <div style="display: flex; gap: 10px;">
+              <input type="text" id="profileInput" style="flex: 1;" placeholder="Enter RollerCoin username..." data-i18n-placeholder="profile_placeholder">
+              <button id="analyzeBtn" data-i18n="btn_analyze">Analyze</button>
+            </div>
+          </div>
+          <div id="profileStatus" class="status"></div>
+        </div>
+
+        <div id="profileResults" class="hidden">
+          <div class="card">
+            <h2><span id="pName">—</span></h2>
+            <p style="margin-top: 5px;">
+              <span data-i18n="label_league">League</span>: <span id="pLeague">—</span>
+              <img id="pLeagueImg" class="league-img hidden" alt="League">
+            </p>
+            <p><span data-i18n="label_since">Member Since</span>: <span id="pSince">—</span></p>
+            
+            <div class="grid" style="margin-top: 15px;">
+              <div><strong>Total Power:</strong> <span id="pwTotal">—</span></div>
+              <div><strong>Miners:</strong> <span id="pwMiners">—</span></div>
+              <div><strong>Bonus:</strong> <span id="pwBonus">—</span></div>
+              <div><strong>Games:</strong> <span id="pwGames">—</span></div>
+              <div><strong>Temp:</strong> <span id="pwTemp">—</span></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 data-i18n="title_earnings">Estimated Earnings</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="th_coin">Coin</th>
+                  <th data-i18n="th_per_block">Per Block</th>
+                  <th data-i18n="th_per_day">Per Day</th>
+                  <th data-i18n="th_usd_day">USD / Day</th>
+                  <th data-i18n="th_usd_month">USD / Month</th>
+                </tr>
+              </thead>
+              <tbody id="earningsBody"></tbody>
+            </table>
+            <div id="adviceBox" style="margin-top: 15px; display: flex; flex-direction: column; gap: 8px;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: BEST COINS -->
+      <section id="tabBest" class="hidden">
+        <div class="card">
+          <h2 data-i18n="title_best_coins">Best Coins to Mine</h2>
+          <p id="bestRef" class="muted" style="margin-bottom: 10px;"></p>
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="th_coin">Coin</th>
+                <th data-i18n="th_usd_day">USD / Day</th>
+                <th data-i18n="th_usd_month">USD / Month</th>
+              </tr>
+            </thead>
+            <tbody id="bestBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 3: SEASON PASS -->
+      <section id="tabSeason" class="hidden">
+        <div class="card">
+          <h2 data-i18n="title_season">Season Pass Analysis</h2>
+          <p id="seasonUsing" class="muted" style="margin-bottom: 10px;"></p>
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="th_pass_type">Pass Type</th>
+                <th data-i18n="th_cost">Cost</th>
+                <th data-i18n="th_total_gain">Total Gain</th>
+                <th data-i18n="th_net_usd">Net Profit</th>
+                <th data-i18n="th_roi">ROI %</th>
+                <th data-i18n="th_payback">Payback</th>
+              </tr>
+            </thead>
+            <tbody id="seasonBody"></tbody>
+          </table>
+          <p id="seasonNote" class="muted" style="margin-top: 15px;"></p>
+        </div>
+      </section>
+
+      <!-- TAB 4: ROI / INVEST -->
+      <section id="tabRoi" class="hidden">
+        <div class="card">
+          <h2 data-i18n="title_roi">Investment / ROI Calculator</h2>
+          <div class="form-group" style="margin-top: 10px;">
+            <label for="roiAmount" data-i18n="roi_label">Investment Amount (USD):</label>
+            <div style="display: flex; gap: 10px;">
+              <input type="number" id="roiAmount" value="100" min="1" style="flex: 1;">
+              <button id="roiBtn" data-i18n="btn_calc_roi">Calculate ROI</button>
+            </div>
+          </div>
+
+          <div id="roiResults" class="hidden" style="margin-top: 15px;">
+            <p id="roiSummary" style="font-weight: bold;"></p>
+            <p id="roiBest"></p>
+            <p id="roiPayback"></p>
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="th_coin">Coin</th>
+                  <th data-i18n="th_usd_day">USD / Day</th>
+                  <th data-i18n="th_usd_week">USD / Week</th>
+                  <th data-i18n="th_usd_month">USD / Month</th>
+                </tr>
+              </thead>
+              <tbody id="roiBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: MANUAL CALCULATOR -->
+      <section id="tabManual" class="hidden">
+        <div class="card">
+          <h2 data-i18n="title_manual">Manual Calculator</h2>
+          <div class="grid" style="margin-top: 10px;">
+            <div class="form-group">
+              <label for="mCoin">Coin:</label>
+              <select id="mCoin"></select>
+            </div>
+            <div class="form-group">
+              <label for="mReward">Block Reward:</label>
+              <input type="number" id="mReward" step="any">
+            </div>
+            <div class="form-group">
+              <label for="mTime">Block Time:</label>
+              <div style="display: flex; gap: 5px;">
+                <input type="number" id="mTime" style="width: 60%;">
+                <select id="mTimeUnit" style="width: 40%;">
+                  <option value="SECONDS">Sec</option>
+                  <option value="MINUTES">Min</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="mNetwork">Network Power:</label>
+              <div style="display: flex; gap: 5px;">
+                <input type="number" id="mNetwork" step="any" style="width: 60%;">
+                <select id="mNetworkUnit" style="width: 40%;"></select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="mUser">Your Power:</label>
+              <div style="display: flex; gap: 5px;">
+                <input type="number" id="mUser" step="any" value="100" style="width: 60%;">
+                <select id="mUserUnit" style="width: 40%;"></select>
+              </div>
+            </div>
+          </div>
+          <button id="manualBtn" data-i18n="btn_calculate">Calculate</button>
+
+          <table style="margin-top: 15px;">
+            <thead>
+              <tr>
+                <th data-i18n="th_period">Period</th>
+                <th data-i18n="th_coins">Coins</th>
+                <th data-i18n="th_usd_value">USD Value</th>
+              </tr>
+            </thead>
+            <tbody id="manualBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>
+        <span>Donation EVM: <strong id="donateAddr"></strong></span>
+        <button id="donateCopy" style="padding: 2px 8px; font-size: 0.8rem; margin-left: 5px;">Copy</button>
+      </div>
+      <div class="social-links">
+        <a id="joinBtn" target="_blank" rel="noopener">Join RollerCoin</a>
+        <a id="ytLink" target="_blank" rel="noopener">YouTube</a>
+        <a id="waLink" target="_blank" rel="noopener">WhatsApp</a>
+        <a id="tgLink" target="_blank" rel="noopener">Telegram</a>
+        <a id="repoLink" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- I18N Tanımları & Yardımcı API Bağlantı Fonksiyonları -->
+  <script>
+    const I18N = {
+      en: {
+        language: "Español",
+        title: "RollerCoin Calculator",
+        subtitle: "Smart Edition",
+        prices_live: "Prices Live",
+        prices_cached: (d) => `Cached (${d})`,
+        data_updated: (d) => `Updated: ${d}`,
+        profile_error: "Profile not found or error fetching data.",
+        profile_loading: "Analyzing public profile...",
+        best_badge: "BEST",
+        best_your_power: "Your Profile Power",
+        best_reference: (p) => `Reference Power: ${p}`,
+        advice_best_single: (ticker, usd) => `Mining <strong>${ticker}</strong> yields the highest daily return (~${usd}/day).`,
+        advice_split: (t1, t2) => `Consider splitting your power between <strong>${t1}</strong> and <strong>${t2}</strong> for balance.`,
+        advice_rlt: "Directly mining RLT helps fund in-game upgrades and Event Passes.",
+        season_using: (mode) => `Analysis based on: ${mode}`,
+        season_your_profile: "Your Profile Power",
+        season_reference: (p) => `Reference Power (${p})`,
+        season_standard: "Standard Event Pass",
+        season_complete: "Complete Event Pass",
+        season_worth: "PROFITABLE",
+        season_not_worth: "NOT WORTH",
+        season_days: (d) => `${d} days`,
+        season_note: "Projections assume completing daily tasks and maintaining current network power.",
+        roi_summary: (usd, rlt, power) => `Investing $${usd} buys ~${rlt} RLT, giving +${power} power.`,
+        roi_best: (ticker, usd) => `Best return: ${ticker} (~${usd}/month)`,
+        roi_payback: (m) => `Estimated Payback Period: ${m} months`,
+        roi_payback_never: "Payback time is infinite (low returns)",
+        manual_expected: "Expected / Block",
+        manual_daily: "Daily",
+        manual_weekly: "Weekly",
+        manual_monthly: "Monthly",
+        copy: "Copy",
+        copied: "Copied!",
+        tab_profile: "Profile Analysis",
+        tab_best: "Best Coins",
+        tab_season: "Season Pass",
+        tab_roi: "ROI / Invest",
+        tab_manual: "Manual Calc",
+        profile_label: "Profile Username or Link:",
+        profile_placeholder: "Enter RollerCoin username...",
+        btn_analyze: "Analyze",
+        label_league: "League",
+        label_since: "Member Since",
+        title_earnings: "Estimated Earnings",
+        th_coin: "Coin",
+        th_per_block: "Per Block",
+        th_per_day: "Per Day",
+        th_usd_day: "USD / Day",
+        th_usd_month: "USD / Month",
+        title_best_coins: "Best Coins to Mine",
+        title_season: "Season Pass Analysis",
+        th_pass_type: "Pass Type",
+        th_cost: "Cost",
+        th_total_gain: "Total Gain",
+        th_net_usd: "Net Profit",
+        th_roi: "ROI %",
+        th_payback: "Payback",
+        title_roi: "Investment / ROI Calculator",
+        roi_label: "Investment Amount (USD):",
+        btn_calc_roi: "Calculate ROI",
+        th_usd_week: "USD / Week",
+        title_manual: "Manual Calculator",
+        btn_calculate: "Calculate",
+        th_period: "Period",
+        th_coins: "Coins",
+        th_usd_value: "USD Value"
+      },
+      es: {
+        language: "English",
+        title: "Calculadora RollerCoin",
+        subtitle: "Edición Inteligente",
+        prices_live: "Precios en vivo",
+        prices_cached: (d) => `En caché (${d})`,
+        data_updated: (d) => `Actualizado: ${d}`,
+        profile_error: "Perfil no encontrado o error al obtener datos.",
+        profile_loading: "Analizando perfil público...",
+        best_badge: "MEJOR",
+        best_your_power: "Poder de tu Perfil",
+        best_reference: (p) => `Poder de referencia: ${p}`,
+        advice_best_single: (ticker, usd) => `Minar <strong>${ticker}</strong> genera la mayor ganancia diaria (~${usd}/día).`,
+        advice_split: (t1, t2) => `Considera dividir tu poder entre <strong>${t1}</strong> y <strong>${t2}</strong>.`,
+        advice_rlt: "Minar RLT directamente ayuda a financiar mejoras en el juego y Pase de Evento.",
+        season_using: (mode) => `Análisis basado en: ${mode}`,
+        season_your_profile: "Poder de tu Perfil",
+        season_reference: (p) => `Poder de Referencia (${p})`,
+        season_standard: "Pase Estándar",
+        season_complete: "Pase Completo",
+        season_worth: "RENTABLE",
+        season_not_worth: "NO VALE LA PENA",
+        season_days: (d) => `${d} días`,
+        season_note: "Las proyecciones asumen completar misiones diarias y mantener el poder actual.",
+        roi_summary: (usd, rlt, power) => `Invertir $${usd} compra ~${rlt} RLT, dando +${power} de poder.`,
+        roi_best: (ticker, usd) => `Mejor retorno: ${ticker} (~${usd}/mes)`,
+        roi_payback: (m) => `Tiempo estimado de retorno: ${m} meses`,
+        roi_payback_never: "Tiempo de retorno infinito",
+        manual_expected: "Esperado / Bloque",
+        manual_daily: "Diario",
+        manual_weekly: "Semanal",
+        manual_monthly: "Mensual",
+        copy: "Copiar",
+        copied: "¡Copiado!",
+        tab_profile: "Análisis de Perfil",
+        tab_best: "Mejores Monedas",
+        tab_season: "Pase de Temporada",
+        tab_roi: "ROI / Inversión",
+        tab_manual: "Calc Manual",
+        profile_label: "Usuario o Enlace de Perfil:",
+        profile_placeholder: "Ingresa usuario de RollerCoin...",
+        btn_analyze: "Analizar",
+        label_league: "Liga",
+        label_since: "Miembro desde",
+        title_earnings: "Ganancias Estimadas",
+        th_coin: "Moneda",
+        th_per_block: "Por Bloque",
+        th_per_day: "Por Día",
+        th_usd_day: "USD / Día",
+        th_usd_month: "USD / Mes",
+        title_best_coins: "Mejores Monedas para Minar",
+        title_season: "Análisis de Pase de Temporada",
+        th_pass_type: "Tipo de Pase",
+        th_cost: "Costo",
+        th_total_gain: "Ganancia Total",
+        th_net_usd: "Beneficio Neto",
+        th_roi: "ROI %",
+        th_payback: "Retorno",
+        title_roi: "Calculadora de Inversión / ROI",
+        roi_label: "Monto de Inversión (USD):",
+        btn_calc_roi: "Calcular ROI",
+        th_usd_week: "USD / Semana",
+        title_manual: "Calculadora Manual",
+        btn_calculate: "Calcular",
+        th_period: "Período",
+        th_coins: "Monedas",
+        th_usd_value: "Valor USD"
+      }
+    };
+
+    function parseProfileInput(input) {
+      if (!input) return "";
+      const match = input.match(/rollercoin\.com\/p\/([a-zA-Z0-9_-]+)/);
+      return match ? match[1] : input.trim();
+    }
+
+    async function fetchWithFallback(url) {
+      if (CONFIG.workerProxy) {
+        try { return await fetch(`${CONFIG.workerProxy}/?url=${encodeURIComponent(url)}`).then(r => r.json()); }
+        catch (e) { console.warn("Worker proxy failed, falling back to public proxies..."); }
+      }
+      for (const proxy of CONFIG.publicProxies) {
+        try { return await fetch(proxy(url)).then(r => r.json()); } catch (e) {}
+      }
+      throw new Error("All proxy attempts failed.");
+    }
+
+    async function getPublicProfile(username) {
+      return await fetchWithFallback(CONFIG.rollercoin.publicProfile(username));
+    }
+
+    async function getUserPower(avatarId) {
+      return await fetchWithFallback(CONFIG.rollercoin.powerData(avatarId));
+    }
+
+    async function getMiningData() {
+      return {
+        updatedAt: "2026-08-18",
+        blocksPerDay: 144,
+        secondsPerBlock: 600,
+        rltUsdPrice: 1.0,
+        leagueTierMultiplier: { default: 1, elite: 1.05 },
+        leaguePowerZH: { BTC: 50, ETH: 35, RLT: 80, DOGE: 25, USDT: 40 },
+        coins: {
+          BTC: { name: "Bitcoin", dailyReward: 0.0005, coinGeckoId: "bitcoin", color: "#f7931a" },
+          ETH: { name: "Ethereum", dailyReward: 0.008, coinGeckoId: "ethereum", color: "#627eea" },
+          RLT: { name: "RollerToken", dailyReward: 30, coinGeckoId: null, color: "#e31363" },
+          DOGE: { name: "Dogecoin", dailyReward: 60, coinGeckoId: "dogecoin", color: "#c2a633" },
+          USDT: { name: "Tether", dailyReward: 15, coinGeckoId: null, color: "#26a17b" }
+        },
+        seasonPass: {
+          standardCostRlt: 99,
+          completeCostRlt: 499,
+          bonusPowerPercent: 15,
+          seasonDays: 60,
+          dailyBonusRlt: 0.5
+        },
+        minerMarket: { thPerRlt: 100 }
+      };
+    }
+
+    async function getPrices(coingeckoIds) {
+      try {
+        const res = await fetch(CONFIG.coinGecko(coingeckoIds)).then(r => r.json());
+        const prices = {};
+        for (const id of coingeckoIds) {
+          if (res[id] && res[id].usd) prices[id] = res[id].usd;
+        }
+        return { prices, live: true, date: new Date().toISOString() };
+      } catch {
+        return { prices: { bitcoin: 60000, ethereum: 3000, dogecoin: 0.12 }, live: false, date: "2026-08-18" };
+      }
+    }
+  </script>
+
+  <!-- JS Dosyalarının Sırasıyla Bağlanması -->
+  <script src="config.js"></script>
+  <script src="calculator.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
