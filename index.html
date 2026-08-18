@@ -4,136 +4,550 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RollerCoin Calculator · Smart Edition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-color: #0f172a;
-      --card-bg: #1e293b;
-      --accent-color: #3b82f6;
-      --accent-hover: #2563eb;
-      --text-color: #f8fafc;
-      --text-muted: #94a3b8;
-      --border-color: #334155;
-      --success-color: #22c55e;
-      --warning-color: #eab308;
-      --error-color: #ef4444;
+      --bg-dark: #080b11;
+      --bg-card: rgba(18, 24, 38, 0.7);
+      --bg-card-hover: rgba(26, 35, 56, 0.8);
+      --accent-cyan: #00f2fe;
+      --accent-blue: #4facfe;
+      --accent-purple: #7f00ff;
+      --accent-pink: #e100ff;
+      --text-main: #f1f5f9;
+      --text-muted: #64748b;
+      --text-dim: #94a3b8;
+      --border-glow: rgba(0, 242, 254, 0.15);
+      --border-subtle: rgba(255, 255, 255, 0.07);
+      --success: #10b981;
+      --success-glow: rgba(16, 185, 129, 0.2);
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 8px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      line-height: 1.5;
-      padding: 20px;
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(0, 242, 254, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(127, 0, 255, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(225, 0, 255, 0.03) 0%, transparent 60%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-x: hidden;
     }
 
-    .container { max-width: 1000px; margin: 0 auto; }
+    /* Top Glow Bar */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+      z-index: 1000;
+    }
 
+    .container {
+      max-width: 1140px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    /* HEADER */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 35px;
+      padding: 20px 28px;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
 
-    .badges { display: flex; gap: 10px; font-size: 0.85rem; margin-top: 5px; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-    button {
-      background-color: var(--accent-color);
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 8px 20px rgba(0, 242, 254, 0.3);
+    }
+
+    .brand h1 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ffffff 30%, var(--text-dim));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .badges {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .badge-pill {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-dim);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .lang-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 0.85rem;
       cursor: pointer;
-      font-weight: bold;
-      transition: background 0.2s;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    button:hover { background-color: var(--accent-hover); }
 
-    nav { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; }
+    .lang-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* NAVIGATION TABS */
+    nav {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      padding: 6px;
+      background: rgba(12, 17, 29, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    nav::-webkit-scrollbar { display: none; }
+
     nav a {
+      flex: 1;
+      text-align: center;
       color: var(--text-muted);
       text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      background: var(--card-bg);
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    nav a:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    nav a.active {
+      color: #000;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      box-shadow: 0 8px 25px rgba(0, 242, 254, 0.35);
+      font-weight: 800;
+    }
+
+    /* CARDS & CONTAINERS */
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      margin-bottom: 25px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      transition: border-color 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+    }
+
+    /* FORMS & INPUTS */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .input-wrapper {
+      display: flex;
+      gap: 12px;
+    }
+
+    input[type="text"], input[type="number"], select {
+      background: rgba(8, 11, 17, 0.8);
+      border: 1px solid var(--border-subtle);
+      color: #fff;
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      font-weight: 500;
+      outline: none;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.25);
+      background: rgba(12, 17, 29, 0.95);
+    }
+
+    select option {
+      background: #0f172a;
+      color: #fff;
+    }
+
+    /* BUTTONS */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      color: #000;
+      border: none;
+      padding: 14px 28px;
+      border-radius: var(--radius-md);
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 10px 25px rgba(0, 242, 254, 0.3);
       white-space: nowrap;
     }
-    nav a.active { color: white; background: var(--accent-color); }
 
-    .card {
-      background: var(--card-bg);
-      padding: 20px;
-      border-radius: 10px;
-      border: 1px solid var(--border-color);
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(0, 242, 254, 0.45);
+    }
+
+    /* PROFILE STATS GRID */
+    .profile-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-subtle);
       margin-bottom: 20px;
     }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
-    .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 15px; }
-    input, select {
-      background: var(--bg-color);
-      border: 1px solid var(--border-color);
-      color: white;
-      padding: 8px 12px;
-      border-radius: 6px;
-    }
-
-    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-    th, td { padding: 10px; text-align: left; border-bottom: 1px solid var(--border-color); }
-    th { background: rgba(0,0,0,0.2); }
-    
-    .hidden { display: none !important; }
-    .status { margin-top: 10px; font-weight: bold; }
-    .status.loading { color: var(--warning-color); }
-    .status.error { color: var(--error-color); }
-    
-    .coin-badge {
-      display: inline-block;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: bold;
+    .profile-user h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
       color: #fff;
     }
-    .best-badge { background: var(--success-color); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
-    .best-row { background: rgba(34, 197, 94, 0.1); }
-    .muted { color: var(--text-muted); }
-    .league-img { height: 24px; vertical-align: middle; }
-    .coin-cell { display: flex; align-items: center; gap: 8px; }
 
-    footer {
-      text-align: center;
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border-color);
-      color: var(--text-muted);
+    .profile-meta {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-top: 6px;
+      font-size: 0.88rem;
+      color: var(--text-dim);
     }
-    .social-links { display: flex; justify-content: center; gap: 15px; margin-top: 10px; }
-    .social-links a { color: var(--accent-color); text-decoration: none; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .stat-card {
+      background: rgba(8, 11, 17, 0.5);
+      border: 1px solid var(--border-subtle);
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .stat-card.highlight {
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.08), rgba(127, 0, 255, 0.08));
+      border-color: rgba(0, 242, 254, 0.3);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* TABLES */
+    .table-container {
+      overflow-x: auto;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(8, 11, 17, 0.8);
+      color: var(--text-dim);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    td {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    tbody tr {
+      transition: background 0.2s ease;
+    }
+
+    tbody tr:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* BADGES & HIGHLIGHTS IN TABLES */
+    .best-row {
+      background: rgba(16, 185, 129, 0.06) !important;
+    }
+
+    .coin-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+    }
+
+    .coin-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .best-badge {
+      background: linear-gradient(135deg, var(--success), #059669);
+      color: #000;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      box-shadow: 0 0 12px var(--success-glow);
+    }
+
+    /* ADVICE BOX */
+    .advice-card {
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.05), rgba(127, 0, 255, 0.05));
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.92rem;
+      color: #e2e8f0;
+    }
+
+    .advice-card p {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* STATUS HELPER */
+    .status {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status.loading { color: var(--warning); }
+    .status.error { color: var(--danger); }
+
+    /* FOOTER */
+    footer {
+      margin-top: 50px;
+      padding: 30px 20px;
+      border-top: 1px solid var(--border-subtle);
+      background: rgba(8, 11, 17, 0.6);
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .donation-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .donation-box strong {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-cyan);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .social-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      transition: color 0.2s;
+    }
+
+    .social-links a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 768px) {
+      .input-wrapper { flex-direction: column; }
+      header { flex-direction: column; gap: 15px; align-items: flex-start; }
+      .profile-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+      nav { justify-content: flex-start; }
+    }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- HEADER -->
     <header>
-      <div>
-        <h1>RollerCoin Calculator</h1>
-        <div class="badges">
-          <span id="priceBadge"></span>
-          <span id="miningBadge"></span>
+      <div class="brand">
+        <div class="brand-icon">⚡</div>
+        <div>
+          <h1>RollerCoin Calculator</h1>
+          <div class="badges">
+            <span id="priceBadge" class="badge-pill"></span>
+            <span id="miningBadge" class="badge-pill"></span>
+          </div>
         </div>
       </div>
-      <button id="langToggle">Language</button>
+      <button id="langToggle" class="lang-btn">
+        <span>🌐</span> <span id="langText">EN / ES</span>
+      </button>
     </header>
 
+    <!-- NAVIGATION TABS -->
     <nav>
-      <a href="#" data-tab="tabProfile" class="active" data-i18n="tab_profile">Profile Analysis</a>
-      <a href="#" data-tab="tabBest" data-i18n="tab_best">Best Coins</a>
-      <a href="#" data-tab="tabSeason" data-i18n="tab_season">Season Pass</a>
-      <a href="#" data-tab="tabRoi" data-i18n="tab_roi">ROI / Invest</a>
-      <a href="#" data-tab="tabManual" data-i18n="tab_manual">Manual Calc</a>
+      <a href="#" data-tab="tabProfile" class="active" data-i18n="tab_profile">👤 Profile Analysis</a>
+      <a href="#" data-tab="tabBest" data-i18n="tab_best">🏆 Best Coins</a>
+      <a href="#" data-tab="tabSeason" data-i18n="tab_season">🎟️ Season Pass</a>
+      <a href="#" data-tab="tabRoi" data-i18n="tab_roi">📈 ROI / Invest</a>
+      <a href="#" data-tab="tabManual" data-i18n="tab_manual">🧮 Manual Calc</a>
     </nav>
 
     <main>
@@ -141,10 +555,10 @@
       <section id="tabProfile">
         <div class="card">
           <div class="form-group">
-            <label for="profileInput" data-i18n="profile_label">Profile Username or Link:</label>
-            <div style="display: flex; gap: 10px;">
-              <input type="text" id="profileInput" style="flex: 1;" placeholder="Enter RollerCoin username..." data-i18n-placeholder="profile_placeholder">
-              <button id="analyzeBtn" data-i18n="btn_analyze">Analyze</button>
+            <label for="profileInput" data-i18n="profile_label">Profile Link or Username</label>
+            <div class="input-wrapper">
+              <input type="text" id="profileInput" placeholder="Enter RollerCoin username or URL..." data-i18n-placeholder="profile_placeholder">
+              <button id="analyzeBtn" class="btn-primary" data-i18n="btn_analyze">Analyze Profile</button>
             </div>
           </div>
           <div id="profileStatus" class="status"></div>
@@ -152,37 +566,58 @@
 
         <div id="profileResults" class="hidden">
           <div class="card">
-            <h2><span id="pName">—</span></h2>
-            <p style="margin-top: 5px;">
-              <span data-i18n="label_league">League</span>: <span id="pLeague">—</span>
-              <img id="pLeagueImg" class="league-img hidden" alt="League">
-            </p>
-            <p><span data-i18n="label_since">Member Since</span>: <span id="pSince">—</span></p>
+            <div class="profile-header">
+              <div class="profile-user">
+                <h2 id="pName">—</h2>
+                <div class="profile-meta">
+                  <span>League: <strong id="pLeague" style="color:#fff;">—</strong> <img id="pLeagueImg" class="league-img hidden" alt="League"></span>
+                  <span>•</span>
+                  <span>Joined: <strong id="pSince" style="color:#fff;">—</strong></span>
+                </div>
+              </div>
+            </div>
             
-            <div class="grid" style="margin-top: 15px;">
-              <div><strong>Total Power:</strong> <span id="pwTotal">—</span></div>
-              <div><strong>Miners:</strong> <span id="pwMiners">—</span></div>
-              <div><strong>Bonus:</strong> <span id="pwBonus">—</span></div>
-              <div><strong>Games:</strong> <span id="pwGames">—</span></div>
-              <div><strong>Temp:</strong> <span id="pwTemp">—</span></div>
+            <div class="stats-grid">
+              <div class="stat-card highlight">
+                <span class="stat-label">Total Power</span>
+                <span id="pwTotal" class="stat-value">—</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Miners</span>
+                <span id="pwMiners" class="stat-value">—</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Bonus</span>
+                <span id="pwBonus" class="stat-value">—</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Games</span>
+                <span id="pwGames" class="stat-value">—</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Temp Power</span>
+                <span id="pwTemp" class="stat-value">—</span>
+              </div>
             </div>
           </div>
 
           <div class="card">
-            <h3 data-i18n="title_earnings">Estimated Earnings</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th data-i18n="th_coin">Coin</th>
-                  <th data-i18n="th_per_block">Per Block</th>
-                  <th data-i18n="th_per_day">Per Day</th>
-                  <th data-i18n="th_usd_day">USD / Day</th>
-                  <th data-i18n="th_usd_month">USD / Month</th>
-                </tr>
-              </thead>
-              <tbody id="earningsBody"></tbody>
-            </table>
-            <div id="adviceBox" style="margin-top: 15px; display: flex; flex-direction: column; gap: 8px;"></div>
+            <div class="card-title" data-i18n="title_earnings">📊 Estimated Earnings</div>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-i18n="th_coin">Coin</th>
+                    <th data-i18n="th_per_block">Per Block</th>
+                    <th data-i18n="th_per_day">Per Day</th>
+                    <th data-i18n="th_usd_day">USD / Day</th>
+                    <th data-i18n="th_usd_month">USD / Month</th>
+                  </tr>
+                </thead>
+                <tbody id="earningsBody"></tbody>
+              </table>
+            </div>
+            <div id="adviceBox" class="advice-card" style="margin-top: 20px;"></div>
           </div>
         </div>
       </section>
@@ -190,70 +625,78 @@
       <!-- TAB 2: BEST COINS -->
       <section id="tabBest" class="hidden">
         <div class="card">
-          <h2 data-i18n="title_best_coins">Best Coins to Mine</h2>
-          <p id="bestRef" class="muted" style="margin-bottom: 10px;"></p>
-          <table>
-            <thead>
-              <tr>
-                <th data-i18n="th_coin">Coin</th>
-                <th data-i18n="th_usd_day">USD / Day</th>
-                <th data-i18n="th_usd_month">USD / Month</th>
-              </tr>
-            </thead>
-            <tbody id="bestBody"></tbody>
-          </table>
+          <div class="card-title" data-i18n="title_best_coins">🏆 Most Profitable Coins</div>
+          <p id="bestRef" class="stat-label" style="margin-bottom: 16px;"></p>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="th_coin">Coin</th>
+                  <th data-i18n="th_usd_day">USD / Day</th>
+                  <th data-i18n="th_usd_month">USD / Month</th>
+                </tr>
+              </thead>
+              <tbody id="bestBody"></tbody>
+            </table>
+          </div>
         </div>
       </section>
 
       <!-- TAB 3: SEASON PASS -->
       <section id="tabSeason" class="hidden">
         <div class="card">
-          <h2 data-i18n="title_season">Season Pass Analysis</h2>
-          <p id="seasonUsing" class="muted" style="margin-bottom: 10px;"></p>
-          <table>
-            <thead>
-              <tr>
-                <th data-i18n="th_pass_type">Pass Type</th>
-                <th data-i18n="th_cost">Cost</th>
-                <th data-i18n="th_total_gain">Total Gain</th>
-                <th data-i18n="th_net_usd">Net Profit</th>
-                <th data-i18n="th_roi">ROI %</th>
-                <th data-i18n="th_payback">Payback</th>
-              </tr>
-            </thead>
-            <tbody id="seasonBody"></tbody>
-          </table>
-          <p id="seasonNote" class="muted" style="margin-top: 15px;"></p>
+          <div class="card-title" data-i18n="title_season">🎟️ Season Pass Value Analysis</div>
+          <p id="seasonUsing" class="stat-label" style="margin-bottom: 16px;"></p>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="th_pass_type">Pass Type</th>
+                  <th data-i18n="th_cost">Cost</th>
+                  <th data-i18n="th_total_gain">Total Gain</th>
+                  <th data-i18n="th_net_usd">Net Profit</th>
+                  <th data-i18n="th_roi">ROI %</th>
+                  <th data-i18n="th_payback">Payback</th>
+                </tr>
+              </thead>
+              <tbody id="seasonBody"></tbody>
+            </table>
+          </div>
+          <p id="seasonNote" class="stat-label" style="margin-top: 16px; color: var(--text-dim);"></p>
         </div>
       </section>
 
       <!-- TAB 4: ROI / INVEST -->
       <section id="tabRoi" class="hidden">
         <div class="card">
-          <h2 data-i18n="title_roi">Investment / ROI Calculator</h2>
+          <div class="card-title" data-i18n="title_roi">📈 Investment Return Calculator</div>
           <div class="form-group" style="margin-top: 10px;">
-            <label for="roiAmount" data-i18n="roi_label">Investment Amount (USD):</label>
-            <div style="display: flex; gap: 10px;">
-              <input type="number" id="roiAmount" value="100" min="1" style="flex: 1;">
-              <button id="roiBtn" data-i18n="btn_calc_roi">Calculate ROI</button>
+            <label for="roiAmount" data-i18n="roi_label">Investment Amount (USD)</label>
+            <div class="input-wrapper">
+              <input type="number" id="roiAmount" value="100" min="1">
+              <button id="roiBtn" class="btn-primary" data-i18n="btn_calc_roi">Calculate ROI</button>
             </div>
           </div>
 
-          <div id="roiResults" class="hidden" style="margin-top: 15px;">
-            <p id="roiSummary" style="font-weight: bold;"></p>
-            <p id="roiBest"></p>
-            <p id="roiPayback"></p>
-            <table>
-              <thead>
-                <tr>
-                  <th data-i18n="th_coin">Coin</th>
-                  <th data-i18n="th_usd_day">USD / Day</th>
-                  <th data-i18n="th_usd_week">USD / Week</th>
-                  <th data-i18n="th_usd_month">USD / Month</th>
-                </tr>
-              </thead>
-              <tbody id="roiBody"></tbody>
-            </table>
+          <div id="roiResults" class="hidden" style="margin-top: 25px;">
+            <div class="advice-card" style="margin-bottom: 20px;">
+              <p id="roiSummary" style="font-weight: 700; font-size: 1rem; color: #fff;"></p>
+              <p id="roiBest"></p>
+              <p id="roiPayback"></p>
+            </div>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-i18n="th_coin">Coin</th>
+                    <th data-i18n="th_usd_day">USD / Day</th>
+                    <th data-i18n="th_usd_week">USD / Week</th>
+                    <th data-i18n="th_usd_month">USD / Month</th>
+                  </tr>
+                </thead>
+                <tbody id="roiBody"></tbody>
+              </table>
+            </div>
           </div>
         </div>
       </section>
@@ -261,61 +704,65 @@
       <!-- TAB 5: MANUAL CALCULATOR -->
       <section id="tabManual" class="hidden">
         <div class="card">
-          <h2 data-i18n="title_manual">Manual Calculator</h2>
-          <div class="grid" style="margin-top: 10px;">
+          <div class="card-title" data-i18n="title_manual">🧮 Custom Parameter Calculator</div>
+          <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 20px;">
             <div class="form-group">
-              <label for="mCoin">Coin:</label>
+              <label for="mCoin">Coin</label>
               <select id="mCoin"></select>
             </div>
             <div class="form-group">
-              <label for="mReward">Block Reward:</label>
+              <label for="mReward">Block Reward</label>
               <input type="number" id="mReward" step="any">
             </div>
             <div class="form-group">
-              <label for="mTime">Block Time:</label>
-              <div style="display: flex; gap: 5px;">
-                <input type="number" id="mTime" style="width: 60%;">
-                <select id="mTimeUnit" style="width: 40%;">
+              <label for="mTime">Block Time</label>
+              <div style="display: flex; gap: 8px;">
+                <input type="number" id="mTime" style="flex: 1;">
+                <select id="mTimeUnit" style="width: 90px;">
                   <option value="SECONDS">Sec</option>
                   <option value="MINUTES">Min</option>
                 </select>
               </div>
             </div>
             <div class="form-group">
-              <label for="mNetwork">Network Power:</label>
-              <div style="display: flex; gap: 5px;">
-                <input type="number" id="mNetwork" step="any" style="width: 60%;">
-                <select id="mNetworkUnit" style="width: 40%;"></select>
+              <label for="mNetwork">Network Power</label>
+              <div style="display: flex; gap: 8px;">
+                <input type="number" id="mNetwork" step="any" style="flex: 1;">
+                <select id="mNetworkUnit" style="width: 90px;"></select>
               </div>
             </div>
             <div class="form-group">
-              <label for="mUser">Your Power:</label>
-              <div style="display: flex; gap: 5px;">
-                <input type="number" id="mUser" step="any" value="100" style="width: 60%;">
-                <select id="mUserUnit" style="width: 40%;"></select>
+              <label for="mUser">Your Power</label>
+              <div style="display: flex; gap: 8px;">
+                <input type="number" id="mUser" step="any" value="100" style="flex: 1;">
+                <select id="mUserUnit" style="width: 90px;"></select>
               </div>
             </div>
           </div>
-          <button id="manualBtn" data-i18n="btn_calculate">Calculate</button>
+          <button id="manualBtn" class="btn-primary" data-i18n="btn_calculate">Calculate Reward</button>
 
-          <table style="margin-top: 15px;">
-            <thead>
-              <tr>
-                <th data-i18n="th_period">Period</th>
-                <th data-i18n="th_coins">Coins</th>
-                <th data-i18n="th_usd_value">USD Value</th>
-              </tr>
-            </thead>
-            <tbody id="manualBody"></tbody>
-          </table>
+          <div class="table-container" style="margin-top: 20px;">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="th_period">Timeframe</th>
+                  <th data-i18n="th_coins">Coins Earned</th>
+                  <th data-i18n="th_usd_value">Estimated USD</th>
+                </tr>
+              </thead>
+              <tbody id="manualBody"></tbody>
+            </table>
+          </div>
         </div>
       </section>
     </main>
 
+    <!-- FOOTER -->
     <footer>
-      <div>
-        <span>Donation EVM: <strong id="donateAddr"></strong></span>
-        <button id="donateCopy" style="padding: 2px 8px; font-size: 0.8rem; margin-left: 5px;">Copy</button>
+      <div class="donation-box">
+        <span>Donate EVM:</span>
+        <strong id="donateAddr">0x...</strong>
+        <button id="donateCopy" class="btn-primary" style="padding: 4px 12px; font-size: 0.75rem;">Copy</button>
       </div>
       <div class="social-links">
         <a id="joinBtn" target="_blank" rel="noopener">Join RollerCoin</a>
@@ -327,144 +774,144 @@
     </footer>
   </div>
 
-  <!-- I18N Tanımları & Yardımcı API Bağlantı Fonksiyonları -->
+  <!-- I18N DICTIONARIES & HELPER FUNCTIONS -->
   <script>
     const I18N = {
       en: {
         language: "Español",
         title: "RollerCoin Calculator",
         subtitle: "Smart Edition",
-        prices_live: "Prices Live",
+        prices_live: "Live Prices",
         prices_cached: (d) => `Cached (${d})`,
         data_updated: (d) => `Updated: ${d}`,
-        profile_error: "Profile not found or error fetching data.",
-        profile_loading: "Analyzing public profile...",
-        best_badge: "BEST",
-        best_your_power: "Your Profile Power",
+        profile_error: "Profile not found or API unavailable.",
+        profile_loading: "Fetching profile data...",
+        best_badge: "BEST CHOICE",
+        best_your_power: "Based on Your Power",
         best_reference: (p) => `Reference Power: ${p}`,
-        advice_best_single: (ticker, usd) => `Mining <strong>${ticker}</strong> yields the highest daily return (~${usd}/day).`,
-        advice_split: (t1, t2) => `Consider splitting your power between <strong>${t1}</strong> and <strong>${t2}</strong> for balance.`,
-        advice_rlt: "Directly mining RLT helps fund in-game upgrades and Event Passes.",
+        advice_best_single: (ticker, usd) => `Mining <strong>${ticker}</strong> gives you the highest yield (~${usd}/day).`,
+        advice_split: (t1, t2) => `Consider splitting power between <strong>${t1}</strong> and <strong>${t2}</strong>.`,
+        advice_rlt: "Mining RLT directly helps in purchasing miners and event passes.",
         season_using: (mode) => `Analysis based on: ${mode}`,
         season_your_profile: "Your Profile Power",
         season_reference: (p) => `Reference Power (${p})`,
         season_standard: "Standard Event Pass",
         season_complete: "Complete Event Pass",
         season_worth: "PROFITABLE",
-        season_not_worth: "NOT WORTH",
+        season_not_worth: "NOT RECOMMENDED",
         season_days: (d) => `${d} days`,
-        season_note: "Projections assume completing daily tasks and maintaining current network power.",
-        roi_summary: (usd, rlt, power) => `Investing $${usd} buys ~${rlt} RLT, giving +${power} power.`,
-        roi_best: (ticker, usd) => `Best return: ${ticker} (~${usd}/month)`,
+        season_note: "Calculations assume full daily quest completions.",
+        roi_summary: (usd, rlt, power) => `Investing $${usd} gets ~${rlt} RLT (${power} power).`,
+        roi_best: (ticker, usd) => `Top Coin: ${ticker} (~${usd}/month)`,
         roi_payback: (m) => `Estimated Payback Period: ${m} months`,
-        roi_payback_never: "Payback time is infinite (low returns)",
-        manual_expected: "Expected / Block",
+        roi_payback_never: "Payback period is infinite",
+        manual_expected: "Per Block",
         manual_daily: "Daily",
         manual_weekly: "Weekly",
         manual_monthly: "Monthly",
         copy: "Copy",
         copied: "Copied!",
-        tab_profile: "Profile Analysis",
-        tab_best: "Best Coins",
-        tab_season: "Season Pass",
-        tab_roi: "ROI / Invest",
-        tab_manual: "Manual Calc",
-        profile_label: "Profile Username or Link:",
-        profile_placeholder: "Enter RollerCoin username...",
-        btn_analyze: "Analyze",
+        tab_profile: "👤 Profile Analysis",
+        tab_best: "🏆 Best Coins",
+        tab_season: "🎟️ Season Pass",
+        tab_roi: "📈 ROI / Invest",
+        tab_manual: "🧮 Manual Calc",
+        profile_label: "Profile Link or Username",
+        profile_placeholder: "Enter RollerCoin username or URL...",
+        btn_analyze: "Analyze Profile",
         label_league: "League",
-        label_since: "Member Since",
-        title_earnings: "Estimated Earnings",
+        label_since: "Joined",
+        title_earnings: "📊 Estimated Earnings",
         th_coin: "Coin",
         th_per_block: "Per Block",
         th_per_day: "Per Day",
         th_usd_day: "USD / Day",
         th_usd_month: "USD / Month",
-        title_best_coins: "Best Coins to Mine",
-        title_season: "Season Pass Analysis",
+        title_best_coins: "🏆 Most Profitable Coins",
+        title_season: "🎟️ Season Pass Value Analysis",
         th_pass_type: "Pass Type",
         th_cost: "Cost",
         th_total_gain: "Total Gain",
         th_net_usd: "Net Profit",
         th_roi: "ROI %",
         th_payback: "Payback",
-        title_roi: "Investment / ROI Calculator",
-        roi_label: "Investment Amount (USD):",
+        title_roi: "📈 Investment Return Calculator",
+        roi_label: "Investment Amount (USD)",
         btn_calc_roi: "Calculate ROI",
         th_usd_week: "USD / Week",
-        title_manual: "Manual Calculator",
-        btn_calculate: "Calculate",
-        th_period: "Period",
-        th_coins: "Coins",
-        th_usd_value: "USD Value"
+        title_manual: "🧮 Custom Parameter Calculator",
+        btn_calculate: "Calculate Reward",
+        th_period: "Timeframe",
+        th_coins: "Coins Earned",
+        th_usd_value: "Estimated USD"
       },
       es: {
         language: "English",
         title: "Calculadora RollerCoin",
-        subtitle: "Edición Inteligente",
-        prices_live: "Precios en vivo",
+        subtitle: "Smart Edition",
+        prices_live: "Precios en Vivo",
         prices_cached: (d) => `En caché (${d})`,
         data_updated: (d) => `Actualizado: ${d}`,
-        profile_error: "Perfil no encontrado o error al obtener datos.",
-        profile_loading: "Analizando perfil público...",
-        best_badge: "MEJOR",
-        best_your_power: "Poder de tu Perfil",
-        best_reference: (p) => `Poder de referencia: ${p}`,
-        advice_best_single: (ticker, usd) => `Minar <strong>${ticker}</strong> genera la mayor ganancia diaria (~${usd}/día).`,
-        advice_split: (t1, t2) => `Considera dividir tu poder entre <strong>${t1}</strong> y <strong>${t2}</strong>.`,
-        advice_rlt: "Minar RLT directamente ayuda a financiar mejoras en el juego y Pase de Evento.",
+        profile_error: "Perfil no encontrado o error de API.",
+        profile_loading: "Obteniendo datos del perfil...",
+        best_badge: "MEJOR OPCIÓN",
+        best_your_power: "Basado en tu Poder",
+        best_reference: (p) => `Poder de Referencia: ${p}`,
+        advice_best_single: (ticker, usd) => `Minar <strong>${ticker}</strong> te da la mayor ganancia (~${usd}/día).`,
+        advice_split: (t1, t2) => `Considera dividir poder entre <strong>${t1}</strong> y <strong>${t2}</strong>.`,
+        advice_rlt: "Minar RLT directamente ayuda a comprar mineros y pases de evento.",
         season_using: (mode) => `Análisis basado en: ${mode}`,
         season_your_profile: "Poder de tu Perfil",
         season_reference: (p) => `Poder de Referencia (${p})`,
         season_standard: "Pase Estándar",
         season_complete: "Pase Completo",
         season_worth: "RENTABLE",
-        season_not_worth: "NO VALE LA PENA",
+        season_not_worth: "NO RECOMENDADO",
         season_days: (d) => `${d} días`,
-        season_note: "Las proyecciones asumen completar misiones diarias y mantener el poder actual.",
-        roi_summary: (usd, rlt, power) => `Invertir $${usd} compra ~${rlt} RLT, dando +${power} de poder.`,
-        roi_best: (ticker, usd) => `Mejor retorno: ${ticker} (~${usd}/mes)`,
+        season_note: "Los cálculos asumen completar todas las misiones diarias.",
+        roi_summary: (usd, rlt, power) => `Invertir $${usd} obtiene ~${rlt} RLT (${power} de poder).`,
+        roi_best: (ticker, usd) => `Mejor Moneda: ${ticker} (~${usd}/mes)`,
         roi_payback: (m) => `Tiempo estimado de retorno: ${m} meses`,
-        roi_payback_never: "Tiempo de retorno infinito",
-        manual_expected: "Esperado / Bloque",
+        roi_payback_never: "El tiempo de retorno es infinito",
+        manual_expected: "Por Bloque",
         manual_daily: "Diario",
         manual_weekly: "Semanal",
         manual_monthly: "Mensual",
         copy: "Copiar",
         copied: "¡Copiado!",
-        tab_profile: "Análisis de Perfil",
-        tab_best: "Mejores Monedas",
-        tab_season: "Pase de Temporada",
-        tab_roi: "ROI / Inversión",
-        tab_manual: "Calc Manual",
-        profile_label: "Usuario o Enlace de Perfil:",
-        profile_placeholder: "Ingresa usuario de RollerCoin...",
-        btn_analyze: "Analizar",
+        tab_profile: "👤 Análisis de Perfil",
+        tab_best: "🏆 Mejores Monedas",
+        tab_season: "🎟️ Pase de Temporada",
+        tab_roi: "📈 ROI / Inversión",
+        tab_manual: "🧮 Calc Manual",
+        profile_label: "Enlace o Usuario de Perfil",
+        profile_placeholder: "Ingresa usuario o URL de RollerCoin...",
+        btn_analyze: "Analizar Perfil",
         label_league: "Liga",
-        label_since: "Miembro desde",
-        title_earnings: "Ganancias Estimadas",
+        label_since: "Unido",
+        title_earnings: "📊 Ganancias Estimadas",
         th_coin: "Moneda",
         th_per_block: "Por Bloque",
         th_per_day: "Por Día",
         th_usd_day: "USD / Día",
         th_usd_month: "USD / Mes",
-        title_best_coins: "Mejores Monedas para Minar",
-        title_season: "Análisis de Pase de Temporada",
+        title_best_coins: "🏆 Monedas Más Rentables",
+        title_season: "🎟️ Análisis del Pase de Temporada",
         th_pass_type: "Tipo de Pase",
         th_cost: "Costo",
         th_total_gain: "Ganancia Total",
-        th_net_usd: "Beneficio Neto",
+        th_net_usd: "Ganancia Neta",
         th_roi: "ROI %",
         th_payback: "Retorno",
-        title_roi: "Calculadora de Inversión / ROI",
-        roi_label: "Monto de Inversión (USD):",
+        title_roi: "📈 Calculadora de Retorno de Inversión",
+        roi_label: "Monto de Inversión (USD)",
         btn_calc_roi: "Calcular ROI",
         th_usd_week: "USD / Semana",
-        title_manual: "Calculadora Manual",
-        btn_calculate: "Calcular",
+        title_manual: "🧮 Calculadora Parámetros Personalizados",
+        btn_calculate: "Calcular Recompensa",
         th_period: "Período",
-        th_coins: "Monedas",
-        th_usd_value: "Valor USD"
+        th_coins: "Monedas Ganadas",
+        th_usd_value: "USD Estimado"
       }
     };
 
@@ -477,12 +924,12 @@
     async function fetchWithFallback(url) {
       if (CONFIG.workerProxy) {
         try { return await fetch(`${CONFIG.workerProxy}/?url=${encodeURIComponent(url)}`).then(r => r.json()); }
-        catch (e) { console.warn("Worker proxy failed, falling back to public proxies..."); }
+        catch (e) { console.warn("Worker proxy failed, switching to public proxies..."); }
       }
       for (const proxy of CONFIG.publicProxies) {
         try { return await fetch(proxy(url)).then(r => r.json()); } catch (e) {}
       }
-      throw new Error("All proxy attempts failed.");
+      throw new Error("All proxies failed");
     }
 
     async function getPublicProfile(username) {
@@ -533,7 +980,7 @@
     }
   </script>
 
-  <!-- JS Dosyalarının Sırasıyla Bağlanması -->
+  <!-- JS SCRIPTS IN ORDER -->
   <script src="config.js"></script>
   <script src="calculator.js"></script>
   <script src="app.js"></script>
