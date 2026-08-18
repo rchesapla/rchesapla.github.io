@@ -8,9 +8,6 @@
 	<link rel="icon" href="../../favicon.png" sizes="96x96" />
 	<link rel="icon" href="../../favicon.png" sizes="144x144" />
 	<link rel="mask-icon" href="../../favicon.png" color="#ffffff" />
-	<link rel="stylesheet" href="static/css/base.css">
-	<link rel="stylesheet" href="static/css/home.css">
-	<link rel="stylesheet" href="static/css/renkliyazı.css">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,6 +31,282 @@
 <!--===============================================================================================-->
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+/* ==========================================================================
+   Modern CSS Reset & Değişkenler
+   ========================================================================== */
+:root {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: rgba(30, 41, 59, 0.7);
+  --accent-color: #3b82f6;
+  --accent-hover: #2563eb;
+  --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   Navbar
+   ========================================================================== */
+.navbar {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 1rem 0;
+}
+
+.container-nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Russo One', sans-serif;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+.logo span {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.link-calc {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-left: 1.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+
+.link-calc:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.link-calc[target="_blank"] {
+  background: var(--accent-gradient);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.link-calc[target="_blank"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+}
+
+/* ==========================================================================
+   Layout & Containers
+   ========================================================================== */
+.hero {
+  padding: 2rem 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.tabs-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Tab 1 Grid Yapısı */
+.tab1-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Tab 2 Grid Yapısı (Coin Kartları) */
+.tab2-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ==========================================================================
+   Kartlar (Box Components)
+   ========================================================================== */
+.box, .coin-box {
+  background: var(--bg-card);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.box:hover, .coin-box:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.box-title {
+  font-family: 'Russo One', sans-serif;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+/* Profil Sorgulama Özel Alanı */
+.box[style*="width: 100%"] {
+  grid-column: 1 / -1;
+}
+
+.box-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* ==========================================================================
+   Formlar & Inputlar
+   ========================================================================== */
+.input-box {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.input-box:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+#rcFetchBtn {
+  background: var(--accent-gradient) !important;
+  border: none !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 0.5rem 1.25rem !important;
+  transition: opacity 0.2s ease;
+}
+
+#rcFetchBtn:hover {
+  opacity: 0.9;
+}
+
+/* ==========================================================================
+   Tablolar
+   ========================================================================== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 0.5rem 0.25rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+td.no-input {
+  color: var(--text-primary);
+  font-weight: 600;
+  text-align: right;
+}
+
+.table-headers {
+  font-weight: 700;
+  color: var(--accent-color);
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.hesaplistefont {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+/* Kripto Özel Renk Vurguları */
+.td-btc { color: #f7931a; font-weight: 600; }
+.td-eth { color: #627eea; font-weight: 600; }
+.td-bnb { color: #f3ba2f; font-weight: 600; }
+.td-matic { color: #8247e5; font-weight: 600; }
+.td-doge { color: #c2a633; font-weight: 600; }
+.td-sol { color: #14f195; font-weight: 600; }
+.td-trx { color: #eb0029; font-weight: 600; }
+
+/* ==========================================================================
+   Mobil Uyumluluk (Responsive)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .container-nav {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .link-calc {
+    margin: 0 0.25rem;
+    display: inline-block;
+  }
+
+  .tab1-content, .tab2-content {
+    grid-template-columns: 1fr;
+  }
+
+  #rcUsernameInput {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 0.5rem;
+  }
+
+  #rcFetchBtn {
+    width: 100%;
+  }
+}
+
 </style>
 <!--===============================================================================================-->
 		<div class="navbar">
