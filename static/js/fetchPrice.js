@@ -91,7 +91,7 @@ const calculate = (prices) => {
         if (isNaN(total)) {
           outputEl.innerText = "∙•●₺●•∙";
         } else {
-          outputEl.innerText = "₺" + total.toFixed(5);
+          outputEl.innerText = "$" + total.toFixed(5);
         }
       }
     });
