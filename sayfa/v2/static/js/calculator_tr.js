@@ -3,25 +3,14 @@ calc = function(){
         // Calc Total Mining
         totalRate = Number(minerRate);
     document.getElementById("totalRate").innerText = totalRate.toFixed(3);
-        
-    var distBtc = document.getElementById("distBtc").value,
-        distDoge = document.getElementById("distDoge").value,
-        distEth = document.getElementById("distEth").value,
-		distbnb = document.getElementById("distbnb").value,
-		distmatic = document.getElementById("distmatic").value,
-		distsol = document.getElementById("distsol").value,
-		//distRlt = document.getElementById("distRlt").value,
-        disttrx = document.getElementById("disttrx").value;
-
 
     var netBtc = document.getElementById("netBtc").value,
         netDoge = document.getElementById("netDoge").value,
         netEth = document.getElementById("netEth").value,
-		netbnb = document.getElementById("netbnb").value,
-		netmatic = document.getElementById("netmatic").value,
-		netsol = document.getElementById("netsol").value,
-        //netRlt = document.getElementById("netRlt").value,
-		nettrx = document.getElementById("nettrx").value;
+        netbnb = document.getElementById("netbnb").value,
+        netmatic = document.getElementById("netmatic").value,
+        netsol = document.getElementById("netsol").value,
+        nettrx = document.getElementById("nettrx").value;
 
         // Calc Total Net Power
         totalNet = Number(netBtc) + Number(netDoge) + Number(netEth) + Number(netbnb) + Number(netmatic) + Number(netsol) +  Number(nettrx);
@@ -30,29 +19,28 @@ calc = function(){
     var blockBtc = document.getElementById("blockBtc").innerText/100000000,
         blockDoge = document.getElementById("blockDoge").innerText,
         blockEth = document.getElementById("blockEth").innerText,
-		blockbnb = document.getElementById("blockbnb").innerText,
-		blockmatic = document.getElementById("blockmatic").innerText,
-		blocksol = document.getElementById("blocksol").innerText,
-		//blockRlt = document.getElementById("blockRlt").innerText,
-		blocktrx = document.getElementById("blocktrx").innerText;
+        blockbnb = document.getElementById("blockbnb").innerText,
+        blockmatic = document.getElementById("blockmatic").innerText,
+        blocksol = document.getElementById("blocksol").innerText,
+        blocktrx = document.getElementById("blocktrx").innerText;
 
     
 //BITCOIN HESAPLAMA ARACI//
-    var btcPower = ((Number(totalRate)/1000) * Number(distBtc))/100
-        btcPrice1 = document.getElementById('btc-price-api').innerHTML
-        btcPrice = Number(btcPrice1.substring(1))
-        minBtc = (Number(btcPower)*blockBtc)/(Number(netBtc)*1000)
-        minBtcD = Number(minBtc) * btcPrice
-        hourBtc = Number(minBtc) * 6
-        hourBtcD = Number(hourBtc) * btcPrice
-        dayBtc = Number(hourBtc) * 24 
-        dayBtcD = Number(dayBtc) * btcPrice
-        weekBtc = Number(dayBtc) * 7
-        weekBtcD = Number(weekBtc) * btcPrice
-        monthBtc = Number(dayBtc) * 30
-        monthBtcD = Number(monthBtc) * btcPrice
-        yearBtc = Number(dayBtc) * 365
-        yearBtcD = Number(yearBtc) * btcPrice
+    var btcPower = (Number(totalRate)/1000),
+        btcPrice1 = document.getElementById('btc-price-api').innerHTML,
+        btcPrice = Number(btcPrice1.substring(1)),
+        minBtc = (Number(btcPower)*blockBtc)/(Number(netBtc)*1000),
+        minBtcD = Number(minBtc) * btcPrice,
+        hourBtc = Number(minBtc) * 6,
+        hourBtcD = Number(hourBtc) * btcPrice,
+        dayBtc = Number(hourBtc) * 24,
+        dayBtcD = Number(dayBtc) * btcPrice,
+        weekBtc = Number(dayBtc) * 7,
+        weekBtcD = Number(weekBtc) * btcPrice,
+        monthBtc = Number(dayBtc) * 30,
+        monthBtcD = Number(monthBtc) * btcPrice,
+        yearBtc = Number(dayBtc) * 365,
+        yearBtcD = Number(yearBtc) * btcPrice;
 
     if ((isNaN(minBtc))||!(isFinite(minBtc))) {
         document.getElementById("minBtc").innerText = "【⛏】"}
@@ -114,22 +102,23 @@ calc = function(){
         else {
             document.getElementById("yearBtcD").innerText = "₺" + yearBtcD.toFixed(5);
         }
+
 //DOGECOIN HESAPLAMA ARACI//
-    var dogePower = ((Number(totalRate)/1000) * Number(distDoge))/100
-        dogePrice1 = document.getElementById('doge-price-api').innerHTML
-        dogePrice = Number(dogePrice1.substring(1))
-        minDoge = (Number(dogePower)*blockDoge)/(Number(netDoge)*1000)
-        minDogeD = Number(minDoge) * dogePrice
-        hourDoge = Number(minDoge) * 6
-        hourDogeD = Number(hourDoge) * dogePrice
-        dayDoge = Number(hourDoge) * 24 
-        dayDogeD = Number(dayDoge) * dogePrice
-        weekDoge = Number(dayDoge) * 7
-        weekDogeD = Number(weekDoge) * dogePrice
-        monthDoge = Number(dayDoge) * 30
-        monthDogeD = Number(monthDoge) * dogePrice
-        yearDoge = Number(dayDoge) * 365
-        yearDogeD = Number(yearDoge) * dogePrice
+    var dogePower = (Number(totalRate)/1000),
+        dogePrice1 = document.getElementById('doge-price-api').innerHTML,
+        dogePrice = Number(dogePrice1.substring(1)),
+        minDoge = (Number(dogePower)*blockDoge)/(Number(netDoge)*1000),
+        minDogeD = Number(minDoge) * dogePrice,
+        hourDoge = Number(minDoge) * 6,
+        hourDogeD = Number(hourDoge) * dogePrice,
+        dayDoge = Number(hourDoge) * 24,
+        dayDogeD = Number(dayDoge) * dogePrice,
+        weekDoge = Number(dayDoge) * 7,
+        weekDogeD = Number(weekDoge) * dogePrice,
+        monthDoge = Number(dayDoge) * 30,
+        monthDogeD = Number(monthDoge) * dogePrice,
+        yearDoge = Number(dayDoge) * 365,
+        yearDogeD = Number(yearDoge) * dogePrice;
 
     if ((isNaN(minDoge))||!(isFinite(minDoge))) {
         document.getElementById("minDoge").innerText = "【⛏】"}
@@ -192,22 +181,23 @@ calc = function(){
         else {
             document.getElementById("yearDogeD").innerText = "₺" + yearDogeD.toFixed(5);
         }
+
 //ETHEREUM HESAPLAMA ARACI//
-    var ethPower = ((Number(totalRate)/1000) * Number(distEth))/100
-        ethPrice1 = document.getElementById('eth-price-api').innerHTML
-        ethPrice = Number(ethPrice1.substring(1))
-        minEth = (Number(ethPower)*blockEth)/(Number(netEth)*1000)
-        minEthD = Number(minEth) * ethPrice
-        hourEth = Number(minEth) * 6
-        hourEthD = Number(hourEth) * ethPrice
-        dayEth = Number(hourEth) * 24 
-        dayEthD = Number(dayEth) * ethPrice
-        weekEth = Number(dayEth) * 7
-        weekEthD = Number(weekEth) * ethPrice
-        monthEth = Number(dayEth) * 30
-        monthEthD = Number(monthEth) * ethPrice
-        yearEth = Number(dayEth) * 365
-        yearEthD = Number(yearEth) * ethPrice
+    var ethPower = (Number(totalRate)/1000),
+        ethPrice1 = document.getElementById('eth-price-api').innerHTML,
+        ethPrice = Number(ethPrice1.substring(1)),
+        minEth = (Number(ethPower)*blockEth)/(Number(netEth)*1000),
+        minEthD = Number(minEth) * ethPrice,
+        hourEth = Number(minEth) * 6,
+        hourEthD = Number(hourEth) * ethPrice,
+        dayEth = Number(hourEth) * 24,
+        dayEthD = Number(dayEth) * ethPrice,
+        weekEth = Number(dayEth) * 7,
+        weekEthD = Number(weekEth) * ethPrice,
+        monthEth = Number(dayEth) * 30,
+        monthEthD = Number(monthEth) * ethPrice,
+        yearEth = Number(dayEth) * 365,
+        yearEthD = Number(yearEth) * ethPrice;
 
     if ((isNaN(minEth))||!(isFinite(minEth))) {
         document.getElementById("minEth").innerText = "【⛏】"}
@@ -270,22 +260,23 @@ calc = function(){
         else {
             document.getElementById("yearEthD").innerText = "₺" + yearEthD.toFixed(5);
         }
+
 //BINANCECOIN HESAPLAMA ARACI//
-    var bnbPower = ((Number(totalRate)/1000) * Number(distbnb))/100
-        bnbPrice1 = document.getElementById('bnb-price-api').innerHTML
-        bnbPrice = Number(bnbPrice1.substring(1))
-        minbnb = (Number(bnbPower)*blockbnb)/(Number(netbnb)*1000)
-        minbnbD = Number(minbnb) * bnbPrice
-        hourbnb = Number(minbnb) * 6
-        hourbnbD = Number(hourbnb) * bnbPrice
-        daybnb = Number(hourbnb) * 24 
-        daybnbD = Number(daybnb) * bnbPrice
-        weekbnb = Number(daybnb) * 7
-        weekbnbD = Number(weekbnb) * bnbPrice
-        monthbnb = Number(daybnb) * 30
-        monthbnbD = Number(monthbnb) * bnbPrice
-        yearbnb = Number(daybnb) * 365
-        yearbnbD = Number(yearbnb) * bnbPrice
+    var bnbPower = (Number(totalRate)/1000),
+        bnbPrice1 = document.getElementById('bnb-price-api').innerHTML,
+        bnbPrice = Number(bnbPrice1.substring(1)),
+        minbnb = (Number(bnbPower)*blockbnb)/(Number(netbnb)*1000),
+        minbnbD = Number(minbnb) * bnbPrice,
+        hourbnb = Number(minbnb) * 6,
+        hourbnbD = Number(hourbnb) * bnbPrice,
+        daybnb = Number(hourbnb) * 24,
+        daybnbD = Number(daybnb) * bnbPrice,
+        weekbnb = Number(daybnb) * 7,
+        weekbnbD = Number(weekbnb) * bnbPrice,
+        monthbnb = Number(daybnb) * 30,
+        monthbnbD = Number(monthbnb) * bnbPrice,
+        yearbnb = Number(daybnb) * 365,
+        yearbnbD = Number(yearbnb) * bnbPrice;
 
     if ((isNaN(minbnb))||!(isFinite(minbnb))) {
         document.getElementById("minbnb").innerText = "【⛏】"}
@@ -347,22 +338,23 @@ calc = function(){
         else {
             document.getElementById("yearbnbD").innerText = "₺" + yearbnbD.toFixed(5);
         }
+
 //POLYGON (MATIC) HESAPLAMA ARACI//
-    var maticPower = ((Number(totalRate)/1000) * Number(distmatic))/100
-        maticPrice1 = document.getElementById('matic-price-api').innerHTML
-        maticPrice = Number(maticPrice1.substring(1))
-        minmatic = (Number(maticPower)*blockmatic)/(Number(netmatic)*1000)
-        minmaticD = Number(minmatic) * maticPrice
-        hourmatic = Number(minmatic) * 6
-        hourmaticD = Number(hourmatic) * maticPrice
-        daymatic = Number(hourmatic) * 24 
-        daymaticD = Number(daymatic) * maticPrice
-        weekmatic = Number(daymatic) * 7
-        weekmaticD = Number(weekmatic) * maticPrice
-        monthmatic = Number(daymatic) * 30
-        monthmaticD = Number(monthmatic) * maticPrice
-        yearmatic = Number(daymatic) * 365
-        yearmaticD = Number(yearmatic) * maticPrice
+    var maticPower = (Number(totalRate)/1000),
+        maticPrice1 = document.getElementById('matic-price-api').innerHTML,
+        maticPrice = Number(maticPrice1.substring(1)),
+        minmatic = (Number(maticPower)*blockmatic)/(Number(netmatic)*1000),
+        minmaticD = Number(minmatic) * maticPrice,
+        hourmatic = Number(minmatic) * 6,
+        hourmaticD = Number(hourmatic) * maticPrice,
+        daymatic = Number(hourmatic) * 24,
+        daymaticD = Number(daymatic) * maticPrice,
+        weekmatic = Number(daymatic) * 7,
+        weekmaticD = Number(weekmatic) * maticPrice,
+        monthmatic = Number(daymatic) * 30,
+        monthmaticD = Number(monthmatic) * maticPrice,
+        yearmatic = Number(daymatic) * 365,
+        yearmaticD = Number(yearmatic) * maticPrice;
 
     if ((isNaN(minmatic))||!(isFinite(minmatic))) {
         document.getElementById("minmatic").innerText = "【⛏】"}
@@ -424,22 +416,23 @@ calc = function(){
         else {
             document.getElementById("yearmaticD").innerText = "₺" + yearmaticD.toFixed(5);
         }
+
 //SOLANA HESAPLAMA ARACI//
-    var solPower = ((Number(totalRate)/1000) * Number(distsol))/100
-        solPrice1 = document.getElementById('sol-price-api').innerHTML
-        solPrice = Number(solPrice1.substring(1))
-        minsol = (Number(solPower)*blocksol)/(Number(netsol)*1000)
-        minsolD = Number(minsol) * solPrice
-        hoursol = Number(minsol) * 6
-        hoursolD = Number(hoursol) * solPrice
-        daysol = Number(hoursol) * 24 
-        daysolD = Number(daysol) * solPrice
-        weeksol = Number(daysol) * 7
-        weeksolD = Number(weeksol) * solPrice
-        monthsol = Number(daysol) * 30
-        monthsolD = Number(monthsol) * solPrice
-        yearsol = Number(daysol) * 365
-        yearsolD = Number(yearsol) * solPrice
+    var solPower = (Number(totalRate)/1000),
+        solPrice1 = document.getElementById('sol-price-api').innerHTML,
+        solPrice = Number(solPrice1.substring(1)),
+        minsol = (Number(solPower)*blocksol)/(Number(netsol)*1000),
+        minsolD = Number(minsol) * solPrice,
+        hoursol = Number(minsol) * 6,
+        hoursolD = Number(hoursol) * solPrice,
+        daysol = Number(hoursol) * 24,
+        daysolD = Number(daysol) * solPrice,
+        weeksol = Number(daysol) * 7,
+        weeksolD = Number(weeksol) * solPrice,
+        monthsol = Number(daysol) * 30,
+        monthsolD = Number(monthsol) * solPrice,
+        yearsol = Number(daysol) * 365,
+        yearsolD = Number(yearsol) * solPrice;
 
     if ((isNaN(minsol))||!(isFinite(minsol))) {
         document.getElementById("minsol").innerText = "【⛏】"}
@@ -501,22 +494,23 @@ calc = function(){
         else {
             document.getElementById("yearsolD").innerText = "₺" + yearsolD.toFixed(5);
         }
+
 //TRON HESAPLAMA ARACI//
-    var trxPower = ((Number(totalRate)/1000) * Number(disttrx))/100
-        trxPrice1 = document.getElementById('trx-price-api').innerHTML
-        trxPrice = Number(trxPrice1.substring(1))
-        mintrx = (Number(trxPower)*blocktrx)/(Number(nettrx)*1000)
-        mintrxD = Number(mintrx) * trxPrice
-        hourtrx = Number(mintrx) * 6
-        hourtrxD = Number(hourtrx) * trxPrice
-        daytrx = Number(hourtrx) * 24 
-        daytrxD = Number(daytrx) * trxPrice
-        weektrx = Number(daytrx) * 7
-        weektrxD = Number(weektrx) * trxPrice
-        monthtrx = Number(daytrx) * 30
-        monthtrxD = Number(monthtrx) * trxPrice
-        yeartrx = Number(daytrx) * 365
-        yeartrxD = Number(yeartrx) * trxPrice
+    var trxPower = (Number(totalRate)/1000),
+        trxPrice1 = document.getElementById('trx-price-api').innerHTML,
+        trxPrice = Number(trxPrice1.substring(1)),
+        mintrx = (Number(trxPower)*blocktrx)/(Number(nettrx)*1000),
+        mintrxD = Number(mintrx) * trxPrice,
+        hourtrx = Number(mintrx) * 6,
+        hourtrxD = Number(hourtrx) * trxPrice,
+        daytrx = Number(hourtrx) * 24,
+        daytrxD = Number(daytrx) * trxPrice,
+        weektrx = Number(daytrx) * 7,
+        weektrxD = Number(weektrx) * trxPrice,
+        monthtrx = Number(daytrx) * 30,
+        monthtrxD = Number(monthtrx) * trxPrice,
+        yeartrx = Number(daytrx) * 365,
+        yeartrxD = Number(yeartrx) * trxPrice;
 
     if ((isNaN(mintrx))||!(isFinite(mintrx))) {
         document.getElementById("mintrx").innerText = "【⛏】"}
@@ -579,6 +573,4 @@ calc = function(){
             document.getElementById("yeartrxD").innerText = "₺" + yeartrxD.toFixed(5);
         }
 
-
-    }
-    
+}
