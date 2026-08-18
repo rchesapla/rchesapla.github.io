@@ -1,7 +1,7 @@
 const fetchData = async () => {
   try {
     const response = await fetch(
-      'https://api.coingecko.com/api/v3/simple/price?ids=polygon-ecosystem-token%2Csei-network%2Clitecoin%2Ctron%2Cbitcoin%2Cethereum%2Cdogecoin%2Cbinancecoin%2Ctether%2Cflow%2Csolana&vs_currencies=try',
+      'https://api.coingecko.com/api/v3/simple/price?ids=polygon-ecosystem-token%2Csei-network%2Clitecoin%2Ctron%2Cbitcoin%2Cethereum%2Cdogecoin%2Cbinancecoin%2Ctether%2Cflow%2Csolana%2Calgorand&vs_currencies=try',
       {
         method: 'GET',
         headers: {
@@ -34,6 +34,7 @@ const getResults = (fetch_data) => {
     sol: fetch_data.solana?.try,
     trx: fetch_data.tron?.try,
     ltc: fetch_data.litecoin?.try,
+    algo: fetch_data.algorand?.try,
   };
 };
 
@@ -51,7 +52,8 @@ const postResults = (prices) => {
     { id: "matic-price-api", val: prices.matic },
     { id: "sol-price-api", val: prices.sol },
     { id: "trx-price-api", val: prices.trx },
-    { id: "ltc-price-api", val: prices.ltc }
+    { id: "ltc-price-api", val: prices.ltc },
+    { id: "algo-price-api", val: prices.algo }
   ];
 
   elements.forEach(item => {
@@ -69,7 +71,7 @@ const postResults = (prices) => {
 };
 
 const calculate = (prices) => {
-  const coins = ['Btc', 'Doge', 'Eth', 'bnb', 'matic', 'sol', 'trx', 'ltc'];
+  const coins = ['Btc', 'Doge', 'Eth', 'bnb', 'matic', 'sol', 'trx', 'ltc', 'algo'];
   const periods = ['min', 'hour', 'day', 'week', 'month', 'year'];
 
   coins.forEach(coin => {
