@@ -50,24 +50,24 @@ postResults = function(prices){
 	document.getElementById("sol-price-api").innerHTML = "₺" + prices[5];
 	document.getElementById("trx-price-api").innerHTML = "₺" + prices[6];
 	document.getElementById("ltc-price-api").innerHTML = "₺" + prices[7];
+	
+
+    // Son güncelleme tarihini ve saatini yazdır
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('tr-TR'); // Örn: 16:52:38
+    
+    const timeEl = document.getElementById("last-update-time");
+    if (timeEl) {
+      timeEl.innerHTML = timeString;
+    }
 }
 
-// Sayıları 10bin, 50bin, 100bin veya binlik noktayla biçimlendirme fonksiyonu
+// Sayıları biçimlendirme fonksiyonu (örn: 3.071.921 veya 90bin)
 function formatPrice(val) {
   if (val === undefined || val === null || isNaN(val)) return val;
   
-  // İsteğe bağlı 1: Direkt binlik ayraçlı format (Örn: ₺3.071.921, ₺90.788)
+  // Türkçe binlik ayraçlı format (Örn: 3.071.921, 90.788)
   return Number(val).toLocaleString('tr-TR');
-
-  /* 
-  // İsteğe bağlı 2: Tam olarak "bin" metniyle yazdırmak isterseniz üstteki satırı yorum satırı yapıp bunu açabilirsiniz:
-  if (val >= 1000000) {
-    return (val / 1000000).toFixed(2) + ' Milyon';
-  } else if (val >= 10000) {
-    return Math.floor(val / 1000) + 'bin';
-  }
-  return val;
-  */
 }
 
 postResults = function(prices){
@@ -79,6 +79,15 @@ postResults = function(prices){
     document.getElementById("sol-price-api").innerHTML = "₺" + formatPrice(prices[5]);
     document.getElementById("trx-price-api").innerHTML = "₺" + formatPrice(prices[6]);
     document.getElementById("ltc-price-api").innerHTML = "₺" + formatPrice(prices[7]);
+
+    // Son güncelleme tarihini ve saatini yazdır
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('tr-TR'); // Örn: 16:52:38
+    
+    const timeEl = document.getElementById("last-update-time");
+    if (timeEl) {
+      timeEl.innerHTML = timeString;
+    }
 }
 
 //////////////////////////////
