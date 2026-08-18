@@ -1,18 +1,26 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<!--meta http-equiv="refresh" content="3;URL=https://fatihcelikofficialtr.github.io/sayfa/v2_yeni/"-->
-	<link rel="icon" href="../../favicon.png" sizes="48x48" />
-	<link rel="icon" href="../../favicon.png" sizes="96x96" />
-	<link rel="icon" href="../../favicon.png" sizes="144x144" />
-	<link rel="mask-icon" href="../../favicon.png" color="#ffffff" />
+<!--===============================================================================================-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--===============================================================================================-->
+    <title>RCHesaplaV2 – Kişisel Kazım Gücünü Hesapla!</title>
+<!--===============================================================================================-->
+	<link rel="stylesheet" href="static/css/base.css">
+	<link rel="stylesheet" href="static/css/home.css">
+	<link rel="stylesheet" href="static/css/renkliyazı.css">
+<!--===============================================================================================-->
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
-	<title>RCHesaplaV2 - Kendi Kazım Gücünü Hesapla!</title>
+<!--===============================================================================================-->
+	<link rel="stylesheet" href="../../css/menüşablonu.css">
+<!--===============================================================================================-->
+	<link rel="shortcut icon" href="../../favicon.png" type="image/x-icon">
+	<meta name="google-site-verification" content="zLhTa_Vn0bP5jm3ZYoCir1VtRUw2xHvHclGPHv3d4-o" />
+	<meta name="google-adsense-account" content="ca-pub-7466945762889445">
 <!--===============================================================================================-->
 	<meta name="keywords" content="rchesapla,turkcraft01,pb01adana,rollercoin,rollercoin hesapla,rollercoin calculator,rollercoin güç hesaplama,minex fast,minex partner,cloud mining,mining,usdt,tether,trc20,block areas,trc areas,ere,wallmart,yesstyle,yesstyle6,Investment,nutmeta,crypto,crypto mining rollercoin que es rollercoin rollercoin calculator rollercoin hesaplama rollercoin bot rollercoin hile rollercoin nedir rollercoin kazanç hesaplama rollercoin twitter rollercoin güvenilir mi rollercoin indir rollercoin apk rollercoin app rollercoin apk download rollercoin app ios rollercoin android bot rollercoin a usd rollercoin airdrop rollercoin anniversary rollercoin autofarm bot rollercoin açılmıyor apakah rollercoin membayar apa itu rollercoin avis rollercoin astuce rollercoin apakah rollercoin aman akun rollercoin gratis aplikasi rollercoin auto rollercoin apk rollercoin app rollercoin rollercoin benzeri siteler rollercoin buddy rollercoin bonus power rollercoin block reward rollercoin bot github rollercoin bot download bot rollercoin block reward rollercoin bot rollercoin 2022 bot rollercoin 2021 bot rollercoin android bonus power rollercoin buddy rollercoin block was mined rollercoin binance to rollercoin bnb rollercoin rollercoin coinmarketcap rollercoin cheats rollercoin crafting rollercoin cheat engine rollercoin captcha rollercoin cal rollercoin computer upgrade rollercoin calculator github rollercoin como funciona como jugar rollercoin cuanto se gana en rollercoin cara main rollercoin como ganar dinero con rollercoin calculator de rollercoin cuanto vale un rollercoin como empezar en rollercoin como se juega rollercoin cara withdraw rollercoin como retirar de rollercoin rollercoin çekim rollercoin para çekme rollercoin para çekme nasıl yapılır rollercoin doge çekme rollercoin discord rollercoin download rollercoin dia de muertos rollercoin daily xp rollercoin daily bonus rollercoin deposit rollercoin dogecoin rollercoin delete account rollercoin drop rate rollercoin difficulty descargar rollercoin descargar rollercoin pc dicas rollercoin does rollercoin have an app download aplikasi rollercoin discord rollercoin doge 420 rollercoin download rollercoin apk does rollercoin pay descargar rollercoin apk rollercoin earnings calculator rollercoin events rollercoin event pass rollercoin email verification">
 <!--===============================================================================================-->
@@ -26,317 +34,41 @@
 	<meta name="twitter:image" content="https://media.discordapp.net/attachments/798825351555317760/960999892480823356/standard.gif">
 	<meta name="twitter:card" content="summary_large_image">
 <!--===============================================================================================-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+<!--===============================================================================================-->
 	</head>
 	<body>
 <!--===============================================================================================-->
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
-
-/* ==========================================================================
-   Modern CSS Reset & Değişkenler
-   ========================================================================== */
-:root {
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-card: rgba(30, 41, 59, 0.7);
-  --accent-color: #3b82f6;
-  --accent-hover: #2563eb;
-  --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --border-color: rgba(255, 255, 255, 0.1);
-  --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
-  --radius-lg: 16px;
-  --radius-md: 10px;
-  --radius-sm: 6px;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Open Sans', system-ui, -apple-system, sans-serif;
-}
-
-body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  min-height: 100vh;
-  line-height: 1.5;
-}
-
-/* ==========================================================================
-   Navbar
-   ========================================================================== */
-.navbar {
-  background: rgba(15, 23, 42, 0.8);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-color);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  padding: 1rem 0;
-}
-
-.container-nav {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-family: 'Russo One', sans-serif;
-  font-size: 1.5rem;
-  color: var(--text-primary);
-  text-decoration: none;
-  letter-spacing: 0.5px;
-}
-
-.logo span {
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.link-calc {
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  margin-left: 1.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-md);
-  transition: all 0.2s ease;
-}
-
-.link-calc:hover {
-  color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.link-calc[target="_blank"] {
-  background: var(--accent-gradient);
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-}
-
-.link-calc[target="_blank"]:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
-}
-
-/* ==========================================================================
-   Layout & Containers
-   ========================================================================== */
-.hero {
-  padding: 2rem 0;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-.tabs-layout {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-/* Tab 1 Grid Yapısı */
-.tab1-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-/* Tab 2 Grid Yapısı (Coin Kartları) */
-.tab2-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.5rem;
-}
-
-/* ==========================================================================
-   Kartlar (Box Components)
-   ========================================================================== */
-.box, .coin-box {
-  background: var(--bg-card);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: 1.25rem;
-  box-shadow: var(--card-shadow);
-  transition: transform 0.2s ease, border-color 0.2s ease;
-}
-
-.box:hover, .coin-box:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
-}
-
-.box-title {
-  font-family: 'Russo One', sans-serif;
-  font-size: 1.1rem;
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.5rem;
-}
-
-/* Profil Sorgulama Özel Alanı */
-.box[style*="width: 100%"] {
-  grid-column: 1 / -1;
-}
-
-.box-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-/* ==========================================================================
-   Formlar & Inputlar
-   ========================================================================== */
-.input-box {
-  width: 100%;
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
-  padding: 0.5rem 0.75rem;
-  font-size: 0.9rem;
-  outline: none;
-  transition: border-color 0.2s ease;
-}
-
-.input-box:focus {
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
-}
-
-#rcFetchBtn {
-  background: var(--accent-gradient) !important;
-  border: none !important;
-  border-radius: var(--radius-sm) !important;
-  padding: 0.5rem 1.25rem !important;
-  transition: opacity 0.2s ease;
-}
-
-#rcFetchBtn:hover {
-  opacity: 0.9;
-}
-
-/* ==========================================================================
-   Tablolar
-   ========================================================================== */
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-td {
-  padding: 0.5rem 0.25rem;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-}
-
-td.no-input {
-  color: var(--text-primary);
-  font-weight: 600;
-  text-align: right;
-}
-
-.table-headers {
-  font-weight: 700;
-  color: var(--accent-color);
-  font-size: 0.75rem;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-
-.hesaplistefont {
-  font-family: 'Source Code Pro', monospace;
-  font-size: 0.85rem;
-  color: var(--text-primary);
-}
-
-/* Kripto Özel Renk Vurguları */
-.td-btc { color: #f7931a; font-weight: 600; }
-.td-eth { color: #627eea; font-weight: 600; }
-.td-bnb { color: #f3ba2f; font-weight: 600; }
-.td-matic { color: #8247e5; font-weight: 600; }
-.td-doge { color: #c2a633; font-weight: 600; }
-.td-sol { color: #14f195; font-weight: 600; }
-.td-trx { color: #eb0029; font-weight: 600; }
-
-/* ==========================================================================
-   Mobil Uyumluluk (Responsive)
-   ========================================================================== */
-@media (max-width: 768px) {
-  .container-nav {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-  }
-
-  .link-calc {
-    margin: 0 0.25rem;
-    display: inline-block;
-  }
-
-  .tab1-content, .tab2-content {
-    grid-template-columns: 1fr;
-  }
-
-  #rcUsernameInput {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-bottom: 0.5rem;
-  }
-
-  #rcFetchBtn {
-    width: 100%;
-  }
-}
-
 </style>
 <!--===============================================================================================-->
 		<div class="navbar">
 			<div class="container-nav">
 				<a class="logo">RC<span>Hesapla</span>V2</a>
 				<!--a class="link-calc" href="#">TL HESAPLA (Bakımda)</a-->
-				<a class="link-calc name" href="./index.html">$ HESAPLA</a>
+				<a class="link-calc name" href="/">V1'e DÖN</a>
 				<a class="link-calc name" href="https://rollercoin.com/?r=le7ml8f3" target="_blank" rel="noreferrer noopener">ÜCRETSİZ KAYIT OL</a>
 			</div>
 		</div>
 <section class="hero">
-<!--===============================================================================================-->
-
-<!--===============================================================================================-->
 <div class="container">
 	<div class="tabs-layout">
+<!--===============================================================================================-->
 		<div id="tab1-content" class="tab1-content">
-<!-- Kullanıcı Adı Sorgulama Kutusu -->
-<div class="box" style="width: 100%; margin-bottom: 20px;">
-  <div class="box-title">RollerCoin Profil / Kullanıcı Adı</div>
-  <div class="box-content" style="text-align: center; padding: 15px;">
-    <input id="rcUsernameInput" class="input-box" type="text" placeholder="Kullanıcı Adı veya Profil Linki" style="width: 60%; max-width: 300px; padding: 8px;">
-    <button id="rcFetchBtn" onclick="fetchUserProfile()" style="padding: 8px 16px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 4px; font-weight: bold;">
-      Getir ve Hesapla
-    </button>
-    <div id="rcStatus" style="margin-top: 10px; font-weight: bold;"></div>
-  </div>
-</div>
 			<div class="box">
-				<div class="box-title">Kazım Gücü</div>
+				<div class="box-title başlık">Sistem Aktiflik Süresi</div>
+				<div class="box-content" style="text-align:center">
+					<div class="head" id="cpcontainer">&nbsp;</div>
+					<div class="head" id="clock"></div>
+				<div class="box-title2" style="text-align:center"></div>
+				</div>
+			</div>
+		</div>
+<!--===============================================================================================-->
+		<div id="tab1-content" class="tab1-content">
+			<div class="box">
+				<div class="box-title başlık">Kazım Gücü</div>
 				<div class="box-content">
 					<table>
 						<tr>
@@ -356,13 +88,175 @@ td.no-input {
 							<td>TH/s</td>
 						</tr>
 					</table>
-					<div class="box-title" style="text-align:center">1 PH = 1000 TH</div>
+					<div class="box-title2" style="text-align:center">1 PH = 1000 TH</div>
 				</div>
 			</div>
-			<div class="box">
-				<div class="box-title">Ağ Gücü</div>
+			<!--div class="box">
+				<div class="box-title">Bölünmüş Güç (%lik)</div>
 				<div class="box-content">
 					<table>
+						<tr>
+							<td class="td-rlt">RLT:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="distRlt" class="input-box" type="number" onchange="calc(), getData('distRlt')">
+									
+								</form>
+							</td>
+							<td>%</td>
+						</tr>
+						<tr>
+							<td class="td-rst">RST:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="distrst" class="input-box" type="number" onchange="calc(), getData('distrst')">
+									
+								</form>
+							</td>
+							<td>%</td>
+						</tr>
+						<tr>
+							<td class="td-doge">DOGE:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="distDoge" class="input-box" type="number" onchange="calc(), getData('distDoge')">
+									
+								</form>
+							</td>
+							<td>%</td>
+						</tr>
+						<tr>
+							<td class="td-btc">BTC:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="distBtc" class="input-box" type="number" onchange="calc(), getData('distBtc')">
+									
+								</form>
+							</td>
+							<td>%</td>
+						</tr>
+						<tr>
+							<td class="td-eth">ETH:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="distEth" class="input-box" type="number" onchange="calc(), getData('distEth')">
+									
+								</form>
+							</td>
+							<td>%</td>
+						</tr>
+						<tr>
+							<td class="td-bnb">BNB:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="distbnb" class="input-box" type="number" onchange="calc(), getData('distbnb')">
+									
+								</form>
+							</td>
+							<td>%</td>
+						</tr>
+						<tr>
+							<td class="td-matic">MATIC:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="distmatic" class="input-box" type="number" onchange="calc(), getData('distmatic')">
+									
+								</form>
+							</td>
+							<td>%</td>
+						</tr>
+						<tr>
+							<td class="td-lite">LTC:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="distltc" class="input-box" type="number" onchange="calc(), getData('distltc')">
+									
+								</form>
+							</td>
+							<td>%</td>
+						</tr>
+						<tr>
+							<td class="td-sol">SOL:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="distsol" class="input-box" type="number" onchange="calc(), getData('distsol')">
+									
+								</form>
+							</td>
+							<td>%</td>
+						</tr>
+						<tr>
+							<td class="td-trx">TRX:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="disttrx" class="input-box" type="number" onchange="calc(), getData('disttrx')">
+									
+								</form>
+							</td>
+							<td>%</td>
+						</tr>
+					</table>
+					<div class="box-title2" style="text-align:center"></div>
+				</div>
+			</div-->
+			<div class="box">
+				<div class="box-title başlık">Ağ Gücü</div>
+				<div class="box-content">
+					<table>
+						<tr>
+							<td class="td-rlt">RLT:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="netRlt" class="input-box" type="number" onchange="calc(), getData('netRlt')">
+									
+								</form>
+							</td>
+							<td>EH/s</td>
+						</tr>
+						<tr>
+							<td class="td-rst">RST:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="netrst" class="input-box" type="number" onchange="calc(), getData('netrst')">
+									
+								</form>
+							</td>
+							<td>EH/s</td>
+						</tr>
+						<tr>
+							<td class="td-trx">TRX:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="nettrx" class="input-box" type="number" onchange="calc(), getData('nettrx')">
+									
+								</form>
+							</td>
+							<td>EH/s</td>
+						</tr>
+						<tr>
+							<td class="td-doge">DOGE:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="netDoge" class="input-box" type="number" onchange="calc(), getData('netDoge')">
+									
+								</form>
+							</td>
+							<td>EH/s</td>
+						</tr>
 						<tr>
 							<td class="td-btc">BTC:</td>
 							<td>
@@ -408,17 +302,6 @@ td.no-input {
 							<td>EH/s</td>
 						</tr>
 						<tr>
-							<td class="td-doge">DOGE:</td>
-							<td>
-								<form action="text" onsubmit="return false">
-									
-									<input id="netDoge" class="input-box" type="number" onchange="calc(), getData('netDoge')">
-									
-								</form>
-							</td>
-							<td>EH/s</td>
-						</tr>
-						<tr>
 							<td class="td-sol">SOL:</td>
 							<td>
 								<form action="text" onsubmit="return false">
@@ -430,18 +313,7 @@ td.no-input {
 							<td>EH/s</td>
 						</tr>
 						<tr>
-							<td class="td-trx">TRX:</td>
-							<td>
-								<form action="text" onsubmit="return false">
-									
-									<input id="nettrx" class="input-box" type="number" onchange="calc(), getData('nettrx')">
-									
-								</form>
-							</td>
-							<td>EH/s</td>
-						</tr>
-						<!--tr>
-							<td class="td-ltc">LTC:</td>
+							<td class="td-lite">LTC:</td>
 							<td>
 								<form action="text" onsubmit="return false">
 									
@@ -450,79 +322,85 @@ td.no-input {
 								</form>
 							</td>
 							<td>EH/s</td>
-						</tr-->
-						<!--tr>
-							<td class="td-rlt">RLT:</td>
-							<td>
-								<form action="text" onsubmit="return false">
-									
-									<input id="netRlt" class="input-box" type="number" onchange="calc(), getData('netRlt')">
-									
-								</form>
-							</td>
-							<td>EH/s</td>
-						</tr-->
+						</tr>
 					</table>
-					<div class="box-title" style="text-align:center">Toplam: <a id="totalNet"></a> EH/s</div>
+					<div class="box-title2" style="text-align:center">Toplam: <a id="totalNet"></a> EH/s</div>
 				</div>
 			</div>
 			<div class="box">
-				<div class="box-title">Blok Ödülü</div>
+				<div class="box-title başlık">Blok Ödülü</div>
 				<div class="box-content">
 					<table>
 						<tr>
+							<td class="td-rlt">RLT:</td><!-- 20 -->
+							<td class="no-input" id="blockRlt">30</td>
+							<td><img src="../../img/svg_rc/rlt.svg" width="13" height="13"/></td>
+						</tr>
+						<tr>
+							<td class="td-rst">RST:</td><!-- 150 -->
+							<td class="no-input" id="blockrst">250</td>
+							<td><img src="../../img/svg_rc/rst.svg" width="13" height="13"/></td>
+						</tr>
+						<tr>
+							<td class="td-trx">TRX:</td><!-- 60 -->
+							<td class="no-input" id="blocktrx">80</td>
+							<td><img src="../../img/svg_rc/trx.svg" width="13" height="13"/></td>
+						</tr>
+						<tr>
+							<td class="td-doge">DOGE:</td><!-- 60 -->
+							<td class="no-input" id="blockDoge">150</td>
+							<td><img src="../../img/svg_rc/doge.svg" width="13" height="13"/></td>
+						</tr>
+						<tr>
 							<td class="td-btc">BTC:</td><!-- 28000 -->
-							<td class="no-input" id="blockBtc">31000</td>
+							<td class="no-input" id="blockBtc">22000</td>
 							<td><img src="../../img/svg_rc/btc.svg" width="13" height="13"/> <!--(<script src="js/x2.js"></script>)--></td>
 						</tr>
 						<tr>
 							<td class="td-eth">ETH:</td><!-- 0,0055 -->
-							<td class="no-input" id="blockEth">0.0045</td>
+							<td class="no-input" id="blockEth">0.0044</td>
 							<td><img src="../../img/svg_rc/eth.svg" width="13" height="13"/></td>
 						</tr>
 						<tr>
 							<td class="td-bnb">BNB:</td><!-- 0.025 -->
-							<td class="no-input" id="blockbnb">0.042</td>
+							<td class="no-input" id="blockbnb">0.032</td>
 							<td><img src="../../img/svg_rc/bnb.svg" width="13" height="13"/></td>
 						</tr>
 						<tr>
 							<td class="td-matic">MATIC:</td><!-- 4 -->
-							<td class="no-input" id="blockmatic">11</td>
+							<td class="no-input" id="blockmatic">12</td>
 							<td><img src="../../img/svg_rc/matic.svg" width="13" height="13"/></td>
 						</tr>
 						<tr>
-							<td class="td-doge">DOGE:</td><!-- 60 -->
-							<td class="no-input" id="blockDoge">2.84</td>
-							<td><img src="../../img/svg_rc/doge.svg" width="13" height="13"/></td>
-						</tr>
-						<tr>
 							<td class="td-sol">SOL:</td><!-- 0.06 -->
-							<td class="no-input" id="blocksol">0.14</td>
+							<td class="no-input" id="blocksol">0.12</td>
 							<td><img src="../../img/svg_rc/sol.svg" width="13" height="13"/></td>
 						</tr>
 						<tr>
-							<td class="td-trx">TRX:</td><!-- 60 -->
-							<td class="no-input" id="blocktrx">56</td>
-							<td><img src="../../img/svg_rc/trx.svg" width="13" height="13"/></td>
-						</tr>
-						<!--tr>
-							<td class="td-ltc">LTC:</td><!-- 0,015 --
-							<td class="no-input" id="blockltc">0,015</td>
+							<td class="td-lite">LTC:</td><!-- 0.015 -->
+							<td class="no-input" id="blockltc">0.07</td>
 							<td><img src="../../img/svg_rc/ltc.svg" width="13" height="13"/></td>
-						</tr-->
-						<!--tr>
-							<td class="td-rlt">RLT:</td><!-- 20 --
-							<td class="no-input" id="blockRlt">20</td>
-							<td><img src="../../img/svg_rc/rlt.svg" width="13" height="13"/></td>
-						</tr-->
+						</tr>
 					</table>
-					<div class="box-title" style="text-align:center"></div>
+					<div class="box-title2" style="text-align:center"></div>
 				</div>
 			</div>
 			<div class="box">
-				<div class="box-title">Güncel Kripto</div>
+				<div class="box-title başlık">Güncel Kripto</div>
 				<div class="box-content">
 					<table>
+						<tr>
+							<td class="td-rlt">RLT:</td><!-- 20 -->
+							<td class="no-input " id="rlt-price">$1</td>
+						</tr>
+						<tr>
+							<td class="td-trx">TRX:</td><!-- 60 -->
+							<td class="no-input " id="trx-price-api">⌛</td>
+						</tr>
+						<tr>
+							<td class="td-doge">DOGE:</td><!-- 60 -->
+							<td class="no-input " id="doge-price-api">⌛</td>
+						</tr>
 						<tr>
 							<td class="td-btc">BTC:</td><!-- 28000 -->
 							<td class="no-input " id="btc-price-api">⌛</td>
@@ -540,36 +418,24 @@ td.no-input {
 							<td class="no-input " id="matic-price-api">⌛</td>
 						</tr>
 						<tr>
-							<td class="td-doge">DOGE:</td><!-- 60 -->
-							<td class="no-input " id="doge-price-api">⌛</td>
-						</tr>
-						<tr>
 							<td class="td-sol">SOL:</td><!-- 0.06 -->
 							<td class="no-input " id="sol-price-api">⌛</td>
 						</tr>
 						<tr>
-							<td class="td-trx">TRX:</td><!-- 60 -->
-							<td class="no-input " id="trx-price-api">⌛</td>
+							<td class="td-lite">LTC:</td><!-- 4 -->
+							<td class="no-input " id="ltc-price-api">⌛</td>
 						</tr>
-						<!--tr>
-							<td class="td-ltc">LTC:</td><!-- 0,015
-							<td class="no-input" id="blockltc">0,015</td>
-							<td><img src="../../img/svg_rc/ltc.svg" width="13" height="13"/></td>
-						</tr-->
-						<!--tr>
-							<td class="td-rlt">RLT:</td><!-- 20 --
-							<td class="no-input " id="rlt-price">1</td>
-						</tr-->
 					</table>
-					<div class="box-title" style="text-align:center"></div>
+					<div class="box-title2" style="text-align:center"></div>
 				</div>
 			</div>
 
 
 		</div>
+
 		<div id="tab2-content" class="tab2-content">
 			<div class="coin-box btc-box">
-				<div class="box-title"><img src="../../img/svg_rc/btc.svg" width="25" height="25"/></div>
+				<div class="box-title başlık">BITCOIN</div>
 				<div class="tab-content">
 					<table>
 						<tr>
@@ -606,7 +472,7 @@ td.no-input {
 				</div>
 			</div>
 			<div class="coin-box doge-box">
-				<div class="box-title"><img src="../../img/svg_rc/doge.svg" width="25" height="25"/></div>
+				<div class="box-title başlık">DOGE</div>
 				<div class="tab-content">
 					<table>
 						<tr>
@@ -643,7 +509,7 @@ td.no-input {
 				</div>
 			</div>
 			<div class="coin-box eth-box">
-				<div class="box-title"><img src="../../img/svg_rc/eth.svg" width="25" height="25"/></div>
+				<div class="box-title başlık">ETHEREUM</div>
 				<div class="tab-content">
 					<table>
 						<tr>
@@ -680,7 +546,7 @@ td.no-input {
 				</div>
 			</div>
 			<div class="coin-box bnb-box">
-				<div class="box-title"><img src="../../img/svg_rc/bnb.svg" width="25" height="25"/></div>
+				<div class="box-title başlık">BINANCECOIN</div>
 				<div class="tab-content">
 					<table>
 						<tr>
@@ -717,7 +583,7 @@ td.no-input {
 				</div>
 			</div>
 			<div class="coin-box matic-box">
-				<div class="box-title"><img src="../../img/svg_rc/matic.svg" width="25" height="25"/></div>
+				<div class="box-title başlık">POLYGON (MATIC)</div>
 				<div class="tab-content">
 					<table>
 						<tr>
@@ -753,8 +619,45 @@ td.no-input {
 					</table>
 				</div>
 			</div>
+			<div class="coin-box lite-box">
+				<div class="box-title başlık">LITECOIN</div>
+				<div class="tab-content">
+					<table>
+						<tr>
+							<td class="table-headers">BEKLENEN</td>
+							<td class="table-headers">SAATLİK</td>
+							<td class="table-headers">GÜNLÜK</td>
+						</tr>
+						<tr>
+							<td class="hesaplistefont" id="minltc">-</td>
+							<td class="hesaplistefont" id="hourltc">-</td>
+							<td class="hesaplistefont" id="dayltc">-</td>
+						</tr>
+						<tr>
+							<td class="hesaplistefont" id="minltcD">-</td>
+							<td class="hesaplistefont" id="hourltcD">-</td>
+							<td class="hesaplistefont" id="dayltcD">-</td>
+						</tr>
+						<tr>
+							<td class="table-headers">HAFTALIK</td>
+							<td class="table-headers">AYLIK</td>
+							<td class="table-headers">YILLIK</td>
+						</tr>
+						<tr>
+							<td class="hesaplistefont" id="weekltc">-</td>
+							<td class="hesaplistefont" id="monthltc">-</td>
+							<td class="hesaplistefont" id="yearltc">-</td>
+						</tr>
+						<tr>
+							<td class="hesaplistefont" id="weekltcD">-</td>
+							<td class="hesaplistefont" id="monthltcD">-</td>
+							<td class="hesaplistefont" id="yearltcD">-</td>
+						</tr>
+					</table>
+				</div>
+			</div>
 			<div class="coin-box sol-box">
-				<div class="box-title"><img src="../../img/svg_rc/sol.svg" width="25" height="25"/></div>
+				<div class="box-title başlık">SOLANA</div>
 				<div class="tab-content">
 					<table>
 						<tr>
@@ -791,7 +694,7 @@ td.no-input {
 				</div>
 			</div>
 			<div class="coin-box trx-box">
-				<div class="box-title"><img src="../../img/svg_rc/trx.svg" width="25" height="25"/></div>
+				<div class="box-title başlık">TRON</div>
 				<div class="tab-content">
 					<table>
 						<tr>
@@ -827,8 +730,8 @@ td.no-input {
 					</table>
 				</div>
 			</div>
-			<!--div class="coin-box ltc-box">
-				<div class="box-title"><img src="../../img/svg_rc/ltc.svg" width="25" height="25"/></div>
+			<div class="coin-box rst-box">
+				<div class="box-title başlık">SEASONTOKEN</div>
 				<div class="tab-content">
 					<table>
 						<tr>
@@ -837,14 +740,14 @@ td.no-input {
 							<td class="table-headers">GÜNLÜK</td>
 						</tr>
 						<tr>
-							<td id="minltc">-</td>
-							<td id="hourltc">-</td>
-							<td id="dayltc">-</td>
+							<td class="hesaplistefont" id="minrst">-</td>
+							<td class="hesaplistefont" id="hourrst">-</td>
+							<td class="hesaplistefont" id="dayrst">-</td>
 						</tr>
 						<tr>
-							<td id="minltcD">-</td>
-							<td id="hourltcD">-</td>
-							<td id="dayltcD">-</td>
+							<td class="hesaplistefont" id="minrstD">-</td>
+							<td class="hesaplistefont" id="hourrstD">-</td>
+							<td class="hesaplistefont" id="dayrstD">-</td>
 						</tr>
 						<tr>
 							<td class="table-headers">HAFTALIK</td>
@@ -852,20 +755,20 @@ td.no-input {
 							<td class="table-headers">YILLIK</td>
 						</tr>
 						<tr>
-							<td id="weekltc">-</td>
-							<td id="monthltc">-</td>
-							<td id="yearltc">-</td>
+							<td class="hesaplistefont" id="weekrst">-</td>
+							<td class="hesaplistefont" id="monthrst">-</td>
+							<td class="hesaplistefont" id="yearrst">-</td>
 						</tr>
 						<tr>
-							<td id="weekltcD">-</td>
-							<td id="monthltcD">-</td>
-							<td id="yearltcD">-</td>
+							<td class="hesaplistefont" id="weekrstD">-</td>
+							<td class="hesaplistefont" id="monthrstD">-</td>
+							<td class="hesaplistefont" id="yearrstD">-</td>
 						</tr>
 					</table>
 				</div>
-			</div-->
-			<!--div class="coin-box rlt-box">
-				<div class="box-title"><img src="../../img/svg_rc/rlt.svg" width="25" height="25"/></div>
+			</div>
+			<div class="coin-box rlt-box">
+				<div class="box-title başlık">ROLLERTOKEN</div>
 				<div class="tab-content">
 					<table>
 						<tr>
@@ -900,7 +803,7 @@ td.no-input {
 						</tr>
 					</table>
 				</div>
-			</div-->
+			</div>
 		</div>
 	</div>
 
@@ -909,7 +812,7 @@ td.no-input {
 
 <script src="static/js/alerts.js"></script>		
 <script src="static/js/activateTab.js"></script>
-<script src="static/js/calculator_tr.js"></script>
+<script src="static/js/calculator.js"></script>
 <script>
 	// self executing function here
 	(function () {
@@ -918,9 +821,12 @@ td.no-input {
 		calc();
 	})();
 </script>
-<script src="static/js/fetchPrice_tr.js"></script>
+<script src="static/js/fetchPrice.js"></script>
 <script src="static/js/inputPost.js"></script>
 <script src="static/js/renkliyazı.js"></script>
+<script src="static/js/yukleniyor.js"></script>
+<script src="../../js/menüşablonu.js"></script>
+<script src="../../js/gün-tarih-saat.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
@@ -950,136 +856,13 @@ td.no-input {
             bubblyButtons[i].addEventListener("click", animateButton, false);
         }   
     </script>
-
-
-<script>
-  // API & Proxy Yapılandırması
-  const API_CONFIG = {
-    workerProxy: "https://rc-proxy.deficarlos.workers.dev",
-    publicProxies: [
-      (url) => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
-      (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
-    ],
-    publicProfile: (name) => `https://rollercoin.com/api/profile/public-user-profile-data/${encodeURIComponent(name)}`,
-    powerData: (avatarId) => `https://rollercoin.com/api/profile/user-power-data/${encodeURIComponent(avatarId)}`
-  };
-
-  // Kullanıcı adını ayrıştırma
-  function parseUsername(input) {
-    if (!input) return null;
-    let s = input.trim();
-    const m = s.match(/rollercoin\.com\/p\/([A-Za-z0-9_-]+)/i);
-    if (m) return m[1];
-    s = s.replace(/^@/, "").replace(/\/+$/, "");
-    return /^[A-Za-z0-9_-]{2,30}$/.test(s) ? s : null;
-  }
-
-  // Fallback mekanizması ile API isteği
-  async function fetchWithFallback(url) {
-    const attempts = [];
-    if (API_CONFIG.workerProxy) {
-      attempts.push(() => fetch(`${API_CONFIG.workerProxy}/?url=${encodeURIComponent(url)}`));
-    }
-    attempts.push(() => fetch(url, { mode: "cors" }));
-    for (const proxy of API_CONFIG.publicProxies) {
-      attempts.push(() => fetch(proxy(url)));
-    }
-
-    for (const attempt of attempts) {
-      try {
-        const res = await attempt();
-        if (res.ok) return await res.json();
-      } catch (e) {
-        continue;
-      }
-    }
-    throw new Error("Veri çekilemedi.");
-  }
-
-  // Profil, Kullanıcı Gücü ve Lig/Ağ Güçlerini Güncelleme
-  async function fetchUserProfile() {
-    const inputVal = document.getElementById("rcUsernameInput").value;
-    const username = parseUsername(inputVal);
-    const statusEl = document.getElementById("rcStatus");
-
-    if (!username) {
-      statusEl.style.color = "red";
-      statusEl.textContent = "Geçerli bir kullanıcı adı veya profil linki girin!";
-      return;
-    }
-
-    statusEl.style.color = "orange";
-    statusEl.textContent = "Profil ve Ağ güçleri yükleniyor...";
-
-    try {
-      // 1. Profil Verisi
-      const profileRes = await fetchWithFallback(API_CONFIG.publicProfile(username));
-      if (!profileRes || !profileRes.success) throw new Error("Kullanıcı bulunamadı.");
-      const profile = profileRes.data;
-
-      // 2. Güç Verisi (avatar_id kullanılarak)
-      const powerRes = await fetchWithFallback(API_CONFIG.powerData(profile.avatar_id));
-      if (!powerRes || !powerRes.success) throw new Error("Güç verisi alınamadı.");
-      const power = powerRes.data;
-
-      // Toplam Kullanıcı Gücü (API birimi: GH/s -> TH/s dönüşümü)
-      const totalPowerGH = power.current_power || 
-        ((power.miners || 0) + (power.bonus || 0) + (power.games || 0) + (power.temp || 0));
-      const totalPowerTH = (totalPowerGH / 1000).toFixed(2);
-
-      const minerRateInput = document.getElementById("minerRate");
-      if (minerRateInput) {
-        minerRateInput.value = totalPowerTH;
-        if (typeof getData === "function") getData('minerRate');
-      }
-
-      // 3. Lig Verisi ve Ağ Güçlerinin (Network Power) Güncellenmesi
-      const leagueTitle = profile.league && profile.league.title && profile.league.title.en;
-      
-      try {
-        const miningRes = await fetch("data/mining.json?v=3");
-        if (miningRes.ok) {
-          const miningData = await miningRes.json();
-          // mining.json içindeki 'leaguePowerZH' verisinden yararlanma
-          const netPowers = miningData.leaguePowerZH || {};
-
-          // HTML input id'leri ile eşleştirme
-          const inputMapping = {
-            netBtc: netPowers.BTC,
-            netEth: netPowers.ETH,
-            netbnb: netPowers.BNB,
-            netmatic: netPowers.MATIC,
-            netDoge: netPowers.DOGE,
-            netsol: netPowers.SOL,
-            nettrx: netPowers.TRX
-          };
-
-          for (const [inputId, val] of Object.entries(inputMapping)) {
-            const el = document.getElementById(inputId);
-            if (el && val !== undefined) {
-              el.value = val;
-              if (typeof getData === "function") getData(inputId);
-            }
-          }
-        }
-      } catch (e) {
-        console.warn("Lig/Ağ gücü verisi güncellenemedi, varsayılanlar korundu.", e);
-      }
-
-      // Tüm hesaplamaları tetikle
-      if (typeof calc === "function") calc();
-
-      statusEl.style.color = "green";
-      statusEl.textContent = `Başarılı! Kullanıcı: ${profile.name} | Lig: ${leagueTitle || "Varsayılan"} | Güç: ${(totalPowerGH / 1e6).toFixed(3)} PH/s`;
-
-    } catch (err) {
-      console.error(err);
-      statusEl.style.color = "red";
-      statusEl.textContent = "Hata: Kullanıcı verileri çekilemedi veya profil gizli.";
-    }
-  }
-</script>
-
-
+<!--===============================================================================================-->
+<!--OnlineZiyaretci kodu baslangici-->
+<script language="JavaScript" type="text/javascript" src="https://srv10.webtemsilcisi.com/counter.php?accDomainId=596e6848b77bfe5b27ed0d39b01a5b83"></script>
+<noscript>
+<a href="http://www.webtemsilcisi.com">Ücretsiz Online Ziyaretci Sayaci</a>
+</noscript>
+<!--OnlineZiyaretci kodu sonu-->
+<!--===============================================================================================-->
 </body>
 </html>
