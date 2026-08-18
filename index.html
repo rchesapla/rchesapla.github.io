@@ -71,12 +71,6 @@ body {
   align-items: center;
 }
 
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-
 .logo {
   font-family: 'Russo One', sans-serif;
   font-size: 1.4rem;
@@ -88,47 +82,6 @@ body {
   background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-.nav-links {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.nav-item {
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 0.5rem 0.9rem;
-  border-radius: var(--radius-md);
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.nav-item:hover, .nav-item.active {
-  color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.user-profile {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 0.85rem;
-}
-
-.user-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #334155;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-secondary);
 }
 
 /* Main Layout */
@@ -207,10 +160,6 @@ body {
   font-weight: normal;
 }
 
-.full-width {
-  grid-column: 1 / -1;
-}
-
 /* Form & Input */
 .input-box {
   width: 100%;
@@ -234,8 +183,8 @@ body {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   color: var(--text-primary);
-  padding: 0.5rem;
-  font-size: 0.85rem;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.8rem;
   font-weight: bold;
   outline: none;
   cursor: pointer;
@@ -246,7 +195,7 @@ body {
   color: var(--text-primary);
 }
 
-/* Profil Alanı Yatay Düzet */
+/* Profil Alanı */
 .profile-input-group {
   display: flex;
   gap: 0.75rem;
@@ -279,7 +228,7 @@ body {
   font-weight: bold;
 }
 
-/* Kazım Gücü Yatay Düzet */
+/* Kazım Gücü */
 .flex-row {
   display: flex;
   align-items: center;
@@ -312,10 +261,10 @@ body {
   font-size: 0.9rem;
 }
 
-/* Ağ Gücü Yatay Grid */
+/* Ağ Gücü Grid & Elemanları */
 .net-power-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 0.75rem;
 }
 
@@ -331,13 +280,14 @@ body {
 
 .net-item span {
   font-size: 0.8rem;
-  width: 45px;
+  min-width: 45px;
 }
 
 .net-item .input-box {
   padding: 0.3rem 0.5rem;
   font-size: 0.85rem;
   text-align: right;
+  flex: 1;
 }
 
 /* Tables */
@@ -433,7 +383,7 @@ footer {
   justify-content: space-between;
 }
 
-/* Mobil / Duyarlı Medya Sorguları */
+/* Responsive */
 @media (max-width: 1024px) {
   .top-dashboard-grid {
     grid-template-columns: 1fr;
@@ -450,12 +400,6 @@ footer {
     width: 100%;
   }
 
-  .net-power-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
   .net-power-grid {
     grid-template-columns: 1fr;
   }
@@ -562,10 +506,6 @@ footer {
 									<td class="td-ltc">LTC:</td>
 									<td class="no-input" id="ltc-price-api">♥</td>
 								</tr>
-								<tr>
-									<td class="td-algo">ALGO:</td>
-									<td class="no-input" id="algo-price-api">♥</td>
-								</tr>
 							</table>
 						</div>
 						<div style="text-align: left; font-size: 0.8rem; color: var(--text-secondary); margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 0.5rem;">
@@ -574,7 +514,7 @@ footer {
 					</div>
 				</div>
 
-				<!-- SAĞ KOLON: Son İşlemler & Alarmlar -->
+				<!-- SAĞ KOLON: Son İşlemler & Alarmlar (Dinamik Güncellenen Blok Ödülleri) -->
 				<div>
 					<div class="box">
 						<div class="box-title">Blok Ödülleri</div>
@@ -610,12 +550,12 @@ footer {
 								</tr>
 								<tr>
 									<td class="td-ltc">LTC:</td>
-									<td class="no-input" id="blockltc">0,015</td>
+									<td class="no-input" id="blockltc">0.015</td>
 								</tr>
 							</table>
 						</div>
 						<div style="text-align: left; font-size: 0.8rem; color: var(--text-secondary); margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 0.5rem;">
-							Son Güncelleme: <span id="last-update-time">18.08.2026 17:53:38</span>
+							Son Güncelleme: <span id="blockRewardTime">18.08.2026 17:53:38</span>
 						</div>
 					</div>
 				</div>
@@ -636,7 +576,7 @@ footer {
 					<div id="rcStatus" class="status-msg"></div>
 				</div>
 
-				<!-- Kazım Gücü (GH/s, TH/s, PH/s, EH/s, ZH/s Seçenekli) -->
+				<!-- Kazım Gücü -->
 				<div class="box calc-section">
 					<div class="box-title">
 						Kazım Gücü 
@@ -646,9 +586,7 @@ footer {
 						<div class="input-group">
 							<label for="minerRateInput">Güç:</label>
 							<div class="input-wrapper">
-								<!-- Gizli TH/s değer tutucu (Eski JS fonksiyonlarının bozulmaması için) -->
 								<input id="minerRate" type="hidden" value="0">
-								
 								<input id="minerRateInput" class="input-box" type="number" step="any" placeholder="0" oninput="updateMinerRateTH()">
 								<select id="minerUnitSelect" class="select-box" onchange="updateMinerRateTH()">
 									<option value="GH">GH/s</option>
@@ -666,21 +604,126 @@ footer {
 					</div>
 				</div>
 
-				<!-- Ağ Gücü (Yatay Grid) -->
+				<!-- Ağ Gücü -->
 				<div class="box calc-section">
 					<div class="box-title">
-						Ağ Gücü (EH/s)
+						Ağ Gücü
 						<span class="subtitle">Toplam: <strong id="totalNet">0</strong> EH/s</span>
 					</div>
 					<div class="box-content net-power-grid">
-						<div class="net-item"><span class="td-btc">BTC</span><input id="netBtc" class="input-box" type="number" onchange="calc(), getData('netBtc')"></div>
-						<div class="net-item"><span class="td-eth">ETH</span><input id="netEth" class="input-box" type="number" onchange="calc(), getData('netEth')"></div>
-						<div class="net-item"><span class="td-bnb">BNB</span><input id="netbnb" class="input-box" type="number" onchange="calc(), getData('netbnb')"></div>
-						<div class="net-item"><span class="td-matic">MATIC</span><input id="netmatic" class="input-box" type="number" onchange="calc(), getData('netmatic')"></div>
-						<div class="net-item"><span class="td-doge">DOGE</span><input id="netDoge" class="input-box" type="number" onchange="calc(), getData('netDoge')"></div>
-						<div class="net-item"><span class="td-sol">SOL</span><input id="netsol" class="input-box" type="number" onchange="calc(), getData('netsol')"></div>
-						<div class="net-item"><span class="td-trx">TRX</span><input id="nettrx" class="input-box" type="number" onchange="calc(), getData('nettrx')"></div>
-						<div class="net-item"><span class="td-ltc">LTC</span><input id="netltc" class="input-box" type="number" onchange="calc(), getData('netltc')"></div>
+						<input id="netBtc" type="hidden" value="0">
+						<input id="netEth" type="hidden" value="0">
+						<input id="netbnb" type="hidden" value="0">
+						<input id="netmatic" type="hidden" value="0">
+						<input id="netDoge" type="hidden" value="0">
+						<input id="netsol" type="hidden" value="0">
+						<input id="nettrx" type="hidden" value="0">
+						<input id="netltc" type="hidden" value="0">
+
+						<!-- BTC -->
+						<div class="net-item">
+							<span class="td-btc">BTC</span>
+							<input id="netBtcInput" class="input-box" type="number" step="any" placeholder="0" oninput="updateNetPowerEH('netBtc')">
+							<select id="netBtcUnit" class="select-box" onchange="updateNetPowerEH('netBtc')">
+								<option value="GH">GH/s</option>
+								<option value="TH">TH/s</option>
+								<option value="PH">PH/s</option>
+								<option value="EH" selected>EH/s</option>
+								<option value="ZH">ZH/s</option>
+							</select>
+						</div>
+
+						<!-- ETH -->
+						<div class="net-item">
+							<span class="td-eth">ETH</span>
+							<input id="netEthInput" class="input-box" type="number" step="any" placeholder="0" oninput="updateNetPowerEH('netEth')">
+							<select id="netEthUnit" class="select-box" onchange="updateNetPowerEH('netEth')">
+								<option value="GH">GH/s</option>
+								<option value="TH">TH/s</option>
+								<option value="PH">PH/s</option>
+								<option value="EH" selected>EH/s</option>
+								<option value="ZH">ZH/s</option>
+							</select>
+						</div>
+
+						<!-- BNB -->
+						<div class="net-item">
+							<span class="td-bnb">BNB</span>
+							<input id="netbnbInput" class="input-box" type="number" step="any" placeholder="0" oninput="updateNetPowerEH('netbnb')">
+							<select id="netbnbUnit" class="select-box" onchange="updateNetPowerEH('netbnb')">
+								<option value="GH">GH/s</option>
+								<option value="TH">TH/s</option>
+								<option value="PH">PH/s</option>
+								<option value="EH" selected>EH/s</option>
+								<option value="ZH">ZH/s</option>
+							</select>
+						</div>
+
+						<!-- MATIC -->
+						<div class="net-item">
+							<span class="td-matic">MATIC</span>
+							<input id="netmaticInput" class="input-box" type="number" step="any" placeholder="0" oninput="updateNetPowerEH('netmatic')">
+							<select id="netmaticUnit" class="select-box" onchange="updateNetPowerEH('netmatic')">
+								<option value="GH">GH/s</option>
+								<option value="TH">TH/s</option>
+								<option value="PH">PH/s</option>
+								<option value="EH" selected>EH/s</option>
+								<option value="ZH">ZH/s</option>
+							</select>
+						</div>
+
+						<!-- DOGE -->
+						<div class="net-item">
+							<span class="td-doge">DOGE</span>
+							<input id="netDogeInput" class="input-box" type="number" step="any" placeholder="0" oninput="updateNetPowerEH('netDoge')">
+							<select id="netDogeUnit" class="select-box" onchange="updateNetPowerEH('netDoge')">
+								<option value="GH">GH/s</option>
+								<option value="TH">TH/s</option>
+								<option value="PH">PH/s</option>
+								<option value="EH" selected>EH/s</option>
+								<option value="ZH">ZH/s</option>
+							</select>
+						</div>
+
+						<!-- SOL -->
+						<div class="net-item">
+							<span class="td-sol">SOL</span>
+							<input id="netsolInput" class="input-box" type="number" step="any" placeholder="0" oninput="updateNetPowerEH('netsol')">
+							<select id="netsolUnit" class="select-box" onchange="updateNetPowerEH('netsol')">
+								<option value="GH">GH/s</option>
+								<option value="TH">TH/s</option>
+								<option value="PH">PH/s</option>
+								<option value="EH" selected>EH/s</option>
+								<option value="ZH">ZH/s</option>
+							</select>
+						</div>
+
+						<!-- TRX -->
+						<div class="net-item">
+							<span class="td-trx">TRX</span>
+							<input id="nettrxInput" class="input-box" type="number" step="any" placeholder="0" oninput="updateNetPowerEH('nettrx')">
+							<select id="nettrxUnit" class="select-box" onchange="updateNetPowerEH('nettrx')">
+								<option value="GH">GH/s</option>
+								<option value="TH">TH/s</option>
+								<option value="PH">PH/s</option>
+								<option value="EH" selected>EH/s</option>
+								<option value="ZH">ZH/s</option>
+							</select>
+						</div>
+
+						<!-- LTC -->
+						<div class="net-item">
+							<span class="td-ltc">LTC</span>
+							<input id="netltcInput" class="input-box" type="number" step="any" placeholder="0" oninput="updateNetPowerEH('netltc')">
+							<select id="netltcUnit" class="select-box" onchange="updateNetPowerEH('netltc')">
+								<option value="GH">GH/s</option>
+								<option value="TH">TH/s</option>
+								<option value="PH">PH/s</option>
+								<option value="EH" selected>EH/s</option>
+								<option value="ZH">ZH/s</option>
+							</select>
+						</div>
+
 					</div>
 				</div>
 
@@ -993,21 +1036,21 @@ footer {
 	<footer>
 		<div class="footer-content">
 			<span>18.08.2026 17:53:38</span>
-			<span>Copyright © 2026 RCHesapla.</span>
+			<span>Copyright © 2022 Krypto, Inc.</span>
 		</div>
 	</footer>
 
 	<script src="static/js/alerts.js"></script>		
 	<script src="static/js/activateTab.js"></script>
 	<script src="static/js/calculator_tr.js"></script>
+	
 	<script>
-		// Birim Seçimi ve TH/s Hesaplama Fonksiyonu
+		// Kazım Gücü Dönüştürme (TH/s tabanlı)
 		function updateMinerRateTH() {
 			const val = parseFloat(document.getElementById("minerRateInput").value) || 0;
 			const unit = document.getElementById("minerUnitSelect").value;
 			
-			// TH/s Dönüştürme Oranları
-			const multipliers = {
+			const minerMultipliers = {
 				'GH': 0.001,
 				'TH': 1,
 				'PH': 1000,
@@ -1015,27 +1058,45 @@ footer {
 				'ZH': 1000000000
 			};
 
-			const totalTH = val * (multipliers[unit] || 1);
-			
+			const totalTH = val * (minerMultipliers[unit] || 1);
 			const hiddenInput = document.getElementById("minerRate");
-			if (hiddenInput) {
-				hiddenInput.value = totalTH;
-			}
+			if (hiddenInput) hiddenInput.value = totalTH;
 
-			if (typeof calc === "function") {
-				calc();
-			}
-			if (typeof getData === "function") {
-				getData('minerRate');
-			}
+			if (typeof calc === "function") calc();
+			if (typeof getData === "function") getData('minerRate');
+		}
+
+		// Ağ Gücü Dönüştürme (EH/s tabanlı)
+		function updateNetPowerEH(idPrefix) {
+			const inputEl = document.getElementById(idPrefix + "Input");
+			const unitEl = document.getElementById(idPrefix + "Unit");
+			const hiddenEl = document.getElementById(idPrefix);
+
+			if (!inputEl || !unitEl || !hiddenEl) return;
+
+			const val = parseFloat(inputEl.value) || 0;
+			const unit = unitEl.value;
+
+			const multipliersToEH = {
+				'GH': 0.000000001,
+				'TH': 0.000001,
+				'PH': 0.001,
+				'EH': 1,
+				'ZH': 1000
+			};
+
+			const totalEH = val * (multipliersToEH[unit] || 1);
+			hiddenEl.value = totalEH;
+
+			if (typeof calc === "function") calc();
+			if (typeof getData === "function") getData(idPrefix);
 		}
 
 		(function () {
-			if (typeof calc === "function") {
-				calc();
-			}
+			if (typeof calc === "function") calc();
 		})();
 	</script>
+
 	<script src="static/js/fetchPrice_tr.js"></script>
 	<script src="static/js/inputPost.js"></script>
 	<script src="static/js/renkliyazı.js"></script>
@@ -1093,7 +1154,7 @@ footer {
 		}
 
 		statusEl.style.color = "orange";
-		statusEl.textContent = "Profil ve Ağ güçleri yükleniyor...";
+		statusEl.textContent = "Profil, Ağ güçleri ve Blok Ödülleri yükleniyor...";
 
 		try {
 		  const profileRes = await fetchWithFallback(API_CONFIG.publicProfile(username));
@@ -1120,12 +1181,14 @@ footer {
 
 		  const leagueTitle = profile.league && profile.league.title && profile.league.title.en;
 		  
+		  // Ağ Güçleri ve Blok Ödüllerini çek
 		  try {
-			const miningRes = await fetch("data/mining.json?v=3");
+			const miningRes = await fetch("data/mining.json?v=" + new Date().getTime());
 			if (miningRes.ok) {
 			  const miningData = await miningRes.json();
+			  
+			  // 1. Ağ Güçleri Güncelleme
 			  const netPowers = miningData.leaguePowerZH || {};
-
 			  const inputMapping = {
 				netBtc: netPowers.BTC,
 				netEth: netPowers.ETH,
@@ -1137,16 +1200,45 @@ footer {
 				netltc: netPowers.LTC
 			  };
 
-			  for (const [inputId, val] of Object.entries(inputMapping)) {
-				const el = document.getElementById(inputId);
-				if (el && val !== undefined) {
-				  el.value = val;
-				  if (typeof getData === "function") getData(inputId);
+			  for (const [idPrefix, val] of Object.entries(inputMapping)) {
+				const inputEl = document.getElementById(idPrefix + "Input");
+				const unitEl = document.getElementById(idPrefix + "Unit");
+				if (inputEl && unitEl && val !== undefined) {
+				  inputEl.value = val;
+				  unitEl.value = "EH";
+				  updateNetPowerEH(idPrefix);
 				}
+			  }
+
+			  // 2. Blok Ödülleri Güncelleme
+			  const blockRewards = miningData.blockRewards || {};
+			  const blockMapping = {
+				blockBtc: blockRewards.BTC,
+				blockEth: blockRewards.ETH,
+				blockbnb: blockRewards.BNB,
+				blockmatic: blockRewards.MATIC,
+				blockDoge: blockRewards.DOGE,
+				blocksol: blockRewards.SOL,
+				blocktrx: blockRewards.TRX,
+				blockltc: blockRewards.LTC
+			  };
+
+			  for (const [elementId, rewardVal] of Object.entries(blockMapping)) {
+				const blockEl = document.getElementById(elementId);
+				if (blockEl && rewardVal !== undefined) {
+				  blockEl.textContent = rewardVal;
+				}
+			  }
+
+			  // Güncelleme Saatini Güncelle
+			  const blockTimeEl = document.getElementById("blockRewardTime");
+			  if (blockTimeEl) {
+				const now = new Date();
+				blockTimeEl.textContent = now.toLocaleDateString("tr-TR") + " " + now.toLocaleTimeString("tr-TR");
 			  }
 			}
 		  } catch (e) {
-			console.warn("Lig/Ağ gücü verisi güncellenemedi.", e);
+			console.warn("Mining/Blok verileri güncellenemedi.", e);
 		  }
 
 		  if (typeof calc === "function") calc();
