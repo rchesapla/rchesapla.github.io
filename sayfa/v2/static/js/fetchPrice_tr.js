@@ -55,7 +55,7 @@ postResults = function(prices){
       { id: "matic-price-api", val: prices[4] },
       { id: "sol-price-api", val: prices[5] },
       { id: "trx-price-api", val: prices[6] },
-      { id: "ltc-price-api", val: prices[7] }
+      { id: "ltc-price-api", val: prices[8] }
     ];
 
     // Sadece sayfada bulunan elementleri günceller (null hatasını önler)
@@ -90,7 +90,7 @@ calculate = function(prices){
 		maticPrice = prices[4]
 		solPrice = prices[5]
 		trxPrice = prices[6]
-		ltcPrice = prices[7]
+		ltcPrice = prices[8]
 		
     /////////////////////////////////////////////////
     // BTC CALC 10 MIN
