@@ -41,54 +41,45 @@ getResults = function(fetch_data){
     return [btcPrice, dogePrice, ethPrice, bnbPrice, maticPrice, solPrice, trxPrice, ltcPrice]
 }
 
-postResults = function(prices){
-    document.getElementById("btc-price-api").innerHTML = "₺" + prices[0];
-    document.getElementById("doge-price-api").innerHTML = "₺" + prices[1];
-    document.getElementById("eth-price-api").innerHTML = "₺" + prices[2];
-	document.getElementById("bnb-price-api").innerHTML = "₺" + prices[3];
-	document.getElementById("matic-price-api").innerHTML = "₺" + prices[4];
-	document.getElementById("sol-price-api").innerHTML = "₺" + prices[5];
-	document.getElementById("trx-price-api").innerHTML = "₺" + prices[6];
-	document.getElementById("ltc-price-api").innerHTML = "₺" + prices[7];
-	
-
-    // Son güncelleme tarihini ve saatini yazdır
-    const now = new Date();
-    const timeString = now.toLocaleTimeString('tr-TR'); // Örn: 16:52:38
-    
-    const timeEl = document.getElementById("last-update-time");
-    if (timeEl) {
-      timeEl.innerHTML = timeString;
-    }
-}
-
-// Sayıları biçimlendirme fonksiyonu (örn: 3.071.921 veya 90bin)
 function formatPrice(val) {
   if (val === undefined || val === null || isNaN(val)) return val;
-  
-  // Türkçe binlik ayraçlı format (Örn: 3.071.921, 90.788)
   return Number(val).toLocaleString('tr-TR');
 }
 
 postResults = function(prices){
-    document.getElementById("btc-price-api").innerHTML = "₺" + formatPrice(prices[0]);
-    document.getElementById("doge-price-api").innerHTML = "₺" + formatPrice(prices[1]);
-    document.getElementById("eth-price-api").innerHTML = "₺" + formatPrice(prices[2]);
-    document.getElementById("bnb-price-api").innerHTML = "₺" + formatPrice(prices[3]);
-    document.getElementById("matic-price-api").innerHTML = "₺" + formatPrice(prices[4]);
-    document.getElementById("sol-price-api").innerHTML = "₺" + formatPrice(prices[5]);
-    document.getElementById("trx-price-api").innerHTML = "₺" + formatPrice(prices[6]);
-    document.getElementById("ltc-price-api").innerHTML = "₺" + formatPrice(prices[7]);
+    const elements = [
+      { id: "btc-price-api", val: prices[0] },
+      { id: "doge-price-api", val: prices[1] },
+      { id: "eth-price-api", val: prices[2] },
+      { id: "bnb-price-api", val: prices[3] },
+      { id: "matic-price-api", val: prices[4] },
+      { id: "sol-price-api", val: prices[5] },
+      { id: "trx-price-api", val: prices[6] },
+      { id: "ltc-price-api", val: prices[7] }
+    ];
 
-    // Son güncelleme tarihini ve saatini yazdır
-    const now = new Date();
-    const timeString = now.toLocaleTimeString('tr-TR'); // Örn: 16:52:38
-    
+    // Sadece sayfada bulunan elementleri günceller (null hatasını önler)
+    elements.forEach(item => {
+      const el = document.getElementById(item.id);
+      if (el) {
+        el.innerHTML = "₺" + formatPrice(item.val);
+      }
+    });
+
+    // Tarih ve Saat Güncellemesi
     const timeEl = document.getElementById("last-update-time");
     if (timeEl) {
-      timeEl.innerHTML = timeString;
+      const now = new Date();
+      
+      // Türkçe formatta tarih ve saat: "18.08.2026 17:00:25"
+      const dateString = now.toLocaleDateString('tr-TR');
+      const timeString = now.toLocaleTimeString('tr-TR');
+      
+      timeEl.innerHTML = `${dateString} ${timeString}`;
     }
 }
+
+
 
 //////////////////////////////
 calculate = function(prices){
