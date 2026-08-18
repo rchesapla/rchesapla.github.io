@@ -496,7 +496,7 @@ calc = function(){
         else {
             document.getElementById("yearsolD").innerText = "₺" + yearsolD.toFixed(5);
         }
-
+/////////////////////////////////////
 //TRON HESAPLAMA ARACI//
     var trxPower = (Number(totalRate)/1000),
         trxPrice1 = document.getElementById('trx-price-api').innerHTML,
@@ -574,81 +574,53 @@ calc = function(){
         else {
             document.getElementById("yeartrxD").innerText = "₺" + yeartrxD.toFixed(5);
         }
-//LITECOIN HESAPLAMA ARACI//
-    var ltcPower = (Number(totalRate)/1000),
-        ltcPrice1 = document.getElementById('ltc-price-api').innerHTML,
-        ltcPrice = Number(ltcPrice1.substring(1)),
-        minltc = (Number(ltcPower)*blockltc)/(Number(netltc)*1000),
-        minltcD = Number(minltc) * ltcPrice,
-        hourltc = Number(minltc) * 6,
-        hourltcD = Number(hourltc) * ltcPrice,
-        dayltc = Number(hourltc) * 24,
-        dayltcD = Number(dayltc) * ltcPrice,
-        weekltc = Number(dayltc) * 7,
-        weekltcD = Number(weekltc) * ltcPrice,
-        monthltc = Number(dayltc) * 30,
-        monthltcD = Number(monthltc) * ltcPrice,
-        yearltc = Number(dayltc) * 365,
-        yearltcD = Number(yearltc) * ltcPrice;
+/////////////////////////////////////
+// LITECOIN HESAPLAMA ARACI DÜZELTİLMİŞ KISIM
+var ltcPower = (Number(totalRate) / 1000),
+    ltcPriceRaw = document.getElementById('ltc-price-api')?.innerHTML || "0",
+    // "₺" simgesi ve binlik ayraç olan noktaları kaldırıp virgülü noktaya çeviriyoruz:
+    ltcPrice = Number(ltcPriceRaw.replace(/[^\d,-]/g, '').replace(',', '.')) || 0,
+    blockltcStr = document.getElementById('blockltc')?.innerText || "0",
+    blockltc = Number(blockltcStr.replace(',', '.')),
+    netltc = document.getElementById('netltc')?.value || 1;
 
-    if ((isNaN(minltc))||!(isFinite(minltc))) {
-        document.getElementById("minltc").innerText = "【⛏】"}
-        else {
-            document.getElementById("minltc").innerText = minltc.toFixed(10);
-        }
-    if ((isNaN(hourltc))||!(isFinite(hourltc))) {
-        document.getElementById("hourltc").innerText = "【⛏】"}
-        else {
-            document.getElementById("hourltc").innerText = hourltc.toFixed(10);
-        }
-    if ((isNaN(dayltc))||!(isFinite(dayltc))) {
-        document.getElementById("dayltc").innerText = "【⛏】"}
-        else {
-            document.getElementById("dayltc").innerText = dayltc.toFixed(10);
-        }
-    if ((isNaN(weekltc))||!(isFinite(weekltc))) {
-        document.getElementById("weekltc").innerText = "【⛏】"}
-        else {
-            document.getElementById("weekltc").innerText = weekltc.toFixed(10);
-        }
-    if ((isNaN(monthltc))||!(isFinite(monthltc))) {
-        document.getElementById("monthltc").innerText = "【⛏】"}
-        else {
-            document.getElementById("monthltc").innerText = monthltc.toFixed(10);
-        }
-    if ((isNaN(yearltc))||!(isFinite(yearltc))) {
-        document.getElementById("yearltc").innerText = "【⛏】"}
-        else {
-            document.getElementById("yearltc").innerText = yearltc.toFixed(10);
-        }
-    if ((isNaN(minltcD))||!(isFinite(minltcD))) {
-        document.getElementById("minltcD").innerText = "∙•●₺●•∙"}
-        else {
-            document.getElementById("minltcD").innerText = "₺" + minltcD.toFixed(5);
-        }
-    if ((isNaN(hourltcD))||!(isFinite(hourltcD))) {
-        document.getElementById("hourltcD").innerText = "∙•●₺●•∙"}
-        else {
-            document.getElementById("hourltcD").innerText = "₺" + hourltcD.toFixed(5);
-        }
-    if ((isNaN(dayltcD))||!(isFinite(dayltcD))) {
-        document.getElementById("dayltcD").innerText = "∙•●₺●•∙"}
-        else {
-            document.getElementById("dayltcD").innerText = "₺" + dayltcD.toFixed(5);
-        }
-    if ((isNaN(weekltcD))||!(isFinite(weekltcD))) {
-        document.getElementById("weekltcD").innerText = "∙•●₺●•∙"}
-        else {
-            document.getElementById("weekltcD").innerText = "₺" + weekltcD.toFixed(5);
-        }
-    if ((isNaN(monthltcD))||!(isFinite(monthltcD))) {
-        document.getElementById("monthltcD").innerText = "∙•●₺●•∙"}
-        else {
-            document.getElementById("monthltcD").innerText = "₺" + monthltcD.toFixed(5);
-        }
-    if ((isNaN(yearltcD))||!(isFinite(yearltcD))) {
-        document.getElementById("yearltcD").innerText = "∙•●₺●•∙"}
-        else {
-            document.getElementById("yearltcD").innerText = "₺" + yearltcD.toFixed(5);
-        }
+var minltc = (Number(ltcPower) * blockltc) / (Number(netltc) * 1000),
+    minltcD = Number(minltc) * ltcPrice,
+    hourltc = Number(minltc) * 6,
+    hourltcD = Number(hourltc) * ltcPrice,
+    dayltc = Number(hourltc) * 24,
+    dayltcD = Number(dayltc) * ltcPrice,
+    weekltc = Number(dayltc) * 7,
+    weekltcD = Number(weekltc) * ltcPrice,
+    monthltc = Number(dayltc) * 30,
+    monthltcD = Number(monthltc) * ltcPrice,
+    yearltc = Number(dayltc) * 365,
+    yearltcD = Number(yearltc) * ltcPrice;
+
+// DOM güncellemeleri
+const setField = (id, val, isCurrency = false) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (isNaN(val) || !isFinite(val)) {
+        el.innerText = isCurrency ? "∙•●₺●•∙" : "【⛏】";
+    } else {
+        el.innerText = isCurrency ? "₺" + val.toFixed(5) : val.toFixed(10);
+    }
+};
+
+setField("minltc", minltc);
+setField("hourltc", hourltc);
+setField("dayltc", dayltc);
+setField("weekltc", weekltc);
+setField("monthltc", monthltc);
+setField("yearltc", yearltc);
+
+setField("minltcD", minltcD, true);
+setField("hourltcD", hourltcD, true);
+setField("dayltcD", dayltcD, true);
+setField("weekltcD", weekltcD, true);
+setField("monthltcD", monthltcD, true);
+setField("yearltcD", yearltcD, true);
+/////////////////////////////////////
+
 }
