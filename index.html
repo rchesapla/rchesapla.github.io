@@ -9,7 +9,7 @@
 	<link rel="icon" href="./favicon.png" sizes="96x96" />
 	<link rel="icon" href="./favicon.png" sizes="144x144" />
 	<link rel="mask-icon" href="./favicon.png" color="#ffffff" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -159,11 +159,17 @@ body {
   margin-bottom: 2rem;
 }
 
-.calculator-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+/* Yatay Hesaplayıcı Düzeni */
+.calculator-grid-horizontal {
+  display: flex;
+  flex-direction: column;
   gap: 1.25rem;
   margin-bottom: 2rem;
+  width: 100%;
+}
+
+.calc-section {
+  width: 100%;
 }
 
 .coin-cards-grid {
@@ -220,6 +226,106 @@ body {
 .input-box:focus {
   border-color: var(--accent-color);
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* Profil Alanı Yatay Düzet */
+.profile-input-group {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.profile-input-group .input-box {
+  flex: 1;
+}
+
+.btn-primary {
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  background: var(--accent-gradient);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-weight: bold;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.status-msg {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+/* Kazım Gücü Yatay Düzet */
+.flex-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 200px;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.unit {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: bold;
+}
+
+.total-badge {
+  background: rgba(15, 23, 42, 0.6);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.9rem;
+}
+
+/* Ağ Gücü Yatay Grid */
+.net-power-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.75rem;
+}
+
+.net-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(15, 23, 42, 0.4);
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.net-item span {
+  font-size: 0.8rem;
+  width: 45px;
+}
+
+.net-item .input-box {
+  padding: 0.3rem 0.5rem;
+  font-size: 0.85rem;
+  text-align: right;
 }
 
 /* Tables */
@@ -359,8 +465,30 @@ footer {
   justify-content: space-between;
 }
 
+/* Mobil / Duyarlı Medya Sorguları */
 @media (max-width: 1024px) {
   .top-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-input-group {
+    flex-direction: column;
+  }
+  
+  .profile-input-group .input-box,
+  .btn-primary {
+    width: 100%;
+  }
+
+  .net-power-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .net-power-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -474,7 +602,7 @@ footer {
 					</div>
 				</div>
 
-<!-- SAĞ KOLON: Son İşlemler & Alarmlar -->
+				<!-- SAĞ KOLON: Son İşlemler & Alarmlar -->
 				<div>
 					<div class="box">
 						<div class="box-title">Blok Ödülleri</div>
@@ -521,57 +649,63 @@ footer {
 				</div>
 			</div>
 
-			<!-- HESAPLAMA GİRDİ FORMLARI (TAB 1) -->
-			<div class="calculator-grid">
-				<div class="box full-width">
+			<!-- HESAPLAMA GİRDİ FORMLARI (YATAY & MOBİL UYUMLU DÜZEN) -->
+			<div class="calculator-grid-horizontal">
+				
+				<!-- RollerCoin Profil / Kullanıcı Adı -->
+				<div class="box calc-section">
 					<div class="box-title">RollerCoin Profil / Kullanıcı Adı</div>
-					<div class="box-content" style="text-align: center; padding: 10px;">
-						<input id="rcUsernameInput" class="input-box" type="text" placeholder="Kullanıcı Adı veya Profil Linki" style="width: 60%; max-width: 300px; display: inline-block; margin-right: 10px;">
-						<button id="rcFetchBtn" onclick="fetchUserProfile()" style="padding: 8px 16px; cursor: pointer; background: var(--accent-gradient); color: white; border: none; border-radius: 4px; font-weight: bold;">
+					<div class="box-content profile-input-group">
+						<input id="rcUsernameInput" class="input-box" type="text" placeholder="Kullanıcı Adı veya Profil Linki">
+						<button id="rcFetchBtn" onclick="fetchUserProfile()" class="btn-primary">
 							Getir ve Hesapla
 						</button>
-						<div id="rcStatus" style="margin-top: 10px; font-weight: bold;"></div>
+					</div>
+					<div id="rcStatus" class="status-msg"></div>
+				</div>
+
+				<!-- Kazım Gücü -->
+				<div class="box calc-section">
+					<div class="box-title">
+						Kazım Gücü 
+						<span class="subtitle">1 PH = 1000 TH</span>
+					</div>
+					<div class="box-content flex-row align-center gap-10">
+						<div class="input-group">
+							<label for="minerRate">Güç:</label>
+							<div class="input-wrapper">
+								<input id="minerRate" class="input-box" type="number" onchange="calc(), getData('minerRate')">
+								<span class="unit">TH/s</span>
+							</div>
+						</div>
+						<div class="total-badge">
+							<span>Toplam:</span>
+							<strong id="totalRate">-</strong> TH/s
+						</div>
 					</div>
 				</div>
 
-				<div class="box">
-					<div class="box-title">Kazım Gücü</div>
-					<div class="box-content">
-						<table>
-							<tr>
-								<td>Güç</td>
-								<td><input id="minerRate" class="input-box" type="number" onchange="calc(), getData('minerRate')"></td>
-								<td>TH/s</td>
-							</tr>
-							<tr>
-								<td></td>
-								<td class="no-input" id="totalRate">-</td>
-								<td>TH/s</td>
-							</tr>
-						</table>
-						<div class="box-title" style="text-align:center; font-size: 0.85rem; margin-top: 10px;">1 PH = 1000 TH</div>
+				<!-- Ağ Gücü (Yatay Grid) -->
+				<div class="box calc-section">
+					<div class="box-title">
+						Ağ Gücü (EH/s)
+						<span class="subtitle">Toplam: <strong id="totalNet">0</strong> EH/s</span>
+					</div>
+					<div class="box-content net-power-grid">
+						<div class="net-item"><span class="td-btc">BTC</span><input id="netBtc" class="input-box" type="number" onchange="calc(), getData('netBtc')"></div>
+						<div class="net-item"><span class="td-eth">ETH</span><input id="netEth" class="input-box" type="number" onchange="calc(), getData('netEth')"></div>
+						<div class="net-item"><span class="td-bnb">BNB</span><input id="netbnb" class="input-box" type="number" onchange="calc(), getData('netbnb')"></div>
+						<div class="net-item"><span class="td-matic">MATIC</span><input id="netmatic" class="input-box" type="number" onchange="calc(), getData('netmatic')"></div>
+						<div class="net-item"><span class="td-doge">DOGE</span><input id="netDoge" class="input-box" type="number" onchange="calc(), getData('netDoge')"></div>
+						<div class="net-item"><span class="td-sol">SOL</span><input id="netsol" class="input-box" type="number" onchange="calc(), getData('netsol')"></div>
+						<div class="net-item"><span class="td-trx">TRX</span><input id="nettrx" class="input-box" type="number" onchange="calc(), getData('nettrx')"></div>
+						<div class="net-item"><span class="td-ltc">LTC</span><input id="netltc" class="input-box" type="number" onchange="calc(), getData('netltc')"></div>
 					</div>
 				</div>
 
-				<div class="box">
-					<div class="box-title">Ağ Gücü</div>
-					<div class="box-content">
-						<table>
-							<tr><td class="td-btc">BTC:</td><td><input id="netBtc" class="input-box" type="number" onchange="calc(), getData('netBtc')"></td><td>EH/s</td></tr>
-							<tr><td class="td-eth">ETH:</td><td><input id="netEth" class="input-box" type="number" onchange="calc(), getData('netEth')"></td><td>EH/s</td></tr>
-							<tr><td class="td-bnb">BNB:</td><td><input id="netbnb" class="input-box" type="number" onchange="calc(), getData('netbnb')"></td><td>EH/s</td></tr>
-							<tr><td class="td-matic">MATIC:</td><td><input id="netmatic" class="input-box" type="number" onchange="calc(), getData('netmatic')"></td><td>EH/s</td></tr>
-							<tr><td class="td-doge">DOGE:</td><td><input id="netDoge" class="input-box" type="number" onchange="calc(), getData('netDoge')"></td><td>EH/s</td></tr>
-							<tr><td class="td-sol">SOL:</td><td><input id="netsol" class="input-box" type="number" onchange="calc(), getData('netsol')"></td><td>EH/s</td></tr>
-							<tr><td class="td-trx">TRX:</td><td><input id="nettrx" class="input-box" type="number" onchange="calc(), getData('nettrx')"></td><td>EH/s</td></tr>
-							<tr><td class="td-ltc">LTC:</td><td><input id="netltc" class="input-box" type="number" onchange="calc(), getData('netltc')"></td><td>EH/s</td></tr>
-						</table>
-						<div class="box-title" style="text-align:center; font-size: 0.85rem; margin-top: 10px;">Toplam: <a id="totalNet"></a> EH/s</div>
-					</div>
-				</div>
 			</div>
 
-			<!-- COİN BAZLI TAHMİNİ KAZANÇ KARTLARI (YENİ EKLENEN BÖLÜM) -->
+			<!-- COİN BAZLI TAHMİNİ KAZANÇ KARTLARI -->
 			<h2 class="page-title" style="font-size: 1.3rem; margin-top: 1rem;">Tahmini Coin Kazançları</h2>
 			<div class="coin-cards-grid">
 				
@@ -797,7 +931,7 @@ footer {
 					</table>
 				</div>
 
-				<!-- SOL Card -->
+				<!-- TRX Card -->
 				<div class="coin-box">
 					<div class="box-title"><img src="./img/svg_rc/trx.svg" width="25" height="25" alt="TRX"/></div>
 					<table>
@@ -834,7 +968,7 @@ footer {
 					</table>
 				</div>
 
-				<!-- SOL Card -->
+				<!-- LTC Card -->
 				<div class="coin-box">
 					<div class="box-title"><img src="./img/svg_rc/ltc.svg" width="25" height="25" alt="LTC"/></div>
 					<table>
