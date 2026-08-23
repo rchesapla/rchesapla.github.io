@@ -8,6 +8,7 @@ const COINS = [
   { key: 'sol', apiId: 'sol-price-api' },
   { key: 'Rlt', apiId: 'rlt-price-api' },
   { key: 'trx', apiId: 'trx-price-api' }
+  { key: 'xrp', apiId: 'xrp-price-api' }
 ];
 
 const PERIOD_MULTIPLIERS = {

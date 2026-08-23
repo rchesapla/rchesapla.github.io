@@ -6,8 +6,9 @@ const COIN_CONFIG = [
   { id: 'binancecoin', key: 'bnb' },
   { id: 'polygon-ecosystem-token', key: 'matic' },
   { id: 'solana', key: 'sol' },
-  { id: 'tether', key: 'rlt' }, // RLT/USDT karşılığı
-  { id: 'tron', key: 'trx' }
+  { id: 'tether', key: 'rlt' },
+  { id: 'tron', key: 'trx' },
+  { id: 'ripple', key: 'xrp' }
 ];
 
 const PERIODS = ['min', 'hour', 'day', 'week', 'month', 'year'];
