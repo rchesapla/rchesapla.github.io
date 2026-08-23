@@ -42,7 +42,7 @@ const updateElementText = (id, value, isCurrency = false, decimals = 10) => {
   if (!el) return;
 
   if (isNaN(value) || !isFinite(value) || value <= 0) {
-    el.innerText = "【⛏】";
+    el.innerText = "- - -";
   } else {
     const formatted = value.toFixed(decimals);
     el.innerText = isCurrency ? `$${formatted}` : formatted;

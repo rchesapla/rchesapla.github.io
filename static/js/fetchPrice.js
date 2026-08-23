@@ -68,7 +68,7 @@ const calculate = (prices) => {
         const totalUsd = amount * coinPrice;
 
         if (isNaN(totalUsd) || rawValue === "") {
-          outputEl.innerText = "∙•●$●•∙";
+          outputEl.innerText = "- - -";
         } else {
           outputEl.innerText = `$${totalUsd.toFixed(5)}`;
         }
