@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Kişisel kazım gücünü hesapla. | Nasıl kullanılır rehberi ve kılavuzu.">
+    
+    <title>📖 Nasıl Kullanılır? | RCHesaplaV2</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://rollercoin.com/fav/rollercoin_favicon.ico"/>
+    <link rel="icon" href="https://rollercoin.com/fav/rollercoin_favicon_48x48.png" sizes="48x48" />
+    <link rel="icon" href="https://rollercoin.com/fav/rollercoin_favicon_96x96.png" sizes="96x96" />
+    <link rel="icon" href="https://rollercoin.com/fav/rollercoin_favicon_144x144.png" sizes="144x144" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Russo+One&family=Permanent+Marker&family=Yanone+Kaffeesatz:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <style>
+        /* ==========================================
+           1. GLOBAL STYLES & ANIMATIONS
+           ========================================== */
+        :root {
+            --bg-primary: #0F111A;
+            --bg-card: #181B26;
+            --bg-dark: #12141D;
+            --bg-button: #6366F1;
+            --bg-button-hover: #4F46E5;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --accent-color: #06B6D4;
+            --accent-secondary: #84CC16;
+            --border-color: rgba(255, 255, 255, 0.07);
+
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4); }
+            70% { box-shadow: 0 0 0 8px rgba(6, 182, 212, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ==========================================
+           2. NAVBAR
+           ========================================== */
+        .navbar {
+            background: rgba(24, 27, 38, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container-nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            color: var(--text-main);
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.3rem;
+            letter-spacing: -0.5px;
+            transition: var(--transition);
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .logo:hover {
+            transform: scale(1.02);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .link-calc {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+
+        .link-calc:hover {
+            background: var(--bg-button);
+            transform: translateY(-2px);
+        }
+
+        /* ==========================================
+           3. HERO & CONTENT SECTION
+           ========================================== */
+        .hero {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .guide-container {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .guide-header {
+            background: var(--bg-dark);
+            color: var(--accent-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .guide-body {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .guide-section {
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .guide-section:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .guide-section h3 {
+            color: var(--accent-secondary);
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .guide-section p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .guide-section ul {
+            list-style-type: none;
+            padding-left: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .guide-section li {
+            color: var(--text-main);
+            font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.6rem 0.9rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .guide-section li strong {
+            color: var(--accent-color);
+        }
+
+        .tip-box {
+            background: rgba(6, 182, 212, 0.08);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem 1.25rem;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .tip-box strong {
+            color: var(--accent-color);
+        }
+
+        /* ==========================================
+           4. FOOTER / INFO
+           ========================================== */
+        .info {
+            margin-top: 2.5rem;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .info p {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="container-nav">
+            <a class="logo" href="./">RC<span>Hesapla</span>V2</a>
+            <div class="nav-links">
+                <a class="link-calc" href="./">
+                    <i class="fas fa-calculator"></i> Hesap Makinesine Dön
+                </a>
+                <a class="link-calc" href="https://bit.ly/RollerCoinTR" target="_blank">Ücretsiz kayıt ol</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN HERO & GUIDE SECTION -->
+    <section class="hero">
+        <div class="guide-container">
+            <div class="guide-header">
+                <i class="fas fa-book-open"></i> RCHesaplaV2 — Nasıl Kullanılır? Kılavuzu
+            </div>
+            
+            <div class="guide-body">
+                
+                <!-- Adım 1 -->
+                <div class="guide-section">
+                    <h3>1. ⚡ Güç Birimi Dönüştürücü Kullanımı</h3>
+                    <p>Farklı birimlerdeki kazım güçlerinizi (GH/s, TH/s, PH/s, EH/s, ZH/s) birbirine kolayca dönüştürebilir ve tek tuşla ana hesaplama alanına aktarabilirsiniz.</p>
+                    <ul>
+                        <li><span>İstediğiniz herhangi bir güç kutucuğuna (Örn: TH/s veya PH/s) toplam gücünüzü girin.</span></li>
+                        <li><span>Diğer birimlerin otomatik olarak hesaplandığını görün.</span></li>
+                        <li><span><strong>"⚡ Hesaplanan TH/s Değerini Miner Gücüne Aktar"</strong> butonuna tıklayarak değerinizi doğrudan ana hesaplayıcıya aktarın.</span></li>
+                    </ul>
+                </div>
+
+                <!-- Adım 2 -->
+                <div class="guide-section">
+                    <h3>2. ⚙️ Kazım Bilgileri ve Ayarların Girilmesi</h3>
+                    <p>Ana hesaplayıcı ekranında kazançlarınızı doğru hesaplamak için 4 temel parametre kutusu bulunur:</p>
+                    <ul>
+                        <li><strong>Kazım Gücü:</strong> Sahip olduğunuz toplam gücü girin ve sağdaki açılır menüden uygun birim seçin (GH, TH, PH, EH, ZH).</li>
+                        <li><strong>Bölünmüş Güç (%):</strong> Hangi kripto para birimine yüzde kaç güç ayırdığınızı yüzdelik bazda yazın (Toplam dağılımın dengeli olmasına dikkat edin).</li>
+                        <li><strong>Ağ Gücü:</strong> RollerCoin platformundaki ilgili coinlerin anlık toplam ağ güçlerini (EH/s cinsinden) güncel olarak girin.</li>
+                        <li><strong>Blok Ödülü:</strong> Sistemdeki güncel blok ödülü miktarlarını ilgili coin kutucuklarına tanımlayın. Alt kısımda haftalık ödül özetini takip edebilirsiniz.</li>
+                    </ul>
+                </div>
+
+                <!-- Adım 3 -->
+                <div class="guide-section">
+                    <h3>3. 📊 Sonuçların İncelenmesi</h3>
+                    <p>Girdiğiniz verilere dayanarak sistem anlık olarak tüm coin kazançlarınızı hesaplar:</p>
+                    <ul>
+                        <li><span><strong>Masaüstü Görünüm:</strong> Büyük ekranlarda kazım bilgileri solda, her coine ait detaylı sonuç tabloları (Saatlik, Günlük, Haftalık, Aylık, Yıllık hem coin miktarı hem USD karşılığı) sağda yan yana listelenir.</span></li>
+                        <li><span><strong>Mobil Görünüm:</strong> Mobil cihazlarda üst kısımdaki sekme butonlarını kullanarak <strong>"Kazım Bilgileri"</strong> ve <strong>"Sonuçlar"</strong> sekmeleri arasında kolayca geçiş yapabilirsiniz.</span></li>
+                    </ul>
+                    <div class="tip-box">
+                        <strong>İpucu:</strong> Güncel kripto fiyatları CoinGecko API üzerinden anlık olarak çekilir ve USD / TL cinsinden hesaplamalarınıza otomatik yansıtılır. Fiyatlar her 5 saniyede bir güncellenmektedir.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- FOOTER INFO -->
+        <div class="info">
+            <p><span style="color: #ff4d4d; font-family: 'Permanent Marker', cursive; font-size: 1rem;">RCHesaplaV2 - Kişisel kazım gücünüzü hesaplayın!</span></p>
+            <p><span style="color: #fcff01; font-family: 'Yanone Kaffeesatz', sans-serif; font-size: 1.1rem;">Hesaplama sistemi: <b>BITCOIN</b>, <b>DOGECOIN</b>, <b>ETHEREUM</b>, <b>BINANCECOIN</b>, <b>POLYGON</b>, <b>SOLANA</b> ve <b>ROLLERTOKEN</b>!</span></p>
+        </div>
+    </section>
+
+    <!-- EXTERNAL LIBRARIES -->
+    <script src="https://kit.fontawesome.com/66aa7c98b3.js" crossorigin="anonymous"></script>
+</body>
+</html>
