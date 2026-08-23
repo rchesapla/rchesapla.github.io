@@ -451,6 +451,7 @@
                         <li><span class="price-bnb">BNB:</span> <span id="bnb-price-api">Yükleniyor..</span></li>
                         <li><span class="price-matic">MATIC:</span> <span id="matic-price-api">Yükleniyor..</span></li>
                         <li><span class="price-sol">SOL:</span> <span id="sol-price-api">Yükleniyor..</span></li>
+                        <li><span class="price-trx">TRX:</span> <span id="trx-price-api">Yükleniyor..</span></li>
                         <li><span class="price-rlt">RLT:</span> <span id="rlt-price-api">Yükleniyor..</span></li>
                     </ul>
                 </div>
@@ -577,6 +578,11 @@
                                     <td>%</td>
                                 </tr>
                                 <tr>
+                                    <td class="td-sol">TRX:</td>
+                                    <td><input id="disttrx" class="input-box" type="number" onchange="calc(), getData('disttrx')"></td>
+                                    <td>%</td>
+                                </tr>
+                                <tr>
                                     <td class="td-rlt">RLT:</td>
                                     <td><input id="distRlt" class="input-box" type="number" onchange="calc(), getData('distRlt')"></td>
                                     <td>%</td>
@@ -618,6 +624,11 @@
                                 <tr>
                                     <td class="td-sol">SOL:</td>
                                     <td><input id="netsol" class="input-box" type="number" onchange="calc(), getData('netsol')"></td>
+                                    <td>EH/s</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-trx">TRX:</td>
+                                    <td><input id="nettrx" class="input-box" type="number" onchange="calc(), getData('nettrx')"></td>
                                     <td>EH/s</td>
                                 </tr>
                                 <tr>
@@ -668,6 +679,11 @@
                                     <td class="td-sol">SOL:</td>
                                     <td><input id="blocksol" class="input-box" type="number" value="0.07" step="any" onchange="calc(), getData('blocksol')"></td>
                                     <td><img src="./img/svg_rc/sol.svg" width="13" height="13" alt="SOL"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-trx">TRX:</td>
+                                    <td><input id="blocktrx" class="input-box" type="number" value="30" step="any" onchange="calc(), getData('blocktrx')"></td>
+                                    <td><img src="./img/svg_rc/trx.svg" width="13" height="13" alt="TRX"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-rlt">RLT:</td>
@@ -772,6 +788,21 @@
                                 <tr><td class="table-headers">HAFTALIK</td><td class="table-headers">AYLIK</td><td class="table-headers">YILLIK</td></tr>
                                 <tr><td id="weeksol">-</td><td id="monthsol">-</td><td id="yearsol">-</td></tr>
                                 <tr><td id="weeksolD">-</td><td id="monthsolD">-</td><td id="yearsolD">-</td></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- TRX RESULT -->
+                    <div class="coin-box trx-box">
+                        <div class="box-title"><img src="./img/svg_rc/trx.svg" width="24" height="24" alt="TRX"/></div>
+                        <div class="tab-content">
+                            <table>
+                                <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
+                                <tr><td id="mintrx">-</td><td id="hourtrx">-</td><td id="daytrx">-</td></tr>
+                                <tr><td id="mintrxD">-</td><td id="hourtrxD">-</td><td id="daytrxD">-</td></tr>
+                                <tr><td class="table-headers">HAFTALIK</td><td class="table-headers">AYLIK</td><td class="table-headers">YILLIK</td></tr>
+                                <tr><td id="weektrx">-</td><td id="monthtrx">-</td><td id="yeartrx">-</td></tr>
+                                <tr><td id="weektrxD">-</td><td id="monthtrxD">-</td><td id="yeartrxD">-</td></tr>
                             </table>
                         </div>
                     </div>
