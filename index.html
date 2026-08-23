@@ -191,7 +191,7 @@
         .price-content ul {
             list-style: none;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 0.5rem;
             padding: 0.75rem;
         }
@@ -353,14 +353,13 @@
         }
 
         table td:nth-child(2) {
-            width: 60%; /* Input kolonunu genisleterek daha rahat giris alani saglar */
+            width: 60%;
         }
 
         table tr:last-child td {
             border-bottom: none;
         }
 
-        /* GENİŞLETİLMİŞ VE YENİDEN TASARLANMIŞ INPUT KUTULARI */
         .input-box {
             width: 100%;
             min-width: 110px;
@@ -561,7 +560,7 @@
             
             <!-- CRYPTO PRICE SHOWN HERE -->
             <div class="crypto-price">
-                <div class="price-title">Güncel Kripto Fiyatları</div>
+                <div class="price-title">Güncel Kripto Fiyatları (USD / TL)</div>
                 <div class="price-content">
                     <ul>
                         <li><span class="price-btc">BTC:</span> <span id="btc-price-api">Yükleniyor..</span></li>
@@ -1042,8 +1041,9 @@
           const el = document.getElementById(apiId);
           if (!el) return 0;
           const rawText = el.innerText || el.innerHTML || "";
-          const cleanText = rawText.replace(/[^0-9.-]+/g, "");
-          return Number(cleanText) || 0;
+          // Dolar değerini ayrıştırıyoruz
+          const match = rawText.match(/\$([0-9.]+)/);
+          return match ? Number(match[1]) : 0;
         };
 
         const updateElementText = (id, value, isCurrency = false, decimals = 10) => {
@@ -1126,7 +1126,8 @@
 
         const fetchData = async () => {
           const ids = COIN_CONFIG.map(c => c.id).join(',');
-          const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`;
+          // vs_currencies parametresine 'try' eklendi
+          const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd,try`;
 
           try {
             const response = await fetch(url);
@@ -1146,7 +1147,10 @@
         const getResults = (data) => {
           const prices = {};
           COIN_CONFIG.forEach(coin => {
-            prices[coin.key] = data?.[coin.id]?.usd || 0;
+            prices[coin.key] = {
+              usd: data?.[coin.id]?.usd || 0,
+              try: data?.[coin.id]?.try || 0
+            };
           });
           return prices;
         };
@@ -1155,14 +1159,16 @@
           COIN_CONFIG.forEach(coin => {
             const el = document.getElementById(`${coin.key}-price-api`);
             if (el) {
-              el.innerText = `$${prices[coin.key]}`;
+              const usdPrice = prices[coin.key].usd;
+              const tryPrice = prices[coin.key].try;
+              el.innerText = `$${usdPrice} / ₺${tryPrice.toLocaleString('tr-TR')}`;
             }
           });
         };
 
         const calculate = (prices) => {
           COIN_CONFIG.forEach(coin => {
-            const coinPrice = prices[coin.key];
+            const coinPrice = prices[coin.key].usd;
 
             PERIODS.forEach(period => {
               const inputId = `${period}${capitalize(coin.key)}`;
