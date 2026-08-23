@@ -123,9 +123,13 @@ function calculateGoalPower() {
             netpower *= 1000000000000000;
             console.log("Netpower after phs conversion: " + netpower);
             break;
-        default:
+        case 3:
             netpower *= 1000000000000000000;
             console.log("Netpower after ehs conversion: " + netpower);
+            break;
+        default:
+            netpower *= 1000000000000000000000;
+            console.log("Netpower after zhs conversion: " + netpower);
             break;
     }
     switch (document.getElementById("goal-power-selector").selectedIndex) {
@@ -144,10 +148,15 @@ function calculateGoalPower() {
             goalpower *= 1000000000000000;
             console.log("goalpwer after phs conversion: " + goalpower);
             break;
-        default:
+        case 3:
             //EH/s
             goalpower *= 1000000000000000000;
             console.log("goalpwer after ehs conversion: " + goalpower);
+            break;
+        default:
+            //ZH/s
+            goalpower *= 1000000000000000000000;
+            console.log("goalpwer after zhs conversion: " + goalpower);
             break;
     }
     console.log("Block: " + blockreward);
