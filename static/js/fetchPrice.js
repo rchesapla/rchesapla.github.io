@@ -1,6 +1,6 @@
 fetchData = function(){
 
-    fetch('https://api.coingecko.com/api/v3/simple/price?ids=matic-network%2Cbitcoin%2Cethereum%2Cdogecoin%2Cbinancecoin%2Ctether%2Czelcash%2Csolana&vs_currencies=usd', {
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=polygon-ecosystem-token%2Cbitcoin%2Cethereum%2Cdogecoin%2Cbinancecoin%2Ctether%2Czelcash%2Csolana&vs_currencies=usd', {
       method: 'GET', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
