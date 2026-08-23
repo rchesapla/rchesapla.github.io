@@ -8,29 +8,30 @@ calc = function(){
     var distBtc = document.getElementById("distBtc").value,
         distDoge = document.getElementById("distDoge").value,
         distEth = document.getElementById("distEth").value,
-		distbnb = document.getElementById("distbnb").value,
-		distmatic = document.getElementById("distmatic").value,
-		distsol = document.getElementById("distsol").value,
+        distbnb = document.getElementById("distbnb").value,
+        distmatic = document.getElementById("distmatic").value,
+        distsol = document.getElementById("distsol").value,
         distRlt = document.getElementById("distRlt").value;
 
     var netBtc = document.getElementById("netBtc").value,
         netDoge = document.getElementById("netDoge").value,
         netEth = document.getElementById("netEth").value,
-		netbnb = document.getElementById("netbnb").value,
-		netmatic = document.getElementById("netmatic").value,
-		netsol = document.getElementById("netsol").value,
+        netbnb = document.getElementById("netbnb").value,
+        netmatic = document.getElementById("netmatic").value,
+        netsol = document.getElementById("netsol").value,
         netRlt = document.getElementById("netRlt").value;
         // Calc Total Net Power
         totalNet = Number(netBtc) + Number(netDoge) + Number(netEth) + Number(netbnb) + Number(netmatic) + Number(netsol) + Number(netRlt);
     document.getElementById("totalNet").innerText = totalNet.toFixed(3);
 
-    var blockBtc = document.getElementById("blockBtc").innerText/100000000,
-        blockDoge = document.getElementById("blockDoge").innerText,
-        blockEth = document.getElementById("blockEth").innerText,
-		blockbnb = document.getElementById("blockbnb").innerText,
-		blockmatic = document.getElementById("blockmatic").innerText,
-		blocksol = document.getElementById("blocksol").innerText,
-        blockRlt = document.getElementById("blockRlt").innerText;
+    // Input değerlerini alabilmek için innerText -> value olarak değiştirildi
+    var blockBtc = document.getElementById("blockBtc").value,
+        blockDoge = document.getElementById("blockDoge").value,
+        blockEth = document.getElementById("blockEth").value,
+        blockbnb = document.getElementById("blockbnb").value,
+        blockmatic = document.getElementById("blockmatic").value,
+        blocksol = document.getElementById("blocksol").value,
+        blockRlt = document.getElementById("blockRlt").value;
     
 //BITCOIN HESAPLAMA ARACI//
     var btcPower = ((Number(totalRate)/1000) * Number(distBtc))/100
@@ -573,5 +574,4 @@ calc = function(){
         else {
             document.getElementById("yearRltD").innerText = "$" + yearRltD.toFixed(5);
         }
-    }
-    
+}
