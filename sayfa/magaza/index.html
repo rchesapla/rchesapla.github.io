@@ -527,7 +527,7 @@
                 </table>
             </div>
 
-            <div ng-if="formData.showAllMiners" class="col-md-8 table-container">
+            <div ng-if="formData.showAllMiners" class="table-container">
                 <div class="form-group col-md-4">
                     <label for="currency">Nome</label>
                     <input type="text" class="form-control" ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" ng-model="allMinerNameSearch" placeholder="Buscar miner...">
@@ -712,14 +712,11 @@
                                     <img src='https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608' width="80px" height="auto"/>
                                     <div ng-if="!miner.is_can_be_sold_on_mp"
                                         style="
-                                        height: 10px;
-                                        width: 100px;
                                         background-color: red;
                                         font-size: 0.6em;
                                         font-weight: bold;
-                                        margin-left: 8%;
                                         color: white;
-                                    ">INEGOCIAVEL</div>
+                                    ">SATILAMAZ</div>
                                 </td>
                                 <td style="text-align: center">
                                     <p ng-repeat="item in miner.craft_items">
