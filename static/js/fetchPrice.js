@@ -30,14 +30,15 @@ fetchData = function(){
   }
 
 getResults = function(fetch_data){
-    btcPrice = fetch_data.bitcoin.usd
-    dogePrice = fetch_data.dogecoin.usd
-    ethPrice = fetch_data.ethereum.usd
-	bnbPrice = fetch_data.binancecoin.usd
-	maticPrice = fetch_data.zelcash.usd
-	solPrice = fetch_data.solana.usd
-	rltPrice = fetch_data.tether.usd
-    return [btcPrice, dogePrice, ethPrice, bnbPrice, maticPrice, solPrice, rltPrice]
+    var btcPrice = fetch_data?.bitcoin?.usd || 0;
+    var dogePrice = fetch_data?.dogecoin?.usd || 0;
+    var ethPrice = fetch_data?.ethereum?.usd || 0;
+    var bnbPrice = fetch_data?.binancecoin?.usd || 0;
+    var maticPrice = fetch_data?.['polygon-ecosystem-token']?.usd || fetch_data?.['polygon-ecosystem-token']?.usd || 0;
+    var solPrice = fetch_data?.solana?.usd || 0;
+    var rltPrice = fetch_data?.tether?.usd || 0;
+
+    return [btcPrice, dogePrice, ethPrice, bnbPrice, maticPrice, solPrice, rltPrice];
 }
 
 postResults = function(prices){
