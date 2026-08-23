@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Kişisel kazım gücünü hesapla. | TurkCraft01.blogspot.com ve pb01adana.blogspot.com tarafından desteklenmektedir!">
+    <meta name="description" content="Kişisel kazım gücünü hesapla. | TurkCraft01.blogspot.com ve pb01adana.blogspot.com tarafından desteklenmektedir![cite: 1]">
     
     <title>⛏ RCHesaplaV2 - Kendi Kazım Gücünü Hesapla!</title>
 
@@ -68,6 +68,68 @@
             0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4); }
             70% { box-shadow: 0 0 0 8px rgba(6, 182, 212, 0); }
             100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+        }
+
+        /* Yükleniyor Metinleri İçin Animasyon Efekti */
+        @keyframes textPulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        .loading-pulse {
+            animation: textPulse 1.5s infinite ease-in-out;
+            color: var(--accent-color);
+            font-style: italic;
+        }
+
+        /* ==========================================
+           LOADER STYLES
+           ========================================== */
+        #page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        #page-loader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--accent-color);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        .loader-text {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .loader-text span {
+            color: var(--accent-color);
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         * {
@@ -303,7 +365,6 @@
             box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
         }
 
-        /* Açılır-Kapanır Panel Konfigürasyonu */
         .collapsible-wrapper {
             background: var(--bg-card);
             border-radius: var(--radius-md);
@@ -397,7 +458,6 @@
             flex: 1;
         }
 
-        /* EVRENSEL TABLO YAPISI */
         table {
             width: 100%;
             border-collapse: separate;
@@ -546,7 +606,6 @@
             border-top: none;
         }
 
-        /* Kripto Özel Header Vurguları */
         .btc-box .table-headers { color: var(--color-btc); }
         .doge-box .table-headers { color: var(--color-doge); }
         .eth-box .table-headers { color: var(--color-eth); }
@@ -601,12 +660,18 @@
 </head>
 <body>
 
+    <!-- PAGE LOADER -->
+    <div id="page-loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">RC<span>HesaplaV2</span> Yükleniyor...</div>
+    </div>
+
     <!-- NAVBAR -->
     <div class="navbar">
         <div class="container-nav">
             <a class="logo" href="#">RC<span>Hesapla</span>V2</a>
             <div class="nav-links">
-                <a class="link-calc" href="./nasilkullanilir">
+                <a class="link-calc" href="./sayfa/nasilkullanilir.html">
                     <img src="./img/nasilkullanilir.png" width="20" height="20" alt="Nasıl Kullanılır"/>
                 </a>
                 <a class="link-calc" href="https://bit.ly/RollerCoinTR" target="_blank">Ücretsiz kayıt ol</a>
@@ -623,17 +688,17 @@
                 <div class="price-title">Güncel Kripto Fiyatları (USD / TL)</div>
                 <div class="price-content">
                     <ul>
-                        <li><span class="price-btc">BTC:</span> <span id="btc-price-api">Yükleniyor..</span></li>
-                        <li><span class="price-doge">DOGE:</span> <span id="doge-price-api">Yükleniyor..</span></li>
-                        <li><span class="price-eth">ETH:</span> <span id="eth-price-api">Yükleniyor..</span></li>
-                        <li><span class="price-bnb">BNB:</span> <span id="bnb-price-api">Yükleniyor..</span></li>
-                        <li><span class="price-matic">MATIC:</span> <span id="matic-price-api">Yükleniyor..</span></li>
-                        <li><span class="price-sol">SOL:</span> <span id="sol-price-api">Yükleniyor..</span></li>
-                        <li><span class="price-trx">TRX:</span> <span id="trx-price-api">Yükleniyor..</span></li>
-                        <li><span class="price-xrp">XRP:</span> <span id="xrp-price-api">Yükleniyor..</span></li>
-                        <li><span class="price-rlt">LTC:</span> <span id="ltc-price-api">Yükleniyor..</span></li>
-                        <li><span class="price-rlt">USDT:</span> <span id="usdt-price-api">Yükleniyor..</span></li>
-                        <li><span class="price-rlt">RLT:</span> <span id="rlt-price-api">Yükleniyor..</span></li>
+                        <li><span class="price-btc">BTC:</span> <span id="btc-price-api" class="loading-pulse">Yükleniyor..</span></li>
+                        <li><span class="price-doge">DOGE:</span> <span id="doge-price-api" class="loading-pulse">Yükleniyor..</span></li>
+                        <li><span class="price-eth">ETH:</span> <span id="eth-price-api" class="loading-pulse">Yükleniyor..</span></li>
+                        <li><span class="price-bnb">BNB:</span> <span id="bnb-price-api" class="loading-pulse">Yükleniyor..</span></li>
+                        <li><span class="price-matic">MATIC:</span> <span id="matic-price-api" class="loading-pulse">Yükleniyor..</span></li>
+                        <li><span class="price-sol">SOL:</span> <span id="sol-price-api" class="loading-pulse">Yükleniyor..</span></li>
+                        <li><span class="price-trx">TRX:</span> <span id="trx-price-api" class="loading-pulse">Yükleniyor..</span></li>
+                        <li><span class="price-xrp">XRP:</span> <span id="xrp-price-api" class="loading-pulse">Yükleniyor..</span></li>
+                        <li><span class="price-rlt">LTC:</span> <span id="ltc-price-api" class="loading-pulse">Yükleniyor..</span></li>
+                        <li><span class="price-rlt">USDT:</span> <span id="usdt-price-api" class="loading-pulse">Yükleniyor..</span></li>
+                        <li><span class="price-rlt">RLT:</span> <span id="rlt-price-api" class="loading-pulse">Yükleniyor..</span></li>
                     </ul>
                 </div>
             </div>
@@ -1027,8 +1092,8 @@
 
             <!-- FOOTER INFO -->
             <div class="info">
-                <p><span style="color: #ff4d4d; font-family: 'Permanent Marker', cursive; font-size: 1rem;">RCHesaplaV2 - Kişisel kazım gücünüzü hesaplayın![cite: 1]</span></p>
-                <p><span style="color: #fcff01; font-family: 'Yanone Kaffeesatz', sans-serif; font-size: 1.1rem;">Hesaplama sistemi: <b>BITCOIN</b>, <b>DOGECOIN</b>, <b>ETHEREUM</b>, <b>BINANCECOIN</b>, <b>POLYGON</b>, <b>SOLANA</b> ve <b>ROLLERTOKEN</b>![cite: 1]</span></p>
+                <p><span style="color: #ff4d4d; font-family: 'Permanent Marker', cursive; font-size: 1rem;">RCHesaplaV2 - Kişisel kazım gücünüzü hesaplayın!</span></p>
+                <p><span style="color: #fcff01; font-family: 'Yanone Kaffeesatz', sans-serif; font-size: 1.1rem;">Hesaplama sistemi: <b>BITCOIN</b>, <b>DOGECOIN</b>, <b>ETHEREUM</b>, <b>BINANCECOIN</b>, <b>POLYGON</b>, <b>SOLANA</b> ve <b>ROLLERTOKEN</b>!</span></p>
             </div>
         </div>
     </section>
@@ -1128,7 +1193,6 @@
           const unitSelect = document.getElementById("minerUnit");
           const selectedUnit = unitSelect ? unitSelect.value : "TH";
 
-          // Miner gücünü TH/s birimine dönüştür
           let minerRateTH = 0;
           switch(selectedUnit) {
               case 'GH': minerRateTH = rawMinerRate / 1000; break;
@@ -1204,7 +1268,19 @@
             calc();
           } catch (err) {
             console.error('Fetch Hatası:', err);
+          } finally {
+            hideLoader();
           }
+        };
+
+        const hideLoader = () => {
+            const loader = document.getElementById('page-loader');
+            if (loader && !loader.classList.contains('fade-out')) {
+                loader.classList.add('fade-out');
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 400);
+            }
         };
 
         const getResults = (data) => {
@@ -1222,6 +1298,8 @@
           COIN_CONFIG.forEach(coin => {
             const el = document.getElementById(`${coin.key}-price-api`);
             if (el) {
+              // Veri geldiğinde animasyon sınıfını kaldırıyoruz
+              el.classList.remove('loading-pulse');
               const usdPrice = prices[coin.key].usd;
               const tryPrice = prices[coin.key].try;
               el.innerText = `$${usdPrice} / ₺${tryPrice.toLocaleString('tr-TR')}`;
@@ -1320,7 +1398,6 @@
             }
         }
 
-        // Başlangıç tetiklemeleri ve Periyodik Yenileme
         window.addEventListener('DOMContentLoaded', () => {
             fetchData();
             calc();
