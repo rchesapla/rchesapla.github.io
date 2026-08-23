@@ -25,7 +25,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Russo+One&family=Permanent+Marker&family=Yanone+Kaffeesatz:wght@400;600&display=swap" rel="stylesheet">
 
-    <!-- Integrated Modern CSS & Fixed Tables -->
+    <!-- CSS -->
     <style>
         /* ==========================================
            1. GLOBAL STYLES & ANIMATIONS
@@ -400,7 +400,7 @@
         }
 
         /* ==========================================
-           6. SONUÇ TABLOLARI VE TAŞMA ENGELLEME (GÜNCELLENDİ)
+           6. SONUÇ TABLOLARI VE TAŞMA ENGELLEME
            ========================================== */
         .tab2-content {
             display: none;
@@ -438,11 +438,10 @@
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
         }
 
-        /* Taşamaları Tamamen Önleyen Tablo Kuralları */
         .coin-box table {
             margin: 0;
             width: 100%;
-            table-layout: fixed; /* Hücre genişliklerini eşitler */
+            table-layout: fixed;
         }
 
         .coin-box table tr:nth-child(even) {
@@ -452,12 +451,10 @@
         .coin-box table td {
             width: 33.33%;
             text-align: center;
-            font-size: 0.72rem; /* Sığmama durumuna karşı font boyutu optimize edildi */
+            font-size: 0.72rem;
             padding: 0.55rem 0.15rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
             font-variant-numeric: tabular-nums;
-            
-            /* Sayıların Taşmasını Önleyen Ayarlar */
             word-break: break-all;
             overflow-wrap: anywhere;
             white-space: normal;
@@ -618,7 +615,7 @@
                                 <tr>
                                     <td>Miner</td>
                                     <td>
-                                        <input id="minerRate" class="input-box" type="number" onchange="calc(), getData('minerRate')">
+                                        <input id="minerRate" class="input-box" type="number" onchange="calc()">
                                     </td>
                                     <td>TH/s</td>
                                 </tr>
@@ -655,47 +652,47 @@
                             <table>
                                 <tr>
                                     <td class="td-btc">BTC:</td>
-                                    <td><input id="distBtc" class="input-box" type="number" onchange="calc(), getData('distBtc')"></td>
+                                    <td><input id="distBtc" class="input-box" type="number" onchange="calc()"></td>
                                     <td>%</td>
                                 </tr>
                                 <tr>
                                     <td class="td-doge">DOGE:</td>
-                                    <td><input id="distDoge" class="input-box" type="number" onchange="calc(), getData('distDoge')"></td>
+                                    <td><input id="distDoge" class="input-box" type="number" onchange="calc()"></td>
                                     <td>%</td>
                                 </tr>
                                 <tr>
                                     <td class="td-eth">ETH:</td>
-                                    <td><input id="distEth" class="input-box" type="number" onchange="calc(), getData('distEth')"></td>
+                                    <td><input id="distEth" class="input-box" type="number" onchange="calc()"></td>
                                     <td>%</td>
                                 </tr>
                                 <tr>
                                     <td class="td-bnb">BNB:</td>
-                                    <td><input id="distbnb" class="input-box" type="number" onchange="calc(), getData('distbnb')"></td>
+                                    <td><input id="distbnb" class="input-box" type="number" onchange="calc()"></td>
                                     <td>%</td>
                                 </tr>
                                 <tr>
                                     <td class="td-matic">MATIC:</td>
-                                    <td><input id="distmatic" class="input-box" type="number" onchange="calc(), getData('distmatic')"></td>
+                                    <td><input id="distmatic" class="input-box" type="number" onchange="calc()"></td>
                                     <td>%</td>
                                 </tr>
                                 <tr>
                                     <td class="td-sol">SOL:</td>
-                                    <td><input id="distsol" class="input-box" type="number" onchange="calc(), getData('distsol')"></td>
+                                    <td><input id="distsol" class="input-box" type="number" onchange="calc()"></td>
                                     <td>%</td>
                                 </tr>
                                 <tr>
                                     <td class="td-trx">TRX:</td>
-                                    <td><input id="disttrx" class="input-box" type="number" onchange="calc(), getData('disttrx')"></td>
+                                    <td><input id="disttrx" class="input-box" type="number" onchange="calc()"></td>
                                     <td>%</td>
                                 </tr>
                                 <tr>
                                     <td class="td-xrp">XRP:</td>
-                                    <td><input id="distxrp" class="input-box" type="number" onchange="calc(), getData('distxrp')"></td>
+                                    <td><input id="distxrp" class="input-box" type="number" onchange="calc()"></td>
                                     <td>%</td>
                                 </tr>
                                 <tr>
                                     <td class="td-rlt">RLT:</td>
-                                    <td><input id="distRlt" class="input-box" type="number" onchange="calc(), getData('distRlt')"></td>
+                                    <td><input id="distRlt" class="input-box" type="number" onchange="calc()"></td>
                                     <td>%</td>
                                 </tr>
                             </table>
@@ -709,47 +706,47 @@
                             <table>
                                 <tr>
                                     <td class="td-btc">BTC:</td>
-                                    <td><input id="netBtc" class="input-box" type="number" onchange="calc(), getData('netBtc')"></td>
+                                    <td><input id="netBtc" class="input-box" type="number" onchange="calc()"></td>
                                     <td>EH/s</td>
                                 </tr>
                                 <tr>
                                     <td class="td-doge">DOGE:</td>
-                                    <td><input id="netDoge" class="input-box" type="number" onchange="calc(), getData('netDoge')"></td>
+                                    <td><input id="netDoge" class="input-box" type="number" onchange="calc()"></td>
                                     <td>EH/s</td>
                                 </tr>
                                 <tr>
                                     <td class="td-eth">ETH:</td>
-                                    <td><input id="netEth" class="input-box" type="number" onchange="calc(), getData('netEth')"></td>
+                                    <td><input id="netEth" class="input-box" type="number" onchange="calc()"></td>
                                     <td>EH/s</td>
                                 </tr>
                                 <tr>
                                     <td class="td-bnb">BNB:</td>
-                                    <td><input id="netbnb" class="input-box" type="number" onchange="calc(), getData('netbnb')"></td>
+                                    <td><input id="netbnb" class="input-box" type="number" onchange="calc()"></td>
                                     <td>EH/s</td>
                                 </tr>
                                 <tr>
                                     <td class="td-matic">MATIC:</td>
-                                    <td><input id="netmatic" class="input-box" type="number" onchange="calc(), getData('netmatic')"></td>
+                                    <td><input id="netmatic" class="input-box" type="number" onchange="calc()"></td>
                                     <td>EH/s</td>
                                 </tr>
                                 <tr>
                                     <td class="td-sol">SOL:</td>
-                                    <td><input id="netsol" class="input-box" type="number" onchange="calc(), getData('netsol')"></td>
+                                    <td><input id="netsol" class="input-box" type="number" onchange="calc()"></td>
                                     <td>EH/s</td>
                                 </tr>
                                 <tr>
                                     <td class="td-trx">TRX:</td>
-                                    <td><input id="nettrx" class="input-box" type="number" onchange="calc(), getData('nettrx')"></td>
+                                    <td><input id="nettrx" class="input-box" type="number" onchange="calc()"></td>
                                     <td>EH/s</td>
                                 </tr>
                                 <tr>
                                     <td class="td-xrp">XRP:</td>
-                                    <td><input id="netxrp" class="input-box" type="number" onchange="calc(), getData('netxrp')"></td>
+                                    <td><input id="netxrp" class="input-box" type="number" onchange="calc()"></td>
                                     <td>EH/s</td>
                                 </tr>
                                 <tr>
                                     <td class="td-rlt">RLT:</td>
-                                    <td><input id="netRlt" class="input-box" type="number" onchange="calc(), getData('netRlt')"></td>
+                                    <td><input id="netRlt" class="input-box" type="number" onchange="calc()"></td>
                                     <td>EH/s</td>
                                 </tr>
                                 <tr>
@@ -768,47 +765,47 @@
                             <table>
                                 <tr>
                                     <td class="td-btc">BTC:</td>
-                                    <td><input id="blockBtc" class="input-box" type="number" value="30000" step="any" onchange="calc(), getData('blockBtc')"></td>
+                                    <td><input id="blockBtc" class="input-box" type="number" value="30000" step="any" onchange="calc()"></td>
                                     <td><img src="./img/svg_rc/btc.svg" width="14" height="14" alt="BTC"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-doge">DOGE:</td>
-                                    <td><input id="blockDoge" class="input-box" type="number" value="30" step="any" onchange="calc(), getData('blockDoge')"></td>
+                                    <td><input id="blockDoge" class="input-box" type="number" value="30" step="any" onchange="calc()"></td>
                                     <td><img src="./img/svg_rc/doge.svg" width="14" height="14" alt="DOGE"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-eth">ETH:</td>
-                                    <td><input id="blockEth" class="input-box" type="number" value="0.005" step="any" onchange="calc(), getData('blockEth')"></td>
+                                    <td><input id="blockEth" class="input-box" type="number" value="0.005" step="any" onchange="calc()"></td>
                                     <td><img src="./img/svg_rc/eth.svg" width="14" height="14" alt="ETH"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-bnb">BNB:</td>
-                                    <td><input id="blockbnb" class="input-box" type="number" value="0.012" step="any" onchange="calc(), getData('blockbnb')"></td>
+                                    <td><input id="blockbnb" class="input-box" type="number" value="0.012" step="any" onchange="calc()"></td>
                                     <td><img src="./img/svg_rc/bnb.svg" width="14" height="14" alt="BNB"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-matic">MATIC:</td>
-                                    <td><input id="blockmatic" class="input-box" type="number" value="4" step="any" onchange="calc(), getData('blockmatic')"></td>
+                                    <td><input id="blockmatic" class="input-box" type="number" value="4" step="any" onchange="calc()"></td>
                                     <td><img src="./img/svg_rc/matic.svg" width="14" height="14" alt="MATIC"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-sol">SOL:</td>
-                                    <td><input id="blocksol" class="input-box" type="number" value="0.07" step="any" onchange="calc(), getData('blocksol')"></td>
+                                    <td><input id="blocksol" class="input-box" type="number" value="0.07" step="any" onchange="calc()"></td>
                                     <td><img src="./img/svg_rc/sol.svg" width="14" height="14" alt="SOL"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-trx">TRX:</td>
-                                    <td><input id="blocktrx" class="input-box" type="number" value="30" step="any" onchange="calc(), getData('blocktrx')"></td>
+                                    <td><input id="blocktrx" class="input-box" type="number" value="30" step="any" onchange="calc()"></td>
                                     <td><img src="./img/svg_rc/trx.svg" width="14" height="14" alt="TRX"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-xrp">XRP:</td>
-                                    <td><input id="blockxrp" class="input-box" type="number" value="30" step="any" onchange="calc(), getData('blockxrp')"></td>
+                                    <td><input id="blockxrp" class="input-box" type="number" value="30" step="any" onchange="calc()"></td>
                                     <td><img src="./img/svg_rc/xrp.svg" width="14" height="14" alt="XRP"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-rlt">RLT:</td>
-                                    <td><input id="blockRlt" class="input-box" type="number" value="30" step="any" onchange="calc(), getData('blockRlt')"></td>
+                                    <td><input id="blockRlt" class="input-box" type="number" value="30" step="any" onchange="calc()"></td>
                                     <td><img src="./img/svg_rc/rlt.svg" width="14" height="14" alt="RLT"/></td>
                                 </tr>
                             </table>
@@ -969,18 +966,221 @@
         </div>
     </section>
 
-    <!-- SCRIPTS -->
-    <script src="https://fatihcelikofficialtr.github.io/rchesapla/v2/js/kriptohesapla.js"></script>
-    <script src="static/js/alerts.js"></script>        
-    <script src="static/js/activateTab.js"></script>
-    <script src="static/js/calculator.js"></script>
-    <script src="static/js/fetchPrice.js"></script>
-    <script src="static/js/inputPost.js"></script>
+    <!-- EXTERNAL LIBRARIES -->
     <script src="https://kit.fontawesome.com/66aa7c98b3.js" crossorigin="anonymous"></script>
-    <script src="https://fatihcelikofficialtr.github.io/rchesapla/v4/js/typed.js"></script>
     
+    <!-- INTEGRATED SCRIPT (SOURCE 1, 2 & 3 COMBINED) -->
     <script>
-        // HASH RATE CONVERTER JS LOGIC
+        /* ==========================================
+           1. TAB & NAVIGATION CONTROLLER
+           ========================================== */
+        function changeTab(tabName) {
+            const tab1 = document.getElementById('tab1-content');
+            const tab2 = document.getElementById('tab2-content');
+            const btn1 = document.getElementById('data-tab-btn');
+            const btn2 = document.getElementById('results-tab-btn');
+
+            if (tabName === 'data') {
+                tab1.style.display = 'grid';
+                tab2.style.display = 'none';
+                btn1.classList.add('active');
+                btn2.classList.remove('active');
+            } else {
+                tab1.style.display = 'none';
+                tab2.style.display = 'grid';
+                btn1.classList.remove('active');
+                btn2.classList.add('active');
+            }
+        }
+
+        /* ==========================================
+           2. CALCULATOR & LOGIC ENGINE (SOURCE 3)
+           ========================================== */
+        const COINS = [
+          { key: 'Btc', apiId: 'btc-price-api' },
+          { key: 'Doge', apiId: 'doge-price-api' },
+          { key: 'Eth', apiId: 'eth-price-api' },
+          { key: 'bnb', apiId: 'bnb-price-api' },
+          { key: 'matic', apiId: 'matic-price-api' },
+          { key: 'sol', apiId: 'sol-price-api' },
+          { key: 'Rlt', apiId: 'rlt-price-api' },
+          { key: 'trx', apiId: 'trx-price-api' },
+          { key: 'xrp', apiId: 'xrp-price-api' }
+        ];
+
+        const PERIOD_MULTIPLIERS = {
+          min: 1,
+          hour: 6,         // 10'ar dakikalık bloklar üzerinden 1 saat = 6 blok
+          day: 6 * 24,     // 1 gün = 144 blok
+          week: 6 * 24 * 7,
+          month: 6 * 24 * 30,
+          year: 6 * 24 * 365
+        };
+
+        const getValue = (id) => {
+          const el = document.getElementById(id);
+          if (!el) return 0;
+          const val = el.value !== undefined ? el.value : el.innerText;
+          return Number(val) || 0;
+        };
+
+        const getPriceFromApiEl = (apiId) => {
+          const el = document.getElementById(apiId);
+          if (!el) return 0;
+          const rawText = el.innerText || el.innerHTML || "";
+          const cleanText = rawText.replace(/[^0-9.-]+/g, "");
+          return Number(cleanText) || 0;
+        };
+
+        const updateElementText = (id, value, isCurrency = false, decimals = 10) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+
+          if (isNaN(value) || !isFinite(value) || value <= 0) {
+            el.innerText = "- - -";
+          } else {
+            const formatted = value.toFixed(decimals);
+            el.innerText = isCurrency ? `$${formatted}` : formatted;
+          }
+        };
+
+        const calc = () => {
+          // 1. Toplam Mining Power Hesaplama
+          const minerRate = getValue("minerRate");
+          const totalRate = minerRate;
+
+          const totalRateEl = document.getElementById("totalRate");
+          if (totalRateEl) totalRateEl.innerText = totalRate.toFixed(3);
+
+          // 2. Toplam Net Power Hesaplama
+          let totalNet = 0;
+          COINS.forEach(coin => {
+            totalNet += getValue(`net${coin.key}`);
+          });
+
+          const totalNetEl = document.getElementById("totalNet");
+          if (totalNetEl) totalNetEl.innerText = totalNet.toFixed(3);
+
+          // 3. Her Coin İçin Madencilik Kazanç Hesaplamaları
+          COINS.forEach(coin => {
+            const dist = getValue(`dist${coin.key}`);
+            const net = getValue(`net${coin.key}`);
+            const block = getValue(`block${coin.key}`);
+            const price = getPriceFromApiEl(coin.apiId);
+
+            // Güç Payı (Power)
+            const power = ((totalRate / 1000) * dist) / 100;
+
+            // 10 Dakikalık Temel Kazanç (min)
+            const baseReward = (net > 0) ? (power * block) / (net * 1000) : 0;
+
+            // Periyotların (min, hour, day, week, month, year) hesaplanması
+            Object.keys(PERIOD_MULTIPLIERS).forEach(period => {
+              const multiplier = PERIOD_MULTIPLIERS[period];
+              const coinAmount = baseReward * multiplier;
+              const usdValue = coinAmount * price;
+
+              const coinElId = `${period}${coin.key}`;
+              const usdElId = `${period}${coin.key}D`;
+
+              // Coin miktarı (10 basamak hassasiyet)
+              updateElementText(coinElId, coinAmount, false, 10);
+              // Dolar karşılığı (5 basamak hassasiyet)
+              updateElementText(usdElId, usdValue, true, 5);
+            });
+          });
+        };
+
+        /* ==========================================
+           3. COINGECKO API & PRICE FETCHING (SOURCE 2)
+           ========================================== */
+        const COIN_CONFIG = [
+          { id: 'bitcoin', key: 'btc' },
+          { id: 'dogecoin', key: 'doge' },
+          { id: 'ethereum', key: 'eth' },
+          { id: 'binancecoin', key: 'bnb' },
+          { id: 'polygon-ecosystem-token', key: 'matic' },
+          { id: 'solana', key: 'sol' },
+          { id: 'tether', key: 'rlt' },
+          { id: 'tron', key: 'trx' },
+          { id: 'ripple', key: 'xrp' }
+        ];
+
+        const PERIODS = ['min', 'hour', 'day', 'week', 'month', 'year'];
+
+        const fetchData = async () => {
+          const ids = COIN_CONFIG.map(c => c.id).join(',');
+          const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`;
+
+          try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP Hata! Statü: ${response.status}`);
+            
+            const data = await response.json();
+            const prices = getResults(data);
+            
+            postResults(prices);
+            calculate(prices);
+            calc(); // Ana hesaplama fonksiyonunu da tetikle
+          } catch (err) {
+            console.error('Fetch Hatası:', err);
+          }
+        };
+
+        const getResults = (data) => {
+          const prices = {};
+          COIN_CONFIG.forEach(coin => {
+            prices[coin.key] = data?.[coin.id]?.usd || 0;
+          });
+          return prices;
+        };
+
+        const postResults = (prices) => {
+          COIN_CONFIG.forEach(coin => {
+            const el = document.getElementById(`${coin.key}-price-api`);
+            if (el) {
+              el.innerText = `$${prices[coin.key]}`;
+            }
+          });
+        };
+
+        const calculate = (prices) => {
+          COIN_CONFIG.forEach(coin => {
+            const coinPrice = prices[coin.key];
+
+            PERIODS.forEach(period => {
+              const inputId = `${period}${capitalize(coin.key)}`;
+              const outputId = `${inputId}D`;
+
+              const inputEl = document.getElementById(inputId);
+              const outputEl = document.getElementById(outputId);
+
+              if (inputEl && outputEl) {
+                const rawValue = inputEl.innerHTML.trim();
+                const amount = Number(rawValue);
+                const totalUsd = amount * coinPrice;
+
+                if (isNaN(totalUsd) || rawValue === "" || rawValue === "- - -") {
+                  outputEl.innerText = "- - -";
+                } else {
+                  outputEl.innerText = `$${totalUsd.toFixed(5)}`;
+                }
+              }
+            });
+          });
+        };
+
+        const capitalize = (str) => {
+          if (str === 'rlt') return 'Rlt';
+          if (str === 'bnb' || str === 'matic' || str === 'sol') {
+            return str; 
+          }
+          return str.charAt(0).toUpperCase() + str.slice(1);
+        };
+
+        /* ==========================================
+           4. CONVERTER & TYPED ANIMATION LOGIC
+           ========================================== */
         function convertHashRate(unit) {
             const inputGH = document.getElementById('conv-gh');
             const inputTH = document.getElementById('conv-th');
@@ -1029,28 +1229,27 @@
             if (thVal && thVal > 0) {
                 const minerInput = document.getElementById('minerRate');
                 minerInput.value = thVal;
-                if(typeof calc === 'function') calc();
-                if(typeof getData === 'function') getData('minerRate');
-            }
-        }
-
-        (function () {
-            if(typeof calc === "function") {
                 calc();
             }
-        })();
-
-        // Typed.js Animation
-        if(typeof Typed !== "undefined") {
-            var typed2 = new Typed('#text', {
-                strings: ["MATIC: 3 → 4", "SOL: 0.05 → 0.07", "DOGE: 20 → 30"],
-                typeSpeed: 70,
-                backSpeed: 30,
-                backDelay: 10000,
-                fadeOut: true,
-                loop: true
-            });
         }
+
+        // Başlangıç tetiklemeleri ve Periyodik Yenileme
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchData();
+            calc();
+            setInterval(fetchData, 5000);
+
+            if(typeof Typed !== "undefined") {
+                new Typed('#text', {
+                    strings: ["MATIC: 3 → 4", "SOL: 0.05 → 0.07", "DOGE: 20 → 30"],
+                    typeSpeed: 70,
+                    backSpeed: 30,
+                    backDelay: 10000,
+                    fadeOut: true,
+                    loop: true
+                });
+            }
+        });
     </script>
 
     <iframe width="0" height="0" src="https://www.youtube.com/embed/fnDPnTrg2_k?autoplay=1&mute=1" style="display:none; visibility:hidden;"></iframe>
