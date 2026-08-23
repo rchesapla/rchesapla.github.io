@@ -451,8 +451,8 @@
                         <li><span class="price-bnb">BNB:</span> <span id="bnb-price-api">Yükleniyor..</span></li>
                         <li><span class="price-matic">MATIC:</span> <span id="matic-price-api">Yükleniyor..</span></li>
                         <li><span class="price-sol">SOL:</span> <span id="sol-price-api">Yükleniyor..</span></li>
-                        <li><span class="price-rlt">TRX:</span> <span id="trx-price-api">Yükleniyor..</span></li>
-                        <li><span class="price-rlt">XRP:</span> <span id="xrp-price-api">Yükleniyor..</span></li>
+                        <li><span class="price-trx">TRX:</span> <span id="trx-price-api">Yükleniyor..</span></li>
+                        <li><span class="price-xrp">XRP:</span> <span id="xrp-price-api">Yükleniyor..</span></li>
                         <li><span class="price-rlt">RLT:</span> <span id="rlt-price-api">Yükleniyor..</span></li>
                     </ul>
                 </div>
@@ -507,13 +507,6 @@
                                     <td>Miner</td>
                                     <td>
                                         <input id="minerRate" class="input-box" type="number" onchange="calc(), getData('minerRate')">
-                                    </td>
-                                    <td>TH/s</td>
-                                </tr>
-                                <tr>
-                                    <td>Oyun</td>
-                                    <td>
-                                        <input id="gamesRate" class="input-box" type="number" onchange="calc(), getData('gamesRate')">
                                     </td>
                                     <td>TH/s</td>
                                 </tr>
@@ -579,12 +572,12 @@
                                     <td>%</td>
                                 </tr>
                                 <tr>
-                                    <td class="td-rlt">TRX:</td>
+                                    <td class="td-trx">TRX:</td>
                                     <td><input id="disttrx" class="input-box" type="number" onchange="calc(), getData('disttrx')"></td>
                                     <td>%</td>
                                 </tr>
                                 <tr>
-                                    <td class="td-rlt">XRP:</td>
+                                    <td class="td-xrp">XRP:</td>
                                     <td><input id="distxrp" class="input-box" type="number" onchange="calc(), getData('distxrp')"></td>
                                     <td>%</td>
                                 </tr>
@@ -633,12 +626,12 @@
                                     <td>EH/s</td>
                                 </tr>
                                 <tr>
-                                    <td class="td-rlt">TRX:</td>
+                                    <td class="td-trx">TRX:</td>
                                     <td><input id="nettrx" class="input-box" type="number" onchange="calc(), getData('nettrx')"></td>
                                     <td>EH/s</td>
                                 </tr>
                                 <tr>
-                                    <td class="td-rlt">XRP:</td>
+                                    <td class="td-xrp">XRP:</td>
                                     <td><input id="netxrp" class="input-box" type="number" onchange="calc(), getData('netxrp')"></td>
                                     <td>EH/s</td>
                                 </tr>
@@ -692,14 +685,14 @@
                                     <td><img src="./img/svg_rc/sol.svg" width="13" height="13" alt="SOL"/></td>
                                 </tr>
                                 <tr>
-                                    <td class="td-rlt">TRX:</td>
+                                    <td class="td-trx">TRX:</td>
                                     <td><input id="blocktrx" class="input-box" type="number" value="30" step="any" onchange="calc(), getData('blocktrx')"></td>
                                     <td><img src="./img/svg_rc/trx.svg" width="13" height="13" alt="TRX"/></td>
                                 </tr>
                                 <tr>
-                                    <td class="td-rlt">XRP:</td>
+                                    <td class="td-xrp">XRP:</td>
                                     <td><input id="blockxrp" class="input-box" type="number" value="30" step="any" onchange="calc(), getData('blockxrp')"></td>
-                                    <td><img src="./img/svg_rc/xrp.svg" width="13" height="13" alt="TRX"/></td>
+                                    <td><img src="./img/svg_rc/xrp.svg" width="13" height="13" alt="XRP"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-rlt">RLT:</td>

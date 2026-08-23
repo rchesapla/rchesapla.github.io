@@ -52,8 +52,7 @@ const updateElementText = (id, value, isCurrency = false, decimals = 10) => {
 const calc = () => {
   // 1. Toplam Mining Power Hesaplama
   const minerRate = getValue("minerRate");
-  const gamesRate = getValue("gamesRate");
-  const totalRate = minerRate + gamesRate;
+  const totalRate = minerRate;
 
   const totalRateEl = document.getElementById("totalRate");
   if (totalRateEl) totalRateEl.innerText = totalRate.toFixed(3);
