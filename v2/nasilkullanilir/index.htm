@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="Kişisel kazım gücünü hesapla. | TurkCraft01.blogspot.com ve pb01adana.blogspot.com tarafından desteklenmektedir!">
+		<link rel="icon" href="https://rollercoin.com/static/fav/rollercoin_favicon_48x48.png" sizes="48x48" />
+		<link rel="icon" href="https://rollercoin.com/static/fav/rollercoin_favicon_96x96.png" sizes="96x96" />
+		<link rel="icon" href="https://rollercoin.com/static/fav/rollercoin_favicon_144x144.png" sizes="144x144" />
+		<link rel="mask-icon" href="https://rollercoin.com//static/fav/rollercoin_favicon_144x144.svg" color="#ffffff" />
+		<link rel="stylesheet" href="../static/css/base.css">
+		<link rel="stylesheet" href="../static/css/home.css">
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+		<title>RCHesaplaV2 - Nasıl Kullanılır?</title>
+	</head>
+	<body>
+		<div class="navbar">
+			<div class="container-nav">
+				<a class="logo">RC<span>Hesapla</span>V2</a>
+				<a class="link-calc" href="../">Ana Sayfa</a>
+				<a class="link-calc" href="https://bit.ly/RollerCoinTR">Ücretsiz kayıt ol</a>
+			</div>
+		</div>
+<section class="hero">
+<div class="container">
+	<div class="crypto-price">
+		<div class="price-title">NASIL KULLANILIR?</div>
+		<div class="price-content">
+<div class="row">
+  <center> <br></br><img src="https://raw.githubusercontent.com/FatihCelikOfficialTR/rchesapla/main/v2/nasilkullanilir/img/v2nas%C4%B1lkullan%C4%B1l%C4%B1r.png" width="auto" height="auto"/>
+  <div class="column">
+    <table>
+	  <p><b>Miner</b> alanına hesabınızdaki toplam miner gücünü girmelisin.<br>
+	  <b>Oyun</b> alanına ise oynadığın oyun gücünü girmelisin.<br><br></p>
+    </table>
+	<div id="player"></div>
+  </div>
+<hr class="new1"/>
+<p>1 Ph/s = 1,000 Th/s = 1,000,000 Gh/s</p>
+  <p>Kazım gücünüzü doğru yazdığınız halde sistemimiz net şekilde kazançınızı göstermektedir. Unutmayın hesaplama sistemi gerçek kur oranına göre yapılmaktadır!</p></center>
+</div>
+		</div>
+	</div>
+	<div class="info">
+		<p>
+		<span style="color: red; font-family: Permanent Marker;">RCHesaplaV2 - Kisisel kazım gücünüzü hesaplayın!</span>
+		</p>
+<p>
+<span style="color: #fcff01; font-family: Yanone Kaffeesatz;">Hesaplama sistemi: <b>BITCOIN</b>, <b>DOGECOIN</b>, <b>ETHEREUM</b>, <b>BINANCECOIN</b>, <b>POLYGON</b>, <b>SOLANA</b> ve <b>ROLLERTOKEN</b>!</span>
+		</p>
+	</div>
+</div>
+</section>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+</style>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@200&display=swap');
+</style>
+
+<script>
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: 'fnDPnTrg2_k',
+          playerVars: {
+            'playsinline': 1
+          },
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        event.target.playVideo();
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          setTimeout(stopVideo, 6000);
+          done = true;
+        }
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
+    </script>
+</body>
+</html>

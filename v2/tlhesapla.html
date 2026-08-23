@@ -1,0 +1,677 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="Kişisel kazım gücünü hesapla. | TurkCraft01.blogspot.com ve pb01adana.blogspot.com tarafından desteklenmektedir!">
+		<link rel="icon" href="https://rollercoin.com/static/fav/rollercoin_favicon_48x48.png" sizes="48x48" />
+		<link rel="icon" href="https://rollercoin.com/static/fav/rollercoin_favicon_96x96.png" sizes="96x96" />
+		<link rel="icon" href="https://rollercoin.com/static/fav/rollercoin_favicon_144x144.png" sizes="144x144" />
+		<link rel="mask-icon" href="https://rollercoin.com//static/fav/rollercoin_favicon_144x144.svg" color="#ffffff" />
+		<link rel="stylesheet" href="static/css/base.css">
+		<link rel="stylesheet" href="static/css/home.css">
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+		<title>⛏ RCHesaplaV2 - Kendi Kazım Gücünü Hesapla!</title>
+<!--===============================================================================================-->
+    <meta property="og:title" content="RCHesapla - Kişisel Kazım Gücünü Hesapla!">
+    <meta property="og:description" content="🧮 ► Kişisel kazım gücünü hesapla! | Anlık, günlük, haftalık, aylık aynı zamanda yıllık olarak hesaplama yapabilirsin. | Ayrıca https://bit.ly/RollerCoinTR referans linkiyle kayıt olursan 0,00001 BTC ile başlarsın!">
+    <meta property="og:image" content="https://raw.githubusercontent.com/FatihCelikOfficialTR/rchesapla/main/nasilkullanilir/rchesapla.png">
+    <meta property="og:url" content="https://fatihcelikofficialtr.github.io/rchesapla/">
+<!--===============================================================================================-->
+	</head>
+	<body>
+		<div class="navbar">
+			<div class="container-nav">
+				<a class="logo">RC<span>Hesapla</span>V2</a>
+				<a class="link-calc" href="./nasilkullanilir"><img src="../img/nasilkullanilir.png" width="25" height="25"/></a>
+				<a class="link-calc" href="../"><img src="../img/rchesaplav1.png" width="25" height="25"/></a>
+				<a class="link-calc" href="../v3"><img src="../img/rchesaplav3.png" width="25" height="25"/></a>
+				<a class="link-calc" href="../v4"><img src="../img/rchesaplav4.png" width="25" height="25"/></a>
+				<a class="link-calc" href="./">Dolar Hesapla</a>
+				<a class="link-calc" href="https://bit.ly/RollerCoinTR">Ücretsiz kayıt ol</a>
+			</div>
+		</div>
+<section class="hero">
+<div class="container">
+	<div class="crypto-price">
+		<div class="price-title">Güncel Kripto</div>
+		<div class="price-content">
+			<ul>
+				<li class="price-btc">BTC:</li>
+				<li id="btc-price-api" class="price-btc-price">Yükleniyor..</li>
+				<li class="price-doge">DOGE:</li>
+				<li id="doge-price-api" class="price-doge-price">Yükleniyor..</li>
+				<li class="price-eth">ETH:</li>
+				<li id="eth-price-api" class="price-eth-price">Yükleniyor..</li>
+				<li class="price-bnb">BNB:</li>
+				<li id="bnb-price-api" class="price-bnb-price">Yükleniyor..</li>
+				<li class="price-matic">MATIC:</li>
+				<li id="matic-price-api" class="price-matic-price">Yükleniyor..</li>
+				<li class="price-sol">SOL:</li>
+				<li id="sol-price-api" class="price-sol-price">Yükleniyor..</li>
+			</ul>
+		</div>
+	<div class="price-content">
+			<ul>
+				<li class="tablorenk">
+					<table>
+						<tr>
+							<td class="td-btc">Miktar:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input type="number" class="input-box" id="btc-value" oninput="calculated$()">
+								</form>
+							</td>
+						</tr>
+					</table>
+				</li>
+				<li class="tablorenk">
+					<table>
+						<tr>
+							<td class="td-btc">Tutar:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input class="input-box" type="number" class="form-control" disabled id="coin-resultado">
+									
+								</form>
+							</td>
+						</tr>
+					</table>
+				</li>
+				<li class="tablorenk">
+				<table>
+						<tr>
+							<td class="td-btc">Kripto:</td>
+							<td>
+<div class="col-5 col-sm-5 col-md-3">
+                                            <select  id="crypto-type"
+                                                onchange="calculated$()">
+                                                <option value="btc">BTC</option>
+                                                <option value="eth">ETH</option>
+                                                <option value="bnb">BNB </option>
+                                                <option value="doge">DOGE</option>
+                                                <option value="matic">MATIC</option>
+												<option value="sol">SOL</option>
+                                            </select>
+                                        </div>
+							</td>
+						</tr>
+				</table>
+				</li>
+				<li class="tablorenk">				<table>
+						<tr>
+							<td class="td-doge">Biçim:</td>
+							<td>
+<select class="form-select fs-6" name="coin-type" id="coin-type"
+                                                onchange="calculated$()">
+                                                <option id="euro" value="dolar">USD</option>
+                                                <option id="dollar" value="euro">TRY</option>
+                                            </select>
+							</td>
+						</tr>
+				</table></li>
+			</ul>
+		</div>
+	</div>
+	<div class="tabs-layout">
+		<div class="tabs-header">
+			<button onclick="changeTab('data')" id="data-tab-btn" class="data-tab-btn">
+				Kazım Bilgileri
+			</button>
+			<button onclick="changeTab('results')" id="results-tab-btn" class="results-tab-btn">
+				Sonuçlar
+			</button>
+		</div>
+		<div id="tab1-content" class="tab1-content">
+			<div class="box">
+				<div class="box-title">Kazım Gücü</div>
+				<div class="box-content">
+					<table>
+						<tr>
+							<td>Miner</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="minerRate" class="input-box" type="number" onchange="calc(), getData('minerRate')">
+									
+								</form>
+							</td>
+							<td>TH/s</td>
+						</tr>
+						<tr>
+							<td>Oyun</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="gamesRate" class="input-box" type="number" onchange="calc(), getData('gamesRate')">
+									
+								</form>
+							</td>
+							<td>TH/s</td>
+						</tr>
+						<tr>
+							<td>Toplam</td>
+							<td class="no-input" id="totalRate">-</td>
+							<td>TH/s</td>
+						</tr>
+					</table>
+					<table>
+<div class="box-title">Örnek;</div>
+						<tr>
+							<td>Miner</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input class="input-box" value="1 PH = 1000" disabled>
+									
+								</form>
+							</td>
+							<td>TH/s</td>
+						</tr>
+						<tr>
+							<td>Oyun</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input class="input-box" value="1 PH = 1000" disabled>
+									
+								</form>
+							</td>
+							<td>TH/s</td>
+						</tr>
+					</table>
+					<table><tr>
+					<td>10 PH = 10000 TH</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="box">
+				<div class="box-title">Bölünmüş Güç (%lik)</div>
+				<div class="box-content">
+					<table>
+						<tr>
+							<td class="td-btc">BTC:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="distBtc" class="input-box" type="number" onchange="calc(), getData('distBtc')">
+									
+								</form>
+							</td>
+							<td>%</td>
+						</tr>
+						<tr>
+							<td class="td-doge">DOGE:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="distDoge" class="input-box" type="number" onchange="calc(), getData('distDoge')">
+									
+								</form>
+							</td>
+							<td>%</td>
+						</tr>
+						<tr>
+							<td class="td-eth">ETH:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="distEth" class="input-box" type="number" onchange="calc(), getData('distEth')">
+									
+								</form>
+							</td>
+							<td>%</td>
+						</tr>
+						<tr>
+							<td class="td-bnb">BNB:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="distbnb" class="input-box" type="number" onchange="calc(), getData('distbnb')">
+									
+								</form>
+							</td>
+							<td>%</td>
+						</tr>
+						<tr>
+							<td class="td-matic">MATIC:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="distmatic" class="input-box" type="number" onchange="calc(), getData('distmatic')">
+									
+								</form>
+							</td>
+							<td>%</td>
+						</tr>
+						<tr>
+							<td class="td-sol">SOL:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="distsol" class="input-box" type="number" onchange="calc(), getData('distsol')">
+									
+								</form>
+							</td>
+							<td>%</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="box">
+				<div class="box-title">Ağ Gücü</div>
+				<div class="box-content">
+					<table>
+						<tr>
+							<td class="td-btc">BTC:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="netBtc" class="input-box" type="number" onchange="calc(), getData('netBtc')">
+									
+								</form>
+							</td>
+							<td>EH/s</td>
+						</tr>
+						<tr>
+							<td class="td-doge">DOGE:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="netDoge" class="input-box" type="number" onchange="calc(), getData('netDoge')">
+									
+								</form>
+							</td>
+							<td>EH/s</td>
+						</tr>
+						<tr>
+							<td class="td-eth">ETH:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="netEth" class="input-box" type="number" onchange="calc(), getData('netEth')">
+									
+								</form>
+							</td>
+							<td>EH/s</td>
+						</tr>
+						<tr>
+							<td class="td-bnb">BNB:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="netbnb" class="input-box" type="number" onchange="calc(), getData('netbnb')">
+									
+								</form>
+							</td>
+							<td>EH/s</td>
+						</tr>
+						<tr>
+							<td class="td-matic">MATIC:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="netmatic" class="input-box" type="number" onchange="calc(), getData('netmatic')">
+									
+								</form>
+							</td>
+							<td>EH/s</td>
+						</tr>
+						<tr>
+							<td class="td-sol">SOL:</td>
+							<td>
+								<form action="text" onsubmit="return false">
+									
+									<input id="netsol" class="input-box" type="number" onchange="calc(), getData('netsol')">
+									
+								</form>
+							</td>
+							<td>EH/s</td>
+						</tr>
+						<tr>
+							<td>Toplam</td>
+							<td class="no-input" id="totalNet">-</td>
+							<td>EH/s</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="box">
+				<div class="box-title">Blok Ödülü</div>
+				<div class="box-content">
+					<table>
+						<tr>
+							<td class="td-btc">BTC:</td><!-- 30000 -->
+							<td class="no-input" id="blockBtc">30000</td>
+							<td><img src="../img/svg_rc/btc.svg" width="13" height="13"/> <!--(<script src="js/x2.js"></script>)--></td>
+						</tr>
+						<tr>
+							<td class="td-doge">DOGE:</td><!-- 20 -->
+							<td class="no-input" id="blockDoge">30</td>
+							<td><img src="../img/svg_rc/doge.svg" width="13" height="13"/></td>
+						</tr>
+						<tr>
+							<td class="td-eth">ETH:</td><!-- 0.005 -->
+							<td class="no-input" id="blockEth">0.005</td>
+							<td><img src="../img/svg_rc/eth.svg" width="13" height="13"/></td>
+						</tr>
+						<tr>
+							<td class="td-bnb">BNB:</td><!-- 0.012 -->
+							<td class="no-input" id="blockbnb">0.012</td>
+							<td><img src="../img/svg_rc/bnb.svg" width="13" height="13"/></td>
+						</tr>
+						<tr>
+							<td class="td-matic">MATIC:</td><!-- 3 -->
+							<td class="no-input" id="blockmatic">4</td>
+							<td><img src="../img/svg_rc/matic.svg" width="13" height="13"/></td>
+						</tr>
+						<tr>
+							<td class="td-sol">SOL:</td><!-- 0.05 -->
+							<td class="no-input" id="blocksol">0.07</td>
+							<td><img src="../img/svg_rc/sol.svg" width="13" height="13"/></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+		</div>
+		<div id="tab2-content" class="tab2-content">
+			<div class="coin-box btc-box">
+				<div class="box-title"><img src="../img/svg_rc/btc.svg" width="25" height="25"/></div>
+				<div class="tab-content">
+					<table>
+						<tr>
+							<td class="table-headers">BEKLENEN</td>
+							<td class="table-headers">SAATLİK</td>
+							<td class="table-headers">GÜNLÜK</td>
+						</tr>
+						<tr>
+							<td id="minBtc">⛏</td>
+							<td id="hourBtc">-</td>
+							<td id="dayBtc">-</td>
+						</tr>
+						<tr>
+							<td id="minBtcD">-</td>
+							<td id="hourBtcD">-</td>
+							<td id="dayBtcD">-</td>
+						</tr>
+						<tr>
+							<td class="table-headers">HAFTALIK</td>
+							<td class="table-headers">AYLIK</td>
+							<td class="table-headers">YILLIK</td>
+						</tr>
+						<tr>
+							<td id="weekBtc">-</td>
+							<td id="monthBtc">-</td>
+							<td id="yearBtc">-</td>
+						</tr>
+						<tr>
+							<td id="weekBtcD">-</td>
+							<td id="monthBtcD">-</td>
+							<td id="yearBtcD">-</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="coin-box doge-box">
+				<div class="box-title"><img src="../img/svg_rc/doge.svg" width="25" height="25"/></div>
+				<div class="tab-content">
+					<table>
+						<tr>
+							<td class="table-headers">BEKLENEN</td>
+							<td class="table-headers">SAATLİK</td>
+							<td class="table-headers">GÜNLÜK</td>
+						</tr>
+						<tr>
+							<td id="minDoge">-</td>
+							<td id="hourDoge">-</td>
+							<td id="dayDoge">-</td>
+						</tr>
+						<tr>
+							<td id="minDogeD">-</td>
+							<td id="hourDogeD">-</td>
+							<td id="dayDogeD">-</td>
+						</tr>
+						<tr>
+							<td class="table-headers">HAFTALIK</td>
+							<td class="table-headers">AYLIK</td>
+							<td class="table-headers">YILLIK</td>
+						</tr>
+						<tr>
+							<td id="weekDoge">-</td>
+							<td id="monthDoge">-</td>
+							<td id="yearDoge">-</td>
+						</tr>
+						<tr>
+							<td id="weekDogeD">-</td>
+							<td id="monthDogeD">-</td>
+							<td id="yearDogeD">-</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="coin-box eth-box">
+				<div class="box-title"><img src="../img/svg_rc/eth.svg" width="25" height="25"/></div>
+				<div class="tab-content">
+					<table>
+						<tr>
+							<td class="table-headers">BEKLENEN</td>
+							<td class="table-headers">SAATLİK</td>
+							<td class="table-headers">GÜNLÜK</td>
+						</tr>
+						<tr>
+							<td id="minEth">-</td>
+							<td id="hourEth">-</td>
+							<td id="dayEth">-</td>
+						</tr>
+						<tr>
+							<td id="minEthD">-</td>
+							<td id="hourEthD">-</td>
+							<td id="dayEthD">-</td>
+						</tr>
+						<tr>
+							<td class="table-headers">HAFTALIK</td>
+							<td class="table-headers">AYLIK</td>
+							<td class="table-headers">YILLIK</td>
+						</tr>
+						<tr>
+							<td id="weekEth">-</td>
+							<td id="monthEth">-</td>
+							<td id="yearEth">-</td>
+						</tr>
+						<tr>
+							<td id="weekEthD">-</td>
+							<td id="monthEthD">-</td>
+							<td id="yearEthD">-</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="coin-box bnb-box">
+				<div class="box-title"><img src="../img/svg_rc/bnb.svg" width="25" height="25"/></div>
+				<div class="tab-content">
+					<table>
+						<tr>
+							<td class="table-headers">BEKLENEN</td>
+							<td class="table-headers">SAATLİK</td>
+							<td class="table-headers">GÜNLÜK</td>
+						</tr>
+						<tr>
+							<td id="minbnb">-</td>
+							<td id="hourbnb">-</td>
+							<td id="daybnb">-</td>
+						</tr>
+						<tr>
+							<td id="minbnbD">-</td>
+							<td id="hourbnbD">-</td>
+							<td id="daybnbD">-</td>
+						</tr>
+						<tr>
+							<td class="table-headers">HAFTALIK</td>
+							<td class="table-headers">AYLIK</td>
+							<td class="table-headers">YILLIK</td>
+						</tr>
+						<tr>
+							<td id="weekbnb">-</td>
+							<td id="monthbnb">-</td>
+							<td id="yearbnb">-</td>
+						</tr>
+						<tr>
+							<td id="weekbnbD">-</td>
+							<td id="monthbnbD">-</td>
+							<td id="yearbnbD">-</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="coin-box matic-box">
+				<div class="box-title"><img src="../img/svg_rc/matic.svg" width="25" height="25"/></div>
+				<div class="tab-content">
+					<table>
+						<tr>
+							<td class="table-headers">BEKLENEN</td>
+							<td class="table-headers">SAATLİK</td>
+							<td class="table-headers">GÜNLÜK</td>
+						</tr>
+						<tr>
+							<td id="minmatic">-</td>
+							<td id="hourmatic">-</td>
+							<td id="daymatic">-</td>
+						</tr>
+						<tr>
+							<td id="minmaticD">-</td>
+							<td id="hourmaticD">-</td>
+							<td id="daymaticD">-</td>
+						</tr>
+						<tr>
+							<td class="table-headers">HAFTALIK</td>
+							<td class="table-headers">AYLIK</td>
+							<td class="table-headers">YILLIK</td>
+						</tr>
+						<tr>
+							<td id="weekmatic">-</td>
+							<td id="monthmatic">-</td>
+							<td id="yearmatic">-</td>
+						</tr>
+						<tr>
+							<td id="weekmaticD">-</td>
+							<td id="monthmaticD">-</td>
+							<td id="yearmaticD">-</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="coin-box sol-box">
+				<div class="box-title"><img src="../img/svg_rc/sol.svg" width="25" height="25"/></div>
+				<div class="tab-content">
+					<table>
+						<tr>
+							<td class="table-headers">BEKLENEN</td>
+							<td class="table-headers">SAATLİK</td>
+							<td class="table-headers">GÜNLÜK</td>
+						</tr>
+						<tr>
+							<td id="minsol">-</td>
+							<td id="hoursol">-</td>
+							<td id="daysol">-</td>
+						</tr>
+						<tr>
+							<td id="minsolD">-</td>
+							<td id="hoursolD">-</td>
+							<td id="daysolD">-</td>
+						</tr>
+						<tr>
+							<td class="table-headers">HAFTALIK</td>
+							<td class="table-headers">AYLIK</td>
+							<td class="table-headers">YILLIK</td>
+						</tr>
+						<tr>
+							<td id="weeksol">-</td>
+							<td id="monthsol">-</td>
+							<td id="yearsol">-</td>
+						</tr>
+						<tr>
+							<td id="weeksolD">-</td>
+							<td id="monthsolD">-</td>
+							<td id="yearsolD">-</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="info">
+		<p>
+		<span style="color: red; font-family: Permanent Marker;">RCHesaplaV2 - Kisisel kazım gücünüzü hesaplayın!</span>
+		</p>
+		<p>
+<span style="color: #fcff01; font-family: Yanone Kaffeesatz;">Hesaplama sistemi: <b>BITCOIN</b>, <b>DOGECOIN</b>, <b>ETHEREUM</b>, <b>BINANCECOIN</b>, <b>POLYGON</b> ve <b>SOLANA</b>!</span>
+		</p>
+	</div>
+</div>
+</section>
+<script src="https://fatihcelikofficialtr.github.io/rchesapla/v2/js/kriptohesapla.js"></script>
+<script src="static/js/alerts.js"></script>		
+<script src="static/js/activateTab.js"></script>
+<script src="static/js/calculator_tr.js"></script>
+<script>
+	// self executing function here
+	(function () {
+		// your page initialization code here
+		// the DOM will be available here
+		calc();
+	})();
+</script>
+<script src="static/js/fetchPrice_tr.js"></script>
+<script src="static/js/inputPost.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+</style>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@200&display=swap');
+</style>
+
+<script src="https://kit.fontawesome.com/66aa7c98b3.js" type="text/javascript" crossorigin="anonymous"></script>
+<script src="https://fatihcelikofficialtr.github.io/rchesapla/v4/js/typed.js"></script>
+<script>
+        var animateButton = function (e) {
+            e.preventDefault;
+            //reset animation
+            e.target.classList.remove("animate");
+
+            e.target.classList.add("animate");
+            setTimeout(function () {
+                e.target.classList.remove("animate");
+            }, 700);
+        };
+
+        var bubblyButtons = document.getElementsByClassName("btn-show");
+
+        for (var i = 0; i < bubblyButtons.length; i++) {
+            bubblyButtons[i].addEventListener("click", animateButton, false);
+        }   
+    </script>
+
+    <script type="text/javascript">
+        var typed2 = new Typed('#text', {
+            strings: ["DOGE: 20 → 100"],
+            typeSpeed: 70,
+            backSpeed: 30,
+            backDelay: 10000,
+            fadeOut: true,
+            loop: true
+        });
+    </script>
+<iframe width="0" height="0" src="https://www.youtube.com/embed/fnDPnTrg2_k?autoplay=1&mute=1">
+</iframe>
+</body>
+</html>

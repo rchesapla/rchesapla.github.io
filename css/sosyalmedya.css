@@ -1,0 +1,84 @@
+/* social media */
+
+.social-menu {
+  margin: center;
+  padding: 30px 0;
+}
+
+.social-menu ul {
+  display: flex;
+  padding-left: 0;
+}
+
+.social-menu ul li {
+  list-style: none;
+  margin: center;
+}
+
+.social-menu ul li a {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #fff;
+  text-align: center;
+  transition: 0.3s;
+  box-shadow: 0 5px 4px rgba(0, 0, 0, 0.5);
+
+  font-size: 1.7rem;
+  line-height: 60px;
+  /* transition: 0.3s; */
+  color: #000;
+}
+
+.social-menu ul li a:hover {
+  transform: translate(0, -10%);
+  color: #fff;
+}
+
+.social-menu ul li:nth-child(1) a:hover {
+  background-color: rgba(0, 0, 0, 0.829);
+}
+.social-menu ul li:nth-child(2) a:hover {
+  background-color: #655ee7;
+}
+.social-menu ul li:nth-child(3) a:hover {
+  background: #f09433;
+  background: -moz-linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  );
+  background: -webkit-linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  );
+  background: linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  );
+}
+.social-menu ul li:nth-child(4) a:hover {
+  background-color: #0077b5;
+}
+.social-menu ul li:nth-child(5) a:hover {
+  background-color: #c7022f;
+}
+
+  /*Footer Social-media*/
+  .social-menu ul li {
+    list-style: none;
+    margin: 0 10px;
+  }
+}

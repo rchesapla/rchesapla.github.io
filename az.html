@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate RC - Fərdi qazıntı gücünü hesablayın!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!--===============================================================================================-->
+    <meta name="google-site-verification" content="+nxGUDJ4QpAZ5l9Bsjdi102tLVC21AIh5d1Nl23908vVuFHs34="/>
+    <meta name="robots" content="noindex,nofollow">
+<!--===============================================================================================-->
+    <link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/sosyalmedya.css">
+	<link rel="stylesheet" href="css/menüler.css">
+<!--===============================================================================================-->
+	<link rel="icon" href="https://rollercoin.com/static/fav/rollercoin_favicon_48x48.png" sizes="48x48" />
+	<link rel="icon" href="https://rollercoin.com/static/fav/rollercoin_favicon_96x96.png" sizes="96x96" />
+	<link rel="icon" href="https://rollercoin.com/static/fav/rollercoin_favicon_144x144.png" sizes="144x144" />
+	<link rel="mask-icon" href="https://rollercoin.com//static/fav/rollercoin_favicon_144x144.svg" color="#ffffff" />
+	<meta name="author" content="Fatih ÇELİK">
+	<link rel="canonical" href="https://fatihcelikofficialtr.github.io/rchesapla/">
+	<meta name="keywords" content="rchesapla, turkcraft01, pb01adana, rollercoin, rollercoin hesapla, rollercoin calculator, rollercoin güç hesaplama"/>
+	<meta name="description" content="Kişisel kazım gücünü hesapla! | Anlık, günlük, haftalık, aylık aynı zamanda yıllık olarak hesaplama yapabilirsin. | Ayrıca https://bit.ly/RollerCoinTR referans linkiyle kayıt olursan 0,00001000 BTC ile başlarsın! 🧮">
+<!--===============================================================================================-->
+<!-- Top Navigation Menu -->
+<div class="topnav">
+  <a class="active"><img src="img/logo.png" width="auto" height="25"/></a>
+  <div id="myLinks">
+	<a href="./nasilkullanilir/"><img src="img/nasilkullanilir.png" width="auto" height="25"/></a>
+	<a href="./v2"><img src="img/rchesaplav2.png" width="auto" height="25"/></a>
+	<a href="./v3"><img src="img/rchesaplav3.png" width="auto" height="25"/></a>
+	<a href="./v4"><img src="img/rchesaplav4.png" width="auto" height="25"/></a>
+  </div>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+	<div class="sag">
+	<a href="./"><img src="img/tr.png" width="auto" height="25"/></a>
+	</div>
+</div>
+<!-- Top Navigation Menu -->
+<!--===============================================================================================-->
+    <meta property="og:title" content="RCHesapla - Kişisel Kazım Gücünü Hesapla!">
+    <meta property="og:description" content="🧮 ► Kişisel kazım gücünü hesapla! | Anlık, günlük, haftalık, aylık aynı zamanda yıllık olarak hesaplama yapabilirsin. | Ayrıca https://bit.ly/RollerCoinTR referans linkiyle kayıt olursan 0,00001000 BTC ile başlarsın!">
+    <meta property="og:image" content="https://raw.githubusercontent.com/FatihCelikOfficialTR/rchesapla/main/nasilkullanilir/rchesapla.png">
+    <meta property="og:url" content="https://fatihcelikofficialtr.github.io/rchesapla/">
+<!--===============================================================================================-->
+<coinyep-widget-marquee list="BTC,ETH,BNB,DOGE,MATIC,SOL" currency="TRY" lang="tr"></coinyep-widget-marquee>
+<script src="./js/kriptolistesi.js"></script>	
+<!--===============================================================================================-->
+</head>
+<body onload="calculateGoalPower(), blockAmount()">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="row no-gutters">
+            <div class="col-lg-2 col-4">
+                <img class="img-fluid header-margin" src="img/logo.png" alt="">
+				<!--<img src="./img/hamster_loader3.gif" alt="Avatar" class="avatar">-->
+            </div>
+<!--===============================================================================================-->
+            <div class="header-margin">
+                <div class="container">
+                <h1><a class="fatihceliktr-3d">RC hesablayın</a></h1>
+                <p>Şəxsi qazıntı gücünüzü hesablayın!</p>
+<!--===============================================================================================-->
+<div id="cpcontainer">&nbsp;</div>
+
+<a title="Tik Tok" href="https://www.tiktok.com/@fatihcelikofficial" target="blank"><i class="fab fa-tiktok"></i></a> |
+<a title="Discord" href="https://discord.gg/edUfENJXTA" target="blank"><i class="fab fa-discord"></i></a> |
+<a title="YouTube" href="https://www.youtube.com/channel/UCiS4gfhe4kmmgXB4Wny43kQ" target="blank"><i class="fab fa-youtube"></i></a>
+			</div>
+            </div>
+        </div>
+    </div>
+<!--===============================================================================================-->
+	<div class="edger row no-gutters">
+        <div class="col-md-6 no-gutters inputWrapper">
+            <!-- Network power input and select -->
+            <div class="inputlabel">
+                <label class="spacing" for="network-power"> 
+				<img src="img/svg/ag_gucu.svg" width="15" height="15"> Şəbəkə Gücü <a href="./nasilkullanilir"><img name="sasdasd"src="img/nasilkullanilir.png" width="15" height="15"></a></label>
+                <br class="spacerInput">
+                <input class="inputCalc" type="number" step="any" id="network-power" oninput="calculateGoalPower()">
+                <select name="network-power-prefix" id="network-power-selector" onchange="calculateGoalPower()">
+                    <option value="ghs">GH/s</option>
+                    <option value="ths">TH/s</option>
+                    <option value="phs">PH/s</option>
+                    <option selected value="ehs">EH/s</option>
+                </select>
+            </div>
+            <!-- Goal power input and select -->
+            <div class="inputlabel">
+                <label for="goal-power" class="spacing"> 
+				<img src="img/svg/kazım_gucu.svg" width="15" height="15"> Kazım Sənin Gücün</label>
+                <br class="spacerInput">
+                <input class="inputCalc" type="number" name="goal-power-hash" id="goal-power"
+                    oninput="calculateGoalPower()">
+                <select name="goal-power-prefix" id="goal-power-selector" onchange="calculateGoalPower()">
+                    <option value="ghs">GH/s</option>
+                    <option selected value="ths">TH/s</option>
+                    <option value="phs">PH/s</option>
+                    <option value="ehs">EH/s</option>
+                </select>
+            </div>
+            <!-- Block type input and select -->
+            <div class="inputlabel">
+                <label for="block-reward" class="spacing"> 
+				<img src="img/svg/blok_odulu.svg" width="15" height="15"> Blok Mükafatı</label>
+                <br class="spacerInput">
+                <input class="inputCalc inputBlock" type="number" name="block-reward" id="block-reward" step="any"
+                    oninput="calculateGoalPower()">
+                <select name="block-type" id="block-type" onchange="blockAmount(), calculateGoalPower()">
+                    <option value="BTC">Bitcoin (BTC)</option>
+                    <option value="DOGE">Dogecoin (DOGE)</option>
+                    <option value="ETH">Ethereum (ETH)</option>
+                    <option value="BNB">Binancecoin (BNB)</option>
+                    <option value="MATIC">Polygon (MATIC)</option>
+					<option value="SOL">Solana (SOL)</option>
+                    <option value="RLT">Rollertoken (RLT)</option>
+                </select>
+            </div>
+            <!-- Block Timer controller -->
+            <div class="inputlabel">
+                <label for="block-timer" class="spacing">
+				<img src="img/svg/blok_suresi.svg" width="15" height="15"> Blok Müddəti (600sn = 10dk)</label>
+                <br class="spacerInput">
+                <input class="inputCalc" type="number" value="10" name="block-timer" id="block-timer" step="any" oninput="calculateGoalPower()">
+            </div>
+            <button id="calcbtn" style="margin-top: 10px;" class="spacing" onclick="calculateGoalPower()">🧮 Hesablayın 🧮</button>
+        </div>
+        <div class="spacing col-md-6">
+            <span>Gözlənilən Qazanc: <b><span id="exp_reward"></span></b></span>
+            <br>
+            <span>Gündəlik Qazanc: <b><span id="daily"></span></b></span>
+            <br>
+            <span>Həftəlik Qazanc: <b><span id="weekly"></span></b></span>
+            <br>
+            <span>Aylıq Qazanc: <b><span id="monthly"></span></b></span>
+			<br>
+			<span>İllik Qazanc: <b><span id="yearly"></span></b></span>
+			<br>
+			<img src="img/rlt.png" width="25" height="25">
+			<img src="img/btc.png" width="25" height="25">
+			<img src="img/eth.png" width="25" height="25">
+			<img src="img/bnb.png" width="25" height="25">
+			<img src="img/matic.png" width="25" height="25">
+			<img src="img/doge.png" width="25" height="25">
+			<img src="img/sol.png" width="25" height="25">
+			<br>
+<!--===============================================================================================-->
+			<!--<div class="social-menu">
+                <ul>
+                    <li><a title="Tik Tok" href="https://www.tiktok.com/@fatihcelikofficial" target="blank"><i class="fab fa-tiktok"></i></a></li>
+                    <li><a title="Discord" href="https://discord.com/invite/MR4BpstBVx" target="blank"><i class="fab fa-discord"></i></a></li>
+                    <li><a title="Instagram" href="#" target="blank"><i class="fab fa-instagram"></i></a></li>
+                    <li><a title="Facebook" href="#" target="blank"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a title="YouTube" href="#" target="blank"><i class="fab fa-youtube"></i></a></li>
+                </ul>
+			</div>-->
+
+		</div>
+    </div>
+<!--===============================================================================================-->
+	<footer class="page-footer spacing font-small gray"><hr class="new4"/>
+            <div class="text-center">
+                <p>RHecalculate Rollercoin tərəfindən təsdiq edilmir və onun xidmət(lər)inin istehsalı və xidməti(lər)i tərəfindən dəstəklənmir.
+Onun idarə edilməsində rəsmi olaraq iştirak edən hər hansı bir şəxsin fikirlərini və ya fikirlərini əks etdirmir.</p>
+            </div>
+        </footer>
+<!--===============================================================================================-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+	<script src="https://kit.fontawesome.com/66aa7c98b3.js" type="text/javascript" crossorigin="anonymous"></script>
+<!--===============================================================================================-->
+    <script src="./js/js.js"></script>
+	<script src="./js/sayaç.js"></script>
+	<script src="./js/menüler.js"></script>
+<!--===============================================================================================-->
+</body>
+</html>
