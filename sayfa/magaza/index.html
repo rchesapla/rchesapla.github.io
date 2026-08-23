@@ -616,37 +616,11 @@
                             </tr>
                             <tr>
                                 <th style="text-align: center">
-                                    Nome
-                                </th>
-                                <th style="text-align: center">
-                                    <a href="#" ng-click="orderByAllMinersField='craft_cost_diff'; reverseAllMinersSort = !reverseAllMinersSort  ; $event.preventDefault();">
-                                        Desconto merge (%)
-                                        <span ng-show="orderByAllMinersField == 'craft_cost_diff'">
-                                            <span ng-show="!reverseMinersSort">
-                                                <i class="fa fa-fw fa-sort-asc"></i>
-                                            </span>
-                                            <span ng-show="reverseMinersSort">
-                                                <i class="fa fa-fw fa-sort-desc"></i>
-                                            </span>
-                                        </span>
-                                    </a>
-                                </th>
-                                <th style="text-align: center">
-                                    <a href="#" ng-click="orderByAllMinersField='supply'; reverseAllMinersSort = !reverseAllMinersSort  ; $event.preventDefault();">
-                                        Supply
-                                        <span ng-show="orderByAllMinersField == 'supply'">
-                                            <span ng-show="!reverseMinersSort">
-                                                <i class="fa fa-fw fa-sort-asc"></i>
-                                            </span>
-                                            <span ng-show="reverseMinersSort">
-                                                <i class="fa fa-fw fa-sort-desc"></i>
-                                            </span>
-                                        </span>
-                                    </a>
+                                    Miner Adı
                                 </th>
                                 <th style="text-align: center">
                                     <a href="#" ng-click="orderByAllMinersField='power'; reverseAllMinersSort = !reverseAllMinersSort  ; $event.preventDefault();">
-                                        Poder
+                                        Saf Gücü
                                         <span ng-show="orderByAllMinersField == 'power'">
                                             <span ng-show="!reverseMinersSort">
                                                 <i class="fa fa-fw fa-sort-asc"></i>
@@ -659,7 +633,7 @@
                                 </th>
                                 <th style="text-align: center">
                                     <a href="#" ng-click="orderByAllMinersField='bonus_power'; reverseAllMinersSort = !reverseAllMinersSort  ; $event.preventDefault();">
-                                        Bônus
+                                        Bonus
                                         <span ng-show="orderByAllMinersField == 'bonus_power'">
                                             <span ng-show="!reverseMinersSort">
                                                 <i class="fa fa-fw fa-sort-asc"></i>
@@ -672,7 +646,7 @@
                                 </th>
                                 <th style="text-align: center">
                                     <a href="#" ng-click="orderByAllMinersField='includeImpactPower'; reverseAllMinersSort = !reverseAllMinersSort  ; $event.preventDefault();">
-                                        Impacto
+                                        Toplam Güç
                                         <span ng-show="orderByAllMinersField == 'includeImpactPower'">
                                             <span ng-show="!reverseMinersSort">
                                                 <i class="fa fa-fw fa-sort-asc"></i>
@@ -684,7 +658,7 @@
                                     </a>
                                 </th>
                                 <th style="text-align: center">
-                                    Ações
+                                    Etkileşim
                                 </th>
                             </tr>
                         </thead>
@@ -706,12 +680,6 @@
                                     ">SATILAMAZ</div>
                                 </td>
                                 <td style="text-align: center">
-                                    {{miner.craft_cost_diff}}%
-                                </td>
-                                <td style="text-align: center">
-                                    {{miner.supply}}
-                                </td>
-                                <td style="text-align: center">
                                     {{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(2)}}{{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}
                                 </td>
                                 <td style="text-align: center">
@@ -721,8 +689,8 @@
                                     {{miner.includeImpactLegend.value.toFixed(2)}} {{miner.includeImpactLegend.unit}}
                                 </td>
                                 <td style="text-align: center">
-                                    <button style="min-width: 80px;margin: 4px;" ng-click="addMinerToSimulation(miner)">Adicionar!</button><br/>
-                                    <button style="min-width: 80px;margin: 4px;" ng-click="openBuyLink(miner)">Comprar</button>
+                                    <button style="min-width: 80px;margin: 4px;" ng-click="addMinerToSimulation(miner)">Ekle Hesapla</button><br/>
+                                    <button style="min-width: 80px;margin: 4px;" ng-click="openBuyLink(miner)">Mağazaya Git</button>
                                 </td>
                             </tr>
                         </tbody>
