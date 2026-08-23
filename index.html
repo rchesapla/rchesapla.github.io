@@ -182,7 +182,55 @@
         .price-rlt, .td-rlt { color: var(--color-rlt); }
 
         /* ==========================================
-           4. TABS & DÜZEN
+           4. HASH RATE CONVERTER (GÜÇ DÖNÜŞTÜRÜCÜ)
+           ========================================== */
+        .converter-box {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .converter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem;
+            padding: 1rem;
+        }
+
+        .converter-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .converter-item label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        .btn-action {
+            background: var(--accent-color);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: var(--radius-sm);
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            margin-top: 0.5rem;
+            width: 100%;
+        }
+
+        .btn-action:hover {
+            opacity: 0.9;
+        }
+
+        /* ==========================================
+           5. TABS & DÜZEN
            ========================================== */
         .tabs-header {
             display: flex;
@@ -227,7 +275,7 @@
                 grid-template-columns: repeat(4, 1fr);
             }
             .tabs-header {
-                display: none; /* Masaüstü görünümünde sekmeler gizlenip yan yana gösterilir */
+                display: none;
             }
             .tab2-content {
                 display: grid !important;
@@ -304,10 +352,10 @@
         }
 
         /* ==========================================
-           5. TAB 2 - SONUÇLAR
+           6. TAB 2 - SONUÇLAR
            ========================================== */
         .tab2-content {
-            display: none; /* Varsayılan JS ile değiştirilebilir */
+            display: none;
             grid-template-columns: 1fr;
             gap: 1rem;
             margin-top: 1.25rem;
@@ -360,7 +408,7 @@
         .rlt-box .table-headers { color: var(--color-rlt); }
 
         /* ==========================================
-           6. FOOTER / INFO
+           7. FOOTER / INFO
            ========================================== */
         .info {
             margin-top: 2rem;
@@ -405,6 +453,36 @@
                         <li><span class="price-sol">SOL:</span> <span id="sol-price-api">Yükleniyor..</span></li>
                         <li><span class="price-rlt">RLT:</span> <span id="rlt-price-api">Yükleniyor..</span></li>
                     </ul>
+                </div>
+            </div>
+
+            <!-- GÜÇ DÖNÜŞTÜRÜCÜ (CONVERTER) -->
+            <div class="converter-box">
+                <div class="price-title">⚡ Güç Birimi Dönüştürücü (GH / TH / PH / EH / ZH)</div>
+                <div class="converter-grid">
+                    <div class="converter-item">
+                        <label for="conv-gh">GH/s</label>
+                        <input id="conv-gh" class="input-box" type="number" placeholder="0" oninput="convertHashRate('gh')">
+                    </div>
+                    <div class="converter-item">
+                        <label for="conv-th">TH/s</label>
+                        <input id="conv-th" class="input-box" type="number" placeholder="0" oninput="convertHashRate('th')">
+                    </div>
+                    <div class="converter-item">
+                        <label for="conv-ph">PH/s</label>
+                        <input id="conv-ph" class="input-box" type="number" placeholder="0" oninput="convertHashRate('ph')">
+                    </div>
+                    <div class="converter-item">
+                        <label for="conv-eh">EH/s</label>
+                        <input id="conv-eh" class="input-box" type="number" placeholder="0" oninput="convertHashRate('eh')">
+                    </div>
+                    <div class="converter-item">
+                        <label for="conv-zh">ZH/s</label>
+                        <input id="conv-zh" class="input-box" type="number" placeholder="0" oninput="convertHashRate('zh')">
+                    </div>
+                </div>
+                <div style="padding: 0 1rem 1rem 1rem;">
+                    <button class="btn-action" onclick="applyTHToMiner()">⚡ Hesaplanan TH/s Değerini Miner Gücüne Aktar</button>
                 </div>
             </div>
 
@@ -556,44 +634,44 @@
                         </div>
                     </div>
 
-                    <!-- BOX 4: Blok & Haftalık Ödüller -->
+                    <!-- BOX 4: Blok & Haftalık Ödüller (MANUEL INPUT MODUNA ALINDI) -->
                     <div class="box">
                         <div class="box-title">Blok Ödülü</div>
                         <div class="box-content">
                             <table>
                                 <tr>
                                     <td class="td-btc">BTC:</td>
-                                    <td class="no-input" id="blockBtc">30000</td>
+                                    <td><input id="blockBtc" class="input-box" type="number" value="30000" step="any" onchange="calc(), getData('blockBtc')"></td>
                                     <td><img src="./img/svg_rc/btc.svg" width="13" height="13" alt="BTC"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-doge">DOGE:</td>
-                                    <td class="no-input" id="blockDoge">30</td>
+                                    <td><input id="blockDoge" class="input-box" type="number" value="30" step="any" onchange="calc(), getData('blockDoge')"></td>
                                     <td><img src="./img/svg_rc/doge.svg" width="13" height="13" alt="DOGE"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-eth">ETH:</td>
-                                    <td class="no-input" id="blockEth">0.005</td>
+                                    <td><input id="blockEth" class="input-box" type="number" value="0.005" step="any" onchange="calc(), getData('blockEth')"></td>
                                     <td><img src="./img/svg_rc/eth.svg" width="13" height="13" alt="ETH"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-bnb">BNB:</td>
-                                    <td class="no-input" id="blockbnb">0.012</td>
+                                    <td><input id="blockbnb" class="input-box" type="number" value="0.012" step="any" onchange="calc(), getData('blockbnb')"></td>
                                     <td><img src="./img/svg_rc/bnb.svg" width="13" height="13" alt="BNB"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-matic">MATIC:</td>
-                                    <td class="no-input" id="blockmatic">4</td>
+                                    <td><input id="blockmatic" class="input-box" type="number" value="4" step="any" onchange="calc(), getData('blockmatic')"></td>
                                     <td><img src="./img/svg_rc/matic.svg" width="13" height="13" alt="MATIC"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-sol">SOL:</td>
-                                    <td class="no-input" id="blocksol">0.07</td>
+                                    <td><input id="blocksol" class="input-box" type="number" value="0.07" step="any" onchange="calc(), getData('blocksol')"></td>
                                     <td><img src="./img/svg_rc/sol.svg" width="13" height="13" alt="SOL"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-rlt">RLT:</td>
-                                    <td class="no-input" id="blockRlt">30</td>
+                                    <td><input id="blockRlt" class="input-box" type="number" value="30" step="any" onchange="calc(), getData('blockRlt')"></td>
                                     <td><img src="./img/svg_rc/rlt.svg" width="13" height="13" alt="RLT"/></td>
                                 </tr>
                             </table>
@@ -725,14 +803,70 @@
     </section>
 
     <!-- SCRIPTS -->
+    <script src="https://fatihcelikofficialtr.github.io/rchesapla/v2/js/kriptohesapla.js"></script>
     <script src="static/js/alerts.js"></script>        
     <script src="static/js/activateTab.js"></script>
     <script src="static/js/calculator.js"></script>
     <script src="static/js/fetchPrice.js"></script>
     <script src="static/js/inputPost.js"></script>
     <script src="https://kit.fontawesome.com/66aa7c98b3.js" crossorigin="anonymous"></script>
+    <script src="https://fatihcelikofficialtr.github.io/rchesapla/v4/js/typed.js"></script>
     
     <script>
+        // HASH RATE CONVERTER JS LOGIC
+        function convertHashRate(unit) {
+            const inputGH = document.getElementById('conv-gh');
+            const inputTH = document.getElementById('conv-th');
+            const inputPH = document.getElementById('conv-ph');
+            const inputEH = document.getElementById('conv-eh');
+            const inputZH = document.getElementById('conv-zh');
+
+            let thValue = 0;
+
+            switch (unit) {
+                case 'gh':
+                    thValue = parseFloat(inputGH.value) / 1000;
+                    break;
+                case 'th':
+                    thValue = parseFloat(inputTH.value);
+                    break;
+                case 'ph':
+                    thValue = parseFloat(inputPH.value) * 1000;
+                    break;
+                case 'eh':
+                    thValue = parseFloat(inputEH.value) * 1000000;
+                    break;
+                case 'zh':
+                    thValue = parseFloat(inputZH.value) * 1000000000;
+                    break;
+            }
+
+            if (isNaN(thValue) || thValue < 0) {
+                if(unit !== 'gh') inputGH.value = '';
+                if(unit !== 'th') inputTH.value = '';
+                if(unit !== 'ph') inputPH.value = '';
+                if(unit !== 'eh') inputEH.value = '';
+                if(unit !== 'zh') inputZH.value = '';
+                return;
+            }
+
+            if (unit !== 'gh') inputGH.value = parseFloat((thValue * 1000).toFixed(6));
+            if (unit !== 'th') inputTH.value = parseFloat(thValue.toFixed(6));
+            if (unit !== 'ph') inputPH.value = parseFloat((thValue / 1000).toFixed(6));
+            if (unit !== 'eh') inputEH.value = parseFloat((thValue / 1000000).toFixed(8));
+            if (unit !== 'zh') inputZH.value = parseFloat((thValue / 1000000000).toFixed(12));
+        }
+
+        function applyTHToMiner() {
+            const thVal = document.getElementById('conv-th').value;
+            if (thVal && thVal > 0) {
+                const minerInput = document.getElementById('minerRate');
+                minerInput.value = thVal;
+                if(typeof calc === 'function') calc();
+                if(typeof getData === 'function') getData('minerRate');
+            }
+        }
+
         (function () {
             if(typeof calc === "function") {
                 calc();
