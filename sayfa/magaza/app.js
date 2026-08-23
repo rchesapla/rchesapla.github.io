@@ -1,6 +1,6 @@
 var app = angular.module('miningApp', ['ui.bootstrap']);
 
-app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerService', 'MinerService', 'FirebaseService', '$sce', '$timeout', async function($scope, CurrencyService, UserMinerService, MinerService, FirebaseService, $sce, $timeout) {
+app.controller('MiningController', ['$scope', 'UserMinerService', 'MinerService', '$sce', '$timeout', async function($scope, UserMinerService, MinerService, $sce, $timeout) {
     $scope.units = ['GH/s', 'TH/s', 'PH/s', 'EH/s'];
     $scope.networkUnits = ['GH/s', 'TH/s', 'PH/s', 'EH/s', 'ZH/s'];
     let default_form = {
@@ -25,7 +25,9 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.reverseRacksSort = true;
     $scope.reverseMinersSort = true;
     $scope.reverseSort = true;
-    const exchangeRates = await CurrencyService.getCurrenciesPrices();
+
+    // CurrencyService kaldırıldığı için exchangeRates objesi manuel/varsayılan olarak tanımlanmalıdır.
+    const exchangeRates = {}; 
     $scope.exchangeRates = exchangeRates;
 
     const filterFn = function(currency) {
@@ -177,7 +179,6 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
                 "644bb270648294b4642f368e",
                 "644bb225648294b4642f368d",
                 "644bb671648294b4642f3690"
-
             ]
         },
         {
@@ -198,14 +199,13 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     function calculateDonation() {
         if(!isNaN($scope.donationValue) && $scope.donationCurrency) {
             const currency = $scope.donationCurrency === 'U$' ? 'usd' : 'brl';
-            $scope.donationInBnb = ($scope.donationValue / exchangeRates['BNB'][currency])
-            $scope.donationInMatic = ($scope.donationValue / exchangeRates['MATIC'][currency])
-            $scope.donationInEth = ($scope.donationValue / exchangeRates['ETH'][currency])
+            $scope.donationInBnb = exchangeRates['BNB'] ? ($scope.donationValue / exchangeRates['BNB'][currency]) : 0;
+            $scope.donationInMatic = exchangeRates['MATIC'] ? ($scope.donationValue / exchangeRates['MATIC'][currency]) : 0;
+            $scope.donationInEth = exchangeRates['ETH'] ? ($scope.donationValue / exchangeRates['ETH'][currency]) : 0;
         }
     }
 
     $scope.calculateDonation = calculateDonation;
-
     
     const convertHashrate = (value, fromUnit, toUnit) => {
         const units = {
@@ -219,24 +219,23 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     };
 
     const calculateEarningsWithValues = function(power_in_ghs, timeframe, coin, fiatCurrency) {
-
         let earningsPerBlock = coin.blockSize;
         let blockTimeInSeconds = coin.blockTime;
 
         let userPowerPercentage = power_in_ghs / coin.networkPower;
         earningsPerBlock *= userPowerPercentage;
 
-        let earningsPerDay = earningsPerBlock * (86400 / blockTimeInSeconds); // 86400 seconds in a day
+        let earningsPerDay = earningsPerBlock * (86400 / blockTimeInSeconds);
         
         switch(timeframe) {
             case 'block':
-                return fiatCurrency === 'amount' ? earningsPerBlock.toFixed(6) : coin.in_game_only ? 0 : (earningsPerBlock * exchangeRates[coin.name][fiatCurrency]).toFixed(2);
+                return fiatCurrency === 'amount' ? earningsPerBlock.toFixed(6) : coin.in_game_only ? 0 : ((exchangeRates[coin.name] && exchangeRates[coin.name][fiatCurrency]) ? (earningsPerBlock * exchangeRates[coin.name][fiatCurrency]).toFixed(2) : 0);
             case 'day':
-                return fiatCurrency === 'amount' ? earningsPerDay.toFixed(6) : coin.in_game_only ? 0 : (earningsPerDay * exchangeRates[coin.name][fiatCurrency]).toFixed(2);
+                return fiatCurrency === 'amount' ? earningsPerDay.toFixed(6) : coin.in_game_only ? 0 : ((exchangeRates[coin.name] && exchangeRates[coin.name][fiatCurrency]) ? (earningsPerDay * exchangeRates[coin.name][fiatCurrency]).toFixed(2) : 0);
             case 'week':
-                return fiatCurrency === 'amount' ? (earningsPerDay * 7).toFixed(6) : coin.in_game_only ? 0 : (earningsPerDay * 7 * exchangeRates[coin.name][fiatCurrency]).toFixed(2);
+                return fiatCurrency === 'amount' ? (earningsPerDay * 7).toFixed(6) : coin.in_game_only ? 0 : ((exchangeRates[coin.name] && exchangeRates[coin.name][fiatCurrency]) ? (earningsPerDay * 7 * exchangeRates[coin.name][fiatCurrency]).toFixed(2) : 0);
             case 'month':
-                return fiatCurrency === 'amount' ? (earningsPerDay * 30).toFixed(6) : coin.in_game_only ? 0 : (earningsPerDay * 30 * exchangeRates[coin.name][fiatCurrency]).toFixed(2);
+                return fiatCurrency === 'amount' ? (earningsPerDay * 30).toFixed(6) : coin.in_game_only ? 0 : ((exchangeRates[coin.name] && exchangeRates[coin.name][fiatCurrency]) ? (earningsPerDay * 30 * exchangeRates[coin.name][fiatCurrency]).toFixed(2) : 0);
             default:
                 return 0;
         }
@@ -261,30 +260,30 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             value = value * -1;
         }
         return {value: value, unit: fromUnit};
-     };
+    };
 
-     const calculateSingleMinerImpact = function(miner, isRemove) {
+    const calculateSingleMinerImpact = function(miner, isRemove) {
         if(isRemove) {
             const removed_bonus = $scope.user_miners.filter(m => !m.removed && m.miner_id === miner.miner_id).length > 1 ? 0 : parseFloat(miner.bonus_power);
             let removed_power = parseFloat(miner.power);
-            let power_after_remove = (($scope.user_data.powerData.miners - removed_power + $scope.user_data.powerData.games) * (( $scope.user_data.powerData.bonus_percent - removed_bonus) / 10000)) + ($scope.user_data.powerData.miners - removed_power) + $scope.user_data.powerData.games + $scope.user_data.powerData.racks + $scope.user_data.powerData.temp
-            let remove_impact = $scope.user_data.powerData.total - power_after_remove
+            let power_after_remove = (($scope.user_data.powerData.miners - removed_power + $scope.user_data.powerData.games) * (( $scope.user_data.powerData.bonus_percent - removed_bonus) / 10000)) + ($scope.user_data.powerData.miners - removed_power) + $scope.user_data.powerData.games + $scope.user_data.powerData.racks + $scope.user_data.powerData.temp;
+            let remove_impact = $scope.user_data.powerData.total - power_after_remove;
             return { 
                 legend: chooseBestHashRateUnit(remove_impact, 'GH/s'),
                 impact: remove_impact
-            }   
-        }else {
+            };
+        } else {
             const added_bonus = $scope.user_miners.filter(m => !m.removed && m.miner_id === miner.miner_id).length == 0 ? parseFloat(miner.bonus_power) : 0;
             let added_power = parseFloat(miner.power);
-            let power_after_added = (($scope.user_data.powerData.miners + added_power  + $scope.user_data.powerData.games) * (( $scope.user_data.powerData.bonus_percent + added_bonus) / 10000)) + ($scope.user_data.powerData.miners + added_power) + $scope.user_data.powerData.games + $scope.user_data.powerData.racks + $scope.user_data.powerData.temp
-            let add_impact = power_after_added - $scope.user_data.powerData.total 
+            let power_after_added = (($scope.user_data.powerData.miners + added_power  + $scope.user_data.powerData.games) * (( $scope.user_data.powerData.bonus_percent + added_bonus) / 10000)) + ($scope.user_data.powerData.miners + added_power) + $scope.user_data.powerData.games + $scope.user_data.powerData.racks + $scope.user_data.powerData.temp;
+            let add_impact = power_after_added - $scope.user_data.powerData.total;
 
             return { 
                 legend: chooseBestHashRateUnit(add_impact, 'GH/s'),
                 impact: add_impact
-            } 
+            };
         }
-    }
+    };
 
     if(typeof loaded_user === 'string' && loaded_user !== '') {
         try{
@@ -299,7 +298,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
                 let impact = calculateSingleMinerImpact(m, true);
                 m.removeImpactPower = impact.impact;
                 m.removeImpactLegend = impact.legend;
-            })
+            });
             $scope.visible_user_miners = $scope.user_miners;
             window.basic_miners?.forEach(m => {
                 let impact = calculateSingleMinerImpact(m, false);
@@ -369,17 +368,16 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             resultado += `${diasRestantes} ${diasRestantes > 1 ? 'dias' : 'dia'}`;
         }
         return resultado;
-    }
+    };
 
     const exchangeCoin = (value, coin, currency) => {
-        return parseFloat((value * exchangeRates[coin][currency]).toFixed(2));
+        return exchangeRates[coin] && exchangeRates[coin][currency] ? parseFloat((value * exchangeRates[coin][currency]).toFixed(2)) : 0;
     };
 
     const getPercentualPower = function (alocated_power) {
         const user_power_in_ghs = convertHashrate($scope.formData.power, $scope.formData.unit, 'GH/s');
         return alocated_power * (user_power_in_ghs / 100);
-    }
-
+    };
 
     $scope.$watch('formData.power', function(newvalue) {
         if(!$scope.formData.currency && typeof newvalue !== 'undefined') {
@@ -398,19 +396,17 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         }
     });
 
-    $scope.recentUsers = await FirebaseService.listUsers();
-
     $scope.getMinersByName = async function(name) {
         return await MinerService.getMinersByName(name);
-    }
+    };
 
     $scope.getPlayerByName = async function(name) {
         const foundUser = await UserMinerService.getUserByNick(name);
         if(foundUser) {
-            return [{...foundUser, code: name}]
+            return [{...foundUser, code: name}];
         }
         return [];
-    }
+    };
 
     $scope.itemsPerPage = 15;
     $scope.currentPage = 1;
@@ -425,12 +421,9 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.allMinerNegotiableStatus = 'all';
     $scope.allMinerCollectionId = "-1";
 
-
-    //userMinersFilter
     $scope.userMinersItemsPerPage = 6;
     $scope.userMinersCurrentPage = 1;
 
-    //userInventoryMinersFilter
     $scope.userInventoryMinersItemsPerPage = 6;
     $scope.userInventoryMinersCurrentPage = 1;
 
@@ -442,7 +435,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         }else {
             localStorage.removeItem('keep_loaded_user');
         }
-    }
+    };
 
     $scope.filterUserMiners = async function(search, rarity, bonus, negotiable, minMinerPower, maxMinerPower, userMinerCells, userMinerDuplicate) {
         if($scope.formData.showMiners) {
@@ -457,7 +450,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
                     $scope.visible_user_miners = $scope.visible_user_miners.filter(m => $scope.visible_user_miners.filter(m2 => m.miner_id === m2.miner_id).length > 1);
                 }
                 if(userMinerDuplicate === 'stairs') {
-                    $scope.visible_user_miners = $scope.visible_user_miners.filter(m => $scope.visible_user_miners.filter(m2 => m.filename === m2.filename && (m2.type !== m.type || m2.level !== m.level) ).length > 0);
+                    $scope.visible_user_miners = $scope.visible_user_miners.filter(m => $scope.visible_user_miners.filter(m2 => m2.filename === m.filename && (m2.type !== m.type || m2.level !== m.level) ).length > 0);
                     $scope.orderByuserMinersField='filename';
                 }
             }
@@ -465,14 +458,14 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         }else {
             $scope.visible_user_miners = [];
         }
-    }
+    };
 
     $scope.loadWorstMinerImpact = function() {
        let lowestImpactMiner = $scope.user_miners.filter(m => !m.removed).reduce((lowestImpactMiner, miner) => miner.removeImpactPower < lowestImpactMiner.removeImpactPower ? miner : lowestImpactMiner);
        let lowestImpactOneCellMiner = $scope.user_miners.filter(m => !m.removed && m.width < 2).reduce((lowestImpactMiner, miner) => miner.removeImpactPower < lowestImpactMiner.removeImpactPower ? miner : lowestImpactMiner);
        $scope.lowestMinerName = lowestImpactMiner ? `${lowestImpactMiner.name.en} (${lowestImpactMiner.width} células) - Impacto: ${lowestImpactMiner.removeImpactPower}` : '';
        $scope.lowestImpactOneCellMiner = lowestImpactOneCellMiner ? `${lowestImpactOneCellMiner.name.en} (${lowestImpactOneCellMiner.width} células) - Impacto: ${lowestImpactOneCellMiner.removeImpactPower}` : '';
-    }
+    };
 
     $scope.filterAllMiners = async function(search, rarity, bonus, negotiable, allMinerPosessionStatus, allMinerCollectionId, minMinerPower, maxMinerPower, width, allMinerMinImpact) {
         if($scope.formData.showAllMiners) {
@@ -490,7 +483,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
                 foundMiners = foundMiners.filter(m => !m.already_have);
             }
             if(allMinerMinImpact) {
-                foundMiners = foundMiners.filter(m => m.includeImpactPower >= parseInt(allMinerMinImpact))
+                foundMiners = foundMiners.filter(m => m.includeImpactPower >= parseInt(allMinerMinImpact));
             }
             $scope.allMiners = foundMiners;
             $scope.currentPage = 1;
@@ -499,66 +492,9 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             $scope.lowestMinerName = '';
             $scope.allMiners = [];
         }
-    }
-
-    function calculatePowerData(data) {
-        const dateRange = data.dateRange;
-        const userData = data.user;
-        const networkData = data.network;
-    
-        const networkPowerByDate = {};
-        const userPowerByDate = {};
-    
-        networkData.forEach(item => networkPowerByDate[item.queriedAt] = item.totalPower);
-        userData.forEach(item => userPowerByDate[item.queriedAt] = item.powerData.total);
-    
-        return dateRange.map((date, i) => {
-            const networkPower = networkPowerByDate[date] || 0;
-            const userPower = userPowerByDate[date] || 0;
-            
-            let networkPowerIncrease = 0;
-            let userPowerIncrease = 0;
-            let networkPowerAbsIncrease = 0;
-            let userPowerAbsIncrease = 0;
-    
-            if (i > 0) {
-                const prevDate = dateRange[i - 1];
-                const prevNetworkPower = networkPowerByDate[prevDate] || 0;
-                const prevUserPower = userPowerByDate[prevDate] || 0;
-    
-                networkPowerAbsIncrease = networkPower - prevNetworkPower;
-                userPowerAbsIncrease = userPower - prevUserPower;
-    
-                if (prevNetworkPower !== 0) {
-                    networkPowerIncrease = ((networkPower - prevNetworkPower) / prevNetworkPower).toFixed(3);
-                }
-                if (prevUserPower !== 0) {
-                    userPowerIncrease = ((userPower - prevUserPower) / prevUserPower).toFixed(3);
-                }
-            }
-    
-            const resultItem = {
-                date,
-                networkPower,
-                userPower,
-                networkPowerAbsIncrease,
-                userPowerAbsIncrease
-            };
-    
-            if (i > 0) {
-                resultItem.networkPowerIncrease = networkPowerIncrease;
-                resultItem.userPowerIncrease = userPowerIncrease;
-            }
-    
-            return resultItem;
-        });
-    }
-
-    $scope.dailyBonus = await FirebaseService.getBonusTask();
-    
+    };
 
     $scope.loadUserInventory = async function(inventory) {
-
         try{
             const quantitiesRegex = /(Quantity\:|Qtd\:)(\s*)(\d*)/g;
             const minerRegex = /(.*\n)(.*)(\n\nSet)/g;
@@ -571,13 +507,13 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
                     level = '';
                 }else {
                     level = rarity.replace(/\D/g,'').replace('\n','');
-                    level = isNaN(level) || level == '' ? 0 : parseInt(level)
+                    level = isNaN(level) || level == '' ? 0 : parseInt(level);
                 }
                 miners.push({
                     level: level,
                     name: match[2],
                     type: type
-                })
+                });
             }
 
             let qtdIdx = 0;
@@ -586,132 +522,16 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
                 if(isNaN(quantity) || quantity == '') { continue; }
                 miners[qtdIdx].quantity = parseInt(quantity);
                 qtdIdx++;
-                if(qtdIdx === miners.length) {break}
+                if(qtdIdx === miners.length) {break;}
             }
             const all_miners = await MinerService.getAllMinersByFilter(); 
-            $scope.visible_user_inventory_miners =  miners.map(m => ({...all_miners.find(m2 => m.name === m2.name.en && (m2.type === m.type || m2.level === m.level)), quantity: m.quantity, rdid: uuidv4()}));
+            $scope.visible_user_inventory_miners =  miners.map(m => ({...all_miners.find(m2 => m2.name === m2.name.en && (m2.type === m.type || m2.level === m.level)), quantity: m.quantity, rdid: uuidv4()}));
             $scope.$apply();
         }catch(err) {
             alert('Erro ao carregar. Siga as instruções corretamente!');
             $scope.visible_user_inventory_miners = [];
         }
-    }
-
-    $scope.showStatistics = async function() {
-        if($scope.formData.showUserStatistics) {
-            $scope.statistics = await FirebaseService.getUserStatistic($scope.user_data);
-            $scope.statistics = calculatePowerData($scope.statistics);
-            const labels = $scope.statistics.map(s => s.date);
-            const networkGrowth = $scope.statistics.map(s => s.networkPower);
-            const playerGrowth = $scope.statistics.map(s => s.userPower);
-            const chart = echarts.init(document.getElementById('chart'));
-
-            const option = {
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'cross',
-                    },
-                },
-                formatter: function (params) {
-                    if(Array.isArray(params)) {
-                        const day = $scope.statistics.find(s => s.date === params[0]?.name);
-                        const networkPower = chooseBestHashRateUnit(day?.networkPower ?? 0, 'GH/s');
-                        const networkLabel = `${networkPower.value.toFixed(2)} ${networkPower.unit}`
-                        const networkPowerIncrease = chooseBestHashRateUnit(day?.networkPowerAbsIncrease ?? 0, 'GH/s');
-                        const networkPowerIncreaseLabel = `${networkPowerIncrease.value.toFixed(2)} ${networkPowerIncrease.unit}`
-                        const userPower = chooseBestHashRateUnit(day?.userPower ?? 0, 'GH/s');
-                        const userPowerIncrease = chooseBestHashRateUnit(day?.userPowerAbsIncrease ?? 0, 'GH/s');
-                        const userPowerIncreaseLabel = `${userPowerIncrease.value.toFixed(2)} ${userPowerIncrease.unit}`
-                        const userPowerLabel = `${userPower.value.toFixed(2)} ${userPower.unit}`
-                        return `Poder da rede: ${networkLabel}
-                                <br>Seu poder: ${userPowerLabel}
-                                <br>A rede subiu ${networkPowerIncreaseLabel} (${day.networkPowerIncrease} %)
-                                <br>Você subiu ${userPowerIncreaseLabel} (${day.userPowerIncrease} %)
-                                `;
-                    }
-                    return params;
-                },
-                legend: {
-                    data: ['Crescimento da Rede', 'Seu Crescimento como Jogador'],
-                    top: '0%',
-                },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true,
-                },
-                xAxis: {
-                    type: 'category',
-                    data: labels,
-                    axisLabel: {
-                        fontSize: 12,
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: '#333',
-                        },
-                    },
-                },
-                yAxis: {
-                    type: 'value',
-                    axisLabel: {
-                        fontSize: 12,
-                        formatter: function (value) {
-                            const power = chooseBestHashRateUnit(value, 'GH/s');
-                            return `${power.value.toFixed(2)} ${power.unit}`
-                        }
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: '#333',
-                        },
-                    },
-                    splitLine: {
-                        lineStyle: {
-                            type: 'dashed',
-                        },
-                    },
-                },
-                series: [
-                    {
-                        name: 'Crescimento da Rede',
-                        data: networkGrowth,
-                        type: 'line',
-                        smooth: true, // Linha suave
-                        color: '#1E90FF', // Azul
-                        lineStyle: {
-                            width: 3,
-                        },
-                        symbol: 'circle',
-                        symbolSize: 8,
-                    },
-                    {
-                        name: 'Seu Crescimento como Jogador',
-                        data: playerGrowth,
-                        type: 'line',
-                        smooth: true, // Linha suave
-                        color: '#FF6347', // Vermelho
-                        lineStyle: {
-                            width: 3,
-                        },
-                        symbol: 'circle',
-                        symbolSize: 8,
-                    },
-                ],
-            };
-
-            // Exibe o gráfico
-            chart.setOption(option);
-
-
-
-            $scope.$apply();
-        }else {
-            $scope.allMiners = [];
-        }
-    }
+    };
 
     $scope.onSelect = async function($item) {
         $scope.isLoading = true;
@@ -719,20 +539,20 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         $scope.chosen_mine = $item.name.en;
         $scope.isLoading = false;
         $scope.$apply();
-    }
+    };
 
     $scope.onSelectPlayer = async function($item) {
-        let  new_url = window.location.pathname+"?user=" + $item.code;
+        let new_url = window.location.pathname+"?user=" + $item.code;
         if(loaded_miners) {
             new_url+= '&miners=' + loaded_miners;
         }
         window.location.href = new_url;
-    }
+    };
 
     $scope.reloadWithoutUser = async function() {
         localStorage.removeItem('keep_loaded_user');
         window.location.href = window.location.pathname;
-    }
+    };
 
     $scope.openBuyLink = async function(item) {
         if(!localStorage.getItem('alreadyDonatedMessage')) {
@@ -743,7 +563,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             }
         }
         window.open(`https://rollercoin.com/marketplace/buy/miner/${item.miner_id}`,'_blank');
-    }
+    };
 
     $scope.openSellLink = async function(item) {
         if(!localStorage.getItem('alreadyDonatedMessage')) {
@@ -754,7 +574,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             }
         }
         window.open(`https://rollercoin.com/marketplace/sell/miner/${item.miner_id}`,'_blank');
-    }
+    };
 
     $scope.openBuyCraftLink = async function(id, type) {
         if(!localStorage.getItem('alreadyDonatedMessage')) {
@@ -765,36 +585,30 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             }
         }
         window.open(`https://rollercoin.com/marketplace/buy/${type}/${id}`,'_blank');
-    }
+    };
 
     $scope.addMinerToSimulation = async function($item) {
         $scope.customMiners = $scope.customMiners || [];
         $scope.customMiners.push({...$item, rdid: uuidv4()});
         $scope.recalculateUserPower();
-    }
+    };
 
     $scope.removeMinerFromSimulation = async function($item) {
         $scope.customMiners = $scope.customMiners.filter(m => m.rdid !== $item.rdid);
         $scope.recalculateUserPower();
-    }
+    };
 
     $scope.removeUserMinerSimulation = async function($item) {
         $item.removed = true;
         $scope.recalculateUserPower();
-    }
+    };
 
     $scope.revertRemoveUserMinerSimulation = async function($item) {
         $item.removed = false;
         $scope.recalculateUserPower();
-    }
+    };
 
     const calcPercentIncrease = (a, b) => b === 0 ? Infinity : ((a - b) / b) * 100;
-
-    const calculateUserPower = function(increasedMinerPower, increasedMinerBonus) {
-        const new_miners_power = $scope.user_data.powerData.miners + increasedMinerPower;
-        const new_miners_bonus = $scope.user_data.powerData.bonus_percent + increasedMinerBonus;
-        return $scope.user_data.powerData.games + new_miners_power + $scope.user_data.powerData.racks + $scope.user_data.powerData.temp + ( (new_miners_power + $scope.user_data.powerData.games) *  new_miners_bonus / 10000);
-    }
 
     $scope.recalculateUserPower = async function() {
         $scope.customMiners = $scope.customMiners || [];
@@ -814,9 +628,9 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         const removed_bonus = removedMinersForBonusCalc.map(m => parseFloat(m.bonus_power)).reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
         let removed_power = $scope.user_miners.filter(m => m.removed).map(m => parseFloat(m.power)).reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
         let new_power = $scope.customMiners.map(m => parseFloat(m.power)).reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
-        let new_miners_power = $scope.user_data.powerData.miners + new_power - removed_power
-        let new_miners_bonus = (new_bonus + $scope.user_data.powerData.bonus_percent - removed_bonus) / 10000
-        let new_bonus_power = (new_miners_power + $scope.user_data.powerData.games) * new_miners_bonus
+        let new_miners_power = $scope.user_data.powerData.miners + new_power - removed_power;
+        let new_miners_bonus = (new_bonus + $scope.user_data.powerData.bonus_percent - removed_bonus) / 10000;
+        let new_bonus_power = (new_miners_power + $scope.user_data.powerData.games) * new_miners_bonus;
         $scope.user_data.newPowerData = {
             bonus_percent : new_bonus + $scope.user_data.powerData.bonus_percent - removed_bonus,
             new_bonus_percent : new_bonus - removed_bonus,
@@ -832,7 +646,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         const bestHashRate = chooseBestHashRateUnit($scope.user_data.newPowerData.total, 'GH/s');
         $scope.formData.power = bestHashRate.value;
         $scope.formData.unit = bestHashRate.unit;
-    }
+    };
 
     if(typeof loaded_miners === 'string' && loaded_miners !== '') {
         const all_miners = await MinerService.getAllMinersByFilter(); 
@@ -850,7 +664,6 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     $scope.formatDays = formatDays;
 
     const convertTime = (value, fromUnit, toUnit) => {
-  
         if (fromUnit === 'minutes' && toUnit === 'seconds') {
             return value * 60;
         } else if (fromUnit === 'seconds' && toUnit === 'minutes') {
@@ -861,14 +674,14 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     };
       
     function getUniqueListBy(arr, key) {
-        return [...new Map(arr.map(item => [item[key], item])).values()]
+        return [...new Map(arr.map(item => [item[key], item])).values()];
     }
     
     function uuidv4() {
         return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
           (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
         );
-      }
+    }
 
     $scope.hasAnyAllocatedPower = function() {
         return $scope.currencies?.find(c => c.user_alocated_power > 0);
@@ -876,29 +689,17 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
     const getCurrenciesSum = function(attr) {
         return $scope.currencies?.filter(filterFn).map(c => c?.[attr] || 0).reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
-    }
+    };
 
     $scope.getCurrenciesSum = getCurrenciesSum;
-    $scope.leagues = CurrencyService.getLeagues();
-    $scope.loaded_league = loaded_league || $scope.leagues[0].id;
-    $scope.formData.league = $scope.leagues.filter(l => l.id == $scope.loaded_league)[0] ?? $scope.leagues[0];
-    $scope.loaded_league = $scope.leagues.filter(l => l.id == $scope.loaded_league)[0].id ?? $scope.leagues[0].id;
-    $scope.currencies = await CurrencyService.getDetailedCurrenciesByLeague($scope.loaded_league);
-    $scope.currencies?.forEach(c => {
-        c.block_value_in_brl = c.in_game_only ? 0 : exchangeCoin(c.blockSize, c.name, 'brl');
-        c.block_value_in_usd = c.in_game_only ? 0 : exchangeCoin(c.blockSize, c.name, 'usd');
-        c.user_block_farm_brl = 0;
-        c.user_block_farm_usd = 0;
-        c.user_block_farm_token = 0;
-        c.user_days_to_widthdraw = c.disabled_withdraw ? Number.MAX_SAFE_INTEGER : 0;
-        const param_allocation = getUrlParamValue(c.name.toLowerCase());
-        if(param_allocation && !isNaN(param_allocation)) {
-            c.user_alocated_power = parseInt(param_allocation);
-            updateAllocatedPower(c);
-        }
-    });
-    $scope.isLoading = false;
+    
+    // CurrencyService kaldırıldığı için ligler (leagues) ve currencies boş veya statik olarak tanımlanmalıdır.
+    $scope.leagues = [];
+    $scope.loaded_league = loaded_league || 1;
+    $scope.formData.league = { id: $scope.loaded_league };
+    $scope.currencies = [];
 
+    $scope.isLoading = false;
     $scope.$apply();
 
     $scope.updateNetworkPowerUnit = function(oldUnit) {
@@ -907,7 +708,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
 
     $scope.closeModal = async function() {
         const confettiSound = document.getElementById('confettiSound');
-        const jsConfetti = new JSConfetti()
+        const jsConfetti = new JSConfetti();
         setTimeout(async function() {
             jsConfetti.addConfetti({ confettiNumber: 300});
             await sleep(50);
@@ -929,10 +730,10 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
     }
 
     function getRandomInt(min, max) {
-        min = Math.ceil(min);    // Arredonda para cima para garantir que não seja menor que o mínimo
-        max = Math.floor(max);   // Arredonda para baixo para garantir que não seja maior que o máximo
+        min = Math.ceil(min);
+        max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min;
-      }
+    }
 
     $scope.updatePowerUnit = function(oldUnit) {
         $scope.formData.power = convertHashrate($scope.formData.power, oldUnit, $scope.formData.unit);
@@ -947,13 +748,13 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
             localStorage.clear();
             location.reload();  
         }
-    }
+    };
 
     $scope.updateLeagueDetails = async function() {
         const selectedLeague = $scope.formData.league;
-        let  new_url = window.location.pathname+"?league=" + selectedLeague.id;
+        let new_url = window.location.pathname+"?league=" + selectedLeague.id;
         window.location.href = new_url;
-    }
+    };
 
     $scope.updateCurrencyDetails = function() {
         const selectedCurrency = $scope.formData.currency;
@@ -977,8 +778,8 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         let userPowerPercentage = convertHashrate(power, unit, 'GH/s') / convertHashrate(coin.networkPower, coin.networkUnit,'GH/s');
         let earningsPerBlock = coin.blockSize;
         earningsPerBlock *= userPowerPercentage;
-        return currency === 'amount' ? earningsPerBlock.toFixed(6) : coin.in_game_only ? 0 : (earningsPerBlock * exchangeRates[coin.name][currency]).toFixed(2);
-    };
+        return currency === 'amount' ? earningsPerBlock.toFixed(6) : coin.in_game_only ? 0 : ((exchangeRates[coin.name] && exchangeRates[coin.name][currency]) ? (earningsPerBlock * exchangeRates[coin.name][currency]).toFixed(2) : 0);
+    }
 
     function calculateDaysUntilWithdraw(power_in_ghs, coin) {
         if(coin.disabled_withdraw) {
@@ -992,9 +793,9 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         let minToWithdraw = coin.min_to_withdraw;
         let userPowerPercentage = power_in_ghs / coin.networkPower;
         earningsPerBlock *= userPowerPercentage;
-        let earningsPerDay = earningsPerBlock * (86400 / blockTimeInSeconds); // 86400 seconds in a day
+        let earningsPerDay = earningsPerBlock * (86400 / blockTimeInSeconds);
         return Math.ceil(minToWithdraw / earningsPerDay);
-    };
+    }
 
     function updateAllocatedPower(currency) {
         const user_alocated_power = parseFloat(currency.user_alocated_power);
@@ -1014,58 +815,54 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         }else {
             setParamValue(currency.name.toLowerCase());
         }
-    };
+    }
 
     async function donate(network) {
-            if (typeof window.ethereum !== 'undefined') {
-                try {
-                    await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    const web3 = new Web3(window.ethereum);
-                    const chainId = network === 'BSC' ? '0x38' : '0x89';
-                    const donation = network === 'BSC' ? $scope.donationInBnb.toFixed(18) : $scope.donationInMatic.toFixed(18)
-                    await window.ethereum.request({
-                        method: 'wallet_switchEthereumChain',
-                        params: [{ chainId: chainId }],
-                    });
-                    const toAddress = '0x57721770F5Ea06B79ECe6996D653BAC413667Fa2';
-                    const amountInWei = web3.utils.toWei(''+donation, 'ether');
-                    const accounts = await web3.eth.getAccounts();
-                    const fromAddress = accounts[0];
-                    const transactionParameters = {
-                        to: toAddress,
-                        from: fromAddress,
-                        value: web3.utils.toHex(amountInWei)
-                    };
-                    await window.ethereum.request({
-                        method: 'eth_sendTransaction',
-                        params: [transactionParameters],
-                    });
-                    alert('Doação enviada com sucesso!');
-                } catch (error) {
-                    console.error('Erro ao enviar a doação:', error);
-                    alert('Erro ao enviar a doação. Por favor, tente novamente.');
-                }
-            } else {
-                alert('MetaMask não está instalada. Por favor, instale a MetaMask e tente novamente.');
+        if (typeof window.ethereum !== 'undefined') {
+            try {
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const web3 = new Web3(window.ethereum);
+                const chainId = network === 'BSC' ? '0x38' : '0x89';
+                const donation = network === 'BSC' ? $scope.donationInBnb.toFixed(18) : $scope.donationInMatic.toFixed(18);
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: chainId }],
+                });
+                const toAddress = '0x57721770F5Ea06B79ECe6996D653BAC413667Fa2';
+                const amountInWei = web3.utils.toWei(''+donation, 'ether');
+                const accounts = await web3.eth.getAccounts();
+                const fromAddress = accounts[0];
+                const transactionParameters = {
+                    to: toAddress,
+                    from: fromAddress,
+                    value: web3.utils.toHex(amountInWei)
+                };
+                await window.ethereum.request({
+                    method: 'eth_sendTransaction',
+                    params: [transactionParameters],
+                });
+                alert('Doação enviada com sucesso!');
+            } catch (error) {
+                console.error('Erro ao enviar a doação:', error);
+                alert('Erro ao enviar a doação. Por favor, tente novamente.');
             }
+        } else {
+            alert('MetaMask não está instalada. Por favor, instale a MetaMask e tente novamente.');
+        }
     }
 
     $scope.donate = donate;
-    
     $scope.updateAllocatedPower = updateAllocatedPower;
-
-
-
     $scope.calculateEarningsWithValues = calculateEarningsWithValues;
 
     $scope.calculateAllCoins = async function() {
         $scope.currencies?.forEach(c => {
-            c.user_alocated_power = 100
+            c.user_alocated_power = 100;
             updateAllocatedPower(c);
         });
         await sleep(500);
         document.getElementById('bestCoinTable').scrollIntoView();
-    }
+    };
 
     $scope.bestBuys = async function() {
         $scope.formData.showAllMiners = true;
@@ -1074,16 +871,16 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         $scope.orderByAllMinersField='supply';
         $scope.reverseAllMinersSort = true;
         $scope.allMinerMinBonusSearch = 2;
-        $scope.filterAllMiners($scope.allMinerNameSearch, $scope.allMinersRarity, {min:$scope.allMinerMinBonusSearch, max:$scope.allMinerMaxBonusSearch}, $scope.allMinerNegotiableStatus, $scope.allMinerPosessionStatus, $scope.allMinerCollectionId, $scope.allMinerMinPowerSearch, $scope.allMinerMaxPowerSearch)
+        $scope.filterAllMiners($scope.allMinerNameSearch, $scope.allMinersRarity, {min:$scope.allMinerMinBonusSearch, max:$scope.allMinerMaxBonusSearch}, $scope.allMinerNegotiableStatus, $scope.allMinerPosessionStatus, $scope.allMinerCollectionId, $scope.allMinerMinPowerSearch, $scope.allMinerMaxPowerSearch);
         $scope.$apply();
-    }
+    };
 
     $scope.resetAlocatedPower = function() {
         $scope.currencies?.forEach(c => {
-            c.user_alocated_power = 0
+            c.user_alocated_power = 0;
             updateAllocatedPower(c);
         });
-    }
+    };
 
     const ordinalNum = num => ['primeira', 'segunda', 'terceira', 'quarta', 'quinta', 'sexta', 'sétima', 'oitava', 'nona', 'décima'][num - 1];
     const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -1094,8 +891,7 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         const rack_row =  miner_rack.placement.y + 1;
         const rack_column =  miner_rack.placement.x + 1;
         return $sce.trustAsHtml(`${capitalize(ordinalNum(room_location))} sala<br>${ordinalNum(rack_row)} fileira<br>${ordinalNum(rack_column)} rack`);
-    }
-
+    };
 
     $scope.calculateEarnings = function(timeframe, currency) {
         if (!$scope.formData.currency || !$scope.formData.blockSize || !$scope.formData.blockTime) {
@@ -1112,17 +908,17 @@ app.controller('MiningController', ['$scope', 'CurrencyService', 'UserMinerServi
         let userPowerPercentage = convertHashrate($scope.formData.power, $scope.formData.unit, 'GH/s') / convertHashrate($scope.formData.networkPower, $scope.formData.networkUnit,'GH/s');
         earningsPerBlock *= userPowerPercentage;
 
-        let earningsPerDay = earningsPerBlock * (86400 / blockTimeInSeconds); // 86400 seconds in a day
+        let earningsPerDay = earningsPerBlock * (86400 / blockTimeInSeconds);
         
         switch(timeframe) {
             case 'block':
-                return currency === 'amount' ? earningsPerBlock.toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerBlock * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
+                return currency === 'amount' ? earningsPerBlock.toFixed(6) : $scope.formData.currency.in_game_only ? 0 : ((exchangeRates[$scope.formData.currency.name] && exchangeRates[$scope.formData.currency.name][currency]) ? (earningsPerBlock * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2) : 0);
             case 'day':
-                return currency === 'amount' ? earningsPerDay.toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerDay * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
+                return currency === 'amount' ? earningsPerDay.toFixed(6) : $scope.formData.currency.in_game_only ? 0 : ((exchangeRates[$scope.formData.currency.name] && exchangeRates[$scope.formData.currency.name][currency]) ? (earningsPerDay * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2) : 0);
             case 'week':
-                return currency === 'amount' ? (earningsPerDay * 7).toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerDay * 7 * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
+                return currency === 'amount' ? (earningsPerDay * 7).toFixed(6) : $scope.formData.currency.in_game_only ? 0 : ((exchangeRates[$scope.formData.currency.name] && exchangeRates[$scope.formData.currency.name][currency]) ? (earningsPerDay * 7 * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2) : 0);
             case 'month':
-                return currency === 'amount' ? (earningsPerDay * 30).toFixed(6) : $scope.formData.currency.in_game_only ? 0 : (earningsPerDay * 30 * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2);
+                return currency === 'amount' ? (earningsPerDay * 30).toFixed(6) : $scope.formData.currency.in_game_only ? 0 : ((exchangeRates[$scope.formData.currency.name] && exchangeRates[$scope.formData.currency.name][currency]) ? (earningsPerDay * 30 * exchangeRates[$scope.formData.currency.name][currency]).toFixed(2) : 0);
             default:
                 return 0;
         }
