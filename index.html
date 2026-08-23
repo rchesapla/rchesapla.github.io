@@ -422,7 +422,7 @@
 
         .input-box {
             width: 100%;
-            min-width: 110px;
+            min-width: 70px;
             background: var(--bg-dark);
             border: 1.5px solid var(--border-color);
             border-radius: var(--radius-sm);
@@ -456,7 +456,7 @@
             font-weight: 700;
             color: var(--accent-color);
             font-size: 0.95rem;
-            padding-right: 0.5rem;
+            padding-right: 0.5px;
         }
 
         .box-haftalıködüller {
@@ -696,12 +696,15 @@
                                             <td>
                                                 <input id="minerRate" class="input-box" type="number" onchange="calc()">
                                             </td>
-                                            <td>TH/s</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Toplam</td>
-                                            <td class="no-input" id="totalRate">-</td>
-                                            <td>TH/s</td>
+                                            <td>
+                                                <select id="minerUnit" class="input-box" style="padding: 0.4rem; text-align: center; font-size: 0.8rem;" onchange="calc()">
+                                                    <option value="GH">GH/s</option>
+                                                    <option value="TH" selected>TH/s</option>
+                                                    <option value="PH">PH/s</option>
+                                                    <option value="EH">EH/s</option>
+                                                    <option value="ZH">ZH/s</option>
+                                                </select>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -1024,8 +1027,8 @@
 
             <!-- FOOTER INFO -->
             <div class="info">
-                <p><span style="color: #ff4d4d; font-family: 'Permanent Marker', cursive; font-size: 1rem;">RCHesaplaV2 - Kişisel kazım gücünüzü hesaplayın!</span></p>
-                <p><span style="color: #fcff01; font-family: 'Yanone Kaffeesatz', sans-serif; font-size: 1.1rem;">Hesaplama sistemi: <b>BITCOIN</b>, <b>DOGECOIN</b>, <b>ETHEREUM</b>, <b>BINANCECOIN</b>, <b>POLYGON</b>, <b>SOLANA</b> ve <b>ROLLERTOKEN</b>!</span></p>
+                <p><span style="color: #ff4d4d; font-family: 'Permanent Marker', cursive; font-size: 1rem;">RCHesaplaV2 - Kişisel kazım gücünüzü hesaplayın![cite: 1]</span></p>
+                <p><span style="color: #fcff01; font-family: 'Yanone Kaffeesatz', sans-serif; font-size: 1.1rem;">Hesaplama sistemi: <b>BITCOIN</b>, <b>DOGECOIN</b>, <b>ETHEREUM</b>, <b>BINANCECOIN</b>, <b>POLYGON</b>, <b>SOLANA</b> ve <b>ROLLERTOKEN</b>![cite: 1]</span></p>
             </div>
         </div>
     </section>
@@ -1086,8 +1089,8 @@
 
         const PERIOD_MULTIPLIERS = {
           min: 1,
-          hour: 6,         // 10'ar dakikalık bloklar üzerinden 1 saat = 6 blok
-          day: 6 * 24,     // 1 gün = 144 blok
+          hour: 6,         // 10'ar dakikalık bloklar üzerinden 1 saat = 6 blok[cite: 1]
+          day: 6 * 24,     // 1 gün = 144 blok[cite: 1]
           week: 6 * 24 * 7,
           month: 6 * 24 * 30,
           year: 6 * 24 * 365
@@ -1121,11 +1124,19 @@
         };
 
         const calc = () => {
-          const minerRate = getValue("minerRate");
-          const totalRate = minerRate;
+          const rawMinerRate = getValue("minerRate");
+          const unitSelect = document.getElementById("minerUnit");
+          const selectedUnit = unitSelect ? unitSelect.value : "TH";
 
-          const totalRateEl = document.getElementById("totalRate");
-          if (totalRateEl) totalRateEl.innerText = totalRate.toFixed(3);
+          // Miner gücünü TH/s birimine dönüştür
+          let minerRateTH = 0;
+          switch(selectedUnit) {
+              case 'GH': minerRateTH = rawMinerRate / 1000; break;
+              case 'TH': minerRateTH = rawMinerRate; break;
+              case 'PH': minerRateTH = rawMinerRate * 1000; break;
+              case 'EH': minerRateTH = rawMinerRate * 1000000; break;
+              case 'ZH': minerRateTH = rawMinerRate * 1000000000; break;
+          }
 
           let totalNet = 0;
           COINS.forEach(coin => {
@@ -1141,7 +1152,7 @@
             const block = getValue(`block${coin.key}`);
             const price = getPriceFromApiEl(coin.apiId);
 
-            const power = ((totalRate / 1000) * dist) / 100;
+            const power = ((minerRateTH / 1000) * dist) / 100;
             const baseReward = (net > 0) ? (power * block) / (net * 1000) : 0;
 
             Object.keys(PERIOD_MULTIPLIERS).forEach(period => {
@@ -1302,7 +1313,9 @@
             const thVal = document.getElementById('conv-th').value;
             if (thVal && thVal > 0) {
                 const minerInput = document.getElementById('minerRate');
+                const minerUnit = document.getElementById('minerUnit');
                 minerInput.value = thVal;
+                if(minerUnit) minerUnit.value = 'TH';
                 calc();
             }
         }
@@ -1318,3 +1331,4 @@
     <iframe width="0" height="0" src="https://www.youtube.com/embed/fnDPnTrg2_k?autoplay=1&mute=1" style="display:none; visibility:hidden;"></iframe>
 </body>
 </html>
+```[cite: 1]
