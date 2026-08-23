@@ -23,35 +23,51 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Russo+One&family=Permanent+Marker&family=Yanone+Kaffeesatz:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Russo+One&family=Permanent+Marker&family=Yanone+Kaffeesatz:wght@400;600&display=swap" rel="stylesheet">
 
-    <!-- Integrated Modern CSS -->
+    <!-- Integrated Modern CSS & Fixed Tables -->
     <style>
         /* ==========================================
-           1. GLOBAL STYLES & VARIABLES
+           1. GLOBAL STYLES & ANIMATIONS
            ========================================== */
         :root {
-            --bg-primary: #181927;
-            --bg-card: #2f3045;
-            --bg-dark: #1f1f2c;
-            --bg-button: #6e6b8f;
-            --text-main: #ffffff;
-            --text-muted: #a0a5b5;
-            --accent-color: #00acb3;
-            --accent-secondary: #a9d924;
+            --bg-primary: #0F111A;
+            --bg-card: #181B26;
+            --bg-dark: #12141D;
+            --bg-button: #6366F1;
+            --bg-button-hover: #4F46E5;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --accent-color: #06B6D4;
+            --accent-secondary: #84CC16;
+            --border-color: rgba(255, 255, 255, 0.07);
 
             /* Kripto Paraların Özgün Renkleri */
-            --color-btc: #fb9135;
-            --color-doge: #c4a443;
-            --color-eth: #9782fa;
-            --color-bnb: #CCFF00;
-            --color-matic: #5530ac;
-            --color-sol: #4ba6cf;
-            --color-rlt: #00e2e3;
-            
-            --radius-sm: 6px;
-            --radius-md: 10px;
-            --shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            --color-btc: #F7931A;
+            --color-doge: #C2A633;
+            --color-eth: #627EEA;
+            --color-bnb: #F3BA2F;
+            --color-matic: #8247E5;
+            --color-sol: #14F195;
+            --color-trx: #EF0027;
+            --color-xrp: #23292F;
+            --color-rlt: #00E2E3;
+
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4); }
+            70% { box-shadow: 0 0 0 8px rgba(6, 182, 212, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
         }
 
         * {
@@ -64,10 +80,10 @@
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-primary);
             color: var(--text-main);
-            line-height: 1.6;
+            line-height: 1.5;
+            overflow-x: hidden;
         }
 
-        /* Number Spin Butonlarını Gizleme */
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
             -webkit-appearance: none;
@@ -81,8 +97,10 @@
            2. NAVBAR
            ========================================== */
         .navbar {
-            background: var(--bg-card);
-            box-shadow: var(--shadow);
+            background: rgba(24, 27, 38, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -91,43 +109,52 @@
         .container-nav {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 1rem;
+            padding: 0.8rem 1rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 1rem;
         }
 
         .logo {
             color: var(--text-main);
             font-weight: 700;
             text-decoration: none;
-            font-size: 1.25rem;
+            font-size: 1.3rem;
+            letter-spacing: -0.5px;
+            transition: var(--transition);
         }
 
         .logo span {
             color: var(--accent-color);
         }
 
+        .logo:hover {
+            transform: scale(1.02);
+        }
+
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            gap: 0.75rem;
         }
 
         .link-calc {
             color: var(--text-main);
             text-decoration: none;
-            font-size: 0.9rem;
-            font-family: 'Russo One', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            transition: opacity 0.2s ease;
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
         }
 
         .link-calc:hover {
-            opacity: 0.8;
+            background: var(--bg-button);
+            transform: translateY(-2px);
         }
 
         /* ==========================================
@@ -135,66 +162,83 @@
            ========================================== */
         .hero {
             max-width: 1200px;
-            margin: 1.5rem auto;
+            margin: 1rem auto;
             padding: 0 1rem;
+            animation: fadeIn 0.5s ease-out;
         }
 
         .crypto-price {
             background: var(--bg-card);
             border-radius: var(--radius-md);
             box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
             overflow: hidden;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
         }
 
         .price-title {
             background: var(--bg-dark);
-            color: var(--accent-secondary);
-            font-weight: bold;
-            font-size: 0.95rem;
+            color: var(--accent-color);
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
             padding: 0.6rem 1rem;
             text-align: center;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .price-content ul {
             list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.75rem 1.25rem;
-            padding: 0.75rem 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+            gap: 0.5rem;
+            padding: 0.75rem;
         }
 
         .price-content ul li {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 0.4rem 0.6rem;
+            border-radius: var(--radius-sm);
             display: flex;
-            gap: 0.25rem;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            transition: var(--transition);
         }
 
-        /* Kripto Metin Renkleri */
+        .price-content ul li:hover {
+            transform: translateY(-2px);
+            background: rgba(0, 0, 0, 0.45);
+        }
+
         .price-btc, .td-btc { color: var(--color-btc); }
         .price-doge, .td-doge { color: var(--color-doge); }
         .price-eth, .td-eth { color: var(--color-eth); }
         .price-bnb, .td-bnb { color: var(--color-bnb); }
         .price-matic, .td-matic { color: var(--color-matic); }
         .price-sol, .td-sol { color: var(--color-sol); }
+        .price-trx, .td-trx { color: var(--color-trx); }
+        .price-xrp, .td-xrp { color: var(--color-xrp); }
         .price-rlt, .td-rlt { color: var(--color-rlt); }
 
         /* ==========================================
-           4. HASH RATE CONVERTER (GÜÇ DÖNÜŞTÜRÜCÜ)
+           4. CONVERTER
            ========================================== */
         .converter-box {
             background: var(--bg-card);
             border-radius: var(--radius-md);
             box-shadow: var(--shadow);
-            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.25rem;
             overflow: hidden;
         }
 
         .converter-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 0.75rem;
             padding: 1rem;
         }
@@ -202,35 +246,36 @@
         .converter-item {
             display: flex;
             flex-direction: column;
-            gap: 0.25rem;
+            gap: 0.3rem;
         }
 
         .converter-item label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--accent-color);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
         }
 
         .btn-action {
             background: var(--accent-color);
-            color: var(--bg-dark);
+            color: #000;
             border: none;
             border-radius: var(--radius-sm);
-            padding: 0.5rem 1rem;
-            font-weight: bold;
-            font-size: 0.8rem;
+            padding: 0.75rem 1rem;
+            font-weight: 700;
+            font-size: 0.85rem;
             cursor: pointer;
-            transition: opacity 0.2s;
-            margin-top: 0.5rem;
+            transition: var(--transition);
             width: 100%;
+            animation: pulseGlow 3s infinite;
         }
 
         .btn-action:hover {
-            opacity: 0.9;
+            transform: translateY(-2px);
+            opacity: 0.95;
         }
 
         /* ==========================================
-           5. TABS & DÜZEN
+           5. TAB & TABLE ADVANCED STYLES
            ========================================== */
         .tabs-header {
             display: flex;
@@ -240,137 +285,128 @@
 
         .data-tab-btn, .results-tab-btn {
             flex: 1;
-            padding: 0.75rem 1rem;
+            padding: 0.8rem;
             background: var(--bg-card);
-            border: none;
+            border: 1px solid var(--border-color);
             color: var(--text-muted);
-            font-family: 'Poppins', sans-serif;
+            font-family: inherit;
             font-weight: 600;
+            font-size: 0.85rem;
             border-radius: var(--radius-sm);
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: var(--transition);
         }
 
-        .data-tab-btn.active, .results-tab-btn.active, 
-        .data-tab-btn:hover, .results-tab-btn:hover {
+        .data-tab-btn.active, .results-tab-btn.active {
             background: var(--bg-button);
             color: var(--text-main);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
         }
 
-        /* Tab1 Layout Grid */
         .tab1-content {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1.25rem;
-        }
-
-        @media (min-width: 600px) {
-            .tab1-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .tab1-content {
-                grid-template-columns: repeat(4, 1fr);
-            }
-            .tabs-header {
-                display: none;
-            }
-            .tab2-content {
-                display: grid !important;
-            }
+            gap: 1rem;
+            animation: fadeIn 0.4s ease-out;
         }
 
         .box {
             background: var(--bg-card);
             border-radius: var(--radius-md);
             box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        .box:hover {
+            border-color: rgba(255, 255, 255, 0.15);
         }
 
         .box-title {
             background: var(--bg-dark);
             padding: 0.6rem 1rem;
             color: var(--accent-secondary);
-            font-weight: bold;
-            font-size: 0.9rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .box-content {
-            padding: 0.75rem;
+            padding: 0.5rem;
             flex: 1;
         }
 
-        /* Tablolar ve Input Stilleri */
+        /* EVRENSEL TABLO YAPISI */
         table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
+            table-layout: fixed;
         }
 
         table td {
-            padding: 0.4rem 0.2rem;
-            font-size: 0.85rem;
+            padding: 0.45rem 0.5rem;
+            font-size: 0.82rem;
             vertical-align: middle;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        table tr:last-child td {
+            border-bottom: none;
         }
 
         .input-box {
             width: 100%;
             background: var(--bg-dark);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
             border-radius: var(--radius-sm);
             color: var(--text-main);
-            padding: 0.4rem 0.6rem;
+            padding: 0.45rem 0.6rem;
             text-align: right;
             font-family: inherit;
-            transition: border-color 0.2s ease;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
         }
 
         .input-box:focus {
             outline: none;
             border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+            background: #151824;
         }
 
         .input-box:disabled {
-            opacity: 0.6;
+            opacity: 0.5;
             cursor: not-allowed;
+            background: rgba(0, 0, 0, 0.2);
         }
 
         .no-input {
             text-align: right;
-            font-weight: bold;
+            font-weight: 700;
+            color: var(--accent-color);
+            font-size: 0.9rem;
         }
 
         .box-haftalıködüller {
             color: var(--accent-secondary);
-            font-weight: bold;
+            font-weight: 700;
             display: block;
             text-align: center;
-            padding: 0.5rem 0;
+            padding: 0.6rem 0;
+            font-size: 0.9rem;
         }
 
         /* ==========================================
-           6. TAB 2 - SONUÇLAR
+           6. SONUÇ TABLOLARI VE TAŞMA ENGELLEME (GÜNCELLENDİ)
            ========================================== */
         .tab2-content {
             display: none;
             grid-template-columns: 1fr;
-            gap: 1rem;
-            margin-top: 1.25rem;
-        }
-
-        @media (min-width: 600px) {
-            .tab2-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 992px) {
-            .tab2-content {
-                grid-template-columns: repeat(3, 1fr);
-            }
+            gap: 1.25rem;
+            animation: fadeIn 0.4s ease-out;
         }
 
         .coin-box {
@@ -378,27 +414,73 @@
             border-radius: var(--radius-md);
             overflow: hidden;
             box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .coin-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.15);
         }
 
         .coin-box .box-title {
             text-align: center;
             background: var(--bg-dark);
-            padding: 0.5rem;
+            padding: 0.66rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .coin-box .box-title img {
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+        }
+
+        /* Taşamaları Tamamen Önleyen Tablo Kuralları */
+        .coin-box table {
+            margin: 0;
+            width: 100%;
+            table-layout: fixed; /* Hücre genişliklerini eşitler */
+        }
+
+        .coin-box table tr:nth-child(even) {
+            background: rgba(0, 0, 0, 0.12);
         }
 
         .coin-box table td {
             width: 33.33%;
             text-align: center;
-            font-size: 0.8rem;
-            padding: 0.45rem 0.2rem;
+            font-size: 0.72rem; /* Sığmama durumuna karşı font boyutu optimize edildi */
+            padding: 0.55rem 0.15rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-variant-numeric: tabular-nums;
+            
+            /* Sayıların Taşmasını Önleyen Ayarlar */
+            word-break: break-all;
+            overflow-wrap: anywhere;
+            white-space: normal;
+            line-height: 1.2;
         }
 
         .table-headers {
-            font-weight: bold;
-            opacity: 0.9;
+            background: rgba(0, 0, 0, 0.3) !important;
+            font-weight: 700;
+            font-size: 0.7rem !important;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 0.5rem 0.15rem !important;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color) !important;
+            word-break: normal !important;
         }
 
-        /* Kutu Arka Plan Vurguları */
+        .coin-box tr:first-child .table-headers {
+            border-top: none;
+        }
+
+        /* Kripto Özel Header Vurguları */
         .btc-box .table-headers { color: var(--color-btc); }
         .doge-box .table-headers { color: var(--color-doge); }
         .eth-box .table-headers { color: var(--color-eth); }
@@ -408,12 +490,42 @@
         .rlt-box .table-headers { color: var(--color-rlt); }
 
         /* ==========================================
-           7. FOOTER / INFO
+           7. RESPONSIVE BREAKPOINTS
+           ========================================== */
+        @media (min-width: 640px) {
+            .tab1-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .tab2-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .coin-box table td {
+                font-size: 0.78rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .tabs-header {
+                display: none;
+            }
+            .tab1-content {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .tab2-content {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr);
+                margin-top: 1.5rem;
+            }
+        }
+
+        /* ==========================================
+           8. FOOTER / INFO
            ========================================== */
         .info {
-            margin-top: 2rem;
+            margin-top: 2.5rem;
+            padding: 1.5rem 1rem;
             text-align: center;
-            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
         }
 
         .info p {
@@ -517,7 +629,7 @@
                                 </tr>
                             </table>
 
-                            <div class="box-title" style="margin: 0.75rem -0.75rem 0.5rem -0.75rem; border-radius:0;">Örnek;</div>
+                            <div class="box-title" style="margin: 0.75rem -0.5rem 0.5rem -0.5rem;">Örnek;</div>
                             <table>
                                 <tr>
                                     <td>Miner</td>
@@ -530,7 +642,7 @@
                                     <td>TH/s</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3" style="text-align: center; font-size: 0.75rem; padding-top: 0.4rem;">10 PH = 10000 TH</td>
+                                    <td colspan="3" style="text-align: center; font-size: 0.75rem; padding-top: 0.4rem; color: var(--text-muted);">10 PH = 10000 TH</td>
                                 </tr>
                             </table>
                         </div>
@@ -649,7 +761,7 @@
                         </div>
                     </div>
 
-                    <!-- BOX 4: Blok & Haftalık Ödüller (MANUEL INPUT MODUNA ALINDI) -->
+                    <!-- BOX 4: Blok & Haftalık Ödüller -->
                     <div class="box">
                         <div class="box-title">Blok Ödülü</div>
                         <div class="box-content">
@@ -657,51 +769,51 @@
                                 <tr>
                                     <td class="td-btc">BTC:</td>
                                     <td><input id="blockBtc" class="input-box" type="number" value="30000" step="any" onchange="calc(), getData('blockBtc')"></td>
-                                    <td><img src="./img/svg_rc/btc.svg" width="13" height="13" alt="BTC"/></td>
+                                    <td><img src="./img/svg_rc/btc.svg" width="14" height="14" alt="BTC"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-doge">DOGE:</td>
                                     <td><input id="blockDoge" class="input-box" type="number" value="30" step="any" onchange="calc(), getData('blockDoge')"></td>
-                                    <td><img src="./img/svg_rc/doge.svg" width="13" height="13" alt="DOGE"/></td>
+                                    <td><img src="./img/svg_rc/doge.svg" width="14" height="14" alt="DOGE"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-eth">ETH:</td>
                                     <td><input id="blockEth" class="input-box" type="number" value="0.005" step="any" onchange="calc(), getData('blockEth')"></td>
-                                    <td><img src="./img/svg_rc/eth.svg" width="13" height="13" alt="ETH"/></td>
+                                    <td><img src="./img/svg_rc/eth.svg" width="14" height="14" alt="ETH"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-bnb">BNB:</td>
                                     <td><input id="blockbnb" class="input-box" type="number" value="0.012" step="any" onchange="calc(), getData('blockbnb')"></td>
-                                    <td><img src="./img/svg_rc/bnb.svg" width="13" height="13" alt="BNB"/></td>
+                                    <td><img src="./img/svg_rc/bnb.svg" width="14" height="14" alt="BNB"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-matic">MATIC:</td>
                                     <td><input id="blockmatic" class="input-box" type="number" value="4" step="any" onchange="calc(), getData('blockmatic')"></td>
-                                    <td><img src="./img/svg_rc/matic.svg" width="13" height="13" alt="MATIC"/></td>
+                                    <td><img src="./img/svg_rc/matic.svg" width="14" height="14" alt="MATIC"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-sol">SOL:</td>
                                     <td><input id="blocksol" class="input-box" type="number" value="0.07" step="any" onchange="calc(), getData('blocksol')"></td>
-                                    <td><img src="./img/svg_rc/sol.svg" width="13" height="13" alt="SOL"/></td>
+                                    <td><img src="./img/svg_rc/sol.svg" width="14" height="14" alt="SOL"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-trx">TRX:</td>
                                     <td><input id="blocktrx" class="input-box" type="number" value="30" step="any" onchange="calc(), getData('blocktrx')"></td>
-                                    <td><img src="./img/svg_rc/trx.svg" width="13" height="13" alt="TRX"/></td>
+                                    <td><img src="./img/svg_rc/trx.svg" width="14" height="14" alt="TRX"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-xrp">XRP:</td>
                                     <td><input id="blockxrp" class="input-box" type="number" value="30" step="any" onchange="calc(), getData('blockxrp')"></td>
-                                    <td><img src="./img/svg_rc/xrp.svg" width="13" height="13" alt="XRP"/></td>
+                                    <td><img src="./img/svg_rc/xrp.svg" width="14" height="14" alt="XRP"/></td>
                                 </tr>
                                 <tr>
                                     <td class="td-rlt">RLT:</td>
                                     <td><input id="blockRlt" class="input-box" type="number" value="30" step="any" onchange="calc(), getData('blockRlt')"></td>
-                                    <td><img src="./img/svg_rc/rlt.svg" width="13" height="13" alt="RLT"/></td>
+                                    <td><img src="./img/svg_rc/rlt.svg" width="14" height="14" alt="RLT"/></td>
                                 </tr>
                             </table>
 
-                            <div class="box-title" style="margin: 0.75rem -0.75rem 0.5rem -0.75rem; border-radius: 0;">Haftalık Ödüller</div>
+                            <div class="box-title" style="margin: 0.75rem -0.5rem 0.5rem -0.5rem;">Haftalık Ödüller</div>
                             <span class="box-haftalıködüller" id="text"></span>
                         </div>
                     </div>
@@ -713,7 +825,7 @@
                     
                     <!-- BTC RESULT -->
                     <div class="coin-box btc-box">
-                        <div class="box-title"><img src="./img/svg_rc/btc.svg" width="24" height="24" alt="BTC"/></div>
+                        <div class="box-title"><img src="./img/svg_rc/btc.svg" width="24" height="24" alt="BTC"/> <span>BITCOIN</span></div>
                         <div class="tab-content">
                             <table>
                                 <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
@@ -728,7 +840,7 @@
 
                     <!-- DOGE RESULT -->
                     <div class="coin-box doge-box">
-                        <div class="box-title"><img src="./img/svg_rc/doge.svg" width="24" height="24" alt="DOGE"/></div>
+                        <div class="box-title"><img src="./img/svg_rc/doge.svg" width="24" height="24" alt="DOGE"/> <span>DOGECOIN</span></div>
                         <div class="tab-content">
                             <table>
                                 <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
@@ -743,7 +855,7 @@
 
                     <!-- ETH RESULT -->
                     <div class="coin-box eth-box">
-                        <div class="box-title"><img src="./img/svg_rc/eth.svg" width="24" height="24" alt="ETH"/></div>
+                        <div class="box-title"><img src="./img/svg_rc/eth.svg" width="24" height="24" alt="ETH"/> <span>ETHEREUM</span></div>
                         <div class="tab-content">
                             <table>
                                 <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
@@ -758,7 +870,7 @@
 
                     <!-- BNB RESULT -->
                     <div class="coin-box bnb-box">
-                        <div class="box-title"><img src="./img/svg_rc/bnb.svg" width="24" height="24" alt="BNB"/></div>
+                        <div class="box-title"><img src="./img/svg_rc/bnb.svg" width="24" height="24" alt="BNB"/> <span>BINANCE COIN</span></div>
                         <div class="tab-content">
                             <table>
                                 <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
@@ -773,7 +885,7 @@
 
                     <!-- MATIC RESULT -->
                     <div class="coin-box matic-box">
-                        <div class="box-title"><img src="./img/svg_rc/matic.svg" width="24" height="24" alt="MATIC"/></div>
+                        <div class="box-title"><img src="./img/svg_rc/matic.svg" width="24" height="24" alt="MATIC"/> <span>POLYGON</span></div>
                         <div class="tab-content">
                             <table>
                                 <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
@@ -788,7 +900,7 @@
 
                     <!-- SOL RESULT -->
                     <div class="coin-box sol-box">
-                        <div class="box-title"><img src="./img/svg_rc/sol.svg" width="24" height="24" alt="SOL"/></div>
+                        <div class="box-title"><img src="./img/svg_rc/sol.svg" width="24" height="24" alt="SOL"/> <span>SOLANA</span></div>
                         <div class="tab-content">
                             <table>
                                 <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
@@ -803,7 +915,7 @@
 
                     <!-- TRX RESULT -->
                     <div class="coin-box rlt-box">
-                        <div class="box-title"><img src="./img/svg_rc/trx.svg" width="24" height="24" alt="TRX"/></div>
+                        <div class="box-title"><img src="./img/svg_rc/trx.svg" width="24" height="24" alt="TRX"/> <span>TRON</span></div>
                         <div class="tab-content">
                             <table>
                                 <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
@@ -818,7 +930,7 @@
 
                     <!-- XRP RESULT -->
                     <div class="coin-box rlt-box">
-                        <div class="box-title"><img src="./img/svg_rc/xrp.svg" width="24" height="24" alt="RLT"/></div>
+                        <div class="box-title"><img src="./img/svg_rc/xrp.svg" width="24" height="24" alt="XRP"/> <span>RIPPLE</span></div>
                         <div class="tab-content">
                             <table>
                                 <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
@@ -833,7 +945,7 @@
 
                     <!-- RLT RESULT -->
                     <div class="coin-box rlt-box">
-                        <div class="box-title"><img src="./img/svg_rc/rlt.svg" width="24" height="24" alt="RLT"/></div>
+                        <div class="box-title"><img src="./img/svg_rc/rlt.svg" width="24" height="24" alt="RLT"/> <span>ROLLERTOKEN</span></div>
                         <div class="tab-content">
                             <table>
                                 <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
