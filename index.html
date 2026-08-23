@@ -238,19 +238,19 @@
 
         .converter-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 0.75rem;
-            padding: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            padding: 1.25rem;
         }
 
         .converter-item {
             display: flex;
             flex-direction: column;
-            gap: 0.3rem;
+            gap: 0.4rem;
         }
 
         .converter-item label {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 700;
             color: var(--text-muted);
         }
@@ -260,9 +260,9 @@
             color: #000;
             border: none;
             border-radius: var(--radius-sm);
-            padding: 0.75rem 1rem;
+            padding: 0.85rem 1rem;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: var(--transition);
             width: 100%;
@@ -333,7 +333,7 @@
         }
 
         .box-content {
-            padding: 0.5rem;
+            padding: 0.75rem;
             flex: 1;
         }
 
@@ -342,52 +342,62 @@
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
-            table-layout: fixed;
+            table-layout: auto;
         }
 
         table td {
-            padding: 0.45rem 0.5rem;
-            font-size: 0.82rem;
+            padding: 0.5rem 0.4rem;
+            font-size: 0.85rem;
             vertical-align: middle;
             border-bottom: 1px solid var(--border-color);
+        }
+
+        table td:nth-child(2) {
+            width: 60%; /* Input kolonunu genisleterek daha rahat giris alani saglar */
         }
 
         table tr:last-child td {
             border-bottom: none;
         }
 
+        /* GENİŞLETİLMİŞ VE YENİDEN TASARLANMIŞ INPUT KUTULARI */
         .input-box {
             width: 100%;
+            min-width: 110px;
             background: var(--bg-dark);
-            border: 1px solid var(--border-color);
+            border: 1.5px solid var(--border-color);
             border-radius: var(--radius-sm);
             color: var(--text-main);
-            padding: 0.45rem 0.6rem;
+            padding: 0.65rem 0.8rem;
             text-align: right;
             font-family: inherit;
-            font-size: 0.85rem;
-            font-weight: 500;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
             transition: var(--transition);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .input-box:focus {
             outline: none;
             border-color: var(--accent-color);
-            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
-            background: #151824;
+            box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+            background: #161A26;
         }
 
         .input-box:disabled {
-            opacity: 0.5;
+            opacity: 0.6;
             cursor: not-allowed;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            border-color: transparent;
         }
 
         .no-input {
             text-align: right;
             font-weight: 700;
             color: var(--accent-color);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            padding-right: 0.5rem;
         }
 
         .box-haftalıködüller {
@@ -562,6 +572,8 @@
                         <li><span class="price-sol">SOL:</span> <span id="sol-price-api">Yükleniyor..</span></li>
                         <li><span class="price-trx">TRX:</span> <span id="trx-price-api">Yükleniyor..</span></li>
                         <li><span class="price-xrp">XRP:</span> <span id="xrp-price-api">Yükleniyor..</span></li>
+                        <li><span class="price-rlt">LTC:</span> <span id="ltc-price-api">Yükleniyor..</span></li>
+                        <li><span class="price-rlt">USDT:</span> <span id="usdt-price-api">Yükleniyor..</span></li>
                         <li><span class="price-rlt">RLT:</span> <span id="rlt-price-api">Yükleniyor..</span></li>
                     </ul>
                 </div>
@@ -592,7 +604,7 @@
                         <input id="conv-zh" class="input-box" type="number" placeholder="0" oninput="convertHashRate('zh')">
                     </div>
                 </div>
-                <div style="padding: 0 1rem 1rem 1rem;">
+                <div style="padding: 0 1.25rem 1.25rem 1.25rem;">
                     <button class="btn-action" onclick="applyTHToMiner()">⚡ Hesaplanan TH/s Değerini Miner Gücüne Aktar</button>
                 </div>
             </div>
@@ -626,7 +638,7 @@
                                 </tr>
                             </table>
 
-                            <div class="box-title" style="margin: 0.75rem -0.5rem 0.5rem -0.5rem;">Örnek;</div>
+                            <div class="box-title" style="margin: 0.75rem -0.75rem 0.5rem -0.75rem;">Örnek;</div>
                             <table>
                                 <tr>
                                     <td>Miner</td>
@@ -810,7 +822,7 @@
                                 </tr>
                             </table>
 
-                            <div class="box-title" style="margin: 0.75rem -0.5rem 0.5rem -0.5rem;">Haftalık Ödüller</div>
+                            <div class="box-title" style="margin: 0.75rem -0.75rem 0.5rem -0.75rem;">Haftalık Ödüller</div>
                             <span class="box-haftalıködüller" id="text"></span>
                         </div>
                     </div>
@@ -969,7 +981,7 @@
     <!-- EXTERNAL LIBRARIES -->
     <script src="https://kit.fontawesome.com/66aa7c98b3.js" crossorigin="anonymous"></script>
     
-    <!-- INTEGRATED SCRIPT (SOURCE 1, 2 & 3 COMBINED) -->
+    <!-- INTEGRATED SCRIPT -->
     <script>
         /* ==========================================
            1. TAB & NAVIGATION CONTROLLER
@@ -994,7 +1006,7 @@
         }
 
         /* ==========================================
-           2. CALCULATOR & LOGIC ENGINE (SOURCE 3)
+           2. CALCULATOR & LOGIC ENGINE
            ========================================== */
         const COINS = [
           { key: 'Btc', apiId: 'btc-price-api' },
@@ -1005,7 +1017,9 @@
           { key: 'sol', apiId: 'sol-price-api' },
           { key: 'Rlt', apiId: 'rlt-price-api' },
           { key: 'trx', apiId: 'trx-price-api' },
-          { key: 'xrp', apiId: 'xrp-price-api' }
+          { key: 'xrp', apiId: 'xrp-price-api' },
+          { key: 'ltc', apiId: 'ltc-price-api' },
+          { key: 'usdt', apiId: 'usdt-price-api' }
         ];
 
         const PERIOD_MULTIPLIERS = {
@@ -1092,7 +1106,7 @@
         };
 
         /* ==========================================
-           3. COINGECKO API & PRICE FETCHING (SOURCE 2)
+           3. COINGECKO API & PRICE FETCHING
            ========================================== */
         const COIN_CONFIG = [
           { id: 'bitcoin', key: 'btc' },
@@ -1103,7 +1117,9 @@
           { id: 'solana', key: 'sol' },
           { id: 'tether', key: 'rlt' },
           { id: 'tron', key: 'trx' },
-          { id: 'ripple', key: 'xrp' }
+          { id: 'ripple', key: 'xrp' },
+          { id: 'litecoin', key: 'ltc' },
+          { id: 'tether', key: 'usdt' }
         ];
 
         const PERIODS = ['min', 'hour', 'day', 'week', 'month', 'year'];
@@ -1179,7 +1195,7 @@
         };
 
         /* ==========================================
-           4. CONVERTER & TYPED ANIMATION LOGIC
+           4. CONVERTER LOGIC
            ========================================== */
         function convertHashRate(unit) {
             const inputGH = document.getElementById('conv-gh');
@@ -1238,17 +1254,6 @@
             fetchData();
             calc();
             setInterval(fetchData, 5000);
-
-            if(typeof Typed !== "undefined") {
-                new Typed('#text', {
-                    strings: ["MATIC: 3 → 4", "SOL: 0.05 → 0.07", "DOGE: 20 → 30"],
-                    typeSpeed: 70,
-                    backSpeed: 30,
-                    backDelay: 10000,
-                    fadeOut: true,
-                    loop: true
-                });
-            }
         });
     </script>
 
