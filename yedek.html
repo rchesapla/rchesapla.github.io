@@ -23,35 +23,51 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Russo+One&family=Permanent+Marker&family=Yanone+Kaffeesatz:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Russo+One&family=Permanent+Marker&family=Yanone+Kaffeesatz:wght@400;600&display=swap" rel="stylesheet">
 
-    <!-- Integrated Modern CSS -->
+    <!-- CSS -->
     <style>
         /* ==========================================
-           1. GLOBAL STYLES & VARIABLES
+           1. GLOBAL STYLES & ANIMATIONS
            ========================================== */
         :root {
-            --bg-primary: #181927;
-            --bg-card: #2f3045;
-            --bg-dark: #1f1f2c;
-            --bg-button: #6e6b8f;
-            --text-main: #ffffff;
-            --text-muted: #a0a5b5;
-            --accent-color: #00acb3;
-            --accent-secondary: #a9d924;
+            --bg-primary: #0F111A;
+            --bg-card: #181B26;
+            --bg-dark: #12141D;
+            --bg-button: #6366F1;
+            --bg-button-hover: #4F46E5;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --accent-color: #06B6D4;
+            --accent-secondary: #84CC16;
+            --border-color: rgba(255, 255, 255, 0.07);
 
             /* Kripto Paraların Özgün Renkleri */
-            --color-btc: #fb9135;
-            --color-doge: #c4a443;
-            --color-eth: #9782fa;
-            --color-bnb: #CCFF00;
-            --color-matic: #5530ac;
-            --color-sol: #4ba6cf;
-            --color-rlt: #00e2e3;
-            
-            --radius-sm: 6px;
-            --radius-md: 10px;
-            --shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            --color-btc: #F7931A;
+            --color-doge: #C2A633;
+            --color-eth: #627EEA;
+            --color-bnb: #F3BA2F;
+            --color-matic: #8247E5;
+            --color-sol: #14F195;
+            --color-trx: #EF0027;
+            --color-xrp: #23292F;
+            --color-rlt: #00E2E3;
+
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4); }
+            70% { box-shadow: 0 0 0 8px rgba(6, 182, 212, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
         }
 
         * {
@@ -64,10 +80,10 @@
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-primary);
             color: var(--text-main);
-            line-height: 1.6;
+            line-height: 1.5;
+            overflow-x: hidden;
         }
 
-        /* Number Spin Butonlarını Gizleme */
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
             -webkit-appearance: none;
@@ -81,8 +97,10 @@
            2. NAVBAR
            ========================================== */
         .navbar {
-            background: var(--bg-card);
-            box-shadow: var(--shadow);
+            background: rgba(24, 27, 38, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -91,43 +109,52 @@
         .container-nav {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 1rem;
+            padding: 0.8rem 1rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 1rem;
         }
 
         .logo {
             color: var(--text-main);
             font-weight: 700;
             text-decoration: none;
-            font-size: 1.25rem;
+            font-size: 1.3rem;
+            letter-spacing: -0.5px;
+            transition: var(--transition);
         }
 
         .logo span {
             color: var(--accent-color);
         }
 
+        .logo:hover {
+            transform: scale(1.02);
+        }
+
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            gap: 0.75rem;
         }
 
         .link-calc {
             color: var(--text-main);
             text-decoration: none;
-            font-size: 0.9rem;
-            font-family: 'Russo One', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            transition: opacity 0.2s ease;
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
         }
 
         .link-calc:hover {
-            opacity: 0.8;
+            background: var(--bg-button);
+            transform: translateY(-2px);
         }
 
         /* ==========================================
@@ -135,54 +162,120 @@
            ========================================== */
         .hero {
             max-width: 1200px;
-            margin: 1.5rem auto;
+            margin: 1rem auto;
             padding: 0 1rem;
+            animation: fadeIn 0.5s ease-out;
         }
 
         .crypto-price {
             background: var(--bg-card);
             border-radius: var(--radius-md);
             box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
             overflow: hidden;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
         }
 
         .price-title {
             background: var(--bg-dark);
-            color: var(--accent-secondary);
-            font-weight: bold;
-            font-size: 0.95rem;
+            color: var(--accent-color);
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
             padding: 0.6rem 1rem;
             text-align: center;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .price-content ul {
             list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.75rem 1.25rem;
-            padding: 0.75rem 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.5rem;
+            padding: 0.75rem;
         }
 
         .price-content ul li {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 0.4rem 0.6rem;
+            border-radius: var(--radius-sm);
             display: flex;
-            gap: 0.25rem;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            transition: var(--transition);
         }
 
-        /* Kripto Metin Renkleri */
+        .price-content ul li:hover {
+            transform: translateY(-2px);
+            background: rgba(0, 0, 0, 0.45);
+        }
+
         .price-btc, .td-btc { color: var(--color-btc); }
         .price-doge, .td-doge { color: var(--color-doge); }
         .price-eth, .td-eth { color: var(--color-eth); }
         .price-bnb, .td-bnb { color: var(--color-bnb); }
         .price-matic, .td-matic { color: var(--color-matic); }
         .price-sol, .td-sol { color: var(--color-sol); }
+        .price-trx, .td-trx { color: var(--color-trx); }
+        .price-xrp, .td-xrp { color: var(--color-xrp); }
         .price-rlt, .td-rlt { color: var(--color-rlt); }
 
         /* ==========================================
-           4. TABS & DÜZEN
+           4. CONVERTER
+           ========================================== */
+        .converter-box {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.25rem;
+            overflow: hidden;
+        }
+
+        .converter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            padding: 1.25rem;
+        }
+
+        .converter-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .converter-item label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .btn-action {
+            background: var(--accent-color);
+            color: #000;
+            border: none;
+            border-radius: var(--radius-sm);
+            padding: 0.85rem 1rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            animation: pulseGlow 3s infinite;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            opacity: 0.95;
+        }
+
+        /* ==========================================
+           5. TAB & COLLAPSIBLE STYLES
            ========================================== */
         .tabs-header {
             display: flex;
@@ -192,63 +285,111 @@
 
         .data-tab-btn, .results-tab-btn {
             flex: 1;
-            padding: 0.75rem 1rem;
+            padding: 0.8rem;
             background: var(--bg-card);
-            border: none;
+            border: 1px solid var(--border-color);
             color: var(--text-muted);
-            font-family: 'Poppins', sans-serif;
+            font-family: inherit;
             font-weight: 600;
+            font-size: 0.85rem;
             border-radius: var(--radius-sm);
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: var(--transition);
         }
 
-        .data-tab-btn.active, .results-tab-btn.active, 
-        .data-tab-btn:hover, .results-tab-btn:hover {
+        .data-tab-btn.active, .results-tab-btn.active {
             background: var(--bg-button);
             color: var(--text-main);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
         }
 
-        /* Tab1 Layout Grid */
+        /* Açılır-Kapanır Panel Konfigürasyonu */
+        .collapsible-wrapper {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .collapsible-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.8rem 1.25rem;
+            background: var(--bg-dark);
+            cursor: pointer;
+            user-select: none;
+            transition: var(--transition);
+        }
+
+        .collapsible-header:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .collapsible-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toggle-icon {
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .collapsible-wrapper.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+
+        .collapsible-body {
+            max-height: 2000px;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0, 1, 0, 1), opacity 0.3s ease, padding 0.3s ease;
+            opacity: 1;
+            padding: 1.25rem;
+        }
+
+        .collapsible-wrapper.collapsed .collapsible-body {
+            max-height: 0;
+            opacity: 0;
+            padding: 0 1.25rem;
+        }
+
         .tab1-content {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1.25rem;
-        }
-
-        @media (min-width: 600px) {
-            .tab1-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .tab1-content {
-                grid-template-columns: repeat(4, 1fr);
-            }
-            .tabs-header {
-                display: none; /* Masaüstü görünümünde sekmeler gizlenip yan yana gösterilir */
-            }
-            .tab2-content {
-                display: grid !important;
-            }
+            gap: 1rem;
+            animation: fadeIn 0.4s ease-out;
         }
 
         .box {
-            background: var(--bg-card);
+            background: var(--bg-primary);
             border-radius: var(--radius-md);
-            box-shadow: var(--shadow);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        .box:hover {
+            border-color: rgba(255, 255, 255, 0.15);
         }
 
         .box-title {
             background: var(--bg-dark);
             padding: 0.6rem 1rem;
             color: var(--accent-secondary);
-            font-weight: bold;
-            font-size: 0.9rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .box-content {
@@ -256,73 +397,85 @@
             flex: 1;
         }
 
-        /* Tablolar ve Input Stilleri */
+        /* EVRENSEL TABLO YAPISI */
         table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
+            table-layout: auto;
         }
 
         table td {
-            padding: 0.4rem 0.2rem;
+            padding: 0.5rem 0.4rem;
             font-size: 0.85rem;
             vertical-align: middle;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        table td:nth-child(2) {
+            width: 60%;
+        }
+
+        table tr:last-child td {
+            border-bottom: none;
         }
 
         .input-box {
             width: 100%;
+            min-width: 70px;
             background: var(--bg-dark);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1.5px solid var(--border-color);
             border-radius: var(--radius-sm);
             color: var(--text-main);
-            padding: 0.4rem 0.6rem;
+            padding: 0.65rem 0.8rem;
             text-align: right;
             font-family: inherit;
-            transition: border-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .input-box:focus {
             outline: none;
             border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+            background: #161A26;
         }
 
         .input-box:disabled {
             opacity: 0.6;
             cursor: not-allowed;
+            background: rgba(0, 0, 0, 0.3);
+            border-color: transparent;
         }
 
         .no-input {
             text-align: right;
-            font-weight: bold;
+            font-weight: 700;
+            color: var(--accent-color);
+            font-size: 0.95rem;
+            padding-right: 0.5px;
         }
 
         .box-haftalıködüller {
             color: var(--accent-secondary);
-            font-weight: bold;
+            font-weight: 700;
             display: block;
             text-align: center;
-            padding: 0.5rem 0;
+            padding: 0.6rem 0;
+            font-size: 0.9rem;
         }
 
         /* ==========================================
-           5. TAB 2 - SONUÇLAR
+           6. SONUÇ TABLOLARI VE TAŞMA ENGELLEME
            ========================================== */
         .tab2-content {
-            display: none; /* Varsayılan JS ile değiştirilebilir */
+            display: none;
             grid-template-columns: 1fr;
-            gap: 1rem;
-            margin-top: 1.25rem;
-        }
-
-        @media (min-width: 600px) {
-            .tab2-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 992px) {
-            .tab2-content {
-                grid-template-columns: repeat(3, 1fr);
-            }
+            gap: 1.25rem;
+            animation: fadeIn 0.4s ease-out;
         }
 
         .coin-box {
@@ -330,27 +483,70 @@
             border-radius: var(--radius-md);
             overflow: hidden;
             box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .coin-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.15);
         }
 
         .coin-box .box-title {
             text-align: center;
             background: var(--bg-dark);
-            padding: 0.5rem;
+            padding: 0.66rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .coin-box .box-title img {
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+        }
+
+        .coin-box table {
+            margin: 0;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .coin-box table tr:nth-child(even) {
+            background: rgba(0, 0, 0, 0.12);
         }
 
         .coin-box table td {
             width: 33.33%;
             text-align: center;
-            font-size: 0.8rem;
-            padding: 0.45rem 0.2rem;
+            font-size: 0.72rem;
+            padding: 0.55rem 0.15rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-variant-numeric: tabular-nums;
+            word-break: break-all;
+            overflow-wrap: anywhere;
+            white-space: normal;
+            line-height: 1.2;
         }
 
         .table-headers {
-            font-weight: bold;
-            opacity: 0.9;
+            background: rgba(0, 0, 0, 0.3) !important;
+            font-weight: 700;
+            font-size: 0.7rem !important;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 0.5rem 0.15rem !important;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color) !important;
+            word-break: normal !important;
         }
 
-        /* Kutu Arka Plan Vurguları */
+        .coin-box tr:first-child .table-headers {
+            border-top: none;
+        }
+
+        /* Kripto Özel Header Vurguları */
         .btc-box .table-headers { color: var(--color-btc); }
         .doge-box .table-headers { color: var(--color-doge); }
         .eth-box .table-headers { color: var(--color-eth); }
@@ -360,12 +556,42 @@
         .rlt-box .table-headers { color: var(--color-rlt); }
 
         /* ==========================================
-           6. FOOTER / INFO
+           7. RESPONSIVE BREAKPOINTS
+           ========================================== */
+        @media (min-width: 640px) {
+            .tab1-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .tab2-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .coin-box table td {
+                font-size: 0.78rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .tabs-header {
+                display: none;
+            }
+            .tab1-content {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .tab2-content {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr);
+                margin-top: 1.5rem;
+            }
+        }
+
+        /* ==========================================
+           8. FOOTER / INFO
            ========================================== */
         .info {
-            margin-top: 2rem;
+            margin-top: 2.5rem;
+            padding: 1.5rem 1rem;
             text-align: center;
-            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
         }
 
         .info p {
@@ -394,7 +620,7 @@
             
             <!-- CRYPTO PRICE SHOWN HERE -->
             <div class="crypto-price">
-                <div class="price-title">Güncel Kripto Fiyatları</div>
+                <div class="price-title">Güncel Kripto Fiyatları (USD / TL)</div>
                 <div class="price-content">
                     <ul>
                         <li><span class="price-btc">BTC:</span> <span id="btc-price-api">Yükleniyor..</span></li>
@@ -403,8 +629,42 @@
                         <li><span class="price-bnb">BNB:</span> <span id="bnb-price-api">Yükleniyor..</span></li>
                         <li><span class="price-matic">MATIC:</span> <span id="matic-price-api">Yükleniyor..</span></li>
                         <li><span class="price-sol">SOL:</span> <span id="sol-price-api">Yükleniyor..</span></li>
+                        <li><span class="price-trx">TRX:</span> <span id="trx-price-api">Yükleniyor..</span></li>
+                        <li><span class="price-xrp">XRP:</span> <span id="xrp-price-api">Yükleniyor..</span></li>
+                        <li><span class="price-rlt">LTC:</span> <span id="ltc-price-api">Yükleniyor..</span></li>
+                        <li><span class="price-rlt">USDT:</span> <span id="usdt-price-api">Yükleniyor..</span></li>
                         <li><span class="price-rlt">RLT:</span> <span id="rlt-price-api">Yükleniyor..</span></li>
                     </ul>
+                </div>
+            </div>
+
+            <!-- GÜÇ DÖNÜŞTÜRÜCÜ (CONVERTER) -->
+            <div class="converter-box">
+                <div class="price-title">⚡ Güç Birimi Dönüştürücü (GH / TH / PH / EH / ZH)</div>
+                <div class="converter-grid">
+                    <div class="converter-item">
+                        <label for="conv-gh">GH/s</label>
+                        <input id="conv-gh" class="input-box" type="number" placeholder="0" oninput="convertHashRate('gh')">
+                    </div>
+                    <div class="converter-item">
+                        <label for="conv-th">TH/s</label>
+                        <input id="conv-th" class="input-box" type="number" placeholder="0" oninput="convertHashRate('th')">
+                    </div>
+                    <div class="converter-item">
+                        <label for="conv-ph">PH/s</label>
+                        <input id="conv-ph" class="input-box" type="number" placeholder="0" oninput="convertHashRate('ph')">
+                    </div>
+                    <div class="converter-item">
+                        <label for="conv-eh">EH/s</label>
+                        <input id="conv-eh" class="input-box" type="number" placeholder="0" oninput="convertHashRate('eh')">
+                    </div>
+                    <div class="converter-item">
+                        <label for="conv-zh">ZH/s</label>
+                        <input id="conv-zh" class="input-box" type="number" placeholder="0" oninput="convertHashRate('zh')">
+                    </div>
+                </div>
+                <div style="padding: 0 1.25rem 1.25rem 1.25rem;">
+                    <button class="btn-action" onclick="applyTHToMiner()">⚡ Hesaplanan TH/s Değerini Miner Gücüne Aktar</button>
                 </div>
             </div>
 
@@ -415,194 +675,213 @@
                     <button onclick="changeTab('results')" id="results-tab-btn" class="results-tab-btn">Sonuçlar</button>
                 </div>
 
-                <!-- TAB 1 CONTENT -->
-                <div id="tab1-content" class="tab1-content">
-                    
-                    <!-- BOX 1: Kazım Gücü -->
-                    <div class="box">
-                        <div class="box-title">Kazım Gücü</div>
-                        <div class="box-content">
-                            <table>
-                                <tr>
-                                    <td>Miner</td>
-                                    <td>
-                                        <input id="minerRate" class="input-box" type="number" onchange="calc(), getData('minerRate')">
-                                    </td>
-                                    <td>TH/s</td>
-                                </tr>
-                                <tr>
-                                    <td>Oyun</td>
-                                    <td>
-                                        <input id="gamesRate" class="input-box" type="number" onchange="calc(), getData('gamesRate')">
-                                    </td>
-                                    <td>TH/s</td>
-                                </tr>
-                                <tr>
-                                    <td>Toplam</td>
-                                    <td class="no-input" id="totalRate">-</td>
-                                    <td>TH/s</td>
-                                </tr>
-                            </table>
-
-                            <div class="box-title" style="margin: 0.75rem -0.75rem 0.5rem -0.75rem; border-radius:0;">Örnek;</div>
-                            <table>
-                                <tr>
-                                    <td>Miner</td>
-                                    <td><input class="input-box" value="1 PH = 1000" disabled></td>
-                                    <td>TH/s</td>
-                                </tr>
-                                <tr>
-                                    <td>Oyun</td>
-                                    <td><input class="input-box" value="1 PH = 1000" disabled></td>
-                                    <td>TH/s</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" style="text-align: center; font-size: 0.75rem; padding-top: 0.4rem;">10 PH = 10000 TH</td>
-                                </tr>
-                            </table>
-                        </div>
+                <!-- AÇILIR KAPANIR YATAY KAZIM BİLGİLERİ PANELİ -->
+                <div class="collapsible-wrapper" id="collapsibleDataPanel">
+                    <div class="collapsible-header" onclick="toggleCollapsible('collapsibleDataPanel')">
+                        <span class="collapsible-title">⚙️ Kazım Bilgileri ve Ayarlar</span>
+                        <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
                     </div>
 
-                    <!-- BOX 2: Bölünmüş Güç -->
-                    <div class="box">
-                        <div class="box-title">Bölünmüş Güç (%lik)</div>
-                        <div class="box-content">
-                            <table>
-                                <tr>
-                                    <td class="td-btc">BTC:</td>
-                                    <td><input id="distBtc" class="input-box" type="number" onchange="calc(), getData('distBtc')"></td>
-                                    <td>%</td>
-                                </tr>
-                                <tr>
-                                    <td class="td-doge">DOGE:</td>
-                                    <td><input id="distDoge" class="input-box" type="number" onchange="calc(), getData('distDoge')"></td>
-                                    <td>%</td>
-                                </tr>
-                                <tr>
-                                    <td class="td-eth">ETH:</td>
-                                    <td><input id="distEth" class="input-box" type="number" onchange="calc(), getData('distEth')"></td>
-                                    <td>%</td>
-                                </tr>
-                                <tr>
-                                    <td class="td-bnb">BNB:</td>
-                                    <td><input id="distbnb" class="input-box" type="number" onchange="calc(), getData('distbnb')"></td>
-                                    <td>%</td>
-                                </tr>
-                                <tr>
-                                    <td class="td-matic">MATIC:</td>
-                                    <td><input id="distmatic" class="input-box" type="number" onchange="calc(), getData('distmatic')"></td>
-                                    <td>%</td>
-                                </tr>
-                                <tr>
-                                    <td class="td-sol">SOL:</td>
-                                    <td><input id="distsol" class="input-box" type="number" onchange="calc(), getData('distsol')"></td>
-                                    <td>%</td>
-                                </tr>
-                                <tr>
-                                    <td class="td-rlt">RLT:</td>
-                                    <td><input id="distRlt" class="input-box" type="number" onchange="calc(), getData('distRlt')"></td>
-                                    <td>%</td>
-                                </tr>
-                            </table>
+                    <div class="collapsible-body">
+                        <!-- TAB 1 CONTENT (4'lü Yatay Kutu Düzeni) -->
+                        <div id="tab1-content" class="tab1-content">
+                            
+                            <!-- BOX 1: Kazım Gücü -->
+                            <div class="box">
+                                <div class="box-title">Kazım Gücü</div>
+                                <div class="box-content">
+                                    <table>
+                                        <tr>
+                                            <td>Miner</td>
+                                            <td>
+                                                <input id="minerRate" class="input-box" type="number" onchange="calc()">
+                                            </td>
+                                            <td>
+                                                <select id="minerUnit" class="input-box" style="padding: 0.4rem; text-align: center; font-size: 0.8rem;" onchange="calc()">
+                                                    <option value="GH">GH/s</option>
+                                                    <option value="TH" selected>TH/s</option>
+                                                    <option value="PH">PH/s</option>
+                                                    <option value="EH">EH/s</option>
+                                                    <option value="ZH">ZH/s</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- BOX 2: Bölünmüş Güç -->
+                            <div class="box">
+                                <div class="box-title">Bölünmüş Güç (%lik)</div>
+                                <div class="box-content">
+                                    <table>
+                                        <tr>
+                                            <td class="td-btc">BTC:</td>
+                                            <td><input id="distBtc" class="input-box" type="number" onchange="calc()"></td>
+                                            <td>%</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-doge">DOGE:</td>
+                                            <td><input id="distDoge" class="input-box" type="number" onchange="calc()"></td>
+                                            <td>%</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-eth">ETH:</td>
+                                            <td><input id="distEth" class="input-box" type="number" onchange="calc()"></td>
+                                            <td>%</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-bnb">BNB:</td>
+                                            <td><input id="distbnb" class="input-box" type="number" onchange="calc()"></td>
+                                            <td>%</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-matic">MATIC:</td>
+                                            <td><input id="distmatic" class="input-box" type="number" onchange="calc()"></td>
+                                            <td>%</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-sol">SOL:</td>
+                                            <td><input id="distsol" class="input-box" type="number" onchange="calc()"></td>
+                                            <td>%</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-trx">TRX:</td>
+                                            <td><input id="disttrx" class="input-box" type="number" onchange="calc()"></td>
+                                            <td>%</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-xrp">XRP:</td>
+                                            <td><input id="distxrp" class="input-box" type="number" onchange="calc()"></td>
+                                            <td>%</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-rlt">RLT:</td>
+                                            <td><input id="distRlt" class="input-box" type="number" onchange="calc()"></td>
+                                            <td>%</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- BOX 3: Ağ Gücü -->
+                            <div class="box">
+                                <div class="box-title">Ağ Gücü</div>
+                                <div class="box-content">
+                                    <table>
+                                        <tr>
+                                            <td class="td-btc">BTC:</td>
+                                            <td><input id="netBtc" class="input-box" type="number" onchange="calc()"></td>
+                                            <td>EH/s</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-doge">DOGE:</td>
+                                            <td><input id="netDoge" class="input-box" type="number" onchange="calc()"></td>
+                                            <td>EH/s</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-eth">ETH:</td>
+                                            <td><input id="netEth" class="input-box" type="number" onchange="calc()"></td>
+                                            <td>EH/s</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-bnb">BNB:</td>
+                                            <td><input id="netbnb" class="input-box" type="number" onchange="calc()"></td>
+                                            <td>EH/s</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-matic">MATIC:</td>
+                                            <td><input id="netmatic" class="input-box" type="number" onchange="calc()"></td>
+                                            <td>EH/s</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-sol">SOL:</td>
+                                            <td><input id="netsol" class="input-box" type="number" onchange="calc()"></td>
+                                            <td>EH/s</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-trx">TRX:</td>
+                                            <td><input id="nettrx" class="input-box" type="number" onchange="calc()"></td>
+                                            <td>EH/s</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-xrp">XRP:</td>
+                                            <td><input id="netxrp" class="input-box" type="number" onchange="calc()"></td>
+                                            <td>EH/s</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-rlt">RLT:</td>
+                                            <td><input id="netRlt" class="input-box" type="number" onchange="calc()"></td>
+                                            <td>EH/s</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Toplam</td>
+                                            <td class="no-input" id="totalNet">-</td>
+                                            <td>EH/s</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- BOX 4: Blok & Haftalık Ödüller -->
+                            <div class="box">
+                                <div class="box-title">Blok Ödülü</div>
+                                <div class="box-content">
+                                    <table>
+                                        <tr>
+                                            <td class="td-btc">BTC:</td>
+                                            <td><input id="blockBtc" class="input-box" type="number" value="30000" step="any" onchange="calc()"></td>
+                                            <td><img src="./img/svg_rc/btc.svg" width="14" height="14" alt="BTC"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-doge">DOGE:</td>
+                                            <td><input id="blockDoge" class="input-box" type="number" value="30" step="any" onchange="calc()"></td>
+                                            <td><img src="./img/svg_rc/doge.svg" width="14" height="14" alt="DOGE"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-eth">ETH:</td>
+                                            <td><input id="blockEth" class="input-box" type="number" value="0.005" step="any" onchange="calc()"></td>
+                                            <td><img src="./img/svg_rc/eth.svg" width="14" height="14" alt="ETH"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-bnb">BNB:</td>
+                                            <td><input id="blockbnb" class="input-box" type="number" value="0.012" step="any" onchange="calc()"></td>
+                                            <td><img src="./img/svg_rc/bnb.svg" width="14" height="14" alt="BNB"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-matic">MATIC:</td>
+                                            <td><input id="blockmatic" class="input-box" type="number" value="4" step="any" onchange="calc()"></td>
+                                            <td><img src="./img/svg_rc/matic.svg" width="14" height="14" alt="MATIC"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-sol">SOL:</td>
+                                            <td><input id="blocksol" class="input-box" type="number" value="0.07" step="any" onchange="calc()"></td>
+                                            <td><img src="./img/svg_rc/sol.svg" width="14" height="14" alt="SOL"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-trx">TRX:</td>
+                                            <td><input id="blocktrx" class="input-box" type="number" value="30" step="any" onchange="calc()"></td>
+                                            <td><img src="./img/svg_rc/trx.svg" width="14" height="14" alt="TRX"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-xrp">XRP:</td>
+                                            <td><input id="blockxrp" class="input-box" type="number" value="30" step="any" onchange="calc()"></td>
+                                            <td><img src="./img/svg_rc/xrp.svg" width="14" height="14" alt="XRP"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-rlt">RLT:</td>
+                                            <td><input id="blockRlt" class="input-box" type="number" value="30" step="any" onchange="calc()"></td>
+                                            <td><img src="./img/svg_rc/rlt.svg" width="14" height="14" alt="RLT"/></td>
+                                        </tr>
+                                    </table>
+
+                                    <div class="box-title" style="margin: 0.75rem -0.75rem 0.5rem -0.75rem;">Haftalık Ödüller</div>
+                                    <span class="box-haftalıködüller" id="text"></span>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-
-                    <!-- BOX 3: Ağ Gücü -->
-                    <div class="box">
-                        <div class="box-title">Ağ Gücü</div>
-                        <div class="box-content">
-                            <table>
-                                <tr>
-                                    <td class="td-btc">BTC:</td>
-                                    <td><input id="netBtc" class="input-box" type="number" onchange="calc(), getData('netBtc')"></td>
-                                    <td>EH/s</td>
-                                </tr>
-                                <tr>
-                                    <td class="td-doge">DOGE:</td>
-                                    <td><input id="netDoge" class="input-box" type="number" onchange="calc(), getData('netDoge')"></td>
-                                    <td>EH/s</td>
-                                </tr>
-                                <tr>
-                                    <td class="td-eth">ETH:</td>
-                                    <td><input id="netEth" class="input-box" type="number" onchange="calc(), getData('netEth')"></td>
-                                    <td>EH/s</td>
-                                </tr>
-                                <tr>
-                                    <td class="td-bnb">BNB:</td>
-                                    <td><input id="netbnb" class="input-box" type="number" onchange="calc(), getData('netbnb')"></td>
-                                    <td>EH/s</td>
-                                </tr>
-                                <tr>
-                                    <td class="td-matic">MATIC:</td>
-                                    <td><input id="netmatic" class="input-box" type="number" onchange="calc(), getData('netmatic')"></td>
-                                    <td>EH/s</td>
-                                </tr>
-                                <tr>
-                                    <td class="td-sol">SOL:</td>
-                                    <td><input id="netsol" class="input-box" type="number" onchange="calc(), getData('netsol')"></td>
-                                    <td>EH/s</td>
-                                </tr>
-                                <tr>
-                                    <td class="td-rlt">RLT:</td>
-                                    <td><input id="netRlt" class="input-box" type="number" onchange="calc(), getData('netRlt')"></td>
-                                    <td>EH/s</td>
-                                </tr>
-                                <tr>
-                                    <td>Toplam</td>
-                                    <td class="no-input" id="totalNet">-</td>
-                                    <td>EH/s</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- BOX 4: Blok & Haftalık Ödüller -->
-                    <div class="box">
-                        <div class="box-title">Blok Ödülü</div>
-                        <div class="box-content">
-                            <table>
-                                <tr>
-                                    <td class="td-btc">BTC:</td>
-                                    <td class="no-input" id="blockBtc">30000</td>
-                                    <td><img src="./img/svg_rc/btc.svg" width="13" height="13" alt="BTC"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="td-doge">DOGE:</td>
-                                    <td class="no-input" id="blockDoge">30</td>
-                                    <td><img src="./img/svg_rc/doge.svg" width="13" height="13" alt="DOGE"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="td-eth">ETH:</td>
-                                    <td class="no-input" id="blockEth">0.005</td>
-                                    <td><img src="./img/svg_rc/eth.svg" width="13" height="13" alt="ETH"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="td-bnb">BNB:</td>
-                                    <td class="no-input" id="blockbnb">0.012</td>
-                                    <td><img src="./img/svg_rc/bnb.svg" width="13" height="13" alt="BNB"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="td-matic">MATIC:</td>
-                                    <td class="no-input" id="blockmatic">4</td>
-                                    <td><img src="./img/svg_rc/matic.svg" width="13" height="13" alt="MATIC"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="td-sol">SOL:</td>
-                                    <td class="no-input" id="blocksol">0.07</td>
-                                    <td><img src="./img/svg_rc/sol.svg" width="13" height="13" alt="SOL"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="td-rlt">RLT:</td>
-                                    <td class="no-input" id="blockRlt">30</td>
-                                    <td><img src="./img/svg_rc/rlt.svg" width="13" height="13" alt="RLT"/></td>
-                                </tr>
-                            </table>
-
-                            <div class="box-title" style="margin: 0.75rem -0.75rem 0.5rem -0.75rem; border-radius: 0;">Haftalık Ödüller</div>
-                            <span class="box-haftalıködüller" id="text"></span>
-                        </div>
-                    </div>
-
                 </div>
 
                 <!-- TAB 2 CONTENT (SONUÇLAR) -->
@@ -610,7 +889,7 @@
                     
                     <!-- BTC RESULT -->
                     <div class="coin-box btc-box">
-                        <div class="box-title"><img src="./img/svg_rc/btc.svg" width="24" height="24" alt="BTC"/></div>
+                        <div class="box-title"><img src="./img/svg_rc/btc.svg" width="24" height="24" alt="BTC"/> <span>BITCOIN</span></div>
                         <div class="tab-content">
                             <table>
                                 <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
@@ -625,7 +904,7 @@
 
                     <!-- DOGE RESULT -->
                     <div class="coin-box doge-box">
-                        <div class="box-title"><img src="./img/svg_rc/doge.svg" width="24" height="24" alt="DOGE"/></div>
+                        <div class="box-title"><img src="./img/svg_rc/doge.svg" width="24" height="24" alt="DOGE"/> <span>DOGECOIN</span></div>
                         <div class="tab-content">
                             <table>
                                 <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
@@ -640,7 +919,7 @@
 
                     <!-- ETH RESULT -->
                     <div class="coin-box eth-box">
-                        <div class="box-title"><img src="./img/svg_rc/eth.svg" width="24" height="24" alt="ETH"/></div>
+                        <div class="box-title"><img src="./img/svg_rc/eth.svg" width="24" height="24" alt="ETH"/> <span>ETHEREUM</span></div>
                         <div class="tab-content">
                             <table>
                                 <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
@@ -655,7 +934,7 @@
 
                     <!-- BNB RESULT -->
                     <div class="coin-box bnb-box">
-                        <div class="box-title"><img src="./img/svg_rc/bnb.svg" width="24" height="24" alt="BNB"/></div>
+                        <div class="box-title"><img src="./img/svg_rc/bnb.svg" width="24" height="24" alt="BNB"/> <span>BINANCE COIN</span></div>
                         <div class="tab-content">
                             <table>
                                 <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
@@ -670,7 +949,7 @@
 
                     <!-- MATIC RESULT -->
                     <div class="coin-box matic-box">
-                        <div class="box-title"><img src="./img/svg_rc/matic.svg" width="24" height="24" alt="MATIC"/></div>
+                        <div class="box-title"><img src="./img/svg_rc/matic.svg" width="24" height="24" alt="MATIC"/> <span>POLYGON</span></div>
                         <div class="tab-content">
                             <table>
                                 <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
@@ -685,7 +964,7 @@
 
                     <!-- SOL RESULT -->
                     <div class="coin-box sol-box">
-                        <div class="box-title"><img src="./img/svg_rc/sol.svg" width="24" height="24" alt="SOL"/></div>
+                        <div class="box-title"><img src="./img/svg_rc/sol.svg" width="24" height="24" alt="SOL"/> <span>SOLANA</span></div>
                         <div class="tab-content">
                             <table>
                                 <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
@@ -698,9 +977,39 @@
                         </div>
                     </div>
 
+                    <!-- TRX RESULT -->
+                    <div class="coin-box rlt-box">
+                        <div class="box-title"><img src="./img/svg_rc/trx.svg" width="24" height="24" alt="TRX"/> <span>TRON</span></div>
+                        <div class="tab-content">
+                            <table>
+                                <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
+                                <tr><td id="mintrx">-</td><td id="hourtrx">-</td><td id="daytrx">-</td></tr>
+                                <tr><td id="mintrxD">-</td><td id="hourtrxD">-</td><td id="daytrxD">-</td></tr>
+                                <tr><td class="table-headers">HAFTALIK</td><td class="table-headers">AYLIK</td><td class="table-headers">YILLIK</td></tr>
+                                <tr><td id="weektrx">-</td><td id="monthtrx">-</td><td id="yeartrx">-</td></tr>
+                                <tr><td id="weektrxD">-</td><td id="monthtrxD">-</td><td id="yeartrxD">-</td></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- XRP RESULT -->
+                    <div class="coin-box rlt-box">
+                        <div class="box-title"><img src="./img/svg_rc/xrp.svg" width="24" height="24" alt="XRP"/> <span>RIPPLE</span></div>
+                        <div class="tab-content">
+                            <table>
+                                <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
+                                <tr><td id="minxrp">-</td><td id="hourxrp">-</td><td id="dayxrp">-</td></tr>
+                                <tr><td id="minxrpD">-</td><td id="hourxrpD">-</td><td id="dayxrpD">-</td></tr>
+                                <tr><td class="table-headers">HAFTALIK</td><td class="table-headers">AYLIK</td><td class="table-headers">YILLIK</td></tr>
+                                <tr><td id="weekxrp">-</td><td id="monthxrp">-</td><td id="yearxrp">-</td></tr>
+                                <tr><td id="weekxrpD">-</td><td id="monthxrpD">-</td><td id="yearxrpD">-</td></tr>
+                            </table>
+                        </div>
+                    </div>
+
                     <!-- RLT RESULT -->
                     <div class="coin-box rlt-box">
-                        <div class="box-title"><img src="./img/svg_rc/rlt.svg" width="24" height="24" alt="RLT"/></div>
+                        <div class="box-title"><img src="./img/svg_rc/rlt.svg" width="24" height="24" alt="RLT"/> <span>ROLLERTOKEN</span></div>
                         <div class="tab-content">
                             <table>
                                 <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
@@ -718,42 +1027,305 @@
 
             <!-- FOOTER INFO -->
             <div class="info">
-                <p><span style="color: #ff4d4d; font-family: 'Permanent Marker', cursive; font-size: 1rem;">RCHesaplaV2 - Kişisel kazım gücünüzü hesaplayın!</span></p>
-                <p><span style="color: #fcff01; font-family: 'Yanone Kaffeesatz', sans-serif; font-size: 1.1rem;">Hesaplama sistemi: <b>BITCOIN</b>, <b>DOGECOIN</b>, <b>ETHEREUM</b>, <b>BINANCECOIN</b>, <b>POLYGON</b>, <b>SOLANA</b> ve <b>ROLLERTOKEN</b>!</span></p>
+                <p><span style="color: #ff4d4d; font-family: 'Permanent Marker', cursive; font-size: 1rem;">RCHesaplaV2 - Kişisel kazım gücünüzü hesaplayın![cite: 1]</span></p>
+                <p><span style="color: #fcff01; font-family: 'Yanone Kaffeesatz', sans-serif; font-size: 1.1rem;">Hesaplama sistemi: <b>BITCOIN</b>, <b>DOGECOIN</b>, <b>ETHEREUM</b>, <b>BINANCECOIN</b>, <b>POLYGON</b>, <b>SOLANA</b> ve <b>ROLLERTOKEN</b>![cite: 1]</span></p>
             </div>
         </div>
     </section>
 
-    <!-- SCRIPTS -->
-    <script src="https://fatihcelikofficialtr.github.io/rchesapla/v2/js/kriptohesapla.js"></script>
-    <script src="static/js/alerts.js"></script>        
-    <script src="static/js/activateTab.js"></script>
-    <script src="static/js/calculator.js"></script>
-    <script src="static/js/fetchPrice.js"></script>
-    <script src="static/js/inputPost.js"></script>
+    <!-- EXTERNAL LIBRARIES -->
     <script src="https://kit.fontawesome.com/66aa7c98b3.js" crossorigin="anonymous"></script>
-    <script src="https://fatihcelikofficialtr.github.io/rchesapla/v4/js/typed.js"></script>
     
+    <!-- INTEGRATED SCRIPT -->
     <script>
-        (function () {
-            if(typeof calc === "function") {
+        /* ==========================================
+           1. COLLAPSIBLE CONTROLLER
+           ========================================== */
+        function toggleCollapsible(elementId) {
+            const panel = document.getElementById(elementId);
+            if (panel) {
+                panel.classList.toggle('collapsed');
+            }
+        }
+
+        /* ==========================================
+           2. TAB & NAVIGATION CONTROLLER
+           ========================================== */
+        function changeTab(tabName) {
+            const panel = document.getElementById('collapsibleDataPanel');
+            const tab2 = document.getElementById('tab2-content');
+            const btn1 = document.getElementById('data-tab-btn');
+            const btn2 = document.getElementById('results-tab-btn');
+
+            if (tabName === 'data') {
+                panel.style.display = 'block';
+                tab2.style.display = 'none';
+                btn1.classList.add('active');
+                btn2.classList.remove('active');
+            } else {
+                panel.style.display = 'none';
+                tab2.style.display = 'grid';
+                btn1.classList.remove('active');
+                btn2.classList.add('active');
+            }
+        }
+
+        /* ==========================================
+           3. CALCULATOR & LOGIC ENGINE
+           ========================================== */
+        const COINS = [
+          { key: 'Btc', apiId: 'btc-price-api' },
+          { key: 'Doge', apiId: 'doge-price-api' },
+          { key: 'Eth', apiId: 'eth-price-api' },
+          { key: 'bnb', apiId: 'bnb-price-api' },
+          { key: 'matic', apiId: 'matic-price-api' },
+          { key: 'sol', apiId: 'sol-price-api' },
+          { key: 'Rlt', apiId: 'rlt-price-api' },
+          { key: 'trx', apiId: 'trx-price-api' },
+          { key: 'xrp', apiId: 'xrp-price-api' },
+          { key: 'ltc', apiId: 'ltc-price-api' },
+          { key: 'usdt', apiId: 'usdt-price-api' }
+        ];
+
+        const PERIOD_MULTIPLIERS = {
+          min: 1,
+          hour: 6,         // 10'ar dakikalık bloklar üzerinden 1 saat = 6 blok[cite: 1]
+          day: 6 * 24,     // 1 gün = 144 blok[cite: 1]
+          week: 6 * 24 * 7,
+          month: 6 * 24 * 30,
+          year: 6 * 24 * 365
+        };
+
+        const getValue = (id) => {
+          const el = document.getElementById(id);
+          if (!el) return 0;
+          const val = el.value !== undefined ? el.value : el.innerText;
+          return Number(val) || 0;
+        };
+
+        const getPriceFromApiEl = (apiId) => {
+          const el = document.getElementById(apiId);
+          if (!el) return 0;
+          const rawText = el.innerText || el.innerHTML || "";
+          const match = rawText.match(/\$([0-9.]+)/);
+          return match ? Number(match[1]) : 0;
+        };
+
+        const updateElementText = (id, value, isCurrency = false, decimals = 10) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+
+          if (isNaN(value) || !isFinite(value) || value <= 0) {
+            el.innerText = "- - -";
+          } else {
+            const formatted = value.toFixed(decimals);
+            el.innerText = isCurrency ? `$${formatted}` : formatted;
+          }
+        };
+
+        const calc = () => {
+          const rawMinerRate = getValue("minerRate");
+          const unitSelect = document.getElementById("minerUnit");
+          const selectedUnit = unitSelect ? unitSelect.value : "TH";
+
+          // Miner gücünü TH/s birimine dönüştür
+          let minerRateTH = 0;
+          switch(selectedUnit) {
+              case 'GH': minerRateTH = rawMinerRate / 1000; break;
+              case 'TH': minerRateTH = rawMinerRate; break;
+              case 'PH': minerRateTH = rawMinerRate * 1000; break;
+              case 'EH': minerRateTH = rawMinerRate * 1000000; break;
+              case 'ZH': minerRateTH = rawMinerRate * 1000000000; break;
+          }
+
+          let totalNet = 0;
+          COINS.forEach(coin => {
+            totalNet += getValue(`net${coin.key}`);
+          });
+
+          const totalNetEl = document.getElementById("totalNet");
+          if (totalNetEl) totalNetEl.innerText = totalNet.toFixed(3);
+
+          COINS.forEach(coin => {
+            const dist = getValue(`dist${coin.key}`);
+            const net = getValue(`net${coin.key}`);
+            const block = getValue(`block${coin.key}`);
+            const price = getPriceFromApiEl(coin.apiId);
+
+            const power = ((minerRateTH / 1000) * dist) / 100;
+            const baseReward = (net > 0) ? (power * block) / (net * 1000) : 0;
+
+            Object.keys(PERIOD_MULTIPLIERS).forEach(period => {
+              const multiplier = PERIOD_MULTIPLIERS[period];
+              const coinAmount = baseReward * multiplier;
+              const usdValue = coinAmount * price;
+
+              const coinElId = `${period}${coin.key}`;
+              const usdElId = `${period}${coin.key}D`;
+
+              updateElementText(coinElId, coinAmount, false, 10);
+              updateElementText(usdElId, usdValue, true, 5);
+            });
+          });
+        };
+
+        /* ==========================================
+           4. COINGECKO API & PRICE FETCHING
+           ========================================== */
+        const COIN_CONFIG = [
+          { id: 'bitcoin', key: 'btc' },
+          { id: 'dogecoin', key: 'doge' },
+          { id: 'ethereum', key: 'eth' },
+          { id: 'binancecoin', key: 'bnb' },
+          { id: 'polygon-ecosystem-token', key: 'matic' },
+          { id: 'solana', key: 'sol' },
+          { id: 'tether', key: 'rlt' },
+          { id: 'tron', key: 'trx' },
+          { id: 'ripple', key: 'xrp' },
+          { id: 'litecoin', key: 'ltc' },
+          { id: 'tether', key: 'usdt' }
+        ];
+
+        const PERIODS = ['min', 'hour', 'day', 'week', 'month', 'year'];
+
+        const fetchData = async () => {
+          const ids = COIN_CONFIG.map(c => c.id).join(',');
+          const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd,try`;
+
+          try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP Hata! Statü: ${response.status}`);
+            
+            const data = await response.json();
+            const prices = getResults(data);
+            
+            postResults(prices);
+            calculate(prices);
+            calc();
+          } catch (err) {
+            console.error('Fetch Hatası:', err);
+          }
+        };
+
+        const getResults = (data) => {
+          const prices = {};
+          COIN_CONFIG.forEach(coin => {
+            prices[coin.key] = {
+              usd: data?.[coin.id]?.usd || 0,
+              try: data?.[coin.id]?.try || 0
+            };
+          });
+          return prices;
+        };
+
+        const postResults = (prices) => {
+          COIN_CONFIG.forEach(coin => {
+            const el = document.getElementById(`${coin.key}-price-api`);
+            if (el) {
+              const usdPrice = prices[coin.key].usd;
+              const tryPrice = prices[coin.key].try;
+              el.innerText = `$${usdPrice} / ₺${tryPrice.toLocaleString('tr-TR')}`;
+            }
+          });
+        };
+
+        const calculate = (prices) => {
+          COIN_CONFIG.forEach(coin => {
+            const coinPrice = prices[coin.key].usd;
+
+            PERIODS.forEach(period => {
+              const inputId = `${period}${capitalize(coin.key)}`;
+              const outputId = `${inputId}D`;
+
+              const inputEl = document.getElementById(inputId);
+              const outputEl = document.getElementById(outputId);
+
+              if (inputEl && outputEl) {
+                const rawValue = inputEl.innerHTML.trim();
+                const amount = Number(rawValue);
+                const totalUsd = amount * coinPrice;
+
+                if (isNaN(totalUsd) || rawValue === "" || rawValue === "- - -") {
+                  outputEl.innerText = "- - -";
+                } else {
+                  outputEl.innerText = `$${totalUsd.toFixed(5)}`;
+                }
+              }
+            });
+          });
+        };
+
+        const capitalize = (str) => {
+          if (str === 'rlt') return 'Rlt';
+          if (str === 'bnb' || str === 'matic' || str === 'sol') {
+            return str; 
+          }
+          return str.charAt(0).toUpperCase() + str.slice(1);
+        };
+
+        /* ==========================================
+           5. CONVERTER LOGIC
+           ========================================== */
+        function convertHashRate(unit) {
+            const inputGH = document.getElementById('conv-gh');
+            const inputTH = document.getElementById('conv-th');
+            const inputPH = document.getElementById('conv-ph');
+            const inputEH = document.getElementById('conv-eh');
+            const inputZH = document.getElementById('conv-zh');
+
+            let thValue = 0;
+
+            switch (unit) {
+                case 'gh':
+                    thValue = parseFloat(inputGH.value) / 1000;
+                    break;
+                case 'th':
+                    thValue = parseFloat(inputTH.value);
+                    break;
+                case 'ph':
+                    thValue = parseFloat(inputPH.value) * 1000;
+                    break;
+                case 'eh':
+                    thValue = parseFloat(inputEH.value) * 1000000;
+                    break;
+                case 'zh':
+                    thValue = parseFloat(inputZH.value) * 1000000000;
+                    break;
+            }
+
+            if (isNaN(thValue) || thValue < 0) {
+                if(unit !== 'gh') inputGH.value = '';
+                if(unit !== 'th') inputTH.value = '';
+                if(unit !== 'ph') inputPH.value = '';
+                if(unit !== 'eh') inputEH.value = '';
+                if(unit !== 'zh') inputZH.value = '';
+                return;
+            }
+
+            if (unit !== 'gh') inputGH.value = parseFloat((thValue * 1000).toFixed(6));
+            if (unit !== 'th') inputTH.value = parseFloat(thValue.toFixed(6));
+            if (unit !== 'ph') inputPH.value = parseFloat((thValue / 1000).toFixed(6));
+            if (unit !== 'eh') inputEH.value = parseFloat((thValue / 1000000).toFixed(8));
+            if (unit !== 'zh') inputZH.value = parseFloat((thValue / 1000000000).toFixed(12));
+        }
+
+        function applyTHToMiner() {
+            const thVal = document.getElementById('conv-th').value;
+            if (thVal && thVal > 0) {
+                const minerInput = document.getElementById('minerRate');
+                const minerUnit = document.getElementById('minerUnit');
+                minerInput.value = thVal;
+                if(minerUnit) minerUnit.value = 'TH';
                 calc();
             }
-        })();
-
-        // Typed.js Animation
-        if(typeof Typed !== "undefined") {
-            var typed2 = new Typed('#text', {
-                strings: ["MATIC: 3 → 4", "SOL: 0.05 → 0.07", "DOGE: 20 → 30"],
-                typeSpeed: 70,
-                backSpeed: 30,
-                backDelay: 10000,
-                fadeOut: true,
-                loop: true
-            });
         }
-    </script>
 
-    <iframe width="0" height="0" src="https://www.youtube.com/embed/fnDPnTrg2_k?autoplay=1&mute=1" style="display:none; visibility:hidden;"></iframe>
+        // Başlangıç tetiklemeleri ve Periyodik Yenileme
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchData();
+            calc();
+            setInterval(fetchData, 5000);
+        });
+    </script>
 </body>
 </html>
