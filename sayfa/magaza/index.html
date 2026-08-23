@@ -283,57 +283,44 @@
                             <button ng-if="isLoadedUser" ng-click="reloadWithoutUser()"><i class="fa fa-trash"></i></button>
                         </div>
                     </div>
-                    <div ng-if="isLoadedUser" class="form-group">
-                        <input type="checkbox" ng-model="keepUser" ng-change="updateKeepUser(keepUser)" name="keep_user"/>
-                        <label for="keep_user">Manter carregado</label>
-                    </div>
             
             <div ng-if="user_data" class="table-container">
-                <h3>Calculando ganhos para {{user_data.name}}</h3>
+                <h3>Profil: {{user_data.name}} || Genel Bilgileri!</h3>
 
                 <fieldset>
                     <div>
                         <input type="checkbox" ng-model="formData.showMiners" name="show_miners"/>
                         <label for="scales">Miner Listesi (Benim Oda)</label>
-                        <input type="checkbox" ng-model="formData.showRacks" name="show_miners" />
-                        <label for="scales">Exibir racks</label>
                         <input type="checkbox" ng-model="formData.showAllMiners" ng-change="filterAllMiners()" name="show_all_miners" />
                         <label for="scales">Miner Listesi (Mağaza)</label>
-                        <input type="checkbox" ng-model="formData.showUserStatistics" ng-change="showStatistics()" name="show_statistics" />
-                        <label for="scales">Mostrar estatísticas</label>
-                        <input type="checkbox" ng-model="formData.showInventory" name="show_inventory" />
-                        <label for="show_inventory">Carregar inventário</label>
                     </div>
                 </fieldset>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th style="text-align: center">
-                                Usuário
+                                Profil Adı
+                            </th>>
+                            <th style="text-align: center">
+                                Oyun Gücü
                             </th>
                             <th style="text-align: center">
-                                Avatar
+                                Miner Gücü
                             </th>
                             <th style="text-align: center">
-                                Poder de jogos
+								Raf Gücü
                             </th>
                             <th style="text-align: center">
-                                Poder de miners
+                                Geçici Gücü
                             </th>
                             <th style="text-align: center">
-                                Poder de racks
+                                Toplam Gücü
                             </th>
                             <th style="text-align: center">
-                                Poder temporário
+                                Bonus Oranı
                             </th>
                             <th style="text-align: center">
-                                Total de poder de mineração
-                            </th>
-                            <th style="text-align: center">
-                                Bônus de coleção
-                            </th>
-                            <th style="text-align: center">
-                                Salas liberadas
+                                Oda Durumu
                             </th>
                         </tr>
                     </thead>
@@ -341,9 +328,6 @@
                         <tr>
                             <td style="text-align: center">
                                 {{user_data.name}}
-                            </td>
-                            <td style="text-align: center">
-                                <img src="https://avatars.rollercoin.com/static/avatars/thumbnails/48/{{user_data.avatar_id}}.png?v=1652150400524" style="width: 30px; height: 30px; border-radius: 50%; vertical-align: middle; margin-right: 8px;">
                             </td>
                             <td style="text-align: center">
                                 {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(user_data.powerData.games, 'GH/s').unit}}
@@ -394,9 +378,9 @@
                                 <i class="fa-solid fa-arrow-down"></i> {{(user_data.newPowerData.new_bonus_percent / 100)}}%
                             </td>
                             <td style="text-align: center">
-                                {{user_data.roomData.rooms.length}}/4 salas<br/>
-                                <span ng-class="{'wrong-value': user_data.occupied_racks_cells  > user_data.all_racks_cells}">{{user_data.occupied_racks_cells}}</span>/{{user_data.all_racks_cells}} células ocupadas<br/>
-                                {{user_data.all_racks}}/{{user_data.all_racks_space}} racks alocados
+                                {{user_data.roomData.rooms.length}}/4 Oda<br/>
+                                <span ng-class="{'wrong-value': user_data.occupied_racks_cells  > user_data.all_racks_cells}">{{user_data.occupied_racks_cells}}</span>/{{user_data.all_racks_cells}} Madenci<br/>
+                                {{user_data.all_racks}}/{{user_data.all_racks_space}} Raf
                             </td>
                         </tr>
                     </tbody>
