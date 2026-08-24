@@ -419,7 +419,7 @@ app.controller('MiningController', ['$scope', 'UserMinerService', 'MinerService'
     $scope.allMinersRarity = 'all';
     $scope.allMinerPosessionStatus = 'all';
     $scope.allMinerNegotiableStatus = 'all';
-    $scope.allMinerCollectionId = "-1";
+    $scope.allMinerCollectionId = "all";
 
     $scope.userMinersItemsPerPage = 6;
     $scope.userMinersCurrentPage = 1;
