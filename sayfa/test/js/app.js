@@ -234,7 +234,7 @@ const cryptoInfo = {
 };
 
 let cryptoPrices = {};
-let eurToUsdRate = 1.08;
+let tryToUsdRate = 1.08;
 let currentMode = 'crypto';
 let networkPowers = {};
 let currentLeague = null;
@@ -409,7 +409,7 @@ async function fetchCryptoPrices() {
         }
 
         if (data.bitcoin?.usd && data.bitcoin?.eur && data.bitcoin.eur > 0) {
-            eurToUsdRate = data.bitcoin.usd / data.bitcoin.eur;
+            tryToUsdRate = data.bitcoin.usd / data.bitcoin.eur;
         }
 
         pricesLastUpdated = Date.now();
@@ -772,17 +772,17 @@ function displayEarnings() {
                 }
             } else {
                 if (cryptoPrices[crypto]?.eur && cryptoPrices[crypto].eur > 0) {
-                    const eurPrice = cryptoPrices[crypto].eur;
-                    perBlockDisplay = `€${formatNumber(earningsPerBlock * eurPrice, null, false, 'eur')}`;
-                    dailyDisplay = `€${formatNumber(earningsPerDay * eurPrice, null, false, 'eur')}`;
-                    weeklyDisplay = `€${formatNumber(earningsPerWeek * eurPrice, null, false, 'eur')}`;
-                    monthlyDisplay = `€${formatNumber(earningsPerMonth * eurPrice, null, false, 'eur')}`;
-                } else if (cryptoPrices[crypto]?.usd && cryptoPrices[crypto].usd > 0 && eurToUsdRate > 0) {
-                    const eurPrice = cryptoPrices[crypto].usd / eurToUsdRate;
-                    perBlockDisplay = `€${formatNumber(earningsPerBlock * eurPrice, null, false, 'eur')}`;
-                    dailyDisplay = `€${formatNumber(earningsPerDay * eurPrice, null, false, 'eur')}`;
-                    weeklyDisplay = `€${formatNumber(earningsPerWeek * eurPrice, null, false, 'eur')}`;
-                    monthlyDisplay = `€${formatNumber(earningsPerMonth * eurPrice, null, false, 'eur')}`;
+                    const tryPrice = cryptoPrices[crypto].eur;
+                    perBlockDisplay = `€${formatNumber(earningsPerBlock * tryPrice, null, false, 'eur')}`;
+                    dailyDisplay = `€${formatNumber(earningsPerDay * tryPrice, null, false, 'eur')}`;
+                    weeklyDisplay = `€${formatNumber(earningsPerWeek * tryPrice, null, false, 'eur')}`;
+                    monthlyDisplay = `€${formatNumber(earningsPerMonth * tryPrice, null, false, 'eur')}`;
+                } else if (cryptoPrices[crypto]?.usd && cryptoPrices[crypto].usd > 0 && tryToUsdRate > 0) {
+                    const tryPrice = cryptoPrices[crypto].usd / tryToUsdRate;
+                    perBlockDisplay = `€${formatNumber(earningsPerBlock * tryPrice, null, false, 'eur')}`;
+                    dailyDisplay = `€${formatNumber(earningsPerDay * tryPrice, null, false, 'eur')}`;
+                    weeklyDisplay = `€${formatNumber(earningsPerWeek * tryPrice, null, false, 'eur')}`;
+                    monthlyDisplay = `€${formatNumber(earningsPerMonth * tryPrice, null, false, 'eur')}`;
                 } else {
                     perBlockDisplay = dailyDisplay = weeklyDisplay = monthlyDisplay = 'N/A';
                 }
@@ -1018,7 +1018,7 @@ function updatePricesTable() {
     tradableCryptos.forEach(([crypto, info]) => {
         const prices = cryptoPrices[crypto];
         const usdPrice = prices?.usd || 0;
-        const eurPrice = prices?.eur || 0;
+        const tryPrice = prices?.eur || 0;
 
         const row = document.createElement('tr');
         row.className = 'hover:bg-opacity-50 transition-all duration-200';
@@ -1034,7 +1034,7 @@ function updatePricesTable() {
                 <span class="price-value">$${usdPrice ? formatNumber(usdPrice, null, false, 'usd') : 'N/A'}</span>
             </td>
             <td class="py-2 px-3 text-center">
-                <span class="price-value">€${eurPrice ? formatNumber(eurPrice, null, false, 'eur') : 'N/A'}</span>
+                <span class="price-value">€${tryPrice ? formatNumber(tryPrice, null, false, 'eur') : 'N/A'}</span>
             </td>
         `;
 
@@ -1085,10 +1085,10 @@ function updateWithdrawalsTable() {
         const info = cryptoInfo[crypto];
         const prices = cryptoPrices[crypto];
         const usdPrice = prices?.usd || 0;
-        const eurPrice = prices?.eur || (usdPrice && eurToUsdRate > 0 ? usdPrice / eurToUsdRate : 0);
+        const tryPrice = prices?.eur || (usdPrice && tryToUsdRate > 0 ? usdPrice / tryToUsdRate : 0);
 
         const usdValue = usdPrice > 0 ? minAmount * usdPrice : 0;
-        const eurValue = eurPrice > 0 ? minAmount * eurPrice : 0;
+        const eurValue = tryPrice > 0 ? minAmount * tryPrice : 0;
 
         const row = document.createElement('tr');
         row.className = 'hover:bg-opacity-50 transition-all duration-200';
