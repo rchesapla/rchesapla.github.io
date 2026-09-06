@@ -408,7 +408,7 @@ app.controller('MiningController', ['$scope', 'UserMinerService', 'MinerService'
         return [];
     };
 
-    $scope.itemsPerPage = 15;
+    $scope.itemsPerPage = 12;
     $scope.currentPage = 1;
 
     $scope.allMinerMinBonusSearch = 0;
