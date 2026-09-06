@@ -296,9 +296,9 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 </div>
 
 <!-- MINER LİSTESİ KODLARI -->
-<div ng-if="formData.showAllMiners" id="minerlistesi">
+<div id="minerlistesi">
  
-<div ng-if="formData.showAllMiners" class="modern-miner-wrapper">
+<div class="modern-miner-wrapper">
   <div class="modern-general-header">
     <h4 class="rc-title">MINER LİSTESİ</h4>
   </div>
@@ -450,22 +450,20 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
           Mağazaya Git
         </button>
     </div>
+<div class="load-more-wrapper" ng-init="visibleItems = 15">
 
-  </div>
-
-<div class="load-more-wrapper" ng-if="visibleItems < allMiners.length">
-
-    <button class="load-more-btn"
-            ng-click="loadMore()">
+    <button class="load-more-wrapper load-more-btn"
+            ng-click="visibleItems = visibleItems + 15"
+            ng-hide="visibleItems >= allMiners.length">
         Daha Fazla Göster
     </button>
 
     <div class="load-info">
-        {{visibleItems}} / {{allMiners.length}}
+        {{ (visibleItems < allMiners.length) ? visibleItems : allMiners.length }} / {{allMiners.length}}  
     </div>
 
 </div>
-
+  </div>
 
 
 </div>
