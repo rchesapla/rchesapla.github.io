@@ -818,7 +818,7 @@ $scope.onSelectPlayer = function($item, $model, $label, $event) {
     };
 
     $scope.resetValues = function() {
-        if(confirm("Isso irá recarregar todos os valores de poder de rede e cotação e demorará algum tempo. Tem certeza?")) {
+        if(confirm("Veriler güncellenecektir...")) {
             localStorage.clear();
             location.reload();  
         }
