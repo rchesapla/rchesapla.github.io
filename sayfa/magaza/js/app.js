@@ -2,6 +2,20 @@ var app = angular.module('miningApp', ['ui.bootstrap']);
 
 app.controller('MiningController', ['$scope', 'UserMinerService', 'MinerService', '$sce', '$timeout', async function($scope, UserMinerService, MinerService, $sce, $timeout) {
 	
+	
+	
+	
+	
+	
+	
+	$scope.openUserRoomLink = function() {
+    if ($scope.userSearchText) {
+        window.open(`https://rollercoin.com/p/${$scope.userSearchText}`, '_blank');
+    }
+};
+	
+///////////////////
+	
 	// --- GEÇMİŞ KULLANICI ADLARI (DROPDOWN MODELİ) ---
 $scope.isHistoryOpen = false;
 $scope.userHistory = JSON.parse(localStorage.getItem('rc_user_history') || '[]');

@@ -211,11 +211,23 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 
   </div>
 
-<div class="checkbox-group modern-btn-group">
+<div class="checkbox-group modern-btn-group" style="display: flex; flex-direction: column; gap: 8px;">
   
-  <button class="rc-modern-btn update-btn" ng-click="resetValues()">
+  <button class="rc-modern-btn room-link-btn" 
+           ng-click="resetValues()"
+          style="background: #2b3245; color: #fff; border: 1px solid #3b4259; padding: 10px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 13px; transition: all 0.2s;"
     <i class="fas fa-sync-alt"></i>
     <span>Verileri Güncelle</span>
+  </button>
+
+  <!-- ODA / PROFİL LİNKİ BUTONU (Yalnızca kullanıcı yüklendiğinde/URL'de user parametresi olduğunda aktifleşir) -->
+  <button class="rc-modern-btn room-link-btn" 
+          ng-click="openUserRoomLink()" 
+          ng-disabled="!isLoadedUser"
+          style="background: #2b3245; color: #fff; border: 1px solid #3b4259; padding: 10px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 13px; transition: all 0.2s;"
+          ng-style="!isLoadedUser && {'opacity': '0.5', 'cursor': 'not-allowed'}">
+    <i class="fas fa-external-link-alt" style="color: #4f80ff;"></i>
+    <span>Odayı Görüntüle</span>
   </button>
 
 </div>
