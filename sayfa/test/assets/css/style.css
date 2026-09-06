@@ -19,7 +19,7 @@
 body {
   background-color: var(--black-russian);
   color: var(--white);
-  font-family: var(--font);
+  font-family: "Chakra Petch", sans-serif;
   font-size: 1.05rem;
   line-height: 1.45;
 }
