@@ -24,15 +24,15 @@ const CONFIG = {
   ],
   coinGecko: (ids) =>
     `https://api.coingecko.com/api/v3/simple/price?ids=${ids.join(",")}&vs_currencies=usd`,
-  referral: "https://rollercoin.com/?r=jrwrzg8f",
+  referral: "https://rollercoin.com/?r=le7ml8f3",
   donation: {
-    label: "EVM (ETH / BSC / Polygon…)",
-    address: "0x95316eE1b9cefB0730683b1313d96D0eC542bB1c",
+    label: "Yakında eklenevektir...",
+    address: "- - -",
   },
   socials: {
-    youtube: "https://www.youtube.com/@Deficarlos",
-    whatsapp: "https://whatsapp.com/channel/0029Va7k6Ob6buMSjVnmd224",
-    telegram: "https://t.me/CriptoAirdropsTalk",
+    youtube: "https://www.youtube.com/@FatihCELIK",
+    whatsapp: "#",
+    telegram: "https://t.me/bilgilendiriyor",
   },
   repo: "https://github.com/venezuela412/rollercoin-calculator",
   referencePowerEH: 1, // 1 EH/s reference for the "best coins" table
