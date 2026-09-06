@@ -1,6 +1,98 @@
 var app = angular.module('miningApp', ['ui.bootstrap']);
 
 app.controller('MiningController', ['$scope', 'UserMinerService', 'MinerService', '$sce', '$timeout', async function($scope, UserMinerService, MinerService, $sce, $timeout) {
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// --- GEÇMİŞ KULLANICI ADLARI (DROPDOWN MODELİ) ---
+$scope.isHistoryOpen = false;
+$scope.userHistory = JSON.parse(localStorage.getItem('rc_user_history') || '[]');
+
+// Input'a odaklanıldığında açılır menüyü göster
+$scope.onInputFocus = function() {
+    if ($scope.userHistory.length > 0) {
+        $scope.isHistoryOpen = true;
+    }
+};
+
+// Sayfa üzerinde başka yere tıklandığında menüyü kapatmak için
+$scope.onInputBlur = function() {
+    $timeout(function() {
+        $scope.isHistoryOpen = false;
+    }, 200);
+};
+
+// Geçmişe Kullanıcı Ekle
+$scope.addToHistory = function(username) {
+    if (!username || typeof username !== 'string') return;
+    username = username.trim();
+    if (!username) return;
+
+    $scope.userHistory = $scope.userHistory.filter(name => name.toLowerCase() !== username.toLowerCase());
+    $scope.userHistory.unshift(username);
+
+    if ($scope.userHistory.length > 6) {
+        $scope.userHistory.pop();
+    }
+    localStorage.setItem('rc_user_history', JSON.stringify($scope.userHistory));
+};
+
+// Tekli Geçmiş Öğesi Sil
+$scope.removeFromHistory = function(event, username) {
+    event.stopPropagation();
+    event.preventDefault();
+    $scope.userHistory = $scope.userHistory.filter(name => name !== username);
+    localStorage.setItem('rc_user_history', JSON.stringify($scope.userHistory));
+    if ($scope.userHistory.length === 0) {
+        $scope.isHistoryOpen = false;
+    }
+};
+
+// Tüm Geçmişi Temizle
+$scope.clearAllHistory = function(event) {
+    if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+    }
+    $scope.userHistory = [];
+    localStorage.removeItem('rc_user_history');
+    $scope.isHistoryOpen = false;
+};
+
+// Geçmişteki Bir Kullanıcıya Tıklayınca Profili Yükle
+$scope.selectFromHistory = function(username) {
+    $scope.userSearchText = username;
+    $scope.isHistoryOpen = false;
+    
+    // URL ve Kullanıcı Yükleme İşlemi
+    setParamValue('user', username);
+    window.location.reload(); 
+};
+
+// Arama Seçildiğinde Geçmişe Ekleme
+var originalOnSelectPlayer = $scope.onSelectPlayer;
+$scope.onSelectPlayer = function($item, $model, $label, $event) {
+    var selectedUser = $item ? ($item.code || $item.nick || $item) : $scope.userSearchText;
+    if (selectedUser) {
+        $scope.addToHistory(selectedUser);
+    }
+    if (originalOnSelectPlayer) {
+        originalOnSelectPlayer($item, $model, $label, $event);
+    }
+};
+/////////////////////////////////////////////////
+	
+	
     $scope.units = ['GH/s', 'TH/s', 'PH/s', 'EH/s'];
     $scope.networkUnits = ['GH/s', 'TH/s', 'PH/s', 'EH/s', 'ZH/s'];
     let default_form = {
