@@ -92,7 +92,7 @@ const I18N = {
     credit: "Inspired by Lmendev's original rollercoin-calculator",
     language: "Türkçe"
   },
-  tr: {
+  es: {
     title: "RollerCoin Hesaplayıcı",
     subtitle: "Akıllı Sürüm",
     tagline: "Profilini yapıştır. Kazancını gör. Yazmak yok, hata yok.",
