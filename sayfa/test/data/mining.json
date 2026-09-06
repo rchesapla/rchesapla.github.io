@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-25",
+  "updatedAt": "7.09.2026",
   "note": "Approximate community-maintained mining parameters. RollerCoin does not publish per-league network power publicly, so these values are estimates and may drift from in-game values. Coin list refreshed from the live currencies config (2026-07-25). Contributions welcome via PR.",
   "blocksPerDay": 144,
   "secondsPerBlock": 600,
