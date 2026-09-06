@@ -4,18 +4,17 @@ app.controller('MiningController', ['$scope', 'UserMinerService', 'MinerService'
 	
 	
 	
-	
-	
-	
-	
+
+
+
 	$scope.openUserRoomLink = function() {
     if ($scope.userSearchText) {
         window.open(`https://rollercoin.com/p/${$scope.userSearchText}`, '_blank');
     }
 };
-	
-///////////////////
-	
+
+//////////
+
 	// --- GEÇMİŞ KULLANICI ADLARI (DROPDOWN MODELİ) ---
 $scope.isHistoryOpen = false;
 $scope.userHistory = JSON.parse(localStorage.getItem('rc_user_history') || '[]');
@@ -301,7 +300,16 @@ $scope.onSelectPlayer = function($item, $model, $label, $event) {
     }
 
     $scope.calculateDonation = calculateDonation;
-    
+
+//////////
+
+// URL'den 'user' parametresini kontrol et
+const urlParams = new URLSearchParams(window.location.search);
+$scope.hasUserParam = !!urlParams.get('user');
+
+//////////
+
+
     const convertHashrate = (value, fromUnit, toUnit) => {
         const units = {
             'GH/s': 1,
