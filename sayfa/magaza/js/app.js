@@ -2,18 +2,6 @@ var app = angular.module('miningApp', ['ui.bootstrap']);
 
 app.controller('MiningController', ['$scope', 'UserMinerService', 'MinerService', '$sce', '$timeout', async function($scope, UserMinerService, MinerService, $sce, $timeout) {
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	// --- GEÇMİŞ KULLANICI ADLARI (DROPDOWN MODELİ) ---
 $scope.isHistoryOpen = false;
 $scope.userHistory = JSON.parse(localStorage.getItem('rc_user_history') || '[]');
@@ -103,7 +91,8 @@ $scope.onSelectPlayer = function($item, $model, $label, $event) {
         networkUnit: $scope.networkUnits[0],
         blockSize: 0,
         blockTime: 0,
-        timeUnit: 'seconds'
+        timeUnit: 'seconds',
+        showAllMiners: true
     };
     setTimeout(function() {
         document.getElementById('balao2').style.display = "block";
@@ -567,7 +556,7 @@ $scope.onSelectPlayer = function($item, $model, $label, $event) {
             }
             let foundMiners = await MinerService.getAllMinersByFilter(search, rarity, bonus, negotiable, ids, minMinerPower, maxMinerPower, width);
             foundMiners.forEach(m => {
-                m.already_have = $scope.user_data.roomData.miners.find(mm => mm.miner_id === m.miner_id);
+                m.already_have = $scope.user_data?.roomData?.miners?.find(mm => mm.miner_id === m.miner_id);
             });
             if(allMinerPosessionStatus === 'mine') {
                 foundMiners = foundMiners.filter(m => m.already_have);
@@ -579,7 +568,9 @@ $scope.onSelectPlayer = function($item, $model, $label, $event) {
             }
             $scope.allMiners = foundMiners;
             $scope.currentPage = 1;
-            $scope.$apply();
+            if(!$scope.$$phase) {
+                $scope.$apply();
+            }
         }else {
             $scope.lowestMinerName = '';
             $scope.allMiners = [];
@@ -690,7 +681,7 @@ $scope.onSelectPlayer = function($item, $model, $label, $event) {
 
     $scope.recalculateUserPower = async function() {
         $scope.customMiners = $scope.customMiners || [];
-        if($scope.customMiners.length === 0 && !$scope.user_miners.find(m => m.removed)) {
+        if($scope.customMiners.length === 0 && !$scope.user_miners?.find(m => m.removed)) {
             $scope.user_data.newPowerData = undefined;
             const bestHashRate = chooseBestHashRateUnit($scope.user_data.powerData.total, 'GH/s');
             $scope.formData.power = bestHashRate.value;
@@ -777,8 +768,13 @@ $scope.onSelectPlayer = function($item, $model, $label, $event) {
     $scope.formData.league = { id: $scope.loaded_league };
     $scope.currencies = [];
 
+    // Başlangıçta tüm miner listesini yükle
+    await $scope.filterAllMiners('', $scope.allMinersRarity, {min:$scope.allMinerMinBonusSearch, max:$scope.allMinerMaxBonusSearch}, $scope.allMinerNegotiableStatus, $scope.allMinerPosessionStatus, $scope.allMinerCollectionId);
+
     $scope.isLoading = false;
-    $scope.$apply();
+    if(!$scope.$$phase) {
+        $scope.$apply();
+    }
 
     $scope.updateNetworkPowerUnit = function(oldUnit) {
         $scope.formData.networkPower = convertHashrate($scope.formData.networkPower, oldUnit, $scope.formData.networkUnit);
