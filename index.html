@@ -1,1358 +1,862 @@
-<!DOCTYPE html>
-<html lang="tr">
+﻿<!DOCTYPE html>
+<html lang="tr" ng-app="miningApp">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Kişisel kazım gücünü hesapla. | TurkCraft01.blogspot.com ve pb01adana.blogspot.com tarafından desteklenmektedir!">
-    
-    <title>⛏ RCHesaplaV2 - Kendi Kazım Gücünü Hesapla!</title>
-
-    <link rel="icon" href="https://rollercoin.com/fav/rollercoin_favicon.ico"/>
-    <link rel="icon" href="https://rollercoin.com/fav/rollercoin_favicon_48x48.png" sizes="48x48" />
-    <link rel="icon" href="https://rollercoin.com/fav/rollercoin_favicon_96x96.png" sizes="96x96" />
-    <link rel="icon" href="https://rollercoin.com/fav/rollercoin_favicon_144x144.png" sizes="144x144" />
-
-    <meta property="og:title" content="RCHesapla - Kişisel Kazım Gücünü Hesapla!">
-    <meta property="og:description" content="🧮 ► Kişisel kazım gücünü hesapla! | Anlık, günlük, haftalık, aylık aynı zamanda yıllık olarak hesaplama yapabilirsin.">
-    <meta property="og:image" content="https://raw.githubusercontent.com/FatihCelikOfficialTR/rchesapla/main/nasilkullanilir/rchesapla.png">
-    <meta property="og:url" content="https://fatihcelikofficialtr.github.io/rchesapla/">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Russo+One&family=Permanent+Marker&family=Yanone+Kaffeesatz:wght@400;600&display=swap" rel="stylesheet">
-
-    <style>
-        /* ==========================================
-           1. GLOBAL STYLES & ANIMATIONS
-           ========================================== */
-        :root {
-            --bg-primary: #0F111A;
-            --bg-card: #181B26;
-            --bg-dark: #12141D;
-            --bg-button: #6366F1;
-            --bg-button-hover: #4F46E5;
-            --text-main: #F8FAFC;
-            --text-muted: #94A3B8;
-            --accent-color: #06B6D4;
-            --accent-secondary: #84CC16;
-            --border-color: rgba(255, 255, 255, 0.07);
-
-            /* Kripto Paraların Özgün Renkleri */
-            --color-btc: #F7931A;
-            --color-doge: #C2A633;
-            --color-eth: #627EEA;
-            --color-bnb: #F3BA2F;
-            --color-matic: #8247E5;
-            --color-sol: #14F195;
-            --color-trx: #EF0027;
-            --color-xrp: #23292F;
-            --color-rlt: #00E2E3;
-
-            --radius-sm: 8px;
-            --radius-md: 14px;
-            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
-            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4); }
-            70% { box-shadow: 0 0 0 8px rgba(6, 182, 212, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
-        }
-
-        @keyframes textPulse {
-            0% { opacity: 0.4; }
-            50% { opacity: 1; }
-            100% { opacity: 0.4; }
-        }
-
-        .loading-pulse {
-            animation: textPulse 1.5s infinite ease-in-out;
-            color: var(--accent-color);
-            font-style: italic;
-        }
-
-        /* LOADER STYLES */
-        #page-loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-primary);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
-        }
-
-        #page-loader.fade-out {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loader-spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-top-color: var(--accent-color);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin-bottom: 1rem;
-        }
-
-        .loader-text {
-            font-family: 'Poppins', sans-serif;
-            color: var(--text-main);
-            font-weight: 600;
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
-        }
-
-        .loader-text span {
-            color: var(--accent-color);
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-main);
-            line-height: 1.5;
-            overflow-x: hidden;
-        }
-
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
-
-        /* NAVBAR */
-        .navbar {
-            background: rgba(24, 27, 38, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .container-nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0.8rem 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            color: var(--text-main);
-            font-weight: 700;
-            text-decoration: none;
-            font-size: 1.3rem;
-            letter-spacing: -0.5px;
-            transition: var(--transition);
-        }
-
-        .logo span {
-            color: var(--accent-color);
-        }
-
-        .logo:hover {
-            transform: scale(1.02);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .link-calc {
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.4rem 0.8rem;
-            border-radius: var(--radius-sm);
-            background: rgba(255, 255, 255, 0.05);
-            transition: var(--transition);
-        }
-
-        .link-calc:hover {
-            background: var(--bg-button);
-            transform: translateY(-2px);
-        }
-
-        /* HERO & CRYPTO PRICE BAR */
-        .hero {
-            max-width: 1200px;
-            margin: 1rem auto;
-            padding: 0 1rem;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .crypto-price {
-            background: var(--bg-card);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            margin-bottom: 1.25rem;
-        }
-
-        .price-title {
-            background: var(--bg-dark);
-            color: var(--accent-color);
-            font-weight: 700;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.7px;
-            padding: 0.6rem 1rem;
-            text-align: center;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .price-content ul {
-            list-style: none;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 0.5rem;
-            padding: 0.75rem;
-        }
-
-        .price-content ul li {
-            font-size: 0.8rem;
-            font-weight: 600;
-            background: rgba(0, 0, 0, 0.25);
-            padding: 0.4rem 0.6rem;
-            border-radius: var(--radius-sm);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            transition: var(--transition);
-        }
-
-        .price-content ul li:hover {
-            transform: translateY(-2px);
-            background: rgba(0, 0, 0, 0.45);
-        }
-
-        .price-btc, .td-btc { color: var(--color-btc); }
-        .price-doge, .td-doge { color: var(--color-doge); }
-        .price-eth, .td-eth { color: var(--color-eth); }
-        .price-bnb, .td-bnb { color: var(--color-bnb); }
-        .price-matic, .td-matic { color: var(--color-matic); }
-        .price-sol, .td-sol { color: var(--color-sol); }
-        .price-trx, .td-trx { color: var(--color-trx); }
-        .price-xrp, .td-xrp { color: var(--color-xrp); }
-        .price-rlt, .td-rlt { color: var(--color-rlt); }
-
-        /* CONVERTER */
-        .converter-box {
-            background: var(--bg-card);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            margin-bottom: 1.25rem;
-            overflow: hidden;
-        }
-
-        .converter-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 1rem;
-            padding: 1.25rem;
-        }
-
-        .converter-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-
-        .converter-item label {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--text-muted);
-        }
-
-        .btn-action {
-            background: var(--accent-color);
-            color: #000;
-            border: none;
-            border-radius: var(--radius-sm);
-            padding: 0.85rem 1rem;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-            animation: pulseGlow 3s infinite;
-        }
-
-        .btn-action:hover {
-            transform: translateY(-2px);
-            opacity: 0.95;
-        }
-
-        /* TABS & COLLAPSIBLE STYLES */
-        .tabs-header {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .data-tab-btn, .results-tab-btn {
-            flex: 1;
-            padding: 0.8rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-muted);
-            font-family: inherit;
-            font-weight: 600;
-            font-size: 0.85rem;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .data-tab-btn.active, .results-tab-btn.active {
-            background: var(--bg-button);
-            color: var(--text-main);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
-        }
-
-        .collapsible-wrapper {
-            background: var(--bg-card);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow);
-            margin-bottom: 1.5rem;
-            overflow: hidden;
-        }
-
-        .collapsible-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.8rem 1.25rem;
-            background: var(--bg-dark);
-            cursor: pointer;
-            user-select: none;
-            transition: var(--transition);
-        }
-
-        .collapsible-header:hover {
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        .collapsible-title {
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--accent-color);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .toggle-icon {
-            color: var(--text-muted);
-            transition: transform 0.3s ease;
-            font-size: 0.85rem;
-        }
-
-        .collapsible-wrapper.collapsed .toggle-icon {
-            transform: rotate(-90deg);
-        }
-
-        .collapsible-body {
-            max-height: 4000px;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0, 1, 0, 1), opacity 0.3s ease, padding 0.3s ease;
-            opacity: 1;
-            padding: 1.25rem;
-        }
-
-        .collapsible-wrapper.collapsed .collapsible-body {
-            max-height: 0;
-            opacity: 0;
-            padding: 0 1.25rem;
-        }
-
-        /* ------------------------------------------
-           YENİ YATAY KAZIM BİLGİLERİ DÜZENİ (MOBİL UYUMLU)
-           ------------------------------------------ */
-        .tab1-content {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-            animation: fadeIn 0.4s ease-out;
-        }
-
-        .box {
-            background: var(--bg-primary);
-            border-radius: var(--radius-md);
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .box:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-        }
-
-        .box-title {
-            background: var(--bg-dark);
-            padding: 0.6rem 1rem;
-            color: var(--accent-secondary);
-            font-weight: 700;
-            font-size: 0.85rem;
-            border-bottom: 1px solid var(--border-color);
-            text-align: center;
-        }
-
-        .box-content {
-            padding: 0.75rem;
-            flex: 1;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            table-layout: auto;
-        }
-
-        table td {
-            padding: 0.45rem 0.3rem;
-            font-size: 0.82rem;
-            vertical-align: middle;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        table td:nth-child(2) {
-            width: 50%;
-        }
-
-        table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .input-box {
-            width: 100%;
-            min-width: 60px;
-            background: var(--bg-dark);
-            border: 1.5px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            color: var(--text-main);
-            padding: 0.5rem 0.6rem;
-            text-align: right;
-            font-family: inherit;
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: var(--transition);
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .input-box:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.2);
-            background: #161A26;
-        }
-
-        .input-box:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            background: rgba(0, 0, 0, 0.3);
-            border-color: transparent;
-        }
-
-        .no-input {
-            text-align: right;
-            font-weight: 700;
-            color: var(--accent-color);
-            font-size: 0.9rem;
-            padding-right: 0.5px;
-        }
-
-        /* SONUÇ TABLOLARI VE TAŞMA ENGELLEME */
-        .tab2-content {
-            display: none;
-            grid-template-columns: 1fr;
-            gap: 1.25rem;
-            animation: fadeIn 0.4s ease-out;
-        }
-
-        .coin-box {
-            background: var(--bg-card);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
-        }
-
-        .coin-box:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
-            border-color: rgba(255, 255, 255, 0.15);
-        }
-
-        .coin-box .box-title {
-            text-align: center;
-            background: var(--bg-dark);
-            padding: 0.66rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .coin-box .box-title img {
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
-        }
-
-        .coin-box table {
-            margin: 0;
-            width: 100%;
-            table-layout: fixed;
-        }
-
-        .coin-box table tr:nth-child(even) {
-            background: rgba(0, 0, 0, 0.12);
-        }
-
-        .coin-box table td {
-            width: 33.33%;
-            text-align: center;
-            font-size: 0.72rem;
-            padding: 0.55rem 0.15rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-            font-variant-numeric: tabular-nums;
-            word-break: break-all;
-            overflow-wrap: anywhere;
-            white-space: normal;
-            line-height: 1.2;
-        }
-
-        .table-headers {
-            background: rgba(0, 0, 0, 0.3) !important;
-            font-weight: 700;
-            font-size: 0.7rem !important;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            padding: 0.5rem 0.15rem !important;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color) !important;
-            word-break: normal !important;
-        }
-
-        .coin-box tr:first-child .table-headers {
-            border-top: none;
-        }
-
-        .btc-box .table-headers { color: var(--color-btc); }
-        .doge-box .table-headers { color: var(--color-doge); }
-        .eth-box .table-headers { color: var(--color-eth); }
-        .bnb-box .table-headers { color: var(--color-bnb); }
-        .matic-box .table-headers { color: var(--color-matic); }
-        .sol-box .table-headers { color: var(--color-sol); }
-        .rlt-box .table-headers { color: var(--color-rlt); }
-
-        /* RESPONSIVE BREAKPOINTS (YATAY DÜZEN GEÇİŞLERİ) */
-        @media (min-width: 768px) {
-            /* Tablet ve üstü ekranlarda Kazım Bilgileri yan yana 2 sütun */
-            .tab1-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .tab2-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .coin-box table td {
-                font-size: 0.78rem;
-            }
-        }
-
-        @media (min-width: 1200px) {
-            /* Geniş masaüstü ekranlarda 4 kutu tam yatay olarak yan yana sıralanır */
-            .tabs-header {
-                display: none;
-            }
-            .tab1-content {
-                grid-template-columns: repeat(4, 1fr);
-            }
-            .tab2-content {
-                display: grid !important;
-                grid-template-columns: repeat(3, 1fr);
-                margin-top: 1.5rem;
-            }
-        }
-
-        /* FOOTER / INFO */
-        .info {
-            margin-top: 2.5rem;
-            padding: 1.5rem 1rem;
-            text-align: center;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .info p {
-            margin-bottom: 0.5rem;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--===============================================================================================-->
+<title>RCMiner - Rollercoin Matris & Mağaza Terminali</title>
+<meta name="description" content="Rollercoin kazım gücü hesaplama aracı. Günlük, haftalık, aylık ve yıllık kazanç hesapla. Çekim süresi, miner bonusu ve gerçek zamanlı ağ gücü analizi ile en doğru Rollercoin hesaplayıcı.">
+<meta name="author" content="Fatih ÇELİK">
+<meta name="keywords" content="rollercoin hesaplama, rollercoin kazım gücü hesaplama, rollercoin calculator, rollercoin mining calculator, rollercoin günlük kazanç, rollercoin çekim süresi hesaplama, rollercoin miner bonus hesaplama, rollercoin power calculator, rollercoin türk hesaplama aracı, rollercoin kazanç analizi">
+<link rel="shortcut icon" href="img/rcminers.png" type="image/x-icon">
+<meta property="og:title" content="Rollercoin Hesaplama Aracı – Kazım Gücü & Kazanç Analizi">
+<meta property="og:description" content="Rollercoin kazım gücünü hesapla, günlük kazancını öğren, çekim süresini analiz et. Türkiye'nin en gelişmiş Rollercoin hesaplayıcısı.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rchesapla.github.io/">
+<meta property="og:image" content="https://rchesapla.github.io/img/logo.png">
+<!--===============================================================================================-->
+<link rel="stylesheet" href="./css/anasablon.css">
+<link rel="stylesheet" href="./css/genelkazanc.css">
+<link rel="stylesheet" href="./css/profil.css">
+<link rel="stylesheet" href="./css/tablo.css">
+<link rel="stylesheet" href="./css/fonts.css">
+<link rel="stylesheet" href="./css/minerlistesi.css">
+<link rel="stylesheet" href="./css/ustbar.css">
+<link rel="stylesheet" href="./css/altbar.css">
+<link rel="stylesheet" href="./css/paracekmelistesi.css">
+<link rel="stylesheet" href="./css/yukleniyor.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" href="./css/input.css">
+<link rel="stylesheet" href="./css/button.css">
+<link rel="stylesheet" href="./css/checkbox.css">
+<!--===============================================================================================-->
+<meta name="google-adsense-account" content="ca-pub-6469916074236350">
+<script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
+<!--===============================================================================================-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<!--===============================================================================================-->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!--===============================================================================================-->
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/spark-md5/3.0.0/spark-md5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+<!--===============================================================================================-->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<!--===============================================================================================-->
+<script src="https://wminerrc.github.io/calculator/data/basic_miners.js"></script>
+<script src="https://wminerrc.github.io/calculator/data/merge_miners.js"></script>
+<script src="https://wminerrc.github.io/calculator/data/old/merge_miners.js"></script>
+<script src="https://wminerrc.github.io/calculator/data/components.js"></script>
+<!--===============================================================================================-->
+<script src="js/app.js"></script>
+<script src="js/firebase-db-service.js"></script>
+<!--===============================================================================================-->
+<script src="js/services.js"></script>
+<script src="js/user-miner-service.js"></script>
+<script src="js/miner-service.js"></script>
+<script src="js/dilsecenegi.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<style>
+/* =============================================================
+   DATA-MATRIX FINTECH THEME
+   ============================================================= */
+
+:root {
+  --matrix-bg: #0b0e14;
+  --matrix-surface: #121824;
+  --matrix-border: rgba(255, 255, 255, 0.08);
+  --matrix-accent: #22d3ee;
+  --matrix-green: #10b981;
+  --matrix-red: #f43f5e;
+  --matrix-gold: #f59e0b;
+  --matrix-yt: #ff0033;
+}
+
+body {
+  background-color: var(--matrix-bg) !important;
+  color: #cbd5e1;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+#minerlistesi {
+  position: relative;
+  width: 100%;
+  margin-top: 15px;
+}
+
+/* TERMINAL DOCK */
+.matrix-dock {
+  background: var(--matrix-surface);
+  border: 1px solid var(--matrix-border);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.matrix-dock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--matrix-border);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.matrix-brand {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.matrix-badge-live {
+  font-family: 'Chakra Petch', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--matrix-accent);
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  padding: 4px 12px;
+  border-radius: 6px;
+}
+
+.yt-sub-btn {
+  background: var(--matrix-yt);
+  color: #fff !important;
+  border: none;
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  border-radius: 6px;
+  padding: 7px 16px;
+  text-decoration: none !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: 0.2s transform, 0.2s background;
+}
+
+.yt-sub-btn:hover {
+  background: #e6002c;
+  transform: scale(1.03);
+}
+
+/* INPUT DOKUSU */
+.matrix-inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 12px;
+}
+
+.m-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.m-field label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.m-field input,
+.m-field select {
+  background: #080a0f !important;
+  border: 1px solid var(--matrix-border) !important;
+  border-radius: 6px !important;
+  padding: 8px 12px !important;
+  color: #f1f5f9 !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  outline: none !important;
+  height: 38px;
+  transition: border-color 0.2s;
+}
+
+.m-field input:focus,
+.m-field select:focus {
+  border-color: var(--matrix-accent) !important;
+}
+
+/* TERMINAL AKSİYONLARI */
+.matrix-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--matrix-border);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.m-btn {
+  background: #1a2233;
+  color: #e2e8f0;
+  border: 1px solid var(--matrix-border);
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.m-btn:hover:not([disabled]) {
+  background: #243048;
+  border-color: #38bdf8;
+  color: #fff;
+}
+
+/* SADELEŞTİRİLMİŞ MINER KARTLARI IZGARASI */
+.matrix-grid-compact {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+}
+
+.compact-card {
+  background: var(--matrix-surface);
+  border: 1px solid var(--matrix-border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
+}
+
+.compact-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(34, 211, 238, 0.45);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(34, 211, 238, 0.1);
+}
+
+.compact-card-media {
+  width: 100%;
+  height: 90px;
+  background: #080a0f;
+  border: 1px solid var(--matrix-border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.compact-card-media img {
+  max-width: 90%;
+  max-height: 75px;
+  object-fit: contain;
+}
+
+.compact-card-name {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #f1f5f9;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.compact-badges {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.m-tag-lvl {
+  font-family: 'Chakra Petch', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.m-tag-rarity {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.m-tag-rarity.common { color: #94a3b8; background: rgba(148, 163, 184, 0.1); border: 1px solid #475569; }
+.m-tag-rarity.uncommon { color: var(--matrix-green); background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; }
+.m-tag-rarity.rare { color: #38bdf8; background: rgba(56, 189, 248, 0.1); border: 1px solid #0ea5e9; }
+.m-tag-rarity.epic { color: #c084fc; background: rgba(192, 132, 252, 0.1); border: 1px solid #a855f7; }
+.m-tag-rarity.legendary { color: var(--matrix-gold); background: rgba(245, 158, 11, 0.1); border: 1px solid #f59e0b; }
+.m-tag-rarity.unreal { color: var(--matrix-red); background: rgba(244, 63, 94, 0.1); border: 1px solid #f43f5e; }
+
+.compact-hint {
+  font-size: 10px;
+  color: #64748b;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Sayfalama */
+.matrix-pagination {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 24px 0;
+}
+
+/* =============================================================
+   MINER DETAY MODALI
+   ============================================================= */
+.miner-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(4, 7, 13, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 16px;
+}
+
+.miner-modal-card {
+  background: var(--matrix-surface);
+  border: 1px solid var(--matrix-border);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(34, 211, 238, 0.15);
+  overflow: hidden;
+  animation: modalScaleIn 0.2s ease-out;
+}
+
+@keyframes modalScaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.miner-modal-header {
+  padding: 14px 18px;
+  background: #080a0f;
+  border-bottom: 1px solid var(--matrix-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.miner-modal-title {
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.miner-modal-close {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+  transition: color 0.2s;
+}
+
+.miner-modal-close:hover {
+  color: #fff;
+}
+
+.miner-modal-body {
+  padding: 18px 20px;
+}
+
+.miner-modal-visual {
+  background: #080a0f;
+  border: 1px solid var(--matrix-border);
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.miner-modal-visual img {
+  max-width: 140px;
+  max-height: 90px;
+  object-fit: contain;
+  margin: 8px 0;
+}
+
+.miner-modal-table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.miner-modal-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 12px;
+  background: #080a0f;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 6px;
+  font-size: 12.5px;
+}
+
+.miner-modal-row span:first-child {
+  color: #64748b;
+  font-weight: 600;
+}
+
+.miner-modal-row span:last-child {
+  font-family: 'Chakra Petch', monospace;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+/* Durum Noktaları */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.dot-green { background: var(--matrix-green); box-shadow: 0 0 6px var(--matrix-green); }
+.dot-red { background: var(--matrix-red); box-shadow: 0 0 6px var(--matrix-red); }
+
+.miner-modal-footer {
+  padding: 12px 18px;
+  background: #080a0f;
+  border-top: 1px solid var(--matrix-border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+</style>
 </head>
-<body>
 
-    <div id="page-loader">
-        <div class="loader-spinner"></div>
-        <div class="loader-text">RC<span>HesaplaV2</span> Yükleniyor...</div>
+<body ng-controller="MiningController">
+
+<div class="rc-wrapper">
+
+  <!-- ÜST BAR -->
+  <header class="rc-topbar rc-topbar-roller d-flex justify-content-between align-items-center px-3">
+    <div class="topbar-left">
+      <div class="rc-logo">
+        <img src="img/rcminers.png" alt="RCMiner">
+        <span class="logo-text">RCMiner</span>
+      </div>
     </div>
+    <div class="topbar-right">
+      <a href="https://www.youtube.com/@FatihCELIK" target="_blank" class="yt-sub-btn">
+        <i class="fab fa-youtube"></i> Fatih ÇELİK
+      </a>
+      <a href="https://www.youtube.com/@bilgilendiriyor" target="_blank" class="yt-sub-btn">
+        <i class="fab fa-youtube"></i> Bilgilendiriyor
+      </a>
+    </div>
+  </header>
 
-    <div class="navbar">
-        <div class="container-nav">
-            <a class="logo" href="#">RC<span>Hesapla</span>V2</a>
-            <div class="nav-links">
-                <a class="link-calc" href="./sayfa/nasilkullanilir.html">
-                    <img src="./img/nasilkullanilir.png" width="20" height="20" alt="Nasıl Kullanılır"/>
-                </a>
-                <a class="link-calc" href="https://rchesapla.github.io/rollercoinminers/" target="_blank">⛏️ Mağaza</a>
-                <a class="link-calc" href="https://rollercoin.com/?r=le7ml8f3" target="_blank">Ücretsiz kayıt ol</a>
+  <!-- ANA İÇERİK -->
+  <main class="rc-main container-fluid px-lg-4">
+    <section class="rc-content">
+
+      <div id="minerlistesi">
+        
+        <!-- FİLTRELEME & DOCK -->
+        <div class="matrix-dock">
+          
+          <div class="matrix-dock-header">
+            <div class="matrix-brand">
+              <i class="fas fa-layer-group text-info"></i> Madenci Matrisi
             </div>
-        </div>
-    </div>
+            <div class="matrix-badge-live">
+              AKTİF KAYIT: {{allMiners.length}}
+            </div>
+          </div>
 
-    <section class="hero">
-        <div class="container">
+          <!-- Kullanıcı Seçilmedi Uyarısı -->
+          <div class="alert alert-warning text-center py-2 mb-3" 
+               ng-if="!isLoadedUser" 
+               style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); color: var(--matrix-gold); border-radius: 6px; font-size: 12.5px;">
+            <i class="fas fa-info-circle me-1"></i>
+            Envanterdeki madencileri listelemek için lütfen kullanıcı adınızı aratarak seçiniz.
+          </div>
+
+          <!-- Filtreleme Alanları -->
+          <div class="matrix-inputs">
             
-            <div class="crypto-price">
-                <div class="price-title">Güncel Kripto Fiyatları (USD / TL)</div>
-                <div class="price-content">
-                    <ul>
-                        <li><span class="price-btc">BTC:</span> <span id="btc-price-api" class="loading-pulse">Yükleniyor..</span></li>
-                        <li><span class="price-doge">DOGE:</span> <span id="doge-price-api" class="loading-pulse">Yükleniyor..</span></li>
-                        <li><span class="price-eth">ETH:</span> <span id="eth-price-api" class="loading-pulse">Yükleniyor..</span></li>
-                        <li><span class="price-bnb">BNB:</span> <span id="bnb-price-api" class="loading-pulse">Yükleniyor..</span></li>
-                        <li><span class="price-matic">MATIC:</span> <span id="matic-price-api" class="loading-pulse">Yükleniyor..</span></li>
-                        <li><span class="price-sol">SOL:</span> <span id="sol-price-api" class="loading-pulse">Yükleniyor..</span></li>
-                        <li><span class="price-trx">TRX:</span> <span id="trx-price-api" class="loading-pulse">Yükleniyor..</span></li>
-                        <li><span class="price-xrp">XRP:</span> <span id="xrp-price-api" class="loading-pulse">Yükleniyor..</span></li>
-                        <li><span class="price-rlt">LTC:</span> <span id="ltc-price-api" class="loading-pulse">Yükleniyor..</span></li>
-                        <li><span class="price-rlt">USDT:</span> <span id="usdt-price-api" class="loading-pulse">Yükleniyor..</span></li>
-                        <li><span class="price-rlt">RLT:</span> <span id="rlt-price-api" class="loading-pulse">Yükleniyor..</span></li>
-                    </ul>
+            <!-- Kullanıcı Adı -->
+            <div class="m-field">
+              <label>Kullanıcı Adı</label>
+              <div class="position-relative">
+                <input type="text" 
+                       class="w-100"
+                       ng-model="userSearchText" 
+                       placeholder="Örn: FthCLK" 
+                       typeahead-wait-ms="200"
+                       uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
+                       typeahead-no-results="playerSearchNoResults"
+                       typeahead-on-select="onSelectPlayer($item,$model, $label,$event)"
+                       typeahead-loading="loading"
+                       autocomplete="off"/>
+
+                <div class="p-1 mt-1 bg-dark text-danger border border-danger rounded position-absolute w-100" ng-if="playerSearchNoResults" style="z-index: 100; font-size: 11px;">
+                  Oyuncu bulunamadı.
                 </div>
+              </div>
             </div>
 
-            <div class="converter-box">
-                <div class="price-title">⚡ Güç Birimi Dönüştürücü (GH / TH / PH / EH / ZH)</div>
-                <div class="converter-grid">
-                    <div class="converter-item">
-                        <label for="conv-gh">GH/s</label>
-                        <input id="conv-gh" class="input-box" type="number" placeholder="0" oninput="convertHashRate('gh')">
-                    </div>
-                    <div class="converter-item">
-                        <label for="conv-th">TH/s</label>
-                        <input id="conv-th" class="input-box" type="number" placeholder="0" oninput="convertHashRate('th')">
-                    </div>
-                    <div class="converter-item">
-                        <label for="conv-ph">PH/s</label>
-                        <input id="conv-ph" class="input-box" type="number" placeholder="0" oninput="convertHashRate('ph')">
-                    </div>
-                    <div class="converter-item">
-                        <label for="conv-eh">EH/s</label>
-                        <input id="conv-eh" class="input-box" type="number" placeholder="0" oninput="convertHashRate('eh')">
-                    </div>
-                    <div class="converter-item">
-                        <label for="conv-zh">ZH/s</label>
-                        <input id="conv-zh" class="input-box" type="number" placeholder="0" oninput="convertHashRate('zh')">
-                    </div>
-                </div>
-                <div style="padding: 0 1.25rem 1.25rem 1.25rem;">
-                    <button class="btn-action" onclick="applyTHToMiner()">⚡ Hesaplanan TH/s Değerini Miner Gücüne Aktar</button>
-                </div>
+            <!-- Miner Adı -->
+            <div class="m-field">
+              <label>Miner Adı</label>
+              <input type="text" 
+                     ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" 
+                     ng-model="allMinerNameSearch" 
+                     placeholder="Örn: YMCA">
             </div>
 
-            <div class="tabs-layout">
-                <div class="tabs-header">
-                    <button onclick="changeTab('data')" id="data-tab-btn" class="data-tab-btn active">Kazım Bilgileri</button>
-                    <button onclick="changeTab('results')" id="results-tab-btn" class="results-tab-btn">Sonuçlar</button>
-                </div>
-
-                <div class="collapsible-wrapper" id="collapsibleDataPanel">
-                    <div class="collapsible-header" onclick="toggleCollapsible('collapsibleDataPanel')">
-                        <span class="collapsible-title">⚙️ Kazım Bilgileri ve Ayarlar</span>
-                        <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
-                    </div>
-
-                    <div class="collapsible-body">
-                        <div id="tab1-content" class="tab1-content">
-                            
-                            <div class="box">
-                                <div class="box-title">Kazım Gücü</div>
-                                <div class="box-content">
-                                    <table>
-                                        <tr>
-                                            <td>Miner</td>
-                                            <td>
-                                                <input id="minerRate" class="input-box" type="number" onchange="calc()">
-                                            </td>
-                                            <td>
-                                                <select id="minerUnit" class="input-box" style="padding: 0.3rem; text-align: center; font-size: 0.75rem;" onchange="calc()">
-                                                    <option value="GH">GH/s</option>
-                                                    <option value="TH" selected>TH/s</option>
-                                                    <option value="PH">PH/s</option>
-                                                    <option value="EH">EH/s</option>
-                                                    <option value="ZH">ZH/s</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div class="box">
-                                <div class="box-title">Bölünmüş Güç (%lik)</div>
-                                <div class="box-content">
-                                    <table>
-                                        <tr>
-                                            <td class="td-btc">BTC:</td>
-                                            <td><input id="distBtc" class="input-box" type="number" onchange="calc()"></td>
-                                            <td>%</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-doge">DOGE:</td>
-                                            <td><input id="distDoge" class="input-box" type="number" onchange="calc()"></td>
-                                            <td>%</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-eth">ETH:</td>
-                                            <td><input id="distEth" class="input-box" type="number" onchange="calc()"></td>
-                                            <td>%</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-bnb">BNB:</td>
-                                            <td><input id="distbnb" class="input-box" type="number" onchange="calc()"></td>
-                                            <td>%</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-matic">MATIC:</td>
-                                            <td><input id="distmatic" class="input-box" type="number" onchange="calc()"></td>
-                                            <td>%</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-sol">SOL:</td>
-                                            <td><input id="distsol" class="input-box" type="number" onchange="calc()"></td>
-                                            <td>%</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-trx">TRX:</td>
-                                            <td><input id="disttrx" class="input-box" type="number" onchange="calc()"></td>
-                                            <td>%</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-xrp">XRP:</td>
-                                            <td><input id="distxrp" class="input-box" type="number" onchange="calc()"></td>
-                                            <td>%</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-rlt">RLT:</td>
-                                            <td><input id="distRlt" class="input-box" type="number" onchange="calc()"></td>
-                                            <td>%</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div class="box">
-                                <div class="box-title">Ağ Gücü</div>
-                                <div class="box-content">
-                                    <table>
-                                        <tr>
-                                            <td class="td-btc">BTC:</td>
-                                            <td><input id="netBtc" class="input-box" type="number" onchange="calc()"></td>
-                                            <td>EH/s</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-doge">DOGE:</td>
-                                            <td><input id="netDoge" class="input-box" type="number" onchange="calc()"></td>
-                                            <td>EH/s</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-eth">ETH:</td>
-                                            <td><input id="netEth" class="input-box" type="number" onchange="calc()"></td>
-                                            <td>EH/s</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-bnb">BNB:</td>
-                                            <td><input id="netbnb" class="input-box" type="number" onchange="calc()"></td>
-                                            <td>EH/s</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-matic">MATIC:</td>
-                                            <td><input id="netmatic" class="input-box" type="number" onchange="calc()"></td>
-                                            <td>EH/s</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-sol">SOL:</td>
-                                            <td><input id="netsol" class="input-box" type="number" onchange="calc()"></td>
-                                            <td>EH/s</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-trx">TRX:</td>
-                                            <td><input id="nettrx" class="input-box" type="number" onchange="calc()"></td>
-                                            <td>EH/s</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-xrp">XRP:</td>
-                                            <td><input id="netxrp" class="input-box" type="number" onchange="calc()"></td>
-                                            <td>EH/s</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-rlt">RLT:</td>
-                                            <td><input id="netRlt" class="input-box" type="number" onchange="calc()"></td>
-                                            <td>EH/s</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Toplam</td>
-                                            <td class="no-input" id="totalNet">-</td>
-                                            <td>EH/s</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div class="box">
-                                <div class="box-title">Blok Ödülü</div>
-                                <div class="box-content">
-                                    <table>
-                                        <tr>
-                                            <td class="td-btc">BTC:</td>
-                                            <td><input id="blockBtc" class="input-box" type="number" value="30000" step="any" onchange="calc()"></td>
-                                            <td><img src="./img/svg_rc/btc.svg" width="14" height="14" alt="BTC"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-doge">DOGE:</td>
-                                            <td><input id="blockDoge" class="input-box" type="number" value="30" step="any" onchange="calc()"></td>
-                                            <td><img src="./img/svg_rc/doge.svg" width="14" height="14" alt="DOGE"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-eth">ETH:</td>
-                                            <td><input id="blockEth" class="input-box" type="number" value="0.005" step="any" onchange="calc()"></td>
-                                            <td><img src="./img/svg_rc/eth.svg" width="14" height="14" alt="ETH"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-bnb">BNB:</td>
-                                            <td><input id="blockbnb" class="input-box" type="number" value="0.012" step="any" onchange="calc()"></td>
-                                            <td><img src="./img/svg_rc/bnb.svg" width="14" height="14" alt="BNB"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-matic">MATIC:</td>
-                                            <td><input id="blockmatic" class="input-box" type="number" value="4" step="any" onchange="calc()"></td>
-                                            <td><img src="./img/svg_rc/matic.svg" width="14" height="14" alt="MATIC"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-sol">SOL:</td>
-                                            <td><input id="blocksol" class="input-box" type="number" value="0.07" step="any" onchange="calc()"></td>
-                                            <td><img src="./img/svg_rc/sol.svg" width="14" height="14" alt="SOL"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-trx">TRX:</td>
-                                            <td><input id="blocktrx" class="input-box" type="number" value="30" step="any" onchange="calc()"></td>
-                                            <td><img src="./img/svg_rc/trx.svg" width="14" height="14" alt="TRX"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-xrp">XRP:</td>
-                                            <td><input id="blockxrp" class="input-box" type="number" value="30" step="any" onchange="calc()"></td>
-                                            <td><img src="./img/svg_rc/xrp.svg" width="14" height="14" alt="XRP"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="td-rlt">RLT:</td>
-                                            <td><input id="blockRlt" class="input-box" type="number" value="30" step="any" onchange="calc()"></td>
-                                            <td><img src="./img/svg_rc/rlt.svg" width="14" height="14" alt="RLT"/></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div id="tab2-content" class="tab2-content">
-                    
-                    <div class="coin-box btc-box">
-                        <div class="box-title"><img src="./img/svg_rc/btc.svg" width="24" height="24" alt="BTC"/> <span>BITCOIN</span></div>
-                        <div class="tab-content">
-                            <table>
-                                <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
-                                <tr><td id="minBtc">-</td><td id="hourBtc">-</td><td id="dayBtc">-</td></tr>
-                                <tr><td id="minBtcD">-</td><td id="hourBtcD">-</td><td id="dayBtcD">-</td></tr>
-                                <tr><td class="table-headers">HAFTALIK</td><td class="table-headers">AYLIK</td><td class="table-headers">YILLIK</td></tr>
-                                <tr><td id="weekBtc">-</td><td id="monthBtc">-</td><td id="yearBtc">-</td></tr>
-                                <tr><td id="weekBtcD">-</td><td id="monthBtcD">-</td><td id="yearBtcD">-</td></tr>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="coin-box doge-box">
-                        <div class="box-title"><img src="./img/svg_rc/doge.svg" width="24" height="24" alt="DOGE"/> <span>DOGECOIN</span></div>
-                        <div class="tab-content">
-                            <table>
-                                <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
-                                <tr><td id="minDoge">-</td><td id="hourDoge">-</td><td id="dayDoge">-</td></tr>
-                                <tr><td id="minDogeD">-</td><td id="hourDogeD">-</td><td id="dayDogeD">-</td></tr>
-                                <tr><td class="table-headers">HAFTALIK</td><td class="table-headers">AYLIK</td><td class="table-headers">YILLIK</td></tr>
-                                <tr><td id="weekDoge">-</td><td id="monthDoge">-</td><td id="yearDoge">-</td></tr>
-                                <tr><td id="weekDogeD">-</td><td id="monthDogeD">-</td><td id="yearDogeD">-</td></tr>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="coin-box eth-box">
-                        <div class="box-title"><img src="./img/svg_rc/eth.svg" width="24" height="24" alt="ETH"/> <span>ETHEREUM</span></div>
-                        <div class="tab-content">
-                            <table>
-                                <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
-                                <tr><td id="minEth">-</td><td id="hourEth">-</td><td id="dayEth">-</td></tr>
-                                <tr><td id="minEthD">-</td><td id="hourEthD">-</td><td id="dayEthD">-</td></tr>
-                                <tr><td class="table-headers">HAFTALIK</td><td class="table-headers">AYLIK</td><td class="table-headers">YILLIK</td></tr>
-                                <tr><td id="weekEth">-</td><td id="monthEth">-</td><td id="yearEth">-</td></tr>
-                                <tr><td id="weekEthD">-</td><td id="monthEthD">-</td><td id="yearEthD">-</td></tr>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="coin-box bnb-box">
-                        <div class="box-title"><img src="./img/svg_rc/bnb.svg" width="24" height="24" alt="BNB"/> <span>BINANCE COIN</span></div>
-                        <div class="tab-content">
-                            <table>
-                                <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
-                                <tr><td id="minbnb">-</td><td id="hourbnb">-</td><td id="daybnb">-</td></tr>
-                                <tr><td id="minbnbD">-</td><td id="hourbnbD">-</td><td id="daybnbD">-</td></tr>
-                                <tr><td class="table-headers">HAFTALIK</td><td class="table-headers">AYLIK</td><td class="table-headers">YILLIK</td></tr>
-                                <tr><td id="weekbnb">-</td><td id="monthbnb">-</td><td id="yearbnb">-</td></tr>
-                                <tr><td id="weekbnbD">-</td><td id="monthbnbD">-</td><td id="yearbnbD">-</td></tr>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="coin-box matic-box">
-                        <div class="box-title"><img src="./img/svg_rc/matic.svg" width="24" height="24" alt="MATIC"/> <span>POLYGON</span></div>
-                        <div class="tab-content">
-                            <table>
-                                <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
-                                <tr><td id="minmatic">-</td><td id="hourmatic">-</td><td id="daymatic">-</td></tr>
-                                <tr><td id="minmaticD">-</td><td id="hourmaticD">-</td><td id="daymaticD">-</td></tr>
-                                <tr><td class="table-headers">HAFTALIK</td><td class="table-headers">AYLIK</td><td class="table-headers">YILLIK</td></tr>
-                                <tr><td id="weekmatic">-</td><td id="monthmatic">-</td><td id="yearmatic">-</td></tr>
-                                <tr><td id="weekmaticD">-</td><td id="monthmaticD">-</td><td id="yearmaticD">-</td></tr>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="coin-box sol-box">
-                        <div class="box-title"><img src="./img/svg_rc/sol.svg" width="24" height="24" alt="SOL"/> <span>SOLANA</span></div>
-                        <div class="tab-content">
-                            <table>
-                                <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
-                                <tr><td id="minsol">-</td><td id="hoursol">-</td><td id="daysol">-</td></tr>
-                                <tr><td id="minsolD">-</td><td id="hoursolD">-</td><td id="daysolD">-</td></tr>
-                                <tr><td class="table-headers">HAFTALIK</td><td class="table-headers">AYLIK</td><td class="table-headers">YILLIK</td></tr>
-                                <tr><td id="weeksol">-</td><td id="monthsol">-</td><td id="yearsol">-</td></tr>
-                                <tr><td id="weeksolD">-</td><td id="monthsolD">-</td><td id="yearsolD">-</td></tr>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="coin-box rlt-box">
-                        <div class="box-title"><img src="./img/svg_rc/trx.svg" width="24" height="24" alt="TRX"/> <span>TRON</span></div>
-                        <div class="tab-content">
-                            <table>
-                                <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
-                                <tr><td id="mintrx">-</td><td id="hourtrx">-</td><td id="daytrx">-</td></tr>
-                                <tr><td id="mintrxD">-</td><td id="hourtrxD">-</td><td id="daytrxD">-</td></tr>
-                                <tr><td class="table-headers">HAFTALIK</td><td class="table-headers">AYLIK</td><td class="table-headers">YILLIK</td></tr>
-                                <tr><td id="weektrx">-</td><td id="monthtrx">-</td><td id="yeartrx">-</td></tr>
-                                <tr><td id="weektrxD">-</td><td id="monthtrxD">-</td><td id="yeartrxD">-</td></tr>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="coin-box rlt-box">
-                        <div class="box-title"><img src="./img/svg_rc/xrp.svg" width="24" height="24" alt="XRP"/> <span>RIPPLE</span></div>
-                        <div class="tab-content">
-                            <table>
-                                <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
-                                <tr><td id="minxrp">-</td><td id="hourxrp">-</td><td id="dayxrp">-</td></tr>
-                                <tr><td id="minxrpD">-</td><td id="hourxrpD">-</td><td id="dayxrpD">-</td></tr>
-                                <tr><td class="table-headers">HAFTALIK</td><td class="table-headers">AYLIK</td><td class="table-headers">YILLIK</td></tr>
-                                <tr><td id="weekxrp">-</td><td id="monthxrp">-</td><td id="yearxrp">-</td></tr>
-                                <tr><td id="weekxrpD">-</td><td id="monthxrpD">-</td><td id="yearxrpD">-</td></tr>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="coin-box rlt-box">
-                        <div class="box-title"><img src="./img/svg_rc/rlt.svg" width="24" height="24" alt="RLT"/> <span>ROLLERTOKEN</span></div>
-                        <div class="tab-content">
-                            <table>
-                                <tr><td class="table-headers">BEKLENEN</td><td class="table-headers">SAATLİK</td><td class="table-headers">GÜNLÜK</td></tr>
-                                <tr><td id="minRlt">-</td><td id="hourRlt">-</td><td id="dayRlt">-</td></tr>
-                                <tr><td id="minRltD">-</td><td id="hourRltD">-</td><td id="dayRltD">-</td></tr>
-                                <tr><td class="table-headers">HAFTALIK</td><td class="table-headers">AYLIK</td><td class="table-headers">YILLIK</td></tr>
-                                <tr><td id="weekRlt">-</td><td id="monthRlt">-</td><td id="yearRlt">-</td></tr>
-                                <tr><td id="weekRltD">-</td><td id="monthRltD">-</td><td id="yearRltD">-</td></tr>
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
+            <!-- Seviye / Nadirlik -->
+            <div class="m-field">
+              <label>Nadirlik Seviyesi</label>
+              <select ng-model="allMinersRarity" 
+                      ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+                <option value="all">Tüm Seviyeler</option>
+                <option value="common">Common</option>
+                <option value="legacy">Legacy</option>
+                <option value="uncommon">Uncommon</option>
+                <option value="rare">Rare</option>
+                <option value="epic">Epic</option>
+                <option value="legendary">Legendary</option>
+                <option value="unreal">Unreal</option>
+              </select>
             </div>
 
-            <div class="info">
-                <p><span style="color: #ff4d4d; font-family: 'Permanent Marker', cursive; font-size: 1rem;">RCHesaplaV2 - Kişisel kazım gücünüzü hesaplayın!</span></p>
-                <p><span style="color: #fcff01; font-family: 'Yanone Kaffeesatz', sans-serif; font-size: 1.1rem;">Hesaplama sistemi: <b>BITCOIN</b>, <b>DOGECOIN</b>, <b>ETHEREUM</b>, <b>BINANCECOIN</b>, <b>POLYGON</b>, <b>SOLANA</b> ve <b>ROLLERTOKEN</b>!</span></p>
+            <!-- Pazar / Satış Durumu -->
+            <div class="m-field">
+              <label>Pazar Durumu</label>
+              <select ng-model="allMinerNegotiableStatus" 
+                      ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+                <option value="all">Tümü</option>
+                <option value="negotiable">Satılabilir</option>
+                <option value="inegotiable">Satılamaz</option>
+              </select>
             </div>
+
+            <!-- Oda Durumu -->
+            <div class="m-field" ng-style="!isLoadedUser && {'opacity': '0.5', 'cursor': 'not-allowed'}">
+              <label>Oda Durumu</label>
+              <select ng-model="allMinerPosessionStatus" 
+                      ng-disabled="!isLoadedUser" 
+                      ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+                <option value="all">Tümü</option>
+                <option value="mine">Odamda Var</option>
+                <option value="not_mine">Odamda Yok</option>
+              </select>
+            </div>
+
+            <!-- Paketler -->
+            <div class="m-field">
+              <label>Paket Koleksiyonu</label>
+              <select ng-model="allMinerCollectionId" 
+                      ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+                <option value="all">Tüm Koleksiyonlar</option>
+                <option ng-repeat="collection in collections" value="{{collection.id}}">{{collection.name}}</option>
+              </select>
+            </div>
+
+          </div>
+
+          <!-- Fonksiyon Tuşları -->
+          <div class="matrix-actions">
+            <div class="d-flex gap-2 flex-wrap">
+              <button class="m-btn" ng-click="resetValues()">
+                <i class="fas fa-sync-alt text-info"></i> Sıfırla
+              </button>
+
+              <button class="m-btn" 
+                      ng-click="openUserRoomLink()" 
+                      ng-disabled="!isLoadedUser"
+                      ng-style="!isLoadedUser && {'opacity': '0.5', 'cursor': 'not-allowed'}">
+                <i class="fas fa-external-link-alt text-primary"></i> Odayı Aç
+              </button>
+
+              <button class="m-btn" onclick="takeScreenshot()">
+                <i class="fas fa-camera text-warning"></i> Matris Görüntüsü
+              </button>
+            </div>
+          </div>
+
         </div>
+
+        <!-- SADELEŞTİRİLMİŞ MADENCİ LİSTESİ (Sadece Ad & Seviye) -->
+        <div class="matrix-grid-compact">
+          <div class="compact-card" 
+               ng-repeat="miner in allMiners | orderBy:'power':true | limitTo:visibleItems"
+               ng-click="openMinerDetail(miner)" 
+               title="Detayları görmek için tıklayın">
+            
+            <div class="compact-card-media">
+              <img ng-src="https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608" 
+                   alt="{{miner.name.en}}" 
+                   loading="lazy">
+            </div>
+
+            <!-- Miner Adı -->
+            <div class="compact-card-name" title="{{miner.name.en}}">
+              {{miner.name.en}}
+            </div>
+
+            <!-- Miner Seviye ve Nadirlik -->
+            <div class="compact-badges">
+              <span class="m-tag-lvl">LVL {{miner.level + 1}}</span>
+              <span class="m-tag-rarity {{miner.rarity}}">{{miner.rarity}}</span>
+            </div>
+
+            <div class="compact-hint">
+              <i class="fas fa-info-circle text-info"></i> Detaylar için tıklayın
+            </div>
+
+          </div>
+
+          <!-- Sayfalama -->
+          <div class="matrix-pagination" ng-init="visibleItems = 24">
+            <button class="m-btn px-4 py-2" 
+                    ng-click="visibleItems = visibleItems + 24"
+                    ng-hide="visibleItems >= allMiners.length">
+              <i class="fas fa-plus me-1"></i> Daha Fazla Göster ({{allMiners.length - visibleItems}} Kaldı)
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
     </section>
+  </main>
+</div>
 
-    <script src="https://kit.fontawesome.com/66aa7c98b3.js" crossorigin="anonymous"></script>
+<!-- =============================================================
+     MINER DETAY MODALI (Tıklayınca Açılan Menü)
+     ============================================================= -->
+<div class="miner-modal-overlay" ng-if="selectedMiner" ng-click="closeMinerDetail()">
+  <div class="miner-modal-card" ng-click="$event.stopPropagation()">
     
-    <script>
-        /* ==========================================
-           1. COLLAPSIBLE CONTROLLER
-           ========================================== */
-        function toggleCollapsible(elementId) {
-            const panel = document.getElementById(elementId);
-            if (panel) {
-                panel.classList.toggle('collapsed');
-            }
+    <div class="miner-modal-header">
+      <div class="miner-modal-title">
+        <i class="fas fa-microchip text-info"></i> {{selectedMiner.name.en}}
+      </div>
+      <button class="miner-modal-close" ng-click="closeMinerDetail()">&times;</button>
+    </div>
+
+    <div class="miner-modal-body">
+      <!-- Madenci Görseli & Rozetler -->
+      <div class="miner-modal-visual">
+        <img ng-src="https://static.rollercoin.com/static/img/market/miners/{{selectedMiner.filename}}.gif?v=1707996476608" 
+             alt="{{selectedMiner.name.en}}">
+        <div class="d-flex gap-2 mt-2">
+          <span class="m-tag-lvl">LVL {{selectedMiner.level + 1}}</span>
+          <span class="m-tag-rarity {{selectedMiner.rarity}}">{{selectedMiner.rarity}}</span>
+        </div>
+      </div>
+
+      <!-- Detaylı Özellik Tablosu -->
+      <div class="miner-modal-table">
+        <div class="miner-modal-row">
+          <span>Madenci Adı</span>
+          <span style="color: #38bdf8;">{{selectedMiner.name.en}}</span>
+        </div>
+
+        <div class="miner-modal-row">
+          <span>Temel Kazım Gücü</span>
+          <span>{{chooseBestHashRateUnit(selectedMiner.power, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(selectedMiner.power, 'GH/s').unit}}</span>
+        </div>
+
+        <div class="miner-modal-row">
+          <span>Bonus Güç Oranı</span>
+          <span style="color: #f43f5e;">+{{(selectedMiner.bonus_power / 100)}}%</span>
+        </div>
+
+        <div class="miner-modal-row">
+          <span>Net Toplam Güç</span>
+          <span style="color: #22d3ee;">
+            {{chooseBestHashRateUnit(selectedMiner.power * (1 + (selectedMiner.bonus_power / 10000)), 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(selectedMiner.power * (1 + (selectedMiner.bonus_power / 10000)), 'GH/s').unit}}
+          </span>
+        </div>
+
+        <div class="miner-modal-row">
+          <span>Odadaki Durumu</span>
+          <span class="status-indicator">
+            <span class="dot" ng-class="selectedMiner.already_have ? 'dot-green' : 'dot-red'"></span>
+            {{ selectedMiner.already_have ? 'Odanızda Mevcut' : 'Odanızda Yok' }}
+          </span>
+        </div>
+
+        <div class="miner-modal-row">
+          <span>Pazar Yeri Durumu</span>
+          <span class="status-indicator">
+            <span class="dot" ng-class="selectedMiner.is_can_be_sold_on_mp ? 'dot-green' : 'dot-red'"></span>
+            {{ selectedMiner.is_can_be_sold_on_mp ? 'Pazarda Satılabilir' : 'Satılamaz' }}
+          </span>
+        </div>
+
+        <div class="miner-modal-row" ng-if="selectedMiner.cells">
+          <span>Raf Alanı (Hücre)</span>
+          <span>{{selectedMiner.cells}} Hücre</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alt Butonlar -->
+    <div class="miner-modal-footer">
+      <button class="m-btn" ng-click="closeMinerDetail()">Kapat</button>
+      <button class="m-btn text-info" ng-click="openBuyLink(selectedMiner)">
+        <i class="fas fa-shopping-cart"></i> Mağazada İncele
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ALT BİLGİ -->
+<footer class="rc-footer rc-footer-roller">
+  <div class="footer-bottom">
+    © 2026 RCHesapla • Rollercoin Hesaplama Aracı
+  </div>
+</footer>
+
+<script>
+// Angular Controller Entegrasyonu: Detay Menüsü Aç/Kapat
+angular.element(document).ready(function() {
+  const scope = angular.element(document.querySelector('[ng-controller="MiningController"]')).scope();
+  if (scope) {
+    scope.selectedMiner = null;
+    scope.openMinerDetail = function(miner) {
+      scope.selectedMiner = miner;
+    };
+    scope.closeMinerDetail = function() {
+      scope.selectedMiner = null;
+    };
+    scope.$applyAsync();
+  }
+});
+
+async function takeScreenshot() {
+  const element = document.getElementById('minerlistesi');
+  if (!element) return;
+
+  const usernameInput = document.querySelector('input[ng-model="userSearchText"]');
+  const username = usernameInput && usernameInput.value ? usernameInput.value : "Misafir";
+  const formattedDate = new Date().toLocaleString("tr-TR");
+
+  const header = document.createElement("div");
+  header.style.padding = "10px";
+  header.style.background = "#0b0e14";
+  header.style.color = "#22d3ee";
+  header.style.fontSize = "12px";
+  header.style.textAlign = "center";
+  header.style.borderBottom = "1px solid rgba(255, 255, 255, 0.08)";
+  header.innerHTML = `<strong>RCHesapla Matris Verisi</strong> | Oyuncu: <b>${username}</b> | ${formattedDate}`;
+
+  element.prepend(header);
+
+  try {
+    const canvas = await html2canvas(element, {
+      backgroundColor: "#0b0e14",
+      scale: 2,
+      useCORS: true
+    });
+
+    header.remove();
+
+    canvas.toBlob(async function(blob) {
+      if (!blob) return;
+      if (navigator.share && navigator.canShare) {
+        const file = new File([blob], "rcminer-matrix.png", { type: "image/png" });
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            title: "RCHesapla Matris",
+            text: "Madenci Listesi:",
+            files: [file]
+          });
+          return;
         }
+      }
 
-        /* ==========================================
-           2. TAB & NAVIGATION CONTROLLER
-           ========================================== */
-        function changeTab(tabName) {
-            const panel = document.getElementById('collapsibleDataPanel');
-            const tab2 = document.getElementById('tab2-content');
-            const btn1 = document.getElementById('data-tab-btn');
-            const btn2 = document.getElementById('results-tab-btn');
+      const link = document.createElement('a');
+      link.download = "rcminer-matrix.png";
+      link.href = URL.createObjectURL(blob);
+      link.click();
+    });
+  } catch (err) {
+    console.error("Hata:", err);
+    header.remove();
+  }
+}
+</script>
 
-            if (tabName === 'data') {
-                panel.style.display = 'block';
-                tab2.style.display = 'none';
-                btn1.classList.add('active');
-                btn2.classList.remove('active');
-            } else {
-                panel.style.display = 'none';
-                tab2.style.display = 'grid';
-                btn1.classList.remove('active');
-                btn2.classList.add('active');
-            }
-        }
-
-        /* ==========================================
-           3. CALCULATOR & LOGIC ENGINE
-           ========================================== */
-        const COINS = [
-          { key: 'Btc', apiId: 'btc-price-api' },
-          { key: 'Doge', apiId: 'doge-price-api' },
-          { key: 'Eth', apiId: 'eth-price-api' },
-          { key: 'bnb', apiId: 'bnb-price-api' },
-          { key: 'matic', apiId: 'matic-price-api' },
-          { key: 'sol', apiId: 'sol-price-api' },
-          { key: 'Rlt', apiId: 'rlt-price-api' },
-          { key: 'trx', apiId: 'trx-price-api' },
-          { key: 'xrp', apiId: 'xrp-price-api' },
-          { key: 'ltc', apiId: 'ltc-price-api' },
-          { key: 'usdt', apiId: 'usdt-price-api' }
-        ];
-
-        const PERIOD_MULTIPLIERS = {
-          min: 1,
-          hour: 6,         // 10'ar dakikalık bloklar üzerinden 1 saat = 6 blok
-          day: 6 * 24,     // 1 gün = 144 blok
-          week: 6 * 24 * 7,
-          month: 6 * 24 * 30,
-          year: 6 * 24 * 365
-        };
-
-        const getValue = (id) => {
-          const el = document.getElementById(id);
-          if (!el) return 0;
-          const val = el.value !== undefined ? el.value : el.innerText;
-          return Number(val) || 0;
-        };
-
-        const getPriceFromApiEl = (apiId) => {
-          const el = document.getElementById(apiId);
-          if (!el) return 0;
-          const rawText = el.innerText || el.innerHTML || "";
-          const match = rawText.match(/\$([0-9.]+)/);
-          return match ? Number(match[1]) : 0;
-        };
-
-        const updateElementText = (id, value, isCurrency = false, decimals = 10) => {
-          const el = document.getElementById(id);
-          if (!el) return;
-
-          if (isNaN(value) || !isFinite(value) || value <= 0) {
-            el.innerText = "- - -";
-          } else {
-            const formatted = value.toFixed(decimals);
-            el.innerText = isCurrency ? `$${formatted}` : formatted;
-          }
-        };
-
-        const calc = () => {
-          const rawMinerRate = getValue("minerRate");
-          const unitSelect = document.getElementById("minerUnit");
-          const selectedUnit = unitSelect ? unitSelect.value : "TH";
-
-          let minerRateTH = 0;
-          switch(selectedUnit) {
-              case 'GH': minerRateTH = rawMinerRate / 1000; break;
-              case 'TH': minerRateTH = rawMinerRate; break;
-              case 'PH': minerRateTH = rawMinerRate * 1000; break;
-              case 'EH': minerRateTH = rawMinerRate * 1000000; break;
-              case 'ZH': minerRateTH = rawMinerRate * 1000000000; break;
-          }
-
-          let totalNet = 0;
-          COINS.forEach(coin => {
-            totalNet += getValue(`net${coin.key}`);
-          });
-
-          const totalNetEl = document.getElementById("totalNet");
-          if (totalNetEl) totalNetEl.innerText = totalNet.toFixed(3);
-
-          COINS.forEach(coin => {
-            const dist = getValue(`dist${coin.key}`);
-            const net = getValue(`net${coin.key}`);
-            const block = getValue(`block${coin.key}`);
-            const price = getPriceFromApiEl(coin.apiId);
-
-            const power = ((minerRateTH / 1000) * dist) / 100;
-            const baseReward = (net > 0) ? (power * block) / (net * 1000) : 0;
-
-            Object.keys(PERIOD_MULTIPLIERS).forEach(period => {
-              const multiplier = PERIOD_MULTIPLIERS[period];
-              const coinAmount = baseReward * multiplier;
-              const usdValue = coinAmount * price;
-
-              const coinElId = `${period}${coin.key}`;
-              const usdElId = `${period}${coin.key}D`;
-
-              updateElementText(coinElId, coinAmount, false, 10);
-              updateElementText(usdElId, usdValue, true, 5);
-            });
-          });
-        };
-
-        /* ==========================================
-           4. COINGECKO API & PRICE FETCHING
-           ========================================== */
-        const COIN_CONFIG = [
-          { id: 'bitcoin', key: 'btc' },
-          { id: 'dogecoin', key: 'doge' },
-          { id: 'ethereum', key: 'eth' },
-          { id: 'binancecoin', key: 'bnb' },
-          { id: 'polygon-ecosystem-token', key: 'matic' },
-          { id: 'solana', key: 'sol' },
-          { id: 'tether', key: 'rlt' },
-          { id: 'tron', key: 'trx' },
-          { id: 'ripple', key: 'xrp' },
-          { id: 'litecoin', key: 'ltc' },
-          { id: 'tether', key: 'usdt' }
-        ];
-
-        const PERIODS = ['min', 'hour', 'day', 'week', 'month', 'year'];
-
-        const fetchData = async () => {
-          const ids = COIN_CONFIG.map(c => c.id).join(',');
-          const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd,try`;
-
-          try {
-            const response = await fetch(url);
-            if (!response.ok) throw new Error(`HTTP Hata! Statü: ${response.status}`);
-            
-            const data = await response.json();
-            const prices = getResults(data);
-            
-            postResults(prices);
-            calculate(prices);
-            calc();
-          } catch (err) {
-            console.error('Fetch Hatası:', err);
-          } finally {
-            hideLoader();
-          }
-        };
-
-        const hideLoader = () => {
-            const loader = document.getElementById('page-loader');
-            if (loader && !loader.classList.contains('fade-out')) {
-                loader.classList.add('fade-out');
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 400);
-            }
-        };
-
-        const getResults = (data) => {
-          const prices = {};
-          COIN_CONFIG.forEach(coin => {
-            prices[coin.key] = {
-              usd: data?.[coin.id]?.usd || 0,
-              try: data?.[coin.id]?.try || 0
-            };
-          });
-          return prices;
-        };
-
-        const postResults = (prices) => {
-          COIN_CONFIG.forEach(coin => {
-            const el = document.getElementById(`${coin.key}-price-api`);
-            if (el) {
-              el.classList.remove('loading-pulse');
-              const usdPrice = prices[coin.key].usd;
-              const tryPrice = prices[coin.key].try;
-              el.innerText = `$${usdPrice} / ₺${tryPrice.toLocaleString('tr-TR')}`;
-            }
-          });
-        };
-
-        const calculate = (prices) => {
-          COIN_CONFIG.forEach(coin => {
-            const coinPrice = prices[coin.key].usd;
-
-            PERIODS.forEach(period => {
-              const inputId = `${period}${capitalize(coin.key)}`;
-              const outputId = `${inputId}D`;
-
-              const inputEl = document.getElementById(inputId);
-              const outputEl = document.getElementById(outputId);
-
-              if (inputEl && outputEl) {
-                const rawValue = inputEl.innerHTML.trim();
-                const amount = Number(rawValue);
-                const totalUsd = amount * coinPrice;
-
-                if (isNaN(totalUsd) || rawValue === "" || rawValue === "- - -") {
-                  outputEl.innerText = "- - -";
-                } else {
-                  outputEl.innerText = `$${totalUsd.toFixed(5)}`;
-                }
-              }
-            });
-          });
-        };
-
-        const capitalize = (str) => {
-          if (str === 'rlt') return 'Rlt';
-          if (str === 'bnb' || str === 'matic' || str === 'sol') {
-            return str; 
-          }
-          return str.charAt(0).toUpperCase() + str.slice(1);
-        };
-
-        /* ==========================================
-           5. CONVERTER LOGIC
-           ========================================== */
-        function convertHashRate(unit) {
-            const inputGH = document.getElementById('conv-gh');
-            const inputTH = document.getElementById('conv-th');
-            const inputPH = document.getElementById('conv-ph');
-            const inputEH = document.getElementById('conv-eh');
-            const inputZH = document.getElementById('conv-zh');
-
-            let thValue = 0;
-
-            switch (unit) {
-                case 'gh':
-                    thValue = parseFloat(inputGH.value) / 1000;
-                    break;
-                case 'th':
-                    thValue = parseFloat(inputTH.value);
-                    break;
-                case 'ph':
-                    thValue = parseFloat(inputPH.value) * 1000;
-                    break;
-                case 'eh':
-                    thValue = parseFloat(inputEH.value) * 1000000;
-                    break;
-                case 'zh':
-                    thValue = parseFloat(inputZH.value) * 1000000000;
-                    break;
-            }
-
-            if (isNaN(thValue) || thValue < 0) {
-                if(unit !== 'gh') inputGH.value = '';
-                if(unit !== 'th') inputTH.value = '';
-                if(unit !== 'ph') inputPH.value = '';
-                if(unit !== 'eh') inputEH.value = '';
-                if(unit !== 'zh') inputZH.value = '';
-                return;
-            }
-
-            if (unit !== 'gh') inputGH.value = parseFloat((thValue * 1000).toFixed(6));
-            if (unit !== 'th') inputTH.value = parseFloat(thValue.toFixed(6));
-            if (unit !== 'ph') inputPH.value = parseFloat((thValue / 1000).toFixed(6));
-            if (unit !== 'eh') inputEH.value = parseFloat((thValue / 1000000).toFixed(8));
-            if (unit !== 'zh') inputZH.value = parseFloat((thValue / 1000000000).toFixed(12));
-        }
-
-        function applyTHToMiner() {
-            const thVal = document.getElementById('conv-th').value;
-            if (thVal && thVal > 0) {
-                const minerInput = document.getElementById('minerRate');
-                const minerUnit = document.getElementById('minerUnit');
-                minerInput.value = thVal;
-                if(minerUnit) minerUnit.value = 'TH';
-                calc();
-            }
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            fetchData();
-            calc();
-            setInterval(fetchData, 5000);
-        });
-    </script>
 </body>
 </html>
