@@ -1,0 +1,83 @@
+name: Auto Update RollerCoin Miners
+
+on:
+  schedule:
+    # Her gün gece 03:00'te (UTC) otomatik çalışır
+    - cron: '0 3 * * *'
+  # İstediğin zaman GitHub panelinden manuel tetiklemek için:
+  workflow_dispatch:
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Depoyu Klonla
+        uses: actions/checkout@v3
+
+      - name: Node.js Kur
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Güncel Verileri Çek ve Kaydet
+        run: |
+          node -e '
+          const fs = require("fs");
+
+          async function updateMiners() {
+            let allMiners = [];
+            let currentPage = 1;
+            let totalPages = 1;
+
+            console.log("Veriler çekiliyor...");
+
+            do {
+              try {
+                const response = await fetch(`https://api.minaryganar.com/api/public/miners?page=${currentPage}&per_page=24`);
+                const result = await response.json();
+
+                if (currentPage === 1 && result.total_pages) {
+                  totalPages = result.total_pages;
+                }
+
+                const items = result.items || result.data || result;
+                if (Array.isArray(items)) {
+                  allMiners.push(...items);
+                } else {
+                  break;
+                }
+
+                currentPage++;
+                await new Promise(r => setTimeout(r, 200));
+              } catch (err) {
+                console.error("Hata:", err);
+                break;
+              }
+            } while (currentPage <= totalPages);
+
+            if (allMiners.length > 0) {
+              // 1. Veritabanını güncelle
+              fs.writeFileSync("all_miners_database.json", JSON.stringify(allMiners, null, 2));
+
+              // 2. Güncelleme tarihini kaydet (Türkiye Saati / UTC+3)
+              const now = new Date();
+              const updateInfo = {
+                last_updated: now.toLocaleString("tr-TR", { timeZone: "Europe/Istanbul" }),
+                total_miners: allMiners.length
+              };
+              fs.writeFileSync("last_updated.json", JSON.stringify(updateInfo, null, 2));
+
+              console.log(`İşlem Başarılı! Toplam ${allMiners.length} madenci kaydedildi.`);
+            }
+          }
+
+          updateMiners();
+          '
+
+      - name: Değişiklikleri GitHub Deposuna Commit Et ve İt (Push)
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add all_miners_database.json last_updated.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Otomatik Güncelleme: Madenci Veritabanı Yenilendi" && git push)

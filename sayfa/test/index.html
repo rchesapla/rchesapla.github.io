@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RollerCoin Miner Search Engine</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>🎮 RollerCoin Miner Search Engine</h1>
+      <p>Veritabanında toplam <span id="total-count">0</span> madenci bulunuyor.</p>
+      <p class="update-time">Son Güncelleme: <strong id="last-update-date">Yükleniyor...</strong></p>
+    </header>
+
+    <!-- ARAMA VE FİLTRE PANELİ -->
+    <section class="controls">
+      <input type="text" id="search-input" placeholder="Madenci adı veya ID ara (ör: Dragon, S9, Rare)...">
+      
+      <div class="filters">
+        <select id="sort-select">
+          <option value="name-asc">İsim (A-Z)</option>
+          <option value="power-desc">En Yüksek Güç</option>
+          <option value="power-asc">En Düşük Güç</option>
+          <option value="bonus-desc">En Yüksek Bonus %</option>
+        </select>
+
+        <input type="number" id="min-power" placeholder="Min Güç (GH/s)">
+        <input type="number" id="min-bonus" placeholder="Min Bonus %">
+      </div>
+    </section>
+
+    <!-- SONUÇ LİSTESİ -->
+    <main id="miner-grid" class="grid"></main>
+  </div>
+
+  <script>
+    let miners = [];
+
+    // JSON Verisini Yükle
+    async function loadMiners() {
+      try {
+        const res = await fetch('all_miners_database.json');
+        miners = await res.json();
+        document.getElementById('total-count').textContent = miners.length;
+        renderMiners(miners);
+      } catch (err) {
+        console.error("Veri yüklenirken hata oluştu:", err);
+      }
+    }
+
+    // Madencileri Ekrana Yazdır
+    function renderMiners(data) {
+      const grid = document.getElementById('miner-grid');
+      grid.innerHTML = '';
+
+      if (data.length === 0) {
+        grid.innerHTML = '<div class="no-result">Aramanızla eşleşen madenci bulunamadı.</div>';
+        return;
+      }
+
+      data.forEach(miner => {
+        const name = miner.name || miner.title || 'Bilinmeyen Miner';
+        const power = miner.power || miner.power_ghs || miner.hashrate || 0;
+        const bonus = miner.bonus || miner.bonus_percent || 0;
+        const image = miner.image || miner.image_url || miner.icon || 'https://via.placeholder.com/80';
+
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${image}" alt="${name}" loading="lazy" onerror="this.src='https://via.placeholder.com/80'">
+          <h3>${name}</h3>
+          <div class="badge-container">
+            <span class="badge power">⚡ ${Number(power).toLocaleString()} GH/s</span>
+            <span class="badge bonus">🎯 %${bonus}</span>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Arama ve Filtreleme Fonksiyonu
+    function filterMiners() {
+      const query = document.getElementById('search-input').value.toLowerCase();
+      const sortBy = document.getElementById('sort-select').value;
+      const minPower = parseFloat(document.getElementById('min-power').value) || 0;
+      const minBonus = parseFloat(document.getElementById('min-bonus').value) || 0;
+
+      let filtered = miners.filter(m => {
+        const name = (m.name || m.title || '').toLowerCase();
+        const power = parseFloat(m.power || m.power_ghs || 0);
+        const bonus = parseFloat(m.bonus || m.bonus_percent || 0);
+
+        return name.includes(query) && power >= minPower && bonus >= minBonus;
+      });
+
+      // Sıralama
+      filtered.sort((a, b) => {
+        const pA = parseFloat(a.power || a.power_ghs || 0);
+        const pB = parseFloat(b.power || b.power_ghs || 0);
+        const bA = parseFloat(a.bonus || a.bonus_percent || 0);
+        const bB = parseFloat(b.bonus || b.bonus_percent || 0);
+        const nA = (a.name || '').toLowerCase();
+        const nB = (b.name || '').toLowerCase();
+
+        if (sortBy === 'power-desc') return pB - pA;
+        if (sortBy === 'power-asc') return pA - pB;
+        if (sortBy === 'bonus-desc') return bB - bA;
+        return nA.localeCompare(nB);
+      });
+
+      renderMiners(filtered);
+    }
+
+    // Son Güncelleme Tarihini Çek
+    async function loadLastUpdated() {
+      try {
+        const res = await fetch('last_updated.json');
+        if (res.ok) {
+          const data = await res.json();
+          document.getElementById('last-update-date').textContent = data.last_updated;
+        } else {
+          document.getElementById('last-update-date').textContent = "İlk kurulum bekleniyor...";
+        }
+      } catch (err) {
+        document.getElementById('last-update-date').textContent = "İlk kurulum bekleniyor...";
+      }
+    }
+
+    // Event Listener'lar
+    document.getElementById('search-input').addEventListener('input', filterMiners);
+    document.getElementById('sort-select').addEventListener('change', filterMiners);
+    document.getElementById('min-power').addEventListener('input', filterMiners);
+    document.getElementById('min-bonus').addEventListener('input', filterMiners);
+
+    loadMiners();
+    loadLastUpdated();
+  </script>
+</body>
+</html>
