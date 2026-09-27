@@ -27,8 +27,7 @@
 <!-- CDN Kütüphaneleri -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
@@ -370,8 +369,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 5px;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .hud-tag {
@@ -388,6 +388,12 @@ body {
   background: rgba(0, 245, 212, 0.12);
   color: var(--neon-cyan);
   border: 1px solid rgba(0, 245, 212, 0.3);
+}
+
+.hud-tag-bonus {
+  background: rgba(247, 37, 133, 0.15);
+  color: var(--neon-pink);
+  border: 1px solid rgba(247, 37, 133, 0.35);
 }
 
 .hud-tag-rarity.common { color: #94a3b8; background: rgba(148, 163, 184, 0.1); border: 1px solid #475569; }
@@ -407,7 +413,7 @@ body {
   gap: 5px;
 }
 
-/* DAHA FAZLA GÖSTER BÖLÜMÜ */
+/* DAHA FAZLA GÖSTER PANELİ */
 .load-more-section {
   display: flex;
   flex-direction: column;
@@ -664,6 +670,19 @@ body {
                    placeholder="Örn: RollerMillion...">
           </div>
 
+          <!-- YENİ: SIRALAMA SEÇENEĞİ (BONUS / GÜÇ / AD) -->
+          <div class="c-field">
+            <label style="color: var(--neon-pink);"><i class="fas fa-sort-amount-down me-1"></i> Sıralama Ölçütü</label>
+            <select ng-model="sortCriteria" ng-change="resetPagination()">
+              <option value="-bonus_power">🔥 En Yüksek Bonus (Yüksek > Düşük)</option>
+              <option value="-power">⚡ En Yüksek Güç (Yüksek > Düşük)</option>
+              <option value="bonus_power">En Düşük Bonus (Düşük > Yüksek)</option>
+              <option value="power">En Düşük Güç (Düşük > Yüksek)</option>
+              <option value="name.en">Madenci Adı (A - Z)</option>
+              <option value="-level">En Yüksek Seviye (Level)</option>
+            </select>
+          </div>
+
           <div class="c-field">
             <label>Nadirlik Düzeyi</label>
             <select ng-model="allMinersRarity" 
@@ -732,10 +751,10 @@ body {
 
       </section>
 
-      <!-- MADENCİ KARTLARI LİSTESİ -->
+      <!-- MADENCİ KARTLARI LİSTESİ (Sıralama kriterine göre dinamik sıralanır) -->
       <section class="cyber-miner-grid">
         <div class="cyber-miner-card" 
-             ng-repeat="miner in allMiners | orderBy:'power':true | limitTo:pager.limit track by $index"
+             ng-repeat="miner in allMiners | orderBy:sortCriteria | limitTo:pager.limit track by $index"
              ng-click="openMinerDetail(miner)" 
              title="Hologram detaylarını görüntüle">
           
@@ -752,6 +771,10 @@ body {
           <div class="miner-meta-tags">
             <span class="hud-tag hud-tag-lvl">LVL {{miner.level + 1}}</span>
             <span class="hud-tag hud-tag-rarity {{miner.rarity}}">{{miner.rarity}}</span>
+            <!-- Bonus Yüzdesi Rozeti -->
+            <span class="hud-tag hud-tag-bonus" ng-if="miner.bonus_power > 0">
+              +{{(miner.bonus_power / 100)}}%
+            </span>
           </div>
 
           <div class="card-action-cue">
@@ -763,7 +786,6 @@ body {
 
       <!-- ÇALIŞAN DAHA FAZLA GÖSTER PANELİ -->
       <div class="load-more-section" ng-if="allMiners && allMiners.length > 0">
-        <!-- Tıklama fonksiyonu doğrudan scope.loadMore() tetikler -->
         <button class="load-more-btn" 
                 type="button"
                 ng-if="pager.limit < allMiners.length" 
@@ -771,12 +793,10 @@ body {
           <i class="fas fa-plus-circle"></i> DAHA FAZLA GÖSTER
         </button>
 
-        <!-- Kalan adet sayacı -->
         <span class="load-more-counter" ng-if="pager.limit < allMiners.length">
           Kalan Modül Sayısı: <strong>{{allMiners.length - pager.limit}}</strong>
         </span>
 
-        <!-- Tümü Yüklendi Bildirimi -->
         <div class="all-loaded-pill" ng-if="pager.limit >= allMiners.length">
           <i class="fas fa-check-circle me-1"></i> Tüm madenciler listelendi (Toplam {{allMiners.length}} ünite)
         </div>
@@ -806,6 +826,9 @@ body {
         <div class="d-flex gap-2">
           <span class="hud-tag hud-tag-lvl">LVL {{selectedMiner.level + 1}}</span>
           <span class="hud-tag hud-tag-rarity {{selectedMiner.rarity}}">{{selectedMiner.rarity}}</span>
+          <span class="hud-tag hud-tag-bonus" ng-if="selectedMiner.bonus_power > 0">
+            +{{(selectedMiner.bonus_power / 100)}}%
+          </span>
         </div>
       </div>
 
@@ -860,9 +883,6 @@ body {
     </div>
 
     <div class="modal-hud-footer">
-      <button class="cyber-btn" style="color: var(--neon-amber); border-color: rgba(255, 183, 3, 0.4);" ng-click="sendToCalculator(selectedMiner)">
-        <i class="fas fa-calculator"></i> Hesaplayıcıya Aktar
-      </button>
       <button class="cyber-btn cyber-btn-accent" ng-click="openBuyLink(selectedMiner)">
         <i class="fas fa-shopping-cart"></i> Pazarda Bul
       </button>
@@ -875,18 +895,23 @@ body {
 </div>
 
 <script>
-// Angular Controller Entegrasyonu ve Sayfalama Desteği
+// Angular Controller Entegrasyonu ve Sıralama Yönetimi
 angular.element(document).ready(function() {
   const el = document.querySelector('[ng-controller="MiningController"]');
   if (!el) return;
   const scope = angular.element(el).scope();
 
   if (scope) {
-    // Nesne tabanlı sayfalama referansı (Child-scope sorununu önler)
+    // Sayfalama nesnesi
     scope.pager = {
       limit: 24,
       step: 24
     };
+
+    // Varsayılan Sıralama Kriteri: En Yüksek Bonus
+    if (!scope.sortCriteria) {
+      scope.sortCriteria = '-bonus_power';
+    }
 
     scope.loadMore = function() {
       scope.pager.limit += scope.pager.step;
