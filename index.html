@@ -53,9 +53,6 @@
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <style>
-/* =============================================================
-   YENİ NESİL CYBERPUNK HUD / NEON TERMINAL THEME
-   ============================================================= */
 :root {
   --neon-cyan: #00f5d4;
   --neon-cyan-glow: rgba(0, 245, 212, 0.35);
@@ -86,12 +83,10 @@ body {
   color: #e2e8f0;
   font-family: var(--font-main);
   font-size: 15px;
-  letter-spacing: 0.3px;
   margin: 0;
   padding: 0;
 }
 
-/* ÜST BAR HUD */
 .cyber-topbar {
   background: rgba(5, 7, 11, 0.95);
   border-bottom: 1px solid var(--border-subtle);
@@ -157,7 +152,6 @@ body {
   transform: translateY(-1px);
 }
 
-/* CYBERDECK KONSOLU */
 .cyber-deck {
   background: var(--bg-panel);
   border: 1px solid var(--border-subtle);
@@ -206,7 +200,6 @@ body {
   color: var(--neon-cyan);
 }
 
-/* FİLTRE FORM KONTROLLERİ */
 .cyber-inputs {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -250,7 +243,6 @@ body {
   box-shadow: 0 0 12px rgba(0, 245, 212, 0.25) !important;
 }
 
-/* KONSOL AKSİYON TUŞLARI */
 .cyber-actions {
   display: flex;
   justify-content: space-between;
@@ -293,7 +285,7 @@ body {
   color: var(--neon-cyan);
 }
 
-/* MADENCİ KARTLARI MODÜL DÜZENİ */
+/* MADENCİ KARTLARI */
 .cyber-miner-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
@@ -398,7 +390,6 @@ body {
   border: 1px solid rgba(0, 245, 212, 0.3);
 }
 
-/* Nadirlik Renkleri */
 .hud-tag-rarity.common { color: #94a3b8; background: rgba(148, 163, 184, 0.1); border: 1px solid #475569; }
 .hud-tag-rarity.uncommon { color: var(--neon-emerald); background: rgba(6, 214, 160, 0.1); border: 1px solid var(--neon-emerald); }
 .hud-tag-rarity.rare { color: #38bdf8; background: rgba(56, 189, 248, 0.1); border: 1px solid #0ea5e9; }
@@ -416,9 +407,59 @@ body {
   gap: 5px;
 }
 
-/* =============================================================
-   HUD DETAY MODALI
-   ============================================================= */
+/* DAHA FAZLA GÖSTER BÖLÜMÜ */
+.load-more-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 0 10px 0;
+  gap: 12px;
+}
+
+.load-more-btn {
+  background: linear-gradient(135deg, rgba(0, 245, 212, 0.15), rgba(13, 17, 27, 0.9));
+  border: 1px solid var(--neon-cyan);
+  color: #fff;
+  font-family: var(--font-hud);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 12px 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 0 15px rgba(0, 245, 212, 0.2);
+  transition: all 0.25s ease;
+  letter-spacing: 1px;
+}
+
+.load-more-btn:hover {
+  background: var(--neon-cyan);
+  color: #05070b;
+  box-shadow: 0 0 25px rgba(0, 245, 212, 0.5);
+  transform: translateY(-2px);
+}
+
+.load-more-counter {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #7b8fa7;
+}
+
+.all-loaded-pill {
+  font-family: var(--font-hud);
+  font-size: 12px;
+  color: var(--neon-cyan);
+  background: rgba(0, 245, 212, 0.06);
+  border: 1px dashed var(--border-subtle);
+  padding: 10px 24px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+/* MODAL */
 .cyber-modal-overlay {
   position: fixed;
   inset: 0;
@@ -572,7 +613,7 @@ body {
     
     <div id="minerlistesi">
       
-      <!-- KONTROL & FİLTRELEME GÜVERTESİ -->
+      <!-- FİLTRELEME & KONTROL PANELİ -->
       <section class="cyber-deck">
         
         <div class="deck-header">
@@ -580,11 +621,10 @@ body {
             <i class="fas fa-terminal"></i> DONANIM MATRİSİ & FİLTRE MERKEZİ
           </div>
           <div class="hud-pill">
-            LİSTELENEN: <strong style="color:#fff;">{{allMiners.length}}</strong> ÜNİTE
+            GÖSTERİLEN: <strong style="color:#fff;">{{(allMiners.length < pager.limit ? allMiners.length : pager.limit) || 0}}</strong> / {{allMiners.length || 0}} ÜNİTE
           </div>
         </div>
 
-        <!-- Kullanıcı Tanımlanmadıysa Bilgi Bannerı -->
         <div class="alert text-center py-2 mb-3" 
              ng-if="!isLoadedUser" 
              style="background: rgba(255, 183, 3, 0.08); border: 1px solid rgba(255, 183, 3, 0.3); color: var(--neon-amber); border-radius: 6px; font-size: 13px;">
@@ -592,10 +632,8 @@ body {
           Oda envanterinizi eşleştirmek için lütfen kullanıcı adınızı aratarak profilinizi bağlayın.
         </div>
 
-        <!-- Filtreleme Alanları Formu -->
         <div class="cyber-inputs">
           
-          <!-- Kullanıcı Arama -->
           <div class="c-field">
             <label>Kullanıcı Tanımla</label>
             <div class="position-relative">
@@ -618,20 +656,18 @@ body {
             </div>
           </div>
 
-          <!-- Miner Adı -->
           <div class="c-field">
             <label>Madenci Modeli</label>
             <input type="text" 
-                   ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" 
+                   ng-change="resetPagination(); filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)" 
                    ng-model="allMinerNameSearch" 
                    placeholder="Örn: RollerMillion...">
           </div>
 
-          <!-- Nadirlik Seviyesi -->
           <div class="c-field">
             <label>Nadirlik Düzeyi</label>
             <select ng-model="allMinersRarity" 
-                    ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+                    ng-change="resetPagination(); filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
               <option value="all">Tüm Düzeyler</option>
               <option value="common">Common</option>
               <option value="legacy">Legacy</option>
@@ -643,34 +679,31 @@ body {
             </select>
           </div>
 
-          <!-- Pazar Durumu -->
           <div class="c-field">
             <label>Pazaryeri İzni</label>
             <select ng-model="allMinerNegotiableStatus" 
-                    ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+                    ng-change="resetPagination(); filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
               <option value="all">Hepsi</option>
               <option value="negotiable">Satılabilir</option>
               <option value="inegotiable">Kilitli / Satılamaz</option>
             </select>
           </div>
 
-          <!-- Oda Durumu -->
           <div class="c-field" ng-style="!isLoadedUser && {'opacity': '0.5', 'cursor': 'not-allowed'}">
             <label>Envanter Eşleşmesi</label>
             <select ng-model="allMinerPosessionStatus" 
                     ng-disabled="!isLoadedUser" 
-                    ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+                    ng-change="resetPagination(); filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
               <option value="all">Tümü</option>
               <option value="mine">Odamda Var</option>
               <option value="not_mine">Odamda Yok</option>
             </select>
           </div>
 
-          <!-- Koleksiyon Paketleri -->
           <div class="c-field">
             <label>Koleksiyon / Seri</label>
             <select ng-model="allMinerCollectionId" 
-                    ng-change="filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
+                    ng-change="resetPagination(); filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
               <option value="all">Tüm Koleksiyonlar</option>
               <option ng-repeat="collection in collections" value="{{collection.id}}">{{collection.name}}</option>
             </select>
@@ -678,10 +711,9 @@ body {
 
         </div>
 
-        <!-- Terminal Kontrol Tuşları -->
         <div class="cyber-actions">
           <div class="d-flex gap-2 flex-wrap">
-            <button class="cyber-btn" ng-click="resetValues()">
+            <button class="cyber-btn" ng-click="resetPagination(); resetValues()">
               <i class="fas fa-redo-alt" style="color: var(--neon-cyan);"></i> Filtreleri Temizle
             </button>
 
@@ -700,26 +732,23 @@ body {
 
       </section>
 
-      <!-- FARKLI DİZAYN: MADENCİ DÜZENİ (Sadece Ad & Seviye) -->
+      <!-- MADENCİ KARTLARI LİSTESİ -->
       <section class="cyber-miner-grid">
         <div class="cyber-miner-card" 
-             ng-repeat="miner in allMiners | orderBy:'power':true | limitTo:visibleItems"
+             ng-repeat="miner in allMiners | orderBy:'power':true | limitTo:pager.limit track by $index"
              ng-click="openMinerDetail(miner)" 
              title="Hologram detaylarını görüntüle">
           
-          <!-- Görsel Alanı -->
           <div class="card-holo-frame">
             <img ng-src="https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608" 
                  alt="{{miner.name.en}}" 
                  loading="lazy">
           </div>
 
-          <!-- Madenci Adı -->
           <div class="miner-device-name" title="{{miner.name.en}}">
             {{miner.name.en}}
           </div>
 
-          <!-- Seviye ve Nadirlik Etiketleri -->
           <div class="miner-meta-tags">
             <span class="hud-tag hud-tag-lvl">LVL {{miner.level + 1}}</span>
             <span class="hud-tag hud-tag-rarity {{miner.rarity}}">{{miner.rarity}}</span>
@@ -730,25 +759,35 @@ body {
           </div>
 
         </div>
-
-        <!-- Daha Fazla Yükle / Sayfalama -->
-        <div class="col-12 text-center py-4" ng-init="visibleItems = 24" ng-if="visibleItems < allMiners.length">
-          <button class="cyber-btn px-4 py-2" ng-click="visibleItems = visibleItems + 24">
-            <i class="fas fa-chevron-down me-1" style="color: var(--neon-cyan);"></i> 
-            Daha Fazla Göster (+{{allMiners.length - visibleItems}} Modül Kaldı)
-          </button>
-        </div>
-
       </section>
+
+      <!-- ÇALIŞAN DAHA FAZLA GÖSTER PANELİ -->
+      <div class="load-more-section" ng-if="allMiners && allMiners.length > 0">
+        <!-- Tıklama fonksiyonu doğrudan scope.loadMore() tetikler -->
+        <button class="load-more-btn" 
+                type="button"
+                ng-if="pager.limit < allMiners.length" 
+                ng-click="loadMore()">
+          <i class="fas fa-plus-circle"></i> DAHA FAZLA GÖSTER
+        </button>
+
+        <!-- Kalan adet sayacı -->
+        <span class="load-more-counter" ng-if="pager.limit < allMiners.length">
+          Kalan Modül Sayısı: <strong>{{allMiners.length - pager.limit}}</strong>
+        </span>
+
+        <!-- Tümü Yüklendi Bildirimi -->
+        <div class="all-loaded-pill" ng-if="pager.limit >= allMiners.length">
+          <i class="fas fa-check-circle me-1"></i> Tüm madenciler listelendi (Toplam {{allMiners.length}} ünite)
+        </div>
+      </div>
 
     </div>
 
   </main>
 </div>
 
-<!-- =============================================================
-     HOLOGRAM DETAY MODALI (Tıklayınca Açılan Yenilenmiş Pencere)
-     ============================================================= -->
+<!-- DETAY MODALI -->
 <div class="cyber-modal-overlay" ng-if="selectedMiner" ng-click="closeMinerDetail()">
   <div class="cyber-modal-window" ng-click="$event.stopPropagation()">
     
@@ -761,7 +800,6 @@ body {
     </div>
 
     <div class="modal-hud-body">
-      <!-- Madenci Görseli -->
       <div class="modal-holo-display">
         <img ng-src="https://static.rollercoin.com/static/img/market/miners/{{selectedMiner.filename}}.gif?v=1707996476608" 
              alt="{{selectedMiner.name.en}}">
@@ -771,7 +809,6 @@ body {
         </div>
       </div>
 
-      <!-- Telemetri ve Güç Verileri -->
       <div class="specs-grid">
         <div class="spec-node">
           <span class="node-label">MODEL ADI</span>
@@ -822,8 +859,10 @@ body {
       </div>
     </div>
 
-    <!-- Aksiyon Butonları -->
     <div class="modal-hud-footer">
+      <button class="cyber-btn" style="color: var(--neon-amber); border-color: rgba(255, 183, 3, 0.4);" ng-click="sendToCalculator(selectedMiner)">
+        <i class="fas fa-calculator"></i> Hesaplayıcıya Aktar
+      </button>
       <button class="cyber-btn cyber-btn-accent" ng-click="openBuyLink(selectedMiner)">
         <i class="fas fa-shopping-cart"></i> Pazarda Bul
       </button>
@@ -836,10 +875,27 @@ body {
 </div>
 
 <script>
-// Angular Modal & Entegrasyon Kontrolleri
+// Angular Controller Entegrasyonu ve Sayfalama Desteği
 angular.element(document).ready(function() {
-  const scope = angular.element(document.querySelector('[ng-controller="MiningController"]')).scope();
+  const el = document.querySelector('[ng-controller="MiningController"]');
+  if (!el) return;
+  const scope = angular.element(el).scope();
+
   if (scope) {
+    // Nesne tabanlı sayfalama referansı (Child-scope sorununu önler)
+    scope.pager = {
+      limit: 24,
+      step: 24
+    };
+
+    scope.loadMore = function() {
+      scope.pager.limit += scope.pager.step;
+    };
+
+    scope.resetPagination = function() {
+      scope.pager.limit = 24;
+    };
+
     scope.selectedMiner = null;
     
     scope.openMinerDetail = function(miner) {
@@ -870,7 +926,6 @@ angular.element(document).ready(function() {
   }
 });
 
-// Ekran Görüntüsü Alma Fonksiyonu
 async function takeScreenshot() {
   const element = document.getElementById('minerlistesi');
   if (!element) return;
