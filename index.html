@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
 <title>RCMiner - Miner Listesi!</title>
 <meta name="description" content="Rollercoin kazım gücü hesaplama ve madenci analitik terminali.">
 <meta name="author" content="Fatih ÇELİK">
@@ -482,6 +483,13 @@ body {
   transition: transform 0.25s ease;
 }
 
+.card-holo-frame .fallback-icon {
+  display: none;
+  font-size: 38px;
+  color: var(--neon-cyan);
+  opacity: 0.7;
+}
+
 .cyber-miner-card:hover .card-holo-frame img {
   transform: scale(1.08);
 }
@@ -905,7 +913,7 @@ body {
 
       </section>
 
-      <!-- MADENCİ KARTLARI LİSTESİ -->
+      <!-- MADENCİ KARTLARI LİSTESİ (Hotlink Koruması / AdBlock Çözümlü) -->
       <section class="cyber-miner-grid">
         <div class="cyber-miner-card" 
              ng-repeat="miner in allMiners | orderBy:sortCriteria | limitTo:pager.limit track by $index"
@@ -913,9 +921,13 @@ body {
              title="Hologram detaylarını görüntüle">
           
           <div class="card-holo-frame">
-            <img ng-src="https://static.rollercoin.com/static/img/market/miners/{{miner.filename}}.gif?v=1707996476608" 
+            <img ng-src="{{getMinerImg(miner)}}" 
                  alt="{{miner.name.en}}" 
-                 loading="lazy">
+                 referrerpolicy="no-referrer"
+                 crossorigin="anonymous"
+                 loading="lazy"
+                 onerror="handleImageFallback(this)">
+            <i class="fas fa-cube fallback-icon"></i>
           </div>
 
           <div class="miner-device-name" title="{{miner.name.en}}">
@@ -974,9 +986,13 @@ body {
 
     <div class="modal-hud-body">
       <div class="modal-holo-display">
-        <img ng-src="https://static.rollercoin.com/static/img/market/miners/{{selectedMiner.filename}}.gif?v=1707996476608" 
-             alt="{{selectedMiner.name.en}}">
-        <div class="d-flex gap-2">
+        <img ng-src="{{getMinerImg(selectedMiner)}}" 
+             alt="{{selectedMiner.name.en}}"
+             referrerpolicy="no-referrer"
+             crossorigin="anonymous"
+             onerror="handleImageFallback(this)">
+        <i class="fas fa-cube fallback-icon" style="font-size: 50px;"></i>
+        <div class="d-flex gap-2 mt-2">
           <span class="hud-tag hud-tag-lvl">LVL {{selectedMiner.level + 1}}</span>
           <span class="hud-tag hud-tag-rarity {{selectedMiner.rarity}}">{{selectedMiner.rarity}}</span>
           <span class="hud-tag hud-tag-bonus" ng-if="selectedMiner.bonus_power > 0">
@@ -1048,24 +1064,37 @@ body {
 </div>
 
 <script>
-// Angular Controller Entegrasyonu ve Sıralama / Loader Yönetimi
+// Görsel hata yönetim fonksiyonu (AdBlock veya CDN engeline karşı)
+function handleImageFallback(img) {
+  if (!img.getAttribute('data-tried-proxy')) {
+    img.setAttribute('data-tried-proxy', 'true');
+    const filename = img.getAttribute('data-filename');
+    if (filename) {
+      img.src = 'https://images.weserv.nl/?url=static.rollercoin.com/static/img/market/miners/' + filename + '.gif';
+      return;
+    }
+  }
+  // Hem doğrudan hem yedek proxy başarısız olursa siber ikonu göster
+  img.style.display = 'none';
+  const icon = img.parentElement.querySelector('.fallback-icon');
+  if (icon) icon.style.display = 'inline-block';
+}
+
+// Angular Controller Entegrasyonu
 angular.element(document).ready(function() {
   const el = document.querySelector('[ng-controller="MiningController"]');
   if (!el) return;
   const scope = angular.element(el).scope();
 
   if (scope) {
-    // Sayfa ilk açıldığında Loader'ı aktif başlat
     scope.isLoading = true;
 
-    // Madenci verileri listeye yüklendiğinde loader'ı otomatik kapat
     scope.$watch('allMiners.length', function(newVal) {
       if (newVal && newVal > 0) {
         scope.isLoading = false;
       }
     });
 
-    // Emniyet Zaman Aşımı (Veriler 4 saniye içinde gelmezse loader otomatik kalkar)
     setTimeout(function() {
       if (scope.isLoading) {
         scope.isLoading = false;
@@ -1073,13 +1102,18 @@ angular.element(document).ready(function() {
       }
     }, 4000);
 
-    // Sayfalama nesnesi
+    // Madenci görsel URL çözücü
+    scope.getMinerImg = function(miner) {
+      if (!miner || !miner.filename) return '';
+      // Varsayılan resmi URL
+      return 'https://static.rollercoin.com/static/img/market/miners/' + miner.filename + '.gif';
+    };
+
     scope.pager = {
       limit: 24,
       step: 24
     };
 
-    // Varsayılan Sıralama Kriteri: En Yüksek Bonus
     if (!scope.sortCriteria) {
       scope.sortCriteria = '-bonus_power';
     }
@@ -1138,7 +1172,7 @@ async function takeScreenshot() {
   header.style.fontFamily = "monospace";
   header.style.textAlign = "center";
   header.style.borderBottom = "1px solid rgba(0, 245, 212, 0.3)";
-  header.innerHTML = `[RCMINER RAPORU] | Kullanıcı: <b>${username}</b> | Tarih: ${formattedDate}`;
+  header.innerHTML = `[CYBERDECK RAPORU] | Pilot: <b>${username}</b> | Tarih: ${formattedDate}`;
 
   element.prepend(header);
 
