@@ -86,6 +86,140 @@ body {
   padding: 0;
 }
 
+/* CYBERPUNK HUD LOADER OVERLAY */
+.cyber-loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 11, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.cyber-loader-overlay.ng-hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.cyber-loader-core {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hud-ring {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hud-ring-outer {
+  inset: 0;
+  border: 2px dashed rgba(0, 245, 212, 0.4);
+  animation: cyberSpin 7s linear infinite;
+}
+
+.hud-ring-mid {
+  inset: 12px;
+  border: 2px solid transparent;
+  border-top-color: var(--neon-pink);
+  border-bottom-color: var(--neon-cyan);
+  box-shadow: 0 0 16px rgba(0, 245, 212, 0.25);
+  animation: cyberSpinRev 2.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+}
+
+.hud-ring-inner {
+  inset: 24px;
+  border: 1px dotted rgba(157, 78, 221, 0.7);
+  animation: cyberSpin 3.5s linear infinite;
+}
+
+.hud-core-icon {
+  font-size: 26px;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 15px var(--neon-cyan);
+  animation: cyberPulse 1.4s ease-in-out infinite alternate;
+}
+
+.cyber-loader-status {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.loader-title {
+  font-family: var(--font-hud);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.loader-title span {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 10px var(--neon-cyan-glow);
+}
+
+.loader-bar-frame {
+  width: 220px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(0, 245, 212, 0.2);
+}
+
+.loader-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 45%;
+  background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
+  box-shadow: 0 0 8px var(--neon-cyan);
+  border-radius: 2px;
+  animation: cyberScan 1.6s ease-in-out infinite;
+}
+
+.loader-subtext {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #7b8fa7;
+  letter-spacing: 1px;
+}
+
+@keyframes cyberSpin {
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes cyberSpinRev {
+  100% { transform: rotate(-360deg); }
+}
+
+@keyframes cyberPulse {
+  0% { transform: scale(0.92); opacity: 0.7; }
+  100% { transform: scale(1.1); opacity: 1; }
+}
+
+@keyframes cyberScan {
+  0% { left: -50%; width: 30%; }
+  50% { width: 60%; }
+  100% { left: 100%; width: 30%; }
+}
+
+/* TOPBAR */
 .cyber-topbar {
   background: rgba(5, 7, 11, 0.95);
   border-bottom: 1px solid var(--border-subtle);
@@ -397,6 +531,7 @@ body {
 }
 
 .hud-tag-rarity.common { color: #94a3b8; background: rgba(148, 163, 184, 0.1); border: 1px solid #475569; }
+.hud-tag-rarity.legacy { color: #94a3b8; background: rgba(148, 163, 184, 0.1); border: 1px solid #475569; }
 .hud-tag-rarity.uncommon { color: var(--neon-emerald); background: rgba(6, 214, 160, 0.1); border: 1px solid var(--neon-emerald); }
 .hud-tag-rarity.rare { color: #38bdf8; background: rgba(56, 189, 248, 0.1); border: 1px solid #0ea5e9; }
 .hud-tag-rarity.epic { color: #c084fc; background: rgba(192, 132, 252, 0.1); border: 1px solid #a855f7; }
@@ -593,6 +728,25 @@ body {
 
 <body ng-controller="MiningController">
 
+<!-- SİSTEME UYGUN CYBER-HUD LOADER BİLEŞENİ -->
+<div class="cyber-loader-overlay" ng-show="isLoading || loading">
+  <div class="cyber-loader-core">
+    <div class="hud-ring hud-ring-outer"></div>
+    <div class="hud-ring hud-ring-mid"></div>
+    <div class="hud-ring hud-ring-inner"></div>
+    <i class="fas fa-microchip hud-core-icon"></i>
+  </div>
+  <div class="cyber-loader-status">
+    <div class="loader-title">
+      SİSTEM VERİLERİ <span>İŞLENİYOR</span>
+    </div>
+    <div class="loader-bar-frame">
+      <div class="loader-bar-fill"></div>
+    </div>
+    <div class="loader-subtext">[ MATRİS SENKRONİZE EDİLİYOR... ]</div>
+  </div>
+</div>
+
 <div class="rc-wrapper">
 
   <!-- SİBER ÜST BAR -->
@@ -602,7 +756,7 @@ body {
         <img src="img/rcminers.png" alt="RCMiner">
         RC<span>MINER</span>
       </div>
-      <span class="hud-pill d-none d-md-inline-block">CYBER-DECK v3.0</span>
+      <span class="hud-pill d-none d-md-inline-block">v3.0</span>
     </div>
     <div class="d-flex align-items-center gap-2">
       <a href="https://www.youtube.com/@FatihCELIK" target="_blank" class="yt-hud-btn">
@@ -624,10 +778,10 @@ body {
         
         <div class="deck-header">
           <div class="deck-title">
-            <i class="fas fa-terminal"></i> DONANIM MATRİSİ & FİLTRE MERKEZİ
+            <i class="fas fa-terminal"></i> ROLLERCOIN KULLANICI ADI VE MINER ÖZELLİKLERİ
           </div>
           <div class="hud-pill">
-            GÖSTERİLEN: <strong style="color:#fff;">{{(allMiners.length < pager.limit ? allMiners.length : pager.limit) || 0}}</strong> / {{allMiners.length || 0}} ÜNİTE
+            GÖSTERİLEN: <strong style="color:#fff;">{{(allMiners.length < pager.limit ? allMiners.length : pager.limit) || 0}}</strong> / {{allMiners.length || 0}} MINER
           </div>
         </div>
 
@@ -670,7 +824,7 @@ body {
                    placeholder="Örn: RollerMillion...">
           </div>
 
-          <!-- YENİ: SIRALAMA SEÇENEĞİ (BONUS / GÜÇ / AD) -->
+          <!-- SIRALAMA SEÇENEĞİ -->
           <div class="c-field">
             <label style="color: var(--neon-pink);"><i class="fas fa-sort-amount-down me-1"></i> Sıralama Ölçütü</label>
             <select ng-model="sortCriteria" ng-change="resetPagination()">
@@ -751,7 +905,7 @@ body {
 
       </section>
 
-      <!-- MADENCİ KARTLARI LİSTESİ (Sıralama kriterine göre dinamik sıralanır) -->
+      <!-- MADENCİ KARTLARI LİSTESİ -->
       <section class="cyber-miner-grid">
         <div class="cyber-miner-card" 
              ng-repeat="miner in allMiners | orderBy:sortCriteria | limitTo:pager.limit track by $index"
@@ -771,7 +925,6 @@ body {
           <div class="miner-meta-tags">
             <span class="hud-tag hud-tag-lvl">LVL {{miner.level + 1}}</span>
             <span class="hud-tag hud-tag-rarity {{miner.rarity}}">{{miner.rarity}}</span>
-            <!-- Bonus Yüzdesi Rozeti -->
             <span class="hud-tag hud-tag-bonus" ng-if="miner.bonus_power > 0">
               +{{(miner.bonus_power / 100)}}%
             </span>
@@ -784,7 +937,7 @@ body {
         </div>
       </section>
 
-      <!-- ÇALIŞAN DAHA FAZLA GÖSTER PANELİ -->
+      <!-- DAHA FAZLA GÖSTER PANELİ -->
       <div class="load-more-section" ng-if="allMiners && allMiners.length > 0">
         <button class="load-more-btn" 
                 type="button"
@@ -895,13 +1048,31 @@ body {
 </div>
 
 <script>
-// Angular Controller Entegrasyonu ve Sıralama Yönetimi
+// Angular Controller Entegrasyonu ve Sıralama / Loader Yönetimi
 angular.element(document).ready(function() {
   const el = document.querySelector('[ng-controller="MiningController"]');
   if (!el) return;
   const scope = angular.element(el).scope();
 
   if (scope) {
+    // Sayfa ilk açıldığında Loader'ı aktif başlat
+    scope.isLoading = true;
+
+    // Madenci verileri listeye yüklendiğinde loader'ı otomatik kapat
+    scope.$watch('allMiners.length', function(newVal) {
+      if (newVal && newVal > 0) {
+        scope.isLoading = false;
+      }
+    });
+
+    // Emniyet Zaman Aşımı (Veriler 4 saniye içinde gelmezse loader otomatik kalkar)
+    setTimeout(function() {
+      if (scope.isLoading) {
+        scope.isLoading = false;
+        scope.$applyAsync();
+      }
+    }, 4000);
+
     // Sayfalama nesnesi
     scope.pager = {
       limit: 24,
@@ -967,7 +1138,7 @@ async function takeScreenshot() {
   header.style.fontFamily = "monospace";
   header.style.textAlign = "center";
   header.style.borderBottom = "1px solid rgba(0, 245, 212, 0.3)";
-  header.innerHTML = `[CYBERDECK RAPORU] | Pilot: <b>${username}</b> | Tarih: ${formattedDate}`;
+  header.innerHTML = `[RCMINER RAPORU] | Kullanıcı: <b>${username}</b> | Tarih: ${formattedDate}`;
 
   element.prepend(header);
 
