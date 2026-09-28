@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="referrer" content="no-referrer">
-<title>RCMiner - Miner Listesi!</title>
-<meta name="description" content="Rollercoin kazım gücü hesaplama ve madenci analitik terminali.">
+<title>RCMiner - Miner Listesi & Miner Odam</title>
+<meta name="description" content="Rollercoin kazım gücü hesaplama, 2D madenci odası ve madenci analitik terminali.">
 <meta name="author" content="Fatih ÇELİK">
 <link rel="shortcut icon" href="img/rcminers.png" type="image/x-icon">
 
@@ -201,24 +201,10 @@ body {
   letter-spacing: 1px;
 }
 
-@keyframes cyberSpin {
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes cyberSpinRev {
-  100% { transform: rotate(-360deg); }
-}
-
-@keyframes cyberPulse {
-  0% { transform: scale(0.92); opacity: 0.7; }
-  100% { transform: scale(1.1); opacity: 1; }
-}
-
-@keyframes cyberScan {
-  0% { left: -50%; width: 30%; }
-  50% { width: 60%; }
-  100% { left: 100%; width: 30%; }
-}
+@keyframes cyberSpin { 100% { transform: rotate(360deg); } }
+@keyframes cyberSpinRev { 100% { transform: rotate(-360deg); } }
+@keyframes cyberPulse { 0% { transform: scale(0.92); opacity: 0.7; } 100% { transform: scale(1.1); opacity: 1; } }
+@keyframes cyberScan { 0% { left: -50%; width: 30%; } 50% { width: 60%; } 100% { left: 100%; width: 30%; } }
 
 /* TOPBAR */
 .cyber-topbar {
@@ -286,12 +272,56 @@ body {
   transform: translateY(-1px);
 }
 
+/* SEKME / GÖRÜNÜM NAVİGASYON ÇUBUĞU */
+.cyber-nav-tabs {
+  display: flex;
+  gap: 10px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0 4px;
+  margin-bottom: 20px;
+}
+
+.nav-tab-btn {
+  background: rgba(18, 24, 38, 0.6);
+  border: 1px solid transparent;
+  border-bottom: 2px solid transparent;
+  color: #94a3b8;
+  font-family: var(--font-hud);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 22px;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+}
+
+.nav-tab-btn:hover {
+  color: #fff;
+  background: rgba(0, 245, 212, 0.08);
+}
+
+.nav-tab-btn.active {
+  color: #fff;
+  background: rgba(13, 17, 27, 0.95);
+  border-color: var(--border-subtle);
+  border-bottom-color: var(--neon-cyan);
+  box-shadow: 0 -4px 15px rgba(0, 245, 212, 0.15);
+}
+
+.nav-tab-btn.active i {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px var(--neon-cyan);
+}
+
 .cyber-deck {
   background: var(--bg-panel);
   border: 1px solid var(--border-subtle);
   border-radius: 12px;
   padding: 20px;
-  margin-top: 20px;
+  margin-top: 10px;
   position: relative;
   backdrop-filter: blur(16px);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -419,7 +449,283 @@ body {
   color: var(--neon-cyan);
 }
 
-/* MADENCİ KARTLARI */
+/* ========================================================
+   GÖRSELDEKİ ROLLERCOIN MINER ODAM STİLLERİ
+======================================================== */
+.rc-room-viewport {
+  background: #2a2238;
+  border: 2px solid #1f1b2e;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 245, 212, 0.1);
+  margin-top: 15px;
+}
+
+.rc-room-stage {
+  min-height: 520px;
+  position: relative;
+  background-color: #3b2a4c;
+  background-image: 
+    radial-gradient(circle at 50% 10%, rgba(255, 225, 120, 0.12) 0%, transparent 50%),
+    linear-gradient(rgba(0,0,0,0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.15) 1px, transparent 1px);
+  background-size: 100% 100%, 32px 32px, 32px 32px;
+  padding: 24px 18px 30px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.rc-room-decor-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px dashed rgba(255, 255, 255, 0.1);
+  padding-bottom: 12px;
+}
+
+.party-lights {
+  font-family: var(--font-hud);
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffdc58;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-shadow: 0 0 10px rgba(255, 220, 88, 0.5);
+}
+
+.party-lights i {
+  color: #f72585;
+  animation: cyberPulse 1.2s infinite alternate;
+}
+
+.room-stat-badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.room-stat-chip {
+  background: rgba(15, 18, 30, 0.75);
+  border: 1px solid rgba(0, 245, 212, 0.3);
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #e2e8f0;
+}
+
+.room-stat-chip strong {
+  color: var(--neon-cyan);
+}
+
+.room-racks-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* RAFLAR (RACKS) */
+.rc-rack {
+  width: 142px;
+  background: #181926;
+  border: 2px solid #4a4d68;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+  position: relative;
+}
+
+.rc-rack-header {
+  height: 8px;
+  background: #2f334a;
+  border-bottom: 1px solid #141520;
+}
+
+.rc-rack-shelves {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px 5px;
+}
+
+.rc-rack-shelf {
+  height: 52px;
+  background: #0f1019;
+  border: 1px solid #2d3148;
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.rc-rack-shelf:hover {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(0, 245, 212, 0.4);
+}
+
+.rc-rack-shelf img {
+  max-width: 90%;
+  max-height: 44px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.7));
+}
+
+.shelf-tier-tag {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  font-size: 8px;
+  font-family: var(--font-hud);
+  font-weight: 800;
+  padding: 1px 4px;
+  border-radius: 2px;
+  line-height: 1;
+  color: #fff;
+  background: rgba(0, 245, 212, 0.85);
+  text-shadow: 0 1px 2px #000;
+}
+
+.tier-I { background: #64748b; }
+.tier-II { background: #06d6a0; }
+.tier-III { background: #0ea5e9; }
+.tier-IV { background: #a855f7; }
+.tier-V { background: #ffb703; }
+.tier-VI { background: #f72585; }
+
+.rc-rack-shelf.empty-slot {
+  opacity: 0.35;
+  border-style: dashed;
+}
+
+.rc-rack-shelf.empty-slot:hover {
+  opacity: 0.8;
+  border-style: solid;
+}
+
+/* ODA KONTROL ALT PANELİ (Görselin altındaki Rooms: 0 1 2 3 4 | EDIT | AUTOSET) */
+.rc-room-bottombar {
+  background: #191829;
+  border-top: 2px solid #2e2b46;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.rooms-selector-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rooms-label {
+  font-family: var(--font-hud);
+  font-weight: 800;
+  font-size: 13px;
+  color: #8b8ea8;
+  margin-right: 4px;
+  letter-spacing: 1px;
+}
+
+.room-index-btn {
+  background: #25233c;
+  color: #8b8ea8;
+  border: 1px solid #3b375b;
+  border-radius: 8px;
+  min-width: 44px;
+  height: 40px;
+  font-family: var(--font-hud);
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.room-index-btn:hover {
+  background: #333054;
+  color: #fff;
+  border-color: var(--neon-cyan);
+}
+
+.room-index-btn.active {
+  background: #39365c;
+  color: #fff;
+  border-color: #6366f1;
+  box-shadow: inset 0 0 8px rgba(99, 102, 241, 0.5), 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.room-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-rc-edit {
+  background: #25233c;
+  color: #cbd5e1;
+  border: 1px solid #3b375b;
+  font-family: var(--font-hud);
+  font-size: 13px;
+  font-weight: 800;
+  padding: 9px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-rc-edit:hover {
+  background: #343053;
+  color: #fff;
+  border-color: #a855f7;
+}
+
+.btn-rc-autoset {
+  background: #00d2b4;
+  color: #0d1722;
+  border: none;
+  font-family: var(--font-hud);
+  font-size: 13px;
+  font-weight: 900;
+  padding: 10px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 0 18px rgba(0, 210, 180, 0.4);
+}
+
+.btn-rc-autoset:hover {
+  background: #00f5d4;
+  transform: translateY(-1px);
+  box-shadow: 0 0 25px rgba(0, 245, 212, 0.7);
+}
+
+/* MADENCİ KARTLARI (LİSTE GÖRÜNÜMÜ) */
 .cyber-miner-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
@@ -779,7 +1085,94 @@ body {
   <!-- ANA İÇERİK BÖLÜMÜ -->
   <main class="container-fluid px-3 px-lg-4 py-3">
     
-    <div id="minerlistesi">
+    <!-- MOD GEÇİŞ SEKMELERİ -->
+    <div class="cyber-nav-tabs">
+      <button class="nav-tab-btn" 
+              ng-class="{'active': activeView === 'room'}" 
+              ng-click="setView('room')">
+        <i class="fas fa-th-large"></i> MINER ODAM (Oda Matrisi)
+      </button>
+      <button class="nav-tab-btn" 
+              ng-class="{'active': activeView === 'list'}" 
+              ng-click="setView('list')">
+        <i class="fas fa-list-ul"></i> MINER LİSTESİ & FİLTRELER
+      </button>
+    </div>
+
+    <!-- 1. BÖLÜM: MINER ODAM (GÖRSELDEKİ ROLLERCOIN ODA DÜZENİ) -->
+    <div id="miner-odam" ng-show="activeView === 'room'">
+      <div class="rc-room-viewport">
+        
+        <!-- ÜST ODA SAHNESİ -->
+        <div class="rc-room-stage">
+          
+          <div class="rc-room-decor-top">
+            <div class="party-lights">
+              <i class="fas fa-birthday-cake"></i> Happy Birthday Room #{{selectedRoomIndex}}
+            </div>
+            <div class="room-stat-badges">
+              <span class="room-stat-chip">Toplam Raf: <strong>{{roomRacks.length}}</strong></span>
+              <span class="room-stat-chip">Yerleşik Madenci: <strong>{{getPlacedMinersCount()}}</strong></span>
+            </div>
+          </div>
+
+          <!-- ODA RAF MATRİSİ -->
+          <div class="room-racks-wrapper">
+            <div class="rc-rack" ng-repeat="rack in roomRacks track by $index">
+              <div class="rc-rack-header"></div>
+              <div class="rc-rack-shelves">
+                <div class="rc-rack-shelf" 
+                     ng-repeat="shelf in rack.shelves track by $index" 
+                     ng-class="{'empty-slot': !shelf.miner}"
+                     ng-click="shelf.miner && openMinerDetail(shelf.miner)"
+                     title="{{shelf.miner ? shelf.miner.name.en : 'Boş Yuva'}}">
+                  
+                  <span class="shelf-tier-tag tier-{{shelf.tier || 'II'}}" ng-if="shelf.miner">
+                    {{shelf.tier || 'II'}}
+                  </span>
+
+                  <img ng-if="shelf.miner" 
+                       ng-src="{{getMinerImg(shelf.miner)}}" 
+                       alt="{{shelf.miner.name.en}}"
+                       referrerpolicy="no-referrer"
+                       crossorigin="anonymous"
+                       onerror="handleImageFallback(this)">
+
+                  <i class="fas fa-plus text-muted" ng-if="!shelf.miner" style="font-size: 11px;"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- GÖRSELDEKİ ALT KONTROL BARI (Rooms: 0 1 2 3 4 | EDIT | AUTOSET) -->
+        <div class="rc-room-bottombar">
+          <div class="rooms-selector-group">
+            <span class="rooms-label">Rooms:</span>
+            <button class="room-index-btn" 
+                    ng-repeat="roomIdx in [0, 1, 2, 3, 4]" 
+                    ng-class="{'active': selectedRoomIndex === roomIdx}"
+                    ng-click="selectRoom(roomIdx)">
+              {{roomIdx}}
+            </button>
+          </div>
+
+          <div class="room-actions-group">
+            <button class="btn-rc-edit" ng-click="toggleEditMode()">
+              <i class="fas fa-wrench"></i> EDIT
+            </button>
+            <button class="btn-rc-autoset" ng-click="autoSetMiners()">
+              <i class="fas fa-th"></i> AUTOSET
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 2. BÖLÜM: MADENCİ LİSTESİ VE GELİŞMİŞ FİLTRELER -->
+    <div id="minerlistesi" ng-show="activeView === 'list'">
       
       <!-- FİLTRELEME & KONTROL PANELİ -->
       <section class="cyber-deck">
@@ -913,7 +1306,7 @@ body {
 
       </section>
 
-      <!-- MADENCİ KARTLARI LİSTESİ (Hotlink Koruması / AdBlock Çözümlü) -->
+      <!-- MADENCİ KARTLARI LİSTESİ -->
       <section class="cyber-miner-grid">
         <div class="cyber-miner-card" 
              ng-repeat="miner in allMiners | orderBy:sortCriteria | limitTo:pager.limit track by $index"
@@ -1074,7 +1467,6 @@ function handleImageFallback(img) {
       return;
     }
   }
-  // Hem doğrudan hem yedek proxy başarısız olursa siber ikonu göster
   img.style.display = 'none';
   const icon = img.parentElement.querySelector('.fallback-icon');
   if (icon) icon.style.display = 'inline-block';
@@ -1089,9 +1481,78 @@ angular.element(document).ready(function() {
   if (scope) {
     scope.isLoading = true;
 
+    // Aktif görünüm sekmesi (room: Miner Odam, list: Miner Listesi)
+    scope.activeView = 'room';
+    scope.selectedRoomIndex = 1;
+
+    scope.setView = function(viewName) {
+      scope.activeView = viewName;
+    };
+
+    scope.selectRoom = function(idx) {
+      scope.selectedRoomIndex = idx;
+    };
+
+    // Görseldeki gibi örnek raf ve madenci yerleşim mimarisi
+    scope.roomRacks = [];
+    const tiers = ['I', 'II', 'III', 'IV', 'V', 'VI'];
+
+    function buildSampleRoomRacks(miners) {
+      const racks = [];
+      const totalRacks = 12; // 12 adet raf
+      let minerIdx = 0;
+
+      for (let r = 0; r < totalRacks; r++) {
+        const shelves = [];
+        for (let s = 0; s < 4; s++) {
+          let placedMiner = null;
+          let randomTier = tiers[Math.floor(Math.random() * tiers.length)];
+          
+          if (miners && miners.length > 0 && minerIdx < miners.length) {
+            placedMiner = miners[minerIdx % miners.length];
+            minerIdx++;
+          }
+          shelves.push({
+            tier: randomTier,
+            miner: placedMiner
+          });
+        }
+        racks.push({ id: r + 1, shelves: shelves });
+      }
+      return racks;
+    }
+
+    scope.roomRacks = buildSampleRoomRacks([]);
+
+    scope.getPlacedMinersCount = function() {
+      if (!scope.roomRacks) return 0;
+      let count = 0;
+      scope.roomRacks.forEach(function(r) {
+        r.shelves.forEach(function(s) {
+          if (s.miner) count++;
+        });
+      });
+      return count;
+    };
+
+    scope.autoSetMiners = function() {
+      if (scope.allMiners && scope.allMiners.length > 0) {
+        // En yüksek güç ve bonusa göre odadaki raflara madencileri otomatik dizer
+        const sorted = angular.copy(scope.allMiners).sort((a, b) => (b.power || 0) - (a.power || 0));
+        scope.roomRacks = buildSampleRoomRacks(sorted);
+      }
+    };
+
+    scope.toggleEditMode = function() {
+      alert("Oda düzenleme modu aktif edildi. Raflara tıklayarak madenci detaylarını inceleyebilir veya yerleşimini yönetebilirsiniz.");
+    };
+
     scope.$watch('allMiners.length', function(newVal) {
       if (newVal && newVal > 0) {
         scope.isLoading = false;
+        if (scope.getPlacedMinersCount() === 0) {
+          scope.roomRacks = buildSampleRoomRacks(scope.allMiners);
+        }
       }
     });
 
@@ -1105,7 +1566,6 @@ angular.element(document).ready(function() {
     // Madenci görsel URL çözücü
     scope.getMinerImg = function(miner) {
       if (!miner || !miner.filename) return '';
-      // Varsayılan resmi URL
       return 'https://static.rollercoin.com/static/img/market/miners/' + miner.filename + '.gif';
     };
 
@@ -1136,28 +1596,12 @@ angular.element(document).ready(function() {
       scope.selectedMiner = null;
     };
 
-    scope.sendToCalculator = function(miner) {
-      if (!miner) return;
-      if (typeof scope.chooseBestHashRateUnit === 'function') {
-        const best = scope.chooseBestHashRateUnit(miner.power, 'GH/s');
-        if (scope.calc) {
-          scope.calc.base = parseFloat(best.value.toFixed(3));
-          scope.calc.unit = (best.unit || 'GH/s').replace('/s', '');
-        }
-      }
-      if (scope.calc) {
-        scope.calc.bonus = (miner.bonus_power || 0) / 100;
-      }
-      scope.closeMinerDetail();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
     scope.$applyAsync();
   }
 });
 
 async function takeScreenshot() {
-  const element = document.getElementById('minerlistesi');
+  const element = document.getElementById('miner-odam') || document.getElementById('minerlistesi');
   if (!element) return;
 
   const usernameInput = document.querySelector('input[ng-model="userSearchText"]');
