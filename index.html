@@ -762,11 +762,9 @@ body {
           </div>
 
           <div class="miner-stats-row">
-            <span class="badge-tag badge-lvl">L{{miner.level + 1}}</span>
+            <span class="badge-tag badge-lvl">Seviye: {{miner.level + 1}}</span>
             <span class="badge-tag badge-rarity {{miner.rarity}}">{{miner.rarity}}</span>
-            <span class="badge-tag badge-bonus" ng-if="miner.bonus_power > 0">
-              +{{(miner.bonus_power / 100)}}%
-            </span>
+            <span class="badge-tag badge-bonus" ng-if="miner.bonus_power > 0">Bonus: %{{(miner.bonus_power / 100)}}</span>
           </div>
 
           <div class="miner-power-box">
@@ -821,10 +819,10 @@ body {
              onerror="handleImageFallback(this)">
         <i class="fas fa-cube fallback-icon" style="font-size: 40px; display:none;"></i>
         <div class="d-flex gap-2 mt-2">
-          <span class="badge-tag badge-lvl">L{{selectedMiner.level + 1}}</span>
+          <span class="badge-tag badge-lvl">Lvl{{selectedMiner.level + 1}}</span>
           <span class="badge-tag badge-rarity {{selectedMiner.rarity}}">{{selectedMiner.rarity}}</span>
           <span class="badge-tag badge-bonus" ng-if="selectedMiner.bonus_power > 0">
-            +{{(selectedMiner.bonus_power / 100)}}%
+            +%{{(selectedMiner.bonus_power / 100)}}
           </span>
         </div>
       </div>
