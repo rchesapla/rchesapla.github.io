@@ -612,7 +612,9 @@ body {
   margin-bottom: 8px;
 }
 
-/* BADGELER & METRİKLER */
+/* ========================================================
+   MINER ÖZELLİKLERİ VE METRİKLER (ANİMASYONLU)
+   ======================================================== */
 .miner-stats-row {
   display: flex;
   justify-content: center;
@@ -627,29 +629,72 @@ body {
   padding: 4px 6px;
   border-radius: 4px;
   text-transform: uppercase;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+.miner-item-card:hover .badge-tag {
+  transform: translateY(-2px);
 }
 
 .badge-lvl {
   background: #142850;
   color: var(--rc-cyan);
   border: 1px solid #1e528a;
+  box-shadow: 0 0 6px rgba(0, 229, 255, 0.2);
 }
 
+/* Bonus Güç Nabız Animasyonu */
 .badge-bonus {
   background: #3d0c24;
   color: #ff4d94;
   border: 1px solid #80184b;
+  position: relative;
+  overflow: hidden;
+  animation: pulseBonus 2.2s infinite ease-in-out;
 }
 
-/* ROLLERCOIN RARITY RENKLERİ */
+@keyframes pulseBonus {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(255, 77, 148, 0.3);
+    border-color: #80184b;
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(255, 77, 148, 0.8), inset 0 0 4px rgba(255, 77, 148, 0.4);
+    border-color: #ff4d94;
+    transform: scale(1.04);
+  }
+}
+
+/* ROLLERCOIN RARITY RENKLERİ VE IŞIMALAR */
 .badge-rarity.common { color: #94a3b8; background: #1a202c; border: 1px solid #4a5568; }
 .badge-rarity.legacy { color: #a0aec0; background: #2d3748; border: 1px solid #4a5568; }
 .badge-rarity.uncommon { color: #00ff88; background: #063820; border: 1px solid #00aa55; }
 .badge-rarity.rare { color: #00e5ff; background: #083344; border: 1px solid #0099cc; }
 .badge-rarity.epic { color: #c084fc; background: #2e1065; border: 1px solid #7c3aed; }
-.badge-rarity.legendary { color: #ffcc00; background: #422006; border: 1px solid #d97706; }
-.badge-rarity.unreal { color: #ff0055; background: #4c0519; border: 1px solid #e11d48; box-shadow: 0 0 8px rgba(255, 0, 85, 0.4); }
+.badge-rarity.legendary { 
+  color: #ffcc00; 
+  background: #422006; 
+  border: 1px solid #d97706; 
+  animation: legendaryGlow 2.5s infinite alternate;
+}
+@keyframes legendaryGlow {
+  0% { box-shadow: 0 0 4px rgba(255, 204, 0, 0.2); }
+  100% { box-shadow: 0 0 12px rgba(255, 204, 0, 0.7); }
+}
 
+.badge-rarity.unreal { 
+  color: #ff0055; 
+  background: #4c0519; 
+  border: 1px solid #e11d48; 
+  animation: unrealPulse 1.8s infinite alternate;
+}
+@keyframes unrealPulse {
+  0% { box-shadow: 0 0 6px rgba(255, 0, 85, 0.4); }
+  100% { box-shadow: 0 0 16px rgba(255, 0, 85, 0.95), inset 0 0 4px #ff0055; }
+}
+
+/* POWER KUTUSU & IŞIK TARAMASI */
 .miner-power-box {
   background: var(--rc-slot-bg);
   border: 1px solid #232752;
@@ -660,6 +705,41 @@ body {
   align-items: center;
   font-family: var(--font-tech);
   font-size: 13px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.miner-power-box::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 255, 136, 0.25) 50%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  pointer-events: none;
+}
+
+.miner-item-card:hover .miner-power-box::after,
+.featured-slide-card:hover .miner-power-box::after {
+  animation: sweepLight 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes sweepLight {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+.miner-item-card:hover .miner-power-box {
+  border-color: var(--rc-green);
+  box-shadow: inset 0 0 10px rgba(0, 255, 136, 0.15);
 }
 
 .miner-power-box .lbl {
@@ -672,6 +752,12 @@ body {
   font-weight: 700;
   color: var(--rc-green);
   text-shadow: 0 0 6px var(--rc-green-glow);
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.miner-item-card:hover .miner-power-box .val {
+  transform: scale(1.05);
 }
 
 /* DAHA FAZLA YÜKLE */
@@ -784,6 +870,7 @@ body {
   margin-bottom: 10px;
 }
 
+/* MODAL ÖZELLİK SATIRLARI (SIRALI KAYMA EFEKTLİ) */
 .modal-specs {
   display: flex;
   flex-direction: column;
@@ -798,6 +885,34 @@ body {
   background: #0f1026;
   border: 1px solid var(--rc-border);
   border-radius: 6px;
+  position: relative;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  animation: slideFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.spec-item:nth-child(1) { animation-delay: 0.05s; }
+.spec-item:nth-child(2) { animation-delay: 0.10s; }
+.spec-item:nth-child(3) { animation-delay: 0.15s; }
+.spec-item:nth-child(4) { animation-delay: 0.20s; }
+.spec-item:nth-child(5) { animation-delay: 0.25s; }
+.spec-item:nth-child(6) { animation-delay: 0.30s; }
+.spec-item:nth-child(7) { animation-delay: 0.35s; }
+
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.spec-item:hover {
+  transform: translateX(4px);
+  background: #141738;
+  border-color: var(--rc-border-highlight);
 }
 
 .spec-item .k {
@@ -811,6 +926,11 @@ body {
   font-weight: 700;
   font-size: 15px;
   color: #fff;
+  transition: text-shadow 0.2s ease;
+}
+
+.spec-item:hover .v {
+  text-shadow: 0 0 8px currentColor;
 }
 
 .modal-actions {
@@ -825,12 +945,6 @@ body {
 </head>
 
 <body ng-controller="MiningController">
-
-<!-- ARCADE LOADER -->
-<div class="pro-loader-overlay" ng-show="isLoading || loading">
-  <div class="pro-spinner"></div>
-  <div class="loader-text">VERİLER EŞİTLENİYOR...</div>
-</div>
 
 <div class="rc-app">
 
@@ -1172,7 +1286,7 @@ body {
     <div class="modal-content-area">
       <div class="modal-device-view">
         <img ng-src="{{getMinerImg(selectedMiner)}}" 
-             alt="{{selectedMiner.name.en}}"
+             alt="{{selectedMiner.name.en}}" 
              referrerpolicy="no-referrer"
              crossorigin="anonymous"
              onerror="handleImageFallback(this)">
