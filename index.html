@@ -95,6 +95,29 @@ body {
   min-height: 100vh;
 }
 
+/* CANLI SAAT VE TARİH GÖSTERGESİ */
+.live-datetime-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #0f1026;
+  border: 1px solid var(--rc-border-highlight);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  color: #8fa0dd;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.live-datetime-badge .time-val {
+  color: var(--rc-cyan);
+  font-family: var(--font-tech);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
 /* ARCADE LOADER */
 .pro-loader-overlay {
   position: fixed;
@@ -819,8 +842,21 @@ body {
         RC<span>MINER</span>
       </div>
       <span class="pro-badge d-none d-md-inline-block">ARCADE V2.0</span>
+      
+      <!-- CANLI SAAT VE TARİH BİLEŞENİ -->
+      <div class="live-datetime-badge d-none d-lg-inline-flex" title="Sistem Canlı Saati">
+        <i class="fas fa-clock text-warning"></i>
+        <span id="nav-live-date">--.--.----</span>
+        <span class="time-val" id="nav-live-time">--:--:--</span>
+      </div>
     </div>
+    
     <div class="d-flex align-items-center gap-2">
+      <!-- Mobil için mini saat -->
+      <div class="live-datetime-badge d-inline-flex d-lg-none py-1 px-2">
+        <span class="time-val" id="nav-live-time-mobile" style="font-size: 11px;">--:--:--</span>
+      </div>
+
       <a href="https://www.youtube.com/@FatihCELIK" target="_blank" class="btn-yt">
         <i class="fab fa-youtube"></i> Fatih ÇELİK
       </a>
@@ -1213,6 +1249,35 @@ body {
 </div>
 
 <script>
+// --- CANLI SAAT VE TARİH SAYACI (HER SANİYE GÜNCELLENİR) ---
+(function initLiveDateTime() {
+  const elDate = document.getElementById('nav-live-date');
+  const elTime = document.getElementById('nav-live-time');
+  const elTimeMobile = document.getElementById('nav-live-time-mobile');
+
+  function updateClock() {
+    const now = new Date();
+    const dateFormatted = now.toLocaleDateString('tr-TR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    });
+    const timeFormatted = now.toLocaleTimeString('tr-TR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    });
+
+    if (elDate) elDate.textContent = dateFormatted;
+    if (elTime) elTime.textContent = timeFormatted;
+    if (elTimeMobile) elTimeMobile.textContent = timeFormatted;
+  }
+
+  updateClock();
+  setInterval(updateClock, 1000);
+})();
+
 // --- CANLI ZİYARETÇİ VE İSTATİSTİK SAYACI ---
 (function initVisitorTracking() {
   const NAMESPACE = 'rcminer-fatih-celik';
@@ -1388,7 +1453,7 @@ async function takeScreenshot() {
   header.style.fontFamily = "'Press Start 2P', monospace";
   header.style.textAlign = "center";
   header.style.borderBottom = "2px solid #00e5ff";
-  header.innerHTML = `[ROLLERCOIN TERMINAL] | USER: <b>${username}</b> | DATE: ${formattedDate}`;
+  header.innerHTML = `[RCMINER] | KULLANICI: <b>${username}</b> | TARİH: ${formattedDate}`;
 
   element.prepend(header);
 
@@ -1404,10 +1469,10 @@ async function takeScreenshot() {
     canvas.toBlob(async function(blob) {
       if (!blob) return;
       if (navigator.share && navigator.canShare) {
-        const file = new File([blob], "rcminer-terminal.png", { type: "image/png" });
+        const file = new File([blob], "rcminer-madenci.png", { type: "image/png" });
         if (navigator.canShare({ files: [file] })) {
           await navigator.share({
-            title: "RCMiner Terminal",
+            title: "RCMiner",
             text: "Madenci Portföyü:",
             files: [file]
           });
@@ -1416,7 +1481,7 @@ async function takeScreenshot() {
       }
 
       const link = document.createElement('a');
-      link.download = "rcminer-terminal.png";
+      link.download = "rcminer-madenci.png";
       link.href = URL.createObjectURL(blob);
       link.click();
     });
