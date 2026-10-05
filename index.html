@@ -285,6 +285,124 @@ body {
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
 
+/* ========================================================
+   ÖNERİLEN MADENCİLER SLIDER (CAROUSEL / SHOWCASE)
+   ======================================================== */
+.featured-slider-section {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin-top: 18px;
+  backdrop-filter: blur(14px);
+  position: relative;
+}
+
+.slider-nav-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(30, 41, 59, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 13px;
+}
+
+.slider-nav-btn:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  transform: scale(1.08);
+  box-shadow: 0 0 14px var(--primary-glow);
+}
+
+.featured-track-wrapper {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  padding: 8px 4px 12px;
+}
+
+.featured-track-wrapper::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.featured-track {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+}
+
+.featured-slide-card {
+  width: 210px;
+  flex-shrink: 0;
+  background: linear-gradient(145deg, rgba(26, 36, 56, 0.75) 0%, rgba(15, 23, 42, 0.85) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.5);
+}
+
+.featured-slide-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #f59e0b, #ef4444);
+}
+
+.featured-slide-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(245, 158, 11, 0.5);
+  box-shadow: 0 14px 28px -6px rgba(0, 0, 0, 0.7), 0 0 16px rgba(245, 158, 11, 0.2);
+}
+
+.featured-slide-card .featured-img-wrap {
+  width: 100%;
+  height: 85px;
+  background: radial-gradient(circle at center, rgba(245, 158, 11, 0.12) 0%, rgba(15, 23, 42, 0.5) 100%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.featured-slide-card .featured-img-wrap img {
+  max-width: 75%;
+  max-height: 65px;
+  object-fit: contain;
+  transition: transform 0.25s ease;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
+}
+
+.featured-slide-card:hover .featured-img-wrap img {
+  transform: scale(1.1);
+}
+
+.featured-name {
+  font-weight: 700;
+  font-size: 12.5px;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
 /* KONTROL KARTI / FİLTRELER */
 .glass-panel {
   background: var(--card-bg);
@@ -664,7 +782,7 @@ body {
 
 <body ng-controller="MiningController">
 
-<!-- YENİ MODERN LOADER -->
+<!-- LOADER -->
 <div class="pro-loader-overlay" ng-show="isLoading || loading">
   <div class="pro-spinner"></div>
   <div class="loader-text">Veriler Eşitleniyor...</div>
@@ -737,6 +855,58 @@ body {
               <span class="live-indicator-dot"></span> Terminal Durumu
             </span>
             <span class="stat-value" style="font-size: 14px; color: #34d399; margin-top: 4px;">ÇEVRİMİÇİ</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ÖNERİLEN MADENCİLER SLIDER (CAROUSEL / SHOWCASE) -->
+      <section class="featured-slider-section" ng-if="featuredMiners && featuredMiners.length > 0">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="d-flex align-items-center gap-2">
+            <i class="fas fa-fire-flame-curved text-warning fs-5"></i>
+            <span class="fw-bold text-white fs-6">Önerilen & Popüler Madenciler</span>
+            <span class="badge bg-danger rounded-pill px-2 py-1" style="font-size: 10px;">TOP LİSTE</span>
+          </div>
+          <div class="d-flex gap-2">
+            <button class="slider-nav-btn" ng-click="scrollFeaturedSlider('left')" title="Geri">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="slider-nav-btn" ng-click="scrollFeaturedSlider('right')" title="İleri">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- YATAY KAYDIRILABİLİR KART ALANI -->
+        <div class="featured-track-wrapper" id="featuredSliderTrack">
+          <div class="featured-track">
+            <div class="featured-slide-card" 
+                 ng-repeat="miner in featuredMiners track by $index" 
+                 ng-click="openMinerDetail(miner)"
+                 title="{{miner.name.en}} - Detayları gör">
+              
+              <div class="featured-img-wrap">
+                <img ng-src="{{getMinerImg(miner)}}" 
+                     alt="{{miner.name.en}}" 
+                     referrerpolicy="no-referrer"
+                     crossorigin="anonymous"
+                     loading="lazy"
+                     onerror="handleImageFallback(this)">
+                <i class="fas fa-cube fallback-icon" style="display:none; font-size:28px; color:#64748b;"></i>
+              </div>
+
+              <div class="featured-name">{{miner.name.en}}</div>
+
+              <div class="d-flex justify-content-center gap-1 mb-2">
+                <span class="badge-tag badge-rarity {{miner.rarity}}">{{miner.rarity}}</span>
+                <span class="badge-tag badge-bonus" ng-if="miner.bonus_power > 0">+%{{(miner.bonus_power / 100)}}</span>
+              </div>
+
+              <div class="miner-power-box py-1 px-2" style="font-size: 11px;">
+                <span class="lbl">GÜÇ</span>
+                <span class="val">{{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(1)}} {{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -873,7 +1043,7 @@ body {
 
       </section>
 
-      <!-- MADENCİ KARTLARI LİSTESİ -->
+      <!-- TÜM MADENCİLER KART LİSTESİ -->
       <section class="miner-cards-container">
         <div class="miner-item-card" 
              ng-repeat="miner in allMiners | orderBy:sortCriteria | limitTo:pager.limit track by $index"
@@ -1031,7 +1201,6 @@ body {
   const localVisitCountKey = 'rcminer_my_visits';
   const userIdentifiedKey = 'rcminer_has_visited';
 
-  // 1. Yerel Cihaz Sayaç Güncelleme
   let localVisits = parseInt(localStorage.getItem(localVisitCountKey) || '0', 10) + 1;
   localStorage.setItem(localVisitCountKey, localVisits);
   const elLocalVisits = document.getElementById('stat-local-visits');
@@ -1042,7 +1211,6 @@ body {
     localStorage.setItem(userIdentifiedKey, 'true');
   }
 
-  // Animasyonlu sayı geçiş fonksiyonu
   function animateCounter(elementId, targetValue) {
     const el = document.getElementById(elementId);
     if (!el) return;
@@ -1065,7 +1233,6 @@ body {
     requestAnimationFrame(update);
   }
 
-  // Çevrimdışı / Hata durumunda Fallback Veri
   function applyFallback() {
     let mockHits = parseInt(localStorage.getItem(hitsKey) || '1280', 10) + 1;
     let mockVisitors = parseInt(localStorage.getItem(visitorsKey) || '640', 10);
@@ -1078,7 +1245,6 @@ body {
     animateCounter('stat-unique-visitors', mockVisitors);
   }
 
-  // 2. CountAPI / CounterAPI üzerinden Küresel Sayım
   const totalHitUrl = `https://api.counterapi.dev/v1/${NAMESPACE}/total_hits/up`;
   const uniqueVisitorUrl = isNewVisitor
     ? `https://api.counterapi.dev/v1/${NAMESPACE}/unique_visitors/up`
@@ -1087,26 +1253,17 @@ body {
   fetch(totalHitUrl)
     .then(res => res.json())
     .then(data => {
-      if (data && typeof data.count === 'number') {
-        animateCounter('stat-total-hits', data.count);
-      } else {
-        applyFallback();
-      }
+      if (data && typeof data.count === 'number') animateCounter('stat-total-hits', data.count);
+      else applyFallback();
     })
-    .catch(() => {
-      applyFallback();
-    });
+    .catch(() => applyFallback());
 
   fetch(uniqueVisitorUrl)
     .then(res => res.json())
     .then(data => {
-      if (data && typeof data.count === 'number') {
-        animateCounter('stat-unique-visitors', data.count);
-      }
+      if (data && typeof data.count === 'number') animateCounter('stat-unique-visitors', data.count);
     })
-    .catch(() => {
-      // sessizce geç
-    });
+    .catch(() => {});
 })();
 
 function handleImageFallback(img) {
@@ -1130,12 +1287,40 @@ angular.element(document).ready(function() {
 
   if (scope) {
     scope.isLoading = true;
+    scope.featuredMiners = [];
+
+    // Önerilen Madencileri Çekme Fonksiyonu
+    function updateFeaturedMiners(miners) {
+      if (!miners || !miners.length) return;
+      // Bonus veya gücü yüksek olanları öne çıkar
+      const sorted = [...miners].sort((a, b) => {
+        const bonusA = a.bonus_power || 0;
+        const bonusB = b.bonus_power || 0;
+        if (bonusB !== bonusA) return bonusB - bonusA;
+        return (b.power || 0) - (a.power || 0);
+      });
+      // İlk 15 popüler/güçlü madenciyi carousel vitrinine ata
+      scope.featuredMiners = sorted.slice(0, 15);
+    }
 
     scope.$watch('allMiners.length', function(newVal) {
       if (newVal && newVal > 0) {
         scope.isLoading = false;
+        updateFeaturedMiners(scope.allMiners);
       }
     });
+
+    // Slider Gezinme (Sağa/Sola Kaydırma)
+    scope.scrollFeaturedSlider = function(direction) {
+      const container = document.getElementById('featuredSliderTrack');
+      if (!container) return;
+      const scrollStep = 240 * 2; // 2 kart genişliği kaydır
+      if (direction === 'left') {
+        container.scrollBy({ left: -scrollStep, behavior: 'smooth' });
+      } else {
+        container.scrollBy({ left: scrollStep, behavior: 'smooth' });
+      }
+    };
 
     setTimeout(function() {
       if (scope.isLoading) {
@@ -1149,10 +1334,7 @@ angular.element(document).ready(function() {
       return 'https://static.rollercoin.com/static/img/market/miners/' + miner.filename + '.gif';
     };
 
-    scope.pager = {
-      limit: 24,
-      step: 24
-    };
+    scope.pager = { limit: 24, step: 24 };
 
     if (!scope.sortCriteria) {
       scope.sortCriteria = '-bonus_power';
@@ -1167,30 +1349,8 @@ angular.element(document).ready(function() {
     };
 
     scope.selectedMiner = null;
-    
-    scope.openMinerDetail = function(miner) {
-      scope.selectedMiner = miner;
-    };
-
-    scope.closeMinerDetail = function() {
-      scope.selectedMiner = null;
-    };
-
-    scope.sendToCalculator = function(miner) {
-      if (!miner) return;
-      if (typeof scope.chooseBestHashRateUnit === 'function') {
-        const best = scope.chooseBestHashRateUnit(miner.power, 'GH/s');
-        if (scope.calc) {
-          scope.calc.base = parseFloat(best.value.toFixed(3));
-          scope.calc.unit = (best.unit || 'GH/s').replace('/s', '');
-        }
-      }
-      if (scope.calc) {
-        scope.calc.bonus = (miner.bonus_power || 0) / 100;
-      }
-      scope.closeMinerDetail();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
+    scope.openMinerDetail = function(miner) { scope.selectedMiner = miner; };
+    scope.closeMinerDetail = function() { scope.selectedMiner = null; };
 
     scope.$applyAsync();
   }
