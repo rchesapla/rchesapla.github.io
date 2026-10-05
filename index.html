@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="referrer" content="no-referrer">
-<title>RCMiner - Madenci Analitik Terminali</title>
+<title>RCMiner - RollerCoin Arcade Terminali</title>
 <meta name="description" content="Rollercoin kazım gücü hesaplama ve madenci analitik terminali.">
 <meta name="author" content="Fatih ÇELİK">
 <link rel="shortcut icon" href="img/rcminers.png" type="image/x-icon">
@@ -30,7 +30,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Press+Start+2P&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
@@ -55,21 +55,25 @@
 
 <style>
 :root {
-  --primary: #3b82f6;
-  --primary-glow: rgba(59, 130, 246, 0.4);
-  --accent-cyan: #06b6d4;
-  --accent-emerald: #10b981;
-  --accent-amber: #f59e0b;
-  --accent-rose: #f43f5e;
-  --accent-violet: #8b5cf6;
+  --rc-green: #00ff88;
+  --rc-green-glow: rgba(0, 255, 136, 0.45);
+  --rc-yellow: #ffcc00;
+  --rc-yellow-glow: rgba(255, 204, 0, 0.4);
+  --rc-cyan: #00e5ff;
+  --rc-purple: #9d4edd;
+  --rc-pink: #ff007f;
+  --rc-red: #ff3366;
+  
+  --rc-bg: #0b0c1b;
+  --rc-card: #151833;
+  --rc-card-alt: #1c2042;
+  --rc-slot-bg: #0a0b16;
+  --rc-border: #2c3260;
+  --rc-border-highlight: #434c8c;
 
-  --bg-dark: #090d16;
-  --card-bg: rgba(17, 24, 39, 0.75);
-  --card-border: rgba(255, 255, 255, 0.08);
-  --card-hover-border: rgba(59, 130, 246, 0.5);
-
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-tech: 'Chakra Petch', sans-serif;
   --font-sans: 'Plus Jakarta Sans', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
 }
 
 * {
@@ -77,50 +81,40 @@
 }
 
 body {
-  background-color: var(--bg-dark) !important;
+  background-color: var(--rc-bg) !important;
   background-image: 
-    radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%),
-    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
-  color: #f1f5f9;
-  font-family: var(--font-sans);
+    radial-gradient(ellipse at 50% 0%, rgba(26, 31, 74, 0.8) 0%, transparent 70%),
+    linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%, 28px 28px, 28px 28px;
+  color: #e2e8f0;
+  font-family: var(--font-tech);
   font-size: 14px;
   margin: 0;
   padding: 0;
   min-height: 100vh;
 }
 
-/* LOADER OVERLAY */
+/* ARCADE LOADER */
 .pro-loader-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(9, 13, 22, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(11, 12, 27, 0.94);
+  backdrop-filter: blur(8px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 99999;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.pro-loader-overlay.ng-hide {
-  opacity: 0;
-  visibility: hidden;
 }
 
 .pro-spinner {
-  width: 60px;
-  height: 60px;
-  border: 3px solid rgba(59, 130, 246, 0.15);
-  border-top-color: var(--primary);
-  border-right-color: var(--accent-cyan);
+  width: 50px;
+  height: 50px;
+  border: 4px dashed var(--rc-green);
   border-radius: 50%;
-  animation: spin 0.8s cubic-bezier(0.6, 0.2, 0.4, 0.8) infinite;
-  box-shadow: 0 0 20px var(--primary-glow);
+  animation: spin 1s linear infinite;
+  box-shadow: 0 0 25px var(--rc-green-glow);
 }
 
 @keyframes spin {
@@ -128,73 +122,70 @@ body {
 }
 
 .loader-text {
-  margin-top: 18px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  color: #94a3b8;
-  text-transform: uppercase;
+  margin-top: 20px;
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  color: var(--rc-yellow);
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px var(--rc-yellow-glow);
 }
 
 /* NAVBAR */
 .pro-nav {
-  height: 68px;
-  background: rgba(13, 18, 30, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--card-border);
+  height: 70px;
+  background: rgba(21, 24, 51, 0.95);
+  border-bottom: 3px solid #232750;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
 .pro-brand {
-  font-weight: 800;
-  font-size: 19px;
-  letter-spacing: 0.5px;
+  font-family: var(--font-pixel);
+  font-size: 15px;
   color: #fff;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
 }
 
 .pro-brand span {
-  background: linear-gradient(135deg, #60a5fa, #06b6d4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--rc-yellow);
+  text-shadow: 0 0 10px var(--rc-yellow-glow);
 }
 
 .pro-badge {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  padding: 3px 8px;
-  border-radius: 999px;
-  background: rgba(59, 130, 246, 0.12);
-  border: 1px solid rgba(59, 130, 246, 0.3);
-  color: #93c5fd;
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  padding: 5px 8px;
+  background: #0f1026;
+  border: 1px solid var(--rc-cyan);
+  color: var(--rc-cyan);
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.3);
+  border-radius: 4px;
 }
 
 .btn-yt {
-  background: rgba(239, 68, 68, 0.1);
-  color: #f87171 !important;
-  border: 1px solid rgba(239, 68, 68, 0.25);
-  font-weight: 600;
-  font-size: 12.5px;
-  padding: 6px 14px;
-  border-radius: 8px;
+  font-family: var(--font-pixel);
+  background: #d90429;
+  color: #fff !important;
+  border: 2px solid #ef233c;
+  box-shadow: 0 4px 0 #8d0801;
+  font-size: 9px;
+  padding: 8px 12px;
+  border-radius: 6px;
   text-decoration: none !important;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  transition: all 0.2s ease;
+  gap: 6px;
+  transition: transform 0.1s, box-shadow 0.1s;
 }
 
-.btn-yt:hover {
-  background: #ef4444;
-  color: #fff !important;
-  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.35);
-  transform: translateY(-1px);
+.btn-yt:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #8d0801;
 }
 
 /* ZİYARETÇİ WIDGETI */
@@ -206,131 +197,132 @@ body {
 }
 
 .visitor-stat-card {
-  background: rgba(15, 23, 42, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  padding: 14px 18px;
+  background: var(--rc-card);
+  border: 2px solid var(--rc-border);
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.4), 0 4px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  padding: 14px;
   display: flex;
   align-items: center;
-  gap: 15px;
-  backdrop-filter: blur(14px);
-  transition: all 0.25s ease;
+  gap: 14px;
   position: relative;
   overflow: hidden;
 }
 
-.visitor-stat-card::before {
+.visitor-stat-card::after {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
-  width: 3px;
+  width: 4px;
   height: 100%;
-  background: var(--stat-accent, var(--primary));
-}
-
-.visitor-stat-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(59, 130, 246, 0.3);
-  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+  background: var(--stat-accent, var(--rc-cyan));
+  box-shadow: 0 0 8px var(--stat-accent, var(--rc-cyan));
 }
 
 .stat-icon-wrap {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 42px;
+  height: 42px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--stat-accent, #38bdf8);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.stat-info {
-  display: flex;
-  flex-direction: column;
+  background: #0f1026;
+  color: var(--stat-accent, var(--rc-cyan));
+  border: 1px solid var(--rc-border);
 }
 
 .stat-info .stat-label {
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: #94a3b8;
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  color: #8b92b2;
+  letter-spacing: 0.5px;
 }
 
 .stat-info .stat-value {
-  font-family: var(--font-mono);
-  font-size: 20px;
+  font-family: var(--font-tech);
+  font-size: 22px;
   font-weight: 700;
   color: #fff;
   line-height: 1.2;
 }
 
 .live-indicator-dot {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: #10b981;
+  background: var(--rc-green);
   display: inline-block;
-  box-shadow: 0 0 8px #10b981;
+  box-shadow: 0 0 8px var(--rc-green);
   animation: pulseLive 1.5s infinite;
 }
 
 @keyframes pulseLive {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
 }
 
 /* ========================================================
-   ÖNERİLEN MADENCİLER SLIDER (CAROUSEL / SHOWCASE)
+   ROLLERCOIN TARZI ÖNERİLEN MADENCİLER SLIDER (CAROUSEL)
    ======================================================== */
 .featured-slider-section {
-  background: rgba(15, 23, 42, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 16px;
-  padding: 18px 20px;
+  background: linear-gradient(180deg, #181c3c 0%, #11142e 100%);
+  border: 2px solid #2d3368;
+  border-radius: 12px;
+  padding: 16px 18px;
   margin-top: 18px;
-  backdrop-filter: blur(14px);
   position: relative;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.slider-arcade-title {
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  color: var(--rc-yellow);
+  text-shadow: 0 0 8px var(--rc-yellow-glow);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .slider-nav-btn {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: rgba(30, 41, 59, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #f1f5f9;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: #252b5c;
+  border: 2px solid #3c4587;
+  color: #fff;
+  box-shadow: 0 3px 0 #121530;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 13px;
+  transition: all 0.15s ease;
 }
 
 .slider-nav-btn:hover {
-  background: var(--primary);
-  border-color: var(--primary);
-  color: #fff;
-  transform: scale(1.08);
-  box-shadow: 0 0 14px var(--primary-glow);
+  background: var(--rc-cyan);
+  border-color: #fff;
+  color: #000;
+  box-shadow: 0 3px 0 #008899, 0 0 12px rgba(0, 229, 255, 0.6);
+}
+
+.slider-nav-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #121530;
 }
 
 .featured-track-wrapper {
   overflow-x: auto;
   scroll-behavior: smooth;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
-  padding: 8px 4px 12px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 10px 4px 6px;
 }
 
 .featured-track-wrapper::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
+  display: none;
 }
 
 .featured-track {
@@ -339,53 +331,54 @@ body {
   width: max-content;
 }
 
+/* ROLLERCOIN RACK / RAF MADENCİ KARTI */
 .featured-slide-card {
-  width: 210px;
+  width: 200px;
   flex-shrink: 0;
-  background: linear-gradient(145deg, rgba(26, 36, 56, 0.75) 0%, rgba(15, 23, 42, 0.85) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  padding: 14px;
+  background: #171b3a;
+  border: 2px solid #2e356e;
+  border-radius: 8px;
+  padding: 12px;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  overflow: hidden;
-  box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.5);
-}
-
-.featured-slide-card::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #f59e0b, #ef4444);
+  transition: all 0.2s ease;
+  box-shadow: 0 5px 0 #0c0e21;
 }
 
 .featured-slide-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(245, 158, 11, 0.5);
-  box-shadow: 0 14px 28px -6px rgba(0, 0, 0, 0.7), 0 0 16px rgba(245, 158, 11, 0.2);
+  transform: translateY(-4px);
+  border-color: var(--rc-green);
+  box-shadow: 0 8px 0 #0c0e21, 0 0 18px var(--rc-green-glow);
 }
 
 .featured-slide-card .featured-img-wrap {
   width: 100%;
-  height: 85px;
-  background: radial-gradient(circle at center, rgba(245, 158, 11, 0.12) 0%, rgba(15, 23, 42, 0.5) 100%);
-  border-radius: 10px;
+  height: 80px;
+  background: var(--rc-slot-bg);
+  border: 1px solid #232752;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.featured-slide-card .featured-img-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0px, rgba(0, 0, 0, 0.2) 2px, transparent 2px, transparent 4px);
+  pointer-events: none;
 }
 
 .featured-slide-card .featured-img-wrap img {
-  max-width: 75%;
-  max-height: 65px;
+  max-width: 80%;
+  max-height: 64px;
   object-fit: contain;
-  transition: transform 0.25s ease;
-  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.8));
+  transition: transform 0.2s;
+  z-index: 1;
 }
 
 .featured-slide-card:hover .featured-img-wrap img {
@@ -393,8 +386,9 @@ body {
 }
 
 .featured-name {
+  font-family: var(--font-tech);
   font-weight: 700;
-  font-size: 12.5px;
+  font-size: 13px;
   color: #fff;
   white-space: nowrap;
   overflow: hidden;
@@ -403,36 +397,34 @@ body {
   margin-bottom: 6px;
 }
 
-/* KONTROL KARTI / FİLTRELER */
+/* FİLTRELEME & KONTROL PANELİ */
 .glass-panel {
-  background: var(--card-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--card-border);
-  border-radius: 16px;
-  padding: 22px;
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
-  margin-top: 15px;
+  background: var(--rc-card);
+  border: 2px solid var(--rc-border);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 18px;
 }
 
 .panel-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 14px;
+  border-bottom: 2px dashed var(--rc-border);
   margin-bottom: 18px;
   flex-wrap: wrap;
   gap: 12px;
 }
 
 .panel-title {
-  font-size: 15px;
-  font-weight: 700;
-  color: #f8fafc;
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  color: #fff;
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
 }
 
 .filter-grid {
@@ -448,120 +440,137 @@ body {
 }
 
 .input-box label {
-  font-size: 11.5px;
-  font-weight: 600;
-  color: #94a3b8;
-  letter-spacing: 0.3px;
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  color: #8fa0dd;
+  letter-spacing: 0.5px;
   margin: 0;
 }
 
 .input-box input,
 .input-box select {
-  background: rgba(13, 18, 30, 0.8) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  color: #f1f5f9 !important;
-  border-radius: 10px !important;
-  font-family: var(--font-sans);
-  font-size: 13.5px !important;
-  font-weight: 500;
-  padding: 9px 12px !important;
+  background: #0f1026 !important;
+  border: 2px solid #2d3368 !important;
+  color: #fff !important;
+  border-radius: 6px !important;
+  font-family: var(--font-tech);
+  font-size: 14px !important;
+  font-weight: 600;
+  padding: 8px 12px !important;
   height: 42px;
   outline: none !important;
-  transition: all 0.2s ease;
+  transition: border-color 0.2s;
 }
 
 .input-box input:focus,
 .input-box select:focus {
-  border-color: var(--primary) !important;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25) !important;
+  border-color: var(--rc-cyan) !important;
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.4) !important;
 }
 
 .input-box select option {
-  background: #0f172a;
+  background: #0f1026;
   color: #fff;
 }
 
-/* BUTONLAR */
+/* BUTONLAR (ARCADE STYLE) */
 .btn-action {
-  font-weight: 600;
-  font-size: 12.5px;
-  padding: 8px 18px;
-  border-radius: 10px;
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  padding: 10px 16px;
+  border-radius: 6px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid var(--card-border);
-  background: rgba(255, 255, 255, 0.04);
-  color: #cbd5e1;
+  gap: 8px;
+  border: 2px solid #3c4587;
+  background: #202652;
+  color: #fff;
+  box-shadow: 0 4px 0 #10132b;
+  transition: all 0.1s;
 }
 
 .btn-action:hover:not([disabled]) {
-  background: rgba(255, 255, 255, 0.08);
+  background: #2b336e;
+  border-color: var(--rc-cyan);
   color: #fff;
-  border-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-1px);
+}
+
+.btn-action:active:not([disabled]) {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #10132b;
 }
 
 .btn-action-primary {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-  border: none;
-  color: #fff;
-  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+  background: #00aa55;
+  border-color: var(--rc-green);
+  color: #000;
+  font-weight: 700;
+  box-shadow: 0 4px 0 #00552b;
 }
 
 .btn-action-primary:hover:not([disabled]) {
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
-  color: #fff;
+  background: var(--rc-green);
+  box-shadow: 0 4px 0 #00552b, 0 0 15px var(--rc-green-glow);
+  color: #000;
 }
 
 /* MADENCİ GRID */
 .miner-cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
   gap: 16px;
   margin-top: 22px;
 }
 
 .miner-item-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 14px;
-  padding: 16px;
+  background: var(--rc-card);
+  border: 2px solid var(--rc-border);
+  border-radius: 8px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.25s ease;
-  backdrop-filter: blur(12px);
+  box-shadow: 0 5px 0 #0b0c1b;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .miner-item-card:hover {
   transform: translateY(-4px);
-  border-color: var(--card-hover-border);
-  box-shadow: 0 16px 30px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(59, 130, 246, 0.15);
+  border-color: var(--rc-cyan);
+  box-shadow: 0 8px 0 #0b0c1b, 0 0 16px rgba(0, 229, 255, 0.35);
 }
 
 .miner-img-wrapper {
   width: 100%;
-  height: 100px;
-  background: radial-gradient(circle at center, rgba(59, 130, 246, 0.08) 0%, rgba(15, 23, 42, 0.4) 100%);
-  border-radius: 10px;
+  height: 95px;
+  background: var(--rc-slot-bg);
+  border: 1px solid #232752;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.miner-img-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.25) 0px, rgba(0, 0, 0, 0.25) 2px, transparent 2px, transparent 4px);
+  pointer-events: none;
 }
 
 .miner-img-wrapper img {
-  max-width: 80%;
-  max-height: 80px;
+  max-width: 82%;
+  max-height: 75px;
   object-fit: contain;
-  transition: transform 0.25s ease;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.8));
+  transition: transform 0.2s;
+  z-index: 1;
 }
 
 .miner-item-card:hover .miner-img-wrapper img {
@@ -569,9 +578,10 @@ body {
 }
 
 .miner-title {
+  font-family: var(--font-tech);
   font-weight: 700;
-  font-size: 13.5px;
-  color: #f8fafc;
+  font-size: 14px;
+  color: #fff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -585,56 +595,60 @@ body {
   justify-content: center;
   gap: 6px;
   flex-wrap: wrap;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .badge-tag {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
-  padding: 2.5px 7px;
-  border-radius: 6px;
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
 }
 
 .badge-lvl {
-  background: rgba(59, 130, 246, 0.12);
-  color: #60a5fa;
-  border: 1px solid rgba(59, 130, 246, 0.25);
+  background: #142850;
+  color: var(--rc-cyan);
+  border: 1px solid #1e528a;
 }
 
 .badge-bonus {
-  background: rgba(244, 63, 94, 0.12);
-  color: #fb7185;
-  border: 1px solid rgba(244, 63, 94, 0.25);
+  background: #3d0c24;
+  color: #ff4d94;
+  border: 1px solid #80184b;
 }
 
-.badge-rarity.common { color: #94a3b8; background: rgba(148, 163, 184, 0.1); border: 1px solid #334155; }
-.badge-rarity.legacy { color: #94a3b8; background: rgba(148, 163, 184, 0.1); border: 1px solid #334155; }
-.badge-rarity.uncommon { color: #34d399; background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.3); }
-.badge-rarity.rare { color: #38bdf8; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); }
-.badge-rarity.epic { color: #c084fc; background: rgba(192, 132, 252, 0.1); border: 1px solid rgba(192, 132, 252, 0.3); }
-.badge-rarity.legendary { color: #fbbf24; background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3); }
-.badge-rarity.unreal { color: #f43f5e; background: rgba(244, 63, 94, 0.12); border: 1px solid rgba(244, 63, 94, 0.3); }
+/* ROLLERCOIN RARITY RENKLERİ */
+.badge-rarity.common { color: #94a3b8; background: #1a202c; border: 1px solid #4a5568; }
+.badge-rarity.legacy { color: #a0aec0; background: #2d3748; border: 1px solid #4a5568; }
+.badge-rarity.uncommon { color: #00ff88; background: #063820; border: 1px solid #00aa55; }
+.badge-rarity.rare { color: #00e5ff; background: #083344; border: 1px solid #0099cc; }
+.badge-rarity.epic { color: #c084fc; background: #2e1065; border: 1px solid #7c3aed; }
+.badge-rarity.legendary { color: #ffcc00; background: #422006; border: 1px solid #d97706; }
+.badge-rarity.unreal { color: #ff0055; background: #4c0519; border: 1px solid #e11d48; box-shadow: 0 0 8px rgba(255, 0, 85, 0.4); }
 
 .miner-power-box {
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  border-radius: 8px;
+  background: var(--rc-slot-bg);
+  border: 1px solid #232752;
+  border-radius: 6px;
   padding: 6px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: var(--font-mono);
-  font-size: 11.5px;
+  font-family: var(--font-tech);
+  font-size: 13px;
 }
 
 .miner-power-box .lbl {
-  color: #64748b;
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  color: #717d9e;
 }
 
 .miner-power-box .val {
   font-weight: 700;
-  color: var(--accent-cyan);
+  color: var(--rc-green);
+  text-shadow: 0 0 6px var(--rc-green-glow);
 }
 
 /* DAHA FAZLA YÜKLE */
@@ -647,32 +661,38 @@ body {
 }
 
 .btn-load-more {
-  background: rgba(59, 130, 246, 0.1);
-  border: 1px solid var(--primary);
-  color: #fff;
-  font-weight: 600;
-  font-size: 13.5px;
-  padding: 11px 28px;
-  border-radius: 12px;
+  font-family: var(--font-pixel);
+  background: #252b5c;
+  border: 2px solid var(--rc-cyan);
+  color: var(--rc-cyan);
+  font-size: 10px;
+  padding: 12px 24px;
+  border-radius: 6px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  transition: all 0.2s ease;
+  gap: 10px;
+  box-shadow: 0 4px 0 #10132b;
+  transition: all 0.15s;
 }
 
 .btn-load-more:hover {
-  background: var(--primary);
-  box-shadow: 0 4px 20px var(--primary-glow);
-  transform: translateY(-1px);
+  background: var(--rc-cyan);
+  color: #000;
+  box-shadow: 0 4px 0 #10132b, 0 0 20px rgba(0, 229, 255, 0.5);
+}
+
+.btn-load-more:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #10132b;
 }
 
 /* MODAL */
 .pro-modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(3, 7, 18, 0.82);
-  backdrop-filter: blur(14px);
+  background: rgba(7, 8, 18, 0.88);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -681,41 +701,41 @@ body {
 }
 
 .pro-modal-box {
-  background: #0f172a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 18px;
+  background: var(--rc-card);
+  border: 3px solid var(--rc-border-highlight);
+  border-radius: 12px;
   width: 100%;
   max-width: 480px;
   overflow: hidden;
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 30px var(--primary-glow);
-  animation: modalEnter 0.2s ease-out;
-}
-
-@keyframes modalEnter {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 229, 255, 0.2);
 }
 
 .modal-head {
-  padding: 16px 20px;
-  background: rgba(30, 41, 59, 0.4);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 14px 18px;
+  background: #11142e;
+  border-bottom: 2px solid var(--rc-border);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+.modal-head span {
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  color: var(--rc-yellow);
+}
+
 .modal-close-btn {
   background: transparent;
   border: none;
-  color: #94a3b8;
-  font-size: 22px;
+  color: #8b92b2;
+  font-size: 24px;
   cursor: pointer;
   line-height: 1;
 }
 
 .modal-close-btn:hover {
-  color: #fff;
+  color: var(--rc-red);
 }
 
 .modal-content-area {
@@ -723,21 +743,22 @@ body {
 }
 
 .modal-device-view {
-  background: radial-gradient(circle at center, rgba(59, 130, 246, 0.1) 0%, rgba(15, 23, 42, 0.8) 80%);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  padding: 20px;
+  background: var(--rc-slot-bg);
+  border: 2px solid #232752;
+  border-radius: 8px;
+  padding: 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 16px;
+  position: relative;
 }
 
 .modal-device-view img {
   max-width: 160px;
   max-height: 100px;
   object-fit: contain;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .modal-specs {
@@ -751,28 +772,28 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 10px 14px;
-  background: rgba(30, 41, 59, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  border-radius: 8px;
+  background: #0f1026;
+  border: 1px solid var(--rc-border);
+  border-radius: 6px;
 }
 
 .spec-item .k {
-  font-size: 12px;
-  font-weight: 500;
-  color: #94a3b8;
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  color: #8b92b2;
 }
 
 .spec-item .v {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 13px;
-  color: #f8fafc;
+  font-family: var(--font-tech);
+  font-weight: 700;
+  font-size: 15px;
+  color: #fff;
 }
 
 .modal-actions {
-  padding: 14px 20px;
-  background: rgba(30, 41, 59, 0.4);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 14px 18px;
+  background: #11142e;
+  border-top: 2px solid var(--rc-border);
   display: flex;
   justify-content: flex-end;
   gap: 10px;
@@ -782,10 +803,10 @@ body {
 
 <body ng-controller="MiningController">
 
-<!-- LOADER -->
+<!-- ARCADE LOADER -->
 <div class="pro-loader-overlay" ng-show="isLoading || loading">
   <div class="pro-spinner"></div>
-  <div class="loader-text">Veriler Eşitleniyor...</div>
+  <div class="loader-text">VERİLER EŞİTLENİYOR...</div>
 </div>
 
 <div class="rc-app">
@@ -797,7 +818,7 @@ body {
         <img src="img/rcminers.png" alt="RCMiner" style="height: 32px;">
         RC<span>MINER</span>
       </div>
-      <span class="pro-badge d-none d-md-inline-block">Terminal Pro</span>
+      <span class="pro-badge d-none d-md-inline-block">ARCADE V2.0</span>
     </div>
     <div class="d-flex align-items-center gap-2">
       <a href="https://www.youtube.com/@FatihCELIK" target="_blank" class="btn-yt">
@@ -816,56 +837,56 @@ body {
 
       <!-- CANLI ZİYARETÇİ & GİRİŞ İSTATİSTİK WIDGET'I -->
       <section class="visitor-stats-panel">
-        <div class="visitor-stat-card" style="--stat-accent: #38bdf8;">
+        <div class="visitor-stat-card" style="--stat-accent: var(--rc-cyan);">
           <div class="stat-icon-wrap">
             <i class="fas fa-users"></i>
           </div>
           <div class="stat-info">
             <span class="stat-label">Toplam Ziyaretçi</span>
-            <span class="stat-value" id="stat-unique-visitors">Yükleniyor...</span>
+            <span class="stat-value" id="stat-unique-visitors">...</span>
           </div>
         </div>
 
-        <div class="visitor-stat-card" style="--stat-accent: #10b981;">
+        <div class="visitor-stat-card" style="--stat-accent: var(--rc-green);">
           <div class="stat-icon-wrap">
-            <i class="fas fa-eye"></i>
+            <i class="fas fa-bolt"></i>
           </div>
           <div class="stat-info">
-            <span class="stat-label">Toplam Giriş (Hit)</span>
-            <span class="stat-value" id="stat-total-hits">Yükleniyor...</span>
+            <span class="stat-label">Toplam Hit</span>
+            <span class="stat-value" id="stat-total-hits">...</span>
           </div>
         </div>
 
-        <div class="visitor-stat-card" style="--stat-accent: #f59e0b;">
+        <div class="visitor-stat-card" style="--stat-accent: var(--rc-yellow);">
           <div class="stat-icon-wrap">
-            <i class="fas fa-user-clock"></i>
+            <i class="fas fa-gamepad"></i>
           </div>
           <div class="stat-info">
-            <span class="stat-label">Bu Cihazdaki Girişin</span>
+            <span class="stat-label">Cihaz Girişi</span>
             <span class="stat-value" id="stat-local-visits">1</span>
           </div>
         </div>
 
-        <div class="visitor-stat-card" style="--stat-accent: #a855f7;">
+        <div class="visitor-stat-card" style="--stat-accent: var(--rc-pink);">
           <div class="stat-icon-wrap">
             <i class="fas fa-server"></i>
           </div>
           <div class="stat-info">
             <span class="stat-label d-flex align-items-center gap-2">
-              <span class="live-indicator-dot"></span> Terminal Durumu
+              <span class="live-indicator-dot"></span> Terminal
             </span>
-            <span class="stat-value" style="font-size: 14px; color: #34d399; margin-top: 4px;">ÇEVRİMİÇİ</span>
+            <span class="stat-value" style="font-size: 16px; color: var(--rc-green);">ONLINE</span>
           </div>
         </div>
       </section>
 
-      <!-- ÖNERİLEN MADENCİLER SLIDER (CAROUSEL / SHOWCASE) -->
+      <!-- ROLLERCOIN ÖNERİLEN MADENCİLER SLIDER (CAROUSEL) -->
       <section class="featured-slider-section" ng-if="featuredMiners && featuredMiners.length > 0">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <div class="d-flex align-items-center gap-2">
-            <i class="fas fa-fire-flame-curved text-warning fs-5"></i>
-            <span class="fw-bold text-white fs-6">Önerilen & Popüler Madenciler</span>
-            <span class="badge bg-danger rounded-pill px-2 py-1" style="font-size: 10px;">TOP LİSTE</span>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div class="slider-arcade-title">
+            <i class="fas fa-crown text-warning"></i>
+            <span>ÖNERİLEN & POPÜLER MADENCİLER</span>
+            <span class="badge bg-danger ms-2" style="font-family: var(--font-pixel); font-size:7px;">HOT</span>
           </div>
           <div class="d-flex gap-2">
             <button class="slider-nav-btn" ng-click="scrollFeaturedSlider('left')" title="Geri">
@@ -877,13 +898,12 @@ body {
           </div>
         </div>
 
-        <!-- YATAY KAYDIRILABİLİR KART ALANI -->
+        <!-- KAYDIRILABİLİR RAF VİTRİNİ -->
         <div class="featured-track-wrapper" id="featuredSliderTrack">
           <div class="featured-track">
             <div class="featured-slide-card" 
                  ng-repeat="miner in featuredMiners track by $index" 
-                 ng-click="openMinerDetail(miner)"
-                 title="{{miner.name.en}} - Detayları gör">
+                 ng-click="openMinerDetail(miner)">
               
               <div class="featured-img-wrap">
                 <img ng-src="{{getMinerImg(miner)}}" 
@@ -892,7 +912,7 @@ body {
                      crossorigin="anonymous"
                      loading="lazy"
                      onerror="handleImageFallback(this)">
-                <i class="fas fa-cube fallback-icon" style="display:none; font-size:28px; color:#64748b;"></i>
+                <i class="fas fa-cube fallback-icon" style="display:none; font-size:28px; color:#4a5568;"></i>
               </div>
 
               <div class="featured-name">{{miner.name.en}}</div>
@@ -902,8 +922,8 @@ body {
                 <span class="badge-tag badge-bonus" ng-if="miner.bonus_power > 0">+%{{(miner.bonus_power / 100)}}</span>
               </div>
 
-              <div class="miner-power-box py-1 px-2" style="font-size: 11px;">
-                <span class="lbl">GÜÇ</span>
+              <div class="miner-power-box py-1 px-2">
+                <span class="lbl">PWR</span>
                 <span class="val">{{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(1)}} {{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}</span>
               </div>
             </div>
@@ -916,30 +936,30 @@ body {
         
         <div class="panel-header">
           <div class="panel-title">
-            <i class="fas fa-sliders-h" style="color: var(--primary);"></i> 
-            Filtreleme & Madenci Parametreleri
+            <i class="fas fa-sliders-h" style="color: var(--rc-cyan);"></i> 
+            FİLTRE & ARAMA PANELİ
           </div>
           <div class="pro-badge">
-            GÖSTERİLEN: <strong class="text-white">{{(allMiners.length < pager.limit ? allMiners.length : pager.limit) || 0}}</strong> / {{allMiners.length || 0}} Ünite
+            TOPLAM: {{allMiners.length || 0}} MADENCİ
           </div>
         </div>
 
         <div class="alert text-center py-2 mb-3" 
              ng-if="!isLoadedUser" 
-             style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.25); color: #fbbf24; border-radius: 10px; font-size: 13px;">
-          <i class="fas fa-info-circle me-1"></i>
-          Oda envanterinizi eşleştirmek için lütfen kullanıcı adınızı aratarak profilinizi bağlayın.
+             style="background: rgba(255, 204, 0, 0.1); border: 2px dashed var(--rc-yellow); color: var(--rc-yellow); border-radius: 6px; font-size: 12px; font-weight: 600;">
+          <i class="fas fa-exclamation-triangle me-1"></i>
+          Oda envanterinizi eşleştirmek için kullanıcı adınızı yazarak profilinizi bağlayın.
         </div>
 
         <div class="filter-grid">
           
           <div class="input-box">
-            <label>Kullanıcı Tanımla</label>
+            <label>Kullanıcı Arama</label>
             <div class="position-relative">
               <input type="text" 
                      class="w-100"
                      ng-model="userSearchText" 
-                     placeholder="Kullanıcı adı arayın..." 
+                     placeholder="RollerCoin kullanıcı adı..." 
                      typeahead-wait-ms="200"
                      uib-typeahead="player as player.code for player in getPlayerByName($viewValue)"
                      typeahead-no-results="playerSearchNoResults"
@@ -964,7 +984,7 @@ body {
           </div>
 
           <div class="input-box">
-            <label><i class="fas fa-arrow-down-wide-short me-1" style="color: var(--accent-rose);"></i> Sıralama</label>
+            <label>Sıralama Metodu</label>
             <select ng-model="sortCriteria" ng-change="resetPagination()">
               <option value="-bonus_power">🔥 En Yüksek Bonus (Yüksek > Düşük)</option>
               <option value="-power">⚡ En Yüksek Güç (Yüksek > Düşük)</option>
@@ -976,7 +996,7 @@ body {
           </div>
 
           <div class="input-box">
-            <label>Nadirlik Düzeyi</label>
+            <label>Nadirlik (Rarity)</label>
             <select ng-model="allMinersRarity" 
                     ng-change="resetPagination(); filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
               <option value="all">Tüm Düzeyler</option>
@@ -995,13 +1015,13 @@ body {
             <select ng-model="allMinerNegotiableStatus" 
                     ng-change="resetPagination(); filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
               <option value="all">Hepsi</option>
-              <option value="negotiable">Satılabilir</option>
+              <option value="negotiable">Satılabilir (Marketplace)</option>
               <option value="inegotiable">Kilitli / Satılamaz</option>
             </select>
           </div>
 
           <div class="input-box" ng-style="!isLoadedUser && {'opacity': '0.5', 'cursor': 'not-allowed'}">
-            <label>Envanter Filtresi</label>
+            <label>Oda Envanteri</label>
             <select ng-model="allMinerPosessionStatus" 
                     ng-disabled="!isLoadedUser" 
                     ng-change="resetPagination(); filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
@@ -1012,7 +1032,7 @@ body {
           </div>
 
           <div class="input-box">
-            <label>Koleksiyon / Seri</label>
+            <label>Koleksiyon / Set</label>
             <select ng-model="allMinerCollectionId" 
                     ng-change="resetPagination(); filterAllMiners(allMinerNameSearch, allMinersRarity, {min:allMinerMinBonusSearch, max:allMinerMaxBonusSearch}, allMinerNegotiableStatus, allMinerPosessionStatus, allMinerCollectionId, allMinerMinPowerSearch, allMinerMaxPowerSearch, allMinerCells, allMinerMinImpact)">
               <option value="all">Tüm Koleksiyonlar</option>
@@ -1022,22 +1042,22 @@ body {
 
         </div>
 
-        <div class="d-flex justify-content-between align-items-center mt-3 pt-3 flex-wrap gap-2" style="border-top: 1px solid rgba(255, 255, 255, 0.05);">
+        <div class="d-flex justify-content-between align-items-center mt-3 pt-3 flex-wrap gap-2" style="border-top: 2px dashed var(--rc-border);">
           <div class="d-flex gap-2 flex-wrap">
             <button class="btn-action" ng-click="resetPagination(); resetValues()">
-              <i class="fas fa-undo-alt text-primary"></i> Filtreleri Temizle
+              <i class="fas fa-undo-alt text-warning"></i> Sıfırla
             </button>
 
             <button class="btn-action" 
                     ng-click="openUserRoomLink()" 
                     ng-disabled="!isLoadedUser"
                     ng-style="!isLoadedUser && {'opacity': '0.5', 'cursor': 'not-allowed'}">
-              <i class="fas fa-door-open text-warning"></i> Odayı Ziyaret Et
+              <i class="fas fa-door-open text-info"></i> Odayı Aç
             </button>
           </div>
 
           <button class="btn-action btn-action-primary" onclick="takeScreenshot()">
-            <i class="fas fa-camera"></i> Görünümü Kaydet
+            <i class="fas fa-camera"></i> Ekran Görüntüsü Al
           </button>
         </div>
 
@@ -1057,7 +1077,7 @@ body {
                  crossorigin="anonymous"
                  loading="lazy"
                  onerror="handleImageFallback(this)">
-            <i class="fas fa-cube fallback-icon" style="display:none; font-size:32px; color:#64748b;"></i>
+            <i class="fas fa-cube fallback-icon" style="display:none; font-size:32px; color:#4a5568;"></i>
           </div>
 
           <div class="miner-title" title="{{miner.name.en}}">
@@ -1065,13 +1085,13 @@ body {
           </div>
 
           <div class="miner-stats-row">
-            <span class="badge-tag badge-lvl">Seviye: {{miner.level + 1}}</span>
+            <span class="badge-tag badge-lvl">LVL {{miner.level + 1}}</span>
             <span class="badge-tag badge-rarity {{miner.rarity}}">{{miner.rarity}}</span>
-            <span class="badge-tag badge-bonus" ng-if="miner.bonus_power > 0">Bonus: %{{(miner.bonus_power / 100)}}</span>
+            <span class="badge-tag badge-bonus" ng-if="miner.bonus_power > 0">+%{{(miner.bonus_power / 100)}}</span>
           </div>
 
           <div class="miner-power-box">
-            <span class="lbl">GÜÇ</span>
+            <span class="lbl">POWER</span>
             <span class="val">{{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(1)}} {{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}</span>
           </div>
 
@@ -1084,15 +1104,15 @@ body {
                 type="button"
                 ng-if="pager.limit < allMiners.length" 
                 ng-click="loadMore()">
-          <i class="fas fa-chevron-down"></i> DAHA FAZLA GÖSTER
+          <i class="fas fa-arrow-down"></i> DAHA FAZLA YÜKLE
         </button>
 
-        <span class="text-muted" style="font-family: var(--font-mono); font-size: 12px;" ng-if="pager.limit < allMiners.length">
-          Kalan: <strong>{{allMiners.length - pager.limit}}</strong> madenci
+        <span class="text-muted" style="font-family: var(--font-pixel); font-size: 8px;" ng-if="pager.limit < allMiners.length">
+          KALAN: {{allMiners.length - pager.limit}} ADET
         </span>
 
         <div class="pro-badge px-3 py-2" ng-if="pager.limit >= allMiners.length">
-          <i class="fas fa-check-circle me-1 text-success"></i> Tüm madenciler yüklendi (Toplam {{allMiners.length}} adet)
+          <i class="fas fa-check-circle me-1 text-success"></i> HEPSİ LİSTELENDİ ({{allMiners.length}} ADET)
         </div>
       </div>
 
@@ -1106,8 +1126,8 @@ body {
   <div class="pro-modal-box" ng-click="$event.stopPropagation()">
     
     <div class="modal-head">
-      <div class="d-flex align-items-center gap-2 fw-bold text-white">
-        <i class="fas fa-microchip text-primary"></i> 
+      <div class="d-flex align-items-center gap-2">
+        <i class="fas fa-microchip text-warning"></i> 
         <span>{{selectedMiner.name.en}}</span>
       </div>
       <button class="modal-close-btn" ng-click="closeMinerDetail()">&times;</button>
@@ -1122,7 +1142,7 @@ body {
              onerror="handleImageFallback(this)">
         <i class="fas fa-cube fallback-icon" style="font-size: 40px; display:none;"></i>
         <div class="d-flex gap-2 mt-2">
-          <span class="badge-tag badge-lvl">Lvl{{selectedMiner.level + 1}}</span>
+          <span class="badge-tag badge-lvl">LVL {{selectedMiner.level + 1}}</span>
           <span class="badge-tag badge-rarity {{selectedMiner.rarity}}">{{selectedMiner.rarity}}</span>
           <span class="badge-tag badge-bonus" ng-if="selectedMiner.bonus_power > 0">
             +%{{(selectedMiner.bonus_power / 100)}}
@@ -1132,60 +1152,60 @@ body {
 
       <div class="modal-specs">
         <div class="spec-item">
-          <span class="k">Model Adı</span>
-          <span class="v text-primary">{{selectedMiner.name.en}}</span>
+          <span class="k">Model</span>
+          <span class="v" style="color: var(--rc-cyan);">{{selectedMiner.name.en}}</span>
         </div>
 
         <div class="spec-item">
-          <span class="k">Temel Kazım Gücü</span>
+          <span class="k">Temel Güç</span>
           <span class="v">
             {{chooseBestHashRateUnit(selectedMiner.power, 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(selectedMiner.power, 'GH/s').unit}}
           </span>
         </div>
 
         <div class="spec-item">
-          <span class="k">Bonus Katkısı</span>
-          <span class="v text-danger">
+          <span class="k">Bonus Oranı</span>
+          <span class="v" style="color: var(--rc-pink);">
             +{{(selectedMiner.bonus_power / 100)}}%
           </span>
         </div>
 
         <div class="spec-item">
           <span class="k">Net Efektif Güç</span>
-          <span class="v text-success">
+          <span class="v" style="color: var(--rc-green);">
             {{chooseBestHashRateUnit(selectedMiner.power * (1 + (selectedMiner.bonus_power / 10000)), 'GH/s').value.toFixed(2)}} {{chooseBestHashRateUnit(selectedMiner.power * (1 + (selectedMiner.bonus_power / 10000)), 'GH/s').unit}}
           </span>
         </div>
 
         <div class="spec-item">
-          <span class="k">Envanter Durumu</span>
-          <span class="v" ng-style="{'color': selectedMiner.already_have ? '#10b981' : '#f43f5e'}">
-            <i class="fas" ng-class="selectedMiner.already_have ? 'fa-check-circle' : 'fa-times-circle'"></i>
-            {{ selectedMiner.already_have ? 'Odanızda Mevcut' : 'Odanızda Yok' }}
+          <span class="k">Oda Durumu</span>
+          <span class="v" ng-style="{'color': selectedMiner.already_have ? 'var(--rc-green)' : 'var(--rc-red)'}">
+            <i class="fas" ng-class="selectedMiner.already_have ? 'fa-check' : 'fa-times'"></i>
+            {{ selectedMiner.already_have ? 'MEVCUT' : 'YOK' }}
           </span>
         </div>
 
         <div class="spec-item">
-          <span class="k">Market Ticareti</span>
-          <span class="v" ng-style="{'color': selectedMiner.is_can_be_sold_on_mp ? '#06b6d4' : '#64748b'}">
+          <span class="k">Market</span>
+          <span class="v" ng-style="{'color': selectedMiner.is_can_be_sold_on_mp ? 'var(--rc-cyan)' : '#717d9e'}">
             <i class="fas" ng-class="selectedMiner.is_can_be_sold_on_mp ? 'fa-store' : 'fa-lock'"></i>
-            {{ selectedMiner.is_can_be_sold_on_mp ? 'Satılabilir' : 'Kilitli' }}
+            {{ selectedMiner.is_can_be_sold_on_mp ? 'SATILABİLİR' : 'KİLİTLİ' }}
           </span>
         </div>
 
         <div class="spec-item" ng-if="selectedMiner.cells">
           <span class="k">Raf Yuvası</span>
-          <span class="v">{{selectedMiner.cells}} Hücre</span>
+          <span class="v">{{selectedMiner.cells}} HÜCRE</span>
         </div>
       </div>
     </div>
 
     <div class="modal-actions">
       <button class="btn-action btn-action-primary" ng-click="openBuyLink(selectedMiner)">
-        <i class="fas fa-shopping-cart"></i> Markette Gör
+        <i class="fas fa-shopping-cart"></i> MARKETTE GÖR
       </button>
       <button class="btn-action" ng-click="closeMinerDetail()">
-        Kapat
+        KAPAT
       </button>
     </div>
 
@@ -1289,17 +1309,14 @@ angular.element(document).ready(function() {
     scope.isLoading = true;
     scope.featuredMiners = [];
 
-    // Önerilen Madencileri Çekme Fonksiyonu
     function updateFeaturedMiners(miners) {
       if (!miners || !miners.length) return;
-      // Bonus veya gücü yüksek olanları öne çıkar
       const sorted = [...miners].sort((a, b) => {
         const bonusA = a.bonus_power || 0;
         const bonusB = b.bonus_power || 0;
         if (bonusB !== bonusA) return bonusB - bonusA;
         return (b.power || 0) - (a.power || 0);
       });
-      // İlk 15 popüler/güçlü madenciyi carousel vitrinine ata
       scope.featuredMiners = sorted.slice(0, 15);
     }
 
@@ -1310,11 +1327,10 @@ angular.element(document).ready(function() {
       }
     });
 
-    // Slider Gezinme (Sağa/Sola Kaydırma)
     scope.scrollFeaturedSlider = function(direction) {
       const container = document.getElementById('featuredSliderTrack');
       if (!container) return;
-      const scrollStep = 240 * 2; // 2 kart genişliği kaydır
+      const scrollStep = 220 * 2;
       if (direction === 'left') {
         container.scrollBy({ left: -scrollStep, behavior: 'smooth' });
       } else {
@@ -1366,19 +1382,19 @@ async function takeScreenshot() {
 
   const header = document.createElement("div");
   header.style.padding = "14px";
-  header.style.background = "#090d16";
-  header.style.color = "#38bdf8";
-  header.style.fontSize = "13px";
-  header.style.fontFamily = "monospace";
+  header.style.background = "#0b0c1b";
+  header.style.color = "#00e5ff";
+  header.style.fontSize = "11px";
+  header.style.fontFamily = "'Press Start 2P', monospace";
   header.style.textAlign = "center";
-  header.style.borderBottom = "1px solid rgba(56, 189, 248, 0.2)";
-  header.innerHTML = `[RCMINER PORTAL] | KULLANICI: <b>${username}</b> | TARİH: ${formattedDate}`;
+  header.style.borderBottom = "2px solid #00e5ff";
+  header.innerHTML = `[ROLLERCOIN TERMINAL] | USER: <b>${username}</b> | DATE: ${formattedDate}`;
 
   element.prepend(header);
 
   try {
     const canvas = await html2canvas(element, {
-      backgroundColor: "#090d16",
+      backgroundColor: "#0b0c1b",
       scale: 2,
       useCORS: true
     });
