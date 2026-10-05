@@ -164,6 +164,7 @@ body {
   z-index: 1000;
 }
 
+/* ANİMASYONLU NAVBAR BAŞLIĞI */
 .pro-brand {
   font-family: var(--font-pixel);
   font-size: 15px;
@@ -171,12 +172,52 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+  cursor: pointer;
+  user-select: none;
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.6);
+  animation: brandFloat 3s ease-in-out infinite alternate;
+}
+
+.pro-brand img {
+  height: 32px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: logoPulse 2.8s ease-in-out infinite;
+}
+
+.pro-brand:hover img {
+  transform: rotate(-12deg) scale(1.18);
 }
 
 .pro-brand span {
+  display: inline-block;
   color: var(--rc-yellow);
   text-shadow: 0 0 10px var(--rc-yellow-glow);
+  animation: neonGlow 2.5s infinite alternate ease-in-out;
+}
+
+@keyframes brandFloat {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-2px); }
+}
+
+@keyframes logoPulse {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.4)); }
+  50% { filter: drop-shadow(0 0 12px rgba(0, 255, 136, 0.8)); transform: scale(1.05); }
+}
+
+@keyframes neonGlow {
+  0% {
+    color: var(--rc-yellow);
+    text-shadow: 0 0 8px rgba(255, 204, 0, 0.5), 0 0 18px rgba(255, 204, 0, 0.3);
+  }
+  50% {
+    color: var(--rc-green);
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.8), 0 0 24px rgba(0, 255, 136, 0.5);
+  }
+  100% {
+    color: var(--rc-cyan);
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.8), 0 0 24px rgba(0, 229, 255, 0.5);
+  }
 }
 
 .pro-badge {
@@ -612,9 +653,7 @@ body {
   margin-bottom: 8px;
 }
 
-/* ========================================================
-   MINER ÖZELLİKLERİ VE METRİKLER (ANİMASYONLU)
-   ======================================================== */
+/* MINER ÖZELLİKLERİ VE METRİKLER (ANİMASYONLU) */
 .miner-stats-row {
   display: flex;
   justify-content: center;
@@ -870,7 +909,7 @@ body {
   margin-bottom: 10px;
 }
 
-/* MODAL ÖZELLİK SATIRLARI (SIRALI KAYMA EFEKTLİ) */
+/* MODAL ÖZELLİK SATIRLARI */
 .modal-specs {
   display: flex;
   flex-direction: column;
@@ -1363,6 +1402,53 @@ body {
 </div>
 
 <script>
+// --- TARAYICI BAŞLIĞI (DOCUMENT TITLE) ANİMASYONU ---
+(function animateDocTitle() {
+  const titles = [
+    "⚡ RCMiner - Madenci Listesi! ⚡",
+    "🎮 RollerCoin Madencilerini Keşfet!",
+    "🚀 En Yüksek Güç & Bonuslar!",
+    "⛏️ RCMiner Canlı Portföy ⛏️"
+  ];
+  
+  let titleIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  let currentText = "";
+  
+  function tick() {
+    const fullText = titles[titleIndex];
+
+    if (!isDeleting) {
+      currentText = fullText.substring(0, charIndex + 1);
+      charIndex++;
+      document.title = currentText + " ▌";
+
+      if (charIndex === fullText.length) {
+        document.title = currentText;
+        isDeleting = true;
+        setTimeout(tick, 2200);
+        return;
+      }
+    } else {
+      currentText = fullText.substring(0, charIndex - 1);
+      charIndex--;
+      document.title = currentText + (charIndex > 0 ? " ▌" : "");
+
+      if (charIndex === 0) {
+        isDeleting = false;
+        titleIndex = (titleIndex + 1) % titles.length;
+        setTimeout(tick, 500);
+        return;
+      }
+    }
+
+    setTimeout(tick, isDeleting ? 45 : 90);
+  }
+
+  tick();
+})();
+
 // --- CANLI SAAT VE TARİH SAYACI (HER SANİYE GÜNCELLENİR) ---
 (function initLiveDateTime() {
   const elDate = document.getElementById('nav-live-date');
