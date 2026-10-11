@@ -60,16 +60,18 @@
   --rc-yellow: #ffcc00;
   --rc-yellow-glow: rgba(255, 204, 0, 0.4);
   --rc-cyan: #00e5ff;
+  --rc-cyan-glow: rgba(0, 229, 255, 0.4);
   --rc-purple: #9d4edd;
   --rc-pink: #ff007f;
+  --rc-pink-glow: rgba(255, 0, 127, 0.4);
   --rc-red: #ff3366;
   
-  --rc-bg: #0b0c1b;
-  --rc-card: #151833;
-  --rc-card-alt: #1c2042;
-  --rc-slot-bg: #0a0b16;
-  --rc-border: #2c3260;
-  --rc-border-highlight: #434c8c;
+  --rc-bg: #090a16;
+  --rc-card: #12152e;
+  --rc-card-alt: #1a1e42;
+  --rc-slot-bg: #070812;
+  --rc-border: #232854;
+  --rc-border-highlight: #3d468a;
 
   --font-pixel: 'Press Start 2P', monospace;
   --font-tech: 'Chakra Petch', sans-serif;
@@ -80,13 +82,30 @@
   box-sizing: border-box;
 }
 
+/* ÖZEL SCROLLBAR */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--rc-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #252b5c;
+  border-radius: 4px;
+  border: 1px solid var(--rc-border-highlight);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--rc-cyan);
+}
+
 body {
   background-color: var(--rc-bg) !important;
   background-image: 
-    radial-gradient(ellipse at 50% 0%, rgba(26, 31, 74, 0.8) 0%, transparent 70%),
-    linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
-  background-size: 100% 100%, 28px 28px, 28px 28px;
+    radial-gradient(ellipse at 50% -10%, rgba(31, 38, 97, 0.75) 0%, transparent 60%),
+    linear-gradient(rgba(0, 229, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.035) 1px, transparent 1px);
+  background-size: 100% 100%, 32px 32px, 32px 32px;
   color: #e2e8f0;
   font-family: var(--font-tech);
   font-size: 14px;
@@ -100,14 +119,15 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #0f1026;
+  background: rgba(15, 16, 38, 0.85);
+  backdrop-filter: blur(6px);
   border: 1px solid var(--rc-border-highlight);
-  border-radius: 6px;
-  padding: 6px 12px;
+  border-radius: 8px;
+  padding: 6px 14px;
   font-family: var(--font-pixel);
   font-size: 8px;
   color: #8fa0dd;
-  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6), 0 0 10px rgba(0, 229, 255, 0.1);
 }
 
 .live-datetime-badge .time-val {
@@ -115,56 +135,21 @@ body {
   font-family: var(--font-tech);
   font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.5px;
-}
-
-/* ARCADE LOADER */
-.pro-loader-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(11, 12, 27, 0.94);
-  backdrop-filter: blur(8px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 99999;
-}
-
-.pro-spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px dashed var(--rc-green);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  box-shadow: 0 0 25px var(--rc-green-glow);
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.loader-text {
-  margin-top: 20px;
-  font-family: var(--font-pixel);
-  font-size: 11px;
-  color: var(--rc-yellow);
-  letter-spacing: 1px;
-  text-shadow: 0 0 8px var(--rc-yellow-glow);
+  letter-spacing: 0.8px;
 }
 
 /* NAVBAR */
 .pro-nav {
-  height: 70px;
-  background: rgba(21, 24, 51, 0.95);
-  border-bottom: 3px solid #232750;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+  height: 72px;
+  background: rgba(18, 21, 46, 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 2px solid var(--rc-border);
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.8);
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
-/* ANİMASYONLU NAVBAR BAŞLIĞI */
 .pro-brand {
   font-family: var(--font-pixel);
   font-size: 15px;
@@ -179,13 +164,13 @@ body {
 }
 
 .pro-brand img {
-  height: 32px;
+  height: 34px;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   animation: logoPulse 2.8s ease-in-out infinite;
 }
 
 .pro-brand:hover img {
-  transform: rotate(-12deg) scale(1.18);
+  transform: rotate(-10deg) scale(1.15);
 }
 
 .pro-brand span {
@@ -206,50 +191,46 @@ body {
 }
 
 @keyframes neonGlow {
-  0% {
-    color: var(--rc-yellow);
-    text-shadow: 0 0 8px rgba(255, 204, 0, 0.5), 0 0 18px rgba(255, 204, 0, 0.3);
-  }
-  50% {
-    color: var(--rc-green);
-    text-shadow: 0 0 10px rgba(0, 255, 136, 0.8), 0 0 24px rgba(0, 255, 136, 0.5);
-  }
-  100% {
-    color: var(--rc-cyan);
-    text-shadow: 0 0 10px rgba(0, 229, 255, 0.8), 0 0 24px rgba(0, 229, 255, 0.5);
-  }
+  0% { color: var(--rc-yellow); text-shadow: 0 0 8px rgba(255, 204, 0, 0.6); }
+  50% { color: var(--rc-green); text-shadow: 0 0 10px rgba(0, 255, 136, 0.8); }
+  100% { color: var(--rc-cyan); text-shadow: 0 0 10px rgba(0, 229, 255, 0.8); }
 }
 
 .pro-badge {
   font-family: var(--font-pixel);
   font-size: 8px;
-  padding: 5px 8px;
+  padding: 5px 10px;
   background: #0f1026;
   border: 1px solid var(--rc-cyan);
   color: var(--rc-cyan);
-  box-shadow: 0 0 8px rgba(0, 229, 255, 0.3);
-  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.25);
+  border-radius: 6px;
 }
 
 .btn-yt {
   font-family: var(--font-pixel);
-  background: #d90429;
+  background: linear-gradient(180deg, #e60026 0%, #a8001a 100%);
   color: #fff !important;
-  border: 2px solid #ef233c;
-  box-shadow: 0 4px 0 #8d0801;
+  border: 1px solid #ff4d6d;
+  box-shadow: 0 4px 0 #670010, 0 0 10px rgba(230, 0, 38, 0.4);
   font-size: 9px;
-  padding: 8px 12px;
+  padding: 8px 14px;
   border-radius: 6px;
   text-decoration: none !important;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  transition: transform 0.1s, box-shadow 0.1s;
+  gap: 7px;
+  transition: all 0.15s ease;
+}
+
+.btn-yt:hover {
+  filter: brightness(1.15);
+  box-shadow: 0 4px 0 #670010, 0 0 16px rgba(255, 77, 109, 0.6);
 }
 
 .btn-yt:active {
   transform: translateY(3px);
-  box-shadow: 0 1px 0 #8d0801;
+  box-shadow: 0 1px 0 #670010;
 }
 
 /* ZİYARETÇİ WIDGETI */
@@ -262,18 +243,24 @@ body {
 
 .visitor-stat-card {
   background: var(--rc-card);
-  border: 2px solid var(--rc-border);
-  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.4), 0 4px 10px rgba(0, 0, 0, 0.5);
-  border-radius: 8px;
-  padding: 14px;
+  border: 1px solid var(--rc-border);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+  border-radius: 10px;
+  padding: 14px 16px;
   display: flex;
   align-items: center;
   gap: 14px;
   position: relative;
   overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s;
 }
 
-.visitor-stat-card::after {
+.visitor-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--stat-accent, var(--rc-cyan));
+}
+
+.visitor-stat-card::before {
   content: "";
   position: absolute;
   top: 0;
@@ -281,20 +268,21 @@ body {
   width: 4px;
   height: 100%;
   background: var(--stat-accent, var(--rc-cyan));
-  box-shadow: 0 0 8px var(--stat-accent, var(--rc-cyan));
+  box-shadow: 0 0 10px var(--stat-accent, var(--rc-cyan));
 }
 
 .stat-icon-wrap {
-  width: 42px;
-  height: 42px;
-  border-radius: 6px;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  background: #0f1026;
+  font-size: 19px;
+  background: #090a16;
   color: var(--stat-accent, var(--rc-cyan));
   border: 1px solid var(--rc-border);
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
 }
 
 .stat-info .stat-label {
@@ -331,13 +319,13 @@ body {
    ROLLERCOIN TARZI ÖNERİLEN MADENCİLER SLIDER (CAROUSEL)
    ======================================================== */
 .featured-slider-section {
-  background: linear-gradient(180deg, #181c3c 0%, #11142e 100%);
-  border: 2px solid #2d3368;
-  border-radius: 12px;
-  padding: 16px 18px;
+  background: linear-gradient(180deg, #151838 0%, #0d0f24 100%);
+  border: 2px solid var(--rc-border-highlight);
+  border-radius: 14px;
+  padding: 16px 20px;
   margin-top: 18px;
   position: relative;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06);
 }
 
 .slider-arcade-title {
@@ -351,13 +339,13 @@ body {
 }
 
 .slider-nav-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 6px;
-  background: #252b5c;
-  border: 2px solid #3c4587;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: #1f2552;
+  border: 2px solid #363e7d;
   color: #fff;
-  box-shadow: 0 3px 0 #121530;
+  box-shadow: 0 4px 0 #0b0d1e;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -369,12 +357,12 @@ body {
   background: var(--rc-cyan);
   border-color: #fff;
   color: #000;
-  box-shadow: 0 3px 0 #008899, 0 0 12px rgba(0, 229, 255, 0.6);
+  box-shadow: 0 4px 0 #007788, 0 0 15px rgba(0, 229, 255, 0.6);
 }
 
 .slider-nav-btn:active {
   transform: translateY(2px);
-  box-shadow: 0 1px 0 #121530;
+  box-shadow: 0 1px 0 #0b0d1e;
 }
 
 .featured-track-wrapper {
@@ -382,7 +370,7 @@ body {
   scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding: 10px 4px 6px;
+  padding: 12px 4px 8px;
 }
 
 .featured-track-wrapper::-webkit-scrollbar {
@@ -395,58 +383,58 @@ body {
   width: max-content;
 }
 
-/* ROLLERCOIN RACK / RAF MADENCİ KARTI */
 .featured-slide-card {
-  width: 200px;
+  width: 205px;
   flex-shrink: 0;
-  background: #171b3a;
-  border: 2px solid #2e356e;
-  border-radius: 8px;
+  background: #141733;
+  border: 2px solid #282f63;
+  border-radius: 10px;
   padding: 12px;
   cursor: pointer;
   position: relative;
-  transition: all 0.2s ease;
-  box-shadow: 0 5px 0 #0c0e21;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 6px 0 #090a18;
 }
 
 .featured-slide-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
   border-color: var(--rc-green);
-  box-shadow: 0 8px 0 #0c0e21, 0 0 18px var(--rc-green-glow);
+  box-shadow: 0 10px 0 #090a18, 0 0 20px var(--rc-green-glow);
 }
 
 .featured-slide-card .featured-img-wrap {
   width: 100%;
-  height: 80px;
+  height: 85px;
   background: var(--rc-slot-bg);
   border: 1px solid #232752;
-  border-radius: 6px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 8px;
   position: relative;
+  overflow: hidden;
 }
 
 .featured-slide-card .featured-img-wrap::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0px, rgba(0, 0, 0, 0.2) 2px, transparent 2px, transparent 4px);
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.25) 0px, rgba(0, 0, 0, 0.25) 2px, transparent 2px, transparent 4px);
   pointer-events: none;
 }
 
 .featured-slide-card .featured-img-wrap img {
-  max-width: 80%;
-  max-height: 64px;
+  max-width: 82%;
+  max-height: 68px;
   object-fit: contain;
   filter: drop-shadow(0 4px 6px rgba(0,0,0,0.8));
-  transition: transform 0.2s;
+  transition: transform 0.25s;
   z-index: 1;
 }
 
 .featured-slide-card:hover .featured-img-wrap img {
-  transform: scale(1.1);
+  transform: scale(1.12);
 }
 
 .featured-name {
@@ -465,9 +453,9 @@ body {
 .glass-panel {
   background: var(--rc-card);
   border: 2px solid var(--rc-border);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-  border-radius: 12px;
-  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+  border-radius: 14px;
+  padding: 22px;
   margin-top: 18px;
 }
 
@@ -477,7 +465,7 @@ body {
   align-items: center;
   padding-bottom: 14px;
   border-bottom: 2px dashed var(--rc-border);
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   flex-wrap: wrap;
   gap: 12px;
 }
@@ -489,6 +477,42 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+/* HIZLI FİLTRE ROLLER (CHIPS) */
+.filter-chips-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+}
+.filter-chips-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.chip-btn {
+  background: #181d3d;
+  border: 1px solid #2e366b;
+  color: #a0aec0;
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+.chip-btn:hover {
+  color: #fff;
+  border-color: var(--rc-cyan);
+}
+.chip-btn.active {
+  background: rgba(0, 229, 255, 0.15);
+  border-color: var(--rc-cyan);
+  color: var(--rc-cyan);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
 }
 
 .filter-grid {
@@ -513,60 +537,61 @@ body {
 
 .input-box input,
 .input-box select {
-  background: #0f1026 !important;
-  border: 2px solid #2d3368 !important;
+  background: #0a0b18 !important;
+  border: 2px solid #282f63 !important;
   color: #fff !important;
-  border-radius: 6px !important;
+  border-radius: 8px !important;
   font-family: var(--font-tech);
   font-size: 14px !important;
   font-weight: 600;
-  padding: 8px 12px !important;
-  height: 42px;
+  padding: 8px 14px !important;
+  height: 44px;
   outline: none !important;
-  transition: border-color 0.2s;
+  transition: all 0.2s;
 }
 
 .input-box input:focus,
 .input-box select:focus {
   border-color: var(--rc-cyan) !important;
-  box-shadow: 0 0 10px rgba(0, 229, 255, 0.4) !important;
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.4) !important;
+  background: #0e1022 !important;
 }
 
 .input-box select option {
-  background: #0f1026;
+  background: #0a0b18;
   color: #fff;
 }
 
-/* BUTONLAR (ARCADE STYLE) */
+/* BUTONLAR */
 .btn-action {
   font-family: var(--font-pixel);
   font-size: 9px;
-  padding: 10px 16px;
-  border-radius: 6px;
+  padding: 10px 18px;
+  border-radius: 8px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  border: 2px solid #3c4587;
-  background: #202652;
+  border: 2px solid #363e7d;
+  background: #1b2046;
   color: #fff;
-  box-shadow: 0 4px 0 #10132b;
-  transition: all 0.1s;
+  box-shadow: 0 4px 0 #090b1a;
+  transition: all 0.15s;
 }
 
 .btn-action:hover:not([disabled]) {
-  background: #2b336e;
+  background: #252c61;
   border-color: var(--rc-cyan);
   color: #fff;
 }
 
 .btn-action:active:not([disabled]) {
   transform: translateY(3px);
-  box-shadow: 0 1px 0 #10132b;
+  box-shadow: 0 1px 0 #090b1a;
 }
 
 .btn-action-primary {
-  background: #00aa55;
+  background: linear-gradient(180deg, #00d970 0%, #00994f 100%);
   border-color: var(--rc-green);
   color: #000;
   font-weight: 700;
@@ -575,14 +600,14 @@ body {
 
 .btn-action-primary:hover:not([disabled]) {
   background: var(--rc-green);
-  box-shadow: 0 4px 0 #00552b, 0 0 15px var(--rc-green-glow);
+  box-shadow: 0 4px 0 #00552b, 0 0 18px var(--rc-green-glow);
   color: #000;
 }
 
 /* MADENCİ GRID */
 .miner-cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 16px;
   margin-top: 22px;
 }
@@ -590,29 +615,51 @@ body {
 .miner-item-card {
   background: var(--rc-card);
   border: 2px solid var(--rc-border);
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 14px;
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  box-shadow: 0 5px 0 #0b0c1b;
-  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 6px 0 #070812;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Kart Işık Taraması */
+.miner-item-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  transform: skewX(-25deg);
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+
+.miner-item-card:hover::before {
+  left: 200%;
 }
 
 .miner-item-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
   border-color: var(--rc-cyan);
-  box-shadow: 0 8px 0 #0b0c1b, 0 0 16px rgba(0, 229, 255, 0.35);
+  box-shadow: 0 10px 0 #070812, 0 0 20px rgba(0, 229, 255, 0.35);
 }
+
+/* Rarity Kenar Vurguları */
+.miner-item-card.border-legendary { border-color: rgba(255, 204, 0, 0.5); }
+.miner-item-card.border-unreal { border-color: rgba(255, 0, 85, 0.6); }
 
 .miner-img-wrapper {
   width: 100%;
-  height: 95px;
+  height: 100px;
   background: var(--rc-slot-bg);
-  border: 1px solid #232752;
-  border-radius: 6px;
+  border: 1px solid #1f2347;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -629,16 +676,16 @@ body {
 }
 
 .miner-img-wrapper img {
-  max-width: 82%;
-  max-height: 75px;
+  max-width: 84%;
+  max-height: 80px;
   object-fit: contain;
   filter: drop-shadow(0 4px 8px rgba(0,0,0,0.8));
-  transition: transform 0.2s;
+  transition: transform 0.25s;
   z-index: 1;
 }
 
 .miner-item-card:hover .miner-img-wrapper img {
-  transform: scale(1.08);
+  transform: scale(1.1);
 }
 
 .miner-title {
@@ -653,7 +700,6 @@ body {
   margin-bottom: 8px;
 }
 
-/* MINER ÖZELLİKLERİ VE METRİKLER (ANİMASYONLU) */
 .miner-stats-row {
   display: flex;
   justify-content: center;
@@ -668,8 +714,7 @@ body {
   padding: 4px 6px;
   border-radius: 4px;
   text-transform: uppercase;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
-  will-change: transform;
+  transition: transform 0.25s, box-shadow 0.25s;
 }
 
 .miner-item-card:hover .badge-tag {
@@ -677,35 +722,32 @@ body {
 }
 
 .badge-lvl {
-  background: #142850;
+  background: #121e3d;
   color: var(--rc-cyan);
-  border: 1px solid #1e528a;
+  border: 1px solid #1f4270;
   box-shadow: 0 0 6px rgba(0, 229, 255, 0.2);
 }
 
-/* Bonus Güç Nabız Animasyonu */
 .badge-bonus {
-  background: #3d0c24;
+  background: #3a0d24;
   color: #ff4d94;
-  border: 1px solid #80184b;
-  position: relative;
-  overflow: hidden;
+  border: 1px solid #7a1548;
   animation: pulseBonus 2.2s infinite ease-in-out;
 }
 
 @keyframes pulseBonus {
   0%, 100% {
     box-shadow: 0 0 5px rgba(255, 77, 148, 0.3);
-    border-color: #80184b;
+    border-color: #7a1548;
   }
   50% {
-    box-shadow: 0 0 12px rgba(255, 77, 148, 0.8), inset 0 0 4px rgba(255, 77, 148, 0.4);
+    box-shadow: 0 0 12px rgba(255, 77, 148, 0.8);
     border-color: #ff4d94;
-    transform: scale(1.04);
+    transform: scale(1.05);
   }
 }
 
-/* ROLLERCOIN RARITY RENKLERİ VE IŞIMALAR */
+/* RARITY RENKLERİ */
 .badge-rarity.common { color: #94a3b8; background: #1a202c; border: 1px solid #4a5568; }
 .badge-rarity.legacy { color: #a0aec0; background: #2d3748; border: 1px solid #4a5568; }
 .badge-rarity.uncommon { color: #00ff88; background: #063820; border: 1px solid #00aa55; }
@@ -719,7 +761,7 @@ body {
 }
 @keyframes legendaryGlow {
   0% { box-shadow: 0 0 4px rgba(255, 204, 0, 0.2); }
-  100% { box-shadow: 0 0 12px rgba(255, 204, 0, 0.7); }
+  100% { box-shadow: 0 0 14px rgba(255, 204, 0, 0.8); }
 }
 
 .badge-rarity.unreal { 
@@ -730,10 +772,10 @@ body {
 }
 @keyframes unrealPulse {
   0% { box-shadow: 0 0 6px rgba(255, 0, 85, 0.4); }
-  100% { box-shadow: 0 0 16px rgba(255, 0, 85, 0.95), inset 0 0 4px #ff0055; }
+  100% { box-shadow: 0 0 16px rgba(255, 0, 85, 0.95); }
 }
 
-/* POWER KUTUSU & IŞIK TARAMASI */
+/* POWER KUTUSU & SÜPÜRME EFEKTİ */
 .miner-power-box {
   background: var(--rc-slot-bg);
   border: 1px solid #232752;
@@ -756,12 +798,7 @@ body {
   left: -100%;
   width: 50%;
   height: 200%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(0, 255, 136, 0.25) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 255, 136, 0.25) 50%, transparent 100%);
   transform: rotate(25deg);
   pointer-events: none;
 }
@@ -796,7 +833,41 @@ body {
 }
 
 .miner-item-card:hover .miner-power-box .val {
-  transform: scale(1.05);
+  transform: scale(1.06);
+}
+
+/* YUKARI ÇIK BUTONU (BACK TO TOP) */
+.back-to-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #181d42;
+  border: 2px solid var(--rc-cyan);
+  color: var(--rc-cyan);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 999;
+  transition: all 0.2s ease;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.back-to-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top-btn:hover {
+  background: var(--rc-cyan);
+  color: #000;
+  transform: translateY(-4px);
+  box-shadow: 0 0 25px rgba(0, 229, 255, 0.8);
 }
 
 /* DAHA FAZLA YÜKLE */
@@ -810,29 +881,29 @@ body {
 
 .btn-load-more {
   font-family: var(--font-pixel);
-  background: #252b5c;
+  background: #1a204d;
   border: 2px solid var(--rc-cyan);
   color: var(--rc-cyan);
   font-size: 10px;
-  padding: 12px 24px;
-  border-radius: 6px;
+  padding: 12px 26px;
+  border-radius: 8px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  box-shadow: 0 4px 0 #10132b;
+  box-shadow: 0 4px 0 #0b0d1e;
   transition: all 0.15s;
 }
 
 .btn-load-more:hover {
   background: var(--rc-cyan);
   color: #000;
-  box-shadow: 0 4px 0 #10132b, 0 0 20px rgba(0, 229, 255, 0.5);
+  box-shadow: 0 4px 0 #0b0d1e, 0 0 20px rgba(0, 229, 255, 0.5);
 }
 
 .btn-load-more:active {
   transform: translateY(3px);
-  box-shadow: 0 1px 0 #10132b;
+  box-shadow: 0 1px 0 #0b0d1e;
 }
 
 /* MODAL */
@@ -850,17 +921,17 @@ body {
 
 .pro-modal-box {
   background: var(--rc-card);
-  border: 3px solid var(--rc-border-highlight);
-  border-radius: 12px;
+  border: 2px solid var(--rc-border-highlight);
+  border-radius: 14px;
   width: 100%;
   max-width: 480px;
   overflow: hidden;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 229, 255, 0.2);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), 0 0 35px rgba(0, 229, 255, 0.2);
 }
 
 .modal-head {
-  padding: 14px 18px;
-  background: #11142e;
+  padding: 14px 20px;
+  background: #0f122c;
   border-bottom: 2px solid var(--rc-border);
   display: flex;
   justify-content: space-between;
@@ -893,7 +964,7 @@ body {
 .modal-device-view {
   background: var(--rc-slot-bg);
   border: 2px solid #232752;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 18px;
   display: flex;
   flex-direction: column;
@@ -909,7 +980,6 @@ body {
   margin-bottom: 10px;
 }
 
-/* MODAL ÖZELLİK SATIRLARI */
 .modal-specs {
   display: flex;
   flex-direction: column;
@@ -921,36 +991,22 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 10px 14px;
-  background: #0f1026;
+  background: #0a0b18;
   border: 1px solid var(--rc-border);
-  border-radius: 6px;
+  border-radius: 8px;
   position: relative;
-  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  transition: transform 0.2s, background 0.2s;
   animation: slideFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.spec-item:nth-child(1) { animation-delay: 0.05s; }
-.spec-item:nth-child(2) { animation-delay: 0.10s; }
-.spec-item:nth-child(3) { animation-delay: 0.15s; }
-.spec-item:nth-child(4) { animation-delay: 0.20s; }
-.spec-item:nth-child(5) { animation-delay: 0.25s; }
-.spec-item:nth-child(6) { animation-delay: 0.30s; }
-.spec-item:nth-child(7) { animation-delay: 0.35s; }
-
 @keyframes slideFadeIn {
-  from {
-    opacity: 0;
-    transform: translateX(-12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 .spec-item:hover {
   transform: translateX(4px);
-  background: #141738;
+  background: #111430;
   border-color: var(--rc-border-highlight);
 }
 
@@ -965,16 +1021,11 @@ body {
   font-weight: 700;
   font-size: 15px;
   color: #fff;
-  transition: text-shadow 0.2s ease;
-}
-
-.spec-item:hover .v {
-  text-shadow: 0 0 8px currentColor;
 }
 
 .modal-actions {
-  padding: 14px 18px;
-  background: #11142e;
+  padding: 14px 20px;
+  background: #0f122c;
   border-top: 2px solid var(--rc-border);
   display: flex;
   justify-content: flex-end;
@@ -994,9 +1045,9 @@ body {
         <img src="img/rcminers.png" alt="RCMiner" style="height: 32px;">
         RC<span>MINER</span>
       </div>
-      <span class="pro-badge d-none d-md-inline-block">V2.0</span>
+      <span class="pro-badge d-none d-md-inline-block">V2.5</span>
       
-      <!-- CANLI SAAT VE TARİH BİLEŞENİ -->
+      <!-- CANLI SAAT VE TARİH -->
       <div class="live-datetime-badge d-none d-lg-inline-flex" title="Sistem Canlı Saati">
         <i class="fas fa-clock text-warning"></i>
         <span id="nav-live-date">--.--.----</span>
@@ -1005,7 +1056,6 @@ body {
     </div>
     
     <div class="d-flex align-items-center gap-2">
-      <!-- Mobil için mini saat -->
       <div class="live-datetime-badge d-inline-flex d-lg-none py-1 px-2">
         <span class="time-val" id="nav-live-time-mobile" style="font-size: 11px;">--:--:--</span>
       </div>
@@ -1069,7 +1119,7 @@ body {
         </div>
       </section>
 
-      <!-- ROLLERCOIN ÖNERİLEN MADENCİLER SLIDER (CAROUSEL) -->
+      <!-- ROLLERCOIN ÖNERİLEN MADENCİLER SLIDER -->
       <section class="featured-slider-section" ng-if="featuredMiners && featuredMiners.length > 0">
         <div class="d-flex justify-content-between align-items-center mb-2">
           <div class="slider-arcade-title">
@@ -1087,7 +1137,6 @@ body {
           </div>
         </div>
 
-        <!-- KAYDIRILABİLİR RAF VİTRİNİ -->
         <div class="featured-track-wrapper" id="featuredSliderTrack">
           <div class="featured-track">
             <div class="featured-slide-card" 
@@ -1133,9 +1182,19 @@ body {
           </div>
         </div>
 
+        <!-- YENİ: HIZLI FİLTRE CHIPS -->
+        <div class="filter-chips-bar">
+          <button class="chip-btn" ng-class="{'active': allMinersRarity === 'all'}" ng-click="setQuickRarity('all')">Tümü</button>
+          <button class="chip-btn" ng-class="{'active': allMinersRarity === 'unreal'}" ng-click="setQuickRarity('unreal')">⚡ Unreal</button>
+          <button class="chip-btn" ng-class="{'active': allMinersRarity === 'legendary'}" ng-click="setQuickRarity('legendary')">👑 Legendary</button>
+          <button class="chip-btn" ng-class="{'active': allMinersRarity === 'epic'}" ng-click="setQuickRarity('epic')">🔮 Epic</button>
+          <button class="chip-btn" ng-class="{'active': allMinersRarity === 'rare'}" ng-click="setQuickRarity('rare')">🔷 Rare</button>
+          <button class="chip-btn" ng-class="{'active': allMinerNegotiableStatus === 'negotiable'}" ng-click="toggleMarketOnly()">🛒 Sadece Satılabilir</button>
+        </div>
+
         <div class="alert text-center py-2 mb-3" 
              ng-if="!isLoadedUser" 
-             style="background: rgba(255, 204, 0, 0.1); border: 2px dashed var(--rc-yellow); color: var(--rc-yellow); border-radius: 6px; font-size: 12px; font-weight: 600;">
+             style="background: rgba(255, 204, 0, 0.08); border: 2px dashed var(--rc-yellow); color: var(--rc-yellow); border-radius: 8px; font-size: 12px; font-weight: 600;">
           <i class="fas fa-exclamation-triangle me-1"></i>
           Oda envanterinizi eşleştirmek için kullanıcı adınızı yazarak profilinizi bağlayın.
         </div>
@@ -1254,7 +1313,7 @@ body {
 
       <!-- TÜM MADENCİLER KART LİSTESİ -->
       <section class="miner-cards-container">
-        <div class="miner-item-card" 
+        <div class="miner-item-card border-{{miner.rarity}}" 
              ng-repeat="miner in allMiners | orderBy:sortCriteria | limitTo:pager.limit track by $index"
              ng-click="openMinerDetail(miner)" 
              title="Özellikleri incelemek için tıklayın">
@@ -1309,6 +1368,11 @@ body {
 
   </main>
 </div>
+
+<!-- YUKARI ÇIK BUTONU -->
+<button class="back-to-top-btn" id="btnBackToTop" onclick="scrollToTop()" title="Yukarı Çık">
+  <i class="fas fa-chevron-up"></i>
+</button>
 
 <!-- DETAY MODALI -->
 <div class="pro-modal-backdrop" ng-if="selectedMiner" ng-click="closeMinerDetail()">
@@ -1402,7 +1466,7 @@ body {
 </div>
 
 <script>
-// --- TARAYICI BAŞLIĞI (DOCUMENT TITLE) ANİMASYONU ---
+// --- TARAYICI BAŞLIĞI ANİMASYONU ---
 (function animateDocTitle() {
   const titles = [
     "⚡ RCMiner - Madenci Listesi! ⚡",
@@ -1410,20 +1474,14 @@ body {
     "🚀 En Yüksek Güç & Bonuslar!",
     "⛏️ RCMiner Canlı Portföy ⛏️"
   ];
-  
-  let titleIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-  let currentText = "";
+  let titleIndex = 0, charIndex = 0, isDeleting = false, currentText = "";
   
   function tick() {
     const fullText = titles[titleIndex];
-
     if (!isDeleting) {
       currentText = fullText.substring(0, charIndex + 1);
       charIndex++;
       document.title = currentText + " ▌";
-
       if (charIndex === fullText.length) {
         document.title = currentText;
         isDeleting = true;
@@ -1434,7 +1492,6 @@ body {
       currentText = fullText.substring(0, charIndex - 1);
       charIndex--;
       document.title = currentText + (charIndex > 0 ? " ▌" : "");
-
       if (charIndex === 0) {
         isDeleting = false;
         titleIndex = (titleIndex + 1) % titles.length;
@@ -1442,14 +1499,12 @@ body {
         return;
       }
     }
-
     setTimeout(tick, isDeleting ? 45 : 90);
   }
-
   tick();
 })();
 
-// --- CANLI SAAT VE TARİH SAYACI (HER SANİYE GÜNCELLENİR) ---
+// --- CANLI SAAT VE TARİH SAYACI ---
 (function initLiveDateTime() {
   const elDate = document.getElementById('nav-live-date');
   const elTime = document.getElementById('nav-live-time');
@@ -1457,23 +1512,13 @@ body {
 
   function updateClock() {
     const now = new Date();
-    const dateFormatted = now.toLocaleDateString('tr-TR', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    });
-    const timeFormatted = now.toLocaleTimeString('tr-TR', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: false
-    });
+    const dateFormatted = now.toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    const timeFormatted = now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
 
     if (elDate) elDate.textContent = dateFormatted;
     if (elTime) elTime.textContent = timeFormatted;
     if (elTimeMobile) elTimeMobile.textContent = timeFormatted;
   }
-
   updateClock();
   setInterval(updateClock, 1000);
 })();
@@ -1492,16 +1537,12 @@ body {
   if (elLocalVisits) elLocalVisits.innerText = Number(localVisits).toLocaleString('tr-TR');
 
   const isNewVisitor = !localStorage.getItem(userIdentifiedKey);
-  if (isNewVisitor) {
-    localStorage.setItem(userIdentifiedKey, 'true');
-  }
+  if (isNewVisitor) localStorage.setItem(userIdentifiedKey, 'true');
 
   function animateCounter(elementId, targetValue) {
     const el = document.getElementById(elementId);
     if (!el) return;
-    const startValue = 0;
-    const duration = 1200;
-    const startTime = performance.now();
+    const startValue = 0, duration = 1200, startTime = performance.now();
 
     function update(currentTime) {
       const elapsed = currentTime - startTime;
@@ -1509,11 +1550,8 @@ body {
       const easeOutQuad = 1 - (1 - progress) * (1 - progress);
       const current = Math.floor(startValue + (targetValue - startValue) * easeOutQuad);
       el.innerText = current.toLocaleString('tr-TR');
-      if (progress < 1) {
-        requestAnimationFrame(update);
-      } else {
-        el.innerText = Number(targetValue).toLocaleString('tr-TR');
-      }
+      if (progress < 1) requestAnimationFrame(update);
+      else el.innerText = Number(targetValue).toLocaleString('tr-TR');
     }
     requestAnimationFrame(update);
   }
@@ -1522,10 +1560,8 @@ body {
     let mockHits = parseInt(localStorage.getItem(hitsKey) || '1280', 10) + 1;
     let mockVisitors = parseInt(localStorage.getItem(visitorsKey) || '640', 10);
     if (isNewVisitor) mockVisitors += 1;
-
     localStorage.setItem(hitsKey, mockHits);
     localStorage.setItem(visitorsKey, mockVisitors);
-
     animateCounter('stat-total-hits', mockHits);
     animateCounter('stat-unique-visitors', mockVisitors);
   }
@@ -1550,6 +1586,19 @@ body {
     })
     .catch(() => {});
 })();
+
+// --- SCROLL TO TOP FONKSİYONLARI ---
+window.addEventListener('scroll', function() {
+  const btn = document.getElementById('btnBackToTop');
+  if (btn) {
+    if (window.scrollY > 400) btn.classList.add('visible');
+    else btn.classList.remove('visible');
+  }
+});
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
 function handleImageFallback(img) {
   if (!img.getAttribute('data-tried-proxy')) {
@@ -1603,6 +1652,23 @@ angular.element(document).ready(function() {
       }
     };
 
+    // Hızlı Filtre Metotları
+    scope.setQuickRarity = function(rarity) {
+      scope.allMinersRarity = rarity;
+      scope.resetPagination();
+      if (typeof scope.filterAllMiners === 'function') {
+        scope.filterAllMiners(scope.allMinerNameSearch, scope.allMinersRarity, {min:scope.allMinerMinBonusSearch, max:scope.allMinerMaxBonusSearch}, scope.allMinerNegotiableStatus, scope.allMinerPosessionStatus, scope.allMinerCollectionId, scope.allMinerMinPowerSearch, scope.allMinerMaxPowerSearch, scope.allMinerCells, scope.allMinerMinImpact);
+      }
+    };
+
+    scope.toggleMarketOnly = function() {
+      scope.allMinerNegotiableStatus = (scope.allMinerNegotiableStatus === 'negotiable') ? 'all' : 'negotiable';
+      scope.resetPagination();
+      if (typeof scope.filterAllMiners === 'function') {
+        scope.filterAllMiners(scope.allMinerNameSearch, scope.allMinersRarity, {min:scope.allMinerMinBonusSearch, max:scope.allMinerMaxBonusSearch}, scope.allMinerNegotiableStatus, scope.allMinerPosessionStatus, scope.allMinerCollectionId, scope.allMinerMinPowerSearch, scope.allMinerMaxPowerSearch, scope.allMinerCells, scope.allMinerMinImpact);
+      }
+    };
+
     setTimeout(function() {
       if (scope.isLoading) {
         scope.isLoading = false;
@@ -1647,7 +1713,7 @@ async function takeScreenshot() {
 
   const header = document.createElement("div");
   header.style.padding = "14px";
-  header.style.background = "#0b0c1b";
+  header.style.background = "#090a16";
   header.style.color = "#00e5ff";
   header.style.fontSize = "11px";
   header.style.fontFamily = "'Press Start 2P', monospace";
@@ -1659,7 +1725,7 @@ async function takeScreenshot() {
 
   try {
     const canvas = await html2canvas(element, {
-      backgroundColor: "#0b0c1b",
+      backgroundColor: "#090a16",
       scale: 2,
       useCORS: true
     });
