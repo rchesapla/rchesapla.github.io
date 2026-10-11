@@ -1073,101 +1073,6 @@ body {
   <main class="container-fluid px-3 px-lg-4 py-3">
     
     <div id="minerlistesi">
-
-      <!-- CANLI ZİYARETÇİ & GİRİŞ İSTATİSTİK WIDGET'I -->
-      <section class="visitor-stats-panel">
-        <div class="visitor-stat-card" style="--stat-accent: var(--rc-cyan);">
-          <div class="stat-icon-wrap">
-            <i class="fas fa-users"></i>
-          </div>
-          <div class="stat-info">
-            <span class="stat-label">Toplam Ziyaretçi</span>
-            <span class="stat-value" id="stat-unique-visitors">...</span>
-          </div>
-        </div>
-
-        <div class="visitor-stat-card" style="--stat-accent: var(--rc-green);">
-          <div class="stat-icon-wrap">
-            <i class="fas fa-bolt"></i>
-          </div>
-          <div class="stat-info">
-            <span class="stat-label">Toplam Hit</span>
-            <span class="stat-value" id="stat-total-hits">...</span>
-          </div>
-        </div>
-
-        <div class="visitor-stat-card" style="--stat-accent: var(--rc-yellow);">
-          <div class="stat-icon-wrap">
-            <i class="fas fa-gamepad"></i>
-          </div>
-          <div class="stat-info">
-            <span class="stat-label">Cihaz Girişi</span>
-            <span class="stat-value" id="stat-local-visits">1</span>
-          </div>
-        </div>
-
-        <div class="visitor-stat-card" style="--stat-accent: var(--rc-pink);">
-          <div class="stat-icon-wrap">
-            <i class="fas fa-server"></i>
-          </div>
-          <div class="stat-info">
-            <span class="stat-label d-flex align-items-center gap-2">
-              <span class="live-indicator-dot"></span> Terminal
-            </span>
-            <span class="stat-value" style="font-size: 16px; color: var(--rc-green);">ONLINE</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- ROLLERCOIN ÖNERİLEN MADENCİLER SLIDER -->
-      <section class="featured-slider-section" ng-if="featuredMiners && featuredMiners.length > 0">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <div class="slider-arcade-title">
-            <i class="fas fa-crown text-warning"></i>
-            <span>ÖNERİLEN & POPÜLER MADENCİLER</span>
-            <span class="badge bg-danger ms-2" style="font-family: var(--font-pixel); font-size:7px;">HOT</span>
-          </div>
-          <div class="d-flex gap-2">
-            <button class="slider-nav-btn" ng-click="scrollFeaturedSlider('left')" title="Geri">
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="slider-nav-btn" ng-click="scrollFeaturedSlider('right')" title="İleri">
-              <i class="fas fa-chevron-right"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="featured-track-wrapper" id="featuredSliderTrack">
-          <div class="featured-track">
-            <div class="featured-slide-card" 
-                 ng-repeat="miner in featuredMiners track by $index" 
-                 ng-click="openMinerDetail(miner)">
-              
-              <div class="featured-img-wrap">
-                <img ng-src="{{getMinerImg(miner)}}" 
-                     alt="{{miner.name.en}}" 
-                     referrerpolicy="no-referrer"
-                     crossorigin="anonymous"
-                     loading="lazy"
-                     onerror="handleImageFallback(this)">
-                <i class="fas fa-cube fallback-icon" style="display:none; font-size:28px; color:#4a5568;"></i>
-              </div>
-
-              <div class="featured-name">{{miner.name.en}}</div>
-
-              <div class="d-flex justify-content-center gap-1 mb-2">
-                <span class="badge-tag badge-rarity {{miner.rarity}}">{{miner.rarity}}</span>
-                <span class="badge-tag badge-bonus" ng-if="miner.bonus_power > 0">+%{{(miner.bonus_power / 100)}}</span>
-              </div>
-
-              <div class="miner-power-box py-1 px-2">
-                <span class="lbl">PWR</span>
-                <span class="val">{{chooseBestHashRateUnit(miner.power, 'GH/s').value.toFixed(1)}} {{chooseBestHashRateUnit(miner.power, 'GH/s').unit}}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
       
       <!-- FİLTRELEME & KONTROL PANELİ -->
       <section class="glass-panel">
@@ -1466,43 +1371,7 @@ body {
 </div>
 
 <script>
-// --- TARAYICI BAŞLIĞI ANİMASYONU ---
-(function animateDocTitle() {
-  const titles = [
-    "⚡ RCMiner - Madenci Listesi! ⚡",
-    "🎮 RollerCoin Madencilerini Keşfet!",
-    "🚀 En Yüksek Güç & Bonuslar!",
-    "⛏️ RCMiner Canlı Portföy ⛏️"
-  ];
-  let titleIndex = 0, charIndex = 0, isDeleting = false, currentText = "";
-  
-  function tick() {
-    const fullText = titles[titleIndex];
-    if (!isDeleting) {
-      currentText = fullText.substring(0, charIndex + 1);
-      charIndex++;
-      document.title = currentText + " ▌";
-      if (charIndex === fullText.length) {
-        document.title = currentText;
-        isDeleting = true;
-        setTimeout(tick, 2200);
-        return;
-      }
-    } else {
-      currentText = fullText.substring(0, charIndex - 1);
-      charIndex--;
-      document.title = currentText + (charIndex > 0 ? " ▌" : "");
-      if (charIndex === 0) {
-        isDeleting = false;
-        titleIndex = (titleIndex + 1) % titles.length;
-        setTimeout(tick, 500);
-        return;
-      }
-    }
-    setTimeout(tick, isDeleting ? 45 : 90);
-  }
-  tick();
-})();
+
 
 // --- CANLI SAAT VE TARİH SAYACI ---
 (function initLiveDateTime() {
