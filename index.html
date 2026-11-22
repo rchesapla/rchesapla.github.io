@@ -444,12 +444,39 @@
       font-size: 0.88rem;
     }
 
+    button.primary-solid {
+      background: linear-gradient(135deg, #38bdf8, #0284c7);
+      color: #041322;
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
+    button.primary-solid:hover {
+      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.45);
+    }
+
+    button.edit-btn {
+      background: rgba(56, 189, 248, 0.14);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      width: auto;
+      padding: 6px 11px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-top: 0;
+      border-radius: 8px;
+    }
+    button.edit-btn:hover {
+      background: #38bdf8;
+      color: #090e1a;
+      border-color: #38bdf8;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
     button.danger {
       background: rgba(239, 68, 68, 0.14);
       color: #f87171;
       border: 1px solid rgba(239, 68, 68, 0.35);
       width: auto;
-      padding: 6px 12px;
+      padding: 6px 11px;
       font-size: 0.8rem;
       font-weight: 600;
       margin-top: 0;
@@ -526,6 +553,8 @@
       border-bottom: none;
     }
     thead th:nth-child(2), tbody td:nth-child(2),
+    thead th:nth-child(3), tbody td:nth-child(3),
+    thead th:nth-child(4), tbody td:nth-child(4),
     thead th:nth-child(5), tbody td:nth-child(5),
     thead th:nth-child(6), tbody td:nth-child(6),
     thead th:nth-child(7), tbody td:nth-child(7) {
@@ -577,29 +606,38 @@
       color: #d8b4fe;
       border-color: rgba(168, 85, 247, 0.28);
     }
-    .table-input-group {
+
+    /* TIKLANABİLİR TABLO DEĞER KUTUSU */
+    .editable-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 8px;
+      background: rgba(19, 28, 49, 0.9);
+      border: 1px solid #28354d;
+      color: #e2e8f0;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .editable-pill:hover {
+      border-color: var(--accent);
+      background: rgba(56, 189, 248, 0.12);
+      color: #fff;
+    }
+    .editable-pill .edit-hint {
+      color: var(--accent);
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+
+    .action-btns {
       display: inline-flex;
       gap: 6px;
       align-items: center;
-    }
-    .table-input-group input {
-      width: 82px;
-      padding: 6px 8px;
-      font-size: 0.85rem;
-      text-align: right;
-    }
-    .table-input-group select {
-      width: 80px;
-      padding: 6px 24px 6px 8px;
-      font-size: 0.82rem;
-      background-position: right 7px center;
-      background-size: 13px;
-    }
-    .block-reward-input {
-      width: 90px;
-      padding: 6px 8px;
-      font-size: 0.85rem;
-      text-align: right;
+      justify-content: center;
     }
 
     /* MOBİL SIDEBAR OVERLAY */
@@ -704,6 +742,22 @@
       background: #ef4444;
       border-color: #ef4444;
       transform: rotate(90deg);
+    }
+    .edit-highlight-box {
+      background: rgba(56, 189, 248, 0.07);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+    .edit-highlight-box .section-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--accent);
+      margin-bottom: 10px;
     }
     .confirm-body {
       display: flex;
@@ -811,6 +865,7 @@
       background: #334155;
     }
     .modal-actions button.secondary,
+    .modal-actions button.primary-solid,
     .modal-actions button.danger-solid,
     .modal-actions button.amber-solid {
       flex: 1.5;
@@ -903,10 +958,13 @@
       tbody td:first-child::before {
         color: var(--accent);
       }
-      button.danger {
+      .action-btns {
         width: 100%;
-        padding: 10px;
         margin-top: 6px;
+      }
+      .action-btns button {
+        flex: 1;
+        padding: 10px;
       }
     }
   </style>
@@ -921,7 +979,7 @@
       <div class="brand-logo">⚡</div>
       <div class="brand-text">
         <h2>RollerCoin</h2>
-        <span>Kazanç Paneli v2.4</span>
+        <span>Kazanç Paneli v2.5</span>
       </div>
     </div>
 
@@ -1140,6 +1198,67 @@
     </div>
   </div>
 
+  <!-- KRİPTO DÜZENLEME AÇILIR MENÜSÜ (EDIT MODAL) -->
+  <div class="modal-overlay" id="editCoinModal" onclick="handleOverlayClick(event, 'editCoinModal')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>✏️ <span id="editModalTitle">BTC</span> Ayarlarını Düzenle</h2>
+        <button class="modal-close" onclick="closeEditModal()" title="Kapat">✕</button>
+      </div>
+
+      <div class="edit-highlight-box">
+        <span class="section-badge">⚡ Kazım & Blok Parametreleri</span>
+        <div class="grid" style="gap: 12px; margin-bottom: 0;">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label>Ağ Gücü ve Birimi *</label>
+            <div class="input-group">
+              <input type="number" id="editNetPower" step="any" />
+              <select id="editNetUnit">
+                <option value="GH">Gh/s</option>
+                <option value="TH">Th/s</option>
+                <option value="PH">Ph/s</option>
+                <option value="EH">Eh/s</option>
+                <option value="ZH">Zh/s</option>
+                <option value="YH">Yh/s</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label>Blok Ödülü (Coin Adedi) *</label>
+            <input type="number" id="editBlockReward" step="any" />
+          </div>
+        </div>
+      </div>
+
+      <div class="grid" style="gap: 12px; margin-bottom: 0;">
+        <div class="form-group">
+          <label>Coin Sembolü *</label>
+          <input type="text" id="editSymbol" />
+        </div>
+        <div class="form-group">
+          <label>CoinGecko API ID (Canlı kur için)</label>
+          <input type="text" id="editApiId" placeholder="Boşsa sabit fiyat kullanılır" />
+        </div>
+      </div>
+
+      <div class="grid" style="gap: 12px; margin-bottom: 0;">
+        <div class="form-group" style="margin-bottom: 0;">
+          <label>Blok Süresi (Saniye)</label>
+          <input type="number" id="editBlockTime" />
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label>Sabit USD Fiyatı (API ID boşsa)</label>
+          <input type="number" id="editManualPrice" step="any" />
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn" onclick="closeEditModal()">Vazgeç</button>
+        <button type="button" class="primary-solid" onclick="saveEditedCoin()">💾 Değişiklikleri Kaydet</button>
+      </div>
+    </div>
+  </div>
+
   <!-- SİLME ONAY MENÜSÜ (CONFIRM MODAL) -->
   <div class="modal-overlay" id="deleteConfirmModal" onclick="handleOverlayClick(event, 'deleteConfirmModal')">
     <div class="modal-box confirm-box">
@@ -1234,6 +1353,7 @@
 
     let livePrices = {};
     let pendingDeleteIndex = null;
+    let pendingEditIndex = null;
 
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('open');
@@ -1247,6 +1367,63 @@
 
     function closeAddModal() {
       document.getElementById('addCoinModal').classList.remove('active');
+    }
+
+    function openEditModal(index, focusField = 'editNetPower') {
+      const coin = coins[index];
+      if (!coin) return;
+      pendingEditIndex = index;
+
+      document.getElementById('editModalTitle').innerText = coin.symbol;
+      document.getElementById('editSymbol').value = coin.symbol;
+      document.getElementById('editApiId').value = coin.apiId || '';
+      document.getElementById('editNetPower').value = coin.netPower;
+      document.getElementById('editNetUnit').value = coin.netUnit || 'PH';
+      document.getElementById('editBlockReward').value = coin.blockReward;
+      document.getElementById('editBlockTime').value = coin.blockTime || 600;
+      document.getElementById('editManualPrice').value = coin.manualPrice || '';
+
+      document.getElementById('editCoinModal').classList.add('active');
+      setTimeout(() => {
+        const targetInput = document.getElementById(focusField);
+        if (targetInput) {
+          targetInput.focus();
+          if (targetInput.select) targetInput.select();
+        }
+      }, 100);
+    }
+
+    function closeEditModal() {
+      pendingEditIndex = null;
+      document.getElementById('editCoinModal').classList.remove('active');
+    }
+
+    function saveEditedCoin() {
+      if (pendingEditIndex === null || !coins[pendingEditIndex]) return;
+
+      const symbol = document.getElementById('editSymbol').value.trim().toUpperCase();
+      const apiId = document.getElementById('editApiId').value.trim().toLowerCase();
+      const netPower = parseFloat(document.getElementById('editNetPower').value);
+      const netUnit = document.getElementById('editNetUnit').value;
+      const blockReward = parseFloat(document.getElementById('editBlockReward').value);
+      const blockTime = parseFloat(document.getElementById('editBlockTime').value) || 600;
+      const manualPrice = parseFloat(document.getElementById('editManualPrice').value) || 0;
+
+      if (!symbol || isNaN(netPower) || netPower <= 0 || isNaN(blockReward) || blockReward <= 0) {
+        alert('Lütfen Coin Sembolü, Ağ Gücü ve Blok Ödülü alanlarını geçerli pozitif sayılarla doldurun.');
+        return;
+      }
+
+      const oldApiId = coins[pendingEditIndex].apiId;
+      coins[pendingEditIndex] = { symbol, apiId, manualPrice, netPower, netUnit, blockReward, blockTime };
+      saveCoins();
+      closeEditModal();
+
+      if (apiId && apiId !== oldApiId && !livePrices[apiId]) {
+        fetchPrices();
+      } else {
+        renderTable();
+      }
     }
 
     function openDeleteModal(index) {
@@ -1295,6 +1472,7 @@
     function handleOverlayClick(e, modalId) {
       if (e.target.id === modalId) {
         if (modalId === 'addCoinModal') closeAddModal();
+        if (modalId === 'editCoinModal') closeEditModal();
         if (modalId === 'deleteConfirmModal') closeDeleteModal();
         if (modalId === 'resetConfirmModal') closeResetModal();
       }
@@ -1303,6 +1481,7 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeAddModal();
+        closeEditModal();
         closeDeleteModal();
         closeResetModal();
       }
@@ -1398,27 +1577,6 @@
       fetchPrices();
     }
 
-    function updateInlineField(index, field, value) {
-      if (field === 'netUnit') {
-        coins[index][field] = value;
-        saveCoins();
-        renderTable();
-        return;
-      }
-      const parsed = parseFloat(value);
-      if (!isNaN(parsed) && parsed > 0) {
-        coins[index][field] = parsed;
-        saveCoins();
-        renderTable();
-      }
-    }
-
-    function getUnitOptionsHtml(selectedUnit) {
-      return Object.keys(unitLabels).map(unit =>
-        `<option value="${unit}" ${unit === selectedUnit ? 'selected' : ''}>${unitLabels[unit]}</option>`
-      ).join('');
-    }
-
     function renderTable() {
       const tbody = document.getElementById('coinTableBody');
       const userPowerRaw = parseFloat(document.getElementById('userPower').value) || 0;
@@ -1495,15 +1653,14 @@
             <div>$${unitPriceUsdFormatted} <br><small style="color:var(--muted)">₺${unitPriceTryFormatted}</small></div>
           </td>
           <td data-label="Ağ Gücü & Birimi">
-            <div class="table-input-group">
-              <input type="number" step="any" value="${coin.netPower}" onchange="updateInlineField(${index}, 'netPower', this.value)" />
-              <select onchange="updateInlineField(${index}, 'netUnit', this.value)">
-                ${getUnitOptionsHtml(coin.netUnit)}
-              </select>
-            </div>
+            <span class="editable-pill" onclick="openEditModal(${index}, 'editNetPower')" title="Ağ gücünü düzenlemek için tıkla">
+              ${coin.netPower} ${unitLabels[coin.netUnit] || coin.netUnit} <span class="edit-hint">✏️</span>
+            </span>
           </td>
           <td data-label="Blok Ödülü">
-            <input type="number" class="block-reward-input" step="any" value="${coin.blockReward}" onchange="updateInlineField(${index}, 'blockReward', this.value)" />
+            <span class="editable-pill" onclick="openEditModal(${index}, 'editBlockReward')" title="Blok ödülünü düzenlemek için tıkla">
+              ${coin.blockReward} ${coin.symbol} <span class="edit-hint">✏️</span>
+            </span>
           </td>
           <td data-label="Günlük Kazanç">${dailyCoin.toFixed(6)} ${coin.symbol}</td>
           <td data-label="Günlük ($ / ₺)" class="highlight">
@@ -1512,7 +1669,12 @@
           <td data-label="Aylık ($ / ₺)" class="highlight">
             <div>$${formatUSD(monthlyUsd)} <br><small>₺${formatTRY(monthlyTry)}</small></div>
           </td>
-          <td><button class="danger" onclick="openDeleteModal(${index})">Sil</button></td>
+          <td>
+            <div class="action-btns">
+              <button class="edit-btn" onclick="openEditModal(${index}, 'editNetPower')" title="Düzenle">Düzenle</button>
+              <button class="danger" onclick="openDeleteModal(${index})" title="Sil">Sil</button>
+            </div>
+          </td>
         `;
         tbody.appendChild(tr);
       });
