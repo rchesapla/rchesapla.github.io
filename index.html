@@ -343,6 +343,24 @@
       gap: 8px;
     }
 
+    .table-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .sort-select {
+      width: auto;
+      min-width: 215px;
+      padding: 8px 32px 8px 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background-color: #0b1120;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #e2e8f0;
+    }
+
     .form-group {
       margin-bottom: 14px;
     }
@@ -534,6 +552,15 @@
       border-bottom: 1px solid #1e293b;
       white-space: nowrap;
     }
+    thead th.sortable-th {
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.18s ease, background-color 0.18s ease;
+    }
+    thead th.sortable-th:hover {
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.08);
+    }
     tbody tr {
       transition: background-color 0.18s ease;
     }
@@ -542,6 +569,9 @@
     }
     tbody tr:hover {
       background-color: rgba(56, 189, 248, 0.08);
+    }
+    tbody tr.best-row {
+      background: linear-gradient(90deg, rgba(34, 197, 94, 0.08), rgba(11, 17, 32, 0));
     }
     tbody td {
       padding: 13px 14px;
@@ -568,6 +598,24 @@
       align-items: center;
       gap: 8px;
       flex-wrap: wrap;
+    }
+    .rank-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 22px;
+      height: 22px;
+      padding: 0 5px;
+      border-radius: 6px;
+      background: rgba(148, 163, 184, 0.12);
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+    .rank-num.top1 {
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.4);
     }
     .coin-symbol {
       font-size: 0.96rem;
@@ -906,6 +954,12 @@
       .topbar-actions .btn-text {
         display: none;
       }
+      .table-controls {
+        width: 100%;
+      }
+      .sort-select {
+        width: 100%;
+      }
       .table-wrapper {
         border: none;
         background: transparent;
@@ -979,7 +1033,7 @@
       <div class="brand-logo">⚡</div>
       <div class="brand-text">
         <h2>RollerCoin</h2>
-        <span>Kazanç Paneli v2.5</span>
+        <span>Kazanç Paneli v2.6</span>
       </div>
     </div>
 
@@ -1095,7 +1149,13 @@
       <section class="card" id="tableSection" style="margin-bottom: 0;">
         <div class="card-header">
           <h2>📊 Coin Bazlı Canlı Kazanç Karşılaştırması</h2>
-          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <div class="table-controls">
+            <select id="sortSelect" class="sort-select" onchange="changeSortMode(this.value)" title="Sıralama Ölçütü">
+              <option value="profit_desc" selected>🏆 En Kârlı (Yüksek → Düşük)</option>
+              <option value="profit_asc">📉 En Az Kârlı (Düşük → Yüksek)</option>
+              <option value="default">📋 Varsayılan Liste Sırası</option>
+              <option value="symbol_asc">🔤 Coin Adı (A → Z)</option>
+            </select>
             <button class="btn-refresh" onclick="openResetModal()">♻️ Listeyi Sıfırla (13 Coin)</button>
             <button class="add-coin-trigger" onclick="openAddModal()">+ Yeni Kripto Ekle</button>
           </div>
@@ -1109,8 +1169,12 @@
                 <th>Ağ Gücü & Birimi</th>
                 <th>Blok Ödülü</th>
                 <th>Günlük Kazanç (Coin)</th>
-                <th>Günlük ($) / (₺)</th>
-                <th>Aylık ($) / (₺)</th>
+                <th class="sortable-th" onclick="toggleProfitSort()" title="Kârlılığa göre sıralamayı değiştir">
+                  Günlük ($) / (₺) <span id="sortArrowDaily">↓</span>
+                </th>
+                <th class="sortable-th" onclick="toggleProfitSort()" title="Kârlılığa göre sıralamayı değiştir">
+                  Aylık ($) / (₺) <span id="sortArrowMonthly">↓</span>
+                </th>
                 <th>İşlem</th>
               </tr>
             </thead>
@@ -1351,6 +1415,7 @@
     let coins = JSON.parse(localStorage.getItem('rc_custom_coins')) || JSON.parse(JSON.stringify(defaultCoins));
     coins = coins.map(c => ({ ...c, netUnit: c.netUnit || 'PH' }));
 
+    let sortMode = localStorage.getItem('rc_sort_mode') || 'profit_desc';
     let livePrices = {};
     let pendingDeleteIndex = null;
     let pendingEditIndex = null;
@@ -1358,6 +1423,36 @@
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('open');
       document.getElementById('sidebarBackdrop').classList.toggle('active');
+    }
+
+    function changeSortMode(mode) {
+      sortMode = mode;
+      localStorage.setItem('rc_sort_mode', sortMode);
+      updateSortIndicators();
+      renderTable();
+    }
+
+    function toggleProfitSort() {
+      const nextMode = sortMode === 'profit_desc' ? 'profit_asc' : 'profit_desc';
+      document.getElementById('sortSelect').value = nextMode;
+      changeSortMode(nextMode);
+    }
+
+    function updateSortIndicators() {
+      const arrowDaily = document.getElementById('sortArrowDaily');
+      const arrowMonthly = document.getElementById('sortArrowMonthly');
+      if (!arrowDaily || !arrowMonthly) return;
+
+      if (sortMode === 'profit_desc') {
+        arrowDaily.innerText = '↓';
+        arrowMonthly.innerText = '↓';
+      } else if (sortMode === 'profit_asc') {
+        arrowDaily.innerText = '↑';
+        arrowMonthly.innerText = '↑';
+      } else {
+        arrowDaily.innerText = '↕';
+        arrowMonthly.innerText = '↕';
+      }
     }
 
     function openAddModal() {
@@ -1513,6 +1608,8 @@
       const savedUnit = localStorage.getItem('rc_user_unit');
       if (savedPower) document.getElementById('userPower').value = savedPower;
       if (savedUnit) document.getElementById('userUnit').value = savedUnit;
+      document.getElementById('sortSelect').value = sortMode;
+      updateSortIndicators();
     }
 
     function saveUserSettings() {
@@ -1610,7 +1707,7 @@
 
         if (dailyUsd > maxDailyUsd) {
           maxDailyUsd = dailyUsd;
-          bestCoin = { symbol: coin.symbol, dailyUsd, dailyTry, monthlyUsd, monthlyTry };
+          bestCoin = { symbol: coin.symbol, index, dailyUsd, dailyTry, monthlyUsd, monthlyTry };
         }
 
         return { coin, index, priceUsd, priceTry, dailyCoin, dailyUsd, dailyTry, monthlyUsd, monthlyTry };
@@ -1628,22 +1725,38 @@
         document.getElementById('kpiBestMonthlyTry').innerText = '₺0,00 / ay';
       }
 
+      // Seçili sıralama moduna göre satırları sırala
+      const sortedRows = [...calculatedRows];
+      if (sortMode === 'profit_desc') {
+        sortedRows.sort((a, b) => b.dailyUsd - a.dailyUsd);
+      } else if (sortMode === 'profit_asc') {
+        sortedRows.sort((a, b) => a.dailyUsd - b.dailyUsd);
+      } else if (sortMode === 'symbol_asc') {
+        sortedRows.sort((a, b) => a.coin.symbol.localeCompare(b.coin.symbol));
+      }
+
       tbody.innerHTML = '';
 
-      calculatedRows.forEach(row => {
+      sortedRows.forEach((row, rankIdx) => {
         const { coin, index, priceUsd, priceTry, dailyCoin, dailyUsd, dailyTry, monthlyUsd, monthlyTry } = row;
-        const isBest = bestCoin && bestCoin.symbol === coin.symbol && dailyUsd > 0;
+        const isBest = bestCoin && bestCoin.index === index && dailyUsd > 0;
 
         const unitPriceTryFormatted = priceTry < 1 ? formatTRY(priceTry, 2, 6) : formatTRY(priceTry, 2, 2);
         const unitPriceUsdFormatted = priceUsd < 1 ? formatUSD(priceUsd, 2, 6) : formatUSD(priceUsd, 2, 2);
 
         const badgeClass = coin.apiId ? 'badge' : 'badge token';
         const badgeLabel = coin.apiId || 'Oyun Tokenı';
+        const rankBadge = (sortMode === 'profit_desc' || sortMode === 'profit_asc')
+          ? `<span class="rank-num ${isBest ? 'top1' : ''}">#${rankIdx + 1}</span>`
+          : '';
 
         const tr = document.createElement('tr');
+        if (isBest) tr.classList.add('best-row');
+
         tr.innerHTML = `
           <td data-label="Coin">
             <div class="coin-cell">
+              ${rankBadge}
               <span class="coin-symbol">${coin.symbol}</span>
               <span class="${badgeClass}">${badgeLabel}</span>
               ${isBest ? '<span class="best-tag">EN KÂRLI</span>' : ''}
