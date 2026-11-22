@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RollerCoin Canlı Kur & Kazanç Hesaplayıcı</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --accent: #38bdf8;
+      --green: #22c55e;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --border: #334155;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+    h1, h2 {
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 768px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .form-group {
+      margin-bottom: 12px;
+    }
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #0f172a;
+      color: var(--text);
+      font-size: 0.95rem;
+      box-sizing: border-box;
+    }
+    .input-group {
+      display: flex;
+      gap: 8px;
+    }
+    .input-group input {
+      flex: 2;
+    }
+    .input-group select {
+      flex: 1;
+      min-width: 90px;
+    }
+    button {
+      background: var(--accent);
+      color: #0f172a;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      margin-top: 8px;
+      transition: opacity 0.2s;
+    }
+    button:hover { opacity: 0.9; }
+    button.secondary {
+      background: var(--green);
+      color: #0f172a;
+    }
+    button.danger {
+      background: #ef4444;
+      color: white;
+      width: auto;
+      padding: 5px 10px;
+      font-size: 0.8rem;
+      margin-top: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+    th, td {
+      padding: 12px 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    th { color: var(--accent); }
+    .highlight { color: var(--green); font-weight: bold; }
+    .badge {
+      background: #334155;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+    }
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .table-input-group {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .table-input-group input {
+      width: 85px;
+      padding: 5px;
+      font-size: 0.85rem;
+    }
+    .table-input-group select {
+      width: 72px;
+      padding: 5px;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚡ RollerCoin Canlı Kur & Kazanç Hesaplayıcı</h1>
+    <div class="status-bar">
+      <span id="statusText">Kurlar yükleniyor...</span>
+      <button style="width: auto; padding: 8px 16px; margin-top: 0;" onclick="fetchPrices()">🔄 Kurları Şimdi Güncelle</button>
+    </div>
+
+    <div class="grid">
+      <!-- Sol Panel: Güç & Ağ Ayarları -->
+      <div class="card">
+        <h2>1. Kazım Gücün & Kur Ayarı</h2>
+        <div class="form-group">
+          <label>Senin Kazım Gücün</label>
+          <div class="input-group">
+            <input type="number" id="userPower" value="15.5" step="any" oninput="saveUserSettings(); renderTable()" />
+            <select id="userUnit" onchange="saveUserSettings(); renderTable()">
+              <option value="GH">Gh/s</option>
+              <option value="TH">Th/s</option>
+              <option value="PH" selected>Ph/s</option>
+              <option value="EH">Eh/s</option>
+              <option value="ZH">Zh/s</option>
+              <option value="YH">Yh/s</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>USD / TRY Kuru (Otomatik çekilir, manuel değiştirebilirsin)</label>
+          <input type="number" id="usdTryRate" value="34.50" step="0.01" oninput="renderTable()" />
+        </div>
+        <p style="font-size: 0.8rem; color: var(--muted); line-height: 1.5;">
+          *Birim Dönüşüm Ölçeği: 1.000 Gh/s = 1 Th/s | 1.000 Th/s = 1 Ph/s | 1.000 Ph/s = 1 Eh/s | 1.000 Eh/s = 1 Zh/s | 1.000 Zh/s = 1 Yh/s
+        </p>
+      </div>
+
+      <!-- Sağ Panel: Yeni Kripto Ekleme -->
+      <div class="card">
+        <h2>2. Yeni Kripto Ekle</h2>
+        <div class="grid" style="gap: 10px; margin-bottom: 0;">
+          <div class="form-group">
+            <label>Coin Sembolü (Örn: SOL, TRX)</label>
+            <input type="text" id="newSymbol" placeholder="SOL" />
+          </div>
+          <div class="form-group">
+            <label>CoinGecko API ID (Canlı fiyat için)</label>
+            <input type="text" id="newApiId" placeholder="solana (sabit için boş bırak)" />
+          </div>
+        </div>
+        <div class="grid" style="gap: 10px; margin-bottom: 0;">
+          <div class="form-group">
+            <label>Ağ Gücü ve Birimi</label>
+            <div class="input-group">
+              <input type="number" id="newNetPower" placeholder="Örn: 1.25" step="any" />
+              <select id="newNetUnit">
+                <option value="GH">Gh/s</option>
+                <option value="TH">Th/s</option>
+                <option value="PH">Ph/s</option>
+                <option value="EH" selected>Eh/s</option>
+                <option value="ZH">Zh/s</option>
+                <option value="YH">Yh/s</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Blok Ödülü (Coin Adedi)</label>
+            <input type="number" id="newBlockReward" placeholder="Örn: 0.22" step="any" />
+          </div>
+        </div>
+        <div class="grid" style="gap: 10px; margin-bottom: 0;">
+          <div class="form-group">
+            <label>Blok Süresi (Saniye - Genelde 600)</label>
+            <input type="number" id="newBlockTime" value="600" />
+          </div>
+          <div class="form-group">
+            <label>Sabit USD Fiyatı (API ID boşsa geçerli)</label>
+            <input type="number" id="newManualPrice" placeholder="Örn: 1.00" step="any" />
+          </div>
+        </div>
+        <button class="secondary" onclick="addCoin()">+ Kripto Para Ekle</button>
+      </div>
+    </div>
+
+    <!-- Alt Panel: Kazanç Tablosu -->
+    <div class="card">
+      <h2>📊 Coin Bazlı Canlı Kazanç Karşılaştırması</h2>
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Coin</th>
+              <th>Anlık Kur (USD / TRY)</th>
+              <th>Ağ Gücü & Birimi</th>
+              <th>Blok Ödülü</th>
+              <th>Günlük Kazanç (Coin)</th>
+              <th>Günlük ($) / (₺)</th>
+              <th>Aylık ($) / (₺)</th>
+              <th>İşlem</th>
+            </tr>
+          </thead>
+          <tbody id="coinTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const unitMultipliers = {
+      GH: 1,
+      TH: 1e3,
+      PH: 1e6,
+      EH: 1e9,
+      ZH: 1e12,
+      YH: 1e15
+    };
+
+    const unitLabels = {
+      GH: 'Gh/s',
+      TH: 'Th/s',
+      PH: 'Ph/s',
+      EH: 'Eh/s',
+      ZH: 'Zh/s',
+      YH: 'Yh/s'
+    };
+
+    const defaultCoins = [
+      { symbol: 'RLT', apiId: '', manualPrice: 1.0, netPower: 1.2, netUnit: 'EH', blockReward: 30, blockTime: 600 },
+      { symbol: 'BTC', apiId: 'bitcoin', manualPrice: 0, netPower: 1.5, netUnit: 'EH', blockReward: 0.00045, blockTime: 600 },
+      { symbol: 'ETH', apiId: 'ethereum', manualPrice: 0, netPower: 950, netUnit: 'PH', blockReward: 0.012, blockTime: 600 },
+      { symbol: 'DOGE', apiId: 'dogecoin', manualPrice: 0, netPower: 820, netUnit: 'PH', blockReward: 140, blockTime: 600 },
+      { symbol: 'SOL', apiId: 'solana', manualPrice: 0, netPower: 750, netUnit: 'PH', blockReward: 0.22, blockTime: 600 }
+    ];
+
+    let coins = JSON.parse(localStorage.getItem('rc_custom_coins')) || defaultCoins;
+    coins = coins.map(c => ({ ...c, netUnit: c.netUnit || 'PH' }));
+
+    let livePrices = {};
+
+    // Türkçe binlik noktalı formatlama fonksiyonu (Örn: 1.250,50)
+    function formatTRY(value, minDec = 2, maxDec = 2) {
+      return new Intl.NumberFormat('tr-TR', {
+        minimumFractionDigits: minDec,
+        maximumFractionDigits: maxDec
+      }).format(value);
+    }
+
+    // USD formatlama fonksiyonu (Örn: 1,250.50)
+    function formatUSD(value, minDec = 2, maxDec = 2) {
+      return new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: minDec,
+        maximumFractionDigits: maxDec
+      }).format(value);
+    }
+
+    function loadUserSettings() {
+      const savedPower = localStorage.getItem('rc_user_power');
+      const savedUnit = localStorage.getItem('rc_user_unit');
+      if (savedPower) document.getElementById('userPower').value = savedPower;
+      if (savedUnit) document.getElementById('userUnit').value = savedUnit;
+    }
+
+    function saveUserSettings() {
+      localStorage.setItem('rc_user_power', document.getElementById('userPower').value);
+      localStorage.setItem('rc_user_unit', document.getElementById('userUnit').value);
+    }
+
+    function saveCoins() {
+      localStorage.setItem('rc_custom_coins', JSON.stringify(coins));
+    }
+
+    async function fetchPrices() {
+      const statusEl = document.getElementById('statusText');
+      statusEl.innerText = 'CoinGecko üzerinden canlı kurlar çekiliyor...';
+
+      const apiIds = [...new Set(coins.map(c => c.apiId).filter(id => id && id.trim() !== ''))];
+      if (!apiIds.includes('tether')) apiIds.push('tether');
+
+      try {
+        const url = `https://api.coingecko.com/api/v3/simple/price?ids=${apiIds.join(',')}&vs_currencies=usd,try`;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        livePrices = data;
+        if (data.tether && data.tether.try) {
+          document.getElementById('usdTryRate').value = data.tether.try.toFixed(2);
+        }
+
+        const now = new Date().toLocaleTimeString('tr-TR');
+        statusEl.innerText = `✅ Kurlar güncellendi (Son güncelleme: ${now})`;
+        renderTable();
+      } catch (err) {
+        statusEl.innerText = '⚠️ Canlı kur çekilemedi. Manuel/son fiyatlar kullanılıyor.';
+        renderTable();
+      }
+    }
+
+    function addCoin() {
+      const symbol = document.getElementById('newSymbol').value.trim().toUpperCase();
+      const apiId = document.getElementById('newApiId').value.trim().toLowerCase();
+      const netPower = parseFloat(document.getElementById('newNetPower').value);
+      const netUnit = document.getElementById('newNetUnit').value;
+      const blockReward = parseFloat(document.getElementById('newBlockReward').value);
+      const blockTime = parseFloat(document.getElementById('newBlockTime').value) || 600;
+      const manualPrice = parseFloat(document.getElementById('newManualPrice').value) || 0;
+
+      if (!symbol || isNaN(netPower) || netPower <= 0 || isNaN(blockReward) || blockReward <= 0) {
+        alert('Lütfen en azından Coin Sembolü, Ağ Gücü ve Blok Ödülü alanlarını geçerli sayılarla doldurun.');
+        return;
+      }
+
+      coins.push({ symbol, apiId, manualPrice, netPower, netUnit, blockReward, blockTime });
+      saveCoins();
+
+      document.getElementById('newSymbol').value = '';
+      document.getElementById('newApiId').value = '';
+      document.getElementById('newNetPower').value = '';
+      document.getElementById('newBlockReward').value = '';
+      document.getElementById('newManualPrice').value = '';
+
+      fetchPrices();
+    }
+
+    function deleteCoin(index) {
+      coins.splice(index, 1);
+      saveCoins();
+      renderTable();
+    }
+
+    function updateInlineField(index, field, value) {
+      if (field === 'netUnit') {
+        coins[index][field] = value;
+        saveCoins();
+        renderTable();
+        return;
+      }
+      const parsed = parseFloat(value);
+      if (!isNaN(parsed) && parsed > 0) {
+        coins[index][field] = parsed;
+        saveCoins();
+        renderTable();
+      }
+    }
+
+    function getUnitOptionsHtml(selectedUnit) {
+      return Object.keys(unitLabels).map(unit => 
+        `<option value="${unit}" ${unit === selectedUnit ? 'selected' : ''}>${unitLabels[unit]}</option>`
+      ).join('');
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('coinTableBody');
+      const userPowerRaw = parseFloat(document.getElementById('userPower').value) || 0;
+      const userUnit = document.getElementById('userUnit').value;
+      const usdTry = parseFloat(document.getElementById('usdTryRate').value) || 34.5;
+
+      const userPowerInGh = userPowerRaw * (unitMultipliers[userUnit] || 1);
+
+      tbody.innerHTML = '';
+
+      coins.forEach((coin, index) => {
+        let priceUsd = coin.manualPrice;
+        if (coin.apiId && livePrices[coin.apiId] && livePrices[coin.apiId].usd) {
+          priceUsd = livePrices[coin.apiId].usd;
+        }
+        const priceTry = priceUsd * usdTry;
+
+        const netPowerInGh = coin.netPower * (unitMultipliers[coin.netUnit] || 1);
+
+        const blocksPerDay = 86400 / (coin.blockTime || 600);
+        const userShare = netPowerInGh > 0 ? (userPowerInGh / netPowerInGh) : 0;
+        const dailyCoin = userShare * coin.blockReward * blocksPerDay;
+
+        const dailyUsd = dailyCoin * priceUsd;
+        const dailyTry = dailyCoin * priceTry;
+        const monthlyUsd = dailyUsd * 30;
+        const monthlyTry = dailyTry * 30;
+
+        // Birim fiyat 1'den küçükse (ör. SHIB, DOGE) 4 ondalık, büyükse (ör. BTC) 2 ondalık göster
+        const unitPriceTryFormatted = priceTry < 1 ? formatTRY(priceTry, 2, 6) : formatTRY(priceTry, 2, 2);
+        const unitPriceUsdFormatted = priceUsd < 1 ? formatUSD(priceUsd, 2, 6) : formatUSD(priceUsd, 2, 2);
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${coin.symbol}</strong> <br><span class="badge">${coin.apiId || 'Sabit'}</span></td>
+          <td>$${unitPriceUsdFormatted}<br><small style="color:var(--muted)">₺${unitPriceTryFormatted}</small></td>
+          <td>
+            <div class="table-input-group">
+              <input type="number" step="any" value="${coin.netPower}" onchange="updateInlineField(${index}, 'netPower', this.value)" />
+              <select onchange="updateInlineField(${index}, 'netUnit', this.value)">
+                ${getUnitOptionsHtml(coin.netUnit)}
+              </select>
+            </div>
+          </td>
+          <td><input type="number" style="width:85px; padding:5px;" step="any" value="${coin.blockReward}" onchange="updateInlineField(${index}, 'blockReward', this.value)" /></td>
+          <td>${dailyCoin.toFixed(6)} ${coin.symbol}</td>
+          <td class="highlight">$${formatUSD(dailyUsd)} <br><small>₺${formatTRY(dailyTry)}</small></td>
+          <td class="highlight">$${formatUSD(monthlyUsd)} <br><small>₺${formatTRY(monthlyTry)}</small></td>
+          <td><button class="danger" onclick="deleteCoin(${index})">Sil</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    loadUserSettings();
+    fetchPrices();
+  </script>
+</body>
+</html>
