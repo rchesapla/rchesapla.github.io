@@ -16,6 +16,9 @@
       --green-glow: rgba(34, 197, 94, 0.25);
       --purple: #a855f7;
       --amber: #f59e0b;
+      --amber-glow: rgba(245, 158, 11, 0.28);
+      --danger: #ef4444;
+      --danger-glow: rgba(239, 68, 68, 0.28);
       --text: #f8fafc;
       --muted: #94a3b8;
       --border: #1e293b;
@@ -100,7 +103,7 @@
       color: #64748b;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      padding: 8px 12px 6px;
+      padding: 4px 12px 6px;
     }
 
     .nav-item {
@@ -125,12 +128,6 @@
     .nav-item:hover {
       background: rgba(56, 189, 248, 0.08);
       color: var(--text);
-    }
-
-    .nav-item.active {
-      background: linear-gradient(90deg, rgba(56, 189, 248, 0.16), rgba(56, 189, 248, 0.04));
-      color: var(--accent);
-      border-color: rgba(56, 189, 248, 0.25);
     }
 
     .sidebar-widget {
@@ -465,6 +462,24 @@
       box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
     }
 
+    button.danger-solid {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: #fff;
+      box-shadow: 0 4px 14px var(--danger-glow);
+    }
+    button.danger-solid:hover {
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.45);
+    }
+
+    button.amber-solid {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #1c1002;
+      box-shadow: 0 4px 14px var(--amber-glow);
+    }
+    button.amber-solid:hover {
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45);
+    }
+
     /* GELİŞMİŞ TABLO STİLLERİ */
     .table-wrapper {
       overflow-x: auto;
@@ -633,6 +648,14 @@
       max-height: 90vh;
       overflow-y: auto;
     }
+    .modal-box.confirm-box {
+      max-width: 440px;
+      border-color: rgba(239, 68, 68, 0.35);
+    }
+    .modal-box.warning-box {
+      max-width: 450px;
+      border-color: rgba(245, 158, 11, 0.4);
+    }
     .modal-overlay.active .modal-box {
       transform: translateY(0) scale(1);
     }
@@ -648,6 +671,16 @@
       margin: 0;
       font-size: 1.2rem;
       background: linear-gradient(90deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .modal-header.danger-header h2 {
+      background: linear-gradient(90deg, #f87171, #ef4444);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .modal-header.warning-header h2 {
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -671,6 +704,61 @@
       background: #ef4444;
       border-color: #ef4444;
       transform: rotate(90deg);
+    }
+    .confirm-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 6px 0 4px;
+    }
+    .confirm-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: rgba(239, 68, 68, 0.14);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #f87171;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.65rem;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(239, 68, 68, 0.18);
+    }
+    .confirm-icon.warning {
+      background: rgba(245, 158, 11, 0.14);
+      border-color: rgba(245, 158, 11, 0.38);
+      color: #fbbf24;
+      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.18);
+    }
+    .confirm-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 8px;
+    }
+    .confirm-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0 0 12px;
+    }
+    .confirm-coin-preview {
+      background: rgba(9, 14, 26, 0.7);
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 10px 14px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+    .confirm-coin-preview strong {
+      color: #f8fafc;
+      font-size: 0.92rem;
     }
     .preset-section {
       background: rgba(9, 14, 26, 0.65);
@@ -722,8 +810,10 @@
     .modal-actions button.cancel-btn:hover {
       background: #334155;
     }
-    .modal-actions button.secondary {
-      flex: 2;
+    .modal-actions button.secondary,
+    .modal-actions button.danger-solid,
+    .modal-actions button.amber-solid {
+      flex: 1.5;
     }
 
     /* RESPONSIVE & MOBİL UYUMLULUK */
@@ -831,20 +921,15 @@
       <div class="brand-logo">⚡</div>
       <div class="brand-text">
         <h2>RollerCoin</h2>
-        <span>Kazanç Paneli v2.1</span>
+        <span>Kazanç Paneli v2.4</span>
       </div>
     </div>
 
     <nav class="sidebar-nav">
-      <div class="nav-section-title">Panel Menüsü</div>
-      <button class="nav-item active" onclick="scrollToSection('kpiSection', this)">📊 Genel Bakış</button>
-      <button class="nav-item" onclick="scrollToSection('settingsSection', this)">⚙️ Kazım Gücü & Kur</button>
-      <button class="nav-item" onclick="scrollToSection('tableSection', this)">💰 Kazanç Tablosu</button>
-
-      <div class="nav-section-title" style="margin-top: 14px;">Hızlı İşlemler</div>
+      <div class="nav-section-title">Hızlı İşlemler</div>
       <button class="nav-item" onclick="openAddModal()">➕ Yeni Kripto Ekle</button>
       <button class="nav-item" onclick="fetchPrices()">🔄 Kurları Güncelle</button>
-      <button class="nav-item" onclick="resetDefaultCoins()">♻️ Tüm RollerCoin Kriptolarını Yükle</button>
+      <button class="nav-item" onclick="openResetModal()">♻️ Tüm RollerCoin Kriptolarını Yükle</button>
     </nav>
 
     <div class="sidebar-widget">
@@ -953,7 +1038,7 @@
         <div class="card-header">
           <h2>📊 Coin Bazlı Canlı Kazanç Karşılaştırması</h2>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <button class="btn-refresh" onclick="resetDefaultCoins()">♻️ Listeyi Sıfırla (13 Coin)</button>
+            <button class="btn-refresh" onclick="openResetModal()">♻️ Listeyi Sıfırla (13 Coin)</button>
             <button class="add-coin-trigger" onclick="openAddModal()">+ Yeni Kripto Ekle</button>
           </div>
         </div>
@@ -979,7 +1064,7 @@
   </div>
 
   <!-- YENİ KRİPTO EKLEME AÇILIR MENÜSÜ (MODAL) -->
-  <div class="modal-overlay" id="addCoinModal" onclick="handleOverlayClick(event)">
+  <div class="modal-overlay" id="addCoinModal" onclick="handleOverlayClick(event, 'addCoinModal')">
     <div class="modal-box">
       <div class="modal-header">
         <h2>➕ Tabloya Yeni Kripto Ekle</h2>
@@ -1055,6 +1140,60 @@
     </div>
   </div>
 
+  <!-- SİLME ONAY MENÜSÜ (CONFIRM MODAL) -->
+  <div class="modal-overlay" id="deleteConfirmModal" onclick="handleOverlayClick(event, 'deleteConfirmModal')">
+    <div class="modal-box confirm-box">
+      <div class="modal-header danger-header">
+        <h2>🗑️ Kripto Silme Onayı</h2>
+        <button class="modal-close" onclick="closeDeleteModal()" title="Kapat">✕</button>
+      </div>
+
+      <div class="confirm-body">
+        <div class="confirm-icon">⚠️</div>
+        <h3 class="confirm-title"><span id="deleteCoinName">BTC</span> tablodan silinsin mi?</h3>
+        <p class="confirm-desc">
+          Bu işlem seçili kripto parayı kazanç karşılaştırma tablosundan kaldıracaktır. İstersen daha sonra yeniden ekleyebilirsin.
+        </p>
+        <div class="confirm-coin-preview">
+          <span>Seçili Coin: <strong id="deleteCoinPreviewSymbol">BTC</strong></span>
+          <span id="deleteCoinPreviewMeta">Ağ Gücü: 1.55 Eh/s</span>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn" onclick="closeDeleteModal()">Vazgeç</button>
+        <button type="button" class="danger-solid" onclick="confirmDeleteCoin()">🗑️ Evet, Sil</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LİSTEYİ SIFIRLAMA UYARI MENÜSÜ (RESET WARNING MODAL) -->
+  <div class="modal-overlay" id="resetConfirmModal" onclick="handleOverlayClick(event, 'resetConfirmModal')">
+    <div class="modal-box warning-box">
+      <div class="modal-header warning-header">
+        <h2>⚠️ Listeyi Sıfırlama Uyarısı</h2>
+        <button class="modal-close" onclick="closeResetModal()" title="Kapat">✕</button>
+      </div>
+
+      <div class="confirm-body">
+        <div class="confirm-icon warning">♻️</div>
+        <h3 class="confirm-title">Tablo varsayılan ayarlara sıfırlansın mı?</h3>
+        <p class="confirm-desc">
+          Mevcut tabloda yaptığınız tüm özel ağ gücü, blok ödülü düzenlemeleri ve sonradan eklediğiniz coinler silinerek <strong>13 varsayılan RollerCoin varlığı</strong> yüklenecektir.
+        </p>
+        <div class="confirm-coin-preview">
+          <span>Mevcut Coin: <strong id="resetCurrentCount">13</strong></span>
+          <span>Yüklenecek: <strong>13 Varsayılan Coin</strong></span>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn" onclick="closeResetModal()">Vazgeç</button>
+        <button type="button" class="amber-solid" onclick="confirmResetCoins()">♻️ Evet, Sıfırla</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const unitMultipliers = {
       GH: 1,
@@ -1074,7 +1213,6 @@
       YH: 'Yh/s'
     };
 
-    // RollerCoin'de bulunan tüm kripto paralar ve oyun içi tokenlar
     const defaultCoins = [
       { symbol: 'RLT', apiId: '', manualPrice: 1.0, netPower: 1.25, netUnit: 'EH', blockReward: 30, blockTime: 600 },
       { symbol: 'RST', apiId: '', manualPrice: 0.01, netPower: 850, netUnit: 'PH', blockReward: 150, blockTime: 600 },
@@ -1095,22 +1233,11 @@
     coins = coins.map(c => ({ ...c, netUnit: c.netUnit || 'PH' }));
 
     let livePrices = {};
+    let pendingDeleteIndex = null;
 
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('open');
       document.getElementById('sidebarBackdrop').classList.toggle('active');
-    }
-
-    function scrollToSection(id, btn) {
-      document.querySelectorAll('.sidebar-nav .nav-item').forEach(el => el.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-      const target = document.getElementById(id);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-      if (window.innerWidth <= 860) {
-        toggleSidebar();
-      }
     }
 
     function openAddModal() {
@@ -1122,12 +1249,63 @@
       document.getElementById('addCoinModal').classList.remove('active');
     }
 
-    function handleOverlayClick(e) {
-      if (e.target.id === 'addCoinModal') closeAddModal();
+    function openDeleteModal(index) {
+      const coin = coins[index];
+      if (!coin) return;
+      pendingDeleteIndex = index;
+      document.getElementById('deleteCoinName').innerText = coin.symbol;
+      document.getElementById('deleteCoinPreviewSymbol').innerText = coin.symbol;
+      document.getElementById('deleteCoinPreviewMeta').innerText = `Ağ Gücü: ${coin.netPower} ${unitLabels[coin.netUnit] || coin.netUnit}`;
+      document.getElementById('deleteConfirmModal').classList.add('active');
+    }
+
+    function closeDeleteModal() {
+      pendingDeleteIndex = null;
+      document.getElementById('deleteConfirmModal').classList.remove('active');
+    }
+
+    function confirmDeleteCoin() {
+      if (pendingDeleteIndex !== null && coins[pendingDeleteIndex]) {
+        coins.splice(pendingDeleteIndex, 1);
+        saveCoins();
+        renderTable();
+      }
+      closeDeleteModal();
+    }
+
+    function openResetModal() {
+      document.getElementById('resetCurrentCount').innerText = `${coins.length} Adet`;
+      document.getElementById('resetConfirmModal').classList.add('active');
+    }
+
+    function closeResetModal() {
+      document.getElementById('resetConfirmModal').classList.remove('active');
+    }
+
+    function confirmResetCoins() {
+      coins = JSON.parse(JSON.stringify(defaultCoins));
+      saveCoins();
+      closeResetModal();
+      if (window.innerWidth <= 860 && document.getElementById('sidebar').classList.contains('open')) {
+        toggleSidebar();
+      }
+      fetchPrices();
+    }
+
+    function handleOverlayClick(e, modalId) {
+      if (e.target.id === modalId) {
+        if (modalId === 'addCoinModal') closeAddModal();
+        if (modalId === 'deleteConfirmModal') closeDeleteModal();
+        if (modalId === 'resetConfirmModal') closeResetModal();
+      }
     }
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeAddModal();
+      if (e.key === 'Escape') {
+        closeAddModal();
+        closeDeleteModal();
+        closeResetModal();
+      }
     });
 
     function fillPreset(symbol, apiId, manualPrice) {
@@ -1135,12 +1313,6 @@
       document.getElementById('newApiId').value = apiId;
       document.getElementById('newManualPrice').value = manualPrice || '';
       document.getElementById('newNetPower').focus();
-    }
-
-    function resetDefaultCoins() {
-      coins = JSON.parse(JSON.stringify(defaultCoins));
-      saveCoins();
-      fetchPrices();
     }
 
     function formatTRY(value, minDec = 2, maxDec = 2) {
@@ -1224,12 +1396,6 @@
 
       closeAddModal();
       fetchPrices();
-    }
-
-    function deleteCoin(index) {
-      coins.splice(index, 1);
-      saveCoins();
-      renderTable();
     }
 
     function updateInlineField(index, field, value) {
@@ -1346,7 +1512,7 @@
           <td data-label="Aylık ($ / ₺)" class="highlight">
             <div>$${formatUSD(monthlyUsd)} <br><small>₺${formatTRY(monthlyTry)}</small></div>
           </td>
-          <td><button class="danger" onclick="deleteCoin(${index})">Sil</button></td>
+          <td><button class="danger" onclick="openDeleteModal(${index})">Sil</button></td>
         `;
         tbody.appendChild(tr);
       });
