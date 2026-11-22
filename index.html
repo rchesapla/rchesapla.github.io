@@ -27,12 +27,12 @@
 
     * {
       box-sizing: border-box;
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE ve Edge */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
     }
 
     *::-webkit-scrollbar {
-      display: none; /* Chrome, Safari ve Opera */
+      display: none;
     }
 
     html, body {
@@ -335,6 +335,9 @@
       font-weight: 700;
       color: var(--text);
       font-variant-numeric: tabular-nums;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .kpi-info .kpi-sub {
@@ -580,6 +583,58 @@
       box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45);
     }
 
+    /* KRİPTO İKON & AVATAR STİLLERİ */
+    .coin-avatar-wrap {
+      position: relative;
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .coin-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    }
+    .coin-fallback-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      color: #fff;
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+      text-transform: uppercase;
+    }
+    .coin-fallback-icon.rlt {
+      background: linear-gradient(135deg, #06b6d4, #2563eb);
+    }
+    .coin-fallback-icon.rst {
+      background: linear-gradient(135deg, #f59e0b, #ea580c);
+    }
+    .coin-fallback-icon.hmt {
+      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+    }
+    .kpi-coin-logo {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
     /* GELİŞMİŞ TABLO STİLLERİ */
     .table-wrapper {
       overflow-x: auto;
@@ -651,7 +706,13 @@
     .coin-cell {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
+      flex-wrap: nowrap;
+    }
+    .coin-meta-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
       flex-wrap: wrap;
     }
     .rank-num {
@@ -666,6 +727,7 @@
       color: var(--muted);
       font-size: 0.72rem;
       font-weight: 700;
+      flex-shrink: 0;
     }
     .rank-num.top1 {
       background: rgba(34, 197, 94, 0.2);
@@ -940,6 +1002,14 @@
       color: var(--accent);
       border: 1px solid rgba(56, 189, 248, 0.25);
       border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .preset-chip img {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
     }
     .preset-chip:hover {
       background: var(--accent);
@@ -988,7 +1058,6 @@
       .sidebar.open {
         transform: translateX(0);
       }
-      /* Mobilde sol menüdeki ayar kutusunu gizle, ana ekrandaki ayar kartını göster */
       .sidebar-settings-box {
         display: none;
       }
@@ -1095,7 +1164,7 @@
       <div class="brand-logo">⚡</div>
       <div class="brand-text">
         <h2>RollerCoin</h2>
-        <span>Kazanç Paneli v2.8</span>
+        <span>Kazanç Paneli v2.9</span>
       </div>
     </div>
 
@@ -1303,7 +1372,7 @@
           <input type="text" id="newSymbol" placeholder="Örn: TRX" />
         </div>
         <div class="form-group">
-          <label>CoinGecko API ID (Canlı kur için)</label>
+          <label>CoinGecko API ID (Canlı kur ve logo için)</label>
           <input type="text" id="newApiId" placeholder="Örn: tron (boşsa sabit)" />
         </div>
       </div>
@@ -1385,7 +1454,7 @@
           <input type="text" id="editSymbol" />
         </div>
         <div class="form-group">
-          <label>CoinGecko API ID (Canlı kur için)</label>
+          <label>CoinGecko API ID (Canlı kur ve logo için)</label>
           <input type="text" id="editApiId" placeholder="Boşsa sabit fiyat kullanılır" />
         </div>
       </div>
@@ -1500,6 +1569,7 @@
     let coins = JSON.parse(localStorage.getItem('rc_custom_coins')) || JSON.parse(JSON.stringify(defaultCoins));
     coins = coins.map(c => ({ ...c, netUnit: c.netUnit || 'PH' }));
 
+    let coinImages = JSON.parse(localStorage.getItem('rc_coin_images')) || {};
     let sortMode = localStorage.getItem('rc_sort_mode') || 'profit_desc';
     let livePrices = {};
     let pendingDeleteIndex = null;
@@ -1619,7 +1689,7 @@
       saveCoins();
       closeEditModal();
 
-      if (apiId && apiId !== oldApiId && !livePrices[apiId]) {
+      if (apiId && (apiId !== oldApiId || !livePrices[apiId] || !coinImages[apiId])) {
         fetchPrices();
       } else {
         renderTable();
@@ -1732,17 +1802,64 @@
       localStorage.setItem('rc_custom_coins', JSON.stringify(coins));
     }
 
+    async function fetchCoinImages(apiIds) {
+      if (!apiIds || apiIds.length === 0) return;
+      try {
+        const marketUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${apiIds.join(',')}&per_page=100&page=1`;
+        const res = await fetch(marketUrl);
+        if (!res.ok) return;
+        const markets = await res.json();
+        if (Array.isArray(markets)) {
+          markets.forEach(item => {
+            if (item.id && item.image) {
+              coinImages[item.id] = item.image;
+            }
+          });
+          localStorage.setItem('rc_coin_images', JSON.stringify(coinImages));
+        }
+      } catch (e) {
+        // Önbellekteki veya yedek ikonlar kullanılacak
+      }
+    }
+
+    function getCoinAvatarHtml(coin, isKpi = false) {
+      const imgUrl = coin.apiId ? coinImages[coin.apiId] : null;
+      const symLower = coin.symbol.toLowerCase();
+      const tokenClass = (symLower === 'rlt' || symLower === 'rst' || symLower === 'hmt') ? symLower : '';
+      const shortSym = coin.symbol.slice(0, 3);
+
+      if (imgUrl) {
+        const imgClass = isKpi ? 'kpi-coin-logo' : 'coin-logo';
+        return `
+          <span class="coin-avatar-wrap">
+            <img src="${imgUrl}" alt="${coin.symbol}" class="${imgClass}" loading="lazy"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';" />
+            <span class="coin-fallback-icon ${tokenClass}" style="display:none;">${shortSym}</span>
+          </span>
+        `;
+      }
+
+      return `
+        <span class="coin-avatar-wrap">
+          <span class="coin-fallback-icon ${tokenClass}">${shortSym}</span>
+        </span>
+      `;
+    }
+
     async function fetchPrices() {
       const statusEl = document.getElementById('statusText');
-      statusEl.innerText = 'CoinGecko üzerinden canlı kurlar çekiliyor...';
+      statusEl.innerText = 'CoinGecko üzerinden canlı kurlar ve logolar çekiliyor...';
 
       const apiIds = [...new Set(coins.map(c => c.apiId).filter(id => id && id.trim() !== ''))];
-      if (!apiIds.includes('tether')) apiIds.push('tether');
+      const priceIds = apiIds.includes('tether') ? apiIds : [...apiIds, 'tether'];
 
       try {
-        const url = `https://api.coingecko.com/api/v3/simple/price?ids=${apiIds.join(',')}&vs_currencies=usd,try`;
-        const response = await fetch(url);
-        const data = await response.json();
+        const priceUrl = `https://api.coingecko.com/api/v3/simple/price?ids=${priceIds.join(',')}&vs_currencies=usd,try`;
+        const [priceResponse] = await Promise.all([
+          fetch(priceUrl),
+          fetchCoinImages(apiIds)
+        ]);
+        const data = await priceResponse.json();
 
         livePrices = data;
         if (data.tether && data.tether.try) {
@@ -1820,14 +1937,14 @@
 
         if (dailyUsd > maxDailyUsd) {
           maxDailyUsd = dailyUsd;
-          bestCoin = { symbol: coin.symbol, index, dailyUsd, dailyTry, monthlyUsd, monthlyTry };
+          bestCoin = { coin, symbol: coin.symbol, index, dailyUsd, dailyTry, monthlyUsd, monthlyTry };
         }
 
         return { coin, index, priceUsd, priceTry, dailyCoin, dailyUsd, dailyTry, monthlyUsd, monthlyTry };
       });
 
       if (bestCoin && maxDailyUsd > 0) {
-        document.getElementById('kpiBestCoin').innerText = bestCoin.symbol;
+        document.getElementById('kpiBestCoin').innerHTML = `${getCoinAvatarHtml(bestCoin.coin, true)} <span>${bestCoin.symbol}</span>`;
         document.getElementById('kpiBestDaily').innerText = `$${formatUSD(bestCoin.dailyUsd)} (₺${formatTRY(bestCoin.dailyTry)}) / gün`;
         document.getElementById('kpiBestMonthlyUsd').innerText = `$${formatUSD(bestCoin.monthlyUsd)}`;
         document.getElementById('kpiBestMonthlyTry').innerText = `₺${formatTRY(bestCoin.monthlyTry)} / ay`;
@@ -1869,9 +1986,12 @@
           <td data-label="Coin">
             <div class="coin-cell">
               ${rankBadge}
-              <span class="coin-symbol">${coin.symbol}</span>
-              <span class="${badgeClass}">${badgeLabel}</span>
-              ${isBest ? '<span class="best-tag">EN KÂRLI</span>' : ''}
+              ${getCoinAvatarHtml(coin)}
+              <div class="coin-meta-group">
+                <span class="coin-symbol">${coin.symbol}</span>
+                <span class="${badgeClass}">${badgeLabel}</span>
+                ${isBest ? '<span class="best-tag">EN KÂRLI</span>' : ''}
+              </div>
             </div>
           </td>
           <td data-label="Anlık Kur">
