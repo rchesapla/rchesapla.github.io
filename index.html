@@ -22,14 +22,20 @@
       --text: #f8fafc;
       --muted: #94a3b8;
       --border: #1e293b;
-      --sidebar-width: 260px;
+      --sidebar-width: 280px;
     }
 
     * {
       box-sizing: border-box;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE ve Edge */
     }
 
-    body {
+    *::-webkit-scrollbar {
+      display: none; /* Chrome, Safari ve Opera */
+    }
+
+    html, body {
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       background-color: var(--bg);
       color: var(--text);
@@ -37,6 +43,7 @@
       padding: 0;
       display: flex;
       min-height: 100vh;
+      width: 100%;
     }
 
     /* SOL YAN MENÜ (SIDEBAR) */
@@ -128,6 +135,49 @@
     .nav-item:hover {
       background: rgba(56, 189, 248, 0.08);
       color: var(--text);
+    }
+
+    /* SOL MENÜ İÇİ KAZIM GÜCÜN & KUR AYAR KARTI (MASAÜSTÜ) */
+    .sidebar-settings-box {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 12px;
+      background: rgba(19, 28, 49, 0.95);
+      border: 1px solid rgba(56, 189, 248, 0.22);
+    }
+
+    .sidebar-settings-box .nav-section-title {
+      padding: 0 0 10px 0;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sidebar-settings-box .form-group {
+      margin-bottom: 11px;
+    }
+
+    .sidebar-settings-box .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .sidebar-settings-box label {
+      font-size: 0.75rem;
+      margin-bottom: 5px;
+    }
+
+    .sidebar-settings-box input,
+    .sidebar-settings-box select {
+      padding: 8px 10px;
+      font-size: 0.88rem;
+    }
+
+    .sidebar-settings-box .input-group select {
+      min-width: 82px;
+      padding-right: 26px;
+      background-position: right 8px center;
+      background-size: 13px;
     }
 
     .sidebar-widget {
@@ -238,6 +288,11 @@
       max-width: 1440px;
       width: 100%;
       margin: 0 auto;
+    }
+
+    /* MOBİL AYARLAR BÖLÜMÜ (MASAÜSTÜNDE GİZLİ) */
+    .mobile-settings-section {
+      display: none;
     }
 
     /* KPI ÖZET KARTLARI */
@@ -933,6 +988,13 @@
       .sidebar.open {
         transform: translateX(0);
       }
+      /* Mobilde sol menüdeki ayar kutusunu gizle, ana ekrandaki ayar kartını göster */
+      .sidebar-settings-box {
+        display: none;
+      }
+      .mobile-settings-section {
+        display: block;
+      }
       .main-wrapper {
         margin-left: 0;
       }
@@ -1033,7 +1095,7 @@
       <div class="brand-logo">⚡</div>
       <div class="brand-text">
         <h2>RollerCoin</h2>
-        <span>Kazanç Paneli v2.6</span>
+        <span>Kazanç Paneli v2.8</span>
       </div>
     </div>
 
@@ -1042,6 +1104,29 @@
       <button class="nav-item" onclick="openAddModal()">➕ Yeni Kripto Ekle</button>
       <button class="nav-item" onclick="fetchPrices()">🔄 Kurları Güncelle</button>
       <button class="nav-item" onclick="openResetModal()">♻️ Tüm RollerCoin Kriptolarını Yükle</button>
+
+      <!-- MASAÜSTÜ SOL MENÜ: KAZIM GÜCÜN & KUR AYARI -->
+      <div class="sidebar-settings-box">
+        <div class="nav-section-title">⚙️ Kazım Gücün & Kur</div>
+        <div class="form-group">
+          <label>Senin Kazım Gücün</label>
+          <div class="input-group">
+            <input type="number" id="sidebarUserPower" value="15.5" step="any" oninput="syncPowerInput(this.value)" />
+            <select id="sidebarUserUnit" onchange="syncUnitSelect(this.value)">
+              <option value="GH">Gh/s</option>
+              <option value="TH">Th/s</option>
+              <option value="PH" selected>Ph/s</option>
+              <option value="EH">Eh/s</option>
+              <option value="ZH">Zh/s</option>
+              <option value="YH">Yh/s</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>USD / TRY Kuru</label>
+          <input type="number" id="sidebarUsdTryRate" value="34.50" step="0.01" oninput="syncRateInput(this.value)" />
+        </div>
+      </div>
     </nav>
 
     <div class="sidebar-widget">
@@ -1118,8 +1203,8 @@
         </div>
       </section>
 
-      <!-- AYARLAR PANELİ -->
-      <section class="card" id="settingsSection">
+      <!-- MOBİL AYARLAR PANELİ (SADECE MOBİLDE GÖRÜNÜR) -->
+      <section class="card mobile-settings-section" id="settingsSection">
         <div class="card-header">
           <h2>⚙️ Kazım Gücün & Kur Ayarı</h2>
         </div>
@@ -1127,8 +1212,8 @@
           <div class="form-group" style="margin-bottom: 0;">
             <label>Senin Kazım Gücün</label>
             <div class="input-group">
-              <input type="number" id="userPower" value="15.5" step="any" oninput="saveUserSettings(); renderTable()" />
-              <select id="userUnit" onchange="saveUserSettings(); renderTable()">
+              <input type="number" id="userPower" value="15.5" step="any" oninput="syncPowerInput(this.value)" />
+              <select id="userUnit" onchange="syncUnitSelect(this.value)">
                 <option value="GH">Gh/s</option>
                 <option value="TH">Th/s</option>
                 <option value="PH" selected>Ph/s</option>
@@ -1140,7 +1225,7 @@
           </div>
           <div class="form-group" style="margin-bottom: 0;">
             <label>USD / TRY Kuru (Otomatik çekilir, manuel değiştirebilirsin)</label>
-            <input type="number" id="usdTryRate" value="34.50" step="0.01" oninput="renderTable()" />
+            <input type="number" id="usdTryRate" value="34.50" step="0.01" oninput="syncRateInput(this.value)" />
           </div>
         </div>
       </section>
@@ -1425,6 +1510,26 @@
       document.getElementById('sidebarBackdrop').classList.toggle('active');
     }
 
+    function syncPowerInput(val) {
+      document.getElementById('userPower').value = val;
+      document.getElementById('sidebarUserPower').value = val;
+      saveUserSettings();
+      renderTable();
+    }
+
+    function syncUnitSelect(val) {
+      document.getElementById('userUnit').value = val;
+      document.getElementById('sidebarUserUnit').value = val;
+      saveUserSettings();
+      renderTable();
+    }
+
+    function syncRateInput(val) {
+      document.getElementById('usdTryRate').value = val;
+      document.getElementById('sidebarUsdTryRate').value = val;
+      renderTable();
+    }
+
     function changeSortMode(mode) {
       sortMode = mode;
       localStorage.setItem('rc_sort_mode', sortMode);
@@ -1606,8 +1711,14 @@
     function loadUserSettings() {
       const savedPower = localStorage.getItem('rc_user_power');
       const savedUnit = localStorage.getItem('rc_user_unit');
-      if (savedPower) document.getElementById('userPower').value = savedPower;
-      if (savedUnit) document.getElementById('userUnit').value = savedUnit;
+      if (savedPower) {
+        document.getElementById('userPower').value = savedPower;
+        document.getElementById('sidebarUserPower').value = savedPower;
+      }
+      if (savedUnit) {
+        document.getElementById('userUnit').value = savedUnit;
+        document.getElementById('sidebarUserUnit').value = savedUnit;
+      }
       document.getElementById('sortSelect').value = sortMode;
       updateSortIndicators();
     }
@@ -1635,7 +1746,9 @@
 
         livePrices = data;
         if (data.tether && data.tether.try) {
-          document.getElementById('usdTryRate').value = data.tether.try.toFixed(2);
+          const rateFormatted = data.tether.try.toFixed(2);
+          document.getElementById('usdTryRate').value = rateFormatted;
+          document.getElementById('sidebarUsdTryRate').value = rateFormatted;
         }
 
         const now = new Date().toLocaleTimeString('tr-TR');
@@ -1725,7 +1838,6 @@
         document.getElementById('kpiBestMonthlyTry').innerText = '₺0,00 / ay';
       }
 
-      // Seçili sıralama moduna göre satırları sırala
       const sortedRows = [...calculatedRows];
       if (sortMode === 'profit_desc') {
         sortedRows.sort((a, b) => b.dailyUsd - a.dailyUsd);
