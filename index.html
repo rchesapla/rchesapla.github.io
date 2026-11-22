@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RollerCoin Pro Dashboard | Canlı Kur & Kazanç Paneli</title>
+  <title>RollerCoin Pro Dashboard | Lig & Kazanç Analiz Paneli</title>
   <style>
     :root {
       --bg: #090e1a;
@@ -22,7 +22,7 @@
       --text: #f8fafc;
       --muted: #94a3b8;
       --border: #1e293b;
-      --sidebar-width: 280px;
+      --sidebar-width: 285px;
     }
 
     * {
@@ -117,11 +117,11 @@
       display: flex;
       align-items: center;
       gap: 11px;
-      padding: 11px 14px;
+      padding: 10px 14px;
       border-radius: 10px;
       color: var(--muted);
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 600;
       margin-bottom: 4px;
       cursor: pointer;
@@ -143,9 +143,9 @@
       color: var(--muted);
     }
 
-    /* SOL MENÜ İÇİ KAZIM GÜCÜN & KUR AYAR KARTI (MASAÜSTÜ) */
+    /* SOL MENÜ İÇİ KAZIM GÜCÜN & LİG AYAR KARTI (MASAÜSTÜ) */
     .sidebar-settings-box {
-      margin-top: 14px;
+      margin-top: 12px;
       padding: 14px;
       border-radius: 12px;
       background: rgba(19, 28, 49, 0.95);
@@ -176,7 +176,7 @@
     .sidebar-settings-box input,
     .sidebar-settings-box select {
       padding: 8px 10px;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
     }
 
     .sidebar-settings-box .input-group select {
@@ -186,9 +186,30 @@
       background-size: 13px;
     }
 
+    .auto-league-btn {
+      margin-top: 6px;
+      padding: 7px 10px;
+      font-size: 0.76rem;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 8px;
+    }
+
+    .auto-league-btn:hover {
+      background: rgba(56, 189, 248, 0.22);
+    }
+
+    .league-range-hint {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 5px;
+      display: block;
+    }
+
     .sidebar-widget {
-      margin: 14px;
-      padding: 14px;
+      margin: 12px 14px 14px;
+      padding: 12px 14px;
       border-radius: 12px;
       background: rgba(19, 28, 49, 0.9);
       border: 1px solid var(--border);
@@ -206,7 +227,7 @@
 
     .sidebar-widget p {
       margin: 0;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       color: var(--muted);
       line-height: 1.5;
     }
@@ -337,7 +358,7 @@
     }
 
     .kpi-info .kpi-value {
-      font-size: 1.35rem;
+      font-size: 1.32rem;
       font-weight: 700;
       color: var(--text);
       font-variant-numeric: tabular-nums;
@@ -377,6 +398,13 @@
       margin-bottom: 20px;
     }
 
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 0;
+    }
+
     .card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -405,6 +433,17 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .active-league-pill {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.14);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.3);
     }
 
     .table-controls {
@@ -474,7 +513,7 @@
       background-size: 15px;
     }
 
-    select option {
+    select option, select optgroup {
       background-color: #0f172a;
       color: var(--text);
       padding: 10px;
@@ -1030,11 +1069,6 @@
       align-items: center;
       gap: 5px;
     }
-    .preset-chip img {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-    }
     .preset-chip:hover {
       background: var(--accent);
       color: #090e1a;
@@ -1073,6 +1107,9 @@
       .kpi-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 860px) {
@@ -1103,7 +1140,7 @@
     }
 
     @media (max-width: 640px) {
-      .kpi-grid, .grid {
+      .kpi-grid, .grid, .grid-3 {
         grid-template-columns: 1fr;
       }
       .topbar-actions .btn-text.hide-mobile {
@@ -1188,7 +1225,7 @@
       <div class="brand-logo">⚡</div>
       <div class="brand-text">
         <h2>RollerCoin</h2>
-        <span>Kazanç Paneli v3.1</span>
+        <span>Lig & Kazanç Paneli v3.2</span>
       </div>
     </div>
 
@@ -1196,11 +1233,19 @@
       <div class="nav-section-title">Hızlı İşlemler</div>
       <button class="nav-item" onclick="openAddModal()">➕ Yeni Kripto Ekle</button>
       <button class="nav-item" id="sidebarRefreshBtn" onclick="openRefreshConfirmModal()">🔄 Kurları Güncelle</button>
-      <button class="nav-item" onclick="openResetModal()">♻️ Tüm RollerCoin Kriptolarını Yükle</button>
+      <button class="nav-item" onclick="openResetModal()">♻️ Seçili Ligi Sıfırla</button>
 
-      <!-- MASAÜSTÜ SOL MENÜ: KAZIM GÜCÜN & KUR AYARI -->
+      <!-- MASAÜSTÜ SOL MENÜ: LİG, KAZIM GÜCÜN & KUR AYARI -->
       <div class="sidebar-settings-box">
-        <div class="nav-section-title">⚙️ Kazım Gücün & Kur</div>
+        <div class="nav-section-title">🏆 Lig, Kazım Gücün & Kur</div>
+
+        <div class="form-group">
+          <label>RollerCoin Ligi (Kripto Havuzu)</label>
+          <select id="sidebarLeagueSelect" onchange="changeLeague(this.value)"></select>
+          <span class="league-range-hint" id="sidebarLeagueRange">Güç Aralığı: -</span>
+          <button type="button" class="auto-league-btn" onclick="autoDetectLeague()">⚡ Gücüme Uygun Ligi Seç</button>
+        </div>
+
         <div class="form-group">
           <label>Senin Kazım Gücün</label>
           <div class="input-group">
@@ -1215,6 +1260,7 @@
             </select>
           </div>
         </div>
+
         <div class="form-group">
           <label>USD / TRY Kuru</label>
           <input type="number" id="sidebarUsdTryRate" value="34.50" step="0.01" oninput="syncRateInput(this.value)" />
@@ -1225,10 +1271,8 @@
     <div class="sidebar-widget">
       <div class="sidebar-widget-title">📐 Birim Dönüşüm Ölçeği</div>
       <p>
-        1.000 Gh/s = 1 Th/s<br>
-        1.000 Th/s = 1 Ph/s<br>
-        1.000 Ph/s = 1 Eh/s<br>
-        1.000 Eh/s = 1 Zh/s<br>
+        1.000 Gh/s = 1 Th/s | 1.000 Th/s = 1 Ph/s<br>
+        1.000 Ph/s = 1 Eh/s | 1.000 Eh/s = 1 Zh/s<br>
         1.000 Zh/s = 1 Yh/s
       </p>
     </div>
@@ -1241,7 +1285,7 @@
       <div class="topbar-left">
         <button class="mobile-menu-btn" onclick="toggleSidebar()" title="Menü">☰</button>
         <div class="topbar-title">
-          <h1>Canlı Kur & Kazanç Analiz Paneli</h1>
+          <h1>Lig Sistemi & Canlı Kazanç Paneli</h1>
           <div class="topbar-status">
             <span class="status-dot"></span>
             <span id="statusText">Kurlar yükleniyor...</span>
@@ -1265,14 +1309,14 @@
           <div class="kpi-info">
             <span class="kpi-label">Senin Kazım Gücün</span>
             <div class="kpi-value" id="kpiUserPower">15.5 Ph/s</div>
-            <div class="kpi-sub" style="color: var(--accent);">Aktif Hesaplama Gücü</div>
+            <div class="kpi-sub" style="color: var(--accent);" id="kpiActiveLeague">Lig: Bronze II</div>
           </div>
           <div class="kpi-icon blue">⚡</div>
         </div>
 
         <div class="kpi-card">
           <div class="kpi-info">
-            <span class="kpi-label">En Kârlı Coin</span>
+            <span class="kpi-label">Ligin En Kârlı Coini</span>
             <div class="kpi-value" id="kpiBestCoin">-</div>
             <div class="kpi-sub" id="kpiBestDaily">$0.00 / gün</div>
           </div>
@@ -1292,7 +1336,7 @@
           <div class="kpi-info">
             <span class="kpi-label">Anlık Dolar Kuru</span>
             <div class="kpi-value" id="kpiUsdTry">₺34,50</div>
-            <div class="kpi-sub" style="color: var(--amber);" id="kpiCoinCount">13 Coin Takip Ediliyor</div>
+            <div class="kpi-sub" style="color: var(--amber);" id="kpiCoinCount">5 Coin Aktif</div>
           </div>
           <div class="kpi-icon amber">💵</div>
         </div>
@@ -1301,9 +1345,15 @@
       <!-- MOBİL AYARLAR PANELİ (SADECE MOBİLDE GÖRÜNÜR) -->
       <section class="card mobile-settings-section" id="settingsSection">
         <div class="card-header">
-          <h2>⚙️ Kazım Gücün & Kur Ayarı</h2>
+          <h2>⚙️ Lig, Kazım Gücün & Kur Ayarı</h2>
         </div>
-        <div class="grid" style="margin-bottom: 0;">
+        <div class="grid-3">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label>RollerCoin Ligi</label>
+            <select id="mobileLeagueSelect" onchange="changeLeague(this.value)"></select>
+            <span class="league-range-hint" id="mobileLeagueRange">Güç Aralığı: -</span>
+            <button type="button" class="auto-league-btn" onclick="autoDetectLeague()">⚡ Gücüme Uygun Ligi Seç</button>
+          </div>
           <div class="form-group" style="margin-bottom: 0;">
             <label>Senin Kazım Gücün</label>
             <div class="input-group">
@@ -1319,7 +1369,7 @@
             </div>
           </div>
           <div class="form-group" style="margin-bottom: 0;">
-            <label>USD / TRY Kuru (Otomatik çekilir, manuel değiştirebilirsin)</label>
+            <label>USD / TRY Kuru</label>
             <input type="number" id="usdTryRate" value="34.50" step="0.01" oninput="syncRateInput(this.value)" />
           </div>
         </div>
@@ -1328,15 +1378,18 @@
       <!-- KAZANÇ TABLOSU PANELİ -->
       <section class="card" id="tableSection" style="margin-bottom: 0;">
         <div class="card-header">
-          <h2>📊 Coin Bazlı Canlı Kazanç Karşılaştırması</h2>
+          <h2>
+            📊 Lig Kripto Kazanç Karşılaştırması
+            <span class="active-league-pill" id="tableLeagueBadge">Bronze II</span>
+          </h2>
           <div class="table-controls">
             <select id="sortSelect" class="sort-select" onchange="changeSortMode(this.value)" title="Sıralama Ölçütü">
               <option value="profit_desc" selected>🏆 En Kârlı (Yüksek → Düşük)</option>
               <option value="profit_asc">📉 En Az Kârlı (Düşük → Yüksek)</option>
-              <option value="default">📋 Varsayılan Liste Sırası</option>
+              <option value="default">📋 Varsayılan Lig Sırası</option>
               <option value="symbol_asc">🔤 Coin Adı (A → Z)</option>
             </select>
-            <button class="btn-refresh" onclick="openResetModal()">♻️ Listeyi Sıfırla (13 Coin)</button>
+            <button class="btn-refresh" onclick="openResetModal()">♻️ Ligi Sıfırla</button>
             <button class="add-coin-trigger" onclick="openAddModal()">+ Yeni Kripto Ekle</button>
           </div>
         </div>
@@ -1346,8 +1399,8 @@
               <tr>
                 <th>Coin</th>
                 <th>Anlık Kur (USD / TRY)</th>
-                <th>Ağ Gücü & Birimi</th>
-                <th>Blok Ödülü</th>
+                <th>Lig Ağ Gücü & Birimi</th>
+                <th>Lig Blok Ödülü</th>
                 <th>Günlük Kazanç (Coin)</th>
                 <th class="sortable-th" onclick="toggleProfitSort()" title="Kârlılığa göre sıralamayı değiştir">
                   Günlük ($) / (₺) <span id="sortArrowDaily">↓</span>
@@ -1369,12 +1422,12 @@
   <div class="modal-overlay" id="addCoinModal" onclick="handleOverlayClick(event, 'addCoinModal')">
     <div class="modal-box">
       <div class="modal-header">
-        <h2>➕ Tabloya Yeni Kripto Ekle</h2>
+        <h2>➕ Lige Yeni Kripto Ekle</h2>
         <button class="modal-close" onclick="closeAddModal()" title="Kapat">✕</button>
       </div>
 
       <div class="preset-section">
-        <label style="margin-bottom: 2px;">⚡ RollerCoin Hızlı Şablon Seç</label>
+        <label style="margin-bottom: 2px;">⚡ RollerCoin Lig Kriptoları Hızlı Şablon</label>
         <div class="preset-bar">
           <button type="button" class="preset-chip" onclick="fillPreset('RLT', '', 1.0)">RLT</button>
           <button type="button" class="preset-chip" onclick="fillPreset('RST', '', 0.01)">RST</button>
@@ -1388,6 +1441,7 @@
           <button type="button" class="preset-chip" onclick="fillPreset('DOGE', 'dogecoin', 0)">DOGE</button>
           <button type="button" class="preset-chip" onclick="fillPreset('LTC', 'litecoin', 0)">LTC</button>
           <button type="button" class="preset-chip" onclick="fillPreset('XRP', 'ripple', 0)">XRP</button>
+          <button type="button" class="preset-chip" onclick="fillPreset('ALGO', 'algorand', 0)">ALGO</button>
           <button type="button" class="preset-chip" onclick="fillPreset('USDT', 'tether', 0)">USDT</button>
         </div>
       </div>
@@ -1395,17 +1449,17 @@
       <div class="grid" style="gap: 12px; margin-bottom: 0;">
         <div class="form-group">
           <label>Coin Sembolü *</label>
-          <input type="text" id="newSymbol" placeholder="Örn: TRX" />
+          <input type="text" id="newSymbol" placeholder="Örn: ALGO" />
         </div>
         <div class="form-group">
           <label>CoinGecko API ID (Canlı kur ve logo için)</label>
-          <input type="text" id="newApiId" placeholder="Örn: tron (boşsa sabit)" />
+          <input type="text" id="newApiId" placeholder="Örn: algorand (boşsa sabit)" />
         </div>
       </div>
 
       <div class="grid" style="gap: 12px; margin-bottom: 0;">
         <div class="form-group">
-          <label>Ağ Gücü ve Birimi *</label>
+          <label>Lig Ağ Gücü ve Birimi *</label>
           <div class="input-group">
             <input type="number" id="newNetPower" placeholder="Örn: 650" step="any" />
             <select id="newNetUnit">
@@ -1420,7 +1474,7 @@
         </div>
         <div class="form-group">
           <label>Blok Ödülü (Coin Adedi) *</label>
-          <input type="number" id="newBlockReward" placeholder="Örn: 60" step="any" />
+          <input type="number" id="newBlockReward" placeholder="Örn: 28.11" step="any" />
         </div>
       </div>
 
@@ -1446,7 +1500,7 @@
   <div class="modal-overlay" id="editCoinModal" onclick="handleOverlayClick(event, 'editCoinModal')">
     <div class="modal-box">
       <div class="modal-header">
-        <h2>✏️ <span id="editModalTitle">BTC</span> Ayarlarını Düzenle</h2>
+        <h2>✏️ <span id="editModalTitle">BTC</span> Lig Değerlerini Düzenle</h2>
         <button class="modal-close" onclick="closeEditModal()" title="Kapat">✕</button>
       </div>
 
@@ -1454,7 +1508,7 @@
         <span class="section-badge">⚡ Kazım & Blok Parametreleri</span>
         <div class="grid" style="gap: 12px; margin-bottom: 0;">
           <div class="form-group" style="margin-bottom: 0;">
-            <label>Ağ Gücü ve Birimi *</label>
+            <label>Lig Ağ Gücü ve Birimi *</label>
             <div class="input-group">
               <input type="number" id="editNetPower" step="any" />
               <select id="editNetUnit">
@@ -1542,11 +1596,11 @@
         <div class="confirm-icon">⚠️</div>
         <h3 class="confirm-title"><span id="deleteCoinName">BTC</span> tablodan silinsin mi?</h3>
         <p class="confirm-desc">
-          Bu işlem seçili kripto parayı kazanç karşılaştırma tablosundan kaldıracaktır. İstersen daha sonra yeniden ekleyebilirsin.
+          Bu işlem seçili kripto parayı aktif lig tablosundan kaldıracaktır. İstersen daha sonra yeniden ekleyebilirsin.
         </p>
         <div class="confirm-coin-preview">
           <span>Seçili Coin: <strong id="deleteCoinPreviewSymbol">BTC</strong></span>
-          <span id="deleteCoinPreviewMeta">Ağ Gücü: 1.55 Eh/s</span>
+          <span id="deleteCoinPreviewMeta">Lig Ağ Gücü: -</span>
         </div>
       </div>
 
@@ -1557,23 +1611,23 @@
     </div>
   </div>
 
-  <!-- LİSTEYİ SIFIRLAMA UYARI MENÜSÜ (RESET WARNING MODAL) -->
+  <!-- LİGİ SIFIRLAMA UYARI MENÜSÜ (RESET WARNING MODAL) -->
   <div class="modal-overlay" id="resetConfirmModal" onclick="handleOverlayClick(event, 'resetConfirmModal')">
     <div class="modal-box warning-box">
       <div class="modal-header warning-header">
-        <h2>⚠️ Listeyi Sıfırlama Uyarısı</h2>
+        <h2>⚠️ Ligi Sıfırlama Uyarısı</h2>
         <button class="modal-close" onclick="closeResetModal()" title="Kapat">✕</button>
       </div>
 
       <div class="confirm-body">
         <div class="confirm-icon warning">♻️</div>
-        <h3 class="confirm-title">Tablo varsayılan ayarlara sıfırlansın mı?</h3>
+        <h3 class="confirm-title"><span id="resetLeagueName">Bronze II</span> ligi varsayılan değerlere dönsün mü?</h3>
         <p class="confirm-desc">
-          Mevcut tabloda yaptığınız tüm özel ağ gücü, blok ödülü düzenlemeleri ve sonradan eklediğiniz coinler silinerek <strong>13 varsayılan RollerCoin varlığı</strong> yüklenecektir.
+          Seçili ligde yaptığınız özel ağ gücü, blok ödülü düzenlemeleri ve eklediğiniz coinler sıfırlanarak <strong>bu lige ait resmi kripto havuzu</strong> yüklenecektir.
         </p>
         <div class="confirm-coin-preview">
-          <span>Mevcut Coin: <strong id="resetCurrentCount">13</strong></span>
-          <span>Yüklenecek: <strong>13 Varsayılan Coin</strong></span>
+          <span>Mevcut Coin: <strong id="resetCurrentCount">-</strong></span>
+          <span>Lig Havuzu: <strong id="resetTargetCount">-</strong></span>
         </div>
       </div>
 
@@ -1603,24 +1657,162 @@
       YH: 'Yh/s'
     };
 
-    const defaultCoins = [
-      { symbol: 'RLT', apiId: '', manualPrice: 1.0, netPower: 1.25, netUnit: 'EH', blockReward: 30, blockTime: 600 },
-      { symbol: 'RST', apiId: '', manualPrice: 0.01, netPower: 850, netUnit: 'PH', blockReward: 150, blockTime: 600 },
-      { symbol: 'HMT', apiId: '', manualPrice: 0.01, netPower: 650, netUnit: 'PH', blockReward: 120, blockTime: 600 },
-      { symbol: 'BTC', apiId: 'bitcoin', manualPrice: 0, netPower: 1.55, netUnit: 'EH', blockReward: 0.00045, blockTime: 600 },
-      { symbol: 'ETH', apiId: 'ethereum', manualPrice: 0, netPower: 980, netUnit: 'PH', blockReward: 0.012, blockTime: 600 },
-      { symbol: 'BNB', apiId: 'binancecoin', manualPrice: 0, netPower: 760, netUnit: 'PH', blockReward: 0.045, blockTime: 600 },
-      { symbol: 'POL', apiId: 'polygon-ecosystem-token', manualPrice: 0, netPower: 720, netUnit: 'PH', blockReward: 65, blockTime: 600 },
-      { symbol: 'SOL', apiId: 'solana', manualPrice: 0, netPower: 890, netUnit: 'PH', blockReward: 0.22, blockTime: 600 },
-      { symbol: 'TRX', apiId: 'tron', manualPrice: 0, netPower: 790, netUnit: 'PH', blockReward: 160, blockTime: 600 },
-      { symbol: 'DOGE', apiId: 'dogecoin', manualPrice: 0, netPower: 840, netUnit: 'PH', blockReward: 140, blockTime: 600 },
-      { symbol: 'LTC', apiId: 'litecoin', manualPrice: 0, netPower: 680, netUnit: 'PH', blockReward: 0.35, blockTime: 600 },
-      { symbol: 'XRP', apiId: 'ripple', manualPrice: 0, netPower: 740, netUnit: 'PH', blockReward: 15, blockTime: 600 },
-      { symbol: 'USDT', apiId: 'tether', manualPrice: 1.0, netPower: 910, netUnit: 'PH', blockReward: 30, blockTime: 600 }
-    ];
+    // RollerCoin 14 Kripto / Token Meta Verileri
+    const coinCatalog = {
+      RLT:  { apiId: '',                        manualPrice: 1.0 },
+      RST:  { apiId: '',                        manualPrice: 0.01 },
+      HMT:  { apiId: '',                        manualPrice: 0.01 },
+      BTC:  { apiId: 'bitcoin',                 manualPrice: 0 },
+      ETH:  { apiId: 'ethereum',                manualPrice: 0 },
+      BNB:  { apiId: 'binancecoin',             manualPrice: 0 },
+      POL:  { apiId: 'polygon-ecosystem-token', manualPrice: 0 },
+      SOL:  { apiId: 'solana',                  manualPrice: 0 },
+      TRX:  { apiId: 'tron',                    manualPrice: 0 },
+      DOGE: { apiId: 'dogecoin',                manualPrice: 0 },
+      LTC:  { apiId: 'litecoin',                manualPrice: 0 },
+      XRP:  { apiId: 'ripple',                  manualPrice: 0 },
+      ALGO: { apiId: 'algorand',                manualPrice: 0 },
+      USDT: { apiId: 'tether',                  manualPrice: 1.0 }
+    };
 
-    let coins = JSON.parse(localStorage.getItem('rc_custom_coins')) || JSON.parse(JSON.stringify(defaultCoins));
-    coins = coins.map(c => ({ ...c, netUnit: c.netUnit || 'PH' }));
+    // RollerCoin 22 Lig Sistemi ve Lige Özel Kripto Havuzları
+    const leaguesData = {
+      bronze_1: {
+        name: 'Bronze I', group: 'Bronze Ligleri', rangeLabel: '0 – 5 Ph/s', minGh: 0, maxGh: 5e6,
+        rewards: { RLT: 1.807117, RST: 96.379255, BTC: 0.000005, LTC: 0.002894 },
+        defaultNetPower: 110, defaultNetUnit: 'PH'
+      },
+      bronze_2: {
+        name: 'Bronze II', group: 'Bronze Ligleri', rangeLabel: '5 – 30 Ph/s', minGh: 5e6, maxGh: 30e6,
+        rewards: { RLT: 0.189194, RST: 28.379134, BTC: 0.000001, BNB: 0.000107, LTC: 0.001075 },
+        defaultNetPower: 220, defaultNetUnit: 'PH'
+      },
+      bronze_3: {
+        name: 'Bronze III', group: 'Bronze Ligleri', rangeLabel: '30 – 100 Ph/s', minGh: 30e6, maxGh: 100e6,
+        rewards: { RLT: 1.574151, RST: 125.929462, BTC: 0.000007, BNB: 0.000778, POL: 5.923755, LTC: 0.004443 },
+        defaultNetPower: 480, defaultNetUnit: 'PH'
+      },
+      silver_1: {
+        name: 'Silver I', group: 'Silver Ligleri', rangeLabel: '100 – 200 Ph/s', minGh: 100e6, maxGh: 200e6,
+        rewards: { RLT: 1.264447, RST: 79.025905, XRP: 0.372386, BTC: 0.000006, BNB: 0.000209, POL: 2.085333, LTC: 0.002979, USDT: 0.1024 },
+        defaultNetPower: 750, defaultNetUnit: 'PH'
+      },
+      silver_2: {
+        name: 'Silver II', group: 'Silver Ligleri', rangeLabel: '200 – 500 Ph/s', minGh: 200e6, maxGh: 500e6,
+        rewards: { RLT: 0.519964, RST: 47.265362, XRP: 0.088534, DOGE: 4.87, BTC: 0.000003, BNB: 0.000089, POL: 0.885432, LTC: 0.001771, USDT: 0.2052 },
+        defaultNetPower: 1.15, defaultNetUnit: 'EH'
+      },
+      silver_3: {
+        name: 'Silver III', group: 'Silver Ligleri', rangeLabel: '500 Ph/s – 1 Eh/s', minGh: 500e6, maxGh: 1e9,
+        rewards: { RLT: 1.764177, RST: 132.31485, XRP: 0.330724, DOGE: 4.9605, BTC: 0.000006, ETH: 0.000207, BNB: 0.000413, POL: 2.480304, LTC: 0.006201, USDT: 0.2573 },
+        defaultNetPower: 1.85, defaultNetUnit: 'EH'
+      },
+      gold_1: {
+        name: 'Gold I', group: 'Gold Ligleri', rangeLabel: '1 – 2 Eh/s', minGh: 1e9, maxGh: 2e9,
+        rewards: { RLT: 1.994089, RST: 132.935655, XRP: 0.363712, TRX: 2.424579, DOGE: 9.795, BTC: 0.000015, ETH: 0.000351, BNB: 0.000909, POL: 4.094422, LTC: 0.006127, USDT: 0.3714 },
+        defaultNetPower: 2.6, defaultNetUnit: 'EH'
+      },
+      gold_2: {
+        name: 'Gold II', group: 'Gold Ligleri', rangeLabel: '2 – 5 Eh/s', minGh: 2e9, maxGh: 5e9,
+        rewards: { RLT: 2.203416, RST: 165.252953, HMT: 71.609606, XRP: 0.173752, TRX: 2.146165, DOGE: 8.2572, BTC: 0.000007, ETH: 0.000276, BNB: 0.000511, POL: 2.66258, SOL: 0.007893, LTC: 0.002684, USDT: 0.330455 },
+        defaultNetPower: 3.4, defaultNetUnit: 'EH'
+      },
+      gold_3: {
+        name: 'Gold III', group: 'Gold Ligleri', rangeLabel: '5 – 15 Eh/s', minGh: 5e9, maxGh: 15e9,
+        rewards: { RLT: 3.597755, RST: 224.860343, HMT: 1394.134244, XRP: 0.579108, TRX: 6.618538, DOGE: 25.0682, BTC: 0.000025, ETH: 0.000479, BNB: 0.001406, POL: 5.588471, SOL: 0.016765, LTC: 0.008352, USDT: 1.484104 },
+        defaultNetPower: 6.8, defaultNetUnit: 'EH'
+      },
+      platinum_1: {
+        name: 'Platinum I', group: 'Platinum Ligleri', rangeLabel: '15 – 50 Eh/s', minGh: 15e9, maxGh: 50e9,
+        rewards: { RLT: 4.417818, RST: 321.293781, HMT: 3132.614654, XRP: 0.931059, TRX: 17.504569, DOGE: 24.827, BTC: 0.000032, ETH: 0.000956, BNB: 0.00175, POL: 11.141474, SOL: 0.023717, LTC: 0.015047, ALGO: 28.113239, USDT: 2.409691 },
+        defaultNetPower: 14.5, defaultNetUnit: 'EH'
+      },
+      platinum_2: {
+        name: 'Platinum II', group: 'Platinum Ligleri', rangeLabel: '50 – 100 Eh/s', minGh: 50e9, maxGh: 100e9,
+        rewards: { RLT: 2.079749, RST: 166.381784, HMT: 2380.922841, XRP: 0.758335, TRX: 12.891142, DOGE: 19.1469, BTC: 0.000021, ETH: 0.000731, BNB: 0.001137, POL: 7.317374, SOL: 0.02781, LTC: 0.009575, ALGO: 11.646703, USDT: 1.497425 },
+        defaultNetPower: 22.0, defaultNetUnit: 'EH'
+      },
+      platinum_3: {
+        name: 'Platinum III', group: 'Platinum Ligleri', rangeLabel: '100 – 200 Eh/s', minGh: 100e9, maxGh: 200e9,
+        rewards: { RLT: 1.48352, RST: 111.591451, HMT: 2552.803758, XRP: 0.603105, TRX: 13.410191, DOGE: 17.4708, BTC: 0.000017, ETH: 0.000715, BNB: 0.001019, POL: 6.679066, SOL: 0.035291, LTC: 0.008019, ALGO: 9.043235, USDT: 1.612735 },
+        defaultNetPower: 35.0, defaultNetUnit: 'EH'
+      },
+      diamond_1: {
+        name: 'Diamond I', group: 'Diamond Ligleri', rangeLabel: '200 – 400 Eh/s', minGh: 200e9, maxGh: 400e9,
+        rewards: { RST: 104.712286, XRP: 1.174009, TRX: 4.790121, DOGE: 21.8184, BTC: 0.000019, ETH: 0.000725, BNB: 0.001315, POL: 13.595132, SOL: 0.010875, LTC: 0.019917, ALGO: 24.083789, USDT: 1.675426 },
+        defaultNetPower: 52.0, defaultNetUnit: 'EH'
+      },
+      diamond_2: {
+        name: 'Diamond II', group: 'Diamond Ligleri', rangeLabel: '400 Eh/s – 10 Zh/s', minGh: 400e9, maxGh: 10e12,
+        rewards: { RST: 40.315299, XRP: 0.858247, TRX: 3.269434, DOGE: 28.8944, BTC: 0.000026, ETH: 0.000552, BNB: 0.002125, POL: 11.042982, SOL: 0.011836, LTC: 0.020634, ALGO: 31.80427, USDT: 2.687719 },
+        defaultNetPower: 85.0, defaultNetUnit: 'EH'
+      },
+      diamond_3: {
+        name: 'Diamond III', group: 'Diamond Ligleri', rangeLabel: '10 – 50 Zh/s', minGh: 10e12, maxGh: 50e12,
+        rewards: { RST: 34.289117, XRP: 0.708437, TRX: 2.904668, DOGE: 23.8275, BTC: 0.000021, ETH: 0.000465, BNB: 0.001729, POL: 9.120475, SOL: 0.009851, LTC: 0.017272, ALGO: 26.027013, USDT: 2.026206 },
+        defaultNetPower: 130.0, defaultNetUnit: 'EH'
+      },
+      titan_1: {
+        name: 'Titan I', group: 'Titan & Emerald Ligleri', rangeLabel: '50 – 150 Zh/s', minGh: 50e12, maxGh: 150e12,
+        rewards: { RST: 37.46125, XRP: 0.78358, TRX: 3.202283, DOGE: 26.0611, BTC: 0.000023, ETH: 0.000528, BNB: 0.001908, POL: 10.441521, SOL: 0.011242, LTC: 0.018873, ALGO: 29.032556, USDT: 1.3886 },
+        defaultNetPower: 190.0, defaultNetUnit: 'EH'
+      },
+      titan_2: {
+        name: 'Titan II', group: 'Titan & Emerald Ligleri', rangeLabel: '150 – 400 Zh/s', minGh: 150e12, maxGh: 400e12,
+        rewards: { RST: 34.341795, XRP: 0.641846, TRX: 2.602143, DOGE: 21.6839, BTC: 0.000017, ETH: 0.000434, BNB: 0.001561, POL: 8.500178, SOL: 0.009194, LTC: 0.015265, ALGO: 23.270678, USDT: 1.161 },
+        defaultNetPower: 260.0, defaultNetUnit: 'EH'
+      },
+      titan_3: {
+        name: 'Titan III', group: 'Titan & Emerald Ligleri', rangeLabel: '400 Zh/s – 1 Yh/s', minGh: 400e12, maxGh: 1e15,
+        rewards: { RST: 58.29121, XRP: 1.277949, TRX: 5.308089, DOGE: 43.448, BTC: 0.000039, ETH: 0.000845, BNB: 0.003146, POL: 17.418455, SOL: 0.018677, LTC: 0.031455, ALGO: 47.928277, USDT: 2.5519 },
+        defaultNetPower: 380.0, defaultNetUnit: 'EH'
+      },
+      emerald_1: {
+        name: 'Emerald I', group: 'Titan & Emerald Ligleri', rangeLabel: '1+ Yh/s (Üst Lig)', minGh: 1e15, maxGh: 5e15,
+        rewards: { RST: 254.8733, XRP: 0.4644, TRX: 1.7414, DOGE: 6.7718, BTC: 0.00000648, ETH: 0.0001934, BNB: 0.000387, POL: 3.8696, SOL: 0.0065782, LTC: 0.009674, ALGO: 9.7872, USDT: 1.835 },
+        defaultNetPower: 520.0, defaultNetUnit: 'EH'
+      },
+      emerald_2: {
+        name: 'Emerald II', group: 'Titan & Emerald Ligleri', rangeLabel: 'Üst Lig II', minGh: 5e15, maxGh: 20e15,
+        rewards: { RST: 41.0, XRP: 0.3868, TRX: 1.5474, DOGE: 5.803, BTC: 0.00000532, ETH: 0.000194, BNB: 0.0004642, POL: 3.3656, SOL: 0.005803, LTC: 0.0096716, ALGO: 8.173, USDT: 1.5324 },
+        defaultNetPower: 680.0, defaultNetUnit: 'EH'
+      },
+      emerald_3: {
+        name: 'Emerald III', group: 'Titan & Emerald Ligleri', rangeLabel: 'Üst Lig III', minGh: 20e15, maxGh: Infinity,
+        rewards: { RST: 205.0, XRP: 0.1652, TRX: 0.836, DOGE: 2.9162, BTC: 0.00000292, ETH: 0.0001166, BNB: 0.0002332, POL: 1.95, SOL: 0.0034, LTC: 0.0055, ALGO: 4.8, USDT: 0.95 },
+        defaultNetPower: 850.0, defaultNetUnit: 'EH'
+      },
+      all_coins: {
+        name: 'Tüm RollerCoin Kriptoları (14 Varlık)', group: 'Genel Görünüm', rangeLabel: 'Tüm Lig Havuzu', minGh: -1, maxGh: -1,
+        rewards: { RLT: 30, RST: 150, HMT: 120, BTC: 0.00045, ETH: 0.012, BNB: 0.045, POL: 65, SOL: 0.22, TRX: 160, DOGE: 140, LTC: 0.35, XRP: 15, ALGO: 28, USDT: 30 },
+        defaultNetPower: 950, defaultNetUnit: 'PH'
+      }
+    };
+
+    function buildDefaultCoinsForLeague(leagueKey) {
+      const league = leaguesData[leagueKey] || leaguesData.gold_2;
+      return Object.entries(league.rewards).map(([symbol, blockReward]) => {
+        const meta = coinCatalog[symbol] || { apiId: '', manualPrice: 0 };
+        return {
+          symbol,
+          apiId: meta.apiId,
+          manualPrice: meta.manualPrice,
+          netPower: league.defaultNetPower,
+          netUnit: league.defaultNetUnit,
+          blockReward,
+          blockTime: 600
+        };
+      });
+    }
+
+    let activeLeague = localStorage.getItem('rc_active_league') || 'bronze_2';
+    if (!leaguesData[activeLeague]) activeLeague = 'bronze_2';
+
+    let leagueCoinsMap = JSON.parse(localStorage.getItem('rc_league_coins_v1')) || {};
+    if (!leagueCoinsMap[activeLeague]) {
+      leagueCoinsMap[activeLeague] = buildDefaultCoinsForLeague(activeLeague);
+    }
+    let coins = leagueCoinsMap[activeLeague].map(c => ({ ...c, netUnit: c.netUnit || 'PH' }));
 
     let coinImages = JSON.parse(localStorage.getItem('rc_coin_images')) || {};
     let sortMode = localStorage.getItem('rc_sort_mode') || 'profit_desc';
@@ -1631,6 +1823,83 @@
     // 30 SANİYELİK KUR GÜNCELLEME GERİ SAYIM DEĞİŞKENLERİ
     let refreshCooldownTimer = null;
     let refreshCooldownRemaining = 0;
+
+    function populateLeagueSelects() {
+      const selects = [document.getElementById('sidebarLeagueSelect'), document.getElementById('mobileLeagueSelect')];
+      const groups = {};
+      Object.entries(leaguesData).forEach(([key, lg]) => {
+        if (!groups[lg.group]) groups[lg.group] = [];
+        groups[lg.group].push({ key, ...lg });
+      });
+
+      const optionsHtml = Object.entries(groups).map(([groupName, items]) => {
+        const opts = items.map(item =>
+          `<option value="${item.key}" ${item.key === activeLeague ? 'selected' : ''}>${item.name} (${Object.keys(item.rewards).length} Coin)</option>`
+        ).join('');
+        return `<optgroup label="${groupName}">${opts}</optgroup>`;
+      }).join('');
+
+      selects.forEach(sel => {
+        if (sel) sel.innerHTML = optionsHtml;
+      });
+      updateLeagueLabelsUI();
+    }
+
+    function updateLeagueLabelsUI() {
+      const league = leaguesData[activeLeague] || leaguesData.bronze_2;
+      const sideSel = document.getElementById('sidebarLeagueSelect');
+      const mobSel = document.getElementById('mobileLeagueSelect');
+      if (sideSel) sideSel.value = activeLeague;
+      if (mobSel) mobSel.value = activeLeague;
+
+      const sideRange = document.getElementById('sidebarLeagueRange');
+      const mobRange = document.getElementById('mobileLeagueRange');
+      if (sideRange) sideRange.innerText = `Güç Aralığı: ${league.rangeLabel}`;
+      if (mobRange) mobRange.innerText = `Güç Aralığı: ${league.rangeLabel}`;
+
+      const kpiLeague = document.getElementById('kpiActiveLeague');
+      const tableBadge = document.getElementById('tableLeagueBadge');
+      if (kpiLeague) kpiLeague.innerText = `Lig: ${league.name}`;
+      if (tableBadge) tableBadge.innerText = `${league.name} • ${league.rangeLabel}`;
+    }
+
+    function changeLeague(newLeagueKey) {
+      if (!leaguesData[newLeagueKey]) return;
+      activeLeague = newLeagueKey;
+      localStorage.setItem('rc_active_league', activeLeague);
+
+      if (!leagueCoinsMap[activeLeague]) {
+        leagueCoinsMap[activeLeague] = buildDefaultCoinsForLeague(activeLeague);
+        saveCoins();
+      }
+      coins = leagueCoinsMap[activeLeague].map(c => ({ ...c, netUnit: c.netUnit || 'PH' }));
+      updateLeagueLabelsUI();
+
+      const missingIds = coins
+        .map(c => c.apiId)
+        .filter(id => id && (!livePrices[id] || !coinImages[id]));
+      if (missingIds.length > 0) {
+        fetchPrices();
+      } else {
+        renderTable();
+      }
+    }
+
+    function autoDetectLeague() {
+      const userPowerRaw = parseFloat(document.getElementById('userPower').value) || 0;
+      const userUnit = document.getElementById('userUnit').value;
+      const userPowerInGh = userPowerRaw * (unitMultipliers[userUnit] || 1);
+
+      let matchedKey = 'bronze_1';
+      for (const [key, lg] of Object.entries(leaguesData)) {
+        if (lg.minGh < 0) continue;
+        if (userPowerInGh >= lg.minGh && userPowerInGh < lg.maxGh) {
+          matchedKey = key;
+          break;
+        }
+      }
+      changeLeague(matchedKey);
+    }
 
     function startRefreshCooldown(seconds = 30) {
       if (refreshCooldownTimer) {
@@ -1823,7 +2092,7 @@
       pendingDeleteIndex = index;
       document.getElementById('deleteCoinName').innerText = coin.symbol;
       document.getElementById('deleteCoinPreviewSymbol').innerText = coin.symbol;
-      document.getElementById('deleteCoinPreviewMeta').innerText = `Ağ Gücü: ${coin.netPower} ${unitLabels[coin.netUnit] || coin.netUnit}`;
+      document.getElementById('deleteCoinPreviewMeta').innerText = `Lig Ağ Gücü: ${coin.netPower} ${unitLabels[coin.netUnit] || coin.netUnit}`;
       document.getElementById('deleteConfirmModal').classList.add('active');
     }
 
@@ -1842,7 +2111,11 @@
     }
 
     function openResetModal() {
+      const league = leaguesData[activeLeague] || leaguesData.bronze_2;
+      const defaultCount = Object.keys(league.rewards).length;
+      document.getElementById('resetLeagueName').innerText = league.name;
       document.getElementById('resetCurrentCount').innerText = `${coins.length} Adet`;
+      document.getElementById('resetTargetCount').innerText = `${defaultCount} Coin`;
       document.getElementById('resetConfirmModal').classList.add('active');
     }
 
@@ -1851,7 +2124,7 @@
     }
 
     function confirmResetCoins() {
-      coins = JSON.parse(JSON.stringify(defaultCoins));
+      coins = buildDefaultCoinsForLeague(activeLeague);
       saveCoins();
       closeResetModal();
       if (window.innerWidth <= 860 && document.getElementById('sidebar').classList.contains('open')) {
@@ -1881,9 +2154,15 @@
     });
 
     function fillPreset(symbol, apiId, manualPrice) {
+      const league = leaguesData[activeLeague] || leaguesData.bronze_2;
       document.getElementById('newSymbol').value = symbol;
       document.getElementById('newApiId').value = apiId;
       document.getElementById('newManualPrice').value = manualPrice || '';
+      document.getElementById('newNetPower').value = league.defaultNetPower;
+      document.getElementById('newNetUnit').value = league.defaultNetUnit;
+      if (league.rewards[symbol]) {
+        document.getElementById('newBlockReward').value = league.rewards[symbol];
+      }
       document.getElementById('newNetPower').focus();
     }
 
@@ -1913,6 +2192,7 @@
         document.getElementById('sidebarUserUnit').value = savedUnit;
       }
       document.getElementById('sortSelect').value = sortMode;
+      populateLeagueSelects();
       updateSortIndicators();
     }
 
@@ -1922,7 +2202,8 @@
     }
 
     function saveCoins() {
-      localStorage.setItem('rc_custom_coins', JSON.stringify(coins));
+      leagueCoinsMap[activeLeague] = coins;
+      localStorage.setItem('rc_league_coins_v1', JSON.stringify(leagueCoinsMap));
     }
 
     async function fetchCoinImages(apiIds) {
@@ -1949,7 +2230,7 @@
       const imgUrl = coin.apiId ? coinImages[coin.apiId] : null;
       const symLower = coin.symbol.toLowerCase();
       const tokenClass = (symLower === 'rlt' || symLower === 'rst' || symLower === 'hmt') ? symLower : '';
-      const shortSym = coin.symbol.slice(0, 3);
+      const shortSym = coin.symbol.slice(0, 4);
 
       if (imgUrl) {
         const imgClass = isKpi ? 'kpi-coin-logo' : 'coin-logo';
@@ -1973,14 +2254,16 @@
       const statusEl = document.getElementById('statusText');
       statusEl.innerText = 'CoinGecko üzerinden canlı kurlar ve logolar çekiliyor...';
 
-      const apiIds = [...new Set(coins.map(c => c.apiId).filter(id => id && id.trim() !== ''))];
-      const priceIds = apiIds.includes('tether') ? apiIds : [...apiIds, 'tether'];
+      const allApiIds = [...new Set([
+        ...Object.values(coinCatalog).map(m => m.apiId),
+        ...coins.map(c => c.apiId)
+      ].filter(id => id && id.trim() !== ''))];
 
       try {
-        const priceUrl = `https://api.coingecko.com/api/v3/simple/price?ids=${priceIds.join(',')}&vs_currencies=usd,try`;
+        const priceUrl = `https://api.coingecko.com/api/v3/simple/price?ids=${allApiIds.join(',')}&vs_currencies=usd,try`;
         const [priceResponse] = await Promise.all([
           fetch(priceUrl),
-          fetchCoinImages(apiIds)
+          fetchCoinImages(allApiIds)
         ]);
         const data = await priceResponse.json();
 
@@ -2010,7 +2293,7 @@
       const manualPrice = parseFloat(document.getElementById('newManualPrice').value) || 0;
 
       if (!symbol || isNaN(netPower) || netPower <= 0 || isNaN(blockReward) || blockReward <= 0) {
-        alert('Lütfen en azından Coin Sembolü, Ağ Gücü ve Blok Ödülü alanlarını geçerli sayılarla doldurun.');
+        alert('Lütfen en azından Coin Sembolü, Lig Ağ Gücü ve Blok Ödülü alanlarını geçerli sayılarla doldurun.');
         return;
       }
 
@@ -2032,12 +2315,13 @@
       const userPowerRaw = parseFloat(document.getElementById('userPower').value) || 0;
       const userUnit = document.getElementById('userUnit').value;
       const usdTry = parseFloat(document.getElementById('usdTryRate').value) || 34.5;
+      const league = leaguesData[activeLeague] || leaguesData.bronze_2;
 
       const userPowerInGh = userPowerRaw * (unitMultipliers[userUnit] || 1);
 
       document.getElementById('kpiUserPower').innerText = `${userPowerRaw} ${unitLabels[userUnit]}`;
       document.getElementById('kpiUsdTry').innerText = `₺${formatTRY(usdTry)}`;
-      document.getElementById('kpiCoinCount').innerText = `${coins.length} Coin Takip Ediliyor`;
+      document.getElementById('kpiCoinCount').innerText = `${league.name} (${coins.length} Coin)`;
 
       let bestCoin = null;
       let maxDailyUsd = -1;
@@ -2120,12 +2404,12 @@
           <td data-label="Anlık Kur">
             <div>$${unitPriceUsdFormatted} <br><small style="color:var(--muted)">₺${unitPriceTryFormatted}</small></div>
           </td>
-          <td data-label="Ağ Gücü & Birimi">
-            <span class="editable-pill" onclick="openEditModal(${index}, 'editNetPower')" title="Ağ gücünü düzenlemek için tıkla">
+          <td data-label="Lig Ağ Gücü">
+            <span class="editable-pill" onclick="openEditModal(${index}, 'editNetPower')" title="Lig ağ gücünü düzenlemek için tıkla">
               ${coin.netPower} ${unitLabels[coin.netUnit] || coin.netUnit} <span class="edit-hint">✏️</span>
             </span>
           </td>
-          <td data-label="Blok Ödülü">
+          <td data-label="Lig Blok Ödülü">
             <span class="editable-pill" onclick="openEditModal(${index}, 'editBlockReward')" title="Blok ödülünü düzenlemek için tıkla">
               ${coin.blockReward} ${coin.symbol} <span class="edit-hint">✏️</span>
             </span>
