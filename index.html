@@ -3,187 +3,783 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RollerCoin Canlı Kur & Kazanç Hesaplayıcı</title>
+  <title>RollerCoin Pro Dashboard | Canlı Kur & Kazanç Paneli</title>
   <style>
     :root {
-      --bg: #0f172a;
-      --card: #1e293b;
+      --bg: #090e1a;
+      --sidebar: #0d1424;
+      --card: #131c31;
+      --card-hover: #18233d;
       --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.25);
       --green: #22c55e;
+      --green-glow: rgba(34, 197, 94, 0.25);
+      --purple: #a855f7;
+      --amber: #f59e0b;
       --text: #f8fafc;
       --muted: #94a3b8;
-      --border: #334155;
+      --border: #1e293b;
+      --sidebar-width: 260px;
     }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       background-color: var(--bg);
       color: var(--text);
       margin: 0;
-      padding: 20px;
+      padding: 0;
+      display: flex;
+      min-height: 100vh;
     }
-    .container {
-      max-width: 1200px;
-      margin: auto;
+
+    /* SOL YAN MENÜ (SIDEBAR) */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--sidebar);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 900;
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    h1, h2 {
+
+    .sidebar-brand {
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      box-shadow: 0 4px 14px var(--accent-glow);
+      flex-shrink: 0;
+    }
+
+    .brand-text h2 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #f8fafc;
+      letter-spacing: 0.3px;
+    }
+
+    .brand-text span {
+      font-size: 0.72rem;
       color: var(--accent);
-      margin-bottom: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
     }
+
+    .sidebar-nav {
+      padding: 16px 14px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .nav-section-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 8px 12px 6px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 11px 14px;
+      border-radius: 10px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      transition: all 0.18s ease;
+    }
+
+    .nav-item:hover {
+      background: rgba(56, 189, 248, 0.08);
+      color: var(--text);
+    }
+
+    .nav-item.active {
+      background: linear-gradient(90deg, rgba(56, 189, 248, 0.16), rgba(56, 189, 248, 0.04));
+      color: var(--accent);
+      border-color: rgba(56, 189, 248, 0.25);
+    }
+
+    .sidebar-widget {
+      margin: 14px;
+      padding: 14px;
+      border-radius: 12px;
+      background: rgba(19, 28, 49, 0.9);
+      border: 1px solid var(--border);
+    }
+
+    .sidebar-widget-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sidebar-widget p {
+      margin: 0;
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ANA İÇERİK ALANI */
+    .main-wrapper {
+      flex: 1;
+      margin-left: var(--sidebar-width);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    /* ÜST PANEL ÇUBUĞU (TOPBAR) */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 800;
+      background: rgba(9, 14, 26, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      margin: 0;
+      border-radius: 9px;
+      font-size: 1.2rem;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .topbar-title h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .topbar-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      display: inline-block;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* PANEL İÇERİK KONTEYNERİ */
+    .dashboard-content {
+      padding: 24px 28px 40px;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* KPI ÖZET KARTLARI */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .kpi-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      transition: transform 0.18s ease, border-color 0.18s ease;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: #334155;
+    }
+
+    .kpi-info span.kpi-label {
+      display: block;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .kpi-info .kpi-value {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .kpi-info .kpi-sub {
+      font-size: 0.78rem;
+      color: var(--green);
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    .kpi-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .kpi-icon.blue { background: rgba(56, 189, 248, 0.12); color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.25); }
+    .kpi-icon.green { background: rgba(34, 197, 94, 0.12); color: var(--green); border: 1px solid rgba(34, 197, 94, 0.25); }
+    .kpi-icon.purple { background: rgba(168, 85, 247, 0.12); color: var(--purple); border: 1px solid rgba(168, 85, 247, 0.25); }
+    .kpi-icon.amber { background: rgba(245, 158, 11, 0.12); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.25); }
+
+    /* PANEL KARTLARI VE FORM ELEMANLARI */
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 20px;
       margin-bottom: 20px;
     }
+
     .card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
+      border-radius: 14px;
+      padding: 20px 22px;
+      margin-bottom: 22px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25);
     }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+    }
+
+    .card-header h2 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     .form-group {
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
+
     label {
       display: block;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 600;
       color: var(--muted);
-      margin-bottom: 5px;
+      margin-bottom: 6px;
+      letter-spacing: 0.2px;
     }
+
     input, select, button {
       width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: #0f172a;
+      padding: 10px 12px;
+      border-radius: 9px;
+      border: 1px solid #28354d;
+      background: #0b1120;
       color: var(--text);
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       box-sizing: border-box;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, transform 0.12s ease;
     }
+
+    input:hover, select:hover {
+      border-color: #475569;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+      background: #080d19;
+    }
+
+    /* ÖZEL GELİŞMİŞ DROPDOWN (SELECT) STİLLERİ */
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      padding-right: 32px;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2338bdf8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 15px;
+    }
+
+    select option {
+      background-color: #0f172a;
+      color: var(--text);
+      padding: 10px;
+    }
+
     .input-group {
       display: flex;
       gap: 8px;
     }
-    .input-group input {
-      flex: 2;
-    }
-    .input-group select {
-      flex: 1;
-      min-width: 90px;
-    }
+    .input-group input { flex: 2; }
+    .input-group select { flex: 1; min-width: 95px; }
+
     button {
       background: var(--accent);
-      color: #0f172a;
-      font-weight: bold;
+      color: #090e1a;
+      font-weight: 700;
       cursor: pointer;
       border: none;
       margin-top: 8px;
-      transition: opacity 0.2s;
     }
-    button:hover { opacity: 0.9; }
-    button.secondary {
-      background: var(--green);
-      color: #0f172a;
+    button:hover { opacity: 0.92; }
+    button:active { transform: scale(0.98); }
+
+    button.btn-refresh {
+      width: auto;
+      margin-top: 0;
+      padding: 9px 15px;
+      background: #131c31;
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      font-size: 0.85rem;
     }
+    button.btn-refresh:hover {
+      background: rgba(56, 189, 248, 0.12);
+    }
+
+    button.secondary, .add-coin-trigger {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #052e16;
+      box-shadow: 0 4px 14px var(--green-glow);
+    }
+    button.secondary:hover, .add-coin-trigger:hover {
+      box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+    }
+    .add-coin-trigger {
+      width: auto;
+      margin-top: 0;
+      padding: 9px 16px;
+      font-size: 0.88rem;
+    }
+
     button.danger {
-      background: #ef4444;
-      color: white;
+      background: rgba(239, 68, 68, 0.14);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.35);
       width: auto;
       padding: 6px 12px;
       font-size: 0.8rem;
+      font-weight: 600;
       margin-top: 0;
+      border-radius: 8px;
+    }
+    button.danger:hover {
+      background: #ef4444;
+      color: #fff;
+      border-color: #ef4444;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+
+    /* GELİŞMİŞ TABLO STİLLERİ */
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid #1e293b;
+      background: #0b1120;
     }
     table {
       width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-      font-size: 0.9rem;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 0;
+      font-size: 0.88rem;
+      font-variant-numeric: tabular-nums;
     }
-    th, td {
-      padding: 12px 10px;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-    }
-    th { color: var(--accent); }
-    .highlight { color: var(--green); font-weight: bold; }
-    .badge {
-      background: #334155;
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-    }
-    .status-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-      font-size: 0.85rem;
+    thead th {
+      background: #0f172a;
       color: var(--muted);
-      gap: 10px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 13px 14px;
+      text-align: left;
+      border-bottom: 1px solid #1e293b;
+      white-space: nowrap;
+    }
+    tbody tr {
+      transition: background-color 0.18s ease;
+    }
+    tbody tr:nth-child(even) {
+      background-color: rgba(19, 28, 49, 0.35);
+    }
+    tbody tr:hover {
+      background-color: rgba(56, 189, 248, 0.08);
+    }
+    tbody td {
+      padding: 13px 14px;
+      text-align: left;
+      border-bottom: 1px solid rgba(30, 41, 59, 0.85);
+      vertical-align: middle;
+    }
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+    thead th:nth-child(2), tbody td:nth-child(2),
+    thead th:nth-child(5), tbody td:nth-child(5),
+    thead th:nth-child(6), tbody td:nth-child(6),
+    thead th:nth-child(7), tbody td:nth-child(7) {
+      text-align: right;
+    }
+    thead th:last-child, tbody td:last-child {
+      text-align: center;
+    }
+    .coin-cell {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .coin-symbol {
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+    .best-tag {
+      background: rgba(34, 197, 94, 0.16);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      font-size: 0.68rem;
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+    .highlight {
+      color: var(--green);
+      font-weight: 700;
+    }
+    .highlight small {
+      color: #86efac;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+    .badge {
+      background: rgba(56, 189, 248, 0.1);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.22);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .badge.token {
+      background: rgba(168, 85, 247, 0.12);
+      color: #d8b4fe;
+      border-color: rgba(168, 85, 247, 0.28);
     }
     .table-input-group {
-      display: flex;
-      gap: 4px;
+      display: inline-flex;
+      gap: 6px;
       align-items: center;
     }
     .table-input-group input {
-      width: 85px;
-      padding: 5px;
+      width: 82px;
+      padding: 6px 8px;
       font-size: 0.85rem;
+      text-align: right;
     }
     .table-input-group select {
-      width: 72px;
-      padding: 5px;
-      font-size: 0.85rem;
+      width: 80px;
+      padding: 6px 24px 6px 8px;
+      font-size: 0.82rem;
+      background-position: right 7px center;
+      background-size: 13px;
     }
     .block-reward-input {
-      width: 85px;
-      padding: 5px;
+      width: 90px;
+      padding: 6px 8px;
       font-size: 0.85rem;
+      text-align: right;
     }
 
-    /* MOBİL UYUMLULUK (768px ve altı) */
-    @media (max-width: 768px) {
-      body {
-        padding: 12px;
+    /* MOBİL SIDEBAR OVERLAY */
+    .sidebar-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 850;
+    }
+    .sidebar-backdrop.active {
+      display: block;
+    }
+
+    /* GELİŞMİŞ MODAL (AÇILIR MENÜ) STİLLERİ */
+    .modal-overlay {
+      display: flex;
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.78);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-box {
+      background: linear-gradient(165deg, #162038 0%, #0f172a 100%);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      border-radius: 18px;
+      width: 100%;
+      max-width: 560px;
+      padding: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      transform: translateY(16px) scale(0.96);
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-overlay.active .modal-box {
+      transform: translateY(0) scale(1);
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.8);
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+    }
+    .modal-header h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .modal-close {
+      background: rgba(15, 23, 42, 0.7);
+      color: var(--muted);
+      border: 1px solid #334155;
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      margin: 0;
+      font-size: 1rem;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .modal-close:hover {
+      color: #fff;
+      background: #ef4444;
+      border-color: #ef4444;
+      transform: rotate(90deg);
+    }
+    .preset-section {
+      background: rgba(9, 14, 26, 0.65);
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+    .preset-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .preset-chip {
+      width: auto;
+      margin: 0;
+      padding: 5px 10px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      background: #131c31;
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 8px;
+    }
+    .preset-chip:hover {
+      background: var(--accent);
+      color: #090e1a;
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(51, 65, 85, 0.8);
+    }
+    .modal-actions button {
+      margin-top: 0;
+      padding: 11px 16px;
+    }
+    .modal-actions button.cancel-btn {
+      background: #1e293b;
+      color: var(--text);
+      border: 1px solid #334155;
+      flex: 1;
+    }
+    .modal-actions button.cancel-btn:hover {
+      background: #334155;
+    }
+    .modal-actions button.secondary {
+      flex: 2;
+    }
+
+    /* RESPONSIVE & MOBİL UYUMLULUK */
+    @media (max-width: 1100px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
-      h1 {
-        font-size: 1.4rem;
+    }
+
+    @media (max-width: 860px) {
+      .sidebar {
+        transform: translateX(-100%);
       }
-      h2 {
-        font-size: 1.15rem;
+      .sidebar.open {
+        transform: translateX(0);
       }
-      .grid {
+      .main-wrapper {
+        margin-left: 0;
+      }
+      .mobile-menu-btn {
+        display: flex;
+      }
+      .topbar {
+        padding: 12px 16px;
+      }
+      .dashboard-content {
+        padding: 16px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .kpi-grid, .grid {
         grid-template-columns: 1fr;
       }
-      .status-bar {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
+      .topbar-actions .btn-text {
+        display: none;
       }
-      .status-bar button {
-        width: 100% !important;
+      .table-wrapper {
+        border: none;
+        background: transparent;
       }
-      .card {
-        padding: 15px;
-      }
-
-      /* Tabloyu Kart Görünümüne Dönüştürme */
       table, thead, tbody, th, td, tr {
         display: block;
       }
       thead {
-        display: none; /* Masaüstü başlıklarını gizle */
+        display: none;
       }
       tbody tr {
-        background: #0f172a;
+        background: var(--card);
         border: 1px solid var(--border);
-        border-radius: 10px;
-        padding: 12px;
+        border-radius: 12px;
+        padding: 14px;
         margin-bottom: 14px;
       }
-      tbody tr:last-child {
-        margin-bottom: 0;
+      tbody tr:nth-child(even) {
+        background: var(--card);
       }
       tbody td {
         display: flex;
@@ -191,7 +787,7 @@
         align-items: center;
         text-align: right;
         padding: 10px 0;
-        border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+        border-bottom: 1px solid rgba(51, 65, 85, 0.45);
         gap: 12px;
       }
       tbody td:last-child {
@@ -199,7 +795,6 @@
         padding-bottom: 0;
         justify-content: flex-end;
       }
-      /* Sol tarafa sütun etiketini ekle */
       tbody td::before {
         content: attr(data-label);
         font-weight: 600;
@@ -208,59 +803,225 @@
         font-size: 0.82rem;
         flex-shrink: 0;
       }
-      /* İlk satır (Coin Başlığı) için özel vurgu */
       tbody td:first-child {
         background: rgba(56, 189, 248, 0.08);
-        margin: -12px -12px 8px -12px;
-        padding: 10px 12px;
-        border-radius: 9px 9px 0 0;
-        border-bottom: 1px solid var(--border);
+        margin: -14px -14px 10px -14px;
+        padding: 12px 14px;
+        border-radius: 11px 11px 0 0;
+        border-bottom: 1px solid rgba(56, 189, 248, 0.2);
       }
       tbody td:first-child::before {
         color: var(--accent);
       }
-      /* Mobilde inputları dokunmaya uygun hale getir */
-      .table-input-group {
-        justify-content: flex-end;
-      }
-      .table-input-group input {
-        width: 80px;
-        padding: 8px;
-      }
-      .table-input-group select {
-        width: 75px;
-        padding: 8px;
-      }
-      .block-reward-input {
-        width: 110px;
-        padding: 8px;
-        text-align: right;
-      }
       button.danger {
         width: 100%;
         padding: 10px;
-        margin-top: 4px;
+        margin-top: 6px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>⚡ RollerCoin Canlı Kur & Kazanç Hesaplayıcı</h1>
-    <div class="status-bar">
-      <span id="statusText">Kurlar yükleniyor...</span>
-      <button style="width: auto; padding: 8px 16px; margin-top: 0;" onclick="fetchPrices()">🔄 Kurları Şimdi Güncelle</button>
+  <!-- Mobil Arka Plan Karartması -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+
+  <!-- SOL YAN MENÜ (SIDEBAR) -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-logo">⚡</div>
+      <div class="brand-text">
+        <h2>RollerCoin</h2>
+        <span>Kazanç Paneli v2.1</span>
+      </div>
     </div>
 
-    <div class="grid">
-      <!-- Sol Panel: Güç & Ağ Ayarları -->
-      <div class="card">
-        <h2>1. Kazım Gücün & Kur Ayarı</h2>
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Panel Menüsü</div>
+      <button class="nav-item active" onclick="scrollToSection('kpiSection', this)">📊 Genel Bakış</button>
+      <button class="nav-item" onclick="scrollToSection('settingsSection', this)">⚙️ Kazım Gücü & Kur</button>
+      <button class="nav-item" onclick="scrollToSection('tableSection', this)">💰 Kazanç Tablosu</button>
+
+      <div class="nav-section-title" style="margin-top: 14px;">Hızlı İşlemler</div>
+      <button class="nav-item" onclick="openAddModal()">➕ Yeni Kripto Ekle</button>
+      <button class="nav-item" onclick="fetchPrices()">🔄 Kurları Güncelle</button>
+      <button class="nav-item" onclick="resetDefaultCoins()">♻️ Tüm RollerCoin Kriptolarını Yükle</button>
+    </nav>
+
+    <div class="sidebar-widget">
+      <div class="sidebar-widget-title">📐 Birim Dönüşüm Ölçeği</div>
+      <p>
+        1.000 Gh/s = 1 Th/s<br>
+        1.000 Th/s = 1 Ph/s<br>
+        1.000 Ph/s = 1 Eh/s<br>
+        1.000 Eh/s = 1 Zh/s<br>
+        1.000 Zh/s = 1 Yh/s
+      </p>
+    </div>
+  </aside>
+
+  <!-- ANA PANEL ALANI -->
+  <div class="main-wrapper">
+    <!-- ÜST KONTROL ÇUBUĞU -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-btn" onclick="toggleSidebar()" title="Menü">☰</button>
+        <div class="topbar-title">
+          <h1>Canlı Kur & Kazanç Analiz Paneli</h1>
+          <div class="topbar-status">
+            <span class="status-dot"></span>
+            <span id="statusText">Kurlar yükleniyor...</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <button class="btn-refresh" onclick="fetchPrices()">🔄 <span class="btn-text">Kurları Güncelle</span></button>
+        <button class="add-coin-trigger" onclick="openAddModal()">+ <span class="btn-text">Yeni Kripto</span></button>
+      </div>
+    </header>
+
+    <!-- DASHBOARD İÇERİK -->
+    <main class="dashboard-content">
+      <!-- KPI ÖZET KARTLARI -->
+      <section class="kpi-grid" id="kpiSection">
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <span class="kpi-label">Senin Kazım Gücün</span>
+            <div class="kpi-value" id="kpiUserPower">15.5 Ph/s</div>
+            <div class="kpi-sub" style="color: var(--accent);">Aktif Hesaplama Gücü</div>
+          </div>
+          <div class="kpi-icon blue">⚡</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <span class="kpi-label">En Kârlı Coin</span>
+            <div class="kpi-value" id="kpiBestCoin">-</div>
+            <div class="kpi-sub" id="kpiBestDaily">$0.00 / gün</div>
+          </div>
+          <div class="kpi-icon green">🏆</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <span class="kpi-label">Maks. Aylık Tahmin</span>
+            <div class="kpi-value" id="kpiBestMonthlyUsd">$0.00</div>
+            <div class="kpi-sub" id="kpiBestMonthlyTry">₺0,00 / ay</div>
+          </div>
+          <div class="kpi-icon purple">💎</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <span class="kpi-label">Anlık Dolar Kuru</span>
+            <div class="kpi-value" id="kpiUsdTry">₺34,50</div>
+            <div class="kpi-sub" style="color: var(--amber);" id="kpiCoinCount">13 Coin Takip Ediliyor</div>
+          </div>
+          <div class="kpi-icon amber">💵</div>
+        </div>
+      </section>
+
+      <!-- AYARLAR PANELİ -->
+      <section class="card" id="settingsSection">
+        <div class="card-header">
+          <h2>⚙️ Kazım Gücün & Kur Ayarı</h2>
+        </div>
+        <div class="grid" style="margin-bottom: 0;">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label>Senin Kazım Gücün</label>
+            <div class="input-group">
+              <input type="number" id="userPower" value="15.5" step="any" oninput="saveUserSettings(); renderTable()" />
+              <select id="userUnit" onchange="saveUserSettings(); renderTable()">
+                <option value="GH">Gh/s</option>
+                <option value="TH">Th/s</option>
+                <option value="PH" selected>Ph/s</option>
+                <option value="EH">Eh/s</option>
+                <option value="ZH">Zh/s</option>
+                <option value="YH">Yh/s</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label>USD / TRY Kuru (Otomatik çekilir, manuel değiştirebilirsin)</label>
+            <input type="number" id="usdTryRate" value="34.50" step="0.01" oninput="renderTable()" />
+          </div>
+        </div>
+      </section>
+
+      <!-- KAZANÇ TABLOSU PANELİ -->
+      <section class="card" id="tableSection" style="margin-bottom: 0;">
+        <div class="card-header">
+          <h2>📊 Coin Bazlı Canlı Kazanç Karşılaştırması</h2>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn-refresh" onclick="resetDefaultCoins()">♻️ Listeyi Sıfırla (13 Coin)</button>
+            <button class="add-coin-trigger" onclick="openAddModal()">+ Yeni Kripto Ekle</button>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Coin</th>
+                <th>Anlık Kur (USD / TRY)</th>
+                <th>Ağ Gücü & Birimi</th>
+                <th>Blok Ödülü</th>
+                <th>Günlük Kazanç (Coin)</th>
+                <th>Günlük ($) / (₺)</th>
+                <th>Aylık ($) / (₺)</th>
+                <th>İşlem</th>
+              </tr>
+            </thead>
+            <tbody id="coinTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- YENİ KRİPTO EKLEME AÇILIR MENÜSÜ (MODAL) -->
+  <div class="modal-overlay" id="addCoinModal" onclick="handleOverlayClick(event)">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>➕ Tabloya Yeni Kripto Ekle</h2>
+        <button class="modal-close" onclick="closeAddModal()" title="Kapat">✕</button>
+      </div>
+
+      <div class="preset-section">
+        <label style="margin-bottom: 2px;">⚡ RollerCoin Hızlı Şablon Seç</label>
+        <div class="preset-bar">
+          <button type="button" class="preset-chip" onclick="fillPreset('RLT', '', 1.0)">RLT</button>
+          <button type="button" class="preset-chip" onclick="fillPreset('RST', '', 0.01)">RST</button>
+          <button type="button" class="preset-chip" onclick="fillPreset('HMT', '', 0.01)">HMT</button>
+          <button type="button" class="preset-chip" onclick="fillPreset('BTC', 'bitcoin', 0)">BTC</button>
+          <button type="button" class="preset-chip" onclick="fillPreset('ETH', 'ethereum', 0)">ETH</button>
+          <button type="button" class="preset-chip" onclick="fillPreset('BNB', 'binancecoin', 0)">BNB</button>
+          <button type="button" class="preset-chip" onclick="fillPreset('POL', 'polygon-ecosystem-token', 0)">POL</button>
+          <button type="button" class="preset-chip" onclick="fillPreset('SOL', 'solana', 0)">SOL</button>
+          <button type="button" class="preset-chip" onclick="fillPreset('TRX', 'tron', 0)">TRX</button>
+          <button type="button" class="preset-chip" onclick="fillPreset('DOGE', 'dogecoin', 0)">DOGE</button>
+          <button type="button" class="preset-chip" onclick="fillPreset('LTC', 'litecoin', 0)">LTC</button>
+          <button type="button" class="preset-chip" onclick="fillPreset('XRP', 'ripple', 0)">XRP</button>
+          <button type="button" class="preset-chip" onclick="fillPreset('USDT', 'tether', 0)">USDT</button>
+        </div>
+      </div>
+
+      <div class="grid" style="gap: 12px; margin-bottom: 0;">
         <div class="form-group">
-          <label>Senin Kazım Gücün</label>
+          <label>Coin Sembolü *</label>
+          <input type="text" id="newSymbol" placeholder="Örn: TRX" />
+        </div>
+        <div class="form-group">
+          <label>CoinGecko API ID (Canlı kur için)</label>
+          <input type="text" id="newApiId" placeholder="Örn: tron (boşsa sabit)" />
+        </div>
+      </div>
+
+      <div class="grid" style="gap: 12px; margin-bottom: 0;">
+        <div class="form-group">
+          <label>Ağ Gücü ve Birimi *</label>
           <div class="input-group">
-            <input type="number" id="userPower" value="15.5" step="any" oninput="saveUserSettings(); renderTable()" />
-            <select id="userUnit" onchange="saveUserSettings(); renderTable()">
+            <input type="number" id="newNetPower" placeholder="Örn: 650" step="any" />
+            <select id="newNetUnit">
               <option value="GH">Gh/s</option>
               <option value="TH">Th/s</option>
               <option value="PH" selected>Ph/s</option>
@@ -271,80 +1032,25 @@
           </div>
         </div>
         <div class="form-group">
-          <label>USD / TRY Kuru (Otomatik çekilir, manuel değiştirebilirsin)</label>
-          <input type="number" id="usdTryRate" value="34.50" step="0.01" oninput="renderTable()" />
+          <label>Blok Ödülü (Coin Adedi) *</label>
+          <input type="number" id="newBlockReward" placeholder="Örn: 60" step="any" />
         </div>
-        <p style="font-size: 0.8rem; color: var(--muted); line-height: 1.5;">
-          *Birim Dönüşüm Ölçeği: 1.000 Gh/s = 1 Th/s | 1.000 Th/s = 1 Ph/s | 1.000 Ph/s = 1 Eh/s | 1.000 Eh/s = 1 Zh/s | 1.000 Zh/s = 1 Yh/s
-        </p>
       </div>
 
-      <!-- Sağ Panel: Yeni Kripto Ekleme -->
-      <div class="card">
-        <h2>2. Yeni Kripto Ekle</h2>
-        <div class="grid" style="gap: 10px; margin-bottom: 0;">
-          <div class="form-group">
-            <label>Coin Sembolü (Örn: SOL, TRX)</label>
-            <input type="text" id="newSymbol" placeholder="SOL" />
-          </div>
-          <div class="form-group">
-            <label>CoinGecko API ID (Canlı fiyat için)</label>
-            <input type="text" id="newApiId" placeholder="solana (sabit için boş bırak)" />
-          </div>
+      <div class="grid" style="gap: 12px; margin-bottom: 0;">
+        <div class="form-group" style="margin-bottom: 0;">
+          <label>Blok Süresi (Saniye)</label>
+          <input type="number" id="newBlockTime" value="600" />
         </div>
-        <div class="grid" style="gap: 10px; margin-bottom: 0;">
-          <div class="form-group">
-            <label>Ağ Gücü ve Birimi</label>
-            <div class="input-group">
-              <input type="number" id="newNetPower" placeholder="Örn: 1.25" step="any" />
-              <select id="newNetUnit">
-                <option value="GH">Gh/s</option>
-                <option value="TH">Th/s</option>
-                <option value="PH">Ph/s</option>
-                <option value="EH" selected>Eh/s</option>
-                <option value="ZH">Zh/s</option>
-                <option value="YH">Yh/s</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Blok Ödülü (Coin Adedi)</label>
-            <input type="number" id="newBlockReward" placeholder="Örn: 0.22" step="any" />
-          </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label>Sabit USD Fiyatı (API ID boşsa)</label>
+          <input type="number" id="newManualPrice" placeholder="Örn: 1.00" step="any" />
         </div>
-        <div class="grid" style="gap: 10px; margin-bottom: 0;">
-          <div class="form-group">
-            <label>Blok Süresi (Saniye - Genelde 600)</label>
-            <input type="number" id="newBlockTime" value="600" />
-          </div>
-          <div class="form-group">
-            <label>Sabit USD Fiyatı (API ID boşsa geçerli)</label>
-            <input type="number" id="newManualPrice" placeholder="Örn: 1.00" step="any" />
-          </div>
-        </div>
-        <button class="secondary" onclick="addCoin()">+ Kripto Para Ekle</button>
       </div>
-    </div>
 
-    <!-- Alt Panel: Kazanç Tablosu -->
-    <div class="card">
-      <h2>📊 Coin Bazlı Canlı Kazanç Karşılaştırması</h2>
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Coin</th>
-              <th>Anlık Kur (USD / TRY)</th>
-              <th>Ağ Gücü & Birimi</th>
-              <th>Blok Ödülü</th>
-              <th>Günlük Kazanç (Coin)</th>
-              <th>Günlük ($) / (₺)</th>
-              <th>Aylık ($) / (₺)</th>
-              <th>İşlem</th>
-            </tr>
-          </thead>
-          <tbody id="coinTableBody"></tbody>
-        </table>
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn" onclick="closeAddModal()">Vazgeç</button>
+        <button type="button" class="secondary" onclick="addCoin()">✓ Tabloya Ekle</button>
       </div>
     </div>
   </div>
@@ -368,18 +1074,74 @@
       YH: 'Yh/s'
     };
 
+    // RollerCoin'de bulunan tüm kripto paralar ve oyun içi tokenlar
     const defaultCoins = [
-      { symbol: 'RLT', apiId: '', manualPrice: 1.0, netPower: 1.2, netUnit: 'EH', blockReward: 30, blockTime: 600 },
-      { symbol: 'BTC', apiId: 'bitcoin', manualPrice: 0, netPower: 1.5, netUnit: 'EH', blockReward: 0.00045, blockTime: 600 },
-      { symbol: 'ETH', apiId: 'ethereum', manualPrice: 0, netPower: 950, netUnit: 'PH', blockReward: 0.012, blockTime: 600 },
-      { symbol: 'DOGE', apiId: 'dogecoin', manualPrice: 0, netPower: 820, netUnit: 'PH', blockReward: 140, blockTime: 600 },
-      { symbol: 'SOL', apiId: 'solana', manualPrice: 0, netPower: 750, netUnit: 'PH', blockReward: 0.22, blockTime: 600 }
+      { symbol: 'RLT', apiId: '', manualPrice: 1.0, netPower: 1.25, netUnit: 'EH', blockReward: 30, blockTime: 600 },
+      { symbol: 'RST', apiId: '', manualPrice: 0.01, netPower: 850, netUnit: 'PH', blockReward: 150, blockTime: 600 },
+      { symbol: 'HMT', apiId: '', manualPrice: 0.01, netPower: 650, netUnit: 'PH', blockReward: 120, blockTime: 600 },
+      { symbol: 'BTC', apiId: 'bitcoin', manualPrice: 0, netPower: 1.55, netUnit: 'EH', blockReward: 0.00045, blockTime: 600 },
+      { symbol: 'ETH', apiId: 'ethereum', manualPrice: 0, netPower: 980, netUnit: 'PH', blockReward: 0.012, blockTime: 600 },
+      { symbol: 'BNB', apiId: 'binancecoin', manualPrice: 0, netPower: 760, netUnit: 'PH', blockReward: 0.045, blockTime: 600 },
+      { symbol: 'POL', apiId: 'polygon-ecosystem-token', manualPrice: 0, netPower: 720, netUnit: 'PH', blockReward: 65, blockTime: 600 },
+      { symbol: 'SOL', apiId: 'solana', manualPrice: 0, netPower: 890, netUnit: 'PH', blockReward: 0.22, blockTime: 600 },
+      { symbol: 'TRX', apiId: 'tron', manualPrice: 0, netPower: 790, netUnit: 'PH', blockReward: 160, blockTime: 600 },
+      { symbol: 'DOGE', apiId: 'dogecoin', manualPrice: 0, netPower: 840, netUnit: 'PH', blockReward: 140, blockTime: 600 },
+      { symbol: 'LTC', apiId: 'litecoin', manualPrice: 0, netPower: 680, netUnit: 'PH', blockReward: 0.35, blockTime: 600 },
+      { symbol: 'XRP', apiId: 'ripple', manualPrice: 0, netPower: 740, netUnit: 'PH', blockReward: 15, blockTime: 600 },
+      { symbol: 'USDT', apiId: 'tether', manualPrice: 1.0, netPower: 910, netUnit: 'PH', blockReward: 30, blockTime: 600 }
     ];
 
-    let coins = JSON.parse(localStorage.getItem('rc_custom_coins')) || defaultCoins;
+    let coins = JSON.parse(localStorage.getItem('rc_custom_coins')) || JSON.parse(JSON.stringify(defaultCoins));
     coins = coins.map(c => ({ ...c, netUnit: c.netUnit || 'PH' }));
 
     let livePrices = {};
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebarBackdrop').classList.toggle('active');
+    }
+
+    function scrollToSection(id, btn) {
+      document.querySelectorAll('.sidebar-nav .nav-item').forEach(el => el.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (window.innerWidth <= 860) {
+        toggleSidebar();
+      }
+    }
+
+    function openAddModal() {
+      document.getElementById('addCoinModal').classList.add('active');
+      setTimeout(() => document.getElementById('newSymbol').focus(), 100);
+    }
+
+    function closeAddModal() {
+      document.getElementById('addCoinModal').classList.remove('active');
+    }
+
+    function handleOverlayClick(e) {
+      if (e.target.id === 'addCoinModal') closeAddModal();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeAddModal();
+    });
+
+    function fillPreset(symbol, apiId, manualPrice) {
+      document.getElementById('newSymbol').value = symbol;
+      document.getElementById('newApiId').value = apiId;
+      document.getElementById('newManualPrice').value = manualPrice || '';
+      document.getElementById('newNetPower').focus();
+    }
+
+    function resetDefaultCoins() {
+      coins = JSON.parse(JSON.stringify(defaultCoins));
+      saveCoins();
+      fetchPrices();
+    }
 
     function formatTRY(value, minDec = 2, maxDec = 2) {
       return new Intl.NumberFormat('tr-TR', {
@@ -429,10 +1191,10 @@
         }
 
         const now = new Date().toLocaleTimeString('tr-TR');
-        statusEl.innerText = `✅ Kurlar güncellendi (Son güncelleme: ${now})`;
+        statusEl.innerText = `Canlı kurlar aktif (Son güncelleme: ${now})`;
         renderTable();
       } catch (err) {
-        statusEl.innerText = '⚠️ Canlı kur çekilemedi. Manuel/son fiyatlar kullanılıyor.';
+        statusEl.innerText = 'Çevrimdışı mod: Manuel/son kurlar kullanılıyor';
         renderTable();
       }
     }
@@ -460,6 +1222,7 @@
       document.getElementById('newBlockReward').value = '';
       document.getElementById('newManualPrice').value = '';
 
+      closeAddModal();
       fetchPrices();
     }
 
@@ -485,7 +1248,7 @@
     }
 
     function getUnitOptionsHtml(selectedUnit) {
-      return Object.keys(unitLabels).map(unit => 
+      return Object.keys(unitLabels).map(unit =>
         `<option value="${unit}" ${unit === selectedUnit ? 'selected' : ''}>${unitLabels[unit]}</option>`
       ).join('');
     }
@@ -498,17 +1261,20 @@
 
       const userPowerInGh = userPowerRaw * (unitMultipliers[userUnit] || 1);
 
-      tbody.innerHTML = '';
+      document.getElementById('kpiUserPower').innerText = `${userPowerRaw} ${unitLabels[userUnit]}`;
+      document.getElementById('kpiUsdTry').innerText = `₺${formatTRY(usdTry)}`;
+      document.getElementById('kpiCoinCount').innerText = `${coins.length} Coin Takip Ediliyor`;
 
-      coins.forEach((coin, index) => {
+      let bestCoin = null;
+      let maxDailyUsd = -1;
+
+      const calculatedRows = coins.map((coin, index) => {
         let priceUsd = coin.manualPrice;
         if (coin.apiId && livePrices[coin.apiId] && livePrices[coin.apiId].usd) {
           priceUsd = livePrices[coin.apiId].usd;
         }
         const priceTry = priceUsd * usdTry;
-
         const netPowerInGh = coin.netPower * (unitMultipliers[coin.netUnit] || 1);
-
         const blocksPerDay = 86400 / (coin.blockTime || 600);
         const userShare = netPowerInGh > 0 ? (userPowerInGh / netPowerInGh) : 0;
         const dailyCoin = userShare * coin.blockReward * blocksPerDay;
@@ -518,13 +1284,46 @@
         const monthlyUsd = dailyUsd * 30;
         const monthlyTry = dailyTry * 30;
 
+        if (dailyUsd > maxDailyUsd) {
+          maxDailyUsd = dailyUsd;
+          bestCoin = { symbol: coin.symbol, dailyUsd, dailyTry, monthlyUsd, monthlyTry };
+        }
+
+        return { coin, index, priceUsd, priceTry, dailyCoin, dailyUsd, dailyTry, monthlyUsd, monthlyTry };
+      });
+
+      if (bestCoin && maxDailyUsd > 0) {
+        document.getElementById('kpiBestCoin').innerText = bestCoin.symbol;
+        document.getElementById('kpiBestDaily').innerText = `$${formatUSD(bestCoin.dailyUsd)} (₺${formatTRY(bestCoin.dailyTry)}) / gün`;
+        document.getElementById('kpiBestMonthlyUsd').innerText = `$${formatUSD(bestCoin.monthlyUsd)}`;
+        document.getElementById('kpiBestMonthlyTry').innerText = `₺${formatTRY(bestCoin.monthlyTry)} / ay`;
+      } else {
+        document.getElementById('kpiBestCoin').innerText = '-';
+        document.getElementById('kpiBestDaily').innerText = '$0.00 / gün';
+        document.getElementById('kpiBestMonthlyUsd').innerText = '$0.00';
+        document.getElementById('kpiBestMonthlyTry').innerText = '₺0,00 / ay';
+      }
+
+      tbody.innerHTML = '';
+
+      calculatedRows.forEach(row => {
+        const { coin, index, priceUsd, priceTry, dailyCoin, dailyUsd, dailyTry, monthlyUsd, monthlyTry } = row;
+        const isBest = bestCoin && bestCoin.symbol === coin.symbol && dailyUsd > 0;
+
         const unitPriceTryFormatted = priceTry < 1 ? formatTRY(priceTry, 2, 6) : formatTRY(priceTry, 2, 2);
         const unitPriceUsdFormatted = priceUsd < 1 ? formatUSD(priceUsd, 2, 6) : formatUSD(priceUsd, 2, 2);
+
+        const badgeClass = coin.apiId ? 'badge' : 'badge token';
+        const badgeLabel = coin.apiId || 'Oyun Tokenı';
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td data-label="Coin">
-            <div><strong>${coin.symbol}</strong> <span class="badge">${coin.apiId || 'Sabit'}</span></div>
+            <div class="coin-cell">
+              <span class="coin-symbol">${coin.symbol}</span>
+              <span class="${badgeClass}">${badgeLabel}</span>
+              ${isBest ? '<span class="best-tag">EN KÂRLI</span>' : ''}
+            </div>
           </td>
           <td data-label="Anlık Kur">
             <div>$${unitPriceUsdFormatted} <br><small style="color:var(--muted)">₺${unitPriceTryFormatted}</small></div>
