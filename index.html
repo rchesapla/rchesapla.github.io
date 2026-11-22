@@ -35,9 +35,6 @@
       gap: 20px;
       margin-bottom: 20px;
     }
-    @media (max-width: 768px) {
-      .grid { grid-template-columns: 1fr; }
-    }
     .card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -92,7 +89,7 @@
       background: #ef4444;
       color: white;
       width: auto;
-      padding: 5px 10px;
+      padding: 6px 12px;
       font-size: 0.8rem;
       margin-top: 0;
     }
@@ -122,6 +119,7 @@
       margin-bottom: 15px;
       font-size: 0.85rem;
       color: var(--muted);
+      gap: 10px;
     }
     .table-input-group {
       display: flex;
@@ -137,6 +135,112 @@
       width: 72px;
       padding: 5px;
       font-size: 0.85rem;
+    }
+    .block-reward-input {
+      width: 85px;
+      padding: 5px;
+      font-size: 0.85rem;
+    }
+
+    /* MOBİL UYUMLULUK (768px ve altı) */
+    @media (max-width: 768px) {
+      body {
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.4rem;
+      }
+      h2 {
+        font-size: 1.15rem;
+      }
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .status-bar {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+      .status-bar button {
+        width: 100% !important;
+      }
+      .card {
+        padding: 15px;
+      }
+
+      /* Tabloyu Kart Görünümüne Dönüştürme */
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      thead {
+        display: none; /* Masaüstü başlıklarını gizle */
+      }
+      tbody tr {
+        background: #0f172a;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 12px;
+        margin-bottom: 14px;
+      }
+      tbody tr:last-child {
+        margin-bottom: 0;
+      }
+      tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: right;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+        gap: 12px;
+      }
+      tbody td:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+        justify-content: flex-end;
+      }
+      /* Sol tarafa sütun etiketini ekle */
+      tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--muted);
+        text-align: left;
+        font-size: 0.82rem;
+        flex-shrink: 0;
+      }
+      /* İlk satır (Coin Başlığı) için özel vurgu */
+      tbody td:first-child {
+        background: rgba(56, 189, 248, 0.08);
+        margin: -12px -12px 8px -12px;
+        padding: 10px 12px;
+        border-radius: 9px 9px 0 0;
+        border-bottom: 1px solid var(--border);
+      }
+      tbody td:first-child::before {
+        color: var(--accent);
+      }
+      /* Mobilde inputları dokunmaya uygun hale getir */
+      .table-input-group {
+        justify-content: flex-end;
+      }
+      .table-input-group input {
+        width: 80px;
+        padding: 8px;
+      }
+      .table-input-group select {
+        width: 75px;
+        padding: 8px;
+      }
+      .block-reward-input {
+        width: 110px;
+        padding: 8px;
+        text-align: right;
+      }
+      button.danger {
+        width: 100%;
+        padding: 10px;
+        margin-top: 4px;
+      }
     }
   </style>
 </head>
@@ -225,7 +329,7 @@
     <!-- Alt Panel: Kazanç Tablosu -->
     <div class="card">
       <h2>📊 Coin Bazlı Canlı Kazanç Karşılaştırması</h2>
-      <div style="overflow-x: auto;">
+      <div>
         <table>
           <thead>
             <tr>
@@ -277,7 +381,6 @@
 
     let livePrices = {};
 
-    // Türkçe binlik noktalı formatlama fonksiyonu (Örn: 1.250,50)
     function formatTRY(value, minDec = 2, maxDec = 2) {
       return new Intl.NumberFormat('tr-TR', {
         minimumFractionDigits: minDec,
@@ -285,7 +388,6 @@
       }).format(value);
     }
 
-    // USD formatlama fonksiyonu (Örn: 1,250.50)
     function formatUSD(value, minDec = 2, maxDec = 2) {
       return new Intl.NumberFormat('en-US', {
         minimumFractionDigits: minDec,
@@ -416,15 +518,18 @@
         const monthlyUsd = dailyUsd * 30;
         const monthlyTry = dailyTry * 30;
 
-        // Birim fiyat 1'den küçükse (ör. SHIB, DOGE) 4 ondalık, büyükse (ör. BTC) 2 ondalık göster
         const unitPriceTryFormatted = priceTry < 1 ? formatTRY(priceTry, 2, 6) : formatTRY(priceTry, 2, 2);
         const unitPriceUsdFormatted = priceUsd < 1 ? formatUSD(priceUsd, 2, 6) : formatUSD(priceUsd, 2, 2);
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><strong>${coin.symbol}</strong> <br><span class="badge">${coin.apiId || 'Sabit'}</span></td>
-          <td>$${unitPriceUsdFormatted}<br><small style="color:var(--muted)">₺${unitPriceTryFormatted}</small></td>
-          <td>
+          <td data-label="Coin">
+            <div><strong>${coin.symbol}</strong> <span class="badge">${coin.apiId || 'Sabit'}</span></div>
+          </td>
+          <td data-label="Anlık Kur">
+            <div>$${unitPriceUsdFormatted} <br><small style="color:var(--muted)">₺${unitPriceTryFormatted}</small></div>
+          </td>
+          <td data-label="Ağ Gücü & Birimi">
             <div class="table-input-group">
               <input type="number" step="any" value="${coin.netPower}" onchange="updateInlineField(${index}, 'netPower', this.value)" />
               <select onchange="updateInlineField(${index}, 'netUnit', this.value)">
@@ -432,10 +537,16 @@
               </select>
             </div>
           </td>
-          <td><input type="number" style="width:85px; padding:5px;" step="any" value="${coin.blockReward}" onchange="updateInlineField(${index}, 'blockReward', this.value)" /></td>
-          <td>${dailyCoin.toFixed(6)} ${coin.symbol}</td>
-          <td class="highlight">$${formatUSD(dailyUsd)} <br><small>₺${formatTRY(dailyTry)}</small></td>
-          <td class="highlight">$${formatUSD(monthlyUsd)} <br><small>₺${formatTRY(monthlyTry)}</small></td>
+          <td data-label="Blok Ödülü">
+            <input type="number" class="block-reward-input" step="any" value="${coin.blockReward}" onchange="updateInlineField(${index}, 'blockReward', this.value)" />
+          </td>
+          <td data-label="Günlük Kazanç">${dailyCoin.toFixed(6)} ${coin.symbol}</td>
+          <td data-label="Günlük ($ / ₺)" class="highlight">
+            <div>$${formatUSD(dailyUsd)} <br><small>₺${formatTRY(dailyTry)}</small></div>
+          </td>
+          <td data-label="Aylık ($ / ₺)" class="highlight">
+            <div>$${formatUSD(monthlyUsd)} <br><small>₺${formatTRY(monthlyTry)}</small></div>
+          </td>
           <td><button class="danger" onclick="deleteCoin(${index})">Sil</button></td>
         `;
         tbody.appendChild(tr);
