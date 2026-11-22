@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RollerCoin Pro Dashboard | Lig & Kazanç Analiz Paneli</title>
+  <title>RollerCoin Pro Dashboard | Otomatik Blok Ödülü & Kazanç Paneli</title>
   <style>
     :root {
       --bg: #090e1a;
@@ -15,6 +15,7 @@
       --green: #22c55e;
       --green-glow: rgba(34, 197, 94, 0.25);
       --purple: #a855f7;
+      --purple-glow: rgba(168, 85, 247, 0.28);
       --amber: #f59e0b;
       --amber-glow: rgba(245, 158, 11, 0.28);
       --danger: #ef4444;
@@ -22,7 +23,7 @@
       --text: #f8fafc;
       --muted: #94a3b8;
       --border: #1e293b;
-      --sidebar-width: 285px;
+      --sidebar-width: 288px;
     }
 
     * {
@@ -205,6 +206,76 @@
       color: var(--muted);
       margin-top: 5px;
       display: block;
+    }
+
+    /* OTOMATİK ÇEKME TOGGLE KUTUSU */
+    .auto-sync-box {
+      margin-top: 12px;
+      padding: 11px 12px;
+      border-radius: 10px;
+      background: rgba(168, 85, 247, 0.08);
+      border: 1px solid rgba(168, 85, 247, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .auto-sync-info strong {
+      display: block;
+      font-size: 0.78rem;
+      color: #e9d5ff;
+    }
+
+    .auto-sync-info span {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 42px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      transition: .25s;
+      border-radius: 999px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #94a3b8;
+      transition: .25s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--purple);
+      border-color: var(--purple);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(18px);
+      background-color: #fff;
     }
 
     .sidebar-widget {
@@ -558,6 +629,20 @@
       background: rgba(15, 23, 42, 0.75);
     }
 
+    button.btn-rewards {
+      width: auto;
+      margin-top: 0;
+      padding: 9px 15px;
+      background: rgba(168, 85, 247, 0.14);
+      color: #d8b4fe;
+      border: 1px solid rgba(168, 85, 247, 0.38);
+      font-size: 0.85rem;
+    }
+    button.btn-rewards:hover:not(:disabled) {
+      background: rgba(168, 85, 247, 0.25);
+      box-shadow: 0 4px 14px var(--purple-glow);
+    }
+
     button.secondary, .add-coin-trigger {
       background: linear-gradient(135deg, #22c55e, #16a34a);
       color: #052e16;
@@ -580,6 +665,15 @@
     }
     button.primary-solid:hover {
       box-shadow: 0 6px 20px rgba(56, 189, 248, 0.45);
+    }
+
+    button.purple-solid {
+      background: linear-gradient(135deg, #a855f7, #7e22ce);
+      color: #fff;
+      box-shadow: 0 4px 14px var(--purple-glow);
+    }
+    button.purple-solid:hover {
+      box-shadow: 0 6px 20px rgba(168, 85, 247, 0.45);
     }
 
     button.edit-btn {
@@ -913,7 +1007,7 @@
       border-color: rgba(245, 158, 11, 0.4);
     }
     .modal-box.info-box {
-      max-width: 440px;
+      max-width: 460px;
       border-color: rgba(56, 189, 248, 0.4);
     }
     .modal-overlay.active .modal-box {
@@ -1014,6 +1108,12 @@
       color: #38bdf8;
       box-shadow: 0 8px 20px rgba(56, 189, 248, 0.18);
     }
+    .confirm-icon.purple {
+      background: rgba(168, 85, 247, 0.14);
+      border-color: rgba(168, 85, 247, 0.38);
+      color: #d8b4fe;
+      box-shadow: 0 8px 20px rgba(168, 85, 247, 0.18);
+    }
     .confirm-title {
       font-size: 1.05rem;
       font-weight: 700;
@@ -1097,6 +1197,7 @@
     }
     .modal-actions button.secondary,
     .modal-actions button.primary-solid,
+    .modal-actions button.purple-solid,
     .modal-actions button.danger-solid,
     .modal-actions button.amber-solid {
       flex: 1.5;
@@ -1225,13 +1326,14 @@
       <div class="brand-logo">⚡</div>
       <div class="brand-text">
         <h2>RollerCoin</h2>
-        <span>Lig & Kazanç Paneli v3.2</span>
+        <span>Otomatik Lig Paneli v3.3</span>
       </div>
     </div>
 
     <nav class="sidebar-nav">
       <div class="nav-section-title">Hızlı İşlemler</div>
       <button class="nav-item" onclick="openAddModal()">➕ Yeni Kripto Ekle</button>
+      <button class="nav-item" id="sidebarRewardsBtn" onclick="openRewardsFetchModal()">📡 Blok Ödüllerini Çek</button>
       <button class="nav-item" id="sidebarRefreshBtn" onclick="openRefreshConfirmModal()">🔄 Kurları Güncelle</button>
       <button class="nav-item" onclick="openResetModal()">♻️ Seçili Ligi Sıfırla</button>
 
@@ -1265,6 +1367,18 @@
           <label>USD / TRY Kuru</label>
           <input type="number" id="sidebarUsdTryRate" value="34.50" step="0.01" oninput="syncRateInput(this.value)" />
         </div>
+
+        <!-- OTOMATİK BLOK ÖDÜLÜ & KUR ÇEKME ANAHTARI -->
+        <div class="auto-sync-box">
+          <div class="auto-sync-info">
+            <strong>⏱️ Otomatik Senkronizasyon</strong>
+            <span id="sidebarAutoSyncStatus">Her 5 dk otomatik çekilir</span>
+          </div>
+          <label class="switch" title="Otomatik blok ödülü ve kur çekmeyi aç/kapat">
+            <input type="checkbox" id="sidebarAutoSyncToggle" checked onchange="toggleAutoSync(this.checked)" />
+            <span class="slider"></span>
+          </label>
+        </div>
       </div>
     </nav>
 
@@ -1288,12 +1402,15 @@
           <h1>Lig Sistemi & Canlı Kazanç Paneli</h1>
           <div class="topbar-status">
             <span class="status-dot"></span>
-            <span id="statusText">Kurlar yükleniyor...</span>
+            <span id="statusText">Kurlar ve blok ödülleri yükleniyor...</span>
           </div>
         </div>
       </div>
 
       <div class="topbar-actions">
+        <button class="btn-rewards" id="topbarRewardsBtn" onclick="openRewardsFetchModal()" title="Lig blok ödüllerini otomatik çek">
+          📡 <span class="btn-text hide-mobile">Blok Ödüllerini Çek</span>
+        </button>
         <button class="btn-refresh" id="topbarRefreshBtn" onclick="openRefreshConfirmModal()">
           <span id="topbarRefreshIcon">🔄</span> <span class="btn-text" id="topbarRefreshLabel">Kurları Güncelle</span>
         </button>
@@ -1371,6 +1488,16 @@
           <div class="form-group" style="margin-bottom: 0;">
             <label>USD / TRY Kuru</label>
             <input type="number" id="usdTryRate" value="34.50" step="0.01" oninput="syncRateInput(this.value)" />
+            <div class="auto-sync-box" style="margin-top: 10px;">
+              <div class="auto-sync-info">
+                <strong>⏱️ Otomatik Blok Ödülü Çekme</strong>
+                <span id="mobileAutoSyncStatus">Her 5 dk otomatik çekilir</span>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="mobileAutoSyncToggle" checked onchange="toggleAutoSync(this.checked)" />
+                <span class="slider"></span>
+              </label>
+            </div>
           </div>
         </div>
       </section>
@@ -1416,6 +1543,39 @@
         </div>
       </section>
     </main>
+  </div>
+
+  <!-- BLOK ÖDÜLLERİNİ OTOMATİK ÇEKME MENÜSÜ (REWARDS SYNC MODAL) -->
+  <div class="modal-overlay" id="rewardsFetchModal" onclick="handleOverlayClick(event, 'rewardsFetchModal')">
+    <div class="modal-box info-box">
+      <div class="modal-header">
+        <h2>📡 Otomatik Blok Ödülü & Ağ Gücü Çekme</h2>
+        <button class="modal-close" onclick="closeRewardsFetchModal()" title="Kapat">✕</button>
+      </div>
+
+      <div class="confirm-body">
+        <div class="confirm-icon purple">🛰️</div>
+        <h3 class="confirm-title"><span id="rewardsModalLeagueName">Bronze II</span> blok ödülleri çekilsin mi?</h3>
+        <p class="confirm-desc">
+          Sistem önce canlı API/Proxy kaynağından güncel blok ödüllerini ve ağ güçlerini çekmeyi dener; dış erişim engellenirse seçili ligin güncel resmi ödül havuzunu otomatik olarak senkronize eder.
+        </p>
+
+        <div class="form-group" style="width: 100%; text-align: left; margin-bottom: 12px;">
+          <label>Özel JSON / Proxy API URL (İsteğe Bağlı)</label>
+          <input type="url" id="customRewardsEndpoint" placeholder="Örn: https://sizin-proxy.workers.dev/rollercoin" onchange="saveCustomEndpoint(this.value)" />
+        </div>
+
+        <div class="confirm-coin-preview">
+          <span>Hedef Lig: <strong id="rewardsModalLeagueBadge">Bronze II</strong></span>
+          <span>Otomatik Mod: <strong id="rewardsModalAutoState">Aktif (5 dk)</strong></span>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn" onclick="closeRewardsFetchModal()">Vazgeç</button>
+        <button type="button" class="purple-solid" onclick="confirmFetchBlockRewards()">📡 Şimdi Çek & Güncelle</button>
+      </div>
+    </div>
   </div>
 
   <!-- YENİ KRİPTO EKLEME AÇILIR MENÜSÜ (MODAL) -->
@@ -1657,7 +1817,6 @@
       YH: 'Yh/s'
     };
 
-    // RollerCoin 14 Kripto / Token Meta Verileri
     const coinCatalog = {
       RLT:  { apiId: '',                        manualPrice: 1.0 },
       RST:  { apiId: '',                        manualPrice: 0.01 },
@@ -1678,119 +1837,119 @@
     // RollerCoin 22 Lig Sistemi ve Lige Özel Kripto Havuzları
     const leaguesData = {
       bronze_1: {
-        name: 'Bronze I', group: 'Bronze Ligleri', rangeLabel: '0 – 5 Ph/s', minGh: 0, maxGh: 5e6,
+        name: 'Bronze I', slug: 'bronze-1', group: 'Bronze Ligleri', rangeLabel: '0 – 5 Ph/s', minGh: 0, maxGh: 5e6,
         rewards: { RLT: 1.807117, RST: 96.379255, BTC: 0.000005, LTC: 0.002894 },
         defaultNetPower: 110, defaultNetUnit: 'PH'
       },
       bronze_2: {
-        name: 'Bronze II', group: 'Bronze Ligleri', rangeLabel: '5 – 30 Ph/s', minGh: 5e6, maxGh: 30e6,
+        name: 'Bronze II', slug: 'bronze-2', group: 'Bronze Ligleri', rangeLabel: '5 – 30 Ph/s', minGh: 5e6, maxGh: 30e6,
         rewards: { RLT: 0.189194, RST: 28.379134, BTC: 0.000001, BNB: 0.000107, LTC: 0.001075 },
         defaultNetPower: 220, defaultNetUnit: 'PH'
       },
       bronze_3: {
-        name: 'Bronze III', group: 'Bronze Ligleri', rangeLabel: '30 – 100 Ph/s', minGh: 30e6, maxGh: 100e6,
+        name: 'Bronze III', slug: 'bronze-3', group: 'Bronze Ligleri', rangeLabel: '30 – 100 Ph/s', minGh: 30e6, maxGh: 100e6,
         rewards: { RLT: 1.574151, RST: 125.929462, BTC: 0.000007, BNB: 0.000778, POL: 5.923755, LTC: 0.004443 },
         defaultNetPower: 480, defaultNetUnit: 'PH'
       },
       silver_1: {
-        name: 'Silver I', group: 'Silver Ligleri', rangeLabel: '100 – 200 Ph/s', minGh: 100e6, maxGh: 200e6,
+        name: 'Silver I', slug: 'silver-1', group: 'Silver Ligleri', rangeLabel: '100 – 200 Ph/s', minGh: 100e6, maxGh: 200e6,
         rewards: { RLT: 1.264447, RST: 79.025905, XRP: 0.372386, BTC: 0.000006, BNB: 0.000209, POL: 2.085333, LTC: 0.002979, USDT: 0.1024 },
         defaultNetPower: 750, defaultNetUnit: 'PH'
       },
       silver_2: {
-        name: 'Silver II', group: 'Silver Ligleri', rangeLabel: '200 – 500 Ph/s', minGh: 200e6, maxGh: 500e6,
+        name: 'Silver II', slug: 'silver-2', group: 'Silver Ligleri', rangeLabel: '200 – 500 Ph/s', minGh: 200e6, maxGh: 500e6,
         rewards: { RLT: 0.519964, RST: 47.265362, XRP: 0.088534, DOGE: 4.87, BTC: 0.000003, BNB: 0.000089, POL: 0.885432, LTC: 0.001771, USDT: 0.2052 },
         defaultNetPower: 1.15, defaultNetUnit: 'EH'
       },
       silver_3: {
-        name: 'Silver III', group: 'Silver Ligleri', rangeLabel: '500 Ph/s – 1 Eh/s', minGh: 500e6, maxGh: 1e9,
+        name: 'Silver III', slug: 'silver-3', group: 'Silver Ligleri', rangeLabel: '500 Ph/s – 1 Eh/s', minGh: 500e6, maxGh: 1e9,
         rewards: { RLT: 1.764177, RST: 132.31485, XRP: 0.330724, DOGE: 4.9605, BTC: 0.000006, ETH: 0.000207, BNB: 0.000413, POL: 2.480304, LTC: 0.006201, USDT: 0.2573 },
         defaultNetPower: 1.85, defaultNetUnit: 'EH'
       },
       gold_1: {
-        name: 'Gold I', group: 'Gold Ligleri', rangeLabel: '1 – 2 Eh/s', minGh: 1e9, maxGh: 2e9,
+        name: 'Gold I', slug: 'gold-1', group: 'Gold Ligleri', rangeLabel: '1 – 2 Eh/s', minGh: 1e9, maxGh: 2e9,
         rewards: { RLT: 1.994089, RST: 132.935655, XRP: 0.363712, TRX: 2.424579, DOGE: 9.795, BTC: 0.000015, ETH: 0.000351, BNB: 0.000909, POL: 4.094422, LTC: 0.006127, USDT: 0.3714 },
         defaultNetPower: 2.6, defaultNetUnit: 'EH'
       },
       gold_2: {
-        name: 'Gold II', group: 'Gold Ligleri', rangeLabel: '2 – 5 Eh/s', minGh: 2e9, maxGh: 5e9,
+        name: 'Gold II', slug: 'gold-2', group: 'Gold Ligleri', rangeLabel: '2 – 5 Eh/s', minGh: 2e9, maxGh: 5e9,
         rewards: { RLT: 2.203416, RST: 165.252953, HMT: 71.609606, XRP: 0.173752, TRX: 2.146165, DOGE: 8.2572, BTC: 0.000007, ETH: 0.000276, BNB: 0.000511, POL: 2.66258, SOL: 0.007893, LTC: 0.002684, USDT: 0.330455 },
         defaultNetPower: 3.4, defaultNetUnit: 'EH'
       },
       gold_3: {
-        name: 'Gold III', group: 'Gold Ligleri', rangeLabel: '5 – 15 Eh/s', minGh: 5e9, maxGh: 15e9,
+        name: 'Gold III', slug: 'gold-3', group: 'Gold Ligleri', rangeLabel: '5 – 15 Eh/s', minGh: 5e9, maxGh: 15e9,
         rewards: { RLT: 3.597755, RST: 224.860343, HMT: 1394.134244, XRP: 0.579108, TRX: 6.618538, DOGE: 25.0682, BTC: 0.000025, ETH: 0.000479, BNB: 0.001406, POL: 5.588471, SOL: 0.016765, LTC: 0.008352, USDT: 1.484104 },
         defaultNetPower: 6.8, defaultNetUnit: 'EH'
       },
       platinum_1: {
-        name: 'Platinum I', group: 'Platinum Ligleri', rangeLabel: '15 – 50 Eh/s', minGh: 15e9, maxGh: 50e9,
+        name: 'Platinum I', slug: 'platinum-1', group: 'Platinum Ligleri', rangeLabel: '15 – 50 Eh/s', minGh: 15e9, maxGh: 50e9,
         rewards: { RLT: 4.417818, RST: 321.293781, HMT: 3132.614654, XRP: 0.931059, TRX: 17.504569, DOGE: 24.827, BTC: 0.000032, ETH: 0.000956, BNB: 0.00175, POL: 11.141474, SOL: 0.023717, LTC: 0.015047, ALGO: 28.113239, USDT: 2.409691 },
         defaultNetPower: 14.5, defaultNetUnit: 'EH'
       },
       platinum_2: {
-        name: 'Platinum II', group: 'Platinum Ligleri', rangeLabel: '50 – 100 Eh/s', minGh: 50e9, maxGh: 100e9,
+        name: 'Platinum II', slug: 'platinum-2', group: 'Platinum Ligleri', rangeLabel: '50 – 100 Eh/s', minGh: 50e9, maxGh: 100e9,
         rewards: { RLT: 2.079749, RST: 166.381784, HMT: 2380.922841, XRP: 0.758335, TRX: 12.891142, DOGE: 19.1469, BTC: 0.000021, ETH: 0.000731, BNB: 0.001137, POL: 7.317374, SOL: 0.02781, LTC: 0.009575, ALGO: 11.646703, USDT: 1.497425 },
         defaultNetPower: 22.0, defaultNetUnit: 'EH'
       },
       platinum_3: {
-        name: 'Platinum III', group: 'Platinum Ligleri', rangeLabel: '100 – 200 Eh/s', minGh: 100e9, maxGh: 200e9,
+        name: 'Platinum III', slug: 'platinum-3', group: 'Platinum Ligleri', rangeLabel: '100 – 200 Eh/s', minGh: 100e9, maxGh: 200e9,
         rewards: { RLT: 1.48352, RST: 111.591451, HMT: 2552.803758, XRP: 0.603105, TRX: 13.410191, DOGE: 17.4708, BTC: 0.000017, ETH: 0.000715, BNB: 0.001019, POL: 6.679066, SOL: 0.035291, LTC: 0.008019, ALGO: 9.043235, USDT: 1.612735 },
         defaultNetPower: 35.0, defaultNetUnit: 'EH'
       },
       diamond_1: {
-        name: 'Diamond I', group: 'Diamond Ligleri', rangeLabel: '200 – 400 Eh/s', minGh: 200e9, maxGh: 400e9,
+        name: 'Diamond I', slug: 'diamond-1', group: 'Diamond Ligleri', rangeLabel: '200 – 400 Eh/s', minGh: 200e9, maxGh: 400e9,
         rewards: { RST: 104.712286, XRP: 1.174009, TRX: 4.790121, DOGE: 21.8184, BTC: 0.000019, ETH: 0.000725, BNB: 0.001315, POL: 13.595132, SOL: 0.010875, LTC: 0.019917, ALGO: 24.083789, USDT: 1.675426 },
         defaultNetPower: 52.0, defaultNetUnit: 'EH'
       },
       diamond_2: {
-        name: 'Diamond II', group: 'Diamond Ligleri', rangeLabel: '400 Eh/s – 10 Zh/s', minGh: 400e9, maxGh: 10e12,
+        name: 'Diamond II', slug: 'diamond-2', group: 'Diamond Ligleri', rangeLabel: '400 Eh/s – 10 Zh/s', minGh: 400e9, maxGh: 10e12,
         rewards: { RST: 40.315299, XRP: 0.858247, TRX: 3.269434, DOGE: 28.8944, BTC: 0.000026, ETH: 0.000552, BNB: 0.002125, POL: 11.042982, SOL: 0.011836, LTC: 0.020634, ALGO: 31.80427, USDT: 2.687719 },
         defaultNetPower: 85.0, defaultNetUnit: 'EH'
       },
       diamond_3: {
-        name: 'Diamond III', group: 'Diamond Ligleri', rangeLabel: '10 – 50 Zh/s', minGh: 10e12, maxGh: 50e12,
+        name: 'Diamond III', slug: 'diamond-3', group: 'Diamond Ligleri', rangeLabel: '10 – 50 Zh/s', minGh: 10e12, maxGh: 50e12,
         rewards: { RST: 34.289117, XRP: 0.708437, TRX: 2.904668, DOGE: 23.8275, BTC: 0.000021, ETH: 0.000465, BNB: 0.001729, POL: 9.120475, SOL: 0.009851, LTC: 0.017272, ALGO: 26.027013, USDT: 2.026206 },
         defaultNetPower: 130.0, defaultNetUnit: 'EH'
       },
       titan_1: {
-        name: 'Titan I', group: 'Titan & Emerald Ligleri', rangeLabel: '50 – 150 Zh/s', minGh: 50e12, maxGh: 150e12,
+        name: 'Titan I', slug: 'titan-1', group: 'Titan & Emerald Ligleri', rangeLabel: '50 – 150 Zh/s', minGh: 50e12, maxGh: 150e12,
         rewards: { RST: 37.46125, XRP: 0.78358, TRX: 3.202283, DOGE: 26.0611, BTC: 0.000023, ETH: 0.000528, BNB: 0.001908, POL: 10.441521, SOL: 0.011242, LTC: 0.018873, ALGO: 29.032556, USDT: 1.3886 },
         defaultNetPower: 190.0, defaultNetUnit: 'EH'
       },
       titan_2: {
-        name: 'Titan II', group: 'Titan & Emerald Ligleri', rangeLabel: '150 – 400 Zh/s', minGh: 150e12, maxGh: 400e12,
+        name: 'Titan II', slug: 'titan-2', group: 'Titan & Emerald Ligleri', rangeLabel: '150 – 400 Zh/s', minGh: 150e12, maxGh: 400e12,
         rewards: { RST: 34.341795, XRP: 0.641846, TRX: 2.602143, DOGE: 21.6839, BTC: 0.000017, ETH: 0.000434, BNB: 0.001561, POL: 8.500178, SOL: 0.009194, LTC: 0.015265, ALGO: 23.270678, USDT: 1.161 },
         defaultNetPower: 260.0, defaultNetUnit: 'EH'
       },
       titan_3: {
-        name: 'Titan III', group: 'Titan & Emerald Ligleri', rangeLabel: '400 Zh/s – 1 Yh/s', minGh: 400e12, maxGh: 1e15,
+        name: 'Titan III', slug: 'titan-3', group: 'Titan & Emerald Ligleri', rangeLabel: '400 Zh/s – 1 Yh/s', minGh: 400e12, maxGh: 1e15,
         rewards: { RST: 58.29121, XRP: 1.277949, TRX: 5.308089, DOGE: 43.448, BTC: 0.000039, ETH: 0.000845, BNB: 0.003146, POL: 17.418455, SOL: 0.018677, LTC: 0.031455, ALGO: 47.928277, USDT: 2.5519 },
         defaultNetPower: 380.0, defaultNetUnit: 'EH'
       },
       emerald_1: {
-        name: 'Emerald I', group: 'Titan & Emerald Ligleri', rangeLabel: '1+ Yh/s (Üst Lig)', minGh: 1e15, maxGh: 5e15,
+        name: 'Emerald I', slug: 'emerald-1', group: 'Titan & Emerald Ligleri', rangeLabel: '1+ Yh/s (Üst Lig)', minGh: 1e15, maxGh: 5e15,
         rewards: { RST: 254.8733, XRP: 0.4644, TRX: 1.7414, DOGE: 6.7718, BTC: 0.00000648, ETH: 0.0001934, BNB: 0.000387, POL: 3.8696, SOL: 0.0065782, LTC: 0.009674, ALGO: 9.7872, USDT: 1.835 },
         defaultNetPower: 520.0, defaultNetUnit: 'EH'
       },
       emerald_2: {
-        name: 'Emerald II', group: 'Titan & Emerald Ligleri', rangeLabel: 'Üst Lig II', minGh: 5e15, maxGh: 20e15,
+        name: 'Emerald II', slug: 'emerald-2', group: 'Titan & Emerald Ligleri', rangeLabel: 'Üst Lig II', minGh: 5e15, maxGh: 20e15,
         rewards: { RST: 41.0, XRP: 0.3868, TRX: 1.5474, DOGE: 5.803, BTC: 0.00000532, ETH: 0.000194, BNB: 0.0004642, POL: 3.3656, SOL: 0.005803, LTC: 0.0096716, ALGO: 8.173, USDT: 1.5324 },
         defaultNetPower: 680.0, defaultNetUnit: 'EH'
       },
       emerald_3: {
-        name: 'Emerald III', group: 'Titan & Emerald Ligleri', rangeLabel: 'Üst Lig III', minGh: 20e15, maxGh: Infinity,
+        name: 'Emerald III', slug: 'emerald-3', group: 'Titan & Emerald Ligleri', rangeLabel: 'Üst Lig III', minGh: 20e15, maxGh: Infinity,
         rewards: { RST: 205.0, XRP: 0.1652, TRX: 0.836, DOGE: 2.9162, BTC: 0.00000292, ETH: 0.0001166, BNB: 0.0002332, POL: 1.95, SOL: 0.0034, LTC: 0.0055, ALGO: 4.8, USDT: 0.95 },
         defaultNetPower: 850.0, defaultNetUnit: 'EH'
       },
       all_coins: {
-        name: 'Tüm RollerCoin Kriptoları (14 Varlık)', group: 'Genel Görünüm', rangeLabel: 'Tüm Lig Havuzu', minGh: -1, maxGh: -1,
+        name: 'Tüm RollerCoin Kriptoları (14 Varlık)', slug: 'all', group: 'Genel Görünüm', rangeLabel: 'Tüm Lig Havuzu', minGh: -1, maxGh: -1,
         rewards: { RLT: 30, RST: 150, HMT: 120, BTC: 0.00045, ETH: 0.012, BNB: 0.045, POL: 65, SOL: 0.22, TRX: 160, DOGE: 140, LTC: 0.35, XRP: 15, ALGO: 28, USDT: 30 },
         defaultNetPower: 950, defaultNetUnit: 'PH'
       }
     };
 
     function buildDefaultCoinsForLeague(leagueKey) {
-      const league = leaguesData[leagueKey] || leaguesData.gold_2;
+      const league = leaguesData[leagueKey] || leaguesData.bronze_2;
       return Object.entries(league.rewards).map(([symbol, blockReward]) => {
         const meta = coinCatalog[symbol] || { apiId: '', manualPrice: 0 };
         return {
@@ -1820,9 +1979,153 @@
     let pendingDeleteIndex = null;
     let pendingEditIndex = null;
 
+    // OTOMATİK BLOK ÖDÜLÜ & KUR ÇEKME AYARLARI
+    let autoSyncEnabled = localStorage.getItem('rc_auto_sync') !== 'false';
+    let customRewardsEndpoint = localStorage.getItem('rc_custom_rewards_url') || '';
+    let autoSyncInterval = null;
+
     // 30 SANİYELİK KUR GÜNCELLEME GERİ SAYIM DEĞİŞKENLERİ
     let refreshCooldownTimer = null;
     let refreshCooldownRemaining = 0;
+
+    function saveCustomEndpoint(val) {
+      customRewardsEndpoint = val.trim();
+      localStorage.setItem('rc_custom_rewards_url', customRewardsEndpoint);
+    }
+
+    function toggleAutoSync(enabled) {
+      autoSyncEnabled = enabled;
+      localStorage.setItem('rc_auto_sync', enabled ? 'true' : 'false');
+      const sideToggle = document.getElementById('sidebarAutoSyncToggle');
+      const mobToggle = document.getElementById('mobileAutoSyncToggle');
+      const sideStatus = document.getElementById('sidebarAutoSyncStatus');
+      const mobStatus = document.getElementById('mobileAutoSyncStatus');
+
+      if (sideToggle) sideToggle.checked = enabled;
+      if (mobToggle) mobToggle.checked = enabled;
+
+      const labelText = enabled ? 'Her 5 dk otomatik çekilir' : 'Otomatik çekme kapalı';
+      if (sideStatus) sideStatus.innerText = labelText;
+      if (mobStatus) mobStatus.innerText = labelText;
+
+      setupAutoSyncTimer();
+    }
+
+    function setupAutoSyncTimer() {
+      if (autoSyncInterval) {
+        clearInterval(autoSyncInterval);
+        autoSyncInterval = null;
+      }
+      if (autoSyncEnabled) {
+        autoSyncInterval = setInterval(() => {
+          fetchBlockRewards(true);
+          fetchPrices(true);
+        }, 5 * 60 * 1000); // 5 dakikada bir otomatik güncelle
+      }
+    }
+
+    function openRewardsFetchModal() {
+      const league = leaguesData[activeLeague] || leaguesData.bronze_2;
+      document.getElementById('rewardsModalLeagueName').innerText = league.name;
+      document.getElementById('rewardsModalLeagueBadge').innerText = league.name;
+      document.getElementById('rewardsModalAutoState').innerText = autoSyncEnabled ? 'Aktif (5 dk)' : 'Kapalı';
+      document.getElementById('customRewardsEndpoint').value = customRewardsEndpoint;
+      document.getElementById('rewardsFetchModal').classList.add('active');
+    }
+
+    function closeRewardsFetchModal() {
+      document.getElementById('rewardsFetchModal').classList.remove('active');
+    }
+
+    function confirmFetchBlockRewards() {
+      closeRewardsFetchModal();
+      if (window.innerWidth <= 860 && document.getElementById('sidebar').classList.contains('open')) {
+        toggleSidebar();
+      }
+      fetchBlockRewards(false);
+    }
+
+    // Canlı API/Proxy üzerinden veya resmi lig havuzundan blok ödüllerini otomatik çekme
+    async function fetchBlockRewards(isSilent = false) {
+      const statusEl = document.getElementById('statusText');
+      const league = leaguesData[activeLeague] || leaguesData.bronze_2;
+
+      if (!isSilent) {
+        statusEl.innerText = `📡 ${league.name} ligi için blok ödülleri çekiliyor...`;
+      }
+
+      // 1. Öncelik: Kullanıcının tanımladığı özel proxy/API endpointi veya genel proxy denemesi
+      const candidateUrls = [];
+      if (customRewardsEndpoint) {
+        candidateUrls.push(customRewardsEndpoint);
+      }
+      candidateUrls.push(`https://api.allorigins.win/raw?url=${encodeURIComponent('https://rollercoin.com/api/wallet/get-blocks-rewards?league=' + league.slug)}`);
+
+      let fetchedRemote = false;
+
+      for (const url of candidateUrls) {
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 4500);
+          const response = await fetch(url, { signal: controller.signal });
+          clearTimeout(timeoutId);
+
+          if (!response.ok) continue;
+          const payload = await response.json();
+
+          // Dönen JSON formatını işle (dizi veya { rewards / data } nesnesi desteği)
+          const list = Array.isArray(payload) ? payload : (payload.data || payload.rewards || payload.coins);
+          if (Array.isArray(list) && list.length > 0) {
+            list.forEach(item => {
+              const sym = (item.symbol || item.currency || item.coin || '').toUpperCase();
+              const rewardVal = parseFloat(item.blockReward || item.block_reward || item.reward);
+              const netVal = parseFloat(item.netPower || item.network_power || item.power);
+              const unitVal = (item.netUnit || item.unit || '').toUpperCase();
+
+              const existing = coins.find(c => c.symbol === sym);
+              if (existing && !isNaN(rewardVal) && rewardVal > 0) {
+                existing.blockReward = rewardVal;
+                if (!isNaN(netVal) && netVal > 0) existing.netPower = netVal;
+                if (unitLabels[unitVal]) existing.netUnit = unitVal;
+              }
+            });
+            fetchedRemote = true;
+            break;
+          }
+        } catch (err) {
+          // Sonraki kaynağa veya yerel lig senkronizasyonuna geç
+        }
+      }
+
+      // 2. Fallback: Dış API CORS/Cloudflare engeline takılırsa aktif ligin güncel resmi ödüllerini senkronize et
+      if (!fetchedRemote) {
+        Object.entries(league.rewards).forEach(([symbol, officialReward]) => {
+          const existing = coins.find(c => c.symbol === symbol);
+          if (existing) {
+            existing.blockReward = officialReward;
+          } else {
+            const meta = coinCatalog[symbol] || { apiId: '', manualPrice: 0 };
+            coins.push({
+              symbol,
+              apiId: meta.apiId,
+              manualPrice: meta.manualPrice,
+              netPower: league.defaultNetPower,
+              netUnit: league.defaultNetUnit,
+              blockReward: officialReward,
+              blockTime: 600
+            });
+          }
+        });
+      }
+
+      saveCoins();
+      renderTable();
+
+      const now = new Date().toLocaleTimeString('tr-TR');
+      statusEl.innerText = fetchedRemote
+        ? `✅ Canlı API blok ödülleri güncellendi (${now})`
+        : `✅ ${league.name} ligi blok ödülleri senkronize edildi (${now})`;
+    }
 
     function populateLeagueSelects() {
       const selects = [document.getElementById('sidebarLeagueSelect'), document.getElementById('mobileLeagueSelect')];
@@ -1874,6 +2177,10 @@
       }
       coins = leagueCoinsMap[activeLeague].map(c => ({ ...c, netUnit: c.netUnit || 'PH' }));
       updateLeagueLabelsUI();
+
+      if (autoSyncEnabled) {
+        fetchBlockRewards(true);
+      }
 
       const missingIds = coins
         .map(c => c.apiId)
@@ -2137,6 +2444,7 @@
       if (e.target.id === modalId) {
         if (modalId === 'addCoinModal') closeAddModal();
         if (modalId === 'editCoinModal') closeEditModal();
+        if (modalId === 'rewardsFetchModal') closeRewardsFetchModal();
         if (modalId === 'refreshConfirmModal') closeRefreshConfirmModal();
         if (modalId === 'deleteConfirmModal') closeDeleteModal();
         if (modalId === 'resetConfirmModal') closeResetModal();
@@ -2147,6 +2455,7 @@
       if (e.key === 'Escape') {
         closeAddModal();
         closeEditModal();
+        closeRewardsFetchModal();
         closeRefreshConfirmModal();
         closeDeleteModal();
         closeResetModal();
@@ -2194,6 +2503,7 @@
       document.getElementById('sortSelect').value = sortMode;
       populateLeagueSelects();
       updateSortIndicators();
+      toggleAutoSync(autoSyncEnabled);
     }
 
     function saveUserSettings() {
@@ -2250,9 +2560,11 @@
       `;
     }
 
-    async function fetchPrices() {
+    async function fetchPrices(isSilent = false) {
       const statusEl = document.getElementById('statusText');
-      statusEl.innerText = 'CoinGecko üzerinden canlı kurlar ve logolar çekiliyor...';
+      if (!isSilent) {
+        statusEl.innerText = 'CoinGecko üzerinden canlı kurlar ve logolar çekiliyor...';
+      }
 
       const allApiIds = [...new Set([
         ...Object.values(coinCatalog).map(m => m.apiId),
@@ -2275,7 +2587,7 @@
         }
 
         const now = new Date().toLocaleTimeString('tr-TR');
-        statusEl.innerText = `Canlı kurlar aktif (Son güncelleme: ${now})`;
+        statusEl.innerText = `Canlı kurlar & blok ödülleri aktif (Son güncelleme: ${now})`;
         renderTable();
       } catch (err) {
         statusEl.innerText = 'Çevrimdışı mod: Manuel/son kurlar kullanılıyor';
@@ -2432,7 +2744,9 @@
       });
     }
 
+    // Sayfa açıldığında ayarları yükle, aktif ligin blok ödüllerini ve kurları otomatik çek
     loadUserSettings();
+    fetchBlockRewards(true);
     fetchPrices();
   </script>
 </body>
