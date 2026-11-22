@@ -873,6 +873,10 @@
       max-width: 450px;
       border-color: rgba(245, 158, 11, 0.4);
     }
+    .modal-box.info-box {
+      max-width: 440px;
+      border-color: rgba(56, 189, 248, 0.4);
+    }
     .modal-overlay.active .modal-box {
       transform: translateY(0) scale(1);
     }
@@ -964,6 +968,12 @@
       border-color: rgba(245, 158, 11, 0.38);
       color: #fbbf24;
       box-shadow: 0 8px 20px rgba(245, 158, 11, 0.18);
+    }
+    .confirm-icon.info {
+      background: rgba(56, 189, 248, 0.14);
+      border-color: rgba(56, 189, 248, 0.38);
+      color: #38bdf8;
+      box-shadow: 0 8px 20px rgba(56, 189, 248, 0.18);
     }
     .confirm-title {
       font-size: 1.05rem;
@@ -1178,14 +1188,14 @@
       <div class="brand-logo">⚡</div>
       <div class="brand-text">
         <h2>RollerCoin</h2>
-        <span>Kazanç Paneli v3.0</span>
+        <span>Kazanç Paneli v3.1</span>
       </div>
     </div>
 
     <nav class="sidebar-nav">
       <div class="nav-section-title">Hızlı İşlemler</div>
       <button class="nav-item" onclick="openAddModal()">➕ Yeni Kripto Ekle</button>
-      <button class="nav-item" id="sidebarRefreshBtn" onclick="manualRefreshPrices()">🔄 Kurları Güncelle</button>
+      <button class="nav-item" id="sidebarRefreshBtn" onclick="openRefreshConfirmModal()">🔄 Kurları Güncelle</button>
       <button class="nav-item" onclick="openResetModal()">♻️ Tüm RollerCoin Kriptolarını Yükle</button>
 
       <!-- MASAÜSTÜ SOL MENÜ: KAZIM GÜCÜN & KUR AYARI -->
@@ -1240,7 +1250,7 @@
       </div>
 
       <div class="topbar-actions">
-        <button class="btn-refresh" id="topbarRefreshBtn" onclick="manualRefreshPrices()">
+        <button class="btn-refresh" id="topbarRefreshBtn" onclick="openRefreshConfirmModal()">
           <span id="topbarRefreshIcon">🔄</span> <span class="btn-text" id="topbarRefreshLabel">Kurları Güncelle</span>
         </button>
         <button class="add-coin-trigger" onclick="openAddModal()">+ <span class="btn-text hide-mobile">Yeni Kripto</span></button>
@@ -1493,6 +1503,33 @@
     </div>
   </div>
 
+  <!-- KURLARI GÜNCELLEME ONAY MENÜSÜ (REFRESH CONFIRM MODAL) -->
+  <div class="modal-overlay" id="refreshConfirmModal" onclick="handleOverlayClick(event, 'refreshConfirmModal')">
+    <div class="modal-box info-box">
+      <div class="modal-header">
+        <h2>🔄 Kur Güncelleme Onayı</h2>
+        <button class="modal-close" onclick="closeRefreshConfirmModal()" title="Kapat">✕</button>
+      </div>
+
+      <div class="confirm-body">
+        <div class="confirm-icon info">💱</div>
+        <h3 class="confirm-title">Canlı kurlar şimdi güncellensin mi?</h3>
+        <p class="confirm-desc">
+          CoinGecko üzerinden anlık kripto fiyatları ve USD/TRY kuru yeniden çekilecektir. Güncelleme sonrası <strong>30 saniye</strong> bekleme süresi aktif olur.
+        </p>
+        <div class="confirm-coin-preview">
+          <span>Mevcut Dolar Kuru: <strong id="refreshPreviewRate">₺34,50</strong></span>
+          <span>Kaynak: <strong>CoinGecko API</strong></span>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn" onclick="closeRefreshConfirmModal()">Vazgeç</button>
+        <button type="button" class="primary-solid" onclick="confirmRefreshPrices()">🔄 Evet, Güncelle</button>
+      </div>
+    </div>
+  </div>
+
   <!-- SİLME ONAY MENÜSÜ (CONFIRM MODAL) -->
   <div class="modal-overlay" id="deleteConfirmModal" onclick="handleOverlayClick(event, 'deleteConfirmModal')">
     <div class="modal-box confirm-box">
@@ -1638,8 +1675,23 @@
       }
     }
 
-    function manualRefreshPrices() {
+    function openRefreshConfirmModal() {
       if (refreshCooldownRemaining > 0) return;
+      const currentRate = parseFloat(document.getElementById('usdTryRate').value) || 34.5;
+      document.getElementById('refreshPreviewRate').innerText = `₺${formatTRY(currentRate)}`;
+      document.getElementById('refreshConfirmModal').classList.add('active');
+    }
+
+    function closeRefreshConfirmModal() {
+      document.getElementById('refreshConfirmModal').classList.remove('active');
+    }
+
+    function confirmRefreshPrices() {
+      closeRefreshConfirmModal();
+      if (refreshCooldownRemaining > 0) return;
+      if (window.innerWidth <= 860 && document.getElementById('sidebar').classList.contains('open')) {
+        toggleSidebar();
+      }
       startRefreshCooldown(30);
       fetchPrices();
     }
@@ -1812,6 +1864,7 @@
       if (e.target.id === modalId) {
         if (modalId === 'addCoinModal') closeAddModal();
         if (modalId === 'editCoinModal') closeEditModal();
+        if (modalId === 'refreshConfirmModal') closeRefreshConfirmModal();
         if (modalId === 'deleteConfirmModal') closeDeleteModal();
         if (modalId === 'resetConfirmModal') closeResetModal();
       }
@@ -1821,6 +1874,7 @@
       if (e.key === 'Escape') {
         closeAddModal();
         closeEditModal();
+        closeRefreshConfirmModal();
         closeDeleteModal();
         closeResetModal();
       }
