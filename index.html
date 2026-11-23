@@ -919,30 +919,10 @@
       border-color: rgba(168, 85, 247, 0.28);
     }
 
-    /* TIKLANABİLİR TABLO DEĞER KUTUSU */
-    .editable-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 10px;
-      border-radius: 8px;
-      background: rgba(19, 28, 49, 0.9);
-      border: 1px solid #28354d;
-      color: #e2e8f0;
+    .readonly-value {
       font-weight: 600;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.18s ease;
-    }
-    .editable-pill:hover {
-      border-color: var(--accent);
-      background: rgba(56, 189, 248, 0.12);
-      color: #fff;
-    }
-    .editable-pill .edit-hint {
-      color: var(--accent);
-      font-size: 0.75rem;
-      opacity: 0.8;
+      font-size: 0.86rem;
+      color: #e2e8f0;
     }
 
     .action-btns {
@@ -1493,7 +1473,7 @@
                 <strong>⏱️ Otomatik Blok Ödülü Çekme</strong>
                 <span id="mobileAutoSyncStatus">Her 5 dk otomatik çekilir</span>
               </div>
-              <label class="switch">
+              <label class="switch" title="Otomatik blok ödülü ve kur çekmeyi aç/kapat">
                 <input type="checkbox" id="mobileAutoSyncToggle" checked onchange="toggleAutoSync(this.checked)" />
                 <span class="slider"></span>
               </label>
@@ -1834,7 +1814,6 @@
       USDT: { apiId: 'tether',                  manualPrice: 1.0 }
     };
 
-    // RollerCoin 22 Lig Sistemi ve Lige Özel Kripto Havuzları
     const leaguesData = {
       bronze_1: {
         name: 'Bronze I', slug: 'bronze-1', group: 'Bronze Ligleri', rangeLabel: '0 – 5 Ph/s', minGh: 0, maxGh: 5e6,
@@ -1979,12 +1958,10 @@
     let pendingDeleteIndex = null;
     let pendingEditIndex = null;
 
-    // OTOMATİK BLOK ÖDÜLÜ & KUR ÇEKME AYARLARI
     let autoSyncEnabled = localStorage.getItem('rc_auto_sync') !== 'false';
     let customRewardsEndpoint = localStorage.getItem('rc_custom_rewards_url') || '';
     let autoSyncInterval = null;
 
-    // 30 SANİYELİK KUR GÜNCELLEME GERİ SAYIM DEĞİŞKENLERİ
     let refreshCooldownTimer = null;
     let refreshCooldownRemaining = 0;
 
@@ -2020,7 +1997,7 @@
         autoSyncInterval = setInterval(() => {
           fetchBlockRewards(true);
           fetchPrices(true);
-        }, 5 * 60 * 1000); // 5 dakikada bir otomatik güncelle
+        }, 5 * 60 * 1000);
       }
     }
 
@@ -2045,7 +2022,6 @@
       fetchBlockRewards(false);
     }
 
-    // Canlı API/Proxy üzerinden veya resmi lig havuzundan blok ödüllerini otomatik çekme
     async function fetchBlockRewards(isSilent = false) {
       const statusEl = document.getElementById('statusText');
       const league = leaguesData[activeLeague] || leaguesData.bronze_2;
@@ -2054,7 +2030,6 @@
         statusEl.innerText = `📡 ${league.name} ligi için blok ödülleri çekiliyor...`;
       }
 
-      // 1. Öncelik: Kullanıcının tanımladığı özel proxy/API endpointi veya genel proxy denemesi
       const candidateUrls = [];
       if (customRewardsEndpoint) {
         candidateUrls.push(customRewardsEndpoint);
@@ -2073,7 +2048,6 @@
           if (!response.ok) continue;
           const payload = await response.json();
 
-          // Dönen JSON formatını işle (dizi veya { rewards / data } nesnesi desteği)
           const list = Array.isArray(payload) ? payload : (payload.data || payload.rewards || payload.coins);
           if (Array.isArray(list) && list.length > 0) {
             list.forEach(item => {
@@ -2093,11 +2067,10 @@
             break;
           }
         } catch (err) {
-          // Sonraki kaynağa veya yerel lig senkronizasyonuna geç
+          // Sonraki kaynağa geç
         }
       }
 
-      // 2. Fallback: Dış API CORS/Cloudflare engeline takılırsa aktif ligin güncel resmi ödüllerini senkronize et
       if (!fetchedRemote) {
         Object.entries(league.rewards).forEach(([symbol, officialReward]) => {
           const existing = coins.find(c => c.symbol === symbol);
@@ -2692,8 +2665,6 @@
         const unitPriceTryFormatted = priceTry < 1 ? formatTRY(priceTry, 2, 6) : formatTRY(priceTry, 2, 2);
         const unitPriceUsdFormatted = priceUsd < 1 ? formatUSD(priceUsd, 2, 6) : formatUSD(priceUsd, 2, 2);
 
-        const badgeClass = coin.apiId ? 'badge' : 'badge token';
-        const badgeLabel = coin.apiId || 'Oyun Tokenı';
         const rankBadge = (sortMode === 'profit_desc' || sortMode === 'profit_asc')
           ? `<span class="rank-num ${isBest ? 'top1' : ''}">#${rankIdx + 1}</span>`
           : '';
@@ -2716,14 +2687,10 @@
             <div>$${unitPriceUsdFormatted} <br><small style="color:var(--muted)">₺${unitPriceTryFormatted}</small></div>
           </td>
           <td data-label="Lig Ağ Gücü">
-            <span class="editable-pill" onclick="openEditModal(${index}, 'editNetPower')" title="Lig ağ gücünü düzenlemek için tıkla">
-              ${coin.netPower} ${unitLabels[coin.netUnit] || coin.netUnit} <span class="edit-hint">✏️</span>
-            </span>
+            <span class="readonly-value">${coin.netPower} ${unitLabels[coin.netUnit] || coin.netUnit}</span>
           </td>
           <td data-label="Lig Blok Ödülü">
-            <span class="editable-pill" onclick="openEditModal(${index}, 'editBlockReward')" title="Blok ödülünü düzenlemek için tıkla">
-              ${coin.blockReward} ${coin.symbol} <span class="edit-hint">✏️</span>
-            </span>
+            <span class="readonly-value">${coin.blockReward} ${coin.symbol}</span>
           </td>
           <td data-label="Günlük Kazanç">${dailyCoin.toFixed(6)} ${coin.symbol}</td>
           <td data-label="Günlük ($ / ₺)" class="highlight">
@@ -2743,7 +2710,6 @@
       });
     }
 
-    // Sayfa açıldığında ayarları yükle, aktif ligin blok ödüllerini ve kurları otomatik çek
     loadUserSettings();
     fetchBlockRewards(true);
     fetchPrices();
