@@ -3,256 +3,439 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RollerCoin Pro Dashboard | Otomatik Blok Ödülü & Kazanç Paneli</title>
+  <title>RollerCoin Kazanç & Lig Hesaplayıcı</title>
   <style>
     :root {
-      --bg: #070b14;
-      --bg-elevated: #0c1220;
-      --sidebar: #0b111e;
-      --card: rgba(17, 26, 46, 0.88);
-      --card-solid: #111a2e;
-      --card-hover: #17233d;
-      --accent: #38bdf8;
-      --accent-2: #6366f1;
-      --accent-glow: rgba(56, 189, 248, 0.24);
-      --green: #22c55e;
-      --green-glow: rgba(34, 197, 94, 0.24);
-      --purple: #a855f7;
-      --purple-glow: rgba(168, 85, 247, 0.28);
-      --amber: #f59e0b;
-      --amber-glow: rgba(245, 158, 11, 0.28);
-      --danger: #ef4444;
-      --danger-glow: rgba(239, 68, 68, 0.28);
-      --text: #f8fafc;
+      --bg: #0c111b;
+      --surface: #131b2c;
+      --surface-soft: #182236;
+      --border: #25334d;
+      --border-hover: #3b4f75;
+      --text: #f1f5f9;
       --muted: #94a3b8;
-      --border: rgba(148, 163, 184, 0.14);
-      --border-strong: rgba(56, 189, 248, 0.26);
-      --sidebar-width: 292px;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.14);
+      --green: #22c55e;
+      --green-soft: rgba(34, 197, 94, 0.14);
+      --purple: #a855f7;
+      --purple-soft: rgba(168, 85, 247, 0.14);
+      --amber: #f59e0b;
+      --danger: #ef4444;
+      --danger-soft: rgba(239, 68, 68, 0.14);
+      --radius: 12px;
     }
 
     * {
       box-sizing: border-box;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-
-    *::-webkit-scrollbar {
-      display: none;
     }
 
     html, body {
-      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg);
-      background-image:
-        radial-gradient(ellipse 80% 45% at 50% -10%, rgba(56, 189, 248, 0.12), transparent),
-        radial-gradient(ellipse 55% 35% at 88% 15%, rgba(99, 102, 241, 0.09), transparent),
-        linear-gradient(to right, rgba(148, 163, 184, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(148, 163, 184, 0.03) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
-      color: var(--text);
       margin: 0;
       padding: 0;
-      display: flex;
       min-height: 100vh;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page-shell {
       width: 100%;
-      overflow-x: hidden;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 20px 56px;
     }
 
-    /* SOL YAN MENÜ (SIDEBAR) */
-    .sidebar {
-      width: var(--sidebar-width);
-      background: linear-gradient(180deg, #0c1322 0%, #090e19 100%);
-      border-right: 1px solid var(--border);
+    /* GELİŞTİRİLMİŞ ÜST BAŞLIK ALANI (HEADER) */
+    .page-header {
+      position: relative;
       display: flex;
-      flex-direction: column;
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      z-index: 900;
-      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 12px 0 32px rgba(0, 0, 0, 0.35);
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding: 16px 18px;
+      margin-bottom: 20px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(19, 27, 44, 0.96) 0%, rgba(16, 23, 38, 0.96) 60%, rgba(26, 35, 58, 0.92) 100%);
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 28px -12px rgba(0, 0, 0, 0.55);
+      overflow: hidden;
     }
 
-    .sidebar-brand {
-      padding: 20px 20px;
-      border-bottom: 1px solid var(--border);
+    .page-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), #6366f1, var(--purple));
+      opacity: 0.85;
+    }
+
+    .brand-group {
       display: flex;
       align-items: center;
       gap: 12px;
-      background: rgba(56, 189, 248, 0.03);
+      min-width: 0;
+      flex: 1 1 auto;
     }
 
-    .brand-logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    .brand-logo-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.18), rgba(99, 102, 241, 0.22));
+      border: 1px solid rgba(56, 189, 248, 0.36);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.25rem;
-      box-shadow: 0 6px 18px var(--accent-glow);
       flex-shrink: 0;
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.16);
+      transition: transform 0.25s ease, border-color 0.25s ease;
     }
 
-    .brand-text h2 {
+    .brand-group:hover .brand-logo-box {
+      transform: translateY(-1px) scale(1.03);
+      border-color: var(--accent);
+    }
+
+    .brand-svg {
+      width: 26px;
+      height: 26px;
+      filter: drop-shadow(0 2px 6px rgba(56, 189, 248, 0.35));
+    }
+
+    .brand-svg .bolt-path {
+      animation: boltPulse 2.8s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    @keyframes boltPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.82; transform: scale(1.06); }
+    }
+
+    .brand-meta {
+      min-width: 0;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .page-header h1 {
       margin: 0;
-      font-size: 1.06rem;
+      font-size: 1.18rem;
       font-weight: 700;
-      color: #f8fafc;
-      letter-spacing: 0.2px;
+      letter-spacing: -0.2px;
+      color: var(--text);
     }
 
-    .brand-text span {
-      font-size: 0.7rem;
-      color: var(--accent);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.65px;
-    }
-
-    .sidebar-nav {
-      padding: 14px 12px;
-      flex: 1;
-      overflow-y: auto;
-    }
-
-    .nav-section-title {
+    .live-pill {
       font-size: 0.68rem;
       font-weight: 700;
-      color: #64748b;
       text-transform: uppercase;
-      letter-spacing: 0.85px;
-      padding: 6px 12px 6px;
+      letter-spacing: 0.5px;
+      color: #4ade80;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      padding: 2px 7px;
+      border-radius: 999px;
+      line-height: 1.2;
     }
 
-    .nav-item {
+    .status-line {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 3px;
+      min-width: 0;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+      animation: dotBlink 2s infinite;
+    }
+
+    @keyframes dotBlink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.82); }
+    }
+
+    #statusText {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .header-right {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 10px 13px;
+      flex-wrap: wrap;
+    }
+
+    /* ANİMASYONLU SAAT KUTUSU */
+    .clock-widget {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 12px;
       border-radius: 10px;
-      color: #cbd5e1;
-      text-decoration: none;
-      font-size: 0.87rem;
-      font-weight: 600;
-      margin-bottom: 5px;
-      cursor: pointer;
-      border: 1px solid transparent;
-      background: rgba(15, 23, 42, 0.35);
-      width: 100%;
-      text-align: left;
-      transition: all 0.18s ease;
+      background: #0d1320;
+      border: 1px solid var(--border);
+      font-variant-numeric: tabular-nums;
+      user-select: none;
     }
 
-    .nav-item:hover:not(:disabled) {
-      background: rgba(56, 189, 248, 0.1);
-      border-color: rgba(56, 189, 248, 0.22);
-      color: #fff;
-      transform: translateX(2px);
-    }
-
-    .nav-item:disabled {
-      opacity: 0.55;
-      cursor: not-allowed;
-      color: var(--muted);
-    }
-
-    /* SOL MENÜ İÇİ KAZIM GÜCÜN & LİG AYAR KARTI (MASAÜSTÜ) */
-    .sidebar-settings-box {
-      margin-top: 12px;
-      padding: 14px;
-      border-radius: 14px;
-      background: linear-gradient(160deg, rgba(19, 29, 52, 0.92), rgba(11, 18, 34, 0.96));
-      border: 1px solid var(--border-strong);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-    }
-
-    .sidebar-settings-box .nav-section-title {
-      padding: 0 0 10px 0;
-      color: var(--accent);
+    .clock-ring {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(56, 189, 248, 0.45);
+      background: rgba(56, 189, 248, 0.08);
       display: flex;
       align-items: center;
+      justify-content: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .clock-hand {
+      width: 1.5px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 2px;
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: 50% 100%;
+      transform: translateX(-50%) rotate(0deg);
+      transition: transform 0.2s cubic-bezier(0.4, 2.2, 0.2, 1);
+    }
+
+    .clock-center {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #f8fafc;
+      z-index: 2;
+    }
+
+    .clock-readout {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .clock-time {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.3px;
+    }
+
+    .clock-sec-pulse {
+      display: inline-block;
+      color: var(--accent);
+      animation: secTick 1s ease-out infinite;
+    }
+
+    @keyframes secTick {
+      0% { transform: scale(1.12); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.85; }
+    }
+
+    .clock-date {
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* KARTLAR */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin-bottom: 20px;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(37, 51, 77, 0.7);
+    }
+
+    .card-top h2 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .league-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    /* AYARLAR IZGARASI */
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
       gap: 6px;
     }
 
-    .sidebar-settings-box .form-group {
-      margin-bottom: 11px;
+    label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
     }
 
-    .sidebar-settings-box .form-group:last-child {
-      margin-bottom: 0;
+    input, select, button {
+      font-family: inherit;
+      font-size: 0.9rem;
+      border-radius: 9px;
+      transition: border-color 0.16s ease, background-color 0.16s ease, box-shadow 0.16s ease, transform 0.1s ease, opacity 0.16s ease;
     }
 
-    .sidebar-settings-box label {
-      font-size: 0.74rem;
-      margin-bottom: 5px;
+    input, select {
+      width: 100%;
+      padding: 9px 11px;
+      background: #0d1320;
+      color: var(--text);
+      border: 1px solid var(--border);
     }
 
-    .sidebar-settings-box input,
-    .sidebar-settings-box select {
-      padding: 8px 10px;
-      font-size: 0.85rem;
+    input:hover, select:hover {
+      border-color: var(--border-hover);
     }
 
-    .sidebar-settings-box .input-group select {
-      min-width: 82px;
-      padding-right: 26px;
-      background-position: right 8px center;
-      background-size: 13px;
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.16);
     }
 
-    .auto-league-btn {
-      margin-top: 6px;
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      padding-right: 30px;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 14px;
+    }
+
+    select option, select optgroup {
+      background: #131b2c;
+      color: var(--text);
+    }
+
+    .combo-input {
+      display: flex;
+      gap: 6px;
+    }
+
+    .combo-input input {
+      flex: 1.6;
+      min-width: 0;
+    }
+
+    .combo-input select {
+      flex: 1;
+      min-width: 84px;
+    }
+
+    .hint-text {
+      font-size: 0.73rem;
+      color: var(--muted);
+    }
+
+    .btn-ghost-sm {
+      width: 100%;
       padding: 7px 10px;
-      font-size: 0.76rem;
-      background: rgba(56, 189, 248, 0.12);
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: var(--accent-soft);
       color: var(--accent);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      border-radius: 8px;
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      cursor: pointer;
     }
 
-    .auto-league-btn:hover {
+    .btn-ghost-sm:hover {
       background: rgba(56, 189, 248, 0.22);
     }
 
-    .league-range-hint {
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-top: 5px;
-      display: block;
-    }
-
-    /* OTOMATİK ÇEKME TOGGLE KUTUSU */
-    .auto-sync-box {
-      margin-top: 12px;
-      padding: 11px 12px;
-      border-radius: 10px;
-      background: rgba(168, 85, 247, 0.09);
-      border: 1px solid rgba(168, 85, 247, 0.28);
+    .sync-row {
+      margin-top: 4px;
+      padding: 9px 11px;
+      border-radius: 9px;
+      background: #0d1320;
+      border: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
     }
 
-    .auto-sync-info strong {
+    .sync-row strong {
       display: block;
       font-size: 0.78rem;
-      color: #e9d5ff;
+      color: var(--text);
     }
 
-    .auto-sync-info span {
-      font-size: 0.7rem;
+    .sync-row span {
+      font-size: 0.71rem;
       color: var(--muted);
     }
 
     .switch {
       position: relative;
       display: inline-block;
-      width: 42px;
-      height: 24px;
+      width: 40px;
+      height: 22px;
       flex-shrink: 0;
     }
 
@@ -264,300 +447,216 @@
 
     .slider {
       position: absolute;
-      cursor: pointer;
       inset: 0;
-      background-color: #1e293b;
+      background: #1e293b;
       border: 1px solid #334155;
-      transition: .25s;
       border-radius: 999px;
+      cursor: pointer;
+      transition: 0.2s;
     }
 
     .slider:before {
-      position: absolute;
       content: "";
-      height: 16px;
-      width: 16px;
+      position: absolute;
+      width: 14px;
+      height: 14px;
       left: 3px;
       bottom: 3px;
-      background-color: #94a3b8;
-      transition: .25s;
       border-radius: 50%;
+      background: #94a3b8;
+      transition: 0.2s;
     }
 
     input:checked + .slider {
-      background-color: var(--purple);
+      background: var(--purple);
       border-color: var(--purple);
     }
 
     input:checked + .slider:before {
       transform: translateX(18px);
-      background-color: #fff;
+      background: #fff;
     }
 
-    .sidebar-widget {
-      margin: 10px 12px 14px;
-      padding: 12px 14px;
-      border-radius: 12px;
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid var(--border);
-    }
-
-    .sidebar-widget-title {
-      font-size: 0.75rem;
+    /* BUTONLAR */
+    button {
+      border: none;
       font-weight: 700;
-      color: var(--accent);
-      margin-bottom: 5px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      cursor: pointer;
     }
 
-    .sidebar-widget p {
-      margin: 0;
-      font-size: 0.73rem;
-      color: var(--muted);
-      line-height: 1.5;
+    button:active:not(:disabled) {
+      transform: scale(0.98);
     }
 
-    /* ANA İÇERİK ALANI */
-    .main-wrapper {
-      flex: 1;
-      margin-left: var(--sidebar-width);
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-    }
-
-    /* ÜST PANEL ÇUBUĞU (TOPBAR) */
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 800;
-      background: rgba(7, 11, 20, 0.82);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-      padding: 13px 26px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .topbar-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-    }
-
-    .mobile-menu-btn {
-      display: none;
-      background: var(--card-solid);
-      border: 1px solid var(--border-strong);
-      color: var(--text);
-      width: 40px;
-      height: 40px;
-      padding: 0;
-      margin: 0;
-      border-radius: 10px;
-      font-size: 1.2rem;
+    .btn {
+      padding: 8px 13px;
+      font-size: 0.84rem;
+      border-radius: 9px;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .topbar-title {
-      min-width: 0;
-    }
-
-    .topbar-title h1 {
-      margin: 0;
-      font-size: 1.12rem;
-      font-weight: 700;
-      color: var(--text);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .topbar-status {
-      display: flex;
-      align-items: center;
       gap: 6px;
-      font-size: 0.76rem;
-      color: var(--muted);
-      margin-top: 2px;
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
+    .btn-primary {
       background: var(--green);
-      box-shadow: 0 0 8px var(--green);
-      display: inline-block;
-      flex-shrink: 0;
+      color: #062412;
     }
 
-    .topbar-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
+    .btn-primary:hover:not(:disabled) {
+      opacity: 0.92;
     }
 
-    /* PANEL İÇERİK KONTEYNERİ */
-    .dashboard-content {
-      padding: 22px 26px 42px;
-      max-width: 1480px;
-      width: 100%;
-      margin: 0 auto;
+    .btn-accent {
+      background: var(--accent);
+      color: #071322;
     }
 
-    /* MOBİL AYARLAR BÖLÜMÜ (MASAÜSTÜNDE GİZLİ) */
-    .mobile-settings-section {
-      display: none;
+    .btn-purple {
+      background: var(--purple-soft);
+      color: #e9d5ff;
+      border: 1px solid rgba(168, 85, 247, 0.35);
     }
 
-    /* KPI ÖZET KARTLARI */
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 20px;
+    .btn-purple:hover:not(:disabled) {
+      background: rgba(168, 85, 247, 0.24);
     }
 
-    .kpi-card {
-      background: linear-gradient(155deg, rgba(19, 29, 52, 0.92), rgba(12, 19, 36, 0.94));
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px 20px;
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.35);
-    }
-
-    .kpi-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--border-strong);
-      box-shadow: 0 14px 28px -8px rgba(0, 0, 0, 0.45);
-    }
-
-    .kpi-info {
-      min-width: 0;
-    }
-
-    .kpi-info span.kpi-label {
-      display: block;
-      font-size: 0.73rem;
-      font-weight: 700;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.55px;
-      margin-bottom: 6px;
-    }
-
-    .kpi-info .kpi-value {
-      font-size: 1.28rem;
-      font-weight: 700;
+    .btn-outline {
+      background: var(--surface-soft);
       color: var(--text);
-      font-variant-numeric: tabular-nums;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      line-height: 1.25;
-    }
-
-    .kpi-info .kpi-sub {
-      font-size: 0.77rem;
-      color: var(--green);
-      margin-top: 5px;
-      font-weight: 600;
-      line-height: 1.35;
-    }
-
-    .kpi-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      flex-shrink: 0;
-    }
-
-    .kpi-icon.blue { background: rgba(56, 189, 248, 0.13); color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.26); }
-    .kpi-icon.green { background: rgba(34, 197, 94, 0.13); color: var(--green); border: 1px solid rgba(34, 197, 94, 0.26); }
-    .kpi-icon.purple { background: rgba(168, 85, 247, 0.13); color: var(--purple); border: 1px solid rgba(168, 85, 247, 0.26); }
-    .kpi-icon.amber { background: rgba(245, 158, 11, 0.13); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.26); }
-
-    /* PANEL KARTLARI VE FORM ELEMANLARI */
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-bottom: 18px;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 0;
-    }
-
-    .card {
-      background: var(--card);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px 22px;
-      margin-bottom: 20px;
-      box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.35);
     }
 
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-      padding-bottom: 13px;
-      border-bottom: 1px solid var(--border);
+    .btn-outline:hover:not(:disabled) {
+      border-color: var(--border-hover);
+      background: #1f2c46;
     }
 
-    .card-header h2 {
-      margin: 0;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
+    .btn-outline:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
     }
 
-    .active-league-pill {
-      font-size: 0.74rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(56, 189, 248, 0.14);
+    .btn-edit {
+      padding: 6px 10px;
+      font-size: 0.78rem;
+      border-radius: 7px;
+      background: var(--accent-soft);
       color: var(--accent);
       border: 1px solid rgba(56, 189, 248, 0.3);
     }
 
-    .table-controls {
+    .btn-edit:hover {
+      background: var(--accent);
+      color: #08121e;
+    }
+
+    .btn-del {
+      padding: 6px 10px;
+      font-size: 0.78rem;
+      border-radius: 7px;
+      background: var(--danger-soft);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .btn-del:hover {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .btn-danger-solid {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .btn-amber-solid {
+      background: var(--amber);
+      color: #1c1203;
+    }
+
+    /* ÖZET ŞERİDİ */
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .summary-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+    }
+
+    .summary-item .s-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .summary-item .s-val {
+      font-size: 1.15rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .summary-item .s-sub {
+      font-size: 0.76rem;
+      color: var(--green);
+      font-weight: 600;
+      margin-top: 3px;
+    }
+
+    /* KRİPTO AVATAR */
+    .coin-avatar-wrap {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .coin-logo, .kpi-coin-logo {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #0d1320;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .coin-fallback-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      text-transform: uppercase;
+    }
+
+    .coin-fallback-icon.rlt { background: linear-gradient(135deg, #06b6d4, #2563eb); }
+    .coin-fallback-icon.rst { background: linear-gradient(135deg, #f59e0b, #ea580c); }
+    .coin-fallback-icon.hmt { background: linear-gradient(135deg, #ec4899, #8b5cf6); }
+
+    /* TABLO */
+    .table-toolbar {
       display: flex;
       align-items: center;
       gap: 8px;
@@ -566,322 +665,48 @@
 
     .sort-select {
       width: auto;
-      min-width: 210px;
-      padding: 8px 32px 8px 12px;
-      font-size: 0.84rem;
+      min-width: 205px;
+      padding: 8px 30px 8px 11px;
+      font-size: 0.83rem;
       font-weight: 600;
-      background-color: #090f1d;
-      border: 1px solid rgba(56, 189, 248, 0.32);
-      color: #e2e8f0;
     }
 
-    .form-group {
-      margin-bottom: 14px;
-    }
-
-    label {
-      display: block;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--muted);
-      margin-bottom: 6px;
-      letter-spacing: 0.2px;
-    }
-
-    input, select, button {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1px solid #26344d;
-      background: #090f1d;
-      color: var(--text);
-      font-size: 0.9rem;
-      box-sizing: border-box;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, transform 0.12s ease, opacity 0.2s ease;
-    }
-
-    input:hover, select:hover {
-      border-color: #475569;
-    }
-
-    input:focus, select:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-glow);
-      background: #070c17;
-    }
-
-    /* ÖZEL GELİŞMİŞ DROPDOWN (SELECT) STİLLERİ */
-    select {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      padding-right: 32px;
-      cursor: pointer;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2338bdf8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
-      background-size: 15px;
-    }
-
-    select option, select optgroup {
-      background-color: #0f172a;
-      color: var(--text);
-      padding: 10px;
-    }
-
-    .input-group {
-      display: flex;
-      gap: 8px;
-    }
-    .input-group input { flex: 2; min-width: 0; }
-    .input-group select { flex: 1; min-width: 92px; }
-
-    button {
-      background: var(--accent);
-      color: #090e1a;
-      font-weight: 700;
-      cursor: pointer;
-      border: none;
-      margin-top: 8px;
-    }
-    button:hover:not(:disabled) { opacity: 0.94; }
-    button:active:not(:disabled) { transform: scale(0.98); }
-
-    button.btn-refresh {
-      width: auto;
-      margin-top: 0;
-      padding: 9px 14px;
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--accent);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      font-size: 0.84rem;
-      font-variant-numeric: tabular-nums;
-      white-space: nowrap;
-    }
-    button.btn-refresh:hover:not(:disabled) {
-      background: rgba(56, 189, 248, 0.14);
-    }
-    button.btn-refresh:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      color: var(--muted);
-      border-color: rgba(148, 163, 184, 0.25);
-      background: rgba(15, 23, 42, 0.75);
-    }
-
-    button.btn-rewards {
-      width: auto;
-      margin-top: 0;
-      padding: 9px 14px;
-      background: rgba(168, 85, 247, 0.14);
-      color: #e9d5ff;
-      border: 1px solid rgba(168, 85, 247, 0.38);
-      font-size: 0.84rem;
-      white-space: nowrap;
-    }
-    button.btn-rewards:hover:not(:disabled) {
-      background: rgba(168, 85, 247, 0.25);
-      box-shadow: 0 4px 14px var(--purple-glow);
-    }
-
-    button.secondary, .add-coin-trigger {
-      background: linear-gradient(135deg, #22c55e, #16a34a);
-      color: #052e16;
-      box-shadow: 0 4px 14px var(--green-glow);
-      white-space: nowrap;
-    }
-    button.secondary:hover, .add-coin-trigger:hover {
-      box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
-    }
-    .add-coin-trigger {
-      width: auto;
-      margin-top: 0;
-      padding: 9px 15px;
-      font-size: 0.86rem;
-    }
-
-    button.primary-solid {
-      background: linear-gradient(135deg, #38bdf8, #0284c7);
-      color: #041322;
-      box-shadow: 0 4px 14px var(--accent-glow);
-    }
-    button.primary-solid:hover {
-      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.45);
-    }
-
-    button.purple-solid {
-      background: linear-gradient(135deg, #a855f7, #7e22ce);
-      color: #fff;
-      box-shadow: 0 4px 14px var(--purple-glow);
-    }
-    button.purple-solid:hover {
-      box-shadow: 0 6px 20px rgba(168, 85, 247, 0.45);
-    }
-
-    button.edit-btn {
-      background: rgba(56, 189, 248, 0.14);
-      color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      width: auto;
-      padding: 6px 11px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-top: 0;
-      border-radius: 8px;
-    }
-    button.edit-btn:hover {
-      background: #38bdf8;
-      color: #090e1a;
-      border-color: #38bdf8;
-      box-shadow: 0 4px 12px var(--accent-glow);
-    }
-
-    button.danger {
-      background: rgba(239, 68, 68, 0.14);
-      color: #f87171;
-      border: 1px solid rgba(239, 68, 68, 0.35);
-      width: auto;
-      padding: 6px 11px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-top: 0;
-      border-radius: 8px;
-    }
-    button.danger:hover {
-      background: #ef4444;
-      color: #fff;
-      border-color: #ef4444;
-      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-    }
-
-    button.danger-solid {
-      background: linear-gradient(135deg, #ef4444, #dc2626);
-      color: #fff;
-      box-shadow: 0 4px 14px var(--danger-glow);
-    }
-    button.danger-solid:hover {
-      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.45);
-    }
-
-    button.amber-solid {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      color: #1c1002;
-      box-shadow: 0 4px 14px var(--amber-glow);
-    }
-    button.amber-solid:hover {
-      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45);
-    }
-
-    /* KRİPTO İKON & AVATAR STİLLERİ */
-    .coin-avatar-wrap {
-      position: relative;
-      width: 28px;
-      height: 28px;
-      flex-shrink: 0;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .coin-logo {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      object-fit: cover;
-      background: #0f172a;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
-    }
-    .coin-fallback-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.68rem;
-      font-weight: 800;
-      letter-spacing: -0.3px;
-      color: #fff;
-      background: linear-gradient(135deg, #38bdf8, #6366f1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
-      text-transform: uppercase;
-    }
-    .coin-fallback-icon.rlt {
-      background: linear-gradient(135deg, #06b6d4, #2563eb);
-    }
-    .coin-fallback-icon.rst {
-      background: linear-gradient(135deg, #f59e0b, #ea580c);
-    }
-    .coin-fallback-icon.hmt {
-      background: linear-gradient(135deg, #ec4899, #8b5cf6);
-    }
-    .kpi-coin-logo {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    /* GELİŞMİŞ TABLO STİLLERİ */
-    .table-wrapper {
+    .table-box {
       overflow-x: auto;
-      border-radius: 12px;
       border: 1px solid var(--border);
-      background: rgba(9, 14, 26, 0.85);
+      border-radius: 10px;
+      background: #0d1320;
     }
+
     table {
       width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      margin-top: 0;
-      font-size: 0.88rem;
+      border-collapse: collapse;
+      font-size: 0.87rem;
       font-variant-numeric: tabular-nums;
     }
+
     thead th {
-      background: #0d1526;
+      background: #131c2e;
       color: var(--muted);
       font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
-      padding: 13px 14px;
+      letter-spacing: 0.5px;
+      padding: 11px 13px;
       text-align: left;
       border-bottom: 1px solid var(--border);
       white-space: nowrap;
     }
+
     thead th.sortable-th {
       cursor: pointer;
       user-select: none;
-      transition: color 0.18s ease, background-color 0.18s ease;
     }
+
     thead th.sortable-th:hover {
       color: var(--accent);
-      background: rgba(56, 189, 248, 0.08);
     }
-    tbody tr {
-      transition: background-color 0.18s ease;
-    }
-    tbody tr:nth-child(even) {
-      background-color: rgba(19, 28, 49, 0.35);
-    }
-    tbody tr:hover {
-      background-color: rgba(56, 189, 248, 0.08);
-    }
-    tbody tr.best-row {
-      background: linear-gradient(90deg, rgba(34, 197, 94, 0.09), rgba(11, 17, 32, 0));
-    }
-    tbody td {
-      padding: 13px 14px;
-      text-align: left;
-      border-bottom: 1px solid rgba(30, 41, 59, 0.85);
-      vertical-align: middle;
-    }
-    tbody tr:last-child td {
-      border-bottom: none;
-    }
+
     thead th:nth-child(2), tbody td:nth-child(2),
     thead th:nth-child(3), tbody td:nth-child(3),
     thead th:nth-child(4), tbody td:nth-child(4),
@@ -890,21 +715,42 @@
     thead th:nth-child(7), tbody td:nth-child(7) {
       text-align: right;
     }
+
     thead th:last-child, tbody td:last-child {
       text-align: center;
     }
+
+    tbody td {
+      padding: 12px 13px;
+      border-bottom: 1px solid rgba(37, 51, 77, 0.6);
+      vertical-align: middle;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: rgba(56, 189, 248, 0.05);
+    }
+
+    tbody tr.best-row {
+      background: rgba(34, 197, 94, 0.07);
+    }
+
     .coin-cell {
       display: flex;
       align-items: center;
-      gap: 9px;
-      flex-wrap: nowrap;
+      gap: 8px;
     }
+
     .coin-meta-group {
       display: flex;
       align-items: center;
       gap: 6px;
       flex-wrap: wrap;
     }
+
     .rank-num {
       display: inline-flex;
       align-items: center;
@@ -913,484 +759,520 @@
       height: 22px;
       padding: 0 5px;
       border-radius: 6px;
-      background: rgba(148, 163, 184, 0.12);
-      color: var(--muted);
       font-size: 0.72rem;
       font-weight: 700;
-      flex-shrink: 0;
+      background: rgba(148, 163, 184, 0.14);
+      color: var(--muted);
     }
+
     .rank-num.top1 {
-      background: rgba(34, 197, 94, 0.2);
-      color: #4ade80;
-      border: 1px solid rgba(34, 197, 94, 0.4);
-    }
-    .coin-symbol {
-      font-size: 0.96rem;
-      font-weight: 700;
-      color: #f8fafc;
-    }
-    .best-tag {
-      background: rgba(34, 197, 94, 0.16);
+      background: var(--green-soft);
       color: #4ade80;
       border: 1px solid rgba(34, 197, 94, 0.35);
-      font-size: 0.68rem;
-      padding: 2px 7px;
-      border-radius: 6px;
-      font-weight: 700;
     }
+
+    .coin-symbol {
+      font-weight: 700;
+      font-size: 0.93rem;
+    }
+
+    .best-tag {
+      font-size: 0.67rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: var(--green-soft);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+    }
+
+    .readonly-value {
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+
     .highlight {
       color: var(--green);
       font-weight: 700;
     }
+
     .highlight small {
       color: #86efac;
       font-weight: 500;
-      opacity: 0.9;
     }
-    .readonly-value {
-      font-weight: 600;
-      font-size: 0.86rem;
-      color: #e2e8f0;
-    }
+
     .action-btns {
       display: inline-flex;
       gap: 6px;
-      align-items: center;
-      justify-content: center;
     }
 
-    /* MOBİL SIDEBAR OVERLAY */
-    .sidebar-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(2, 6, 23, 0.72);
-      backdrop-filter: blur(4px);
-      z-index: 850;
-    }
-    .sidebar-backdrop.active {
-      display: block;
-    }
-
-    /* GELİŞMİŞ MODAL (AÇILIR MENÜ) STİLLERİ */
+    /* MODALLAR */
     .modal-overlay {
       display: flex;
       position: fixed;
       inset: 0;
-      background: rgba(2, 6, 23, 0.78);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(4, 8, 15, 0.76);
+      backdrop-filter: blur(4px);
       z-index: 1000;
       align-items: center;
       justify-content: center;
       padding: 16px;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.25s ease, visibility 0.25s ease;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
     }
+
     .modal-overlay.active {
       opacity: 1;
       visibility: visible;
     }
+
     .modal-box {
-      background: linear-gradient(165deg, #162038 0%, #0f172a 100%);
-      border: 1px solid rgba(56, 189, 248, 0.28);
-      border-radius: 18px;
       width: 100%;
-      max-width: 560px;
-      padding: 24px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-      transform: translateY(16px) scale(0.96);
-      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      max-width: 540px;
+      background: var(--surface);
+      border: 1px solid var(--border-hover);
+      border-radius: 14px;
+      padding: 20px 22px;
       max-height: 90vh;
       overflow-y: auto;
+      transform: translateY(10px);
+      transition: transform 0.2s ease;
     }
-    .modal-box.confirm-box {
-      max-width: 440px;
-      border-color: rgba(239, 68, 68, 0.35);
-    }
-    .modal-box.warning-box {
-      max-width: 450px;
-      border-color: rgba(245, 158, 11, 0.4);
-    }
+
+    .modal-box.confirm-box,
+    .modal-box.warning-box,
     .modal-box.info-box {
-      max-width: 460px;
-      border-color: rgba(56, 189, 248, 0.4);
+      max-width: 440px;
     }
+
     .modal-overlay.active .modal-box {
-      transform: translateY(0) scale(1);
+      transform: translateY(0);
     }
+
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid rgba(51, 65, 85, 0.8);
-      padding-bottom: 14px;
-      margin-bottom: 18px;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
     }
+
     .modal-header h2 {
       margin: 0;
-      font-size: 1.2rem;
-      background: linear-gradient(90deg, #38bdf8, #818cf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: 1.08rem;
     }
-    .modal-header.danger-header h2 {
-      background: linear-gradient(90deg, #f87171, #ef4444);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .modal-header.warning-header h2 {
-      background: linear-gradient(90deg, #fbbf24, #f59e0b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+
     .modal-close {
-      background: rgba(15, 23, 42, 0.7);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--surface-soft);
       color: var(--muted);
-      border: 1px solid #334155;
-      width: 34px;
-      height: 34px;
-      padding: 0;
-      margin: 0;
-      font-size: 1rem;
-      border-radius: 10px;
+      border: 1px solid var(--border);
+      font-size: 0.95rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s ease;
     }
+
     .modal-close:hover {
+      background: var(--danger);
       color: #fff;
-      background: #ef4444;
-      border-color: #ef4444;
-      transform: rotate(90deg);
+      border-color: var(--danger);
     }
+
     .edit-highlight-box {
-      background: rgba(56, 189, 248, 0.07);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 16px;
+      background: #0d1320;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 14px;
     }
-    .edit-highlight-box .section-badge {
-      display: inline-block;
+
+    .section-badge {
+      display: block;
       font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
       color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
       margin-bottom: 10px;
     }
-    .confirm-body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 6px 0 4px;
-    }
-    .confirm-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 16px;
-      background: rgba(239, 68, 68, 0.14);
-      border: 1px solid rgba(239, 68, 68, 0.35);
-      color: #f87171;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.65rem;
-      margin-bottom: 14px;
-      box-shadow: 0 8px 20px rgba(239, 68, 68, 0.18);
-    }
-    .confirm-icon.warning {
-      background: rgba(245, 158, 11, 0.14);
-      border-color: rgba(245, 158, 11, 0.38);
-      color: #fbbf24;
-      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.18);
-    }
-    .confirm-icon.info {
-      background: rgba(56, 189, 248, 0.14);
-      border-color: rgba(56, 189, 248, 0.38);
-      color: #38bdf8;
-      box-shadow: 0 8px 20px rgba(56, 189, 248, 0.18);
-    }
-    .confirm-icon.purple {
-      background: rgba(168, 85, 247, 0.14);
-      border-color: rgba(168, 85, 247, 0.38);
-      color: #d8b4fe;
-      box-shadow: 0 8px 20px rgba(168, 85, 247, 0.18);
-    }
-    .confirm-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text);
-      margin: 0 0 8px;
-    }
-    .confirm-desc {
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.55;
-      margin: 0 0 12px;
-    }
-    .confirm-coin-preview {
-      background: rgba(9, 14, 26, 0.7);
-      border: 1px solid #1e293b;
-      border-radius: 10px;
-      padding: 10px 14px;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.84rem;
-      color: var(--muted);
-    }
-    .confirm-coin-preview strong {
-      color: #f8fafc;
-      font-size: 0.92rem;
-    }
+
     .preset-section {
-      background: rgba(9, 14, 26, 0.65);
-      border: 1px solid #1e293b;
-      border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 16px;
+      background: #0d1320;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px;
+      margin-bottom: 14px;
     }
+
     .preset-bar {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
       margin-top: 6px;
     }
+
     .preset-chip {
-      width: auto;
-      margin: 0;
-      padding: 5px 10px;
-      font-size: 0.76rem;
-      font-weight: 600;
-      background: #131c31;
+      padding: 5px 9px;
+      font-size: 0.75rem;
+      border-radius: 7px;
+      background: var(--surface-soft);
       color: var(--accent);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      border-radius: 8px;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
+      border: 1px solid var(--border);
     }
+
     .preset-chip:hover {
       background: var(--accent);
-      color: #090e1a;
+      color: #071322;
       border-color: var(--accent);
-      transform: translateY(-1px);
     }
+
+    .confirm-body {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .confirm-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      background: var(--danger-soft);
+      color: #fca5a5;
+    }
+
+    .confirm-icon.warning {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fcd34d;
+    }
+
+    .confirm-icon.info {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .confirm-icon.purple {
+      background: var(--purple-soft);
+      color: #e9d5ff;
+    }
+
+    .confirm-title {
+      margin: 4px 0 0;
+      font-size: 1rem;
+    }
+
+    .confirm-desc {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .confirm-coin-preview {
+      width: 100%;
+      margin-top: 6px;
+      padding: 9px 12px;
+      border-radius: 9px;
+      background: #0d1320;
+      border: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .confirm-coin-preview strong {
+      color: var(--text);
+    }
+
     .modal-actions {
       display: flex;
       gap: 10px;
-      margin-top: 18px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(51, 65, 85, 0.8);
-    }
-    .modal-actions button {
-      margin-top: 0;
-      padding: 11px 16px;
-    }
-    .modal-actions button.cancel-btn {
-      background: #1e293b;
-      color: var(--text);
-      border: 1px solid #334155;
-      flex: 1;
-    }
-    .modal-actions button.cancel-btn:hover {
-      background: #334155;
-    }
-    .modal-actions button.secondary,
-    .modal-actions button.primary-solid,
-    .modal-actions button.purple-solid,
-    .modal-actions button.danger-solid,
-    .modal-actions button.amber-solid {
-      flex: 1.5;
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
     }
 
-    /* RESPONSIVE & MOBİL UYUMLULUK */
-    @media (max-width: 1150px) {
-      .kpi-grid {
+    .modal-actions .cancel-btn {
+      flex: 1;
+      padding: 10px 14px;
+      background: var(--surface-soft);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .modal-actions .btn-primary,
+    .modal-actions .btn-accent,
+    .modal-actions .btn-purple,
+    .modal-actions .btn-danger-solid,
+    .modal-actions .btn-amber-solid {
+      flex: 1.5;
+      padding: 10px 14px;
+    }
+
+    /* TABLET & MOBİL DUYARLILIK */
+    @media (max-width: 980px) {
+      .controls-grid,
+      .summary-strip {
         grid-template-columns: repeat(2, 1fr);
       }
-      .grid-3 {
-        grid-template-columns: 1fr;
-      }
     }
 
-    @media (max-width: 860px) {
-      .sidebar {
-        transform: translateX(-100%);
-      }
-      .sidebar.open {
-        transform: translateX(0);
-      }
-      .sidebar-settings-box {
-        display: none;
-      }
-      .mobile-settings-section {
-        display: block;
-      }
-      .main-wrapper {
-        margin-left: 0;
-      }
-      .mobile-menu-btn {
-        display: flex;
-      }
-      .topbar {
-        padding: 12px 14px;
-      }
-      .dashboard-content {
+    @media (max-width: 768px) {
+      .page-header {
         padding: 14px;
+        gap: 12px;
+      }
+
+      .header-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .clock-widget {
+        flex: 1 1 auto;
+        justify-content: flex-start;
+      }
+
+      .header-actions {
+        flex: 1 1 auto;
+        justify-content: flex-end;
       }
     }
 
     @media (max-width: 640px) {
-      .kpi-grid, .grid, .grid-3 {
-        grid-template-columns: 1fr;
-        gap: 12px;
+      .page-shell {
+        padding: 12px 12px 40px;
       }
-      .kpi-card {
-        padding: 15px 16px;
+
+      .brand-logo-box {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
       }
-      .card {
-        padding: 16px;
-        border-radius: 14px;
+
+      .brand-svg {
+        width: 22px;
+        height: 22px;
       }
-      .topbar-actions {
+
+      .page-header h1 {
+        font-size: 1.04rem;
+      }
+
+      .header-right {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+
+      .clock-widget {
+        width: 100%;
+        justify-content: space-between;
+        padding: 8px 12px;
+      }
+
+      .header-actions {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
         gap: 6px;
       }
-      .topbar-actions .btn-refresh,
-      .topbar-actions .btn-rewards,
-      .topbar-actions .add-coin-trigger {
-        padding: 8px 10px;
-        font-size: 0.8rem;
+
+      .header-actions .btn {
+        width: 100%;
+        padding: 8px 6px;
+        font-size: 0.76rem;
       }
-      .topbar-actions .btn-text.hide-mobile {
-        display: none;
+
+      .controls-grid,
+      .summary-strip,
+      .modal-grid {
+        grid-template-columns: 1fr;
       }
-      .table-controls {
+
+      .table-toolbar {
         width: 100%;
       }
-      .table-controls .btn-refresh,
-      .table-controls .add-coin-trigger {
-        flex: 1;
-        text-align: center;
-      }
+
       .sort-select {
         width: 100%;
       }
-      .table-wrapper {
+
+      .table-toolbar .btn {
+        flex: 1;
+      }
+
+      .table-box {
         border: none;
         background: transparent;
       }
+
       table, thead, tbody, th, td, tr {
         display: block;
       }
+
       thead {
         display: none;
       }
+
       tbody tr {
-        background: var(--card-solid);
+        background: var(--surface);
         border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 14px;
+        border-radius: 12px;
+        padding: 12px 14px;
         margin-bottom: 12px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
       }
-      tbody tr:nth-child(even) {
-        background: var(--card-solid);
-      }
+
       tbody td {
         display: flex;
         justify-content: space-between;
         align-items: center;
         text-align: right;
-        padding: 9px 0;
-        border-bottom: 1px solid rgba(51, 65, 85, 0.45);
-        gap: 12px;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(37, 51, 77, 0.55);
+        gap: 10px;
       }
+
       tbody td:last-child {
         border-bottom: none;
         padding-bottom: 0;
-        padding-top: 12px;
+        padding-top: 10px;
         justify-content: flex-end;
       }
+
       tbody td::before {
         content: attr(data-label);
+        font-size: 0.78rem;
         font-weight: 600;
         color: var(--muted);
         text-align: left;
-        font-size: 0.8rem;
         flex-shrink: 0;
       }
+
       tbody td:first-child {
+        margin: -12px -14px 6px;
+        padding: 10px 14px;
+        border-radius: 11px 11px 0 0;
         background: rgba(56, 189, 248, 0.08);
-        margin: -14px -14px 8px -14px;
-        padding: 12px 14px;
-        border-radius: 13px 13px 0 0;
-        border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+        border-bottom: 1px solid rgba(56, 189, 248, 0.22);
       }
+
       tbody td:first-child::before {
         color: var(--accent);
       }
+
       .action-btns {
         width: 100%;
       }
+
       .action-btns button {
         flex: 1;
-        padding: 9px;
+        padding: 8px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Mobil Arka Plan Karartması -->
-  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+  <div class="page-shell">
+    <header class="page-header">
+      <div class="brand-group">
+        <div class="brand-logo-box" aria-hidden="true">
+          <svg class="brand-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="rcLogoGrad" x1="4" y1="3" x2="28" y2="29" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#38bdf8" />
+                <stop offset="55%" stop-color="#6366f1" />
+                <stop offset="100%" stop-color="#a855f7" />
+              </linearGradient>
+            </defs>
+            <rect x="3" y="3" width="26" height="26" rx="8" stroke="url(#rcLogoGrad)" stroke-width="2" />
+            <path class="bolt-path" d="M17.5 6.5L9.5 17.5H15.5L14.2 25.5L22.5 14.5H16.5L17.5 6.5Z" fill="url(#rcLogoGrad)" />
+          </svg>
+        </div>
 
-  <!-- SOL YAN MENÜ (SIDEBAR) -->
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-brand">
-      <div class="brand-logo">⚡</div>
-      <div class="brand-text">
-        <h2>RollerCoin</h2>
-        <span>Otomatik Lig Paneli v3.4</span>
+        <div class="brand-meta">
+          <div class="title-row">
+            <h1>RollerCoin Kazanç & Lig Hesaplayıcı</h1>
+            <span class="live-pill">Canlı</span>
+          </div>
+          <div class="status-line">
+            <span class="status-dot"></span>
+            <span id="statusText">Kurlar ve blok ödülleri yükleniyor...</span>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <nav class="sidebar-nav">
-      <div class="nav-section-title">Hızlı İşlemler</div>
-      <button class="nav-item" onclick="openAddModal()">➕ Yeni Kripto Ekle</button>
-      <button class="nav-item" id="sidebarRewardsBtn" onclick="openRewardsFetchModal()">📡 Blok Ödüllerini Çek</button>
-      <button class="nav-item" id="sidebarRefreshBtn" onclick="openRefreshConfirmModal()">🔄 Kurları Güncelle</button>
-      <button class="nav-item" onclick="openResetModal()">♻️ Seçili Ligi Sıfırla</button>
+      <div class="header-right">
+        <div class="clock-widget" title="Yerel Saat & Tarih">
+          <div class="clock-ring" aria-hidden="true">
+            <span class="clock-hand" id="clockSecondHand"></span>
+            <span class="clock-center"></span>
+          </div>
+          <div class="clock-readout">
+            <span class="clock-time" id="liveClockTime">00:00:<span class="clock-sec-pulse" id="liveClockSec">00</span></span>
+            <span class="clock-date" id="liveClockDate">-</span>
+          </div>
+        </div>
 
-      <!-- MASAÜSTÜ SOL MENÜ: LİG, KAZIM GÜCÜN & KUR AYARI -->
-      <div class="sidebar-settings-box">
-        <div class="nav-section-title">🏆 Lig, Kazım Gücün & Kur</div>
+        <div class="header-actions">
+          <button type="button" class="btn btn-purple" id="topbarRewardsBtn" onclick="openRewardsFetchModal()">
+            📡 Blok Ödülleri
+          </button>
+          <button type="button" class="btn btn-outline" id="topbarRefreshBtn" onclick="openRefreshConfirmModal()">
+            <span id="topbarRefreshIcon">🔄</span> <span id="topbarRefreshLabel">Kurlar</span>
+          </button>
+          <button type="button" class="btn btn-primary" onclick="openAddModal()">
+            + Kripto Ekle
+          </button>
+        </div>
+      </div>
+    </header>
 
-        <div class="form-group">
-          <label>Para Birimi Menüsü</label>
-          <select id="sidebarCurrencySelect" onchange="changeCurrency(this.value)">
+    <section class="card" id="settingsSection">
+      <div class="card-top">
+        <h2>⚙️ Hesaplama & Lig Ayarları</h2>
+        <span class="hint-text">1.000 Gh/s = 1 Th/s · 1.000 Th/s = 1 Ph/s · 1.000 Ph/s = 1 Eh/s · 1.000 Eh/s = 1 Zh/s · 1.000 Zh/s = 1 Yh/s</span>
+      </div>
+
+      <div class="controls-grid">
+        <div class="field">
+          <label for="currencySelect">Para Birimi</label>
+          <select id="currencySelect" onchange="changeCurrency(this.value)">
             <option value="TRY" selected>Türk Lirası (₺ TRY)</option>
             <option value="USD">Amerikan Doları ($ USD)</option>
           </select>
+          <span class="hint-text">Varsayılan görünüm: Türk Lirası</span>
         </div>
 
-        <div class="form-group">
-          <label>RollerCoin Ligi (Kripto Havuzu)</label>
-          <select id="sidebarLeagueSelect" onchange="changeLeague(this.value)"></select>
-          <span class="league-range-hint" id="sidebarLeagueRange">Güç Aralığı: -</span>
-          <button type="button" class="auto-league-btn" onclick="autoDetectLeague()">⚡ Gücüme Uygun Ligi Seç</button>
+        <div class="field">
+          <label for="leagueSelect">RollerCoin Ligi</label>
+          <select id="leagueSelect" onchange="changeLeague(this.value)"></select>
+          <span class="hint-text" id="leagueRange">Güç Aralığı: -</span>
+          <button type="button" class="btn-ghost-sm" onclick="autoDetectLeague()">⚡ Gücüme Uygun Ligi Seç</button>
         </div>
 
-        <div class="form-group">
-          <label>Senin Kazım Gücün</label>
-          <div class="input-group">
-            <input type="number" id="sidebarUserPower" value="15.5" step="any" oninput="syncPowerInput(this.value)" />
-            <select id="sidebarUserUnit" onchange="syncUnitSelect(this.value)">
+        <div class="field">
+          <label for="userPower">Senin Kazım Gücün</label>
+          <div class="combo-input">
+            <input type="number" id="userPower" value="15.5" step="any" oninput="syncPowerInput(this.value)" />
+            <select id="userUnit" onchange="syncUnitSelect(this.value)">
               <option value="GH">Gh/s</option>
               <option value="TH">Th/s</option>
               <option value="PH" selected>Ph/s</option>
@@ -1399,212 +1281,112 @@
               <option value="YH">Yh/s</option>
             </select>
           </div>
+          <span class="hint-text">Anlık olarak günlük/aylık kazanca yansır</span>
         </div>
 
-        <div class="form-group">
-          <label>USD / TRY Kuru</label>
-          <input type="number" id="sidebarUsdTryRate" value="34.50" step="0.01" oninput="syncRateInput(this.value)" />
-        </div>
-
-        <!-- OTOMATİK BLOK ÖDÜLÜ & KUR ÇEKME ANAHTARI -->
-        <div class="auto-sync-box">
-          <div class="auto-sync-info">
-            <strong>⏱️ Otomatik Senkronizasyon</strong>
-            <span id="sidebarAutoSyncStatus">Her 5 dk otomatik çekilir</span>
-          </div>
-          <label class="switch" title="Otomatik blok ödülü ve kur çekmeyi aç/kapat">
-            <input type="checkbox" id="sidebarAutoSyncToggle" checked onchange="toggleAutoSync(this.checked)" />
-            <span class="slider"></span>
-          </label>
-        </div>
-      </div>
-    </nav>
-
-    <div class="sidebar-widget">
-      <div class="sidebar-widget-title">📐 Birim Dönüşüm Ölçeği</div>
-      <p>
-        1.000 Gh/s = 1 Th/s | 1.000 Th/s = 1 Ph/s<br>
-        1.000 Ph/s = 1 Eh/s | 1.000 Eh/s = 1 Zh/s<br>
-        1.000 Zh/s = 1 Yh/s
-      </p>
-    </div>
-  </aside>
-
-  <!-- ANA PANEL ALANI -->
-  <div class="main-wrapper">
-    <!-- ÜST KONTROL ÇUBUĞU -->
-    <header class="topbar">
-      <div class="topbar-left">
-        <button class="mobile-menu-btn" onclick="toggleSidebar()" title="Menü">☰</button>
-        <div class="topbar-title">
-          <h1>Lig Sistemi & Canlı Kazanç Paneli</h1>
-          <div class="topbar-status">
-            <span class="status-dot"></span>
-            <span id="statusText">Kurlar ve blok ödülleri yükleniyor...</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="topbar-actions">
-        <button class="btn-rewards" id="topbarRewardsBtn" onclick="openRewardsFetchModal()" title="Lig blok ödüllerini otomatik çek">
-          📡 <span class="btn-text hide-mobile">Blok Ödüllerini Çek</span>
-        </button>
-        <button class="btn-refresh" id="topbarRefreshBtn" onclick="openRefreshConfirmModal()">
-          <span id="topbarRefreshIcon">🔄</span> <span class="btn-text" id="topbarRefreshLabel">Kurları Güncelle</span>
-        </button>
-        <button class="add-coin-trigger" onclick="openAddModal()">+ <span class="btn-text hide-mobile">Yeni Kripto</span></button>
-      </div>
-    </header>
-
-    <!-- DASHBOARD İÇERİK -->
-    <main class="dashboard-content">
-      <!-- KPI ÖZET KARTLARI -->
-      <section class="kpi-grid" id="kpiSection">
-        <div class="kpi-card">
-          <div class="kpi-info">
-            <span class="kpi-label">Senin Kazım Gücün</span>
-            <div class="kpi-value" id="kpiUserPower">15.5 Ph/s</div>
-            <div class="kpi-sub" style="color: var(--accent);" id="kpiActiveLeague">Lig: Bronze II</div>
-          </div>
-          <div class="kpi-icon blue">⚡</div>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-info">
-            <span class="kpi-label">Ligin En Kârlı Coini</span>
-            <div class="kpi-value" id="kpiBestCoin">-</div>
-            <div class="kpi-sub" id="kpiBestDaily">₺0,00 / gün</div>
-          </div>
-          <div class="kpi-icon green">🏆</div>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-info">
-            <span class="kpi-label">Maks. Aylık Tahmin</span>
-            <div class="kpi-value" id="kpiBestMonthlyMain">₺0,00</div>
-            <div class="kpi-sub" id="kpiBestMonthlySub">$0.00 / ay</div>
-          </div>
-          <div class="kpi-icon purple">💎</div>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-info">
-            <span class="kpi-label">Anlık Dolar Kuru</span>
-            <div class="kpi-value" id="kpiUsdTry">₺34,50</div>
-            <div class="kpi-sub" style="color: var(--amber);" id="kpiCoinCount">5 Coin Aktif</div>
-          </div>
-          <div class="kpi-icon amber">💵</div>
-        </div>
-      </section>
-
-      <!-- MOBİL AYARLAR PANELİ (SADECE MOBİLDE GÖRÜNÜR) -->
-      <section class="card mobile-settings-section" id="settingsSection">
-        <div class="card-header">
-          <h2>⚙️ Lig, Kazım Gücün & Kur Ayarı</h2>
-        </div>
-        <div class="grid-3">
-          <div class="form-group" style="margin-bottom: 0;">
-            <label>Para Birimi & RollerCoin Ligi</label>
-            <select id="mobileCurrencySelect" onchange="changeCurrency(this.value)" style="margin-bottom: 8px;">
-              <option value="TRY" selected>Türk Lirası (₺ TRY)</option>
-              <option value="USD">Amerikan Doları ($ USD)</option>
-            </select>
-            <select id="mobileLeagueSelect" onchange="changeLeague(this.value)"></select>
-            <span class="league-range-hint" id="mobileLeagueRange">Güç Aralığı: -</span>
-            <button type="button" class="auto-league-btn" onclick="autoDetectLeague()">⚡ Gücüme Uygun Ligi Seç</button>
-          </div>
-          <div class="form-group" style="margin-bottom: 0;">
-            <label>Senin Kazım Gücün</label>
-            <div class="input-group">
-              <input type="number" id="userPower" value="15.5" step="any" oninput="syncPowerInput(this.value)" />
-              <select id="userUnit" onchange="syncUnitSelect(this.value)">
-                <option value="GH">Gh/s</option>
-                <option value="TH">Th/s</option>
-                <option value="PH" selected>Ph/s</option>
-                <option value="EH">Eh/s</option>
-                <option value="ZH">Zh/s</option>
-                <option value="YH">Yh/s</option>
-              </select>
+        <div class="field">
+          <label for="usdTryRate">USD / TRY Kuru</label>
+          <input type="number" id="usdTryRate" value="34.50" step="0.01" oninput="syncRateInput(this.value)" />
+          <div class="sync-row">
+            <div>
+              <strong>Otomatik Senkronizasyon</strong>
+              <span id="autoSyncStatus">Her 5 dk otomatik çekilir</span>
             </div>
-          </div>
-          <div class="form-group" style="margin-bottom: 0;">
-            <label>USD / TRY Kuru</label>
-            <input type="number" id="usdTryRate" value="34.50" step="0.01" oninput="syncRateInput(this.value)" />
-            <div class="auto-sync-box" style="margin-top: 10px;">
-              <div class="auto-sync-info">
-                <strong>⏱️ Otomatik Blok Ödülü Çekme</strong>
-                <span id="mobileAutoSyncStatus">Her 5 dk otomatik çekilir</span>
-              </div>
-              <label class="switch" title="Otomatik blok ödülü ve kur çekmeyi aç/kapat">
-                <input type="checkbox" id="mobileAutoSyncToggle" checked onchange="toggleAutoSync(this.checked)" />
-                <span class="slider"></span>
-              </label>
-            </div>
+            <label class="switch" title="Otomatik blok ödülü ve kur çekmeyi aç/kapat">
+              <input type="checkbox" id="autoSyncToggle" checked onchange="toggleAutoSync(this.checked)" />
+              <span class="slider"></span>
+            </label>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- KAZANÇ TABLOSU PANELİ -->
-      <section class="card" id="tableSection" style="margin-bottom: 0;">
-        <div class="card-header">
-          <h2>
-            📊 Lig Kripto Kazanç Karşılaştırması
-            <span class="active-league-pill" id="tableLeagueBadge">Bronze II</span>
-          </h2>
-          <div class="table-controls">
-            <select id="sortSelect" class="sort-select" onchange="changeSortMode(this.value)" title="Sıralama Ölçütü">
-              <option value="profit_desc" selected>🏆 En Kârlı (Yüksek → Düşük)</option>
-              <option value="profit_asc">📉 En Az Kârlı (Düşük → Yüksek)</option>
-              <option value="default">📋 Varsayılan Lig Sırası</option>
-              <option value="symbol_asc">🔤 Coin Adı (A → Z)</option>
-            </select>
-            <button class="btn-refresh" onclick="openResetModal()">♻️ Ligi Sıfırla</button>
-            <button class="add-coin-trigger" onclick="openAddModal()">+ Yeni Kripto Ekle</button>
-          </div>
+    <section class="summary-strip" id="summarySection">
+      <div class="summary-item">
+        <div class="s-label">Kazım Gücün</div>
+        <div class="s-val" id="kpiUserPower">15.5 Ph/s</div>
+        <div class="s-sub" style="color: var(--accent);" id="kpiActiveLeague">Lig: Bronze II</div>
+      </div>
+
+      <div class="summary-item">
+        <div class="s-label">En Kârlı Coin</div>
+        <div class="s-val" id="kpiBestCoin">-</div>
+        <div class="s-sub" id="kpiBestDaily">₺0,00 / gün</div>
+      </div>
+
+      <div class="summary-item">
+        <div class="s-label">Maks. Aylık Tahmin</div>
+        <div class="s-val" id="kpiBestMonthlyMain">₺0,00</div>
+        <div class="s-sub" id="kpiBestMonthlySub">$0.00 / ay</div>
+      </div>
+
+      <div class="summary-item">
+        <div class="s-label">Dolar Kuru</div>
+        <div class="s-val" id="kpiUsdTry">₺34,50</div>
+        <div class="s-sub" style="color: var(--amber);" id="kpiCoinCount">5 Coin Aktif</div>
+      </div>
+    </section>
+
+    <section class="card" id="tableSection" style="margin-bottom: 0;">
+      <div class="card-top">
+        <h2>
+          Lig Kripto Kazanç Karşılaştırması
+          <span class="league-tag" id="tableLeagueBadge">Bronze II</span>
+        </h2>
+        <div class="table-toolbar">
+          <select id="sortSelect" class="sort-select" onchange="changeSortMode(this.value)" title="Sıralama Ölçütü">
+            <option value="profit_desc" selected>🏆 En Kârlı (Yüksek → Düşük)</option>
+            <option value="profit_asc">📉 En Az Kârlı (Düşük → Yüksek)</option>
+            <option value="default">📋 Varsayılan Lig Sırası</option>
+            <option value="symbol_asc">🔤 Coin Adı (A → Z)</option>
+          </select>
+          <button type="button" class="btn btn-outline" onclick="openResetModal()">♻️ Ligi Sıfırla</button>
+          <button type="button" class="btn btn-primary" onclick="openAddModal()">+ Yeni Kripto Ekle</button>
         </div>
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>Coin</th>
-                <th id="thPrice">Anlık Kur (₺ / $)</th>
-                <th>Lig Ağ Gücü & Birimi</th>
-                <th>Lig Blok Ödülü</th>
-                <th>Günlük Kazanç (Coin)</th>
-                <th class="sortable-th" id="thDaily" onclick="toggleProfitSort()" title="Kârlılığa göre sıralamayı değiştir">
-                  Günlük (₺ / $) <span id="sortArrowDaily">↓</span>
-                </th>
-                <th class="sortable-th" id="thMonthly" onclick="toggleProfitSort()" title="Kârlılığa göre sıralamayı değiştir">
-                  Aylık (₺ / $) <span id="sortArrowMonthly">↓</span>
-                </th>
-                <th>İşlem</th>
-              </tr>
-            </thead>
-            <tbody id="coinTableBody"></tbody>
-          </table>
-        </div>
-      </section>
-    </main>
+      </div>
+
+      <div class="table-box">
+        <table>
+          <thead>
+            <tr>
+              <th>Coin</th>
+              <th id="thPrice">Anlık Kur (₺ / $)</th>
+              <th>Lig Ağ Gücü & Birimi</th>
+              <th>Lig Blok Ödülü</th>
+              <th>Günlük Kazanç (Coin)</th>
+              <th class="sortable-th" id="thDaily" onclick="toggleProfitSort()" title="Kârlılığa göre sıralamayı değiştir">
+                Günlük (₺ / $) <span id="sortArrowDaily">↓</span>
+              </th>
+              <th class="sortable-th" id="thMonthly" onclick="toggleProfitSort()" title="Kârlılığa göre sıralamayı değiştir">
+                Aylık (₺ / $) <span id="sortArrowMonthly">↓</span>
+              </th>
+              <th>İşlem</th>
+            </tr>
+          </thead>
+          <tbody id="coinTableBody"></tbody>
+        </table>
+      </div>
+    </section>
   </div>
 
-  <!-- BLOK ÖDÜLLERİNİ OTOMATİK ÇEKME MENÜSÜ (REWARDS SYNC MODAL) -->
+  <!-- BLOK ÖDÜLLERİNİ ÇEKME MODALI -->
   <div class="modal-overlay" id="rewardsFetchModal" onclick="handleOverlayClick(event, 'rewardsFetchModal')">
     <div class="modal-box info-box">
       <div class="modal-header">
-        <h2>📡 Otomatik Blok Ödülü & Ağ Gücü Çekme</h2>
-        <button class="modal-close" onclick="closeRewardsFetchModal()" title="Kapat">✕</button>
+        <h2>📡 Blok Ödülü & Ağ Gücü Çek</h2>
+        <button type="button" class="modal-close" onclick="closeRewardsFetchModal()" title="Kapat">✕</button>
       </div>
 
       <div class="confirm-body">
         <div class="confirm-icon purple">🛰️</div>
         <h3 class="confirm-title"><span id="rewardsModalLeagueName">Bronze II</span> blok ödülleri çekilsin mi?</h3>
         <p class="confirm-desc">
-          Sistem önce canlı API/Proxy kaynağından güncel blok ödüllerini ve ağ güçlerini çekmeyi dener; dış erişim engellenirse seçili ligin güncel resmi ödül havuzunu otomatik olarak senkronize eder.
+          Canlı API/Proxy kaynağından blok ödülleri çekilir; erişim sağlanamazsa seçili ligin güncel resmi ödül havuzu uygulanır.
         </p>
 
-        <div class="form-group" style="width: 100%; text-align: left; margin-bottom: 12px;">
-          <label>Özel JSON / Proxy API URL (İsteğe Bağlı)</label>
-          <input type="url" id="customRewardsEndpoint" placeholder="Örn: https://sizin-proxy.workers.dev/rollercoin" onchange="saveCustomEndpoint(this.value)" />
+        <div class="field" style="width: 100%; text-align: left; margin-top: 6px;">
+          <label for="customRewardsEndpoint">Özel JSON / Proxy API URL (İsteğe Bağlı)</label>
+          <input type="url" id="customRewardsEndpoint" placeholder="https://ornek-proxy.workers.dev/rollercoin" onchange="saveCustomEndpoint(this.value)" />
         </div>
 
         <div class="confirm-coin-preview">
@@ -1615,21 +1397,21 @@
 
       <div class="modal-actions">
         <button type="button" class="cancel-btn" onclick="closeRewardsFetchModal()">Vazgeç</button>
-        <button type="button" class="purple-solid" onclick="confirmFetchBlockRewards()">📡 Şimdi Çek & Güncelle</button>
+        <button type="button" class="btn btn-purple" onclick="confirmFetchBlockRewards()">📡 Şimdi Çek</button>
       </div>
     </div>
   </div>
 
-  <!-- YENİ KRİPTO EKLEME AÇILIR MENÜSÜ (MODAL) -->
+  <!-- YENİ KRİPTO EKLEME MODALI -->
   <div class="modal-overlay" id="addCoinModal" onclick="handleOverlayClick(event, 'addCoinModal')">
     <div class="modal-box">
       <div class="modal-header">
         <h2>➕ Lige Yeni Kripto Ekle</h2>
-        <button class="modal-close" onclick="closeAddModal()" title="Kapat">✕</button>
+        <button type="button" class="modal-close" onclick="closeAddModal()" title="Kapat">✕</button>
       </div>
 
       <div class="preset-section">
-        <label style="margin-bottom: 2px;">⚡ RollerCoin Lig Kriptoları Hızlı Şablon</label>
+        <label>RollerCoin Kripto Şablonları</label>
         <div class="preset-bar">
           <button type="button" class="preset-chip" onclick="fillPreset('RLT', '', 1.0)">RLT</button>
           <button type="button" class="preset-chip" onclick="fillPreset('RST', '', 0.01)">RST</button>
@@ -1648,21 +1430,21 @@
         </div>
       </div>
 
-      <div class="grid" style="gap: 12px; margin-bottom: 0;">
-        <div class="form-group">
-          <label>Coin Sembolü *</label>
+      <div class="modal-grid">
+        <div class="field">
+          <label for="newSymbol">Coin Sembolü *</label>
           <input type="text" id="newSymbol" placeholder="Örn: ALGO" />
         </div>
-        <div class="form-group">
-          <label>CoinGecko API ID (Canlı kur ve logo için)</label>
-          <input type="text" id="newApiId" placeholder="Örn: algorand (boşsa sabit)" />
+        <div class="field">
+          <label for="newApiId">CoinGecko API ID</label>
+          <input type="text" id="newApiId" placeholder="Örn: algorand" />
         </div>
       </div>
 
-      <div class="grid" style="gap: 12px; margin-bottom: 0;">
-        <div class="form-group">
-          <label>Lig Ağ Gücü ve Birimi *</label>
-          <div class="input-group">
+      <div class="modal-grid">
+        <div class="field">
+          <label for="newNetPower">Lig Ağ Gücü & Birimi *</label>
+          <div class="combo-input">
             <input type="number" id="newNetPower" placeholder="Örn: 650" step="any" />
             <select id="newNetUnit">
               <option value="GH">Gh/s</option>
@@ -1674,44 +1456,44 @@
             </select>
           </div>
         </div>
-        <div class="form-group">
-          <label>Blok Ödülü (Coin Adedi) *</label>
+        <div class="field">
+          <label for="newBlockReward">Blok Ödülü *</label>
           <input type="number" id="newBlockReward" placeholder="Örn: 28.11" step="any" />
         </div>
       </div>
 
-      <div class="grid" style="gap: 12px; margin-bottom: 0;">
-        <div class="form-group" style="margin-bottom: 0;">
-          <label>Blok Süresi (Saniye)</label>
+      <div class="modal-grid" style="margin-bottom: 0;">
+        <div class="field">
+          <label for="newBlockTime">Blok Süresi (Saniye)</label>
           <input type="number" id="newBlockTime" value="600" />
         </div>
-        <div class="form-group" style="margin-bottom: 0;">
-          <label>Sabit USD Fiyatı (API ID boşsa)</label>
+        <div class="field">
+          <label for="newManualPrice">Sabit USD Fiyatı</label>
           <input type="number" id="newManualPrice" placeholder="Örn: 1.00" step="any" />
         </div>
       </div>
 
       <div class="modal-actions">
         <button type="button" class="cancel-btn" onclick="closeAddModal()">Vazgeç</button>
-        <button type="button" class="secondary" onclick="addCoin()">✓ Tabloya Ekle</button>
+        <button type="button" class="btn btn-primary" onclick="addCoin()">Tabloya Ekle</button>
       </div>
     </div>
   </div>
 
-  <!-- KRİPTO DÜZENLEME AÇILIR MENÜSÜ (EDIT MODAL) -->
+  <!-- DÜZENLEME MODALI -->
   <div class="modal-overlay" id="editCoinModal" onclick="handleOverlayClick(event, 'editCoinModal')">
     <div class="modal-box">
       <div class="modal-header">
-        <h2>✏️ <span id="editModalTitle">BTC</span> Lig Değerlerini Düzenle</h2>
-        <button class="modal-close" onclick="closeEditModal()" title="Kapat">✕</button>
+        <h2>✏️ <span id="editModalTitle">BTC</span> Değerlerini Düzenle</h2>
+        <button type="button" class="modal-close" onclick="closeEditModal()" title="Kapat">✕</button>
       </div>
 
       <div class="edit-highlight-box">
-        <span class="section-badge">⚡ Kazım & Blok Parametreleri</span>
-        <div class="grid" style="gap: 12px; margin-bottom: 0;">
-          <div class="form-group" style="margin-bottom: 0;">
-            <label>Lig Ağ Gücü ve Birimi *</label>
-            <div class="input-group">
+        <span class="section-badge">Lig Ağ Gücü & Blok Ödülü</span>
+        <div class="modal-grid" style="margin-bottom: 0;">
+          <div class="field">
+            <label for="editNetPower">Lig Ağ Gücü & Birimi *</label>
+            <div class="combo-input">
               <input type="number" id="editNetPower" step="any" />
               <select id="editNetUnit">
                 <option value="GH">Gh/s</option>
@@ -1723,119 +1505,117 @@
               </select>
             </div>
           </div>
-          <div class="form-group" style="margin-bottom: 0;">
-            <label>Blok Ödülü (Coin Adedi) *</label>
+          <div class="field">
+            <label for="editBlockReward">Blok Ödülü *</label>
             <input type="number" id="editBlockReward" step="any" />
           </div>
         </div>
       </div>
 
-      <div class="grid" style="gap: 12px; margin-bottom: 0;">
-        <div class="form-group">
-          <label>Coin Sembolü *</label>
+      <div class="modal-grid">
+        <div class="field">
+          <label for="editSymbol">Coin Sembolü *</label>
           <input type="text" id="editSymbol" />
         </div>
-        <div class="form-group">
-          <label>CoinGecko API ID (Canlı kur ve logo için)</label>
+        <div class="field">
+          <label for="editApiId">CoinGecko API ID</label>
           <input type="text" id="editApiId" placeholder="Boşsa sabit fiyat kullanılır" />
         </div>
       </div>
 
-      <div class="grid" style="gap: 12px; margin-bottom: 0;">
-        <div class="form-group" style="margin-bottom: 0;">
-          <label>Blok Süresi (Saniye)</label>
+      <div class="modal-grid" style="margin-bottom: 0;">
+        <div class="field">
+          <label for="editBlockTime">Blok Süresi (Saniye)</label>
           <input type="number" id="editBlockTime" />
         </div>
-        <div class="form-group" style="margin-bottom: 0;">
-          <label>Sabit USD Fiyatı (API ID boşsa)</label>
+        <div class="field">
+          <label for="editManualPrice">Sabit USD Fiyatı</label>
           <input type="number" id="editManualPrice" step="any" />
         </div>
       </div>
 
       <div class="modal-actions">
         <button type="button" class="cancel-btn" onclick="closeEditModal()">Vazgeç</button>
-        <button type="button" class="primary-solid" onclick="saveEditedCoin()">💾 Değişiklikleri Kaydet</button>
+        <button type="button" class="btn btn-accent" onclick="saveEditedCoin()">Kaydet</button>
       </div>
     </div>
   </div>
 
-  <!-- KURLARI GÜNCELLEME ONAY MENÜSÜ (REFRESH CONFIRM MODAL) -->
+  <!-- KUR GÜNCELLEME ONAY MODALI -->
   <div class="modal-overlay" id="refreshConfirmModal" onclick="handleOverlayClick(event, 'refreshConfirmModal')">
     <div class="modal-box info-box">
       <div class="modal-header">
         <h2>🔄 Kur Güncelleme Onayı</h2>
-        <button class="modal-close" onclick="closeRefreshConfirmModal()" title="Kapat">✕</button>
+        <button type="button" class="modal-close" onclick="closeRefreshConfirmModal()" title="Kapat">✕</button>
       </div>
 
       <div class="confirm-body">
         <div class="confirm-icon info">💱</div>
         <h3 class="confirm-title">Canlı kurlar şimdi güncellensin mi?</h3>
         <p class="confirm-desc">
-          CoinGecko üzerinden anlık kripto fiyatları ve USD/TRY kuru yeniden çekilecektir. Güncelleme sonrası <strong>30 saniye</strong> bekleme süresi aktif olur.
+          CoinGecko üzerinden anlık kripto fiyatları ve USD/TRY kuru çekilir. Sonrasında <strong>30 saniye</strong> bekleme süresi uygulanır.
         </p>
         <div class="confirm-coin-preview">
-          <span>Mevcut Dolar Kuru: <strong id="refreshPreviewRate">₺34,50</strong></span>
+          <span>Mevcut Kur: <strong id="refreshPreviewRate">₺34,50</strong></span>
           <span>Kaynak: <strong>CoinGecko API</strong></span>
         </div>
       </div>
 
       <div class="modal-actions">
         <button type="button" class="cancel-btn" onclick="closeRefreshConfirmModal()">Vazgeç</button>
-        <button type="button" class="primary-solid" onclick="confirmRefreshPrices()">🔄 Evet, Güncelle</button>
+        <button type="button" class="btn btn-accent" onclick="confirmRefreshPrices()">Evet, Güncelle</button>
       </div>
     </div>
   </div>
 
-  <!-- SİLME ONAY MENÜSÜ (CONFIRM MODAL) -->
+  <!-- SİLME ONAY MODALI -->
   <div class="modal-overlay" id="deleteConfirmModal" onclick="handleOverlayClick(event, 'deleteConfirmModal')">
     <div class="modal-box confirm-box">
-      <div class="modal-header danger-header">
+      <div class="modal-header">
         <h2>🗑️ Kripto Silme Onayı</h2>
-        <button class="modal-close" onclick="closeDeleteModal()" title="Kapat">✕</button>
+        <button type="button" class="modal-close" onclick="closeDeleteModal()" title="Kapat">✕</button>
       </div>
 
       <div class="confirm-body">
         <div class="confirm-icon">⚠️</div>
         <h3 class="confirm-title"><span id="deleteCoinName">BTC</span> tablodan silinsin mi?</h3>
-        <p class="confirm-desc">
-          Bu işlem seçili kripto parayı aktif lig tablosundan kaldıracaktır. İstersen daha sonra yeniden ekleyebilirsin.
-        </p>
+        <p class="confirm-desc">Seçili kripto para aktif lig listesinden kaldırılır.</p>
         <div class="confirm-coin-preview">
-          <span>Seçili Coin: <strong id="deleteCoinPreviewSymbol">BTC</strong></span>
+          <span>Coin: <strong id="deleteCoinPreviewSymbol">BTC</strong></span>
           <span id="deleteCoinPreviewMeta">Lig Ağ Gücü: -</span>
         </div>
       </div>
 
       <div class="modal-actions">
         <button type="button" class="cancel-btn" onclick="closeDeleteModal()">Vazgeç</button>
-        <button type="button" class="danger-solid" onclick="confirmDeleteCoin()">🗑️ Evet, Sil</button>
+        <button type="button" class="btn btn-danger-solid" onclick="confirmDeleteCoin()">Evet, Sil</button>
       </div>
     </div>
   </div>
 
-  <!-- LİGİ SIFIRLAMA UYARI MENÜSÜ (RESET WARNING MODAL) -->
+  <!-- LİG SIFIRLAMA MODALI -->
   <div class="modal-overlay" id="resetConfirmModal" onclick="handleOverlayClick(event, 'resetConfirmModal')">
     <div class="modal-box warning-box">
-      <div class="modal-header warning-header">
-        <h2>⚠️ Ligi Sıfırlama Uyarısı</h2>
-        <button class="modal-close" onclick="closeResetModal()" title="Kapat">✕</button>
+      <div class="modal-header">
+        <h2>⚠️ Ligi Sıfırlama Onayı</h2>
+        <button type="button" class="modal-close" onclick="closeResetModal()" title="Kapat">✕</button>
       </div>
 
       <div class="confirm-body">
         <div class="confirm-icon warning">♻️</div>
-        <h3 class="confirm-title"><span id="resetLeagueName">Bronze II</span> ligi varsayılan değerlere dönsün mü?</h3>
+        <h3 class="confirm-title"><span id="resetLeagueName">Bronze II</span> ligi varsayılana dönsün mü?</h3>
         <p class="confirm-desc">
-          Seçili ligde yaptığınız özel ağ gücü, blok ödülü düzenlemeleri ve eklediğiniz coinler sıfırlanarak <strong>bu lige ait resmi kripto havuzu</strong> yüklenecektir.
+          Bu ligdeki özel değişiklikler sıfırlanır ve ligin varsayılan kripto havuzu yüklenir.
         </p>
         <div class="confirm-coin-preview">
-          <span>Mevcut Coin: <strong id="resetCurrentCount">-</strong></span>
-          <span>Lig Havuzu: <strong id="resetTargetCount">-</strong></span>
+          <span>Mevcut: <strong id="resetCurrentCount">-</strong></span>
+          <span>Varsayılan: <strong id="resetTargetCount">-</strong></span>
         </div>
       </div>
 
       <div class="modal-actions">
         <button type="button" class="cancel-btn" onclick="closeResetModal()">Vazgeç</button>
-        <button type="button" class="amber-solid" onclick="confirmResetCoins()">♻️ Evet, Sıfırla</button>
+        <button type="button" class="btn btn-amber-solid" onclick="confirmResetCoins()">Evet, Sıfırla</button>
       </div>
     </div>
   </div>
@@ -2030,6 +1810,37 @@
     let refreshCooldownTimer = null;
     let refreshCooldownRemaining = 0;
 
+    function updateLiveClock() {
+      const now = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      const hh = pad(now.getHours());
+      const mm = pad(now.getMinutes());
+      const ss = pad(now.getSeconds());
+
+      const timeEl = document.getElementById('liveClockTime');
+      const dateEl = document.getElementById('liveClockDate');
+      const handEl = document.getElementById('clockSecondHand');
+
+      if (timeEl) {
+        timeEl.innerHTML = `${hh}:${mm}:<span class="clock-sec-pulse" id="liveClockSec">${ss}</span>`;
+      }
+      if (dateEl) {
+        dateEl.textContent = now.toLocaleDateString('tr-TR', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric',
+          weekday: 'short'
+        });
+      }
+      if (handEl) {
+        const deg = now.getSeconds() * 6;
+        handEl.style.transform = `translateX(-50%) rotate(${deg}deg)`;
+      }
+    }
+
+    updateLiveClock();
+    setInterval(updateLiveClock, 1000);
+
     function changeCurrency(newCurrency) {
       if (newCurrency !== 'TRY' && newCurrency !== 'USD') return;
       activeCurrency = newCurrency;
@@ -2039,10 +1850,8 @@
     }
 
     function syncCurrencyUI() {
-      const sideSel = document.getElementById('sidebarCurrencySelect');
-      const mobSel = document.getElementById('mobileCurrencySelect');
-      if (sideSel) sideSel.value = activeCurrency;
-      if (mobSel) mobSel.value = activeCurrency;
+      const sel = document.getElementById('currencySelect');
+      if (sel) sel.value = activeCurrency;
 
       const thPrice = document.getElementById('thPrice');
       const thDaily = document.getElementById('thDaily');
@@ -2072,18 +1881,10 @@
     function toggleAutoSync(enabled) {
       autoSyncEnabled = enabled;
       localStorage.setItem('rc_auto_sync', enabled ? 'true' : 'false');
-      const sideToggle = document.getElementById('sidebarAutoSyncToggle');
-      const mobToggle = document.getElementById('mobileAutoSyncToggle');
-      const sideStatus = document.getElementById('sidebarAutoSyncStatus');
-      const mobStatus = document.getElementById('mobileAutoSyncStatus');
-
-      if (sideToggle) sideToggle.checked = enabled;
-      if (mobToggle) mobToggle.checked = enabled;
-
-      const labelText = enabled ? 'Her 5 dk otomatik çekilir' : 'Otomatik çekme kapalı';
-      if (sideStatus) sideStatus.innerText = labelText;
-      if (mobStatus) mobStatus.innerText = labelText;
-
+      const toggle = document.getElementById('autoSyncToggle');
+      const status = document.getElementById('autoSyncStatus');
+      if (toggle) toggle.checked = enabled;
+      if (status) status.innerText = enabled ? 'Her 5 dk otomatik çekilir' : 'Otomatik çekme kapalı';
       setupAutoSyncTimer();
     }
 
@@ -2115,9 +1916,6 @@
 
     function confirmFetchBlockRewards() {
       closeRewardsFetchModal();
-      if (window.innerWidth <= 860 && document.getElementById('sidebar').classList.contains('open')) {
-        toggleSidebar();
-      }
       fetchBlockRewards(false);
     }
 
@@ -2200,37 +1998,31 @@
     }
 
     function populateLeagueSelects() {
-      const selects = [document.getElementById('sidebarLeagueSelect'), document.getElementById('mobileLeagueSelect')];
+      const sel = document.getElementById('leagueSelect');
+      if (!sel) return;
       const groups = {};
       Object.entries(leaguesData).forEach(([key, lg]) => {
         if (!groups[lg.group]) groups[lg.group] = [];
         groups[lg.group].push({ key, ...lg });
       });
 
-      const optionsHtml = Object.entries(groups).map(([groupName, items]) => {
+      sel.innerHTML = Object.entries(groups).map(([groupName, items]) => {
         const opts = items.map(item =>
           `<option value="${item.key}" ${item.key === activeLeague ? 'selected' : ''}>${item.name} (${Object.keys(item.rewards).length} Coin)</option>`
         ).join('');
         return `<optgroup label="${groupName}">${opts}</optgroup>`;
       }).join('');
 
-      selects.forEach(sel => {
-        if (sel) sel.innerHTML = optionsHtml;
-      });
       updateLeagueLabelsUI();
     }
 
     function updateLeagueLabelsUI() {
       const league = leaguesData[activeLeague] || leaguesData.bronze_2;
-      const sideSel = document.getElementById('sidebarLeagueSelect');
-      const mobSel = document.getElementById('mobileLeagueSelect');
-      if (sideSel) sideSel.value = activeLeague;
-      if (mobSel) mobSel.value = activeLeague;
+      const sel = document.getElementById('leagueSelect');
+      if (sel) sel.value = activeLeague;
 
-      const sideRange = document.getElementById('sidebarLeagueRange');
-      const mobRange = document.getElementById('mobileLeagueRange');
-      if (sideRange) sideRange.innerText = `Güç Aralığı: ${league.rangeLabel}`;
-      if (mobRange) mobRange.innerText = `Güç Aralığı: ${league.rangeLabel}`;
+      const rangeEl = document.getElementById('leagueRange');
+      if (rangeEl) rangeEl.innerText = `Güç Aralığı: ${league.rangeLabel}`;
 
       const kpiLeague = document.getElementById('kpiActiveLeague');
       const tableBadge = document.getElementById('tableLeagueBadge');
@@ -2299,27 +2091,18 @@
     }
 
     function updateRefreshButtonsUI() {
-      const topbarBtn = document.getElementById('topbarRefreshBtn');
-      const topbarIcon = document.getElementById('topbarRefreshIcon');
-      const topbarLabel = document.getElementById('topbarRefreshLabel');
-      const sidebarBtn = document.getElementById('sidebarRefreshBtn');
+      const btn = document.getElementById('topbarRefreshBtn');
+      const icon = document.getElementById('topbarRefreshIcon');
+      const label = document.getElementById('topbarRefreshLabel');
 
       if (refreshCooldownRemaining > 0) {
-        if (topbarBtn) topbarBtn.disabled = true;
-        if (topbarIcon) topbarIcon.innerText = '⏳';
-        if (topbarLabel) topbarLabel.innerText = `${refreshCooldownRemaining}s`;
-        if (sidebarBtn) {
-          sidebarBtn.disabled = true;
-          sidebarBtn.innerText = `⏳ Kurları Güncelle (${refreshCooldownRemaining}s)`;
-        }
+        if (btn) btn.disabled = true;
+        if (icon) icon.innerText = '⏳';
+        if (label) label.innerText = `${refreshCooldownRemaining}s`;
       } else {
-        if (topbarBtn) topbarBtn.disabled = false;
-        if (topbarIcon) topbarIcon.innerText = '🔄';
-        if (topbarLabel) topbarLabel.innerText = 'Kurları Güncelle';
-        if (sidebarBtn) {
-          sidebarBtn.disabled = false;
-          sidebarBtn.innerText = '🔄 Kurları Güncelle';
-        }
+        if (btn) btn.disabled = false;
+        if (icon) icon.innerText = '🔄';
+        if (label) label.innerText = 'Kurlar';
       }
     }
 
@@ -2337,35 +2120,24 @@
     function confirmRefreshPrices() {
       closeRefreshConfirmModal();
       if (refreshCooldownRemaining > 0) return;
-      if (window.innerWidth <= 860 && document.getElementById('sidebar').classList.contains('open')) {
-        toggleSidebar();
-      }
       startRefreshCooldown(30);
       fetchPrices();
     }
 
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('open');
-      document.getElementById('sidebarBackdrop').classList.toggle('active');
-    }
-
     function syncPowerInput(val) {
       document.getElementById('userPower').value = val;
-      document.getElementById('sidebarUserPower').value = val;
       saveUserSettings();
       renderTable();
     }
 
     function syncUnitSelect(val) {
       document.getElementById('userUnit').value = val;
-      document.getElementById('sidebarUserUnit').value = val;
       saveUserSettings();
       renderTable();
     }
 
     function syncRateInput(val) {
       document.getElementById('usdTryRate').value = val;
-      document.getElementById('sidebarUsdTryRate').value = val;
       renderTable();
     }
 
@@ -2506,9 +2278,6 @@
       coins = buildDefaultCoinsForLeague(activeLeague);
       saveCoins();
       closeResetModal();
-      if (window.innerWidth <= 860 && document.getElementById('sidebar').classList.contains('open')) {
-        toggleSidebar();
-      }
       fetchPrices();
     }
 
@@ -2564,14 +2333,8 @@
     function loadUserSettings() {
       const savedPower = localStorage.getItem('rc_user_power');
       const savedUnit = localStorage.getItem('rc_user_unit');
-      if (savedPower) {
-        document.getElementById('userPower').value = savedPower;
-        document.getElementById('sidebarUserPower').value = savedPower;
-      }
-      if (savedUnit) {
-        document.getElementById('userUnit').value = savedUnit;
-        document.getElementById('sidebarUserUnit').value = savedUnit;
-      }
+      if (savedPower) document.getElementById('userPower').value = savedPower;
+      if (savedUnit) document.getElementById('userUnit').value = savedUnit;
       document.getElementById('sortSelect').value = sortMode;
       syncCurrencyUI();
       populateLeagueSelects();
@@ -2605,7 +2368,7 @@
           localStorage.setItem('rc_coin_images', JSON.stringify(coinImages));
         }
       } catch (e) {
-        // Önbellekteki veya yedek ikonlar kullanılacak
+        // Yedek ikonlar kullanılır
       }
     }
 
@@ -2654,9 +2417,7 @@
 
         livePrices = data;
         if (data.tether && data.tether.try) {
-          const rateFormatted = data.tether.try.toFixed(2);
-          document.getElementById('usdTryRate').value = rateFormatted;
-          document.getElementById('sidebarUsdTryRate').value = rateFormatted;
+          document.getElementById('usdTryRate').value = data.tether.try.toFixed(2);
         }
 
         const now = new Date().toLocaleTimeString('tr-TR');
@@ -2813,8 +2574,8 @@
           <td data-label="Aylık (${activeCurrency === 'TRY' ? '₺ / $' : '$ / ₺'})" class="highlight">${monthlyCellHtml}</td>
           <td>
             <div class="action-btns">
-              <button class="edit-btn" onclick="openEditModal(${index}, 'editNetPower')" title="Düzenle">Düzenle</button>
-              <button class="danger" onclick="openDeleteModal(${index})" title="Sil">Sil</button>
+              <button type="button" class="btn-edit" onclick="openEditModal(${index}, 'editNetPower')" title="Düzenle">Düzenle</button>
+              <button type="button" class="btn-del" onclick="openDeleteModal(${index})" title="Sil">Sil</button>
             </div>
           </td>
         `;
