@@ -1322,6 +1322,14 @@
         <div class="nav-section-title">🏆 Lig, Kazım Gücün & Kur</div>
 
         <div class="form-group">
+          <label>Para Birimi Menüsü</label>
+          <select id="sidebarCurrencySelect" onchange="changeCurrency(this.value)">
+            <option value="TRY" selected>Türk Lirası (₺ TRY)</option>
+            <option value="USD">Amerikan Doları ($ USD)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
           <label>RollerCoin Ligi (Kripto Havuzu)</label>
           <select id="sidebarLeagueSelect" onchange="changeLeague(this.value)"></select>
           <span class="league-range-hint" id="sidebarLeagueRange">Güç Aralığı: -</span>
@@ -1415,7 +1423,7 @@
           <div class="kpi-info">
             <span class="kpi-label">Ligin En Kârlı Coini</span>
             <div class="kpi-value" id="kpiBestCoin">-</div>
-            <div class="kpi-sub" id="kpiBestDaily">$0.00 / gün</div>
+            <div class="kpi-sub" id="kpiBestDaily">₺0,00 / gün</div>
           </div>
           <div class="kpi-icon green">🏆</div>
         </div>
@@ -1423,8 +1431,8 @@
         <div class="kpi-card">
           <div class="kpi-info">
             <span class="kpi-label">Maks. Aylık Tahmin</span>
-            <div class="kpi-value" id="kpiBestMonthlyUsd">$0.00</div>
-            <div class="kpi-sub" id="kpiBestMonthlyTry">₺0,00 / ay</div>
+            <div class="kpi-value" id="kpiBestMonthlyMain">₺0,00</div>
+            <div class="kpi-sub" id="kpiBestMonthlySub">$0.00 / ay</div>
           </div>
           <div class="kpi-icon purple">💎</div>
         </div>
@@ -1446,7 +1454,11 @@
         </div>
         <div class="grid-3">
           <div class="form-group" style="margin-bottom: 0;">
-            <label>RollerCoin Ligi</label>
+            <label>Para Birimi & RollerCoin Ligi</label>
+            <select id="mobileCurrencySelect" onchange="changeCurrency(this.value)" style="margin-bottom: 8px;">
+              <option value="TRY" selected>Türk Lirası (₺ TRY)</option>
+              <option value="USD">Amerikan Doları ($ USD)</option>
+            </select>
             <select id="mobileLeagueSelect" onchange="changeLeague(this.value)"></select>
             <span class="league-range-hint" id="mobileLeagueRange">Güç Aralığı: -</span>
             <button type="button" class="auto-league-btn" onclick="autoDetectLeague()">⚡ Gücüme Uygun Ligi Seç</button>
@@ -1505,15 +1517,15 @@
             <thead>
               <tr>
                 <th>Coin</th>
-                <th>Anlık Kur (USD / TRY)</th>
+                <th id="thPrice">Anlık Kur (₺ / $)</th>
                 <th>Lig Ağ Gücü & Birimi</th>
                 <th>Lig Blok Ödülü</th>
                 <th>Günlük Kazanç (Coin)</th>
-                <th class="sortable-th" onclick="toggleProfitSort()" title="Kârlılığa göre sıralamayı değiştir">
-                  Günlük ($) / (₺) <span id="sortArrowDaily">↓</span>
+                <th class="sortable-th" id="thDaily" onclick="toggleProfitSort()" title="Kârlılığa göre sıralamayı değiştir">
+                  Günlük (₺ / $) <span id="sortArrowDaily">↓</span>
                 </th>
-                <th class="sortable-th" onclick="toggleProfitSort()" title="Kârlılığa göre sıralamayı değiştir">
-                  Aylık ($) / (₺) <span id="sortArrowMonthly">↓</span>
+                <th class="sortable-th" id="thMonthly" onclick="toggleProfitSort()" title="Kârlılığa göre sıralamayı değiştir">
+                  Aylık (₺ / $) <span id="sortArrowMonthly">↓</span>
                 </th>
                 <th>İşlem</th>
               </tr>
@@ -1943,6 +1955,9 @@
       });
     }
 
+    let activeCurrency = localStorage.getItem('rc_currency') || 'TRY';
+    if (activeCurrency !== 'TRY' && activeCurrency !== 'USD') activeCurrency = 'TRY';
+
     let activeLeague = localStorage.getItem('rc_active_league') || 'bronze_2';
     if (!leaguesData[activeLeague]) activeLeague = 'bronze_2';
 
@@ -1964,6 +1979,40 @@
 
     let refreshCooldownTimer = null;
     let refreshCooldownRemaining = 0;
+
+    function changeCurrency(newCurrency) {
+      if (newCurrency !== 'TRY' && newCurrency !== 'USD') return;
+      activeCurrency = newCurrency;
+      localStorage.setItem('rc_currency', activeCurrency);
+      syncCurrencyUI();
+      renderTable();
+    }
+
+    function syncCurrencyUI() {
+      const sideSel = document.getElementById('sidebarCurrencySelect');
+      const mobSel = document.getElementById('mobileCurrencySelect');
+      if (sideSel) sideSel.value = activeCurrency;
+      if (mobSel) mobSel.value = activeCurrency;
+
+      const thPrice = document.getElementById('thPrice');
+      const thDaily = document.getElementById('thDaily');
+      const thMonthly = document.getElementById('thMonthly');
+      const arrowDaily = document.getElementById('sortArrowDaily');
+      const arrowMonthly = document.getElementById('sortArrowMonthly');
+
+      const dArrow = arrowDaily ? arrowDaily.textContent : '↓';
+      const mArrow = arrowMonthly ? arrowMonthly.textContent : '↓';
+
+      if (activeCurrency === 'TRY') {
+        if (thPrice) thPrice.innerHTML = 'Anlık Kur (₺ / $)';
+        if (thDaily) thDaily.innerHTML = `Günlük (₺ / $) <span id="sortArrowDaily">${dArrow}</span>`;
+        if (thMonthly) thMonthly.innerHTML = `Aylık (₺ / $) <span id="sortArrowMonthly">${mArrow}</span>`;
+      } else {
+        if (thPrice) thPrice.innerHTML = 'Anlık Kur ($ / ₺)';
+        if (thDaily) thDaily.innerHTML = `Günlük ($ / ₺) <span id="sortArrowDaily">${dArrow}</span>`;
+        if (thMonthly) thMonthly.innerHTML = `Aylık ($ / ₺) <span id="sortArrowMonthly">${mArrow}</span>`;
+      }
+    }
 
     function saveCustomEndpoint(val) {
       customRewardsEndpoint = val.trim();
@@ -2474,6 +2523,7 @@
         document.getElementById('sidebarUserUnit').value = savedUnit;
       }
       document.getElementById('sortSelect').value = sortMode;
+      syncCurrencyUI();
       populateLeagueSelects();
       updateSortIndicators();
       toggleAutoSync(autoSyncEnabled);
@@ -2637,14 +2687,20 @@
 
       if (bestCoin && maxDailyUsd > 0) {
         document.getElementById('kpiBestCoin').innerHTML = `${getCoinAvatarHtml(bestCoin.coin, true)} <span>${bestCoin.symbol}</span>`;
-        document.getElementById('kpiBestDaily').innerText = `$${formatUSD(bestCoin.dailyUsd)} (₺${formatTRY(bestCoin.dailyTry)}) / gün`;
-        document.getElementById('kpiBestMonthlyUsd').innerText = `$${formatUSD(bestCoin.monthlyUsd)}`;
-        document.getElementById('kpiBestMonthlyTry').innerText = `₺${formatTRY(bestCoin.monthlyTry)} / ay`;
+        if (activeCurrency === 'TRY') {
+          document.getElementById('kpiBestDaily').innerText = `₺${formatTRY(bestCoin.dailyTry)} ($${formatUSD(bestCoin.dailyUsd)}) / gün`;
+          document.getElementById('kpiBestMonthlyMain').innerText = `₺${formatTRY(bestCoin.monthlyTry)}`;
+          document.getElementById('kpiBestMonthlySub').innerText = `$${formatUSD(bestCoin.monthlyUsd)} / ay`;
+        } else {
+          document.getElementById('kpiBestDaily').innerText = `$${formatUSD(bestCoin.dailyUsd)} (₺${formatTRY(bestCoin.dailyTry)}) / gün`;
+          document.getElementById('kpiBestMonthlyMain').innerText = `$${formatUSD(bestCoin.monthlyUsd)}`;
+          document.getElementById('kpiBestMonthlySub').innerText = `₺${formatTRY(bestCoin.monthlyTry)} / ay`;
+        }
       } else {
         document.getElementById('kpiBestCoin').innerText = '-';
-        document.getElementById('kpiBestDaily').innerText = '$0.00 / gün';
-        document.getElementById('kpiBestMonthlyUsd').innerText = '$0.00';
-        document.getElementById('kpiBestMonthlyTry').innerText = '₺0,00 / ay';
+        document.getElementById('kpiBestDaily').innerText = activeCurrency === 'TRY' ? '₺0,00 / gün' : '$0.00 / gün';
+        document.getElementById('kpiBestMonthlyMain').innerText = activeCurrency === 'TRY' ? '₺0,00' : '$0.00';
+        document.getElementById('kpiBestMonthlySub').innerText = activeCurrency === 'TRY' ? '$0.00 / ay' : '₺0,00 / ay';
       }
 
       const sortedRows = [...calculatedRows];
@@ -2665,6 +2721,18 @@
         const unitPriceTryFormatted = priceTry < 1 ? formatTRY(priceTry, 2, 6) : formatTRY(priceTry, 2, 2);
         const unitPriceUsdFormatted = priceUsd < 1 ? formatUSD(priceUsd, 2, 6) : formatUSD(priceUsd, 2, 2);
 
+        const priceCellHtml = activeCurrency === 'TRY'
+          ? `<div>₺${unitPriceTryFormatted} <br><small style="color:var(--muted)">$${unitPriceUsdFormatted}</small></div>`
+          : `<div>$${unitPriceUsdFormatted} <br><small style="color:var(--muted)">₺${unitPriceTryFormatted}</small></div>`;
+
+        const dailyCellHtml = activeCurrency === 'TRY'
+          ? `<div>₺${formatTRY(dailyTry)} <br><small>$${formatUSD(dailyUsd)}</small></div>`
+          : `<div>$${formatUSD(dailyUsd)} <br><small>₺${formatTRY(dailyTry)}</small></div>`;
+
+        const monthlyCellHtml = activeCurrency === 'TRY'
+          ? `<div>₺${formatTRY(monthlyTry)} <br><small>$${formatUSD(monthlyUsd)}</small></div>`
+          : `<div>$${formatUSD(monthlyUsd)} <br><small>₺${formatTRY(monthlyTry)}</small></div>`;
+
         const rankBadge = (sortMode === 'profit_desc' || sortMode === 'profit_asc')
           ? `<span class="rank-num ${isBest ? 'top1' : ''}">#${rankIdx + 1}</span>`
           : '';
@@ -2683,9 +2751,7 @@
               </div>
             </div>
           </td>
-          <td data-label="Anlık Kur">
-            <div>$${unitPriceUsdFormatted} <br><small style="color:var(--muted)">₺${unitPriceTryFormatted}</small></div>
-          </td>
+          <td data-label="Anlık Kur">${priceCellHtml}</td>
           <td data-label="Lig Ağ Gücü">
             <span class="readonly-value">${coin.netPower} ${unitLabels[coin.netUnit] || coin.netUnit}</span>
           </td>
@@ -2693,12 +2759,8 @@
             <span class="readonly-value">${coin.blockReward} ${coin.symbol}</span>
           </td>
           <td data-label="Günlük Kazanç">${dailyCoin.toFixed(6)} ${coin.symbol}</td>
-          <td data-label="Günlük ($ / ₺)" class="highlight">
-            <div>$${formatUSD(dailyUsd)} <br><small>₺${formatTRY(dailyTry)}</small></div>
-          </td>
-          <td data-label="Aylık ($ / ₺)" class="highlight">
-            <div>$${formatUSD(monthlyUsd)} <br><small>₺${formatTRY(monthlyTry)}</small></div>
-          </td>
+          <td data-label="Günlük (${activeCurrency === 'TRY' ? '₺ / $' : '$ / ₺'})" class="highlight">${dailyCellHtml}</td>
+          <td data-label="Aylık (${activeCurrency === 'TRY' ? '₺ / $' : '$ / ₺'})" class="highlight">${monthlyCellHtml}</td>
           <td>
             <div class="action-btns">
               <button class="edit-btn" onclick="openEditModal(${index}, 'editNetPower')" title="Düzenle">Düzenle</button>
